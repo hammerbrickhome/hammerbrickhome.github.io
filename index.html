@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hammer Brick & Home LLC</title>
+<meta name="theme-color" content="#0f2a66">
+<style>
+:root{
+  --navy:#0f2a66;
+  --navy-2:#143172;
+  --ink:#eef2fb;
+  --gold:#e1b656;
+  --gold-2:#f4d07a;
+  --muted:#c3cce6;
+  --panel: rgba(255,255,255,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;scroll-behavior:smooth}
+body{
+  font-family: ui-serif, Georgia, 'Times New Roman', Times, serif;
+  color:var(--ink);
+  background:linear-gradient(180deg,#0f2a66 0%, #143172 55%, #183a86 100%);
+}
+a{color:var(--gold);text-decoration:none}
+/* Top bar */
+.topbar{
+  position:sticky;top:0;z-index:10000;
+  background:rgba(15,42,102,.92);backdrop-filter:saturate(120%) blur(6px);
+  border-bottom:1px solid rgba(225,182,86,.35);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;
+}
+.brand{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.3px}
+.brand .mark{width:28px;height:28px;border-radius:6px;background:radial-gradient(circle at 30% 30%,#fff5c9,#f4d07a 55%,#caa443 100%);border:1px solid rgba(255,255,255,.4);}
+.badge{font-size:12px;color:var(--muted)}
+.container{max-width:1150px;margin:0 auto;padding:24px 16px}
+.hero{
+  min-height:56vh;display:grid;place-items:center;text-align:center;
+  background:url('hero.png') center/cover no-repeat;
+  border-bottom:1px solid rgba(225,182,86,.35);
+}
+.hero h1{font-size:clamp(30px,5vw,52px);margin:0;line-height:1.1;letter-spacing:.2px}
+.hero p{color:#f2f5ff;max-width:720px;margin:14px auto 0}
+/* Buttons */
+.btn{display:inline-block;appearance:none;border:1px solid rgba(225,182,86,.7);
+  color:#0b1630;background:var(--gold);padding:12px 16px;border-radius:12px;
+  font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35);transition:.2s transform}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--gold)}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+/* Sections */
+.section{padding:36px 0;border-top:1px solid rgba(225,182,86,.22);opacity:0;transform:translateY(18px);transition:.6s}
+.section.visible{opacity:1;transform:none}
+.section h2{margin:0 0 10px;font-size:clamp(22px,3.6vw,32px)}
+.muted{color:var(--muted)}
+.panel{background:var(--panel);border:1px solid rgba(225,182,86,.22);border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+/* Services categories */
+.cat{margin:14px 0;padding:14px}
+.cat h3{margin:0 0 8px;color:var(--gold)}
+#search{padding:12px 14px;border-radius:12px;border:1px solid rgba(225,182,86,.35);
+  background:rgba(255,255,255,.12);color:var(--ink);width:100%;max-width:520px}
+.services{margin-top:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06));
+  border:1px solid rgba(225,182,86,.28);border-radius:12px;padding:12px;text-align:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09);font-weight:700}
+/* Gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.gallery img{width:100%;border-radius:12px;border:1px solid rgba(225,182,86,.25)}
+
+/* Floating Action Buttons */
+.fab{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:12px;z-index:9999}
+.fab a{display:inline-block;padding:16px 18px;border-radius:999px;color:#0b1630;
+  background:var(--gold);text-decoration:none;box-shadow:0 10px 24px rgba(0,0,0,.35);font-weight:900}
+
+/* Drawer Menu */
+.menu-btn{position:fixed;left:16px;top:14px;background:rgba(255,255,255,.14);color:var(--ink);
+  border:1px solid rgba(225,182,86,.35);padding:10px 12px;border-radius:10px;cursor:pointer;z-index:10001}
+.side{position:fixed;left:-280px;top:0;height:100%;width:270px;background:#0a142b;color:#fff;padding:20px;z-index:10002;transition:.3s;border-right:1px solid rgba(225,182,86,.3)}
+.side.open{left:0}
+.side a{color:#fff;text-decoration:none;display:block;margin:14px 0;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:.2s;z-index:10001}
+.overlay.show{opacity:1;pointer-events:auto}
+
+/* Footer */
+footer{padding:28px 16px;text-align:center;color:var(--muted);border-top:1px solid rgba(225,182,86,.22)}
+small.note{display:block;margin-top:6px;color:#dfe6ff}
+</style>
+</head>
+<body>
+<button class="menu-btn" aria-label="Open Menu" onclick="toggleMenu()">☰ Menu</button>
+<nav class="side" id="sidemenu" aria-label="Site menu">
+  <strong style="display:block;margin-bottom:10px;color:#fff5c9">Navigation</strong>
+  <a href="#services">Services</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#contact">Contact</a>
+  <a href="#rules">Rules & Exclusions</a>
+  <strong style="margin-top:14px;display:block;color:#fff5c9">Social</strong>
+  <a href="https://instagram.com/hammerbrickhome" target="_blank" rel="noopener">Instagram</a>
+  <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+  <a href="https://www.youtube.com/@hammerbrickhome" target="_blank" rel="noopener">YouTube</a>
+  <a href="https://www.tiktok.com/@hammerbrickhome" target="_blank" rel="noopener">TikTok</a>
+  <strong style="margin-top:14px;display:block;color:#fff5c9">Quick</strong>
+  <a href="tel:+19295955300">Call Now</a>
+  <a href="hammerbrickhome.vcf" download>➕ Add to Contacts</a>
+</nav>
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="mark"></div>
+    <div>
+      <div>Hammer Brick & Home LLC</div>
+      <div class="badge">HIC #21311291 &nbsp;·&nbsp; Licensed & Insured</div>
+    </div>
+  </div>
+  <div class="badge">Staten Island · NYC</div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Craftsmanship, Comfort, and Care</h1>
+    <p>Premium home improvement and masonry services in NYC — white‑glove experience, brighter & bold.</p>
+    <div class="cta-row">
+      <a class="btn" href="tel:+19295955300">📞 Call 929‑595‑5300</a>
+      <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com?subject=Project%20Inquiry">✉️ Email</a>
+      <a class="btn ghost" href="hammerbrickhome.vcf" download>➕ Add to Contacts</a>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <section class="section" id="services">
+    <h2>Services</h2>
+    <p class="muted">Search and explore by category. Tap a service and call for a free estimate.</p>
+    <input id="search" placeholder="Search services…" oninput="filterServices()" />
+    
+    <!-- Masonry & Concrete -->
+    <div class="cat panel" data-cat="masonry">
+      <h3>🧱 Masonry & Concrete</h3>
+      <div class="services" id="svc-masonry">
+        <div class="card">Brickwork & Repointing</div>
+        <div class="card">Block & CMU Walls</div>
+        <div class="card">Steps & Stoops</div>
+        <div class="card">Concrete Sidewalks</div>
+        <div class="card">Driveways</div>
+        <div class="card">Pavers & Walkways</div>
+        <div class="card">Retaining Walls</div>
+        <div class="card">Foundations / Footings</div>
+        <div class="card">Stone Veneer</div>
+        <div class="card">Chimney Repair</div>
+        <div class="card">Masonry Waterproofing</div>
+      </div>
+    </div>
+
+    <!-- Carpentry & Remodeling -->
+    <div class="cat panel" data-cat="remodel">
+      <h3>🛠 Carpentry & Remodeling</h3>
+      <div class="services" id="svc-remodel">
+        <div class="card">Kitchen Remodels</div>
+        <div class="card">Bathroom Remodels</div>
+        <div class="card">Basement Finishing</div>
+        <div class="card">Drywall & Framing</div>
+        <div class="card">Flooring (Tile/LVP)</div>
+        <div class="card">Doors & Trim</div>
+        <div class="card">Closets & Shelving</div>
+        <div class="card">Decks & Railings</div>
+        <div class="card">Fences</div>
+      </div>
+    </div>
+
+    <!-- Exterior & Landscaping -->
+    <div class="cat panel" data-cat="exterior">
+      <h3>🌿 Exterior & Landscaping</h3>
+      <div class="services" id="svc-exterior">
+        <div class="card">Lawn Care</div>
+        <div class="card">Mulch & Planting</div>
+        <div class="card">Sod / Seeding</div>
+        <div class="card">Gutter Cleaning</div>
+        <div class="card">Fence Repair</div>
+        <div class="card">Drainage Solutions</div>
+        <div class="card">Yard Cleanup</div>
+        <div class="card">Sheds / Small Structures</div>
+      </div>
+    </div>
+
+    <!-- Painting & Finishes -->
+    <div class="cat panel" data-cat="paint">
+      <h3>🎨 Painting & Finishes</h3>
+      <div class="services" id="svc-paint">
+        <div class="card">Interior Painting</div>
+        <div class="card">Exterior Painting</div>
+        <div class="card">Stucco / EIFS Repair</div>
+        <div class="card">Caulking & Sealing</div>
+        <div class="card">Epoxy Garage Floors</div>
+        <div class="card">Wallpaper Removal</div>
+      </div>
+    </div>
+
+    <!-- Windows & Doors -->
+    <div class="cat panel" data-cat="windows">
+      <h3>🚪 Windows & Doors</h3>
+      <div class="services" id="svc-windows">
+        <div class="card">Window Installation</div>
+        <div class="card">Door Installation</div>
+        <div class="card">Weatherproofing</div>
+        <div class="card">Trim & Casing</div>
+      </div>
+    </div>
+
+    <!-- Cleaning & Power Wash -->
+    <div class="cat panel" data-cat="clean">
+      <h3>🧼 Power Washing & Cleaning</h3>
+      <div class="services" id="svc-clean">
+        <div class="card">Power Washing (House)</div>
+        <div class="card">Power Washing (Patio)</div>
+        <div class="card">Roof Soft Wash</div>
+        <div class="card">Concrete Cleaning</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <h2>Before & After</h2>
+    <div class="gallery">
+      <img src="hero.png" alt="Project sample" />
+      <img src="hero.png" alt="Project sample" />
+      <img src="hero.png" alt="Project sample" />
+      <img src="hero.png" alt="Project sample" />
+    </div>
+  </section>
+
+  <section class="section panel" id="rules">
+    <h2>Rules & Exclusions (Free Perks Program)</h2>
+    <p class="muted">These complimentary services help new and existing customers — while keeping expectations clear. By booking any paid job with Hammer Brick & Home LLC, you may qualify for one of the free perks listed below (subject to availability and the rules).</p>
+    <div class="services">
+      <div class="card">Free Gutter Cleaning (single‑story, up to 120 ft)</div>
+      <div class="card">Free Power‑Wash of Front Steps/Walk (up to 150 sq ft)</div>
+      <div class="card">Free Lawn Mow (up to 4,000 sq ft)</div>
+      <div class="card">Free Minor Paint Touch‑ups (1 room trims/patches)</div>
+      <div class="card">Free Window Cleaning (front 6 windows, exterior only)</div>
+      <div class="card">Free Patio Weed Removal (hand‑pull, up to 200 sq ft)</div>
+    </div>
+    <h3 style="color:var(--gold);margin-top:16px">Program Rules</h3>
+    <ul>
+      <li>Perk eligibility requires a paid project with a labor value of $350+ (after discounts) within Staten Island / nearby NYC areas.</li>
+      <li>One free perk per household per month. Non‑transferable, no cash value.</li>
+      <li>Scheduling windows are Mon–Sat, weather‑permitting. Blackout dates may apply during peak season.</li>
+      <li>Scope limits apply as listed above. Multi‑story homes, steep/unsafe roofs, or heavy debris may require an upgrade fee or be declined for safety.</li>
+      <li>Free perks exclude repairs, materials replacement, and hazardous conditions (lead, mold, asbestos). RRP and safety guidelines always apply.</li>
+      <li>Photos before/after may be taken for quality control and marketing unless you opt out in writing.</li>
+      <li>“Draw” giveaways are location‑based and void where prohibited. Winners must schedule within 30 days; missed appointments void the perk.</li>
+      <li>Hammer Brick & Home LLC reserves the right to modify or discontinue perks at any time.</li>
+    </ul>
+    <h3 style="color:var(--gold);margin-top:10px">Exclusions</h3>
+    <ul>
+      <li>No structural work, electrical, plumbing, HVAC, or gas services as part of free perks.</li>
+      <li>Perks do not include permits, DOB filings, or violations removal.</li>
+      <li>Multi‑unit buildings or commercial properties excluded unless agreed in writing.</li>
+      <li>Access limitations, severe infestations, or unsafe conditions void eligibility.</li>
+    </ul>
+    <small class="note">Questions? Tap “Call” below — we’ll confirm your eligibility and book a time.</small>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact</h2>
+    <form action="https://formspree.io/f/yourcode" method="POST" style="max-width:640px">
+      <input name="name" placeholder="Your Name" required style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(225,182,86,.35);background:rgba(255,255,255,.12);color:var(--ink)">
+      <input name="phone" placeholder="Phone Number" required style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(225,182,86,.35);background:rgba(255,255,255,.12);color:var(--ink)">
+      <input type="email" name="email" placeholder="Email" value="Hammerbrickhome@gmail.com" style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(225,182,86,.35);background:rgba(255,255,255,.12);color:var(--ink)">
+      <textarea name="message" placeholder="What do you need?" required style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(225,182,86,.35);background:rgba(255,255,255,.12);color:var(--ink);height:120px"></textarea>
+      <input type="hidden" name="_subject" value="Website lead – Hammer Brick & Home">
+      <button class="btn" type="submit">Send Message</button>
+    </form>
+  </section>
+</main>
+
+<!-- Floating quick actions -->
+<div class="fab">
+  <a title="Call" href="tel:+19295955300">📞</a>
+  <a title="WhatsApp" href="https://wa.me/19295955300">💬</a>
+  <a title="SMS" href="sms:+19295955300?&body=Hi%20Hammer%20Brick%20%26%20Home%2C%20I%27d%20like%20a%20quote.">SMS</a>
+</div>
+
+<footer>
+  © <span id="yr"></span> Hammer Brick & Home LLC · HIC #21311291 · Licensed & Insured
+</footer>
+
+<script>
+// Reveal on scroll (first section visible immediately)
+const reveal=()=>document.querySelectorAll('.section').forEach(sec=>{
+  if(sec.getBoundingClientRect().top < innerHeight-60) sec.classList.add('visible');
+});
+addEventListener('scroll',reveal,{passive:true}); setTimeout(reveal,50);
+
+// Search across all services
+function filterServices(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  document.querySelectorAll('.cat').forEach(cat=>{
+    let any=false;
+    cat.querySelectorAll('.card').forEach(el=>{
+      const show=el.textContent.toLowerCase().includes(q);
+      el.style.display = show? 'block':'none';
+      if(show) any=true;
+    });
+    cat.style.display = any || q==='' ? 'block':'none';
+  });
+}
+
+// Drawer logic with auto-close on navigation + outside tap + hashchange + scroll
+const menu=document.getElementById('sidemenu');
+const overlay=document.getElementById('overlay');
+function openMenu(){menu.classList.add('open');overlay.classList.add('show');}
+function closeMenu(){menu.classList.remove('open');overlay.classList.remove('show');}
+function toggleMenu(){menu.classList.contains('open')?closeMenu():openMenu();}
+
+menu.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',()=>{ closeMenu(); });
+});
+window.addEventListener('hashchange', closeMenu);
+overlay.addEventListener('click', closeMenu);
+addEventListener('scroll', ()=>{ if(menu.classList.contains('open')) closeMenu(); }, {passive:true});
+
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
