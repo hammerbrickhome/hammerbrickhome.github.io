@@ -365,5 +365,24 @@ footer{
     font-size:13px;
   }
 }
+/* Fix for giant before/after images */
+#compareContainer {
+  max-width: 600px;       /* ✅ controls width */
+  margin: 0 auto;         /* ✅ centers */
+  width: 100%;            /* ✅ still responsive */
+}
+
+.compare {
+  max-width: 600px;       /* ✅ prevents huge images */
+  margin: 20px auto;      /* ✅ centers each slider */
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.compare img {
+  width: 100%;            /* ✅ forces scaling */
+  height: auto;           /* ✅ keeps proportions */
+  object-fit: cover;
+}
 
 
