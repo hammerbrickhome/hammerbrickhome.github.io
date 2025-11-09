@@ -429,4 +429,104 @@ footer{
   margin-top: 10px;
 }
 
+/* =========================================================
+   LUXURY GOLD BEFORE/AFTER SLIDER (HAMMER BRICK & HOME)
+   ========================================================= */
+
+#compareContainer {
+  max-width: 420px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Slider Frame */
+.compare {
+  margin: 26px auto;
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  max-width: 420px;
+  background: rgba(10,10,20,0.55);
+  border: 1px solid rgba(255,235,185,0.30);
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.45),
+    0 0 18px rgba(255,235,185,0.15);
+}
+
+/* Image wrapper (controls size) */
+.cmp-wrap {
+  width: 100%;
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Images */
+.cmp {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cmp.after {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 50%);
+}
+
+/* Center Gold Divider Line */
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold-1);
+  box-shadow:
+    0 0 12px rgba(255,235,185,0.7),
+    0 0 4px rgba(255,235,185,1);
+  pointer-events: none;
+}
+
+/* Gold Handle */
+.handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
+  border: 2px solid rgba(255,235,185,0.9);
+  border-radius: 50%;
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.65),
+    inset 0 1px 1px rgba(255,255,255,0.55);
+  pointer-events: none;
+}
+
+/* Labels */
+.label {
+  position: absolute;
+  top: 12px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  border-radius: 8px;
+  background: rgba(10,10,20,0.65);
+  border: 1px solid rgba(255,235,185,0.35);
+  text-transform: uppercase;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+}
+
+.label.before { left: 12px; }
+.label.after { right: 12px; }
+
+/* Slider Input */
+.compare input[type=range] {
+  width: 100%;
+  margin-top: 12px;
+  opacity: 0;
+}
 
