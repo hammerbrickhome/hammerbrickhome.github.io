@@ -52,9 +52,9 @@ const comparePairs = [
   { before: "before5.png",  after: "after5.png"  },
 
   // ✅ New ones you add
-  { before: "before7.jpg", after: "after7.jpg" },
+  { before: "before6.png", after: "after6.png" },
   { before: "before8.png", after: "after8.png" },
-  { before: "before9.jpg", after: "after9.jpg" }
+  { before: "before9.png", after: "after9.png" }
 ];
 
 function buildCompareSection() {
