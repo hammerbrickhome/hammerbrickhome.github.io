@@ -1,97 +1,59 @@
-
-:root{
-  --navy:#102a66;
-  --ink:#eef2fb;
-  --muted:#c6d0ee;
-  --gold:#e7bf63;
-  --gold-2:#f3d686;
-  --panel:rgba(255,255,255,.10);
+/* --- Pricing cards grid --- */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;
 }
-*{box-sizing:border-box}
-html,body{margin:0;height:100%}
-body{
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--ink);
-  background:linear-gradient(180deg,#102a66 0%, #15377d 55%, #183a86 100%);
+
+.pkg-card{
+  display:flex; flex-direction:column; overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06));
+  border:1px solid rgba(231,191,99,.28);
+  border-radius:16px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 10px 24px rgba(0,0,0,.20);
+  transform:translateY(10px); opacity:.0; transition:transform .6s ease, opacity .6s ease;
 }
-.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-aside{
-  position:sticky; top:0; align-self:start;height:100vh; overflow:auto;
-  background:rgba(16,42,102,.96);
-  border-right:1px solid rgba(231,191,99,.35);
-  padding:18px 14px;
+.pkg-card.visible{transform:none; opacity:1;}
+
+.pkg-media{
+  aspect-ratio: 16/9;
+  background: radial-gradient(circle at 30% 30%, #fff7cf, #f4d379 60%, #c79a3a 100%);
+  background-size: cover; background-position: center;
+  border-bottom:1px solid rgba(231,191,99,.28);
 }
-.brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.brand .mark{width:26px;height:26px;border-radius:8px;background:radial-gradient(circle at 30% 30%,#fff7cf,#f4d379 60%,#c79a3a 100%);
-  border:1px solid rgba(255,255,255,.5);box-shadow:0 0 18px rgba(231,191,99,.45)}
-.brand .name{font-weight:900}
-.small{font-size:12px;color:var(--muted)}
-nav .group{margin:16px 0}
-nav .group-title{font-weight:800;color:#fff7cf;margin-bottom:8px}
-nav a{display:block;color:#fff;text-decoration:none;padding:10px 12px;border-radius:10px;border:1px solid transparent;margin:6px 0;transition:.2s}
-nav a:hover{border-color:rgba(231,191,99,.6);background:rgba(255,255,255,.08)}
-nav .cta{background:var(--gold);color:#0b1630;font-weight:900;border-color:rgba(0,0,0,.15);text-align:center}
 
-main{padding:20px}
-.hero{
-  min-height:40vh;display:grid;place-items:center;text-align:center;
-  background:url('images/hero.jpg') center/cover no-repeat;border:1px solid rgba(231,191,99,.35);
-  border-radius:14px;padding:20px;margin-bottom:18px
+.pkg-body{padding:14px}
+.pkg-eyebrow{font-weight:800; color:#fff7cf; letter-spacing:.3px; font-size:12px}
+.pkg-list{margin:8px 0 0 18px}
+.pkg-bottom{display:flex; align-items:center; justify-content:space-between; margin-top:10px}
+.pkg-price{color:var(--gold); font-weight:900}
+
+/* Small CTA */
+.btn.btn-sm{padding:10px 12px; border-radius:10px}
+
+/* Make the hero slightly different here */
+.hero--pricing{background-image:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.25)), url('images/hero.jpg');}
+
+/* --- Reveal-on-scroll animation (re-usable) --- */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.reveal.visible{opacity:1; transform:none}
+
+/* --- Sticky Call button (GLOBAL) --- */
+.sticky-call{
+  position:fixed; left:50%; transform:translateX(-50%);
+  bottom:14px; z-index:10001;
+  background:var(--gold); color:#0b1630; border:1px solid rgba(231,191,99,.7);
+  padding:12px 18px; border-radius:999px; font-weight:900; text-decoration:none;
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
 }
-.hero h1{font-size:clamp(28px,5vw,52px);margin:0;line-height:1.1}
-.hero p{max-width:780px;margin:10px auto 0}
-.btn{display:inline-block;margin:8px 6px 0;padding:12px 16px;border-radius:12px;border:1px solid rgba(231,191,99,.7);
-  background:var(--gold);color:#0b1630;font-weight:900;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .2s ease}
-.btn:hover{transform:translateY(-2px)}
-.btn.ghost{background:transparent;color:#fff;border-color:rgba(231,191,99,.6)}
+.sticky-call:active{transform:translateX(-50%) translateY(1px);}
 
-.section{padding:26px 0;border-top:1px solid rgba(231,191,99,.22);opacity:0;transform:translateY(18px);transition:.6s}
-.section.visible{opacity:1;transform:none}
-h2{margin:0 0 12px;font-size:clamp(22px,3.6vw,32px)}
-.muted{color:var(--muted)}
-.panel{background:var(--panel);border:1px solid rgba(231,191,99,.24);border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.09);padding:14px}
+/* Cards hover lift */
+.pkg-card:hover{transform:translateY(-2px);}
 
-/* Services */
-#search{padding:12px 14px;border-radius:12px;border:1px solid rgba(231,191,99,.35);
-  background:rgba(255,255,255,.14);color:var(--ink);width:100%;max-width:520px}
-.cat{margin:16px 0}
-.cat h3{margin:0 0 8px;color:var(--gold)}
-.services{margin-top:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-.card{background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.08));
-  border:1px solid rgba(231,191,99,.3);border-radius:12px;padding:10px;text-align:center;font-weight:700;transition:transform .2s ease}
-.card:hover{transform:translateY(-2px)}
-
-/* Compare slider */
-.compare{position:relative;max-width:900px;margin:10px auto;border-radius:12px;overflow:hidden;border:1px solid rgba(231,191,99,.3)}
-.compare img{display:block;width:100%;height:auto}
-.compare .after{position:absolute;inset:0;clip-path:inset(0 0 0 50%)}
-.compare input[type=range]{position:absolute;left:0;right:0;bottom:14px;margin:auto;width:60%}
-
-/* Lightbox gallery */
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.gallery img{width:100%;border-radius:10px;border:1px solid rgba(231,191,99,.25);cursor:pointer}
-.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9999}
-.lightbox img{max-width:92vw;max-height:90vh;border:1px solid rgba(231,191,99,.4);border-radius:10px}
-.lightbox.show{display:flex}
-
-/* Chat bubble */
-.chat-bubble{position:fixed;right:16px;bottom:18px;z-index:10000}
-.chat-bubble .btn{border-radius:999px}
-.chat-modal{position:fixed;right:16px;bottom:80px;background:rgba(16,42,102,.96);border:1px solid rgba(231,191,99,.35);
-  padding:12px;border-radius:12px;display:none;width:300px}
-.chat-modal.show{display:block}
-
-/* Booking embed */
-.calendly{position:relative;height:720px;border:1px solid rgba(231,191,99,.35);border-radius:12px;overflow:hidden}
-
-/* Footer */
-footer{padding:18px 6px;text-align:center;color:var(--muted);border-top:1px solid rgba(231,191,99,.22);margin-top:18px}
-
-/* Mobile */
-@media (max-width: 720px){
-  .layout{grid-template-columns:220px 1fr}
+/* Mobile tweaks */
+@media (max-width:520px){
+  .sticky-call{width:calc(100% - 24px); left:12px; right:12px; transform:none; text-align:center}
+  .pkg-list{margin-left:16px}
 }
-@media (max-width: 520px){
-  .layout{grid-template-columns:200px 1fr}
-  nav a{font-size:14px}
-}
+
