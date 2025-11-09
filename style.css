@@ -231,17 +231,36 @@ nav .cta:hover{
   box-shadow:0 0 12px rgba(245,216,155,.45);
 }
 
-/* ---------- Gallery ---------- */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:10px;
+/* ========== HORIZONTAL SCROLL GALLERY ========== */
+.gallery {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;     /* Firefox */
 }
-.gallery img{
-  width:100%;
-  border-radius:10px;
-  cursor:pointer;
+
+.gallery::-webkit-scrollbar {
+  display: none;             /* Chrome/Safari scrollbar hidden */
 }
+
+.gallery img {
+  flex: 0 0 auto;
+  width: 140px;
+  height: auto;
+  border-radius: 10px;
+  scroll-snap-align: center;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform .25s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.06);
+}
+
 .lightbox{
   position:fixed; inset:0;
   display:none;
