@@ -570,3 +570,32 @@ footer{
     margin-bottom: 20px;
   }
 }
+/* ========== HORIZONTAL SCROLL GALLERY ========== */
+.gallery {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;     /* Firefox */
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;             /* Chrome/Safari scrollbar hidden */
+}
+
+.gallery img {
+  flex: 0 0 auto;
+  width: 140px;
+  height: auto;
+  border-radius: 10px;
+  scroll-snap-align: center;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform .25s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.06);
+}
