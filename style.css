@@ -309,3 +309,153 @@ footer{
 
 /* Small CTA */
 .btn.btn-sm{padding:10px 12px; border-radius:10px}
+
+
+
+/* ---------------------------------------------------
+ULTRA-PREMIUM RITZ-CARLTON SERVICE SECTIONS
+--------------------------------------------------- */
+
+/* Gold Shine Animation */
+@keyframes goldGlow {
+  0% { box-shadow:0 0 0 rgba(255,235,185,0); }
+  50% { box-shadow:0 0 22px rgba(255,235,185,0.35); }
+  100% { box-shadow:0 0 0 rgba(255,235,185,0); }
+}
+
+/* -------------------------
+CATEGORY PANELS (Luxury)
+-------------------------- */
+.panel{
+  background:rgba(10,10,20,0.55);
+  border-radius:16px;
+  padding:22px;
+  margin-top:24px;
+  border:1px solid rgba(255,235,185,0.22);
+  backdrop-filter:blur(12px);
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.55),
+    inset 0 0 40px rgba(255,235,185,0.05);
+  animation:fadeIn 0.6s ease forwards;
+}
+
+/* Category Title */
+.panel h3{
+  font-size:20px;
+  font-weight:900;
+  color:#f5d89b;
+  margin-bottom:16px;
+  letter-spacing:0.4px;
+  text-shadow:
+    0 2px 4px rgba(0,0,0,0.45),
+    0 0 8px rgba(255,235,185,0.35);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* Gold bar under category title */
+.panel h3::after{
+  content:"";
+  flex-grow:1;
+  height:2px;
+  background:linear-gradient(90deg, #f5d89b, transparent);
+  margin-left:10px;
+  opacity:0.4;
+}
+
+/* -------------------------
+SERVICE CARDS — ULTRA PREMIUM
+-------------------------- */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(165px,1fr));
+  gap:12px;
+}
+
+.services .card{
+  padding:16px;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:700;
+  text-align:center;
+  color:white;
+
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,0.07),
+    rgba(255,255,255,0.03)
+  );
+
+  border:1px solid rgba(255,235,185,0.25);
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.45),
+    inset 0 1px 2px rgba(255,255,255,0.12);
+
+  transition:0.28s ease;
+  backdrop-filter:blur(4px);
+}
+
+/* Hover — Gold Glow + Lift */
+.services .card:hover{
+  transform:translateY(-4px) scale(1.04);
+  background:linear-gradient(
+    180deg,
+    rgba(255,240,200,0.18),
+    rgba(255,235,185,0.10)
+  );
+  border-color:rgba(255,235,185,0.8);
+
+  box-shadow:
+    0 10px 26px rgba(0,0,0,0.6),
+    0 0 28px rgba(255,235,185,0.5),
+    inset 0 1px 2px rgba(255,255,255,0.35);
+
+  animation:goldGlow 1.8s ease-in-out;
+}
+
+/* Soft rounded smoothness */
+.services .card{
+  border-radius:14px;
+  letter-spacing:0.2px;
+}
+
+/* -------------------------
+LUXURY SECTION HEADERS
+-------------------------- */
+.section h2{
+  font-size:26px;
+  font-weight:900;
+  color:#f5d89b;
+  margin-bottom:14px;
+  text-shadow:
+    0 2px 4px rgba(0,0,0,0.4),
+    0 0 12px rgba(255,235,185,0.35);
+  letter-spacing:0.5px;
+}
+
+/* Search field enhanced */
+#search{
+  border:1px solid rgba(255,235,185,0.35);
+  background:rgba(255,255,255,0.10);
+  color:#fff;
+  border-radius:12px;
+  padding:12px 14px;
+}
+#search:focus{
+  border-color:#f5d89b;
+  box-shadow:0 0 12px rgba(245,216,155,0.45);
+}
+
+/* -------------------------
+RESPONSIVE ENHANCEMENTS
+-------------------------- */
+@media(max-width:600px){
+  .services{
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  }
+  .panel{ padding:18px; }
+  .panel h3{ font-size:18px; }
+}
+
