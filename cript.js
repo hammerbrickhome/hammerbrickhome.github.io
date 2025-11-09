@@ -1,13 +1,16 @@
 /* ======================================================
-   Hammer Brick & Home — Full Merged Script (Final)
+   Hammer Brick & Home — Full Script (Auto Version)
    Includes:
-   - Your old functions (search, compare, lightbox, chat)
-   - New reveal-on-scroll + pricing card animations
+   - Reveal animation
+   - Search filter
+   - Before/After auto sliders
+   - Lightbox
+   - Chat toggle
    ====================================================== */
 
 
 /* ----------------------------------------------
-   1. Reveal Animation (NEW UPGRADED)
+   1. Reveal Animation
    ---------------------------------------------- */
 (function () {
   const observer = new IntersectionObserver((entries) => {
@@ -25,7 +28,7 @@
 
 
 /* ----------------------------------------------
-   2. Search Services (YOUR ORIGINAL)
+   2. Search Services
    ---------------------------------------------- */
 function filterServices() {
   const q = (document.getElementById('search')?.value || '').toLowerCase();
@@ -45,7 +48,7 @@ function filterServices() {
 
 
 /* ----------------------------------------------
-   3. Before/After Compare Slider (YOUR ORIGINAL)
+   3. Before/After Compare Slider Wiring
    ---------------------------------------------- */
 function wireCompare(id) {
   const cmp = document.getElementById(id);
@@ -62,7 +65,45 @@ function wireCompare(id) {
 
 
 /* ----------------------------------------------
-   4. Lightbox (YOUR ORIGINAL)
+   4. Auto-Generated Before/After Sliders
+   ---------------------------------------------- */
+
+// ✅ LIST ONLY YOUR IMAGE PAIRS HERE
+const comparePairs = [
+  { before: "before1.jpg", after: "after1.jpg" },
+  { before: "before2.jpg", after: "after2.jpg" },
+
+  // ✅ Just add new ones:
+  // { before: "before3.jpg", after: "after3.jpg" },
+  // { before: "before4.jpg", after: "after4.jpg" },
+];
+
+function buildCompareSection() {
+  const container = document.getElementById("beforeafter");
+  if (!container) return;
+
+  comparePairs.forEach((pair, i) => {
+    const id = `cmp${i + 1}`;
+
+    const block = document.createElement("div");
+    block.className = "compare panel";
+    block.id = id;
+
+    block.innerHTML = `
+      <img src="images/${pair.before}" alt="before">
+      <img class="after" src="images/${pair.after}" alt="after">
+      <input type="range" min="0" max="100" value="50">
+    `;
+
+    container.appendChild(block);
+
+    wireCompare(id);
+  });
+}
+
+
+/* ----------------------------------------------
+   5. Lightbox
    ---------------------------------------------- */
 function wireLightbox() {
   const lb = document.getElementById('lightbox');
@@ -82,7 +123,7 @@ function wireLightbox() {
 
 
 /* ----------------------------------------------
-   5. Chat Toggle (YOUR ORIGINAL)
+   6. Chat Toggle
    ---------------------------------------------- */
 function toggleChat() {
   document.getElementById('chatModal').classList.toggle('show');
@@ -90,10 +131,10 @@ function toggleChat() {
 
 
 /* ----------------------------------------------
-   6. Init on Load (MERGED)
+   7. Initialize on Load
    ---------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
-  wireCompare('cmp1');
-  wireCompare('cmp2');
-  wireLightbox();
+  buildCompareSection();  // ✅ Auto-build sliders
+  wireLightbox();         // ✅ Lightbox stays active
 });
+
