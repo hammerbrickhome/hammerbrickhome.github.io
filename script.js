@@ -113,7 +113,8 @@ async function buildGallery() {
 
     // Accept either ["a.jpg","b.jpg"] or {files:[...]}
     if (Array.isArray(data)) files = data;
-    else if (Array.isArray(data.files)) files = data.files;
+    else if (Array.isArray(data.images)) files = data.images;
+
   } catch (e) {
     console.warn('gallery.json missing/invalid; using only static images in HTML.', e);
   }
