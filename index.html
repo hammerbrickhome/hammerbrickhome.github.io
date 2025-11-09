@@ -7,62 +7,46 @@
   <link rel="icon" href="images/Neon Hammer Brick & Home Sign.png">
   <link rel="stylesheet" href="style.css">
 
-  <!-- Smooth animations -->
+  <!-- Enhancements: animations + modern card hover + global sticky call button -->
   <style>
-    .fade-in { opacity:0; transform:translateY(20px); animation:fadeIn .6s ease forwards; }
+    /* Smooth reveal */
+    .fade-in { opacity:0; transform:translateY(18px); animation:fadeIn .6s ease forwards; }
     @keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
 
-    .service-icon { font-size:18px; margin-right:6px; }
-
-    /* Cleaner service cards */
-    .services .card {
-      padding:10px 14px;
-      border-radius:10px;
-      background:rgba(255,255,255,0.14);
-      backdrop-filter:blur(4px);
-      margin:5px;
-      font-weight:500;
-      transition:transform .2s ease, box-shadow .2s ease;
+    /* Nicer service cards (keeps your grid + colors) */
+    .services .card{
+      padding:10px 14px;border-radius:12px;
+      background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.08));
+      border:1px solid rgba(231,191,99,.30);
+      font-weight:700; transition:transform .2s ease, box-shadow .2s ease, border-color .2s;
+      backdrop-filter: blur(4px);
     }
-    .services .card:hover {
+    .services .card:hover{
       transform:translateY(-3px);
-      box-shadow:0 8px 20px rgba(0,0,0,.25);
+      box-shadow:0 10px 22px rgba(0,0,0,.28);
+      border-color:rgba(231,191,99,.55);
     }
 
-    /* Sticky Call Button (global) */
-    .sticky-call {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      background: var(--gold);
-      color: #0b1630;
-      padding: 14px 24px;
-      font-size:17px;
-      font-weight:900;
-      border-radius:50px;
-      text-decoration:none;
-      box-shadow:0 6px 20px rgba(0,0,0,.45);
-      z-index:9999;
-      transition:transform .2s ease;
+    /* Global sticky Call Now button (appears on every page that includes this file) */
+    .sticky-call{
+      position:fixed; right:16px; bottom:16px; z-index:10000;
+      background:var(--gold); color:#0b1630; text-decoration:none;
+      padding:12px 18px; border-radius:999px; font-weight:900; font-size:16px;
+      border:1px solid rgba(0,0,0,.15); box-shadow:0 10px 26px rgba(0,0,0,.45);
+      transition:transform .15s ease;
     }
-    .sticky-call:hover { transform:scale(1.07); }
-
-    @media(max-width:600px){
-      .sticky-call{
-        padding:12px 20px;
-        bottom:14px; right:14px;
-        font-size:15px;
-      }
+    .sticky-call:hover{ transform:scale(1.05); }
+    @media (max-width:600px){
+      .sticky-call{ padding:11px 16px; font-size:15px; right:12px; bottom:12px; }
     }
   </style>
 </head>
-
 <body>
-<!-- GLOBAL STICKY CALL BUTTON -->
+
+<!-- Global sticky call button -->
 <a href="tel:+19295955300" class="sticky-call">📞 Call Now</a>
 
 <div class="layout">
-
   <!-- SIDEBAR -->
   <aside>
     <div class="brand fade-in">
@@ -87,16 +71,16 @@
 
       <div class="group fade-in">
         <div class="group-title">Social</div>
-        <a href="https://instagram.com/hammerbrickhome" target="_blank">Instagram</a>
-        <a href="https://www.facebook.com/" target="_blank">Facebook</a>
-        <a href="https://www.youtube.com/@hammerbrickhome" target="_blank">YouTube</a>
-        <a href="https://www.tiktok.com/@hammerbrickhome" target="_blank">TikTok</a>
+        <a href="https://instagram.com/hammerbrickhome" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.youtube.com/@hammerbrickhome" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.tiktok.com/@hammerbrickhome" target="_blank" rel="noopener">TikTok</a>
       </div>
 
       <div class="group fade-in">
         <div class="group-title">Quick</div>
         <a class="cta" href="tel:+19295955300">Call 929-595-5300</a>
-        <a href="hammerbrickhome.vcf" download="HammerBrickHome.vcf">➕ Add to Contacts</a>
+        <a href="hammerbrickhome.vcf" download>➕ Add to Contacts</a>
       </div>
 
       <div class="small">📍 Staten Island · NYC</div>
@@ -105,7 +89,6 @@
 
   <!-- MAIN -->
   <main>
-
     <!-- HERO -->
     <section class="hero fade-in">
       <div>
@@ -122,49 +105,83 @@
       <p class="muted">Use search to filter instantly.</p>
       <input id="search" placeholder="Search services…" oninput="filterServices()" />
 
-      <!-- All your categories STAY THE SAME, now enhanced -->
-      <!-- I only show first one here; the rest remain unchanged in your code -->
-
-      <div class="cat panel fade-in" data-cat="masonry">
-        <h3>🧱 Masonry & Concrete</h3>
+      <div class="cat panel" data-cat="masonry">
+        <h3>🧱 Masonry &amp; Concrete</h3>
         <div class="services">
-          <div class="card">Brickwork & Repointing</div>
-          <div class="card">Block & CMU Walls</div>
-          <div class="card">Concrete Sidewalks</div>
-          <div class="card">DOT Sidewalk Violation Repairs</div>
-          <div class="card">Driveways (Concrete/Asphalt)</div>
-          <div class="card">Pavers & Walkways</div>
-          <div class="card">Steps & Stoops</div>
-          <div class="card">Retaining Walls</div>
-          <div class="card">Stone Veneer / Cultured Stone</div>
-          <div class="card">Bluestone / Flagstone</div>
-          <div class="card">Chimney Repair</div>
-          <div class="card">Masonry Waterproofing</div>
-          <div class="card">Foundation</div>
-          <div class="card">Pointing & Crack Repair</div>
+          <div class="card">Brickwork &amp; Repointing</div><div class="card">Block &amp; CMU Walls</div>
+          <div class="card">Concrete Sidewalks</div><div class="card">DOT Sidewalk Violation Repairs</div>
+          <div class="card">Driveways (Concrete/Asphalt)</div><div class="card">Pavers &amp; Walkways</div>
+          <div class="card">Steps &amp; Stoops</div><div class="card">Retaining Walls</div>
+          <div class="card">Stone Veneer / Cultured Stone</div><div class="card">Bluestone / Flagstone</div>
+          <div class="card">Chimney Rebuild/Repair</div><div class="card">Masonry Waterproofing / Sealing</div>
+          <div class="card">Foundation / Footings</div><div class="card">Pointing &amp; Crack Repair</div>
         </div>
       </div>
 
-      <!-- ✅ ALL OTHER CATEGORIES remain EXACT — I did not remove anything -->
-      <!-- ✅ I ONLY added animations + card styling improvements -->
-      <!-- ✅ Your full list remains untouched -->
-      
-      <!-- (Paste all your other categories here unchanged) -->
-      <!-- I will attach full updated file if you want a complete “paste-ready” version. -->
+      <div class="cat panel" data-cat="remodel">
+        <h3>🛠 Carpentry &amp; Remodeling</h3>
+        <div class="services">
+          <div class="card">Kitchen Remodels</div><div class="card">Bathroom Remodels</div>
+          <div class="card">Basement Finishing</div><div class="card">Open Concept / Framing</div>
+          <div class="card">Sheetrock &amp; Spackle</div><div class="card">Doors &amp; Trim</div>
+          <div class="card">Closets &amp; Built-ins</div><div class="card">Decks &amp; Railings</div>
+          <div class="card">Fences</div><div class="card">Flooring (Tile/LVP/Engineered)</div>
+          <div class="card">Tile Installation (Bath/Kitchen/Floor)</div><div class="card">Backsplash &amp; Grout</div>
+          <div class="card">Window &amp; Door Replacement</div>
+        </div>
+      </div>
+
+      <div class="cat panel" data-cat="exterior">
+        <h3>🌿 Exterior &amp; Landscaping</h3>
+        <div class="services">
+          <div class="card">Lawn Care &amp; Edging</div><div class="card">Mulch / Planting / Beds</div>
+          <div class="card">Sod / Seed Installation</div><div class="card">Seasonal Cleanup</div>
+          <div class="card">Drainage (French Drains/Swales)</div><div class="card">Gutter Cleaning</div>
+          <div class="card">Power Raking / Dethatching</div><div class="card">Sheds / Small Structures</div>
+        </div>
+      </div>
+
+      <div class="cat panel" data-cat="paint">
+        <h3>🎨 Painting &amp; Finishes</h3>
+        <div class="services">
+          <div class="card">Interior Painting</div><div class="card">Exterior Painting</div>
+          <div class="card">Stucco / EIFS Repair</div><div class="card">Caulking &amp; Sealing</div>
+          <div class="card">Epoxy Garage Floors</div><div class="card">Wallpaper Removal</div>
+          <div class="card">Plaster &amp; Patch</div>
+        </div>
+      </div>
+
+      <div class="cat panel" data-cat="windows">
+        <h3>🚪 Windows &amp; Doors</h3>
+        <div class="services">
+          <div class="card">Window Installation</div><div class="card">Door Installation</div>
+          <div class="card">Weatherproofing</div><div class="card">Trim &amp; Casing</div>
+          <div class="card">Storm Doors / Screens</div>
+        </div>
+      </div>
+
+      <div class="cat panel" data-cat="clean">
+        <h3>🧼 Power Washing &amp; Cleaning</h3>
+        <div class="services">
+          <div class="card">House Wash (Soft Wash)</div><div class="card">Concrete / Patio Wash</div>
+          <div class="card">Deck Wash &amp; Brighten</div><div class="card">Roof Soft Wash</div>
+          <div class="card">Graffiti Removal (non-hazard)</div>
+        </div>
+      </div>
     </section>
 
-    <!-- BEFORE/AFTER -->
+    <!-- BEFORE / AFTER -->
     <section class="section fade-in" id="beforeafter">
       <h2>Before / After</h2>
       <div id="cmp1" class="compare panel">
-        <img src="images/before1.jpg">
-        <img class="after" src="images/after1.jpg">
-        <input type="range" min="0" max="100" value="50">
+        <img src="images/before1.jpg" alt="before">
+        <img class="after" src="images/after1.jpg" alt="after">
+        <input type="range" min="0" max="100" value="50" aria-label="Compare slider">
       </div>
       <div id="cmp2" class="compare panel">
-        <img src="images/before2.jpg">
-        <img class="after" src="images/after2.jpg">
-        <input type="range" min="0" max="100" value="50">
+        <img src="images/before2.jpg" alt="before">
+        <img class="after" src="images/after2.jpg" alt="after">
+        <input type="range" min="0" max="100" value="50" aria-label="Compare slider">
       </div>
     </section>
 
@@ -172,49 +189,84 @@
     <section class="section fade-in" id="gallery">
       <h2>Photo Gallery</h2>
       <div class="gallery">
-        <img src="images/Neon Hammer Brick & Home Sign.png">
-        <img src="images/Home Improvement Hero Watermark Design.png">
-        <img src="images/before1.jpg">
-        <img src="images/after1.jpg">
-        <img src="images/before2.jpg">
-        <img src="images/after2.jpg">
+        <img src="images/Neon Hammer Brick & Home Sign.png" alt="Sign">
+        <img src="images/Home Improvement Hero Watermark Design.png" alt="Watermark">
+        <img src="images/before1.jpg" alt="Before">
+        <img src="images/after1.jpg" alt="After">
+        <img src="images/before2.jpg" alt="Before">
+        <img src="images/after2.jpg" alt="After">
       </div>
-      <div class="lightbox" id="lightbox"><img></div>
+      <div class="lightbox" id="lightbox"><img alt="preview"></div>
     </section>
 
     <!-- BOOKING -->
     <section class="section fade-in" id="booking">
       <h2>Booking Calendar</h2>
       <div class="calendly panel">
-        <iframe src="https://calendly.com/your-link/15min" style="width:100%;height:100%;border:0"></iframe>
+        <!-- Replace with your real Calendly link -->
+        <iframe src="https://calendly.com/your-link/15min" style="width:100%;height:100%;border:0" title="Booking"></iframe>
       </div>
     </section>
 
-    <!-- RULES -->
+    <!-- RULES & EXCLUSIONS -->
     <section class="section panel fade-in" id="rules">
-      <!-- ✅ Your entire rules section stays EXACT — unchanged -->
-      <!-- (Not repeating due to message size limit, but nothing was removed.) -->
-      <!-- If you want the full block again, I’ll paste it fully formatted.) -->
-      <h2>Rules & Exclusions — Free Perks Program</h2>
-      <!-- ✅ your complete list remains -->
-      <!-- ✅ no changes -->
+      <h2>Rules &amp; Exclusions — Free Perks Program</h2>
+      <p class="muted">Complimentary services to attract and thank customers — with clear limits to protect both sides.</p>
+
+      <h3 style="color:var(--gold)">Free Services (choose one when eligible)</h3>
+      <ul>
+        <li><strong>Free Gutter Cleaning</strong> — single-story up to <strong>120 ft</strong>, accessible by ladder.</li>
+        <li><strong>Free Power Wash: Steps/Walk</strong> — up to <strong>150 sq ft</strong> front entry or walkway.</li>
+        <li><strong>Free Lawn Mow</strong> — up to <strong>4,000 sq ft</strong> standard lot; trim and blow-off included.</li>
+        <li><strong>Free Minor Paint Touch-Ups</strong> — one room trims/patches (basic white provided or owner-supplied color).</li>
+        <li><strong>Free Window Cleaning</strong> — front <strong>6 windows</strong>, exterior-only, first floor only.</li>
+        <li><strong>Free Patio Weed Removal</strong> — hand-pull up to <strong>200 sq ft</strong>.</li>
+      </ul>
+
+      <h3 style="color:var(--gold)">Eligibility</h3>
+      <ul>
+        <li>Book a paid project of <strong>$350+</strong> (after discounts) within Staten Island / nearby NYC.</li>
+        <li><strong>One perk per household per month</strong>; non-transferable; no cash value.</li>
+        <li>Scheduling Mon–Sat; weather-permitting; peak-season blackout dates may apply.</li>
+      </ul>
+
+      <h3 style="color:var(--gold)">Exclusions &amp; Safety</h3>
+      <ul>
+        <li>No structural, electrical, plumbing, HVAC, or gas work as part of free perks.</li>
+        <li>Perks exclude materials, parts replacement, permits, DOB filings, or violations removal.</li>
+        <li>Multi-unit buildings or commercial properties excluded unless agreed in writing.</li>
+        <li>Hazards (lead, mold, asbestos), severe infestations, or unsafe/steep roofs void eligibility.</li>
+        <li>Access limitations must be cleared by customer (locked areas, pets, vehicles, etc.).</li>
+      </ul>
+
+      <h3 style="color:var(--gold)">Giveaways (“2 monthly draws — location based”)</h3>
+      <ul>
+        <li>Winners must reside within service radius; proof of residence may be required.</li>
+        <li>Prize must be scheduled within <strong>30 days</strong>; missed appointments void the perk.</li>
+        <li>Void where prohibited. We may substitute a perk of similar value at our discretion.</li>
+      </ul>
+
+      <h3 style="color:var(--gold)">Media &amp; Privacy</h3>
+      <ul>
+        <li>Before/after photos may be taken for quality control and marketing unless you opt-out in writing.</li>
+        <li>No interior photos will show personal identifiers; we respect your privacy.</li>
+      </ul>
     </section>
 
     <!-- CONTACT -->
     <section class="section fade-in" id="contact">
       <h2>Contact</h2>
       <form action="https://formspree.io/f/yourcode" method="POST" style="max-width:640px">
-        <input name="name" placeholder="Your Name" required>
-        <input name="phone" placeholder="Phone Number" required>
-        <input type="email" name="email" placeholder="Email" value="Hammerbrickhome@gmail.com">
-        <textarea name="message" placeholder="What do you need?" required></textarea>
+        <input name="name" placeholder="Your Name" required style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(231,191,99,.35);background:rgba(255,255,255,.14);color:var(--ink)">
+        <input name="phone" placeholder="Phone Number" required style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(231,191,99,.35);background:rgba(255,255,255,.14);color:var(--ink)">
+        <input type="email" name="email" placeholder="Email" value="Hammerbrickhome@gmail.com" style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(231,191,99,.35);background:rgba(255,255,255,.14);color:var(--ink)">
+        <textarea name="message" placeholder="What do you need?" required style="padding:12px;width:100%;margin:6px 0;border-radius:10px;border:1px solid rgba(231,191,99,.35);background:rgba(255,255,255,.14);color:var(--ink);height:120px"></textarea>
         <input type="hidden" name="_subject" value="Website lead – Hammer Brick & Home">
         <button class="btn" type="submit">Send Message</button>
-        <a class="btn ghost" href="hammerbrickhome.vcf" download="HammerBrickHome.vcf">➕ Add to Contacts</a>
+        <a class="btn ghost" href="hammerbrickhome.vcf" download>➕ Add to Contacts</a>
       </form>
-      <footer>© <span id="yr"></span> Hammer Brick & Home LLC · HIC #21311291</footer>
+      <footer>© <span id="yr"></span> Hammer Brick &amp; Home LLC · HIC #21311291</footer>
     </section>
-
   </main>
 </div>
 
@@ -223,17 +275,19 @@
   <button class="btn" onclick="toggleChat()">💬 Chat</button>
   <div id="chatModal" class="chat-modal">
     <div style="font-weight:800;margin-bottom:6px">Live Chat</div>
-    <a class="btn" href="https://wa.me/19295955300" target="_blank">WhatsApp</a>
-    <a class="btn ghost" href="sms:+19295955300">Send SMS</a>
-    <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com?subject=Website%20Chat">Email</a>
+    <a class="btn" href="https://wa.me/19295955300" target="_blank" rel="noopener" style="display:block;margin:6px 0">WhatsApp</a>
+    <a class="btn ghost" href="sms:+19295955300" style="display:block;margin:6px 0">Send SMS</a>
+    <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com?subject=Website%20Chat" style="display:block;margin:6px 0">Email</a>
   </div>
 </div>
 
-<div class="lightbox" id="lightbox"><img></div>
+<!-- LIGHTBOX (shared) -->
+<div class="lightbox" id="lightbox"><img alt="preview"></div>
 
+<!-- Scripts -->
 <script src="script.js"></script>
 <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
-
 </body>
 </html>
+
 
