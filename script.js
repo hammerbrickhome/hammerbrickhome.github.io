@@ -1,12 +1,9 @@
 /* ======================================================
    Hammer Brick & Home — Full Script (Auto Version)
-   FIXED Before/After Sliders (small, clean, centered)
+   FIXED Before/After Sliders + Auto Gallery + Drift
    ====================================================== */
 
-
-/* ----------------------------------------------
-   1. Reveal Animation
-   ---------------------------------------------- */
+/* 1) Reveal Animation */
 (function () {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -21,98 +18,68 @@
     .forEach(el => observer.observe(el));
 })();
 
-
-/* ----------------------------------------------
-   2. Search Services
-   ---------------------------------------------- */
+/* 2) Search Services */
 function filterServices() {
   const q = (document.getElementById('search')?.value || '').toLowerCase();
-
   document.querySelectorAll('.cat').forEach(cat => {
     let any = false;
-
     cat.querySelectorAll('.card').forEach(el => {
       const show = el.textContent.toLowerCase().includes(q);
       el.style.display = show ? 'block' : 'none';
       if (show) any = true;
     });
-
     cat.style.display = any || q === '' ? 'block' : 'none';
   });
 }
 
-
-/* ----------------------------------------------
-   3. Before/After Compare Slider Wiring
-   ---------------------------------------------- */
+/* 3) Before/After slider wiring */
 function wireCompare(id) {
   const cmp = document.getElementById(id);
   if (!cmp) return;
-
   const after = cmp.querySelector('.after');
   const range = cmp.querySelector('input[type=range]');
-
   range.addEventListener('input', e => {
     const v = e.target.value;
     after.style.clipPath = `inset(0 0 0 ${v}%)`;
   });
 }
 
-
-/* ----------------------------------------------
-   ✅ 4. Auto-Generated Before/After Sliders — FIXED
-   ---------------------------------------------- */
-
-
-
+/* 4) Auto-Generated Before/After pairs (edit names here) */
 const comparePairs = [
-  { before: "before1.jpg", after: "after1.jpg" },
-  { before: "before2.jpg", after: "after2.jpg" },
+  { before: "before1.jpg",  after: "after1.jpg"  },
+  { before: "before2.jpg",  after: "after2.jpg"  },
   { before: "before-test.png", after: "after-test.png" },
-
-  // ✅ Add new ones here
-  { before: "before5.png", after: "after5.png" }
+  { before: "before5.png",  after: "after5.png"  } // add more lines as you get pairs
 ];
 
-
 function buildCompareSection() {
- const container = document.getElementById("compareRow");
-
+  const container = document.getElementById("compareRow");
   if (!container) return;
 
   comparePairs.forEach((pair, i) => {
     const id = `cmp${i + 1}`;
-
     const block = document.createElement("div");
     block.className = "compare panel";
     block.id = id;
-
-    /* ✅ FIXED: small clean centered slider box */
     block.innerHTML = `
       <div class="cmp-wrap">
         <img src="images/${pair.before}" class="cmp before" alt="before">
-        <img src="images/${pair.after}" class="cmp after" alt="after">
+        <img src="images/${pair.after}"  class="cmp after"  alt="after">
       </div>
-
       <input type="range" min="0" max="100" value="50">
     `;
-
     container.appendChild(block);
     wireCompare(id);
   });
 }
 
-
-/* ----------------------------------------------
-   5. Lightbox
-   ---------------------------------------------- */
+/* 5) Lightbox */
 function wireLightbox() {
   const lb = document.getElementById('lightbox');
   if (!lb) return;
-
   const lbImg = lb.querySelector('img');
 
-  document.querySelectorAll('.gallery img').forEach(img => {
+  document.querySelectorAll('#gallery .gallery img').forEach(img => {
     img.addEventListener('click', () => {
       lbImg.src = img.src;
       lb.classList.add('show');
@@ -122,74 +89,83 @@ function wireLightbox() {
   lb.addEventListener('click', () => lb.classList.remove('show'));
 }
 
-
-/* ----------------------------------------------
-   6. Chat Toggle
-   ---------------------------------------------- */
+/* 6) Chat Toggle */
 function toggleChat() {
   document.getElementById('chatModal').classList.toggle('show');
 }
+window.toggleChat = toggleChat; // so the inline onclick works
 
-
-/* ----------------------------------------------
-   7. Auto Gallery (Loads from gallery.json)
-   ---------------------------------------------- */
+/* 7) Build Gallery from images/gallery.json (no manual JS edits needed) */
 async function buildGallery() {
-  const container = document.getElementById("galleryContainer");
+  const container = document.querySelector('#gallery .gallery');
   if (!container) return;
 
+  // Keep any images already in the HTML and avoid duplicates
+  const existing = new Set(
+    [...container.querySelectorAll('img')].map(i => i.getAttribute('src')?.split('/').pop())
+  );
+
+  let files = [];
   try {
-    const res = await fetch("images/gallery.json");
-    const images = await res.json();
+    const res = await fetch('images/gallery.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
 
-    images.forEach(src => {
-      const img = document.createElement("img");
-      img.src = "images/" + src;
-      img.alt = "Gallery Photo";
-      container.appendChild(img);
-    });
-
-    wireLightbox();
+    // Accept either ["a.jpg","b.jpg"] or {files:[...]}
+    if (Array.isArray(data)) files = data;
+    else if (Array.isArray(data.files)) files = data.files;
   } catch (e) {
-    console.error("Gallery JSON missing or invalid.", e);
+    console.warn('gallery.json missing/invalid; using only static images in HTML.', e);
   }
+
+  files.forEach(name => {
+    if (!name) return;
+    const clean = name.trim();
+    if (existing.has(clean)) return;
+
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.src = 'images/' + clean;
+    img.alt = 'Gallery Photo';
+    container.appendChild(img);
+  });
+
+  // Rebind lightbox (now that new imgs exist)
+  wireLightbox();
+
+  // Start drift after images are in place
+  startAutoScroll(container);
 }
 
-
-/* ----------------------------------------------
-   8. Initialize on Load
-   ---------------------------------------------- */
-document.addEventListener('DOMContentLoaded', () => {
-  buildCompareSection();
-  buildGallery();
-});
-/* ================================
-   AUTO-SCROLL GALLERY (Luxury Drift)
-   ================================ */
-function autoScrollGallery() {
-  const gal = document.querySelector(".gallery");
+/* 8) Smooth Auto-Scroll (pauses on hover/touch) */
+function startAutoScroll(gal) {
+  if (!gal) gal = document.querySelector('#gallery .gallery');
   if (!gal) return;
 
-  let direction = 1; // 1 = right, -1 = left
+  let dir = 1;              // 1 = right, -1 = left
+  let pause = false;
+  const stepPx = 0.35;      // pixels per frame (slow luxury drift)
 
-  setInterval(() => {
-    // If user is touching or hovering — pause
-    if (gal.matches(":hover")) return;
-
-    gal.scrollLeft += 1.2 * direction;
-
-    // If reached the right end → reverse
-    if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 2) {
-      direction = -1;
+  const step = () => {
+    if (!pause) {
+      gal.scrollLeft += stepPx * dir;
+      if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 2) dir = -1;
+      if (gal.scrollLeft <= 2) dir = 1;
     }
+    requestAnimationFrame(step);
+  };
 
-    // If reached the left end → reverse
-    if (gal.scrollLeft <= 2) {
-      direction = 1;
-    }
+  gal.addEventListener('mouseenter', () => pause = true);
+  gal.addEventListener('mouseleave', () => pause = false);
+  gal.addEventListener('touchstart', () => pause = true, { passive: true });
+  gal.addEventListener('touchend',   () => pause = false);
 
-  }, 25); // ✅ smooth drift speed
+  requestAnimationFrame(step);
 }
 
-document.addEventListener("DOMContentLoaded", autoScrollGallery);
-
+/* 9) Init on load */
+document.addEventListener('DOMContentLoaded', () => {
+  buildCompareSection();
+  buildGallery(); // this function will call wireLightbox() and startAutoScroll()
+});
