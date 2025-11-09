@@ -71,7 +71,7 @@ function wireCompare(id) {
 
 const comparePairs = [
   { before: "before1.jpg", after: "after1.jpg" },
-  { before: "before2.jpg", after: "after2.jpg" }
+  { before: "before2.jpg", after: "after2.jpg" },
     { before: "before-test.png", after: "after-test.png" } // ✅ Add this
 ];
  
