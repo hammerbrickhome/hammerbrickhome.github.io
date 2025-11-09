@@ -70,7 +70,8 @@ const comparePairs = [
 ];
 
 function buildCompareSection() {
-  const container = document.getElementById("compareContainer");
+ const container = document.getElementById("compareRow");
+
   if (!container) return;
 
   comparePairs.forEach((pair, i) => {
