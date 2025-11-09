@@ -72,9 +72,9 @@ function wireCompare(id) {
 const comparePairs = [
   { before: "before1.jpg", after: "after1.jpg" },
   { before: "before2.jpg", after: "after2.jpg" }
-  // ✅ Add more pairs here
+    { before: "before-test.png", after: "after-test.png" } // ✅ Add this
 ];
-
+ 
 function buildCompareSection() {
   const container = document.getElementById("beforeafter");
   if (!container) return;
