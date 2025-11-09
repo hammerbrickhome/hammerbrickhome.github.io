@@ -163,4 +163,33 @@ document.addEventListener('DOMContentLoaded', () => {
   buildCompareSection();
   buildGallery();
 });
+/* ================================
+   AUTO-SCROLL GALLERY (Luxury Drift)
+   ================================ */
+function autoScrollGallery() {
+  const gal = document.querySelector(".gallery");
+  if (!gal) return;
+
+  let direction = 1; // 1 = right, -1 = left
+
+  setInterval(() => {
+    // If user is touching or hovering — pause
+    if (gal.matches(":hover")) return;
+
+    gal.scrollLeft += 1.2 * direction;
+
+    // If reached the right end → reverse
+    if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 2) {
+      direction = -1;
+    }
+
+    // If reached the left end → reverse
+    if (gal.scrollLeft <= 2) {
+      direction = 1;
+    }
+
+  }, 25); // ✅ smooth drift speed
+}
+
+document.addEventListener("DOMContentLoaded", autoScrollGallery);
 
