@@ -301,3 +301,71 @@ footer{
 /* Small CTA */
 .btn.btn-sm{padding:10px 12px; border-radius:10px}
 
+/* ---------------------------------------------------
+RITZ-CARLTON LUXURY GOLD BUTTONS — FINAL OVERRIDE
+--------------------------------------------------- */
+
+.btn{
+  display:inline-block;
+  padding:12px 20px;
+  background:linear-gradient(180deg, #f5d89b, #d7b766);
+  color:#1a1a1a;
+  text-decoration:none;
+  border-radius:12px;
+  font-weight:900;
+  border:1px solid rgba(255,235,185,0.9);
+  box-shadow:
+    0 3px 6px rgba(0,0,0,0.45),
+    inset 0 1px 1px rgba(255,255,255,0.5);
+  transition:0.25s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px) scale(1.04);
+  background:linear-gradient(180deg, #ffe7b5, #e1c16d);
+  box-shadow:
+    0 6px 16px rgba(0,0,0,0.55),
+    inset 0 1px 1px rgba(255,255,255,0.6);
+}
+
+/* Ghost / Outline Button */
+.btn.ghost{
+  background:transparent;
+  border:1px solid rgba(255,235,185,0.8);
+  color:#f5d89b;
+  box-shadow:none;
+}
+
+.btn.ghost:hover{
+  background:rgba(245,216,155,0.15);
+  color:#1a1a1a;
+  border-color:#f5d89b;
+  box-shadow:0 4px 10px rgba(0,0,0,0.35);
+}
+
+/* Sticky Call Button (Ritz Gold) */
+.sticky-call{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  padding:13px 22px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:16px;
+  background:linear-gradient(180deg,#f5d89b,#d7b766);
+  color:#1a1a1a;
+  border:1px solid rgba(255,235,185,1);
+  box-shadow:0 10px 28px rgba(0,0,0,0.55);
+  transition:0.25s ease;
+  z-index:9999;
+}
+
+.sticky-call:hover{
+  transform:scale(1.08);
+  background:linear-gradient(180deg,#ffe7b5,#e1c16d);
+}
+
+@media(max-width:600px){
+  .sticky-call{ bottom:14px; right:14px; padding:12px 18px; font-size:15px; }
+}
+
