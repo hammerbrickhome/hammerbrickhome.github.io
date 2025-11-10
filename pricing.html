@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing & Packages — Hammer Brick & Home LLC</title>
+  <link rel="icon" href="images/Neon Hammer Brick & Home Sign.png">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .reveal { opacity:0; transform:translateY(20px); animation:fadeIn .6s ease forwards; }
+    @keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:26px;
+      margin-top:25px;
+    }
+
+    .pkg-card{
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(231,191,99,.28);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 10px 26px rgba(0,0,0,.35);
+      backdrop-filter:blur(6px);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .pkg-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 16px 32px rgba(0,0,0,.45);
+      border-color:rgba(231,191,99,.55);
+    }
+
+    .pkg-media{
+      width:100%;
+      height:180px;
+      background-size:cover;
+      background-position:center;
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    .pkg-body{ padding:18px; }
+    .pkg-eyebrow{
+      font-size:14px;
+      color:var(--gold);
+      font-weight:900;
+      margin-bottom:4px;
+      text-transform:uppercase;
+    }
+    .pkg-list{ margin:8px 0 18px 0; padding-left:18px; }
+    .pkg-list li{ margin:4px 0; }
+
+    .pkg-bottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .btn-sm{
+      font-size:13px;
+      padding:8px 14px;
+      border-radius:8px;
+    }
+
+    .hero--pricing{
+      background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.7)), url('images/pkg-header.jpg');
+      background-size:cover;
+      background-position:center;
+    }
+
+    .sticky-call{
+      position:fixed;
+      right:16px; bottom:16px;
+      background:var(--gold); color:#0b1630;
+      font-weight:900; font-size:16px;
+      padding:12px 20px;
+      border-radius:999px;
+      box-shadow:0 12px 26px rgba(0,0,0,.45);
+      z-index:9999;
+      text-decoration:none;
+      transition:transform .2s ease;
+    }
+
+    .sticky-call:hover{ transform:scale(1.07); }
+  </style>
+</head>
+
+<body>
+
+<a href="tel:+19295955300" class="sticky-call">📞 Call Now</a>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="brand reveal">
+      <span class="mark"></span>
+      <div>
+        <div class="name">Hammer Brick & Home LLC</div>
+        <div class="small">HIC #21311291 · Licensed & Insured</div>
+      </div>
+    </div>
+
+    <nav>
+      <div class="group reveal">
+        <div class="group-title">Navigate</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#beforeafter">Before / After</a>
+        <a href="index.html#gallery">Gallery</a>
+        <a href="pricing.html" class="active">Pricing & Packages</a>
+        <a href="index.html#booking">Booking Calendar</a>
+        <a href="index.html#rules">Rules & Exclusions</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+
+      <div class="group reveal">
+        <div class="group-title">Quick</div>
+        <a class="cta" href="tel:+19295955300">Call 929-595-5300</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero hero--pricing reveal">
+      <div>
+        <h1>Transparent Pricing & Premium Packages</h1>
+        <p>Luxury upgrades. Clear bundles. Fast booking.</p>
+        <a class="btn" href="index.html#contact">Request a Detailed Quote</a>
+      </div>
+    </section>
+
+    <!-- POPULAR PACKAGES -->
+    <section class="section reveal">
+      <h2>Popular Packages</h2>
+
+      <div class="cards">
+
+        <!-- 🔥 ORIGINAL 8 PACKAGES FULLY RESTORED -->
+        <!-- 1 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-curb.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🧼 Exterior</div>
+            <h3>Curb Appeal Refresh</h3>
+            <ul class="pkg-list">
+              <li>Walkway + steps power-wash</li>
+              <li>Trim paint touch-ups</li>
+              <li>Gutter cleaning (1-story)</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price">From <strong>$399</strong></div>
+              <a class="btn btn-sm" href="index.html#contact">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-bath.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🛁 Bathroom</div>
+            <h3>Bathroom Refresh</h3>
+            <ul class="pkg-list">
+              <li>Regrout + recaulk full tub area</li>
+              <li>Paint walls + trim</li>
+              <li>Upgrade shower hardware</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$1,650+</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-pavers.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🧱 Masonry</div>
+            <h3>Paver Walkway</h3>
+            <ul class="pkg-list">
+              <li>Up to 120 sq ft</li>
+              <li>Compacted base + polymer sand</li>
+              <li>Edge restraints included</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$2,900+</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-handyman.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🛠 Handyman</div>
+            <h3>Handyman Essentials</h3>
+            <p class="muted"><strong>Pick any 3 tasks</strong></p>
+            <ul class="pkg-list">
+              <li>TV mounting</li>
+              <li>Drywall patching</li>
+              <li>Locks • handles • caulk</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$299–$499</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-paint.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🎨 Painting</div>
+            <h3>Paint Refresh</h3>
+            <ul class="pkg-list">
+              <li>Full bedroom repaint</li>
+              <li>Patch • sand • prime</li>
+              <li>Trim & baseboards</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$799–$1,499</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-kitchen.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🍽 Kitchen</div>
+            <h3>Kitchen Mini-Upgrade</h3>
+            <ul class="pkg-list">
+              <li>Backsplash install</li>
+              <li>Faucet + hardware upgrades</li>
+              <li>Small cabinet refinishing</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$1,899–$3,900</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-windows.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🚪 Openings</div>
+            <h3>Windows & Doors</h3>
+            <ul class="pkg-list">
+              <li>Weatherproof + seal</li>
+              <li>Exterior trim finishing</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price">From <strong>$350</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/pkg-patio.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🧱 Patio</div>
+            <h3>Paver Patio</h3>
+            <ul class="pkg-list">
+              <li>Up to 150 sq ft</li>
+              <li>Compacted base + sand</li>
+              <li>Edge restraints + layout design</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$3,200+</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ✅ EXECUTIVE PACKAGES -->
+    <section class="section reveal">
+      <h2>Executive Premium Packages</h2>
+
+      <div class="cards">
+
+        <!-- EXEC 1 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/executive1.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">⭐ Premium</div>
+            <h3>Executive Home Makeover</h3>
+            <ul class="pkg-list">
+              <li>Full interior repaint</li>
+              <li>Bathroom refresh included</li>
+              <li>Premium fixtures upgrade</li>
+              <li>Deep cleaning + polish</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$7,500–$12,500</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EXEC 2 -->
+        <article class="pkg-card">
+          <div class="pkg-media" style="background-image:url('images/executive2.jpg')"></div>
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">⭐ Luxury Exterior</div>
+            <h3>Executive Curb Luxury Package</h3>
+            <ul class="pkg-list">
+              <li>Power-wash full exterior</li>
+              <li>Trim + railing repaint</li>
+              <li>Front walkway paver upgrade</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$4,500–$9,000</strong></div>
+              <a class="btn btn-sm">Book</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ✅ MONTHLY SUBSCRIPTIONS -->
+    <section class="section reveal">
+      <h2>Monthly Subscription Maintenance Plans</h2>
+
+      <div class="cards">
+
+        <!-- Basic -->
+        <article class="pkg-card">
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">📅 Monthly</div>
+            <h3>Basic Home Care</h3>
+            <ul class="pkg-list">
+              <li>1 monthly visit</li>
+              <li>Minor repairs (30 min)</li>
+              <li>Filter checks</li>
+              <li>Safety inspection</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$89/mo</strong></div>
+              <a class="btn btn-sm">Subscribe</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Standard -->
+        <article class="pkg-card">
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">📅 Monthly</div>
+            <h3>Standard Home Care</h3>
+            <ul class="pkg-list">
+              <li>2 monthly visits</li>
+              <li>Minor repairs (1 hr)</li>
+              <li>Outdoor maintenance</li>
+              <li>Gutter check</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$159/mo</strong></div>
+              <a class="btn btn-sm">Subscribe</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- VIP -->
+        <article class="pkg-card">
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">⭐ VIP</div>
+            <h3>VIP Priority Plan</h3>
+            <ul class="pkg-list">
+              <li>Unlimited emergency calls</li>
+              <li>2 priority visits/mo</li>
+              <li>Seasonal tune-ups</li>
+              <li>Discounted labor rate</li>
+            </ul>
+            <div class="pkg-bottom">
+              <div class="pkg-price"><strong>$279/mo</strong></div>
+              <a class="btn btn-sm">Subscribe</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ✅ SEASONAL HOME CARE PLAN -->
+    <section class="section reveal">
+      <h2>Seasonal Home Care Plan</h2>
+
+      <div class="cards">
+
+        <article class="pkg-card">
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🍃 Spring</div>
+            <h3>Spring Refresh</h3>
+            <ul class="pkg-list">
+              <li>Gutter clean</li>
+              <li>Exterior wash</li>
+              <li>Garden prep</li>
+            </ul>
+            <div class="pkg-price"><strong>$399</strong></div>
+          </div>
+        </article>
+
+        <article class="pkg-card">
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🔥 Summer</div>
+            <h3>Summer Upgrade</h3>
+            <ul class="pkg-list">
+              <li>Paver sealing</li>
+              <li>Deck wash + stain</li>
+              <li>Fence repaint</li>
+            </ul>
+            <div class="pkg-price"><strong>$650</strong></div>
+          </div>
+        </article>
+
+        <article class="pkg-card">
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">🍁 Fall</div>
+            <h3>Fall Prep</h3>
+            <ul class="pkg-list">
+              <li>Leaf clean-up</li>
+              <li>Gutter flush</li>
+              <li>Exterior sealing</li>
+            </ul>
+            <div class="pkg-price"><strong>$499</strong></div>
+          </div>
+        </article>
+
+        <article class="pkg-card">
+          <div class="pkg-body">
+            <div class="pkg-eyebrow">❄ Winter</div>
+            <h3>Winter Protection</h3>
+            <ul class="pkg-list">
+              <li>Ice melt prep</li>
+              <li>Weather sealing</li>
+              <li>Exterior safety check</li>
+            </ul>
+            <div class="pkg-price"><strong>$399</strong></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ✅ BEFORE/AFTER SLIDER -->
+    <section class="section reveal">
+      <h2>Before & After</h2>
+      <div class="compare">
+        <img src="images/before1.jpg" />
+        <img class="after" src="images/after1.jpg" />
+        <input type="range" min="0" max="100" value="50" oninput="
+          this.parentNode.querySelector('.after').style.clipPath =
+          'inset(0 0 0 ' + (100-this.value) + '%)'">
+      </div>
+    </section>
+
+    <!-- SMALL JOBS -->
+    <section class="section reveal">
+      <h2>Hourly / Day Rates (Small Jobs)</h2>
+      <div class="panel">
+        <p>Handyman team (2 workers): <strong>$160–$220/hr</strong> (min. 2 hrs)</p>
+        <p>Day rate (8 hrs): <strong>$1,200–$1,600</strong></p>
+      </div>
+    </section>
+
+    <!-- AFFECTS PRICE -->
+    <section class="section reveal">
+      <h2>What Affects Price?</h2>
+      <div class="panel">
+        <ul>
+          <li>Parking & site access</li>
+          <li>Material selections</li>
+          <li>Substrate conditions</li>
+          <li>NYC DOB permits (if required)</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a class="sticky-call" href="tel:+19295955300">📞 Call Now</a>
+<script src="script.js"></script>
+
+</body>
+</html>
