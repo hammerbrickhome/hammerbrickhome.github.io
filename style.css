@@ -70,7 +70,7 @@ main{
 
 /* ---------- Sidebar Nav ---------- */
 nav .group{margin-bottom:26px;}
-.group-title{font-size:12px;opacity:.6;margin-bottom:8px;font-weight:800;letter-spacing:.4px;}
+.group-title{font-size:12px;opacity:.6;margin-bottom:8px;font-weight:800;}
 nav a{
   display:block;padding:6px 0;
   color:var(--ink);opacity:.88;font-size:14px;text-decoration:none;transition:.2s;
@@ -201,7 +201,7 @@ nav .cta:hover{transform:translateY(-1px);background:linear-gradient(180deg,#ffe
 .acc-section{width:100%;overflow-x:hidden;}
 .acc-body{padding-right:8px;max-width:100%;}
 
-/* ✅ SAFE GRID REPLACEMENT (no more dangerous inline selector) */
+/* ✅ SAFE GRID REPLACEMENT */
 .rules-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -232,7 +232,8 @@ footer{margin-top:16px;opacity:.65;font-size:13px;}
   background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);backdrop-filter:blur(10px);
 }
 .chat-bubble .chat-modal.show{display:flex;}
-/* ===== FIX QR CODE SIZE ON RULES SECTION ===== */
+
+/* QR FIX */
 #rules img[src*="qr-hammerbrick-membership"]{
   width:140px !important;
   height:140px !important;
@@ -250,98 +251,22 @@ footer{margin-top:16px;opacity:.65;font-size:13px;}
     height:130px !important;
   }
 }
-/* ================================
-   FIX: Rules Section Ordered List
-   ================================ */
 
-/* ✅ RESTORE NORMAL NUMBERING WITH DOTS LIKE “1. Mini Gutter…” */
-#rules ol {
-  padding-left: 32px !important;
-  margin-left: 0 !important;
-  list-style-type: decimal !important; /* show 1. 2. 3. */
-  list-style-position: outside !important;
-}
+/* ===================================================
+   ✅ FINAL FIX — MAKE PERK NUMBERS SHOW “1. Mini”
+   =================================================== */
 
-#rules ol li {
-  margin-bottom: 12px;
-  color: var(--ink);
-  font-size: 16px;
-  line-height: 1.45;
-}
-
-#rules ol li::marker {
-  color: var(--gold-1);
-  font-weight: 800;
-  font-size: 17px;
-}
-
-
-/* ensure no cutting off on sides */
-.acc-body {
-  overflow-x: visible !important;
-  padding-left: 4px !important;
-}
-
-
-/* ============================
-   FIX CONTACT SECTION SIZING
-   ============================ */
-#contact {
-  padding: 40px 0 !important;
-}
-
-#contact h2 {
-  font-size: 28px !important;
-  margin-bottom: 18px !important;
-  color: var(--gold-1);
-  text-shadow: 0 2px 6px rgba(0,0,0,.45);
-}
-
-#contact form {
-  width: 100%;
-  max-width: 680px !important;    /* ✅ clean wide size again */
-  margin: 0 auto;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,235,185,0.18);
-  padding: 22px 26px !important;   /* ✅ bigger padding */
-  border-radius: 14px;
-  backdrop-filter: blur(6px);
-}
-
-#contact input,
-#contact textarea {
-  font-size: 15px !important;      /* ✅ bigger readable text */
-  padding: 12px 14px !important;
-  margin-bottom: 12px;
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid rgba(255,235,185,0.35);
-  background: rgba(255,255,255,0.10);
-  color: #fff;
-}
-
-#contact textarea {
-  min-height: 120px;
-}
-
-#contact button.btn {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-#contact a.btn.ghost {
-  width: 100%;
-}
-
-/* Footer alignment */
-#contact footer {
-  margin-top: 16px;
-  text-align: center;
-  font-size: 13px;
-  opacity: 0.7;
-} fix this and give me the whole copy n paste file 
-/* ✅ FIX SPACING: turns "1Mini" into "1. Mini" */
+/* Add dot after number */
 .perk-item-num::after {
   content: ".";
-  margin-left: 4px; /* space between number and text */
+  margin-left: 4px;
 }
+
+/* Add spacing between number and text */
+.perk-item-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
