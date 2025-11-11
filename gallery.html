@@ -4,21 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gallery — Hammer Brick & Home LLC</title>
-<meta name="description" content="Before & after projects, masonry details, interiors, and exterior care. Auto‑loads from gallery.json.">
+<meta name="description" content="Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.">
 <link rel="icon" href="images/hero.PNG">
 <link rel="preload" as="image" href="images/hero.PNG">
 <link rel="stylesheet" href="style.css">
+
 <!-- Open Graph -->
 <meta property="og:title" content="Gallery — Hammer Brick & Home LLC">
-<meta property="og:description" content="Before & after projects, masonry details, interiors, and exterior care. Auto‑loads from gallery.json.">
+<meta property="og:description" content="Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.hammerbrickhome.com/">
 <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Gallery — Hammer Brick & Home LLC">
-<meta name="twitter:description" content="Before & after projects, masonry details, interiors, and exterior care. Auto‑loads from gallery.json.">
+<meta name="twitter:description" content="Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.">
 <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -41,7 +44,7 @@
     "Manhattan",
     "NJ (select)"
   ],
-  "description": "Before & after projects, masonry details, interiors, and exterior care. Auto\u2011loads from gallery.json.",
+  "description": "Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.",
   "foundingDate": "2024",
   "openingHours": "Mo-Su 08:00-20:00",
   "knowsAbout": [
@@ -61,6 +64,7 @@
 }
 </script>
 </head>
+
 <body>
 <header class="topbar" role="banner">
   <div class="topbar-inner">
@@ -84,8 +88,11 @@
     </nav>
   </div>
 </header>
+
 <a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
+
 <main class="page">
+
 <section class="hero hero-inner fade-up">
   <div class="hero-content">
     <h1>Project Gallery</h1>
@@ -93,26 +100,38 @@
   </div>
 </section>
 
+<!-- ✅ BEFORE & AFTER SECTION -->
 <section class="section fade-up">
   <h2>Featured Before &amp; After</h2>
   <div id="compareRow" class="compare-grid"></div>
+
+  <!-- ✅ GOLD LOAD MORE BUTTON FOR B&A -->
+  <button id="loadMoreBA" class="gold-btn">Load 8 More</button>
 </section>
 
+<!-- ✅ PHOTO GRID SECTION -->
 <section class="section fade-up">
   <h2>Photo Grid</h2>
   <div id="galleryContainer" class="gallery-grid"></div>
+
+  <!-- ✅ GOLD LOAD MORE BUTTON FOR GRID -->
+  <button id="loadMoreGrid" class="gold-btn">Load 8 More</button>
+
   <p class="section-note">Images load automatically from <code>gallery.json</code> so you can update photos without touching HTML.</p>
 </section>
 
+<!-- ✅ LIGHTBOX -->
 <div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
   <img alt="Preview">
 </div>
 
 </main>
+
 <footer class="site-footer">
   <div>© <span id="yr"></span> Hammer Brick &amp; Home LLC · NYC HIC #21311291</div>
   <div>Staten Island · NYC · Licensed &amp; Insured · EPA RRP Lead-Safe Certified</div>
 </footer>
+
 <div class="chat-bubble">
   <button class="chat-toggle">💬 Chat</button>
   <div class="chat-modal">
@@ -122,7 +141,10 @@
     <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com">Email</a>
   </div>
 </div>
+
 <script src="script.js"></script>
 <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+
 </body>
 </html>
+
