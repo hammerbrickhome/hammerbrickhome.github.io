@@ -12,6 +12,16 @@
 
   "pairs": [
     {
+      "before": "before1.jpg",
+      "after": "after1.jpg",
+      "label": "Front Steps Repair"
+    },
+    {
+      "before": "before2.jpg",
+      "after": "after2.jpg",
+      "label": "Backyard Patio"
+    },
+    {
       "before": "before-test.png",
       "after": "after-test.png",
       "label": "Test Project"
@@ -28,5 +38,6 @@
     }
   ]
 }
+
 
 
