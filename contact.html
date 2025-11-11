@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Hammer Brick & Home LLC</title>
+  <link rel="icon" href="images/hero.PNG">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand-lockup" aria-label="Hammer Brick &amp; Home LLC — Home">
+      <img src="images/hero.PNG" alt="Hammer Brick &amp; Home LLC Logo" class="brand-logo">
+      <div class="brand-text">
+        <div class="brand-name">Hammer Brick &amp; Home LLC</div>
+        <div class="brand-sub">Luxury Remodeling &amp; Masonry · HIC #21311291 · Licensed &amp; Insured</div>
+      </div>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="membership.html">Perks &amp; Rules</a>
+      <a href="contact.html">Contact</a>
+      <a href="tel:+19295955300" class="nav-call">📞 929-595-5300</a>
+    </nav>
+  </div>
+</header>
+<a href="tel:+19295955300" class="sticky-call">📞 Call 929-595-5300</a>
+<main class="page">
+<section class="hero hero-inner">
+  <div class="hero-content">
+    <h1>Contact &amp; Booking</h1>
+    <p>Send us a quick note with photos or book a call. We reply fast.</p>
+  </div>
+</section>
+
+<section class="section split">
+  <div>
+    <h2>Quick Message</h2>
+    <form action="https://formspree.io/f/yourcode" method="POST" class="contact-form">
+      <input name="name" placeholder="Your Name" required>
+      <input name="phone" placeholder="Phone Number" required>
+      <input type="email" name="email" placeholder="Email" value="Hammerbrickhome@gmail.com">
+      <textarea name="message" placeholder="Tell us about your project (you can paste links or notes here)..." required></textarea>
+      <button class="btn" type="submit">Send Message</button>
+      <a class="btn ghost" href="hammerbrickhome.vcf" download>➕ Save Our Contact</a>
+    </form>
+  </div>
+  <div class="accent-card">
+    <h2>Direct Lines</h2>
+    <ul class="bullets">
+      <li><strong>Phone:</strong> <a href="tel:+19295955300">929-595-5300</a></li>
+      <li><strong>Email:</strong> <a href="mailto:Hammerbrickhome@gmail.com">Hammerbrickhome@gmail.com</a></li>
+      <li><strong>Social:</strong> @hammerbrickhome on major platforms</li>
+    </ul>
+    <h3>Service Area</h3>
+    <p>Staten Island HQ with select service across NYC and nearby New Jersey.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div>© <span id="yr"></span> Hammer Brick &amp; Home LLC · NYC Licensed Home Improvement Contractor · HIC #21311291</div>
+  <div>Staten Island · Brooklyn · Queens · Manhattan · Select NJ</div>
+</footer>
+<div class="chat-bubble">
+  <button class="chat-toggle">💬 Chat</button>
+  <div class="chat-modal">
+    <div class="chat-title">Talk to Hammer Brick &amp; Home</div>
+    <a href="https://wa.me/19295955300" target="_blank" class="btn">WhatsApp</a>
+    <a href="sms:+19295955300" class="btn ghost">Text Message</a>
+    <a href="mailto:Hammerbrickhome@gmail.com" class="btn ghost">Email</a>
+  </div>
+</div>
+<script src="script.js"></script>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

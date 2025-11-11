@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Services — Hammer Brick & Home LLC</title>
+  <link rel="icon" href="images/hero.PNG">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand-lockup" aria-label="Hammer Brick &amp; Home LLC — Home">
+      <img src="images/hero.PNG" alt="Hammer Brick &amp; Home LLC Logo" class="brand-logo">
+      <div class="brand-text">
+        <div class="brand-name">Hammer Brick &amp; Home LLC</div>
+        <div class="brand-sub">Luxury Remodeling &amp; Masonry · HIC #21311291 · Licensed &amp; Insured</div>
+      </div>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="membership.html">Perks &amp; Rules</a>
+      <a href="contact.html">Contact</a>
+      <a href="tel:+19295955300" class="nav-call">📞 929-595-5300</a>
+    </nav>
+  </div>
+</header>
+<a href="tel:+19295955300" class="sticky-call">📞 Call 929-595-5300</a>
+<main class="page">
+<section class="hero hero-inner">
+  <div class="hero-content">
+    <h1>Services</h1>
+    <p>Comprehensive remodeling, masonry, and exterior care — organized clearly so you know exactly what we do.</p>
+  </div>
+</section>
+
+<section class="section">
+  <label class="search-label" for="serviceSearch">Search services</label>
+  <input id="serviceSearch" class="search-input" placeholder="Type to filter (e.g. pavers, bathroom, fence)..." oninput="filterServices()" autocomplete="off">
+</section>
+
+<section class="section">
+  <h2>Masonry &amp; Concrete</h2>
+  <div class="service-grid" data-cat="masonry">
+    <div class="card">Brickwork &amp; Repointing</div>
+    <div class="card">Block &amp; CMU Walls</div>
+    <div class="card">Concrete Sidewalks</div>
+    <div class="card">DOT Sidewalk Violation Repairs</div>
+    <div class="card">Driveways (Concrete/Asphalt)</div>
+    <div class="card">Pavers &amp; Walkways</div>
+    <div class="card">Steps &amp; Stoops</div>
+    <div class="card">Retaining Walls</div>
+    <div class="card">Stone Veneer / Cultured Stone</div>
+    <div class="card">Bluestone / Flagstone</div>
+    <div class="card">Chimney Repair</div>
+    <div class="card">Masonry Waterproofing / Sealing</div>
+    <div class="card">Foundation Crack Repair</div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Carpentry &amp; Remodeling</h2>
+  <div class="service-grid" data-cat="remodel">
+    <div class="card">Kitchen Remodels</div>
+    <div class="card">Bathroom Remodels</div>
+    <div class="card">Basement Finishing</div>
+    <div class="card">Open Concept / Framing</div>
+    <div class="card">Sheetrock &amp; Spackle</div>
+    <div class="card">Doors &amp; Trim</div>
+    <div class="card">Built-ins &amp; Custom Storage</div>
+    <div class="card">Decks &amp; Fences</div>
+    <div class="card">Flooring (Tile/LVP/Engineered)</div>
+    <div class="card">Backsplashes</div>
+    <div class="card">Window &amp; Door Replacement</div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Painting &amp; Finishes</h2>
+  <div class="service-grid" data-cat="paint">
+    <div class="card">Interior Painting</div>
+    <div class="card">Exterior Painting</div>
+    <div class="card">Plaster &amp; Patch</div>
+    <div class="card">Stucco / EIFS Repair</div>
+    <div class="card">Trim Enamel &amp; Fine Finish</div>
+    <div class="card">Epoxy Garage Floors</div>
+    <div class="card">Wallpaper Removal</div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Exterior Care &amp; Seasonal</h2>
+  <div class="service-grid" data-cat="exterior">
+    <div class="card">Soft-Wash House Cleaning</div>
+    <div class="card">Concrete &amp; Paver Wash</div>
+    <div class="card">Deck Wash &amp; Stain</div>
+    <div class="card">Gutter Cleaning</div>
+    <div class="card">Lawn &amp; Landscape Touch-Ups</div>
+    <div class="card">Seasonal Checklists</div>
+  </div>
+</section>
+
+<section class="section note-box">
+  <h2>Roofing Policy</h2>
+  <p>We perform <strong>select, safe roofing repairs only</strong>: leak tracing, shingle patching in accessible areas, flashing and sealant touch-ups. Full roof replacements are referred to partners.</p>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div>© <span id="yr"></span> Hammer Brick &amp; Home LLC · NYC Licensed Home Improvement Contractor · HIC #21311291</div>
+  <div>Staten Island · Brooklyn · Queens · Manhattan · Select NJ</div>
+</footer>
+<div class="chat-bubble">
+  <button class="chat-toggle">💬 Chat</button>
+  <div class="chat-modal">
+    <div class="chat-title">Talk to Hammer Brick &amp; Home</div>
+    <a href="https://wa.me/19295955300" target="_blank" class="btn">WhatsApp</a>
+    <a href="sms:+19295955300" class="btn ghost">Text Message</a>
+    <a href="mailto:Hammerbrickhome@gmail.com" class="btn ghost">Email</a>
+  </div>
+</div>
+<script src="script.js"></script>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

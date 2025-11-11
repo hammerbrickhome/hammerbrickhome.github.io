@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery — Hammer Brick & Home LLC</title>
+  <link rel="icon" href="images/hero.PNG">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand-lockup" aria-label="Hammer Brick &amp; Home LLC — Home">
+      <img src="images/hero.PNG" alt="Hammer Brick &amp; Home LLC Logo" class="brand-logo">
+      <div class="brand-text">
+        <div class="brand-name">Hammer Brick &amp; Home LLC</div>
+        <div class="brand-sub">Luxury Remodeling &amp; Masonry · HIC #21311291 · Licensed &amp; Insured</div>
+      </div>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="membership.html">Perks &amp; Rules</a>
+      <a href="contact.html">Contact</a>
+      <a href="tel:+19295955300" class="nav-call">📞 929-595-5300</a>
+    </nav>
+  </div>
+</header>
+<a href="tel:+19295955300" class="sticky-call">📞 Call 929-595-5300</a>
+<main class="page">
+<section class="hero hero-inner">
+  <div class="hero-content">
+    <h1>Project Gallery</h1>
+    <p>Real work. Real properties. Before &amp; After shots that show the difference clean prep and true masonry make.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Featured Before &amp; After</h2>
+  <div id="compareRow" class="compare-grid"></div>
+</section>
+
+<section class="section">
+  <h2>Photo Grid</h2>
+  <div id="galleryContainer" class="gallery-grid"></div>
+  <p class="section-note">Images load automatically from <code>gallery.json</code> so you can easily update photos later.</p>
+</section>
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
+  <img alt="Preview">
+</div>
+
+</main>
+<footer class="site-footer">
+  <div>© <span id="yr"></span> Hammer Brick &amp; Home LLC · NYC Licensed Home Improvement Contractor · HIC #21311291</div>
+  <div>Staten Island · Brooklyn · Queens · Manhattan · Select NJ</div>
+</footer>
+<div class="chat-bubble">
+  <button class="chat-toggle">💬 Chat</button>
+  <div class="chat-modal">
+    <div class="chat-title">Talk to Hammer Brick &amp; Home</div>
+    <a href="https://wa.me/19295955300" target="_blank" class="btn">WhatsApp</a>
+    <a href="sms:+19295955300" class="btn ghost">Text Message</a>
+    <a href="mailto:Hammerbrickhome@gmail.com" class="btn ghost">Email</a>
+  </div>
+</div>
+<script src="script.js"></script>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
