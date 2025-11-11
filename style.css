@@ -147,4 +147,50 @@ body{
 .muted {
   font-size: 14px !important;
 }
+/* ==== FIX PERKS SCROLL BOX ==== */
+
+.rules-scroll {
+  max-height: 520px !important;
+  overflow-y: auto !important;
+  padding: 16px !important;
+  background: rgba(5, 10, 18, 0.9) !important;
+  border-radius: 18px !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+
+.rules-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.rules-scroll::-webkit-scrollbar-thumb {
+  background: var(--gold-soft);
+  border-radius: 10px;
+}
+
+.rules-scroll::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Fix parent container blocking scroll */
+.section {
+  overflow: visible !important;
+}
+/* ==== BUTTON UPGRADE ==== */
+
+.btn {
+  font-size: 15px !important;
+  padding: 12px 24px !important;
+  border-radius: 100px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.8) !important;
+}
+
+.rules-join-grid .btn {
+  font-size: 16px !important;
+}
+.section h2 {
+  font-size: 32px !important;
+  letter-spacing: 0.5px;
+  font-weight: 900;
+}
 
