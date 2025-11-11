@@ -63,6 +63,24 @@
     margin:0;
     line-height:1.6;
   }
+
+/* Accordion Styles (Safe — Does NOT override Safari fixes or existing layout) */
+.accordion{max-width:900px;margin:20px auto;border:1px solid var(--gold-soft);border-radius:var(--radius);background:rgba(7,14,28,.8);}
+.accordion-item{border-bottom:1px solid rgba(231,191,99,.35);} 
+.accordion-header{width:100%;padding:16px 18px;font-size:15px;font-weight:700;color:var(--gold-soft);background:transparent;border:none;text-align:left;cursor:pointer;position:relative;letter-spacing:.3px;} 
+.accordion-header::after{content:"+";position:absolute;right:18px;font-size:20px;color:var(--gold);} 
+.accordion-header.active::after{content:"-";} 
+.accordion-content{max-height:0;overflow:hidden;padding:0 18px;background:rgba(5,12,25,.85);border-top:1px solid rgba(231,191,99,.18);transition:max-height .32s ease;} 
+.accordion-content p{margin:0;padding:12px 0 16px;font-size:13px;color:var(--muted);line-height:1.55;}
+
+</style>
+
+<style>
+/* Fix Perks list: correct numbering + readable size (does not touch Safari desktop fix) */
+.rules-scroll{font-size:16px !important; line-height:1.6 !important;}
+.rules-scroll ol{list-style:decimal !important; margin-left:1.25rem !important;}
+.rules-scroll li{margin:10px 0 !important;}
+.rules-scroll strong{color:#f5d89b !important; font-weight:900 !important;}
 </style>
 </head>
 <body>
@@ -141,30 +159,56 @@
 
   <div class="rules-scroll">
     <ol>
-      <li><strong>Members-Only “Text a Pro”</strong> — Send 1 photo + 1 question. Get expert feedback.</li>
-      <li><strong>Mini Gutter Cleaning</strong> — Up to 40 ft, first story only.</li>
-      <li><strong>Steps / Walkway Power Wash</strong> — Up to ~60 sq ft.</li>
-      <li><strong>Lawn Mowing</strong> — Up to 2,000 sq ft.</li>
-      <li><strong>Paint Touch-Up</strong> — Trim/frames only.</li>
-      <li><strong>Exterior Window Shine</strong> — 4 windows.</li>
-      <li><strong>Patio Weed Pull</strong> — 80–100 sq ft.</li>
-      <li><strong>Seasonal Snow Clear</strong> — Under 6" snowfall.</li>
-      <li><strong>10‑Minute Fix</strong> — Tighten knobs/hinges.</li>
-      <li><strong>Front Entry Refresh</strong> — Clean + tidy.</li>
-      <li><strong>Safety Snapshot</strong></li>
-      <li><strong>Mailbox / House Number Tighten</strong></li>
-      <li><strong>VIP Reminder Setup</strong></li>
-      <li><strong>Curb Appeal Audit</strong></li>
-      <li><strong>Tool Courtesy Loan</strong></li>
-      <li><strong>Seasonal Checklist</strong></li>
-      <li><strong>Color & Style Snapshot</strong></li>
-      <li><strong>Project Vault Setup</strong></li>
-      <li><strong>Storm Check Lite</strong></li>
-      <li><strong>Holiday Entry Prep</strong></li>
-      <li><strong>Driveway Stain Lookover</strong></li>
-      <li><strong>Priority Call-Back</strong></li>
-      <li><strong>DIY Coaching</strong></li>
-      <li><strong>Surprise Upgrade</strong></li>
+      <li><strong>Members-Only “Text a Pro” (1 question/month)</strong> — Send 1 photo + 1 question. Get expert feedback with next steps.</li>
+      <li><strong>Mini Gutter Cleaning</strong> — Up to 40 ft, first story only, ladder-safe access only. No guard removal or full-system flushing.</li>
+      <li><strong>Steps / Walkway Power Wash</strong> — Up to ~60 sq ft. Removes dirt/grime only. No deep stain restoration.</li>
+      <li><strong>Lawn Mowing (Trim & Blow)</strong> — Up to 2,000 sq ft. Includes edging + debris blow-off.</li>
+      <li><strong>Minor Paint Touch-Up</strong> — Up to 10 ft trims/frames. Customer supplies matching paint.</li>
+      <li><strong>Exterior Window Shine (Mini)</strong> — Up to 4 exterior windows, ground level only.</li>
+      <li><strong>Patio/Walkway Weed Pull</strong> — 80–100 sq ft surface-level weeds (no chemicals).</li>
+      <li><strong>Seasonal Snow Clear (Mini)</strong> — Front steps + main walkway for snowfall under 6".</li>
+      <li><strong>“10-Minute Fix” Handy Help</strong> — Tighten 3 knobs/hinges, fix a latch, install a doorstop, etc.</li>
+      <li><strong>Front Entry Refresh</strong> — Sweep/blow, cobweb removal, straighten décor, clean handle.</li>
+      <li><strong>Exterior Safety Snapshot</strong> — 5-minute look at steps, railings, walkway for safety notes.</li>
+      <li><strong>Mailbox / House Number Tighten</strong> — Tighten screws, straighten numbers, light fixes.</li>
+      <li><strong>VIP Homeowner Reminder Setup</strong> — We set automated reminders for filters, winterizing, etc.</li>
+      <li><strong>Curb Appeal Audit (Quick)</strong> — We take 3 photos and text improvement ideas.</li>
+      <li><strong>Small Tool Courtesy Loan (24 hrs)</strong> — Borrow 1 tool (stud finder, level, screwdriver, etc.).</li>
+      <li><strong>Seasonal Maintenance Checklist</strong> — Custom checklist based on home age & season.</li>
+      <li><strong>Color & Style Snapshot</strong> — Quick advice on paint/masonry colors (not full design service).</li>
+      <li><strong>Project Vault Setup</strong> — Digital folder for your home photos, before/after tracking.</li>
+      <li><strong>“Pre-Listing” Curb Check</strong> — Quick exterior suggestions if preparing home for sale.</li>
+      <li><strong>Storm Check Lite</strong> — After storms, we inspect 1–2 areas from ground level.</li>
+      <li><strong>Holiday Entry Prep (Mini)</strong> — Tidy front entry + basic décor straightening.</li>
+      <li><strong>Driveway/Walkway Stain Lookover</strong> — Identify stains and provide DIY cleaning suggestions.</li>
+      <li><strong>Priority Call-Back Line</strong> — Faster response for estimates & small repairs.</li>
+      <li><strong>Mini DIY Coaching (5–10 minutes)</strong> — Quick on-site or video guidance for small tasks.</li>
+      <li><strong>“Golden Ticket” Surprise Upgrade</strong> — Once in a while, a visit gets a bonus mini-perk.</li>
+      <li><strong>Mini Home Energy Efficiency Scan</strong> — Visual check for draft points, door sweeps, and inefficient bulbs with simple improvement suggestions.</li>
+      <li><strong>Kitchen Flow & Function Check</strong> — Identify tight spots, bad workflow zones, and give 2–3 improvement recommendations.</li>
+      <li><strong>Bathroom Ventilation & Moisture Check</strong> — Quick look for humidity buildup, weak fan airflow, or moisture stains with prevention tips.</li>
+      <li><strong>Front Porch/Entry Light Temperature Match</strong> — Help choose correct bulb temperatures for a cleaner, newer nighttime look.</li>
+      <li><strong>Exterior Hardware Shine Check</strong> — Inspect mailbox, house numbers, handles, and doorbells for alignment or looseness.</li>
+      <li><strong>Fence & Gate “Quiet Fix” Check</strong> — Lubricate 1 squeaky hinge OR realign 1 loose latch (no replacements).</li>
+      <li><strong>DIY Tool Shopping List (Custom)</strong> — We build a list of the 10 essential tools your home should have—no overspending.</li>
+      <li><strong>“What Will This Cost?” Price Guidance</strong> — Give realistic price ranges so you don’t get scammed by bad contractors.</li>
+      <li><strong>Mini Driveway Condition Snapshot</strong> — Quick look for cracks, dips, and edge wear with maintenance suggestions.</li>
+      <li><strong>Patio / Yard Lighting Idea Snapshot</strong> — Give simple ideas for solar path lights, accent lighting, or LEDs.</li>
+      <li><strong>Small Closet Optimization Ideas</strong> — Suggest hooks, baskets, and layout changes for 2× better storage.</li>
+      <li><strong>Trash Storage & Bin Area Check</strong> — Look for pest issues or smell problems and suggest fixes.</li>
+      <li><strong>Basic Safety Device Check</strong> — Confirm visible smoke alarms, CO detectors, and extinguisher access (no testing).</li>
+      <li><strong>Garden Hose & Spigot Condition Check</strong> — Look for leaks, loose bibs, and poor water pressure sources.</li>
+      <li><strong>Mini Fridge Vent & Coil Dust Check</strong> — Spot airflow blockage or dust buildup for cooling efficiency.</li>
+      <li><strong>Window Screen Quick Check</strong> — Inspect 1–2 screens for gaps or tears with DIY fix suggestions.</li>
+      <li><strong>Pest Entry Point Lookover (Exterior Only)</strong> — Scan foundation and siding bottoms for small rodent gaps.</li>
+      <li><strong>Storage Rack Stability Check</strong> — Tighten screws on a wobbly rack or recommend reinforcement.</li>
+      <li><strong>Dryer Vent Exterior Check (Ground Level)</strong> — Ensure flap moves and no visible lint blockage.</li>
+      <li><strong>Doorbell / Camera Mount Check</strong> — Confirm the unit is secure, angled correctly, and not pulling loose.</li>
+      <li><strong>Mini Paint Color Matching Advice</strong> — Suggest closest modern paint color based on your photos.</li>
+      <li><strong>Annual Project Budget Planning</strong> — Map out price ranges and best seasons for 3 upcoming projects.</li>
+      <li><strong>Mini Landscape Shape-Up Advice</strong> — Give ideas to shape 1 bush/hedge or improve 1 flowerbed.</li>
+      <li><strong>Garage / Shed Airflow Advice</strong> — Identify moisture or poor ventilation spots with simple solutions.</li>
+      <li><strong>Hidden Water Risk Lookover</strong> — Check under 1 sink, behind toilet, and by the water heater for early leak signs.</li>
     </ol>
   </div>
 </section>
@@ -289,3 +333,4 @@ document.querySelectorAll(".accordion-header").forEach(btn=>{
 
 </body>
 </html>
+
