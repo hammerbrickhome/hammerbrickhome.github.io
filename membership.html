@@ -6,7 +6,12 @@
 <title>Perks, Rules & Exclusions — Hammer Brick & Home LLC</title>
 <meta name="description" content="Membership perks with clear rules and exclusions. Buttons, QR, perks list.">
 <link rel="icon" href="images/hero.PNG">
+
+<!-- ✅ GLOBAL CSS -->
 <link rel="stylesheet" href="style.css">
+
+<!-- ✅ MEMBERSHIP-ONLY CSS -->
+<link rel="stylesheet" href="membership.css">
 
 <!-- OG -->
 <meta property="og:title" content="Perks, Rules & Exclusions — Hammer Brick & Home LLC">
@@ -59,7 +64,8 @@
 
 <a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
 
-<main class="page">
+<!-- ✅ IMPORTANT: membership-page CLASS -->
+<main class="page membership-page">
 
 <!-- HERO -->
 <section class="hero hero-inner fade-up">
@@ -69,15 +75,13 @@
   </div>
 </section>
 
-<!-- =========================== -->
-<!-- ✅ HOW TO JOIN (RESTORED)   -->
-<!-- =========================== -->
+<!-- ✅ HOW TO JOIN -->
 <section class="section fade-up">
   <h2>How to Join (Free)</h2>
 
   <div class="rules-join-grid">
 
-    <!-- LEFT -->
+    <!-- LEFT SIDE -->
     <div>
       <ul class="bullets">
         <li>Subscribe to our email or text list</li>
@@ -86,7 +90,6 @@
         <li>Provide full name, address, phone, and email</li>
       </ul>
 
-      <!-- ✅ SOCIAL BUTTONS -->
       <div style="margin:14px 0 16px; display:flex; flex-wrap:wrap; gap:10px;">
         <a class="btn ghost" href="https://instagram.com/hammerbrickhome" target="_blank">Instagram</a>
         <a class="btn ghost" href="https://facebook.com/hammerbrickhome" target="_blank">Facebook</a>
@@ -94,7 +97,6 @@
         <a class="btn ghost" href="https://youtube.com/@hammerbrickhome" target="_blank">YouTube</a>
       </div>
 
-      <!-- ✅ JOIN BUTTON -->
       <a class="btn"
          href="mailto:Hammerbrickhome@gmail.com?subject=Join%20Hammer%20Brick%20%26%20Home%20Membership&body=Full%20Name:%0AService%20Address:%0APhone:%0AEmail:%0APlatforms%20You%20Follow%20Us%20On:%0A">
          ✨ Join the Membership (Free)
@@ -104,7 +106,7 @@
       <p class="muted">You may also scan the QR code.</p>
     </div>
 
-    <!-- ✅ QR BOX -->
+    <!-- QR -->
     <div class="qr-block" style="text-align:center;">
       <h3>Scan to Join</h3>
       <img src="images/qr-hammerbrick-membership.png"
@@ -115,35 +117,31 @@
   </div>
 </section>
 
-<!-- =========================== -->
-<!-- ✅ PERKS LIST (SCROLL FIXED)-->
-<!-- =========================== -->
+<!-- ✅ PERKS LIST -->
 <section class="section fade-up">
-  <h2>Perks Menu (Paste 1–25 list here)</h2>
+  <h2>Perks Menu (1–25)</h2>
 
-  <div class="rules-scroll" id="perksBox" style="max-height:520px; font-size:15px; line-height:1.55;">
+  <div class="rules-scroll" id="perksBox">
     <ol>
-      <li><strong>Members-Only “Text a Pro” (1 question/month)</strong> — Send 1 photo + 1 question. Quick opinion & next steps.</li>
-      <!-- Add 2–25 here -->
+      <li><strong>Members-Only “Text a Pro”</strong> — 1 question per month.</li>
+      <!-- ✅ Add the rest here (2–25) -->
     </ol>
   </div>
 </section>
 
-<!-- ======================= -->
-<!-- ✅ RULES (BIGGER FONTS) -->
-<!-- ======================= -->
+<!-- ✅ RULES -->
 <section class="section fade-up">
   <h2>Rules & Exclusions</h2>
 
-  <ul class="bullets" style="font-size:15px; line-height:1.55;">
-    <li><strong>Eligibility:</strong> One perk per household per month within our local radius; ID or utility bill may be requested.</li>
-    <li><strong>Scope Limits:</strong> Perks are small, focused tasks (typically under one hour on site).</li>
-    <li><strong>Safety:</strong> No hazardous work, no ladders over 6ft, no gas/electrical/structural work.</li>
-    <li><strong>Condition Check:</strong> Unsafe or oversized tasks will be paused and offered as paid estimates.</li>
-    <li><strong>Scheduling:</strong> Limited monthly slots; weather & material availability apply.</li>
-    <li><strong>Access & Prep:</strong> Clear access is required; parking/dumpster fees (if any) are extra.</li>
-    <li><strong>Photos & Documentation:</strong> Before/after photos may be taken unless you opt-out in writing.</li>
-    <li><strong>Right to Update:</strong> Program terms may be updated; the latest page version controls.</li>
+  <ul class="bullets">
+    <li><strong>Eligibility:</strong> One perk per household per month within our radius.</li>
+    <li><strong>Scope Limits:</strong> Perks are small, focused tasks.</li>
+    <li><strong>Safety:</strong> No hazardous or high-risk work.</li>
+    <li><strong>Condition Check:</strong> Unsafe jobs paused + estimate offered.</li>
+    <li><strong>Scheduling:</strong> Limited slots each month.</li>
+    <li><strong>Access:</strong> Clear access required.</li>
+    <li><strong>Photos:</strong> Before/after photos may be taken.</li>
+    <li><strong>Updates:</strong> Program terms can be updated anytime.</li>
   </ul>
 </section>
 
@@ -170,4 +168,5 @@
 
 </body>
 </html>
+
 
