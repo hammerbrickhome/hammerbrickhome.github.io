@@ -1,0 +1,19 @@
+{
+  "pairs": [
+    {
+      "before": "repair1-before.png",
+      "after": "repair1-after.png",
+      "label": "repair"
+    },
+    {
+      "before": "stone2-before.png",
+      "after": "stone2-after.png",
+      "label": "stone"
+    },
+    {
+      "before": "job_before.jpg",
+      "after": "job_after.jpg",
+      "label": "job"
+    }
+  ]
+}
