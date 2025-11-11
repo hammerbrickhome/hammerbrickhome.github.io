@@ -332,6 +332,73 @@ body{
 }
 
 
+/* ============================================================
+   ✅ GOLD BUTTON (Load More)
+=============================================================== */
+.gold-btn {
+  display: block;
+  margin: 25px auto 10px auto;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+  text-align: center;
+  user-select: none;
+}
+
+.gold-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+}
+
+/* ============================================================
+   ✅ OPTIONAL: Fade-up animation on load
+=============================================================== */
+.compare-item,
+.gallery-grid img {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.45s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   ✅ Ensure grids space correctly after loading
+=============================================================== */
+.compare-grid,
+.gallery-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   ✅ Fix for B/A caption alignment
+=============================================================== */
+.compare-caption {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #333;
+}
 
 
 
