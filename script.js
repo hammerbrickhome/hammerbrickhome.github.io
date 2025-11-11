@@ -125,6 +125,7 @@ document.addEventListener('click', e => {
 /* ============================================================
    ✅ HOMEPAGE — AUTO BEFORE & AFTER
    ✅ Supports BOTH hyphens AND underscores
+   ✅ Supports numbered AND non-numbered filenames
 =============================================================== */
 const BA_GRID = document.getElementById('ba-grid');
 const BA_LOADMORE = document.getElementById('ba-loadmore');
@@ -133,7 +134,7 @@ const BA_TEMPLATE = document.getElementById('ba-card');
 let allPairs = [];
 let baIndex = 0;
 
-/* ✅ Allowed prefixes */
+/* ✅ Allowed prefixes for your contractor work */
 const PREFIXES = [
   "job", "paver", "masonry", "sidewalk", "stoop", "kitchen",
   "bath", "yard", "home", "project", "deck", "reno", "stone",
@@ -146,20 +147,28 @@ function generatePossibleNames() {
   const endings = ["-before", "_before", "-after", "_after"];
   const exts = [".jpg", ".jpeg", ".png"];
 
-  for (let i = 1; i <= 200; i++) {
-    PREFIXES.forEach(pre => {
+  PREFIXES.forEach(pre => {
+    /* ✅ Non-numbered (repair_before.png) */
+    endings.forEach(end => {
+      exts.forEach(ext => {
+        names.push(`${pre}${end}${ext}`);
+      });
+    });
+
+    /* ✅ Numbered (repair1_before.png) */
+    for (let i = 1; i <= 200; i++) {
       endings.forEach(end => {
         exts.forEach(ext => {
           names.push(`${pre}${i}${end}${ext}`);
         });
       });
-    });
-  }
+    }
+  });
 
   return names;
 }
 
-/* ✅ Detect which files exist */
+/* ✅ Detect which files actually exist */
 async function detectImages() {
   const candidates = generatePossibleNames();
   const found = [];
@@ -175,13 +184,14 @@ async function detectImages() {
   return found;
 }
 
-/* ✅ Build usable BEFORE/AFTER pairs */
+/* ✅ Normalize naming (underscore → hyphen) */
 function normalizeName(name) {
   return name
     .replace("_before", "-before")
     .replace("_after", "-after");
 }
 
+/* ✅ Build usable BEFORE/AFTER pairs */
 function buildPairs(files) {
   const norm = files.map(f => normalizeName(f));
   const pairs = [];
@@ -202,12 +212,12 @@ function buildPairs(files) {
   return pairs;
 }
 
-/* ✅ Shuffle */
+/* ✅ Shuffle pairs randomly */
 function shuffle(arr) {
   return arr.sort(() => Math.random() - 0.5);
 }
 
-/* ✅ Render 6 cards */
+/* ✅ Render 6 cards at a time */
 function renderNextSix() {
   const slice = allPairs.slice(baIndex, baIndex + 6);
 
@@ -224,8 +234,7 @@ function renderNextSix() {
 
     const slider = card.querySelector('.ba-slider');
     slider.addEventListener('input', () => {
-      card.querySelector('.ba-after-wrap').style.width =
-        slider.value + '%';
+      card.querySelector('.ba-after-wrap').style.width = slider.value + '%';
     });
 
     BA_GRID.appendChild(card);
@@ -236,7 +245,7 @@ function renderNextSix() {
   if (baIndex >= allPairs.length) BA_LOADMORE.style.display = "none";
 }
 
-/* ✅ Init homepage */
+/* ✅ Initialize homepage before/after */
 async function initHomepageBA() {
   if (!BA_GRID) return;
 
@@ -260,3 +269,4 @@ document.addEventListener('DOMContentLoaded', () => {
   loadGalleryPage();
   initHomepageBA();
 });
+
