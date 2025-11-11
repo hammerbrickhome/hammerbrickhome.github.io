@@ -8,36 +8,62 @@
 <link rel="icon" href="images/hero.PNG">
 <link rel="stylesheet" href="style.css">
 
-<!-- Page-only enhancements -->
+<!-- Accordion Styles -->
 <style>
-  .section h2{font-size:32px !important; font-weight:900; letter-spacing:.3px}
-  .bullets, .bullets li{font-size:16px !important; line-height:1.6 !important}
-  .muted{font-size:14px !important}
-  .btn{font-size:15px !important; padding:12px 24px !important; border-radius:100px !important}
+  body{background:#0b0b0b;color:#fff;}
 
-  /* Scroll box fix */
-  .rules-scroll{
-    max-height:560px !important;
-    overflow-y:auto !important;
-    padding:16px !important;
-    background:rgba(5,10,18,.92) !important;
-    border-radius:18px !important;
-    border:1px solid rgba(255,255,255,.12);
-    font-size:16px !important;
-    line-height:1.6 !important;
+  .rules-accordion-section{
+    background:#0b0b0b;
+    padding:40px 20px;
   }
-  .rules-scroll ol{margin-left:1.25rem}
-  .rules-scroll li{margin:10px 0}
+  .rules-accordion-title{
+    text-align:center;
+    font-size:42px;
+    color:#d4af37;
+    margin-bottom:30px;
+    font-weight:700;
+  }
 
-  /* Gold + Bold perk titles */
-  .rules-scroll strong{color:#f5d89b; font-weight:900}
-
-  /* Scrollbar */
-  .rules-scroll::-webkit-scrollbar{width:8px}
-  .rules-scroll::-webkit-scrollbar-thumb{background:#f5d89b;border-radius:10px}
-  .rules-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,.1)}
+  .accordion{
+    max-width:900px;
+    margin:auto;
+    border:1px solid #d4af37;
+    border-radius:6px;
+  }
+  .accordion-item{border-bottom:1px solid #d4af37;}
+  .accordion-header{
+    width:100%;
+    padding:18px 20px;
+    font-size:20px;
+    background:#0b0b0b;
+    color:#d4af37;
+    border:none;
+    text-align:left;
+    position:relative;
+    cursor:pointer;
+  }
+  .accordion-header::after{
+    content:"+";
+    position:absolute;
+    right:20px;
+    font-size:22px;
+  }
+  .accordion-header.active::after{content:"-";}
+  .accordion-content{
+    max-height:0;
+    overflow:hidden;
+    background:#0b0b0b;
+    padding:0 20px;
+    color:#e0e0e0;
+    border-top:1px solid rgba(212,175,55,0.3);
+    transition:max-height .3s ease;
+  }
+  .accordion-content p{
+    padding:15px 0;
+    margin:0;
+    line-height:1.6;
+  }
 </style>
-
 </head>
 <body>
 
@@ -69,7 +95,6 @@
 
 <main class="page">
 
-<!-- HERO -->
 <section class="hero hero-inner fade-up">
   <div class="hero-content">
     <h1>Free Perks, Rules & Exclusions</h1>
@@ -91,7 +116,6 @@
         <li><strong>Limit: one perk per household per month</strong></li>
       </ul>
 
-      <!-- Social buttons -->
       <div style="margin:14px 0 16px; display:flex; flex-wrap:wrap; gap:10px;">
         <a class="btn ghost" href="https://instagram.com/hammerbrickhome" target="_blank">Instagram</a>
         <a class="btn ghost" href="https://facebook.com/hammerbrickhome" target="_blank">Facebook</a>
@@ -99,20 +123,13 @@
         <a class="btn ghost" href="https://youtube.com/@hammerbrickhome" target="_blank">YouTube</a>
       </div>
 
-      <!-- Join button -->
-      <a class="btn"
-        href="mailto:Hammerbrickhome@gmail.com?subject=Join%20Hammer%20Brick%20Membership&body=Full%20Name:%0AService%20Address:%0APhone:%0AEmail:%0APlatforms%20You%20Follow%20Us%20On:%0A">
-        ✨ Join the Membership (Free)
-      </a>
-
+      <a class="btn" href="mailto:Hammerbrickhome@gmail.com?subject=Join%20Hammer%20Brick%20Membership&body=Full%20Name:%0AService%20Address:%0APhone:%0AEmail:%0APlatforms%20You%20Follow%20Us%20On:%0A">✨ Join the Membership (Free)</a>
       <p class="muted" style="margin-top:6px;">You may also scan the QR code below.</p>
     </div>
 
-    <!-- QR -->
     <div class="qr-block" style="text-align:center;">
       <h3>Scan to Join</h3>
-      <img src="images/qr-hammerbrick-membership.png"
-           style="width:150px;height:150px;background:#fff;padding:8px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.5);">
+      <img src="images/qr-hammerbrick-membership.png" style="width:150px;height:150px;background:#fff;padding:8px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.5);">
       <p class="muted" style="margin-top:6px;">Instant pre-filled email form.</p>
     </div>
   </div>
@@ -123,192 +140,133 @@
   <h2>Perks Menu (Choose One Per Month)</h2>
 
   <div class="rules-scroll">
-
     <ol>
-      <li><strong>Members-Only “Text a Pro” (1 question/month)</strong> — Send 1 photo + 1 question. Get expert feedback with next steps.</li>
-
-      <li><strong>Mini Gutter Cleaning</strong> — Up to 40 ft, first story only, ladder-safe access only. No guard removal or full-system flushing.</li>
-
-      <li><strong>Steps / Walkway Power Wash</strong> — Up to ~60 sq ft. Removes dirt/grime only. No deep stain restoration.</li>
-
-      <li><strong>Lawn Mowing (Trim & Blow)</strong> — Up to 2,000 sq ft. Includes edging + debris blow-off.</li>
-
-      <li><strong>Minor Paint Touch-Up</strong> — Up to 10 ft trims/frames. Customer supplies matching paint.</li>
-
-      <li><strong>Exterior Window Shine (Mini)</strong> — Up to 4 exterior windows, ground level only.</li>
-
-      <li><strong>Patio/Walkway Weed Pull</strong> — 80–100 sq ft surface-level weeds (no chemicals).</li>
-
-      <li><strong>Seasonal Snow Clear (Mini)</strong> — Front steps + main walkway for snowfall under 6".</li>
-
-      <li><strong>“10-Minute Fix” Handy Help</strong> — Tighten 3 knobs/hinges, fix a latch, install a doorstop, etc.</li>
-
-      <li><strong>Front Entry Refresh</strong> — Sweep/blow, cobweb removal, straighten décor, clean handle.</li>
-
-      <li><strong>Exterior Safety Snapshot</strong> — 5-minute look at steps, railings, walkway for safety notes.</li>
-
-      <li><strong>Mailbox / House Number Tighten</strong> — Tighten screws, straighten numbers, light fixes.</li>
-
-      <li><strong>VIP Homeowner Reminder Setup</strong> — We set automated reminders for filters, winterizing, etc.</li>
-
-      <li><strong>Curb Appeal Audit (Quick)</strong> — We take 3 photos and text improvement ideas.</li>
-
-      <li><strong>Small Tool Courtesy Loan (24 hrs)</strong> — Borrow 1 tool (stud finder, level, screwdriver, etc.).</li>
-
-      <li><strong>Seasonal Maintenance Checklist</strong> — Custom checklist based on home age & season.</li>
-
-      <li><strong>Color & Style Snapshot</strong> — Quick advice on paint/masonry colors (not full design service).</li>
-
-      <li><strong>Project Vault Setup</strong> — Digital folder for your home photos, before/after tracking.</li>
-
-      <li><strong>“Pre-Listing” Curb Check</strong> — Quick exterior suggestions if preparing home for sale.</li>
-
-      <li><strong>Storm Check Lite</strong> — After storms, we inspect 1–2 areas from ground level.</li>
-
-      <li><strong>Holiday Entry Prep (Mini)</strong> — Tidy front entry + basic décor straightening.</li>
-
-      <li><strong>Driveway/Walkway Stain Lookover</strong> — Identify stains and provide DIY cleaning suggestions.</li>
-
-      <li><strong>Priority Call-Back Line</strong> — Faster response for estimates & small repairs.</li>
-
-      <li><strong>Mini DIY Coaching (5–10 minutes)</strong> — Quick on-site or video guidance for small tasks.</li>
-
-      <li><strong>“Golden Ticket” Surprise Upgrade</strong> — Once in a while, a visit gets a bonus mini-perk.</li>
-<li><strong>Mini Home Energy Efficiency Scan</strong> — Visual check for draft points, door sweeps, and inefficient bulbs with simple improvement suggestions.</li>
-
-<li><strong>Kitchen Flow & Function Check</strong> — Identify tight spots, bad workflow zones, and give 2–3 improvement recommendations.</li>
-
-<li><strong>Bathroom Ventilation & Moisture Check</strong> — Quick look for humidity buildup, weak fan airflow, or moisture stains with prevention tips.</li>
-
-<li><strong>Front Porch/Entry Light Temperature Match</strong> — Help choose correct bulb temperatures for a cleaner, newer nighttime look.</li>
-
-<li><strong>Exterior Hardware Shine Check</strong> — Inspect mailbox, house numbers, handles, and doorbells for alignment or looseness.</li>
-
-<li><strong>Fence & Gate “Quiet Fix” Check</strong> — Lubricate 1 squeaky hinge OR realign 1 loose latch (no replacements).</li>
-
-<li><strong>DIY Tool Shopping List (Custom)</strong> — We build a list of the 10 essential tools your home should have—no overspending.</li>
-
-<li><strong>“What Will This Cost?” Price Guidance</strong> — Give realistic price ranges so you don’t get scammed by bad contractors.</li>
-
-<li><strong>Mini Driveway Condition Snapshot</strong> — Quick look for cracks, dips, and edge wear with maintenance suggestions.</li>
-
-<li><strong>Patio / Yard Lighting Idea Snapshot</strong> — Give simple ideas for solar path lights, accent lighting, or LEDs.</li>
-
-<li><strong>Small Closet Optimization Ideas</strong> — Suggest hooks, baskets, and layout changes for 2× better storage.</li>
-
-<li><strong>Trash Storage & Bin Area Check</strong> — Look for pest issues or smell problems and suggest fixes.</li>
-
-<li><strong>Basic Safety Device Check</strong> — Confirm visible smoke alarms, CO detectors, and extinguisher access (no testing).</li>
-
-<li><strong>Garden Hose & Spigot Condition Check</strong> — Look for leaks, loose bibs, and poor water pressure sources.</li>
-
-<li><strong>Mini Fridge Vent & Coil Dust Check</strong> — Spot airflow blockage or dust buildup for cooling efficiency.</li>
-
-<li><strong>Window Screen Quick Check</strong> — Inspect 1–2 screens for gaps or tears with DIY fix suggestions.</li>
-
-<li><strong>Pest Entry Point Lookover (Exterior Only)</strong> — Scan foundation and siding bottoms for small rodent gaps.</li>
-
-<li><strong>Storage Rack Stability Check</strong> — Tighten screws on a wobbly rack or recommend reinforcement.</li>
-
-<li><strong>Dryer Vent Exterior Check (Ground Level)</strong> — Ensure flap moves and no visible lint blockage.</li>
-
-<li><strong>Doorbell / Camera Mount Check</strong> — Confirm the unit is secure, angled correctly, and not pulling loose.</li>
-
-<li><strong>Mini Paint Color Matching Advice</strong> — Suggest closest modern paint color based on your photos.</li>
-
-<li><strong>Annual Project Budget Planning</strong> — Map out price ranges and best seasons for 3 upcoming projects.</li>
-
-<li><strong>Mini Landscape Shape-Up Advice</strong> — Give ideas to shape 1 bush/hedge or improve 1 flowerbed.</li>
-
-<li><strong>Garage / Shed Airflow Advice</strong> — Identify moisture or poor ventilation spots with simple solutions.</li>
-
-<li><strong>Hidden Water Risk Lookover</strong> — Check under 1 sink, behind toilet, and by the water heater for early leak signs.</li>
-
-
-
+      <li><strong>Members-Only “Text a Pro”</strong> — Send 1 photo + 1 question. Get expert feedback.</li>
+      <li><strong>Mini Gutter Cleaning</strong> — Up to 40 ft, first story only.</li>
+      <li><strong>Steps / Walkway Power Wash</strong> — Up to ~60 sq ft.</li>
+      <li><strong>Lawn Mowing</strong> — Up to 2,000 sq ft.</li>
+      <li><strong>Paint Touch-Up</strong> — Trim/frames only.</li>
+      <li><strong>Exterior Window Shine</strong> — 4 windows.</li>
+      <li><strong>Patio Weed Pull</strong> — 80–100 sq ft.</li>
+      <li><strong>Seasonal Snow Clear</strong> — Under 6" snowfall.</li>
+      <li><strong>10‑Minute Fix</strong> — Tighten knobs/hinges.</li>
+      <li><strong>Front Entry Refresh</strong> — Clean + tidy.</li>
+      <li><strong>Safety Snapshot</strong></li>
+      <li><strong>Mailbox / House Number Tighten</strong></li>
+      <li><strong>VIP Reminder Setup</strong></li>
+      <li><strong>Curb Appeal Audit</strong></li>
+      <li><strong>Tool Courtesy Loan</strong></li>
+      <li><strong>Seasonal Checklist</strong></li>
+      <li><strong>Color & Style Snapshot</strong></li>
+      <li><strong>Project Vault Setup</strong></li>
+      <li><strong>Storm Check Lite</strong></li>
+      <li><strong>Holiday Entry Prep</strong></li>
+      <li><strong>Driveway Stain Lookover</strong></li>
+      <li><strong>Priority Call-Back</strong></li>
+      <li><strong>DIY Coaching</strong></li>
+      <li><strong>Surprise Upgrade</strong></li>
     </ol>
-
-    <p class="muted" style="margin-top:12px;">
-      Perks are light-duty, non-hazard, labor-only, and may adjust based on safety, time, and availability.
-    </p>
   </div>
 </section>
 
-<!-- RULES -->
-<section class="section fade-up">
-  <h2>Rules & Exclusions</h2>
+<!-- NEW ACCORDION RULES -->
+<section class="rules-accordion-section fade-up">
+  <h2 class="rules-accordion-title">Rules & Exclusions</h2>
 
-  <ul class="bullets">
+  <div class="accordion">
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Eligibility (Homeowners Only):</strong>
-      One perk per household per month within our approved service radius. Proof of address may be required.
-      Perks apply only to owner-occupied residential homes (no rentals, businesses, or vacant properties).
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Eligibility (Homeowners Only)</button>
+      <div class="accordion-content">
+        <p>One perk per household per month. Must be owner‑occupied. No rentals, businesses, or vacant properties. Proof of address may be required.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Light-Duty Tasks Only:</strong>
-      All perks are simple, basic, non-technical tasks designed to be completed in under one hour.
-      No full installations, major repairs, replacements, demolition, or anything requiring permits or licensing beyond basic handyman work.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Light‑Duty Tasks Only</button>
+      <div class="accordion-content">
+        <p>All perks are small, quick, non‑technical tasks that can be performed safely in under one hour.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Safety Limitations:</strong>
-      No hazardous work, roof access, ladders over 6 ft, gas lines, live electrical, structural modifications,
-      pest removal, mold remediation, chemicals, or heavy lifting.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Safety Limitations</button>
+      <div class="accordion-content">
+        <p>No ladders over 6 ft, live electrical, gas, pests, chemicals, roof access, or hazardous work.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Condition & Scope Check:</strong>
-      If a perk is unsafe, inaccessible, weather-restricted, or larger than allowed, it will be paused.
-      A written paid estimate may be offered instead. Hammer Brick & Home may decline any perk that cannot be performed safely or within limits.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Condition & Scope Check</button>
+      <div class="accordion-content">
+        <p>If a perk is unsafe or larger than allowed, it may be declined and a paid estimate offered.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Weather & Scheduling:</strong>
-      Outdoor perks depend on weather, temperature, and daylight. Monthly appointments are limited and
-      not guaranteed. Some perks may require rescheduling due to conditions.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Weather & Scheduling</button>
+      <div class="accordion-content">
+        <p>Outdoor perks may be postponed due to weather. Monthly availability is limited.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Access Requirements:</strong>
-      Homeowners must ensure clear, safe access to the work area. This includes moving vehicles,
-      unlocking gates, removing hazards, securing pets, and providing safe pathways.
-      Parking/dumpster fees (if needed) are the homeowner’s responsibility.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Access Requirements</button>
+      <div class="accordion-content">
+        <p>Homeowners must provide safe access, move pets, unlock gates, and clear hazards.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Tools & Materials:</strong>
-      Perks include labor only. If materials are required (paint, cleaners, bulbs, hardware, etc.),
-      the homeowner must supply them unless the perk specifically says otherwise.
-      No tool drop-offs or store pickups.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Tools & Materials</button>
+      <div class="accordion-content">
+        <p>Labor is included. Homeowner supplies any required materials unless noted.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">No Liability for Pre-Existing Issues:</strong>
-      We are not responsible for hidden damage, aging materials, loose fixtures, or fragile items
-      that may worsen during normal light-duty work. Perks are voluntary courtesy services.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">No Liability for Pre‑Existing Issues</button>
+      <div class="accordion-content">
+        <p>We are not responsible for old, fragile, or damaged items that worsen during normal work.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Photos & Documentation:</strong>
-      Basic before/after photos may be taken for our records unless you request an opt-out in writing before the visit begins.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Photos & Documentation</button>
+      <div class="accordion-content">
+        <p>Basic before/after photos may be taken for records unless you opt out in advance.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Fair Use Policy:</strong>
-      Perks may not be transferred, sold, combined, banked for future months, or used repeatedly on the same issue.
-      Abuse of the program may result in removal from membership.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Fair Use Policy</button>
+      <div class="accordion-content">
+        <p>Perks may not be combined, sold, saved for later, or used repeatedly on the same issue.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Monthly Giveaways & Drawings:</strong>
-      Hammer Brick & Home LLC may offer <strong>two (2) free member drawings per month</strong>.
-      Prizes may include mini-services, upgrades, or seasonal perks.
-      Winners must live within our service radius.  
-      Prizes hold no cash value and cannot be refunded, exchanged, or transferred.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Monthly Giveaways (2 per Month)</button>
+      <div class="accordion-content">
+        <p>Winners must live in our service area. No cash value. Cannot be transferred.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Right to Modify or End Program:</strong>
-      We reserve the right to update, change, limit, or discontinue any perk or the entire membership program
-      at any time without prior notice. Some perks may be seasonal or availability-based.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Right to Modify or End Program</button>
+      <div class="accordion-content">
+        <p>Hammer Brick & Home LLC may update or discontinue perks at any time.</p>
+      </div>
+    </div>
 
-    <li><strong style="color:#f5d89b;font-weight:900;">Final Interpretation:</strong>
-      All perks are provided at our discretion.  
-      The latest version of these rules on this page overrides ANY older version shared online, verbally, or in print.
-    </li>
+    <div class="accordion-item">
+      <button class="accordion-header">Final Interpretation</button>
+      <div class="accordion-content">
+        <p>The latest version on this page overrides all older versions, printed or verbal.</p>
+      </div>
+    </div>
 
-  </ul>
+  </div>
 </section>
 
 </main>
@@ -318,21 +276,16 @@
   <div>Staten Island · NYC · Licensed & Insured · EPA RRP Lead-Safe Certified</div>
 </footer>
 
-<!-- Chat -->
-<div class="chat-bubble">
-  <button class="chat-toggle">💬 Chat</button>
-  <div class="chat-modal">
-    <div class="chat-title">Talk to Hammer Brick & Home</div>
-    <a class="btn" target="_blank" href="https://wa.me/19295955300">WhatsApp</a>
-    <a class="btn ghost" href="sms:+19295955300">Text Message</a>
-    <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com">Email</a>
-  </div>
-</div>
-
-<script src="script.js"></script>
+<script>
+document.querySelectorAll(".accordion-header").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    btn.classList.toggle("active");
+    let content=btn.nextElementSibling;
+    if(content.style.maxHeight){content.style.maxHeight=null;}else{content.style.maxHeight=content.scrollHeight+"px";}
+  });
+});
+</script>
 <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
 </body>
 </html>
-
-
