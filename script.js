@@ -175,8 +175,9 @@ async function detectImages() {
 
   const checks = candidates.map(async file => {
     try {
-      const res = await fetch(`images/${file}`, { method: 'HEAD' });
-      if (res.ok) found.push(file);
+     const res = await fetch(`images/${file}`, { method: 'GET' });
+if (res.ok) found.push(file);
+
     } catch (e) {}
   });
 
