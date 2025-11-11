@@ -527,5 +527,126 @@ body{
 }
 
 
+/* Centered row wrapper for load-more buttons */
+.loadmore-row{
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Gold button (shared) */
+.gold-btn {
+  display: inline-block;
+  padding: 14px 34px;
+  background: linear-gradient(135deg, #e9c46a, #d4af37);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.25s ease;
+  user-select: none;
+}
+.gold-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+
+/* Prevent cut-off; bigger tiles on desktop */
+.compare-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  width:100%;
+}
+.compare-item{
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+  background:#111;
+  box-shadow: var(--shadow-soft);
+}
+.compare-item img.before-img,
+.compare-item img.after-img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.compare-item .after-wrap{
+  position:absolute;
+  top:0; left:0;
+  width:50%;
+  height:100%;
+  overflow:hidden;
+}
+
+/* Golden slider */
+.compare-item .slider-control{
+  position:absolute;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:75%;
+  appearance:none;
+  height:6px;
+  background:#d4af37;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:10;
+}
+.compare-item .slider-control::-webkit-slider-thumb{
+  appearance:none;
+  height:20px; width:20px;
+  background:#e9c46a;
+  border-radius:50%;
+  border:2px solid #000;
+  cursor:pointer;
+}
+.compare-item .slider-control::-moz-range-thumb{
+  height:20px; width:20px;
+  background:#e9c46a;
+  border-radius:50%;
+  border:2px solid #000;
+  cursor:pointer;
+}
+
+/* Labels */
+.compare-label{
+  position:absolute;
+  top:10px;
+  padding:4px 10px;
+  border-radius:999px;
+  background: rgba(0,0,0,.65);
+  font-size:11px;
+  color:#fff;
+  z-index:10;
+}
+.compare-label.right{ right:10px; left:auto; }
+.compare-label:not(.right){ left:10px; }
+
+/* Golden bold project names under cards */
+.compare-caption{
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
+  color:#d4af37;
+  margin:10px 0 15px 0;
+  text-shadow:0 0 10px rgba(212,175,55,0.35);
+}
+
+/* Photo grid keeps your existing style; just ensure spacing */
+.gallery-grid{
+  display:grid;
+  gap:15px;
+}
+.gallery-grid img{
+  width:100%;
+  border-radius:10px;
+  cursor:pointer;
+  transition:.25s ease;
+}
+.gallery-grid img:hover{ transform: scale(1.02); }
 
 
