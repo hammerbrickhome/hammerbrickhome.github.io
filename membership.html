@@ -8,79 +8,57 @@
 <link rel="icon" href="images/hero.PNG">
 <link rel="stylesheet" href="style.css">
 
-<!-- Open Graph -->
-<meta property="og:title" content="Perks, Rules & Exclusions — Hammer Brick & Home LLC">
-<meta property="og:description" content="Luxury membership perks with rules, exclusions & QR signup.">
-<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
-<meta property="og:type" content="website">
-
-<!-- Local page-only fixes (fonts + scroll box) -->
+<!-- Page-only enhancements -->
 <style>
-  /* Bigger type just for membership page */
-  .section h2{font-size:32px !important; letter-spacing:.3px; font-weight:900}
+  .section h2{font-size:32px !important; font-weight:900; letter-spacing:.3px}
   .bullets, .bullets li{font-size:16px !important; line-height:1.6 !important}
   .muted{font-size:14px !important}
   .btn{font-size:15px !important; padding:12px 24px !important; border-radius:100px !important}
 
-  /* Join grid responsive */
-  .rules-join-grid{display:grid; grid-template-columns:minmax(0,3fr) minmax(220px,1.6fr); gap:22px}
-  @media (max-width:860px){ .rules-join-grid{grid-template-columns:1fr} }
-
-  /* Perks scroll area — real scrolling + taller box */
+  /* Scroll box fix */
   .rules-scroll{
-    max-height: 560px !important;
-    overflow-y: auto !important;
-    padding: 16px !important;
-    background: rgba(5,10,18,.90) !important;
-    border-radius: 18px !important;
-    border: 1px solid rgba(255,255,255,.12);
-    font-size: 16px !important;
-    line-height: 1.6 !important;
+    max-height:560px !important;
+    overflow-y:auto !important;
+    padding:16px !important;
+    background:rgba(5,10,18,.92) !important;
+    border-radius:18px !important;
+    border:1px solid rgba(255,255,255,.12);
+    font-size:16px !important;
+    line-height:1.6 !important;
   }
-  .rules-scroll ol{margin-left: 1.25rem}
-  .rules-scroll li{margin: 8px 0}
-  /* nice scrollbar */
+  .rules-scroll ol{margin-left:1.25rem}
+  .rules-scroll li{margin:10px 0}
+
+  /* Gold + Bold perk titles */
+  .rules-scroll strong{color:#f5d89b; font-weight:900}
+
+  /* Scrollbar */
   .rules-scroll::-webkit-scrollbar{width:8px}
   .rules-scroll::-webkit-scrollbar-thumb{background:#f5d89b;border-radius:10px}
-  .rules-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,.10)}
+  .rules-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,.1)}
 </style>
 
-<!-- JSON-LD -->
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"HomeAndConstructionBusiness",
- "name":"Hammer Brick & Home LLC",
- "url":"https://www.hammerbrickhome.com/",
- "image":"https://www.hammerbrickhome.com/images/hero.PNG",
- "telephone":"+1-929-595-5300",
- "priceRange":"$$",
- "address":{"@type":"PostalAddress","addressLocality":"Staten Island","addressRegion":"NY","addressCountry":"US"},
- "areaServed":["Staten Island","Brooklyn","Queens","Manhattan","NJ (select)"],
- "knowsAbout":["masonry","pavers","remodeling","painting","power washing"],
- "additionalProperty":[{"@type":"PropertyValue","name":"NYC HIC","value":"21311291"}]
-}
-</script>
 </head>
 <body>
 
-<header class="topbar" role="banner">
+<header class="topbar">
   <div class="topbar-inner">
-    <a class="brand-lockup" href="index.html" aria-label="Hammer Brick & Home LLC — Home">
-      <img class="brand-logo" src="images/hero.PNG" alt="Hammer Brick & Home LLC logo">
+    <a class="brand-lockup" href="index.html">
+      <img class="brand-logo" src="images/hero.PNG">
       <div class="brand-text">
-        <div class="brand-name">Hammer Brick &amp; Home LLC</div>
-        <div class="brand-sub">Luxury Remodeling &amp; Masonry · HIC #21311291 · Licensed &amp; Insured</div>
+        <div class="brand-name">Hammer Brick & Home LLC</div>
+        <div class="brand-sub">Luxury Remodeling & Masonry · HIC #21311291 · Licensed & Insured</div>
       </div>
     </a>
-    <button class="nav-toggle" aria-label="Open menu">☰</button>
-    <nav class="main-nav" aria-label="Primary">
+    <button class="nav-toggle">☰</button>
+
+    <nav class="main-nav">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="services.html">Services</a>
       <a href="gallery.html">Gallery</a>
       <a href="pricing.html">Pricing</a>
-      <a href="membership.html" aria-current="page">Perks &amp; Rules</a>
+      <a href="membership.html" aria-current="page">Perks & Rules</a>
       <a href="contact.html">Contact</a>
       <a class="nav-call" href="tel:+19295955300">📞 929-595-5300</a>
     </nav>
@@ -91,112 +69,147 @@
 
 <main class="page">
 
-  <!-- HERO -->
-  <section class="hero hero-inner fade-up">
-    <div class="hero-content">
-      <h1>Free Perks, Rules &amp; Exclusions</h1>
-      <p>Our loyalty program is designed to delight serious homeowners, protect our crew, and keep expectations crystal clear.</p>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="hero hero-inner fade-up">
+  <div class="hero-content">
+    <h1>Free Perks, Rules & Exclusions</h1>
+    <p>Our loyalty program is designed to delight real homeowners, protect our crew, and keep expectations crystal clear.</p>
+  </div>
+</section>
 
-  <!-- HOW TO JOIN -->
-  <section class="section fade-up">
-    <h2>How to Join (Free)</h2>
-    <div class="rules-join-grid">
-      <div>
-        <ul class="bullets">
-          <li>Subscribe to our email or text list</li>
-          <li>Follow at least two of Instagram, Facebook, TikTok, YouTube</li>
-          <li>Live within our Staten Island + approved NYC radius</li>
-          <li>Provide full name, address, phone, and email</li>
-          <li>Limit: <strong>one perk per household per month</strong>, non-transferable</li>
-        </ul>
+<!-- JOIN SECTION -->
+<section class="section fade-up">
+  <h2>How to Join (Free)</h2>
 
-        <!-- Social buttons (kept) -->
-        <div style="margin:14px 0 16px; display:flex; flex-wrap:wrap; gap:10px;">
-          <a class="btn ghost" href="https://instagram.com/hammerbrickhome" target="_blank" rel="noopener">Instagram</a>
-          <a class="btn ghost" href="https://facebook.com/hammerbrickhome" target="_blank" rel="noopener">Facebook</a>
-          <a class="btn ghost" href="https://www.tiktok.com/@hammerbrickhome" target="_blank" rel="noopener">TikTok</a>
-          <a class="btn ghost" href="https://youtube.com/@hammerbrickhome" target="_blank" rel="noopener">YouTube</a>
-        </div>
+  <div class="rules-join-grid">
+    <div>
+      <ul class="bullets">
+        <li>Subscribe to our email or text list</li>
+        <li>Follow at least two of Instagram, Facebook, TikTok, YouTube</li>
+        <li>Live within our Staten Island + approved NYC radius</li>
+        <li>Provide full name, address, phone, and email</li>
+        <li><strong>Limit: one perk per household per month</strong></li>
+      </ul>
 
-        <!-- Join/Subscribe button (kept) -->
-        <a class="btn" href="mailto:Hammerbrickhome@gmail.com?subject=Join%20Hammer%20Brick%20%26%20Home%20Membership&body=Full%20Name:%0AService%20Address:%0APhone:%0AEmail:%0APlatforms%20You%20Follow%20Us%20On:%0A">
-          ✨ Join the Membership (Free)
-        </a>
-        <p class="muted" style="margin-top:6px">You can also scan the QR code to open a pre-filled email.</p>
+      <!-- Social buttons -->
+      <div style="margin:14px 0 16px; display:flex; flex-wrap:wrap; gap:10px;">
+        <a class="btn ghost" href="https://instagram.com/hammerbrickhome" target="_blank">Instagram</a>
+        <a class="btn ghost" href="https://facebook.com/hammerbrickhome" target="_blank">Facebook</a>
+        <a class="btn ghost" href="https://www.tiktok.com/@hammerbrickhome" target="_blank">TikTok</a>
+        <a class="btn ghost" href="https://youtube.com/@hammerbrickhome" target="_blank">YouTube</a>
       </div>
 
-      <div class="qr-block" style="text-align:center;">
-        <h3>Scan to Join</h3>
-        <img src="images/qr-hammerbrick-membership.png" alt="Scan to join membership" style="width:150px;height:150px;background:#fff;padding:8px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.5);">
-        <p class="muted" style="margin-top:6px;">Instant pre-filled email form.</p>
-      </div>
-    </div>
-  </section>
+      <!-- Join button -->
+      <a class="btn"
+        href="mailto:Hammerbrickhome@gmail.com?subject=Join%20Hammer%20Brick%20Membership&body=Full%20Name:%0AService%20Address:%0APhone:%0AEmail:%0APlatforms%20You%20Follow%20Us%20On:%0A">
+        ✨ Join the Membership (Free)
+      </a>
 
-  <!-- PERKS LIST (1–25) -->
-  <section class="section fade-up">
-    <h2>Perks Menu (Choose One Per Month)</h2>
-    <div class="rules-scroll" id="perksBox">
-      <ol>
-        <li><strong>Members-Only “Text a Pro” (1 question/month)</strong> — Send 1 photo + 1 question. Quick opinion & next steps.</li>
-        <li><strong>Mini Gutter Cleaning</strong> — Up to 40 ft, first story only, ladder-safe access, light debris. No guard removal or leader repair.</li>
-        <li><strong>Steps / Walkway Power Wash</strong> — Up to ~60 sq ft at front entry; light dirt/grime only, no rust/oil stain restoration.</li>
-        <li><strong>Lawn Mowing (Trim & Blow)</strong> — Up to 2,000 sq ft; quick trim and blow-off. No tall field grass or haul-away.</li>
-        <li><strong>Minor Paint Touch-Up</strong> — Up to 10 linear ft trims/frames/rails. Customer supplies matching paint. No full walls/patching.</li>
-        <li><strong>Exterior Window Shine (Mini)</strong> — Up to 4 ground-level front windows, exterior only. No scraping/high glass/staging.</li>
-        <li><strong>Patio/Walkway Weed Pull</strong> — 80–100 sq ft surface weeds by hand. No chemicals or deep-root remediation.</li>
-        <li><strong>Seasonal Snow Clear (Mini)</strong> — Front steps + main walkway, up to 30 ft, under 6". No driveway/heavy ice/emergency dig-out.</li>
-        <li><strong>“10-Minute Fix” Handy Help</strong> — One micro-task: tighten up to 3 knobs/hinges, adjust 1 latch, install 1 doorstop, lube hinge, etc.</li>
-        <li><strong>Front Entry Refresh</strong> — Sweep/blow, cobweb knockdown, mat straightened, handle wiped. A quick “welcome home” reset.</li>
-        <li><strong>Exterior Safety Snapshot</strong> — 5-minute visual look at steps/railings/walkway. Simple texted notes; not a formal inspection.</li>
-        <li><strong>Mailbox / House Number Check</strong> — Tighten screws, straighten existing numbers/box. No new posts or masonry drilling.</li>
-        <li><strong>VIP Homeowner Reminder Setup</strong> — We set phone reminders (filters, gutter checks, winterizing, battery checks, etc.).</li>
-        <li><strong>Curb Appeal Audit (Quick)</strong> — We snap ~3 photos and send high-impact, low-cost suggestions.</li>
-        <li><strong>Small Tool Courtesy Loan (24 hrs)</strong> — Borrow one: stud finder, level, electric screwdriver, or small hand kit. Sign-out required.</li>
-        <li><strong>Seasonal Maintenance Checklist</strong> — Personalized mini checklist (PDF/text) based on home type/age/season.</li>
-        <li><strong>Color & Style Snapshot</strong> — Quick suggestions for paint/trim/masonry colors that fit your home (not full design package).</li>
-        <li><strong>Project Vault Setup</strong> — Private digital photo log of your projects (before/after/progress) for easy planning and proof.</li>
-        <li><strong>“Pre-Listing” Curb Check</strong> — Fast exterior punch-list ideas if you’re planning to sell soon.</li>
-        <li><strong>Storm Check Lite</strong> — After a storm, we visually check 1–2 concern areas from ground level and note issues.</li>
-        <li><strong>Holiday Entry Prep (Mini)</strong> — Tidy front entry, straighten decor, basic safety look at cords/mats (no complex installs).</li>
-        <li><strong>Driveway/Walkway Stain Lookover</strong> — We assess minor stains and suggest DIY cleaning approaches (advice only).</li>
-        <li><strong>Priority Call-Back Line</strong> — Tagged for priority response on estimates and small service calls (not emergency services).</li>
-        <li><strong>Mini DIY Coaching (5–10 minutes)</strong> — On-site or video tip for one small task you want to handle yourself.</li>
-        <li><strong>“Golden Ticket” Surprise Upgrade</strong> — Randomly upgrade a standard perk visit with a bonus mini-service.</li>
-      </ol>
-      <p class="muted" style="margin-top:10px">All perks are light-duty, non-hazard, labor-only and may be adjusted based on schedule, safety, and scope.</p>
+      <p class="muted" style="margin-top:6px;">You may also scan the QR code below.</p>
     </div>
-  </section>
 
-  <!-- RULES & EXCLUSIONS -->
-  <section class="section fade-up">
-    <h2>Rules &amp; Exclusions</h2>
-    <ul class="bullets">
-      <li><strong>Eligibility:</strong> One perk per household per month within our local radius; ID or utility bill may be requested.</li>
-      <li><strong>Scope Limits:</strong> Perks are small, focused tasks (typically under one hour on site).</li>
-      <li><strong>Safety:</strong> No hazardous work, no ladders over 6 ft, no live electrical/gas, no structural changes.</li>
-      <li><strong>Condition Check:</strong> If unsafe or oversized, we’ll pause and provide a written estimate instead.</li>
-      <li><strong>Scheduling:</strong> Limited monthly slots; weather & material availability apply.</li>
-      <li><strong>Access & Prep:</strong> Clear access is required; any parking/dumpster fees are extra.</li>
-      <li><strong>Photos & Documentation:</strong> Before/after photos may be taken unless you opt out in writing.</li>
-      <li><strong>Right to Update:</strong> Program terms may be updated; the latest version on this page controls.</li>
-    </ul>
-  </section>
+    <!-- QR -->
+    <div class="qr-block" style="text-align:center;">
+      <h3>Scan to Join</h3>
+      <img src="images/qr-hammerbrick-membership.png"
+           style="width:150px;height:150px;background:#fff;padding:8px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.5);">
+      <p class="muted" style="margin-top:6px;">Instant pre-filled email form.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PERKS -->
+<section class="section fade-up">
+  <h2>Perks Menu (Choose One Per Month)</h2>
+
+  <div class="rules-scroll">
+
+    <ol>
+      <li><strong>Members-Only “Text a Pro” (1 question/month)</strong> — Send 1 photo + 1 question. Get expert feedback with next steps.</li>
+
+      <li><strong>Mini Gutter Cleaning</strong> — Up to 40 ft, first story only, ladder-safe access only. No guard removal or full-system flushing.</li>
+
+      <li><strong>Steps / Walkway Power Wash</strong> — Up to ~60 sq ft. Removes dirt/grime only. No deep stain restoration.</li>
+
+      <li><strong>Lawn Mowing (Trim & Blow)</strong> — Up to 2,000 sq ft. Includes edging + debris blow-off.</li>
+
+      <li><strong>Minor Paint Touch-Up</strong> — Up to 10 ft trims/frames. Customer supplies matching paint.</li>
+
+      <li><strong>Exterior Window Shine (Mini)</strong> — Up to 4 exterior windows, ground level only.</li>
+
+      <li><strong>Patio/Walkway Weed Pull</strong> — 80–100 sq ft surface-level weeds (no chemicals).</li>
+
+      <li><strong>Seasonal Snow Clear (Mini)</strong> — Front steps + main walkway for snowfall under 6".</li>
+
+      <li><strong>“10-Minute Fix” Handy Help</strong> — Tighten 3 knobs/hinges, fix a latch, install a doorstop, etc.</li>
+
+      <li><strong>Front Entry Refresh</strong> — Sweep/blow, cobweb removal, straighten décor, clean handle.</li>
+
+      <li><strong>Exterior Safety Snapshot</strong> — 5-minute look at steps, railings, walkway for safety notes.</li>
+
+      <li><strong>Mailbox / House Number Tighten</strong> — Tighten screws, straighten numbers, light fixes.</li>
+
+      <li><strong>VIP Homeowner Reminder Setup</strong> — We set automated reminders for filters, winterizing, etc.</li>
+
+      <li><strong>Curb Appeal Audit (Quick)</strong> — We take 3 photos and text improvement ideas.</li>
+
+      <li><strong>Small Tool Courtesy Loan (24 hrs)</strong> — Borrow 1 tool (stud finder, level, screwdriver, etc.).</li>
+
+      <li><strong>Seasonal Maintenance Checklist</strong> — Custom checklist based on home age & season.</li>
+
+      <li><strong>Color & Style Snapshot</strong> — Quick advice on paint/masonry colors (not full design service).</li>
+
+      <li><strong>Project Vault Setup</strong> — Digital folder for your home photos, before/after tracking.</li>
+
+      <li><strong>“Pre-Listing” Curb Check</strong> — Quick exterior suggestions if preparing home for sale.</li>
+
+      <li><strong>Storm Check Lite</strong> — After storms, we inspect 1–2 areas from ground level.</li>
+
+      <li><strong>Holiday Entry Prep (Mini)</strong> — Tidy front entry + basic décor straightening.</li>
+
+      <li><strong>Driveway/Walkway Stain Lookover</strong> — Identify stains and provide DIY cleaning suggestions.</li>
+
+      <li><strong>Priority Call-Back Line</strong> — Faster response for estimates & small repairs.</li>
+
+      <li><strong>Mini DIY Coaching (5–10 minutes)</strong> — Quick on-site or video guidance for small tasks.</li>
+
+      <li><strong>“Golden Ticket” Surprise Upgrade</strong> — Once in a while, a visit gets a bonus mini-perk.</li>
+    </ol>
+
+    <p class="muted" style="margin-top:12px;">
+      Perks are light-duty, non-hazard, labor-only, and may adjust based on safety, time, and availability.
+    </p>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="section fade-up">
+  <h2>Rules & Exclusions</h2>
+
+  <ul class="bullets">
+    <li><strong>Eligibility:</strong> One perk per household per month within local radius; proof of address may be required.</li>
+    <li><strong>Limits:</strong> Tasks are light-duty and typically under one hour on-site.</li>
+    <li><strong>Safety:</strong> No hazardous work, no roofs, no ladders over 6 ft, no gas or live electrical.</li>
+    <li><strong>Condition Check:</strong> Unsafe or oversized tasks will be paused and offered as paid estimates.</li>
+    <li><strong>Scheduling:</strong> Weather & availability apply; limited monthly slots.</li>
+    <li><strong>Access:</strong> Clear access required; parking/dumpster fees extra if needed.</li>
+    <li><strong>Photos:</strong> Before/after photos may be taken unless you request opt-out.</li>
+    <li><strong>Updates:</strong> Terms may change; latest version on this page controls.</li>
+  </ul>
+</section>
 
 </main>
 
 <footer class="site-footer">
-  <div>© <span id="yr"></span> Hammer Brick &amp; Home LLC · NYC HIC #21311291</div>
-  <div>Staten Island · NYC · Licensed &amp; Insured · EPA RRP Lead-Safe Certified</div>
+  <div>© <span id="yr"></span> Hammer Brick & Home LLC · NYC HIC #21311291</div>
+  <div>Staten Island · NYC · Licensed & Insured · EPA RRP Lead-Safe Certified</div>
 </footer>
 
-<!-- Chat (kept) -->
+<!-- Chat -->
 <div class="chat-bubble">
   <button class="chat-toggle">💬 Chat</button>
   <div class="chat-modal">
-    <div class="chat-title">Talk to Hammer Brick &amp; Home</div>
+    <div class="chat-title">Talk to Hammer Brick & Home</div>
     <a class="btn" target="_blank" href="https://wa.me/19295955300">WhatsApp</a>
     <a class="btn ghost" href="sms:+19295955300">Text Message</a>
     <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com">Email</a>
@@ -205,6 +218,8 @@
 
 <script src="script.js"></script>
 <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+
 </body>
 </html>
+
 
