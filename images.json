@@ -11,40 +11,10 @@
       "label": "stone"
     },
     {
-      "before": "job_before.jpg",
-      "after": "job_after.jpg",
+      "before": "job-before.jpg",
+      "after": "job-after.jpg",
       "label": "job"
-    },
-  {
-      "before": "stone2-before.png",
-      "after": "stone2-after.png",
-      "label": "stone"
-    },
-  {
-      "before": "stone2-before.png",
-      "after": "stone2-after.png",
-      "label": "stone"
-    },
-    {
-      "before": "stone2-before.png",
-      "after": "stone2-after.png",
-      "label": "stone"
-    },
-    {
-      "before": "stone2-before.png",
-      "after": "stone2-after.png",
-      "label": "stone"
-    },
-    {
-      "before": "stone2-before.png",
-      "after": "stone2-after.png",
-      "label": "stone"
-    },
-    {
-      "before": "stone2-before.png",
-      "after": "stone2-after.png",
-      "label": "stone"
-    },
-  
+    }
   ]
 }
+
