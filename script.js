@@ -37,11 +37,13 @@ function filterServices() {
 window.filterServices = filterServices;
 
 /* ============================================================
-   ✅ GALLERY PAGE — LOAD gallery.json (UPDATED)
+   ✅ GALLERY PAGE — RANDOM + PAGINATION (8 at a time)
 =============================================================== */
 async function loadGalleryPage() {
   const galleryContainer = document.getElementById('galleryContainer');
   const compareRow = document.getElementById('compareRow');
+  const loadMoreGrid = document.getElementById('loadMoreGrid');
+  const loadMoreBA = document.getElementById('loadMoreBA');
 
   if (!galleryContainer && !compareRow) return;
 
@@ -50,13 +52,37 @@ async function loadGalleryPage() {
     if (!res.ok) return;
     const data = await res.json();
 
-    // ✅ NEW STRUCTURE SUPPORT
-    const grid = data.grid || data.images || [];
-    const pairs = data.pairs || [];
+    let grid = [...(data.grid || data.images || [])];
+    let pairs = [...(data.pairs || [])];
 
-    /* ✅ BEFORE & AFTER SECTION */
-    if (compareRow && pairs.length > 0) {
-      pairs.forEach(p => {
+    // ✅ Shuffle lists for random order
+    grid.sort(() => Math.random() - 0.5);
+    pairs.sort(() => Math.random() - 0.5);
+
+    let gridIndex = 0;
+    let pairIndex = 0;
+
+    /* ✅ Render 8 photo grid images */
+    function renderNextGrid() {
+      const slice = grid.slice(gridIndex, gridIndex + 8);
+      slice.forEach(name => {
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.src = 'images/' + name;
+        img.alt = 'Hammer Brick & Home project photo';
+        img.addEventListener('click', () => openLightbox(img.src));
+        galleryContainer.appendChild(img);
+      });
+
+      gridIndex += slice.length;
+      if (gridIndex >= grid.length) loadMoreGrid.style.display = "none";
+    }
+
+    /* ✅ Render 8 before/after pairs */
+    function renderNextPairs() {
+      const slice = pairs.slice(pairIndex, pairIndex + 8);
+
+      slice.forEach(p => {
         if (!p.before || !p.after) return;
 
         const wrap = document.createElement('div');
@@ -64,11 +90,9 @@ async function loadGalleryPage() {
 
         const b = document.createElement('img');
         b.src = 'images/' + p.before;
-        b.alt = p.label ? p.label + " — Before" : "Before";
 
         const a = document.createElement('img');
         a.src = 'images/' + p.after;
-        a.alt = p.label ? p.label + " — After" : "After";
 
         const lb1 = document.createElement('div');
         lb1.className = 'compare-label';
@@ -92,19 +116,18 @@ async function loadGalleryPage() {
 
         compareRow.appendChild(wrap);
       });
+
+      pairIndex += slice.length;
+      if (pairIndex >= pairs.length) loadMoreBA.style.display = "none";
     }
 
-    /* ✅ PHOTO GRID */
-    if (galleryContainer && grid.length > 0) {
-      grid.forEach(name => {
-        const img = document.createElement('img');
-        img.loading = 'lazy';
-        img.src = 'images/' + name;
-        img.alt = 'Hammer Brick & Home project photo';
-        img.addEventListener('click', () => openLightbox(img.src));
-        galleryContainer.appendChild(img);
-      });
-    }
+    // ✅ Initial load
+    if (galleryContainer) renderNextGrid();
+    if (compareRow) renderNextPairs();
+
+    // ✅ Button actions
+    if (loadMoreGrid) loadMoreGrid.addEventListener("click", renderNextGrid);
+    if (loadMoreBA) loadMoreBA.addEventListener("click", renderNextPairs);
 
   } catch (e) {
     console.error('Gallery load error', e);
@@ -200,5 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadGalleryPage();
   initHomepageBA();
 });
+
 
 
