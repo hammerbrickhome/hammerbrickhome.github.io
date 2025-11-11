@@ -37,7 +37,7 @@ function filterServices() {
 window.filterServices = filterServices;
 
 /* ============================================================
-   ✅ GALLERY PAGE — LOAD gallery.json (UNCHANGED)
+   ✅ GALLERY PAGE — LOAD gallery.json
 =============================================================== */
 async function loadGalleryPage() {
   const galleryContainer = document.getElementById('galleryContainer');
@@ -121,9 +121,9 @@ document.addEventListener('click', e => {
 });
 
 /* ============================================================
-   ✅ HOMEPAGE — AUTO BEFORE & AFTER
-   ✅ Now supports uppercase PNG / JPG
+   ✅ HOMEPAGE — BEFORE & AFTER FROM images.json ONLY
 =============================================================== */
+
 const BA_GRID = document.getElementById('ba-grid');
 const BA_LOADMORE = document.getElementById('ba-loadmore');
 const BA_TEMPLATE = document.getElementById('ba-card');
@@ -131,91 +131,31 @@ const BA_TEMPLATE = document.getElementById('ba-card');
 let allPairs = [];
 let baIndex = 0;
 
-const PREFIXES = [
-  "job", "paver", "masonry", "sidewalk", "stoop", "kitchen",
-  "bath", "yard", "home", "project", "deck", "reno", "stone",
-  "cement", "repair", "bwall", "point", "flag", "concrete"
-];
+/* ✅ Load pairs from images.json */
+async function loadPairsFromJSON() {
+  try {
+    const res = await fetch("images.json", { cache: "no-store" });
+    if (!res.ok) return [];
 
-/* ✅ EXTENSIONS — now includes uppercase */
-function generatePossibleNames() {
-  const names = [];
-  const endings = ["-before", "_before", "-after", "_after"];
-  const exts = [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"];
-
-  PREFIXES.forEach(pre => {
-    endings.forEach(end => {
-      exts.forEach(ext => names.push(`${pre}${end}${ext}`));
-    });
-
-    for (let i = 1; i <= 200; i++) {
-      endings.forEach(end => {
-        exts.forEach(ext => names.push(`${pre}${i}${end}${ext}`));
-      });
-    }
-  });
-
-  return names;
+    const data = await res.json();
+    return data.pairs || [];
+  } catch (e) {
+    console.error("JSON load error", e);
+    return [];
+  }
 }
 
-/* ✅ Detect existing images */
-async function detectImages() {
-  const candidates = generatePossibleNames();
-  const found = [];
-
-  const checks = candidates.map(async file => {
-    try {
-      const res = await fetch(`images/${file}`, { method: 'HEAD' });
-      if (res.ok) found.push(file);
-    } catch (e) {}
-  });
-
-  await Promise.all(checks);
-  return found;
-}
-
-function normalizeName(name) {
-  return name
-    .replace("_before", "-before")
-    .replace("_after", "-after");
-}
-
-function buildPairs(files) {
-  const norm = files.map(f => normalizeName(f));
-  const pairs = [];
-
-  norm.forEach(file => {
-    if (file.includes("-before")) {
-      const after = file.replace("-before", "-after");
-      if (norm.includes(after)) {
-        pairs.push({
-          before: files[norm.indexOf(file)],
-          after: files[norm.indexOf(after)]
-        });
-      }
-    }
-  });
-
-  return pairs;
-}
-
-function shuffle(arr) {
-  return arr.sort(() => Math.random() - 0.5);
-}
-
+/* ✅ Render 6 cards */
 function renderNextSix() {
   const slice = allPairs.slice(baIndex, baIndex + 6);
 
   slice.forEach(pair => {
     const card = BA_TEMPLATE.content.cloneNode(true);
-    card.querySelector('.ba-before').src = 'images/' + pair.before;
-    card.querySelector('.ba-after').src = 'images/' + pair.after;
 
-    const caption = pair.before
-      .replace(/[-_](before|after).*$/i, "")
-      .replace(/[0-9]+$/, "");
+    card.querySelector('.ba-before').src = "images/" + pair.before;
+    card.querySelector('.ba-after').src  = "images/" + pair.after;
 
-    card.querySelector('.ba-caption').textContent = caption;
+    card.querySelector('.ba-caption').textContent = pair.label || "";
 
     const slider = card.querySelector('.ba-slider');
     slider.addEventListener('input', () => {
@@ -229,14 +169,14 @@ function renderNextSix() {
   if (baIndex >= allPairs.length) BA_LOADMORE.style.display = "none";
 }
 
+/* ✅ Initialize homepage */
 async function initHomepageBA() {
   if (!BA_GRID) return;
 
-  const files = await detectImages();
-  allPairs = shuffle(buildPairs(files));
+  allPairs = await loadPairsFromJSON();
 
   if (allPairs.length === 0) {
-    BA_GRID.innerHTML = "<p>No before/after pairs detected.</p>";
+    BA_GRID.innerHTML = "<p>No before/after pairs found.</p>";
     BA_LOADMORE.style.display = "none";
     return;
   }
@@ -245,7 +185,11 @@ async function initHomepageBA() {
   BA_LOADMORE.addEventListener("click", renderNextSix);
 }
 
+/* ============================================================
+   ✅ MASTER INIT
+=============================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   loadGalleryPage();
   initHomepageBA();
 });
+
