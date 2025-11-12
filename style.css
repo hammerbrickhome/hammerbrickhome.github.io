@@ -690,3 +690,73 @@ body{
 .dropdown:focus-within .dropdown-content {
   display: block;
 }
+/* --- Gold & Blue Dropdown Styling --- */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link.dropbtn {
+  color: #f5c400; /* gold text */
+  text-decoration: none;
+  padding: 10px 15px;
+  display: inline-block;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-link.dropbtn:hover,
+.dropdown.show .nav-link.dropbtn {
+  background-color: #1b1b1b; /* dark background when hovered */
+  color: #fff;
+  box-shadow: 0 0 8px rgba(245,196,0,0.6);
+}
+
+/* Dropdown box */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0a0a0a;
+  min-width: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  top: 100%;
+  left: 0;
+  z-index: 9999;
+  border: 1px solid rgba(245,196,0,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  color: #f5c400;
+  text-decoration: none;
+  padding: 12px 18px;
+  display: block;
+  background-color: #0a0a0a;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f5c400;
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
+/* Show dropdown when clicked */
+.dropdown.show .dropdown-content {
+  display: block;
+}
+
+/* Mobile friendly */
+@media (max-width: 768px) {
+  .dropdown-content {
+    position: static;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  .dropdown-content a {
+    padding-left: 25px;
+  }
+}
