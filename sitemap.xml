@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
+  <url><loc>https://www.hammerbrickhome.com/</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/about.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/services.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/gallery.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/reviews.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/pricing.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/membership.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/faq.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/contact.html</loc></url>
+
+  <!-- Borough & Regional Pages -->
+  <url><loc>https://www.hammerbrickhome.com/staten-island.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/brooklyn.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/manhattan.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/queens.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/bronx.html</loc></url>
+  <url><loc>https://www.hammerbrickhome.com/new-jersey.html</loc></url>
+</urlset>
