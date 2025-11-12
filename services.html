@@ -24,7 +24,7 @@
 <meta name="twitter:description" content="Licensed remodeling and masonry services across Staten Island & NYC. HIC #21311291. Masonry, remodeling, painting, power washing, and more.">
 <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-<!-- ✅ Service Schema -->
+<!-- ✅ Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,9 +65,6 @@
 
 <!-- ✅ Inline Styles -->
 <style>
-/* ----------------------------------
-   LUXURY SERVICE BUTTON GRID (NEW)
------------------------------------ */
 .service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -111,17 +108,35 @@
   font-size: 14px;
   color: var(--muted);
 }
+.no-results {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 10px;
+  display: none;
+  transition: opacity .3s ease;
+}
 </style>
 
 <script>
-// ✅ Search Filter
+// ✅ Fixed Grid-Safe Filter + No Results Message
 function filterServices() {
   const input = document.getElementById("serviceSearch").value.toLowerCase();
   const buttons = document.querySelectorAll(".service-button");
+  const noResults = document.getElementById("noResults");
+  let found = false;
+
   buttons.forEach(btn => {
     const txt = btn.textContent.toLowerCase();
-    btn.style.display = txt.includes(input) ? "block" : "none";
+    if (txt.includes(input)) {
+      btn.style.display = ""; // respect grid layout
+      found = true;
+    } else {
+      btn.style.display = "none";
+    }
   });
+
+  noResults.style.display = found ? "none" : "block";
+  noResults.style.opacity = found ? 0 : 1;
 }
 </script>
 </head>
@@ -154,8 +169,6 @@ function filterServices() {
 <a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
 
 <main class="page">
-
-<!-- HERO -->
 <section class="hero hero-inner fade-up">
   <div class="hero-content">
     <h1>Our Licensed Services</h1>
@@ -167,9 +180,10 @@ function filterServices() {
 <section class="section fade-up">
   <label class="search-label" for="serviceSearch">Search Services</label>
   <input id="serviceSearch" class="search-input" placeholder="Type to filter (e.g., pavers, bathroom, sidewalk)..." oninput="filterServices()">
+  <div id="noResults" class="no-results">No matching services found.</div>
 </section>
 
-<!-- MASONRY -->
+<!-- SERVICE SECTIONS -->
 <section class="section fade-up">
   <h2>Masonry & Concrete</h2>
   <div class="service-grid">
@@ -189,7 +203,6 @@ function filterServices() {
   </div>
 </section>
 
-<!-- REMODELING -->
 <section class="section fade-up">
   <h2>Carpentry & Remodeling</h2>
   <div class="service-grid">
@@ -207,7 +220,6 @@ function filterServices() {
   </div>
 </section>
 
-<!-- PAINTING -->
 <section class="section fade-up">
   <h2>Painting & Finishes</h2>
   <div class="service-grid">
@@ -221,7 +233,6 @@ function filterServices() {
   </div>
 </section>
 
-<!-- EXTERIOR CARE -->
 <section class="section fade-up">
   <h2>Exterior Care & Seasonal</h2>
   <div class="service-grid">
@@ -234,12 +245,10 @@ function filterServices() {
   </div>
 </section>
 
-<!-- ROOFING POLICY -->
 <section class="section note-box fade-up">
   <h2>Roofing Policy</h2>
   <p>We perform <strong>safe, accessible roof repairs only</strong>: small shingle fixes, flashing adjustments, and leak tracing. Full roof installations are referred to trusted partners.</p>
 </section>
-
 </main>
 
 <footer class="site-footer">
@@ -262,4 +271,5 @@ function filterServices() {
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>
+
 
