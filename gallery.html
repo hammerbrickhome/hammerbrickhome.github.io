@@ -3,25 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gallery — Hammer Brick & Home LLC</title>
-<meta name="description" content="Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.">
+
+<title>Gallery — Hammer Brick & Home LLC | EPA Lead-Safe Certified Contractor NYC</title>
+
+<meta name="description" content="View Hammer Brick & Home LLC’s real projects — before & after transformations, masonry details, interiors, and exterior work. EPA Lead-Safe Certified Firm (HIC #21311291).">
+<meta name="keywords" content="EPA Lead-Safe Certified Firm, lead safe contractor NYC, masonry gallery Staten Island, pre-1978 home renovations, RRP Certified, Hammer Brick & Home LLC, licensed insured contractor, NYC home improvement gallery, masonry before after NYC">
+
 <link rel="icon" href="images/hero.PNG">
 <link rel="preload" as="image" href="images/hero.PNG">
 <link rel="stylesheet" href="style.css">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Gallery — Hammer Brick & Home LLC">
-<meta property="og:description" content="Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.">
+<meta property="og:title" content="Gallery — Hammer Brick & Home LLC | EPA Lead-Safe Certified Firm">
+<meta property="og:description" content="Before & after projects, masonry details, interiors, and exterior care. EPA Lead-Safe Certified Firm serving Staten Island & NYC.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.hammerbrickhome.com/">
+<meta property="og:url" content="https://www.hammerbrickhome.com/gallery.html">
 <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Gallery — Hammer Brick & Home LLC">
-<meta name="twitter:description" content="Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.">
+<meta name="twitter:title" content="Gallery — Hammer Brick & Home LLC | EPA Lead-Safe Certified Contractor NYC">
+<meta name="twitter:description" content="Licensed & Insured NYC Contractor (HIC #21311291). EPA Lead-Safe Certified Firm for safe renovations & masonry transformations.">
 <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
+<!-- Schema JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -37,29 +42,18 @@
     "addressRegion": "NY",
     "addressCountry": "US"
   },
-  "areaServed": [
-    "Staten Island",
-    "Brooklyn",
-    "Queens",
-    "Manhattan",
-    "NJ (select)"
-  ],
-  "description": "Before & after projects, masonry details, interiors, and exterior care. Auto-loads from gallery.json.",
+  "areaServed": ["Staten Island","Brooklyn","Queens","Manhattan","NJ (select)"],
+  "description": "Gallery of Hammer Brick & Home LLC — EPA Lead-Safe Certified NYC Contractor showcasing before & after work, masonry, remodeling, painting, and exterior restoration.",
   "foundingDate": "2024",
   "openingHours": "Mo-Su 08:00-20:00",
-  "knowsAbout": [
-    "masonry",
-    "pavers",
-    "remodeling",
-    "painting",
-    "power washing"
-  ],
+  "knowsAbout": ["masonry","pavers","remodeling","painting","power washing","lead-safe renovation","EPA RRP certified work"],
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "EPA Lead-Safe Certified Firm",
+    "url": "https://www.epa.gov/lead/renovation-repair-and-painting-program"
+  },
   "additionalProperty": [
-    {
-      "@type": "PropertyValue",
-      "name": "NYC HIC",
-      "value": "21311291"
-    }
+    {"@type": "PropertyValue","name": "NYC HIC","value": "21311291"}
   ]
 }
 </script>
@@ -72,7 +66,7 @@
       <img class="brand-logo" src="images/hero.PNG" alt="Hammer Brick & Home LLC logo">
       <div class="brand-text">
         <div class="brand-name">Hammer Brick &amp; Home LLC</div>
-        <div class="brand-sub">Luxury Remodeling &amp; Masonry · HIC #21311291 · Licensed &amp; Insured</div>
+        <div class="brand-sub">Luxury Remodeling &amp; Masonry · HIC #21311291 · Licensed &amp; Insured · EPA Lead-Safe Certified Firm</div>
       </div>
     </a>
     <button class="nav-toggle" aria-label="Open menu">☰</button>
@@ -96,7 +90,7 @@
 <section class="hero hero-inner fade-up">
   <div class="hero-content">
     <h1>Project Gallery</h1>
-    <p>Real work. Real properties. Before &amp; After shots that show the difference clean prep and true masonry make.</p>
+    <p>See our <strong>EPA Lead-Safe Certified</strong> renovation work — before &amp; after transformations, clean masonry, and fine remodeling projects across NYC and Staten Island.</p>
   </div>
 </section>
 
@@ -117,7 +111,7 @@
   <!-- ✅ GOLD LOAD MORE BUTTON FOR GRID -->
   <button id="loadMoreGrid" class="gold-btn">Load 8 More</button>
 
-  <p class="section-note">Images load automatically from <code>gallery.json</code> so you can update photos without touching HTML.</p>
+  <p class="section-note">Images load automatically from <code>gallery.json</code> for easy updates. All renovation work complies with <strong>EPA Lead-Safe Certified</strong> standards for pre-1978 homes.</p>
 </section>
 
 <!-- ✅ LIGHTBOX -->
@@ -128,7 +122,7 @@
 </main>
 
 <footer class="site-footer">
-  <div>© <span id="yr"></span> Hammer Brick &amp; Home LLC · NYC HIC #21311291</div>
+  <div>© <span id="yr"></span> Hammer Brick &amp; Home LLC · NYC HIC #21311291 · EPA Lead-Safe Certified Firm</div>
   <div>Staten Island · NYC · Licensed &amp; Insured · EPA RRP Lead-Safe Certified</div>
 </footer>
 
@@ -142,9 +136,9 @@
   </div>
 </div>
 
-<script src="script.js"></script>
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
-
+<script src="script.js" defer></script>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>
+
 
