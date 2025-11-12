@@ -648,5 +648,55 @@ body{
   transition:.25s ease;
 }
 .gallery-grid img:hover{ transform: scale(1.02); }
+/* ============================================================
+   ✅ EPA LEAD-SAFE CERTIFICATION BAR (Homepage Section)
+=============================================================== */
+.certifications-bar {
+  text-align: center;
+  margin-top: 28px;
+  padding: 22px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  border: var(--border-soft);
+}
+
+.certifications-bar h3 {
+  color: var(--gold-soft);
+  font-weight: 800;
+  font-size: 17px;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.certifications-bar p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.certifications-bar img {
+  display: block;
+  margin: 10px auto 0;
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 0 8px rgba(231, 191, 99, 0.5));
+}
+
+@media (max-width: 768px) {
+  .certifications-bar {
+    padding: 18px 12px;
+  }
+  .certifications-bar h3 {
+    font-size: 15px;
+  }
+  .certifications-bar p {
+    font-size: 13px;
+  }
+  .certifications-bar img {
+    width: 100px;
+  }
+}
 
 
