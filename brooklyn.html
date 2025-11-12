@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brooklyn Home Improvement — Licensed Remodeling & Masonry | Hammer Brick & Home LLC</title>
+<meta name="description" content="Serving Brooklyn homeowners with precision masonry and luxury remodeling. Licensed & Insured (NYC HIC #21311291). EPA Lead-Safe Certified Firm. Free estimates.">
+<link rel="icon" href="images/hero.PNG">
+<link rel="preload" as="image" href="images/hero.PNG">
+<link rel="stylesheet" href="style.css">
+
+<meta property="og:title" content="Brooklyn Home Improvement — Licensed Remodeling & Masonry | Hammer Brick & Home LLC">
+<meta property="og:description" content="Serving Brooklyn homeowners with precision masonry and luxury remodeling. Licensed & Insured (NYC HIC #21311291). EPA Lead-Safe Certified Firm. Free estimates.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.hammerbrickhome.com/brooklyn.html">
+<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Brooklyn Home Improvement — Licensed Remodeling & Masonry | Hammer Brick & Home LLC">
+<meta name="twitter:description" content="Serving Brooklyn homeowners with precision masonry and luxury remodeling. Licensed & Insured (NYC HIC #21311291). EPA Lead-Safe Certified Firm. Free estimates.">
+<meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "name": "Hammer Brick & Home LLC", "url": "https://www.hammerbrickhome.com/", "image": "https://www.hammerbrickhome.com/images/hero.PNG", "telephone": "+1-929-595-5300", "priceRange": "$$", "areaServed": ["Brooklyn"], "address": {"@type": "PostalAddress", "addressLocality": "Staten Island", "addressRegion": "NY", "addressCountry": "US"}, "identifier": {"@type": "PropertyValue", "name": "NYC HIC", "value": "21311291"}, "hasCredential": {"@type": "EducationalOccupationalCredential", "credentialCategory": "EPA Lead-Safe Certified Firm"}}</script>
+</head>
+<body>
+
+<div id="header-include"></div>
+<a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
+
+<main class="page">
+  <section class="hero hero-inner fade-up">
+    <div class="hero-content">
+      <h1>Brooklyn — Remodeling & Masonry</h1>
+      <p>Experienced with brownstones and row houses — respectful of historic facades, stoops, and tight access. We coordinate permits and building rules.</p>
+      <ul class="trust-pills" role="list" style="margin-top:10px">
+        <li>Licensed & Insured · NYC HIC #21311291</li>
+        <li>EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
+        <li>Clear timelines · Line-item estimates</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section split fade-up">
+    <div>
+      <h2>Popular Services in Brooklyn</h2>
+      <ul class="bullets">
+        <li><strong>Masonry & Concrete:</strong> sidewalks, pavers, stoops, retaining walls, pointing</li>
+        <li><strong>Remodeling & Carpentry:</strong> kitchens, baths, basements, decks, fences</li>
+        <li><strong>Painting & Finishes:</strong> interior/exterior paint, plaster/patch, stucco repair</li>
+        <li><strong>Exterior Care:</strong> soft-wash, gutter cleaning, seasonal maintenance</li>
+      </ul>
+    </div>
+    <div class="accent-card">
+      <h3>Why Choose Us</h3>
+      <ul class="bullets">
+        <li>Precision prep and clean edges</li>
+        <li>White‑glove cleanup</li>
+        <li>Respectful, background‑checked crew</li>
+        <li>Permit guidance & building rules compliance</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section note-box fade-up">
+    <h2>Ready to Start?</h2>
+    <p>Text photos, call for a walkthrough, or send plans — we’ll reply quickly with a clear, professional proposal.</p>
+    <div class="cta-actions">
+      <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
+      <a class="btn ghost" href="contact.html">Request a Quote</a>
+    </div>
+  </section>
+</main>
+
+<div id="cta-include"></div>
+<div id="footer-include"></div>
+
+<div class="chat-bubble">
+  <button class="chat-toggle">💬 Chat</button>
+  <div class="chat-modal">
+    <div class="chat-title">Talk to Hammer Brick &amp; Home</div>
+    <a class="btn" target="_blank" href="https://wa.me/19295955300">WhatsApp</a>
+    <a class="btn ghost" href="sms:+19295955300">Text Message</a>
+    <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com">Email</a>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  Promise.all([
+    fetch("header.html").then(r=>r.text()),
+    fetch("contact-cta.html").then(r=>r.text()),
+    fetch("footer.html").then(r=>r.text())
+  ]).then(([h,c,f])=>{
+    document.getElementById("header-include").innerHTML=h;
+    document.getElementById("cta-include").innerHTML=c;
+    document.getElementById("footer-include").innerHTML=f;
+  }).catch(console.error);
+});
+</script>
+</body>
+</html>
