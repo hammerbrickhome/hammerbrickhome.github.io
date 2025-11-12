@@ -1,18 +1,49 @@
-/* ---------------------------
-   ✅ Mobile nav toggle
----------------------------- */
-const navToggle = document.querySelector('.nav-toggle');
-const mainNav = document.querySelector('.main-nav');
+/* ============================================================
+   ✅ HEADER + FOOTER READY HOOKS (works with dynamic include)
+=============================================================== */
+function initHeaderInteractions() {
+  /* --- Mobile nav toggle --- */
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNav = document.querySelector('.main-nav');
+  if (navToggle && mainNav) {
+    navToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('show');
+    });
+  }
 
-if (navToggle && mainNav) {
-  navToggle.addEventListener('click', () => {
-    mainNav.classList.toggle('show');
-  });
+  /* --- Dropdown (Service Areas) toggle --- */
+  const dropbtn = document.querySelector('.dropbtn');
+  const dropdown = document.querySelector('.dropdown');
+  if (dropbtn && dropdown) {
+    dropbtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdown.classList.toggle('show');
+    });
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+  }
+
+  /* --- Chat bubble toggle --- */
+  const chatToggle = document.querySelector('.chat-toggle');
+  const chatModal = document.querySelector('.chat-modal');
+  if (chatToggle && chatModal) {
+    chatToggle.addEventListener('click', () => {
+      chatModal.style.display =
+        chatModal.style.display === 'flex' ? 'none' : 'flex';
+    });
+  }
 }
 
-/* ---------------------------
-   ✅ Chat bubble toggle
----------------------------- */
+/* --- Run once the header/footer are injected --- */
+document.addEventListener('DOMContentLoaded', () => {
+  // Wait a bit for includes to load
+  setTimeout(initHeaderInteractions, 500);
+});
+
 const chatToggle = document.querySelector('.chat-toggle');
 const chatModal = document.querySelector('.chat-modal');
 
