@@ -799,3 +799,130 @@ img[loading="lazy"] {
 img.lazyloaded {
   opacity: 1;
 }
+
+/* ============================================================
+   ⭐ A2-2 HIGH-END METALLIC GOLD SHIMMER
+   Luxury loader for Gallery & Before/After sections
+=============================================================== */
+
+/* Metallic Shimmer Placeholder */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(212,175,55,0.25) 0%,
+    rgba(233,196,106,0.35) 50%,
+    rgba(212,175,55,0.25) 100%
+  );
+  box-shadow: 0 0 18px rgba(212,175,55,0.25);
+}
+
+/* Moving Gold Shine */
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.55) 20%,
+    rgba(255,255,255,0.85) 40%,
+    rgba(255,255,255,0.55) 60%,
+    transparent 100%
+  );
+  animation: metallic-shine 1.6s infinite ease-in-out;
+  opacity: 0.9;
+  border-radius: inherit;
+}
+
+/* Metallic Shine Animation */
+@keyframes metallic-shine {
+  0% {
+    transform: translateX(-120%);
+  }
+  50% {
+    transform: translateX(30%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+/* Fade-in for loaded images */
+img.lazyloaded {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  transition: opacity .4s ease, transform .4s ease;
+}
+
+/* Before images finish loading */
+img[loading="lazy"] {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+/* ============================================================
+   ⭐ GOLD SHIMMER FOR BEFORE/AFTER WRAPPERS
+=============================================================== */
+
+.compare-item,
+.gallery-grid img {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fadeUpGold .5s ease forwards;
+}
+
+@keyframes fadeUpGold {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: brightness(0.7);
+  }
+  80% {
+    filter: brightness(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+}
+
+/* Stronger gold under captions */
+.compare-caption {
+  color: #d4af37 !important;
+  font-weight: 900 !important;
+  text-shadow: 0 0 12px rgba(212,175,55,0.55);
+}
+
+/* ============================================================
+   ⭐ GOLD “LOAD MORE” BUTTON MATCHING SHIMMER
+=============================================================== */
+
+.gold-btn {
+  background: linear-gradient(135deg, #f1d27b, #d4af37);
+  border: none;
+  padding: 14px 34px;
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 12px;
+  color: #111;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 0 10px rgba(212,175,55,0.45);
+}
+
+.gold-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 16px rgba(212,175,55,0.7), 0 0 24px rgba(212,175,55,0.4);
+}
+
+/* Keep buttons centered */
+.loadmore-row {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0 10px;
+}
