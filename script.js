@@ -40,19 +40,18 @@ function initHeaderInteractions() {
 
 /* --- Run once the header/footer are injected --- */
 document.addEventListener('DOMContentLoaded', () => {
-  // Wait a bit for includes to load
   setTimeout(initHeaderInteractions, 500);
 });
 
 const chatToggle = document.querySelector('.chat-toggle');
 const chatModal = document.querySelector('.chat-modal');
-
 if (chatToggle && chatModal) {
   chatToggle.addEventListener('click', () => {
     chatModal.style.display =
       chatModal.style.display === 'flex' ? 'none' : 'flex';
   });
 }
+
 
 /* ---------------------------
    ✅ Service Filter
@@ -67,6 +66,7 @@ function filterServices() {
 }
 window.filterServices = filterServices;
 
+
 /* ============================================================
    ✅ UTIL: shuffle and chunk
 =============================================================== */
@@ -79,18 +79,16 @@ function shuffle(arr) {
   return a;
 }
 
+
 /* ============================================================
-   ✅ GALLERY PAGE — LOAD gallery.json (separate Grid & Pairs)
-   - Shows 8 initially for each
-   - Centered gold "Load 8 more" buttons
-   - Golden slider + labels + golden bold captions
+   ✅ GALLERY PAGE — LOAD gallery.json (galleryGrid + galleryPairs)
 =============================================================== */
 async function loadGalleryPage() {
   const galleryContainer = document.getElementById('galleryContainer');
   const compareRow = document.getElementById('compareRow');
   if (!galleryContainer && !compareRow) return;
 
-  // Create "Load More" rows (centered) without editing your HTML
+  // Make centered Load More buttons dynamically
   const makeLoadMoreRow = (id) => {
     const row = document.createElement('div');
     row.className = 'loadmore-row';
@@ -103,7 +101,6 @@ async function loadGalleryPage() {
     return { row, btn };
   };
 
-  // Insert the button rows right after each grid
   let galleryMore, galleryMoreBtn, compareMore, compareMoreBtn;
   if (galleryContainer) {
     ({ row: galleryMore, btn: galleryMoreBtn } = makeLoadMoreRow('galleryLoadMore'));
@@ -114,7 +111,6 @@ async function loadGalleryPage() {
     compareRow.parentNode.insertBefore(compareMore, compareRow.nextSibling);
   }
 
-  // State for pagination
   let shuffledGrid = [];
   let gridIndex = 0;
   let shuffledPairs = [];
@@ -126,16 +122,17 @@ async function loadGalleryPage() {
     if (!res.ok) return;
 
     const data = await res.json();
-    const grid = Array.isArray(data.grid) ? data.grid : (Array.isArray(data.images) ? data.images : []);
-    const pairs = Array.isArray(data.pairs) ? data.pairs : [];
 
-    // Shuffle so it's “random 8”
+    // 🔥 NEW JSON structure
+    const grid = Array.isArray(data.galleryGrid) ? data.galleryGrid : [];
+    const pairs = Array.isArray(data.galleryPairs) ? data.galleryPairs : [];
+
     shuffledGrid = shuffle(grid);
     shuffledPairs = shuffle(pairs);
 
-    /* =========================
-       PHOTO GRID RENDER
-    ==========================*/
+    /* ---------------------------
+       GRID RENDER
+    ---------------------------- */
     function renderMoreGrid() {
       if (!galleryContainer) return;
       const slice = shuffledGrid.slice(gridIndex, gridIndex + PAGE);
@@ -143,49 +140,44 @@ async function loadGalleryPage() {
         const img = document.createElement('img');
         img.loading = 'lazy';
         img.src = 'images/' + name;
-        img.alt = 'Hammer Brick & Home project photo';
-        img.addEventListener('click', () => openLightbox(img.src));
+        img.alt = 'Project Photo';
+        img.className = 'grid-photo';
+        img.onclick = () => openLightbox(img.src);
         galleryContainer.appendChild(img);
       });
       gridIndex += slice.length;
-
       if (galleryMoreBtn) {
         galleryMoreBtn.style.display = (gridIndex >= shuffledGrid.length) ? 'none' : 'inline-block';
       }
     }
 
-    /* =========================
-       BEFORE/AFTER RENDER (slider)
-    ==========================*/
+
+    /* ---------------------------
+       BEFORE/AFTER RENDER
+    ---------------------------- */
     function buildCompareCard(pair) {
-      // Wrapper
       const wrap = document.createElement('div');
       wrap.className = 'compare-item';
 
-      // Before image
       const beforeImg = document.createElement('img');
       beforeImg.className = 'before-img';
       beforeImg.src = 'images/' + pair.before;
-      beforeImg.alt = (pair.label ? pair.label + ' — ' : '') + 'Before';
 
-      // After wrap + image (starts 50%)
       const afterWrap = document.createElement('div');
       afterWrap.className = 'after-wrap';
       const afterImg = document.createElement('img');
       afterImg.className = 'after-img';
       afterImg.src = 'images/' + pair.after;
-      afterImg.alt = (pair.label ? pair.label + ' — ' : '') + 'After';
       afterWrap.appendChild(afterImg);
 
-      // Labels
       const lbBefore = document.createElement('div');
       lbBefore.className = 'compare-label';
       lbBefore.textContent = 'Before';
+
       const lbAfter = document.createElement('div');
       lbAfter.className = 'compare-label right';
       lbAfter.textContent = 'After';
 
-      // Slider (gold)
       const slider = document.createElement('input');
       slider.type = 'range';
       slider.min = '0';
@@ -202,12 +194,10 @@ async function loadGalleryPage() {
       wrap.appendChild(lbAfter);
       wrap.appendChild(slider);
 
-      // Golden caption below (centered & bold)
       if (pair.label) {
         const caption = document.createElement('div');
         caption.className = 'compare-caption';
         caption.textContent = pair.label;
-        // put caption after card
         const outer = document.createElement('div');
         outer.appendChild(wrap);
         outer.appendChild(caption);
@@ -221,36 +211,31 @@ async function loadGalleryPage() {
       if (!compareRow) return;
       const slice = shuffledPairs.slice(pairsIndex, pairsIndex + PAGE);
       slice.forEach(p => {
-        if (!p || !p.before || !p.after) return;
+        if (!p.before || !p.after) return;
         compareRow.appendChild(buildCompareCard(p));
       });
       pairsIndex += slice.length;
-
       if (compareMoreBtn) {
         compareMoreBtn.style.display = (pairsIndex >= shuffledPairs.length) ? 'none' : 'inline-block';
       }
     }
 
-    // Initial 8 load each (if present)
+    // First load
     if (galleryContainer) renderMoreGrid();
     if (compareRow) renderMorePairs();
 
-    // Button handlers
     if (galleryMoreBtn) galleryMoreBtn.addEventListener('click', renderMoreGrid);
     if (compareMoreBtn) compareMoreBtn.addEventListener('click', renderMorePairs);
-
-    // If no data, hide buttons cleanly
-    if (galleryMoreBtn && shuffledGrid.length <= PAGE) galleryMoreBtn.style.display = 'none';
-    if (compareMoreBtn && shuffledPairs.length <= PAGE) compareMoreBtn.style.display = 'none';
 
   } catch (e) {
     console.error('Gallery load error', e);
   }
 }
 
-/* ---------------------------
-   ✅ Lightbox
----------------------------- */
+
+/* ============================================================
+   ✅ LIGHTBOX
+=============================================================== */
 function openLightbox(src) {
   const lightbox = document.getElementById('lightbox');
   if (!lightbox) return;
@@ -265,9 +250,9 @@ document.addEventListener('click', e => {
   }
 });
 
+
 /* ============================================================
-   ✅ HOMEPAGE — BEFORE & AFTER FROM images.json ONLY
-   (unchanged)
+   ✅ HOMEPAGE — BEFORE & AFTER FROM gallery.json → homePairs
 =============================================================== */
 const BA_GRID = document.getElementById('ba-grid');
 const BA_LOADMORE = document.getElementById('ba-loadmore');
@@ -278,10 +263,12 @@ let baIndex = 0;
 
 async function loadPairsFromJSON() {
   try {
-    const res = await fetch("images.json", { cache: "no-store" });
+    const res = await fetch("gallery.json", { cache: "no-store" });
     if (!res.ok) return [];
     const data = await res.json();
-    return data.pairs || [];
+
+    // 🔥 Homepage now uses "homePairs"
+    return data.homePairs || [];
   } catch (e) {
     console.error("JSON load error", e);
     return [];
@@ -318,6 +305,7 @@ async function initHomepageBA() {
   if (BA_LOADMORE) BA_LOADMORE.addEventListener("click", renderNextSix);
 }
 
+
 /* ============================================================
    ✅ MASTER INIT
 =============================================================== */
@@ -325,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadGalleryPage();
   initHomepageBA();
 });
+
 
 
 
