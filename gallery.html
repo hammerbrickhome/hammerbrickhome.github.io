@@ -83,8 +83,94 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- ⭐ NEW: Gallery Loader (galleryPairs + galleryGrid) -->
+<script>
+function loadGalleryPage() {
+  fetch("gallery.json")
+    .then(res => res.json())
+    .then(data => {
+      /* ---------------------------------------
+         BEFORE & AFTER — galleryPairs
+      --------------------------------------- */
+      const baData = data.galleryPairs;
+      const baContainer = document.getElementById("compareRow");
+      let baLoaded = 0;
+      const baBatch = 8;
+
+      function loadMoreBA() {
+        const slice = baData.slice(baLoaded, baLoaded + baBatch);
+        slice.forEach(item => {
+          const wrapper = document.createElement("div");
+          wrapper.className = "compare-card";
+          wrapper.innerHTML = `
+            <div class="compare-frame">
+              <img src="images/${item.before}" alt="Before">
+              <img src="images/${item.after}" alt="After" class="after-img">
+            </div>
+            <p class="compare-label">${item.label}</p>
+          `;
+          baContainer.appendChild(wrapper);
+        });
+
+        baLoaded += slice.length;
+        if (baLoaded >= baData.length) {
+          document.getElementById("loadMoreBA").style.display = "none";
+        }
+      }
+
+      loadMoreBA();
+      document.getElementById("loadMoreBA").addEventListener("click", loadMoreBA);
+
+
+      /* ---------------------------------------
+         PHOTO GRID — galleryGrid
+      --------------------------------------- */
+      const gridData = data.galleryGrid;
+      const gridContainer = document.getElementById("galleryContainer");
+      let gridLoaded = 0;
+      const gridBatch = 8;
+
+      function loadMoreGrid() {
+        const slice = gridData.slice(gridLoaded, gridLoaded + gridBatch);
+        slice.forEach(src => {
+          const img = document.createElement("img");
+          img.src = "images/" + src;
+          img.alt = "Project Photo";
+          img.className = "grid-photo";
+          img.onclick = () => openLightbox(img.src);
+          gridContainer.appendChild(img);
+        });
+
+        gridLoaded += slice.length;
+        if (gridLoaded >= gridData.length) {
+          document.getElementById("loadMoreGrid").style.display = "none";
+        }
+      }
+
+      loadMoreGrid();
+      document.getElementById("loadMoreGrid").addEventListener("click", loadMoreGrid);
+    })
+    .catch(err => console.error("Gallery load error:", err));
+}
+
+/* ---------------------------------------
+   LIGHTBOX
+--------------------------------------- */
+function openLightbox(src) {
+  const lb = document.getElementById("lightbox");
+  lb.querySelector("img").src = src;
+  lb.classList.add("open");
+}
+document.addEventListener("click", e => {
+  if (e.target.id === "lightbox") {
+    document.getElementById("lightbox").classList.remove("open");
+  }
+});
+</script>
+
 <script src="script.js"></script>
 </body>
 </html>
+
 
 
