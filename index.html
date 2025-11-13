@@ -168,7 +168,7 @@
 <!-- ✅ Footer include -->
 <div id="footer-include"></div>
 
-<!-- ✅ Include loader -->
+<!-- Loader for header/footer -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
@@ -185,7 +185,45 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- ⭐ NEW: Homepage Before/After Loader using gallery.json → homePairs -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("gallery.json")
+    .then(res => res.json())
+    .then(data => {
+      const pairs = data.homePairs; // 🔥 homepage-only section
+      const grid = document.getElementById("ba-grid");
+      const template = document.getElementById("ba-card");
+      let loaded = 0;
+      const batch = 6;
+
+      function loadMore() {
+        const slice = pairs.slice(loaded, loaded + batch);
+        slice.forEach(item => {
+          const card = template.content.cloneNode(true);
+
+          card.querySelector(".ba-before").src = "images/" + item.before;
+          card.querySelector(".ba-after").src = "images/" + item.after;
+          card.querySelector(".ba-caption").textContent = item.label;
+
+          grid.appendChild(card);
+        });
+
+        loaded += slice.length;
+        if (loaded >= pairs.length) {
+          document.getElementById("ba-loadmore").style.display = "none";
+        }
+      }
+
+      loadMore();
+      document.getElementById("ba-loadmore").addEventListener("click", loadMore);
+    })
+    .catch(err => console.error("Before/After load error:", err));
+});
+</script>
+
 <script src="script.js"></script>
 
 </body>
 </html>
+
