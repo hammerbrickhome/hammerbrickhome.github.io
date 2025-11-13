@@ -46,7 +46,7 @@
   ],
 
   "galleryPairs": [
-    { "before": "before-test.png", "after": "after-test.png", "label": "Test Project" },
+    { "before": "before1.jpg", "after": "after1.jpg", "label": "Test Project" },
     { "before": "before5.png", "after": "after5.png", "label": "Entry Steps Rebuild" },
     { "before": "before6.png", "after": "after6.png", "label": "Sidewalk Refresh" }
   ],
