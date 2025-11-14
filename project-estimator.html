@@ -86,6 +86,19 @@
       color:var(--muted);
       font-size:13px;
     }
+    /* Advanced option grouping labels */
+    .adv-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:rgba(231,191,99,.9);
+      margin-bottom:2px;
+    }
+    .adv-subnote{
+      font-size:11px;
+      color:#999;
+      margin-top:4px;
+    }
   </style>
 </head>
 
@@ -114,7 +127,11 @@
           <div class="field-row">
             <label for="est-service">Project Type</label>
             <select id="est-service" required>
-              <option value="masonry">Masonry / Pavers / Concrete</option>
+              <option value="masonry">Masonry · Pavers · Concrete</option>
+              <option value="driveway">Driveway / Parking Area</option>
+              <option value="roofing">Roofing – Shingle / Flat</option>
+              <option value="siding">Siding – Exterior</option>
+              <option value="windows">Windows &amp; Exterior Doors</option>
               <option value="interior-paint">Interior Painting</option>
               <option value="exterior-paint">Exterior Facade / Painting</option>
               <option value="bathroom">Bathroom Remodel</option>
@@ -186,6 +203,146 @@
               <option value="no" selected>No / 1978 or newer / tested negative</option>
               <option value="yes">Yes / Unsure (we assume lead-safe practices)</option>
             </select>
+          </div>
+
+          <!-- ======================
+               ADVANCED: MASONRY / DRIVEWAY
+          ======================= -->
+          <div class="field-row" id="adv-masonry" style="display:none;">
+            <div class="adv-label">Masonry / Driveway Details</div>
+            <label for="masonry-focus">Masonry focus</label>
+            <select id="masonry-focus">
+              <option value="walk-steps">Walkway / Steps / Landing</option>
+              <option value="patio-wall">Patio / Retaining Wall</option>
+              <option value="driveway" selected>Driveway / Parking Area</option>
+            </select>
+
+            <div id="adv-driveway-extra" style="margin-top:8px;">
+              <label for="drive-existing">Existing driveway material</label>
+              <select id="drive-existing">
+                <option value="asphalt">Old asphalt</option>
+                <option value="concrete">Old concrete</option>
+                <option value="pavers">Old pavers / stone</option>
+                <option value="dirt">No driveway (grass / dirt)</option>
+              </select>
+
+              <label for="drive-remove" style="margin-top:8px;">Removal / demo needed?</label>
+              <select id="drive-remove">
+                <option value="none">No, keep most of existing base</option>
+                <option value="partial">Partial tear-out / patch</option>
+                <option value="full">Full tear-out &amp; disposal</option>
+              </select>
+
+              <label for="drive-access" style="margin-top:8px;">Access</label>
+              <select id="drive-access">
+                <option value="standard">Standard front driveway</option>
+                <option value="tight">Tight access / alley</option>
+                <option value="cityrow">City row-house / limited parking</option>
+              </select>
+              <p class="adv-subnote">
+                Driveway demo + disposal and tight access can add significant cost for machinery, labor, and carting.
+              </p>
+            </div>
+          </div>
+
+          <!-- ======================
+               ADVANCED: ROOFING
+          ======================= -->
+          <div class="field-row" id="adv-roof" style="display:none;">
+            <div class="adv-label">Roofing Details</div>
+            <label for="roof-tearoff">Tear-off / existing layers</label>
+            <select id="roof-tearoff">
+              <option value="0">Overlay / minimal tear-off</option>
+              <option value="1" selected>1 existing layer to remove</option>
+              <option value="2">2 layers to remove</option>
+              <option value="3">3+ layers / heavy demo</option>
+            </select>
+
+            <label for="roof-pitch" style="margin-top:8px;">Roof pitch / slope</label>
+            <select id="roof-pitch">
+              <option value="low">Flat / low-slope</option>
+              <option value="medium" selected>Standard pitch</option>
+              <option value="steep">Steep / difficult</option>
+            </select>
+
+            <label for="roof-height" style="margin-top:8px;">Building height</label>
+            <select id="roof-height">
+              <option value="low" selected>1–2 stories</option>
+              <option value="mid">3 stories</option>
+              <option value="high">4+ stories / difficult access</option>
+            </select>
+
+            <p class="adv-subnote">
+              Extra layers, steep pitch, and higher buildings increase labor, protection, and safety setup.
+            </p>
+          </div>
+
+          <!-- ======================
+               ADVANCED: SIDING
+          ======================= -->
+          <div class="field-row" id="adv-siding" style="display:none;">
+            <div class="adv-label">Siding Details</div>
+            <label for="siding-remove">Existing siding to remove</label>
+            <select id="siding-remove">
+              <option value="vinyl">Vinyl / aluminum</option>
+              <option value="wood">Wood clapboard / shakes</option>
+              <option value="stucco">Stucco / EIFS (partial demo)</option>
+            </select>
+
+            <label for="siding-stories" style="margin-top:8px;">Number of stories</label>
+            <select id="siding-stories">
+              <option value="1">1 story</option>
+              <option value="2" selected>2 stories</option>
+              <option value="3">3+ stories</option>
+            </select>
+          </div>
+
+          <!-- ======================
+               ADVANCED: WINDOWS / DOORS
+          ======================= -->
+          <div class="field-row" id="adv-windows" style="display:none;">
+            <div class="adv-label">Windows &amp; Doors</div>
+
+            <label for="window-count">Window openings (total)</label>
+            <input id="window-count" type="number" min="1" step="1" placeholder="e.g., 8">
+
+            <label for="door-count" style="margin-top:8px;">Exterior doors (front/back/patio)</label>
+            <input id="door-count" type="number" min="0" step="1" placeholder="e.g., 2">
+
+            <label for="window-brand" style="margin-top:8px;">Preferred window line</label>
+            <select id="window-brand">
+              <option value="bella">Bella</option>
+              <option value="andersen">Andersen</option>
+              <option value="pella">Pella</option>
+              <option value="builder">Builder-grade / other</option>
+            </select>
+
+            <label for="window-style" style="margin-top:8px;">Style / look</label>
+            <select id="window-style">
+              <option value="standard">Standard</option>
+              <option value="modern">Modern slim-frame</option>
+              <option value="italian">Italian / European-style</option>
+            </select>
+
+            <p class="adv-subnote">
+              Italian / European-style and premium brands usually land higher per opening than builder-grade vinyl.
+            </p>
+          </div>
+
+          <!-- ======================
+               ADVANCED: DESIGN STYLE (KITCHEN/BATH)
+          ======================= -->
+          <div class="field-row" id="adv-style" style="display:none;">
+            <div class="adv-label">Design Style</div>
+            <label for="design-style">Overall style</label>
+            <select id="design-style">
+              <option value="standard">Standard American</option>
+              <option value="modern">Modern / Minimal</option>
+              <option value="italian">Italian Luxury / European</option>
+            </select>
+            <p class="adv-subnote">
+              Italian luxury and high-end European finishes usually require higher budgets for tile, fixtures, and millwork.
+            </p>
           </div>
 
           <!-- ADD-ONS -->
@@ -353,6 +510,32 @@
       const permitEl    = document.getElementById("est-permit");
       const resultBox   = document.getElementById("est-result");
 
+      // Advanced groups
+      const advMasonry  = document.getElementById("adv-masonry");
+      const advRoof     = document.getElementById("adv-roof");
+      const advSiding   = document.getElementById("adv-siding");
+      const advWindows  = document.getElementById("adv-windows");
+      const advStyle    = document.getElementById("adv-style");
+
+      const masonryFocusEl = document.getElementById("masonry-focus");
+      const driveExistingEl = document.getElementById("drive-existing");
+      const driveRemoveEl   = document.getElementById("drive-remove");
+      const driveAccessEl   = document.getElementById("drive-access");
+
+      const roofTearoffEl = document.getElementById("roof-tearoff");
+      const roofPitchEl   = document.getElementById("roof-pitch");
+      const roofHeightEl  = document.getElementById("roof-height");
+
+      const sidingRemoveEl  = document.getElementById("siding-remove");
+      const sidingStoriesEl = document.getElementById("siding-stories");
+
+      const windowCountEl  = document.getElementById("window-count");
+      const doorCountEl    = document.getElementById("door-count");
+      const windowBrandEl  = document.getElementById("window-brand");
+      const windowStyleEl  = document.getElementById("window-style");
+
+      const designStyleEl  = document.getElementById("design-style");
+
       // NYC-leaning ranges (built from national guides + bumped for NYC/North Jersey)
       const SERVICE_CONFIG = {
         "masonry": {
@@ -364,6 +547,17 @@
           perSqHigh: 45,
           minLow: 3500,
           minHigh: 7500,
+          leadSensitive: false
+        },
+        "driveway": {
+          mode: "area",
+          label: "Driveway / parking area (sq. ft.)",
+          minArea: 250,
+          maxArea: 4000,
+          perSqLow: 18,
+          perSqHigh: 38,
+          minLow: 5500,
+          minHigh: 18000,
           leadSensitive: false
         },
         "interior-paint": {
@@ -473,6 +667,39 @@
             }
           }
         },
+        "roofing": {
+          mode: "area",
+          label: "Roof area (sq. ft. of deck)",
+          minArea: 700,
+          maxArea: 5000,
+          perSqLow: 6.5,
+          perSqHigh: 14.5,
+          minLow: 8500,
+          minHigh: 28000,
+          leadSensitive: false
+        },
+        "siding": {
+          mode: "area",
+          label: "Wall area to side (sq. ft.)",
+          minArea: 600,
+          maxArea: 4500,
+          perSqLow: 9,
+          perSqHigh: 22,
+          minLow: 9000,
+          minHigh: 38000,
+          leadSensitive: false
+        },
+        "windows": {
+          mode: "area",
+          label: "Total openings (windows + doors count)",
+          minArea: 3,
+          maxArea: 40,
+          perSqLow: 950,
+          perSqHigh: 2200,
+          minLow: 6000,
+          minHigh: 65000,
+          leadSensitive: false
+        },
         "handyman": {
           mode: "scope",
           leadSensitive: false,
@@ -537,7 +764,8 @@
       };
 
       const SERVICE_LABEL = {
-        "masonry": "Masonry / Pavers / Concrete",
+        "masonry": "Masonry · Pavers · Concrete",
+        "driveway": "Driveway / Parking Area",
         "interior-paint": "Interior Painting",
         "exterior-paint": "Exterior Facade / Painting",
         "bathroom": "Bathroom Remodel",
@@ -545,6 +773,9 @@
         "basement": "Basement Finishing",
         "deck": "Deck / Patio Build or Rebuild",
         "fence": "Fence Install / Replacement",
+        "roofing": "Roofing – Shingle / Flat",
+        "siding": "Siding – Exterior",
+        "windows": "Windows & Exterior Doors",
         "handyman": "Small Repairs / Handyman Visit"
       };
 
@@ -563,11 +794,20 @@
         });
       }
 
+      function resetAdvanced(){
+        advMasonry.style.display = "none";
+        advRoof.style.display    = "none";
+        advSiding.style.display  = "none";
+        advWindows.style.display = "none";
+        advStyle.style.display   = "none";
+      }
+
       function updateVisibility(){
         const svc = serviceEl.value;
         const cfg = SERVICE_CONFIG[svc];
         if (!cfg) return;
 
+        // base area/scope visibility
         if (cfg.mode === "area"){
           sizeRow.style.display  = "";
           scopeRow.style.display = "none";
@@ -581,6 +821,25 @@
           scopeRow.style.display = "";
           sizeLabel.textContent  = cfg.label || "Approx. size (sq. ft.)";
           rebuildScopeOptions(cfg);
+        }
+
+        // advanced groups
+        resetAdvanced();
+
+        if (svc === "masonry" || svc === "driveway"){
+          advMasonry.style.display = "";
+        }
+        if (svc === "roofing"){
+          advRoof.style.display = "";
+        }
+        if (svc === "siding"){
+          advSiding.style.display = "";
+        }
+        if (svc === "windows"){
+          advWindows.style.display = "";
+        }
+        if (svc === "kitchen" || svc === "bathroom" || svc === "basement"){
+          advStyle.style.display = "";
         }
       }
 
@@ -599,9 +858,10 @@
         let usedScopeLabel = "";
 
         if (cfg.mode === "area" || cfg.mode === "both"){
-          let area = parseFloat((sizeInput.value || "").replace(/,/g,""));
+          let areaRaw = (sizeInput.value || "").toString().replace(/,/g,"");
+          let area = parseFloat(areaRaw);
           if (isNaN(area) || area <= 0){
-            resultBox.innerHTML = "<p>Please enter an approximate size in square feet.</p>";
+            resultBox.innerHTML = "<p>Please enter an approximate size (sq. ft. or openings).</p>";
             return;
           }
           const minArea = cfg.minArea || 1;
@@ -640,10 +900,137 @@
         factor *= FINISH_FACTOR[finish]     || 1;
         factor *= URGENCY_FACTOR[urgency]   || 1;
 
+        // Lead factor
         if (leadValue === "yes" && cfg.leadSensitive){
-          factor *= 1.10; // extra time for RRP setup, containment & cleaning
+          factor *= 1.10;
         }
 
+        // Advanced: masonry / driveway extra
+        if (svc === "masonry" || svc === "driveway"){
+          const focus  = masonryFocusEl.value;
+          const existing = driveExistingEl.value;
+          const remove   = driveRemoveEl.value;
+          const access   = driveAccessEl.value;
+
+          if (focus === "driveway"){
+            // driveways get a bit more base
+            factor *= 1.05;
+          }
+
+          if (remove === "partial"){
+            baseLow  += 1500;
+            baseHigh += 2800;
+          } else if (remove === "full"){
+            baseLow  += 3500;
+            baseHigh += 6500;
+          }
+
+          if (existing === "concrete"){
+            baseLow  += 800;
+            baseHigh += 1800;
+          } else if (existing === "pavers"){
+            baseLow  += 500;
+            baseHigh += 1400;
+          }
+
+          if (access === "tight"){
+            factor *= 1.06;
+          } else if (access === "cityrow"){
+            factor *= 1.12;
+          }
+        }
+
+        // Advanced: roofing extra
+        if (svc === "roofing"){
+          const tear   = parseInt(roofTearoffEl.value,10) || 0;
+          const pitch  = roofPitchEl.value;
+          const height = roofHeightEl.value;
+
+          if (tear === 1){
+            factor *= 1.05;
+          } else if (tear === 2){
+            factor *= 1.12;
+          } else if (tear >= 3){
+            factor *= 1.20;
+          }
+
+          if (pitch === "steep"){
+            factor *= 1.12;
+          } else if (pitch === "low"){
+            factor *= 0.97;
+          }
+
+          if (height === "mid"){
+            factor *= 1.06;
+          } else if (height === "high"){
+            factor *= 1.15;
+          }
+        }
+
+        // Advanced: siding extra
+        if (svc === "siding"){
+          const removeType = sidingRemoveEl.value;
+          const stories    = sidingStoriesEl.value;
+
+          if (removeType === "wood"){
+            factor *= 1.08;
+          } else if (removeType === "stucco"){
+            factor *= 1.18;
+          }
+
+          if (stories === "3"){
+            factor *= 1.12;
+          }
+        }
+
+        // Advanced: windows / doors
+        let openingsCount = usedArea;
+        if (svc === "windows"){
+          const winCount = parseInt(windowCountEl.value || "0",10);
+          const doorCount = parseInt(doorCountEl.value || "0",10);
+          openingsCount = Math.max(3, winCount + doorCount);
+
+          // recompute base just to line up with total openings
+          baseLow  = SERVICE_CONFIG["windows"].perSqLow  * openingsCount;
+          baseHigh = SERVICE_CONFIG["windows"].perSqHigh * openingsCount;
+          if (SERVICE_CONFIG["windows"].minLow  && baseLow  < SERVICE_CONFIG["windows"].minLow)  baseLow  = SERVICE_CONFIG["windows"].minLow;
+          if (SERVICE_CONFIG["windows"].minHigh && baseHigh < SERVICE_CONFIG["windows"].minHigh) baseHigh = SERVICE_CONFIG["windows"].minHigh;
+
+          const brand = windowBrandEl.value;
+          const style = windowStyleEl.value;
+
+          if (brand === "andersen"){
+            factor *= 1.18;
+          } else if (brand === "pella"){
+            factor *= 1.16;
+          } else if (brand === "builder"){
+            factor *= 0.93;
+          } // bella ~ baseline
+
+          if (style === "modern"){
+            factor *= 1.06;
+          } else if (style === "italian"){
+            factor *= 1.18;
+          }
+
+          // extra for exterior doors
+          if (doorCount > 0){
+            baseLow  += 2200 * doorCount;
+            baseHigh += 3200 * doorCount;
+          }
+        }
+
+        // Advanced: Italian / modern design style for kitchen / bath / basement
+        if (svc === "kitchen" || svc === "bathroom" || svc === "basement"){
+          const style = designStyleEl.value;
+          if (style === "modern"){
+            factor *= 1.07;
+          } else if (style === "italian"){
+            factor *= 1.18;
+          }
+        }
+
+        // Apply factor
         let low  = baseLow  * factor;
         let high = baseHigh * factor;
 
@@ -670,13 +1057,51 @@
           "Please send me a written estimate based on this ballpark from your website:",
           "",
           "Project Type: " + svcLabel,
-          usedArea ? ("Approx. Size (sq ft): " + usedArea) : "",
+          usedArea ? ("Approx. Size (sq ft or openings): " + usedArea) : "",
           usedScopeLabel ? ("Scope Level: " + usedScopeLabel) : "",
           "Location (Borough): " + boroughText,
           "Building Type: " + buildingText,
           "Finish Level: " + finishLabel,
           "Timeline: " + urgencyLabel,
           "Pre-1978 / Lead-Sensitive: " + (leadValue === "yes" ? "Yes / Unsure" : "No / Tested Negative or 1978+"),
+          "",
+          "Advanced Options Selected:"
+        ];
+
+        if (svc === "masonry" || svc === "driveway"){
+          bodyLines.push(
+            "  Masonry focus: " + masonryFocusEl.value,
+            "  Existing driveway material: " + driveExistingEl.value,
+            "  Removal level: " + driveRemoveEl.value,
+            "  Access: " + driveAccessEl.value
+          );
+        }
+        if (svc === "roofing"){
+          bodyLines.push(
+            "  Tear-off layers: " + roofTearoffEl.value,
+            "  Roof pitch: " + roofPitchEl.value,
+            "  Roof height: " + roofHeightEl.value
+          );
+        }
+        if (svc === "siding"){
+          bodyLines.push(
+            "  Existing siding: " + sidingRemoveEl.value,
+            "  Stories: " + sidingStoriesEl.value
+          );
+        }
+        if (svc === "windows"){
+          bodyLines.push(
+            "  Window openings: " + (windowCountEl.value || ""),
+            "  Exterior doors: " + (doorCountEl.value || ""),
+            "  Window brand: " + windowBrandEl.value,
+            "  Style: " + windowStyleEl.value
+          );
+        }
+        if (svc === "kitchen" || svc === "bathroom" || svc === "basement"){
+          bodyLines.push("  Design style: " + designStyleEl.value);
+        }
+
+        bodyLines.push(
           "",
           "Selected Add-Ons:",
           "  Dumpster: $" + dumpsterVal.toLocaleString("en-US"),
@@ -693,11 +1118,11 @@
           "Email:",
           "",
           "Thank you!"
-        ].filter(Boolean).join("\n");
+        );
 
         const mailtoHref = "mailto:Hammerbrickhome@gmail.com"
           + "?subject=" + encodeURIComponent("Estimate Request – Website Tool")
-          + "&body=" + encodeURIComponent(bodyLines);
+          + "&body=" + encodeURIComponent(bodyLines.join("\n"));
 
         resultBox.innerHTML = `
           <p class="muted">NYC-area ballpark only — not a formal quote.</p>
@@ -732,5 +1157,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
