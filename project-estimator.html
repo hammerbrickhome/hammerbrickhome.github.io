@@ -120,6 +120,8 @@
               <option value="bathroom">Bathroom Remodel</option>
               <option value="kitchen">Kitchen Remodel</option>
               <option value="basement">Basement Finishing</option>
+              <option value="deck">Deck / Patio Build or Rebuild</option>
+              <option value="fence">Fence Install / Replacement</option>
               <option value="handyman">Small Repairs / Handyman Visit</option>
             </select>
           </div>
@@ -351,7 +353,7 @@
       const permitEl    = document.getElementById("est-permit");
       const resultBox   = document.getElementById("est-result");
 
-      // NYC-leaning ranges
+      // NYC-leaning ranges (built from national guides + bumped for NYC/North Jersey)
       const SERVICE_CONFIG = {
         "masonry": {
           mode: "area",
@@ -369,10 +371,10 @@
           label: "Approx. interior floor area (sq. ft.)",
           minArea: 250,
           maxArea: 4000,
-          perSqLow: 3.5,
-          perSqHigh: 7.5,
-          minLow: 1800,
-          minHigh: 3500,
+          perSqLow: 5,
+          perSqHigh: 12,
+          minLow: 3000,
+          minHigh: 15000,
           leadSensitive: true
         },
         "exterior-paint": {
@@ -392,18 +394,18 @@
           scopes: {
             "refresh": {
               label: "Light refresh (keep layout & fixtures)",
-              low: 15000,
-              high: 28000
+              low: 25000,
+              high: 40000
             },
             "mid": {
               label: "Mid-level upgrade (some layout / tile changes)",
-              low: 28000,
-              high: 48000
+              low: 40000,
+              high: 65000
             },
             "gut": {
               label: "Full gut with luxury finishes",
-              low: 48000,
-              high: 90000
+              low: 65000,
+              high: 110000
             }
           }
         },
@@ -413,18 +415,18 @@
           scopes: {
             "refresh": {
               label: "Cosmetic refresh (paint, backsplash, hardware)",
-              low: 25000,
-              high: 45000
+              low: 30000,
+              high: 55000
             },
             "mid": {
               label: "Mid-level remodel (cabinets + surfaces)",
-              low: 45000,
-              high: 85000
+              low: 55000,
+              high: 95000
             },
             "gut": {
               label: "Full gut / high-end kitchen",
-              low: 85000,
-              high: 160000
+              low: 95000,
+              high: 180000
             }
           }
         },
@@ -433,11 +435,43 @@
           label: "Approx. finished basement area (sq. ft.)",
           minArea: 400,
           maxArea: 2000,
-          perSqLow: 20,
-          perSqHigh: 60,
+          perSqLow: 45,
+          perSqHigh: 120,
           minLow: 25000,
-          minHigh: 65000,
+          minHigh: 75000,
           leadSensitive: true
+        },
+        "deck": {
+          mode: "area",
+          label: "Approx. deck / patio area (sq. ft.)",
+          minArea: 120,
+          maxArea: 1200,
+          perSqLow: 40,
+          perSqHigh: 85,
+          minLow: 6000,
+          minHigh: 20000,
+          leadSensitive: false
+        },
+        "fence": {
+          mode: "scope",
+          leadSensitive: false,
+          scopes: {
+            "yard": {
+              label: "Standard run (approx. 50–120 ft)",
+              low: 3500,
+              high: 8500
+            },
+            "corner": {
+              label: "Corner / larger yard (120–220 ft)",
+              low: 8500,
+              high: 16000
+            },
+            "premium": {
+              label: "Premium/custom fence or multiple gates",
+              low: 16000,
+              high: 28000
+            }
+          }
         },
         "handyman": {
           mode: "scope",
@@ -484,10 +518,22 @@
         "luxury": 1.30
       };
 
+      const FINISH_LABEL = {
+        "standard": "Standard",
+        "premium": "Premium",
+        "luxury": "Luxury"
+      };
+
       const URGENCY_FACTOR = {
         "flex": 1.00,
         "soon": 1.07,
         "rush": 1.15
+      };
+
+      const URGENCY_LABEL = {
+        "flex": "Flexible (2–3+ months)",
+        "soon": "Soon (4–8 weeks)",
+        "rush": "Rush (< 4 weeks)"
       };
 
       const SERVICE_LABEL = {
@@ -497,6 +543,8 @@
         "bathroom": "Bathroom Remodel",
         "kitchen": "Kitchen Remodel",
         "basement": "Basement Finishing",
+        "deck": "Deck / Patio Build or Rebuild",
+        "fence": "Fence Install / Replacement",
         "handyman": "Small Repairs / Handyman Visit"
       };
 
@@ -578,19 +626,19 @@
           usedScopeLabel = scopeCfg.label;
         }
 
-        const borough   = boroughEl.value;
+        const borough     = boroughEl.value;
         const boroughText = boroughEl.options[boroughEl.selectedIndex].textContent;
-        const building  = buildingEl.value;
-        const buildingText = buildingEl.options[buildingEl.selectedIndex].textContent;
-        const finish    = finishEl.value;
-        const urgency   = urgencyEl.value;
-        const leadValue = leadEl.value;
+        const building    = buildingEl.value;
+        const buildingText= buildingEl.options[buildingEl.selectedIndex].textContent;
+        const finish      = finishEl.value;
+        const urgency     = urgencyEl.value;
+        const leadValue   = leadEl.value;
 
         let factor = 1;
-        factor *= BOROUGH_FACTOR[borough]  || 1;
-        factor *= BUILDING_FACTOR[building]|| 1;
-        factor *= FINISH_FACTOR[finish]    || 1;
-        factor *= URGENCY_FACTOR[urgency]  || 1;
+        factor *= BOROUGH_FACTOR[borough]   || 1;
+        factor *= BUILDING_FACTOR[building] || 1;
+        factor *= FINISH_FACTOR[finish]     || 1;
+        factor *= URGENCY_FACTOR[urgency]   || 1;
 
         if (leadValue === "yes" && cfg.leadSensitive){
           factor *= 1.10; // extra time for RRP setup, containment & cleaning
@@ -612,7 +660,9 @@
         const softLow  = low  * 0.95;
         const softHigh = high * 1.12;
 
-        const svcLabel = SERVICE_LABEL[svc] || svc;
+        const svcLabel       = SERVICE_LABEL[svc] || svc;
+        const finishLabel    = FINISH_LABEL[finish] || finish;
+        const urgencyLabel   = URGENCY_LABEL[urgency] || urgency;
 
         const bodyLines = [
           "Hello,",
@@ -624,8 +674,8 @@
           usedScopeLabel ? ("Scope Level: " + usedScopeLabel) : "",
           "Location (Borough): " + boroughText,
           "Building Type: " + buildingText,
-          "Finish Level: " + FINISH_FACTOR[finish] + " (selected: " + finish + ")",
-          "Timeline: " + urgency,
+          "Finish Level: " + finishLabel,
+          "Timeline: " + urgencyLabel,
           "Pre-1978 / Lead-Sensitive: " + (leadValue === "yes" ? "Yes / Unsure" : "No / Tested Negative or 1978+"),
           "",
           "Selected Add-Ons:",
@@ -657,6 +707,10 @@
             Most approved projects land somewhere in the middle of this range once we see
             access, existing conditions, and final finish choices.
           </p>
+          <p class="muted" style="margin-bottom:10px;">
+            <strong>Assumptions:</strong>
+            ${boroughText} · ${buildingText} · ${finishLabel} finish · ${urgencyLabel}.
+          </p>
           <ul class="bullets">
             <li>Includes a buffer for typical NYC access, protection, and cleanup.</li>
             <li>Approximate add-ons included in this range: <strong>${formatMoney(addOnsTotal)}</strong> (dumpster, demo, permit).</li>
@@ -678,4 +732,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
