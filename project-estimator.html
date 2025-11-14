@@ -86,7 +86,6 @@
       color:var(--muted);
       font-size:13px;
     }
-    /* Advanced option grouping labels */
     .adv-label{
       font-size:11px;
       text-transform:uppercase;
@@ -127,19 +126,41 @@
           <div class="field-row">
             <label for="est-service">Project Type</label>
             <select id="est-service" required>
-              <option value="masonry">Masonry · Pavers · Concrete</option>
-              <option value="driveway">Driveway / Parking Area</option>
-              <option value="roofing">Roofing – Shingle / Flat</option>
-              <option value="siding">Siding – Exterior</option>
-              <option value="windows">Windows &amp; Exterior Doors</option>
-              <option value="interior-paint">Interior Painting</option>
-              <option value="exterior-paint">Exterior Facade / Painting</option>
-              <option value="bathroom">Bathroom Remodel</option>
-              <option value="kitchen">Kitchen Remodel</option>
-              <option value="basement">Basement Finishing</option>
-              <option value="deck">Deck / Patio Build or Rebuild</option>
-              <option value="fence">Fence Install / Replacement</option>
-              <option value="handyman">Small Repairs / Handyman Visit</option>
+              <optgroup label="Exterior">
+                <option value="roofing">Roofing – Shingle / Flat</option>
+                <option value="siding">Siding – Exterior</option>
+                <option value="masonry">Masonry · Pavers · Concrete</option>
+                <option value="driveway">Driveway / Parking Area</option>
+                <option value="deck">Deck / Patio Build or Rebuild</option>
+                <option value="fence">Fence Install / Replacement</option>
+                <option value="waterproofing">Waterproofing &amp; Foundation Sealing</option>
+                <option value="power-wash">Power Washing / Soft Washing</option>
+                <option value="landscaping">Landscaping &amp; Seasonal Care</option>
+                <option value="exterior-lighting">Exterior Lighting &amp; Smart Security</option>
+                <option value="sidewalk">Sidewalk / DOT Concrete Repair</option>
+                <option value="gutters">Gutter Install / Repair</option>
+                <option value="windows">Windows &amp; Exterior Doors</option>
+                <option value="exterior-paint">Exterior Facade / Painting</option>
+              </optgroup>
+              <optgroup label="Interior">
+                <option value="kitchen">Kitchen Remodel</option>
+                <option value="bathroom">Bathroom Remodel</option>
+                <option value="basement">Basement Finishing</option>
+                <option value="interior-paint">Interior Painting</option>
+                <option value="flooring">Flooring (LVP / Tile / Hardwood)</option>
+                <option value="drywall">Drywall / Plaster / Skim Coat</option>
+                <option value="interior-doors">Interior Doors &amp; Trim</option>
+                <option value="closets">Closet / Storage Buildouts</option>
+                <option value="interior-lighting">Interior Electrical / Smart Lighting</option>
+              </optgroup>
+              <optgroup label="Specialty">
+                <option value="garage-conversion">Garage Conversion / Remodel</option>
+                <option value="epoxy-garage">Epoxy Garage Floor</option>
+                <option value="smart-home">Smart Home Upgrades (Ring / Nest / Cameras)</option>
+                <option value="handyman">Small Repairs / Handyman Visit</option>
+                <option value="soundproofing">Soundproofing</option>
+                <option value="moisture-control">Mold / Moisture Prevention (non-remediation)</option>
+              </optgroup>
             </select>
           </div>
 
@@ -174,7 +195,6 @@
             <label for="est-scope">Scope Level</label>
             <select id="est-scope">
               <option value="">Select scope…</option>
-              <!-- options populated by JS -->
             </select>
           </div>
 
@@ -197,12 +217,18 @@
             </div>
           </div>
 
-          <div class="field-row">
+          <div class="field-row" id="lead-row">
             <label for="est-lead">Pre-1978 / lead-sensitive?</label>
             <select id="est-lead">
               <option value="no" selected>No / 1978 or newer / tested negative</option>
               <option value="yes">Yes / Unsure (we assume lead-safe practices)</option>
             </select>
+          </div>
+
+          <!-- BRAND PREFERENCE (dynamic) -->
+          <div class="field-row" id="brand-row" style="display:none;">
+            <label for="est-brand" id="est-brand-label">Preferred Brand / Line</label>
+            <select id="est-brand"></select>
           </div>
 
           <!-- ======================
@@ -309,21 +335,6 @@
             <label for="door-count" style="margin-top:8px;">Exterior doors (front/back/patio)</label>
             <input id="door-count" type="number" min="0" step="1" placeholder="e.g., 2">
 
-            <label for="window-brand" style="margin-top:8px;">Preferred window line</label>
-            <select id="window-brand">
-              <option value="bella">Bella</option>
-              <option value="andersen">Andersen</option>
-              <option value="pella">Pella</option>
-              <option value="builder">Builder-grade / other</option>
-            </select>
-
-            <label for="window-style" style="margin-top:8px;">Style / look</label>
-            <select id="window-style">
-              <option value="standard">Standard</option>
-              <option value="modern">Modern slim-frame</option>
-              <option value="italian">Italian / European-style</option>
-            </select>
-
             <p class="adv-subnote">
               Italian / European-style and premium brands usually land higher per opening than builder-grade vinyl.
             </p>
@@ -409,6 +420,18 @@
               </ul>
             </div>
           </div>
+
+          <!-- Smart Permit Helper -->
+          <div id="permit-helper" style="
+            border:1px solid rgba(231,191,99,0.35);
+            padding:10px 12px;
+            border-radius:8px;
+            margin-top:14px;
+            background:rgba(10,18,32,0.8);
+            font-size:11px;
+            color:#ddd;
+            display:none;
+          "></div>
 
           <!-- Main disclaimer -->
           <div style="
@@ -504,11 +527,18 @@
       const scopeSelect = document.getElementById("est-scope");
       const finishEl    = document.getElementById("est-finish");
       const urgencyEl   = document.getElementById("est-urgency");
+      const leadRow     = document.getElementById("lead-row");
       const leadEl      = document.getElementById("est-lead");
       const dumpsterEl  = document.getElementById("est-dumpster");
       const demoEl      = document.getElementById("est-demo");
       const permitEl    = document.getElementById("est-permit");
       const resultBox   = document.getElementById("est-result");
+      const permitBox   = document.getElementById("permit-helper");
+
+      // Brand elements
+      const brandRow    = document.getElementById("brand-row");
+      const brandSelect = document.getElementById("est-brand");
+      const brandLabel  = document.getElementById("est-brand-label");
 
       // Advanced groups
       const advMasonry  = document.getElementById("adv-masonry");
@@ -531,124 +561,99 @@
 
       const windowCountEl  = document.getElementById("window-count");
       const doorCountEl    = document.getElementById("door-count");
-      const windowBrandEl  = document.getElementById("window-brand");
-      const windowStyleEl  = document.getElementById("window-style");
 
       const designStyleEl  = document.getElementById("design-style");
 
-      // NYC-leaning ranges (built from national guides + bumped for NYC/North Jersey)
+      // NYC-leaning ranges based on recent cost guides (Angi, Fixr, Sweeten, etc.)
       const SERVICE_CONFIG = {
         "masonry": {
           mode: "area",
           label: "Approx. masonry / paver area (sq. ft.)",
-          minArea: 60,
-          maxArea: 2000,
-          perSqLow: 25,
-          perSqHigh: 45,
+          minArea: 80,
+          maxArea: 4000,
+          perSqLow: 18,
+          perSqHigh: 32,
           minLow: 3500,
-          minHigh: 7500,
-          leadSensitive: false
+          minHigh: 8500,
+          leadSensitive: false,
+          permit: "maybe"
         },
         "driveway": {
           mode: "area",
           label: "Driveway / parking area (sq. ft.)",
           minArea: 250,
-          maxArea: 4000,
-          perSqLow: 18,
-          perSqHigh: 38,
-          minLow: 5500,
+          maxArea: 5000,
+          perSqLow: 10,
+          perSqHigh: 26,
+          minLow: 4500,
           minHigh: 18000,
-          leadSensitive: false
+          leadSensitive: false,
+          permit: "maybe"
         },
-        "interior-paint": {
+        "roofing": {
           mode: "area",
-          label: "Approx. interior floor area (sq. ft.)",
-          minArea: 250,
-          maxArea: 4000,
-          perSqLow: 5,
-          perSqHigh: 12,
-          minLow: 3000,
-          minHigh: 15000,
-          leadSensitive: true
+          label: "Roof area (sq. ft. of deck)",
+          minArea: 700,
+          maxArea: 5000,
+          perSqLow: 4.5,
+          perSqHigh: 12.5,
+          minLow: 8500,
+          minHigh: 32000,
+          leadSensitive: false,
+          permit: "likely"
+        },
+        "siding": {
+          mode: "area",
+          label: "Wall area to side (sq. ft.)",
+          minArea: 600,
+          maxArea: 4500,
+          perSqLow: 6,
+          perSqHigh: 16,
+          minLow: 9000,
+          minHigh: 42000,
+          leadSensitive: true,
+          permit: "likely"
+        },
+        "windows": {
+          mode: "area",
+          label: "Total openings (windows + doors count)",
+          minArea: 3,
+          maxArea: 40,
+          perSqLow: 900,
+          perSqHigh: 2300,
+          minLow: 6500,
+          minHigh: 65000,
+          leadSensitive: true,
+          permit: "maybe"
         },
         "exterior-paint": {
           mode: "area",
           label: "Approx. exterior wall area (sq. ft.)",
           minArea: 400,
           maxArea: 5000,
-          perSqLow: 4.5,
-          perSqHigh: 9.5,
+          perSqLow: 3.5,
+          perSqHigh: 8.25,
           minLow: 3500,
-          minHigh: 9000,
-          leadSensitive: true
-        },
-        "bathroom": {
-          mode: "scope",
+          minHigh: 14000,
           leadSensitive: true,
-          scopes: {
-            "refresh": {
-              label: "Light refresh (keep layout & fixtures)",
-              low: 25000,
-              high: 40000
-            },
-            "mid": {
-              label: "Mid-level upgrade (some layout / tile changes)",
-              low: 40000,
-              high: 65000
-            },
-            "gut": {
-              label: "Full gut with luxury finishes",
-              low: 65000,
-              high: 110000
-            }
-          }
-        },
-        "kitchen": {
-          mode: "scope",
-          leadSensitive: true,
-          scopes: {
-            "refresh": {
-              label: "Cosmetic refresh (paint, backsplash, hardware)",
-              low: 30000,
-              high: 55000
-            },
-            "mid": {
-              label: "Mid-level remodel (cabinets + surfaces)",
-              low: 55000,
-              high: 95000
-            },
-            "gut": {
-              label: "Full gut / high-end kitchen",
-              low: 95000,
-              high: 180000
-            }
-          }
-        },
-        "basement": {
-          mode: "area",
-          label: "Approx. finished basement area (sq. ft.)",
-          minArea: 400,
-          maxArea: 2000,
-          perSqLow: 45,
-          perSqHigh: 120,
-          minLow: 25000,
-          minHigh: 75000,
-          leadSensitive: true
+          permit: "maybe"
         },
         "deck": {
           mode: "area",
           label: "Approx. deck / patio area (sq. ft.)",
           minArea: 120,
-          maxArea: 1200,
-          perSqLow: 40,
-          perSqHigh: 85,
-          minLow: 6000,
-          minHigh: 20000,
-          leadSensitive: false
+          maxArea: 1500,
+          perSqLow: 30,
+          perSqHigh: 75,
+          minLow: 7500,
+          minHigh: 35000,
+          leadSensitive: false,
+          permit: "likely"
         },
         "fence": {
           mode: "scope",
           leadSensitive: false,
+          permit: "maybe",
           scopes: {
             "yard": {
               label: "Standard run (approx. 50–120 ft)",
@@ -658,51 +663,320 @@
             "corner": {
               label: "Corner / larger yard (120–220 ft)",
               low: 8500,
-              high: 16000
+              high: 17000
             },
             "premium": {
               label: "Premium/custom fence or multiple gates",
-              low: 16000,
+              low: 17000,
               high: 28000
             }
           }
         },
-        "roofing": {
+        "waterproofing": {
           mode: "area",
-          label: "Roof area (sq. ft. of deck)",
-          minArea: 700,
-          maxArea: 5000,
-          perSqLow: 6.5,
-          perSqHigh: 14.5,
-          minLow: 8500,
-          minHigh: 28000,
-          leadSensitive: false
-        },
-        "siding": {
-          mode: "area",
-          label: "Wall area to side (sq. ft.)",
-          minArea: 600,
-          maxArea: 4500,
-          perSqLow: 9,
-          perSqHigh: 22,
-          minLow: 9000,
+          label: "Approx. basement / wall area (sq. ft.)",
+          minArea: 200,
+          maxArea: 2000,
+          perSqLow: 22,
+          perSqHigh: 55,
+          minLow: 5500,
           minHigh: 38000,
-          leadSensitive: false
+          leadSensitive: true,
+          permit: "likely"
         },
-        "windows": {
+        "power-wash": {
           mode: "area",
-          label: "Total openings (windows + doors count)",
-          minArea: 3,
-          maxArea: 40,
-          perSqLow: 950,
-          perSqHigh: 2200,
-          minLow: 6000,
-          minHigh: 65000,
-          leadSensitive: false
+          label: "Approx. area to wash (sq. ft.)",
+          minArea: 400,
+          maxArea: 6000,
+          perSqLow: 0.9,
+          perSqHigh: 2.5,
+          minLow: 450,
+          minHigh: 4800,
+          leadSensitive: false,
+          permit: "none"
+        },
+        "landscaping": {
+          mode: "scope",
+          leadSensitive: false,
+          permit: "none",
+          scopes: {
+            "basic": {
+              label: "Basic monthly care (lawn, trim, light cleanup)",
+              low: 250,
+              high: 650
+            },
+            "seasonal": {
+              label: "Spring / Fall cleanup bundle",
+              low: 950,
+              high: 2800
+            },
+            "upgrade": {
+              label: "Landscape upgrade (beds, plants, small hardscape)",
+              low: 3500,
+              high: 12000
+            }
+          }
+        },
+        "exterior-lighting": {
+          mode: "scope",
+          leadSensitive: false,
+          permit: "maybe",
+          scopes: {
+            "basic": {
+              label: "Basic package (3–6 fixtures, simple controls)",
+              low: 1800,
+              high: 4200
+            },
+            "standard": {
+              label: "Full front package (6–12 fixtures, timer/smart)",
+              low: 4200,
+              high: 9800
+            },
+            "premium": {
+              label: "Whole-property or high-end system",
+              low: 9800,
+              high: 22000
+            }
+          }
+        },
+        "sidewalk": {
+          mode: "area",
+          label: "Sidewalk / DOT concrete area (sq. ft.)",
+          minArea: 80,
+          maxArea: 800,
+          perSqLow: 22,
+          perSqHigh: 45,
+          minLow: 5500,
+          minHigh: 28000,
+          leadSensitive: false,
+          permit: "likely"
+        },
+        "gutters": {
+          mode: "scope",
+          leadSensitive: false,
+          permit: "none",
+          scopes: {
+            "clean": {
+              label: "Cleanout / minor repair",
+              low: 350,
+              high: 950
+            },
+            "replace": {
+              label: "Standard replacement (typical home)",
+              low: 1800,
+              high: 4800
+            },
+            "guards": {
+              label: "Install gutter guards (with minor repairs)",
+              low: 1800,
+              high: 5200
+            }
+          }
+        },
+        "interior-paint": {
+          mode: "area",
+          label: "Approx. interior floor area (sq. ft.)",
+          minArea: 250,
+          maxArea: 4000,
+          perSqLow: 2.5,
+          perSqHigh: 5.5,
+          minLow: 2500,
+          minHigh: 14500,
+          leadSensitive: true,
+          permit: "none"
+        },
+        "flooring": {
+          mode: "area",
+          label: "Floor area (sq. ft.)",
+          minArea: 200,
+          maxArea: 3000,
+          perSqLow: 5,
+          perSqHigh: 18,
+          minLow: 3500,
+          minHigh: 38000,
+          leadSensitive: false,
+          permit: "none"
+        },
+        "drywall": {
+          mode: "area",
+          label: "Wall / ceiling surface area (sq. ft.)",
+          minArea: 200,
+          maxArea: 4000,
+          perSqLow: 3.5,
+          perSqHigh: 9.5,
+          minLow: 2500,
+          minHigh: 26000,
+          leadSensitive: true,
+          permit: "maybe"
+        },
+        "interior-doors": {
+          mode: "area",
+          label: "Number of doors to replace",
+          minArea: 2,
+          maxArea: 20,
+          perSqLow: 450,
+          perSqHigh: 1150,
+          minLow: 1000,
+          minHigh: 18000,
+          leadSensitive: false,
+          permit: "none"
+        },
+        "closets": {
+          mode: "scope",
+          leadSensitive: false,
+          permit: "none",
+          scopes: {
+            "simple": {
+              label: "Simple reach-in or small closet",
+              low: 1800,
+              high: 4200
+            },
+            "walkin": {
+              label: "Standard walk-in layout",
+              low: 4200,
+              high: 9800
+            },
+            "premium": {
+              label: "Custom built-ins / dressing room",
+              low: 9800,
+              high: 22000
+            }
+          }
+        },
+        "interior-lighting": {
+          mode: "scope",
+          leadSensitive: false,
+          permit: "maybe",
+          scopes: {
+            "room": {
+              label: "Single room upgrade (recessed / fixture)",
+              low: 1800,
+              high: 4200
+            },
+            "multi": {
+              label: "Multiple rooms / small apartment",
+              low: 4200,
+              high: 9800
+            },
+            "whole": {
+              label: "Whole-home smart lighting package",
+              low: 9800,
+              high: 26000
+            }
+          }
+        },
+        "bathroom": {
+          mode: "scope",
+          leadSensitive: true,
+          permit: "likely",
+          scopes: {
+            "refresh": {
+              label: "Light refresh (keep layout & most fixtures)",
+              low: 14000,
+              high: 26000
+            },
+            "mid": {
+              label: "Mid-level remodel (tile + fixtures upgrade)",
+              low: 26000,
+              high: 45000
+            },
+            "gut": {
+              label: "Full gut with higher-end finishes",
+              low: 45000,
+              high: 85000
+            }
+          }
+        },
+        "kitchen": {
+          mode: "scope",
+          leadSensitive: true,
+          permit: "likely",
+          scopes: {
+            "refresh": {
+              label: "Cosmetic refresh (paint, backsplash, hardware)",
+              low: 18000,
+              high: 32000
+            },
+            "mid": {
+              label: "Mid-level remodel (cabinets + surfaces)",
+              low: 32000,
+              high: 65000
+            },
+            "gut": {
+              label: "Full gut / higher-end kitchen",
+              low: 65000,
+              high: 120000
+            }
+          }
+        },
+        "basement": {
+          mode: "area",
+          label: "Approx. finished basement area (sq. ft.)",
+          minArea: 400,
+          maxArea: 2000,
+          perSqLow: 45,
+          perSqHigh: 110,
+          minLow: 25000,
+          minHigh: 95000,
+          leadSensitive: true,
+          permit: "likely"
+        },
+        "garage-conversion": {
+          mode: "scope",
+          leadSensitive: true,
+          permit: "likely",
+          scopes: {
+            "basic": {
+              label: "Basic insulated studio / office conversion",
+              low: 22000,
+              high: 42000
+            },
+            "enhanced": {
+              label: "Enhanced conversion (bath / kitchenette)",
+              low: 42000,
+              high: 78000
+            }
+          }
+        },
+        "epoxy-garage": {
+          mode: "area",
+          label: "Garage floor area (sq. ft.)",
+          minArea: 250,
+          maxArea: 1500,
+          perSqLow: 5,
+          perSqHigh: 12,
+          minLow: 2200,
+          minHigh: 14500,
+          leadSensitive: false,
+          permit: "none"
+        },
+        "smart-home": {
+          mode: "scope",
+          leadSensitive: false,
+          permit: "maybe",
+          scopes: {
+            "basic": {
+              label: "Doorbell / a few cameras / smart lock",
+              low: 1800,
+              high: 4200
+            },
+            "standard": {
+              label: "Full-floor or small home package",
+              low: 4200,
+              high: 9800
+            },
+            "premium": {
+              label: "Whole-home integrated smart system",
+              low: 9800,
+              high: 26000
+            }
+          }
         },
         "handyman": {
           mode: "scope",
           leadSensitive: false,
+          permit: "none",
           scopes: {
             "small": {
               label: "Small visit (up to 2 hours)",
@@ -720,16 +994,40 @@
               high: 1400
             }
           }
+        },
+        "soundproofing": {
+          mode: "area",
+          label: "Approx. wall/ceiling area to soundproof (sq. ft.)",
+          minArea: 150,
+          maxArea: 2000,
+          perSqLow: 18,
+          perSqHigh: 48,
+          minLow: 5500,
+          minHigh: 42000,
+          leadSensitive: true,
+          permit: "maybe"
+        },
+        "moisture-control": {
+          mode: "area",
+          label: "Approx. treated area (sq. ft.)",
+          minArea: 150,
+          maxArea: 2000,
+          perSqLow: 10,
+          perSqHigh: 32,
+          minLow: 3500,
+          minHigh: 26000,
+          leadSensitive: true,
+          permit: "maybe"
         }
       };
 
       const BOROUGH_FACTOR = {
         "staten-island": 1.00,
-        "brooklyn": 1.10,
-        "queens": 1.08,
-        "bronx": 1.05,
-        "manhattan": 1.20,
-        "nj": 1.05
+        "brooklyn": 1.08,
+        "queens": 1.05,
+        "bronx": 1.03,
+        "manhattan": 1.18,
+        "nj": 0.96
       };
 
       const BUILDING_FACTOR = {
@@ -742,7 +1040,7 @@
       const FINISH_FACTOR = {
         "standard": 1.00,
         "premium": 1.15,
-        "luxury": 1.30
+        "luxury": 1.32
       };
 
       const FINISH_LABEL = {
@@ -766,17 +1064,91 @@
       const SERVICE_LABEL = {
         "masonry": "Masonry · Pavers · Concrete",
         "driveway": "Driveway / Parking Area",
-        "interior-paint": "Interior Painting",
-        "exterior-paint": "Exterior Facade / Painting",
-        "bathroom": "Bathroom Remodel",
-        "kitchen": "Kitchen Remodel",
-        "basement": "Basement Finishing",
-        "deck": "Deck / Patio Build or Rebuild",
-        "fence": "Fence Install / Replacement",
         "roofing": "Roofing – Shingle / Flat",
         "siding": "Siding – Exterior",
         "windows": "Windows & Exterior Doors",
-        "handyman": "Small Repairs / Handyman Visit"
+        "exterior-paint": "Exterior Facade / Painting",
+        "deck": "Deck / Patio Build or Rebuild",
+        "fence": "Fence Install / Replacement",
+        "waterproofing": "Waterproofing & Foundation Sealing",
+        "power-wash": "Power Washing / Soft Washing",
+        "landscaping": "Landscaping & Seasonal Care",
+        "exterior-lighting": "Exterior Lighting & Smart Security",
+        "sidewalk": "Sidewalk / DOT Concrete Repair",
+        "gutters": "Gutter Install / Repair",
+        "interior-paint": "Interior Painting",
+        "flooring": "Flooring (LVP / Tile / Hardwood)",
+        "drywall": "Drywall / Plaster / Skim Coat",
+        "interior-doors": "Interior Doors & Trim",
+        "closets": "Closet / Storage Buildouts",
+        "interior-lighting": "Interior Electrical / Smart Lighting",
+        "bathroom": "Bathroom Remodel",
+        "kitchen": "Kitchen Remodel",
+        "basement": "Basement Finishing",
+        "garage-conversion": "Garage Conversion / Remodel",
+        "epoxy-garage": "Epoxy Garage Floor",
+        "smart-home": "Smart Home Upgrades (Ring / Nest / Cameras)",
+        "handyman": "Small Repairs / Handyman Visit",
+        "soundproofing": "Soundproofing",
+        "moisture-control": "Mold / Moisture Prevention (non-remediation)"
+      };
+
+      // Per-service brand sets. Luxury finish will only show luxury brands.
+      const BRAND_CONFIG = {
+        "windows": {
+          label: "Preferred Window / Door Brand",
+          budget: ["Alside", "Revere", "Ideal"],
+          standard: ["Pella 250", "Andersen 100", "Jeld-Wen"],
+          luxury: ["Andersen 400 / A-Series", "Marvin Elevate / Ultimate", "Pella Architect"]
+        },
+        "roofing": {
+          label: "Preferred Roofing Line",
+          budget: ["IKO Cambridge"],
+          standard: ["CertainTeed Landmark"],
+          luxury: ["GAF Timberline HDZ", "Owens Corning Duration"]
+        },
+        "siding": {
+          label: "Preferred Siding Brand",
+          budget: ["Alside", "Royal"],
+          standard: ["CertainTeed Monogram"],
+          luxury: ["James Hardie"]
+        },
+        "flooring": {
+          label: "Preferred Flooring Brand",
+          budget: ["MSI", "Pergo"],
+          standard: ["Armstrong"],
+          luxury: ["Mohawk", "Shaw", "Cali Bamboo"]
+        },
+        "interior-paint": {
+          label: "Preferred Paint Line",
+          budget: ["Behr Premium Plus"],
+          standard: ["Sherwin-Williams SuperPaint"],
+          luxury: ["Benjamin Moore Aura"]
+        },
+        "kitchen": {
+          label: "Preferred Cabinet / Kitchen Line",
+          budget: ["IKEA", "Stock / Builder Grade"],
+          standard: ["Fabuwood", "Wolf Classic"],
+          luxury: ["KraftMaid", "Custom Millwork"]
+        },
+        "bathroom": {
+          label: "Preferred Bath Fixture / Line",
+          budget: ["Standard / Builder Grade"],
+          standard: ["Delta", "Kohler"],
+          luxury: ["Hansgrohe", "DXV / Luxury Collections"]
+        },
+        "deck": {
+          label: "Deck / Railing Brand Preference",
+          budget: ["Standard PT Lumber"],
+          standard: ["Trex Enhance"],
+          luxury: ["Trex Transcend", "TimberTech AZEK"]
+        },
+        "epoxy-garage": {
+          label: "Epoxy System Level",
+          budget: ["Standard Epoxy"],
+          standard: ["Flake System"],
+          luxury: ["High-Build Polyaspartic System"]
+        }
       };
 
       function formatMoney(num){
@@ -802,12 +1174,61 @@
         advStyle.style.display   = "none";
       }
 
+      function updateBrandOptions(){
+        const svc = serviceEl.value;
+        const finish = finishEl.value;
+        const cfg = BRAND_CONFIG[svc];
+        if (!cfg){
+          brandRow.style.display = "none";
+          brandSelect.innerHTML = "";
+          return;
+        }
+        brandRow.style.display = "";
+        brandLabel.textContent = cfg.label || "Preferred Brand / Line";
+
+        let names = [];
+        if (finish === "luxury"){
+          names = (cfg.luxury || []).slice();
+        } else {
+          names = []
+            .concat(cfg.budget || [])
+            .concat(cfg.standard || [])
+            .concat(cfg.luxury || []);
+        }
+
+        brandSelect.innerHTML = "";
+        names.forEach(name => {
+          const opt = document.createElement("option");
+          opt.value = name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+          opt.textContent = name;
+          brandSelect.appendChild(opt);
+        });
+      }
+
+      function updatePermitHelper(svc){
+        const cfg = SERVICE_CONFIG[svc];
+        if (!cfg){
+          permitBox.style.display = "none";
+          permitBox.innerHTML = "";
+          return;
+        }
+        let msg = "";
+        if (cfg.permit === "likely"){
+          msg = "<strong>Permit likely required:</strong> This type of project often needs DOB / municipal filings. We confirm permits in your written estimate.";
+        } else if (cfg.permit === "maybe"){
+          msg = "<strong>Permit may be required:</strong> Some versions of this project need permits depending on scope, structural changes, and local rules.";
+        } else {
+          msg = "<strong>Most jobs do NOT require a permit:</strong> Simple versions of this project are usually cosmetic only. We’ll confirm during your walkthrough.";
+        }
+        permitBox.innerHTML = msg;
+        permitBox.style.display = "block";
+      }
+
       function updateVisibility(){
         const svc = serviceEl.value;
         const cfg = SERVICE_CONFIG[svc];
         if (!cfg) return;
 
-        // base area/scope visibility
         if (cfg.mode === "area"){
           sizeRow.style.display  = "";
           scopeRow.style.display = "none";
@@ -823,7 +1244,13 @@
           rebuildScopeOptions(cfg);
         }
 
-        // advanced groups
+        if (cfg.leadSensitive){
+          leadRow.style.display = "";
+        } else {
+          leadRow.style.display = "none";
+          leadEl.value = "no";
+        }
+
         resetAdvanced();
 
         if (svc === "masonry" || svc === "driveway"){
@@ -841,6 +1268,9 @@
         if (svc === "kitchen" || svc === "bathroom" || svc === "basement"){
           advStyle.style.display = "";
         }
+
+        updateBrandOptions();
+        updatePermitHelper(svc);
       }
 
       function calculateEstimate(evt){
@@ -900,12 +1330,10 @@
         factor *= FINISH_FACTOR[finish]     || 1;
         factor *= URGENCY_FACTOR[urgency]   || 1;
 
-        // Lead factor
-        if (leadValue === "yes" && cfg.leadSensitive){
+        if (leadRow.style.display !== "none" && leadValue === "yes" && cfg.leadSensitive){
           factor *= 1.10;
         }
 
-        // Advanced: masonry / driveway extra
         if (svc === "masonry" || svc === "driveway"){
           const focus  = masonryFocusEl.value;
           const existing = driveExistingEl.value;
@@ -913,7 +1341,6 @@
           const access   = driveAccessEl.value;
 
           if (focus === "driveway"){
-            // driveways get a bit more base
             factor *= 1.05;
           }
 
@@ -940,7 +1367,6 @@
           }
         }
 
-        // Advanced: roofing extra
         if (svc === "roofing"){
           const tear   = parseInt(roofTearoffEl.value,10) || 0;
           const pitch  = roofPitchEl.value;
@@ -967,7 +1393,6 @@
           }
         }
 
-        // Advanced: siding extra
         if (svc === "siding"){
           const removeType = sidingRemoveEl.value;
           const stories    = sidingStoriesEl.value;
@@ -983,58 +1408,34 @@
           }
         }
 
-        // Advanced: windows / doors
-        let openingsCount = usedArea;
         if (svc === "windows"){
           const winCount = parseInt(windowCountEl.value || "0",10);
           const doorCount = parseInt(doorCountEl.value || "0",10);
-          openingsCount = Math.max(3, winCount + doorCount);
+          let openingsCount = Math.max(3, winCount + doorCount || 0);
 
-          // recompute base just to line up with total openings
           baseLow  = SERVICE_CONFIG["windows"].perSqLow  * openingsCount;
           baseHigh = SERVICE_CONFIG["windows"].perSqHigh * openingsCount;
           if (SERVICE_CONFIG["windows"].minLow  && baseLow  < SERVICE_CONFIG["windows"].minLow)  baseLow  = SERVICE_CONFIG["windows"].minLow;
           if (SERVICE_CONFIG["windows"].minHigh && baseHigh < SERVICE_CONFIG["windows"].minHigh) baseHigh = SERVICE_CONFIG["windows"].minHigh;
 
-          const brand = windowBrandEl.value;
-          const style = windowStyleEl.value;
-
-          if (brand === "andersen"){
-            factor *= 1.18;
-          } else if (brand === "pella"){
-            factor *= 1.16;
-          } else if (brand === "builder"){
-            factor *= 0.93;
-          } // bella ~ baseline
-
-          if (style === "modern"){
-            factor *= 1.06;
-          } else if (style === "italian"){
-            factor *= 1.18;
-          }
-
-          // extra for exterior doors
           if (doorCount > 0){
             baseLow  += 2200 * doorCount;
             baseHigh += 3200 * doorCount;
           }
         }
 
-        // Advanced: Italian / modern design style for kitchen / bath / basement
         if (svc === "kitchen" || svc === "bathroom" || svc === "basement"){
           const style = designStyleEl.value;
           if (style === "modern"){
-            factor *= 1.07;
+            factor *= 1.06;
           } else if (style === "italian"){
-            factor *= 1.18;
+            factor *= 1.16;
           }
         }
 
-        // Apply factor
         let low  = baseLow  * factor;
         let high = baseHigh * factor;
 
-        // add-ons
         const dumpsterVal = Number(dumpsterEl.value || 0);
         const demoVal     = Number(demoEl.value || 0);
         const permitVal   = Number(permitEl.value || 0);
@@ -1043,13 +1444,16 @@
         low  += addOnsTotal;
         high += addOnsTotal;
 
-        // widen range slightly for unknowns
         const softLow  = low  * 0.95;
-        const softHigh = high * 1.12;
+        const softHigh = high * 1.10;
 
         const svcLabel       = SERVICE_LABEL[svc] || svc;
         const finishLabel    = FINISH_LABEL[finish] || finish;
         const urgencyLabel   = URGENCY_LABEL[urgency] || urgency;
+
+        const brandName = (brandRow.style.display !== "none" && brandSelect.options.length)
+          ? brandSelect.options[brandSelect.selectedIndex].textContent
+          : "";
 
         const bodyLines = [
           "Hello,",
@@ -1063,45 +1467,10 @@
           "Building Type: " + buildingText,
           "Finish Level: " + finishLabel,
           "Timeline: " + urgencyLabel,
-          "Pre-1978 / Lead-Sensitive: " + (leadValue === "yes" ? "Yes / Unsure" : "No / Tested Negative or 1978+"),
-          "",
-          "Advanced Options Selected:"
-        ];
-
-        if (svc === "masonry" || svc === "driveway"){
-          bodyLines.push(
-            "  Masonry focus: " + masonryFocusEl.value,
-            "  Existing driveway material: " + driveExistingEl.value,
-            "  Removal level: " + driveRemoveEl.value,
-            "  Access: " + driveAccessEl.value
-          );
-        }
-        if (svc === "roofing"){
-          bodyLines.push(
-            "  Tear-off layers: " + roofTearoffEl.value,
-            "  Roof pitch: " + roofPitchEl.value,
-            "  Roof height: " + roofHeightEl.value
-          );
-        }
-        if (svc === "siding"){
-          bodyLines.push(
-            "  Existing siding: " + sidingRemoveEl.value,
-            "  Stories: " + sidingStoriesEl.value
-          );
-        }
-        if (svc === "windows"){
-          bodyLines.push(
-            "  Window openings: " + (windowCountEl.value || ""),
-            "  Exterior doors: " + (doorCountEl.value || ""),
-            "  Window brand: " + windowBrandEl.value,
-            "  Style: " + windowStyleEl.value
-          );
-        }
-        if (svc === "kitchen" || svc === "bathroom" || svc === "basement"){
-          bodyLines.push("  Design style: " + designStyleEl.value);
-        }
-
-        bodyLines.push(
+          "Pre-1978 / Lead-Sensitive: " + (leadRow.style.display !== "none"
+            ? (leadValue === "yes" ? "Yes / Unsure" : "No / Tested Negative or 1978+")
+            : "Not applicable for this project type"),
+          brandName ? ("Preferred Brand/Line: " + brandName) : "",
           "",
           "Selected Add-Ons:",
           "  Dumpster: $" + dumpsterVal.toLocaleString("en-US"),
@@ -1118,11 +1487,13 @@
           "Email:",
           "",
           "Thank you!"
-        );
+        ];
 
         const mailtoHref = "mailto:Hammerbrickhome@gmail.com"
           + "?subject=" + encodeURIComponent("Estimate Request – Website Tool")
           + "&body=" + encodeURIComponent(bodyLines.join("\n"));
+
+        updatePermitHelper(svc);
 
         resultBox.innerHTML = `
           <p class="muted">NYC-area ballpark only — not a formal quote.</p>
@@ -1148,6 +1519,9 @@
       }
 
       serviceEl.addEventListener("change", updateVisibility);
+      finishEl.addEventListener("change", () => {
+        updateBrandOptions();
+      });
       form.addEventListener("submit", calculateEstimate);
 
       updateVisibility();
@@ -1157,3 +1531,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
