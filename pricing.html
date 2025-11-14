@@ -79,6 +79,16 @@
       color:var(--muted);
       line-height:1.5;
     }
+    .btn-email-est{
+      display:inline-block;
+      margin-top:10px;
+      padding:10px 14px;
+      border-radius:10px;
+      background:var(--gold);
+      color:#000;
+      font-weight:700;
+      text-align:center;
+    }
   </style>
 </head>
 
@@ -336,6 +346,39 @@
             </select>
           </div>
 
+          <!-- ADD-ONS -->
+          <div class="field-row">
+            <label for="est-dumpster">Dumpster Needed?</label>
+            <select id="est-dumpster">
+              <option value="0">No dumpster</option>
+              <option value="500">Small (10 yd) — approx. $500</option>
+              <option value="800">Medium (15 yd) — approx. $800</option>
+              <option value="1200">Large (20 yd) — approx. $1,200</option>
+            </select>
+          </div>
+
+          <div class="field-row">
+            <label for="est-demo">Demolition Level</label>
+            <select id="est-demo">
+              <option value="0">No / very light demo</option>
+              <option value="650">Light Demo — approx. $650</option>
+              <option value="1200">Medium Demo — approx. $1,200</option>
+              <option value="2200">Heavy Demo — approx. $2,200</option>
+            </select>
+          </div>
+
+          <div class="field-row">
+            <label for="est-permit">DOB Permit / Filing</label>
+            <select id="est-permit">
+              <option value="0">No permit / filing in this tool</option>
+              <option value="850">Minor Work Permit — approx. $850</option>
+              <option value="1600">Alteration / Larger Filing — approx. $1,600</option>
+            </select>
+            <p class="tiny-note">
+              Actual filing costs and professional fees (architect/engineer, expeditor) vary by project and are confirmed in your written estimate.
+            </p>
+          </div>
+
           <button type="submit" class="btn">Calculate Ballpark Range</button>
           <p class="tiny-note">
             By using this tool you agree this is an approximate range only and not a guaranteed quote or offer.
@@ -372,7 +415,7 @@
   <!-- ✅ Include Footer -->
   <div id="footer-include"></div>
 
-  <!-- ✅ Script Loader -->
+  <!-- ✅ Script Loader + Estimator Logic -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       Promise.all([
@@ -389,7 +432,7 @@
       .catch(err => console.error("Include load error", err));
     });
 
-    /* Advanced Estimator Logic */
+    /* Advanced Estimator Logic with Add-ons + Email Button */
     document.addEventListener("DOMContentLoaded", () => {
       const form        = document.getElementById("est-form");
       if (!form) return;
@@ -405,6 +448,9 @@
       const finishEl    = document.getElementById("est-finish");
       const urgencyEl   = document.getElementById("est-urgency");
       const leadEl      = document.getElementById("est-lead");
+      const dumpsterEl  = document.getElementById("est-dumpster");
+      const demoEl      = document.getElementById("est-demo");
+      const permitEl    = document.getElementById("est-permit");
       const resultBox   = document.getElementById("est-result");
 
       // NYC-leaning ranges (intentionally conservative to protect you)
@@ -414,7 +460,7 @@
           label: "Approx. masonry / paver area (sq. ft.)",
           minArea: 60,
           maxArea: 2000,
-          perSqLow: 25,   // NYC premium range
+          perSqLow: 25,
           perSqHigh: 45,
           minLow: 3500,
           minHigh: 7500,
@@ -425,7 +471,7 @@
           label: "Approx. interior floor area (sq. ft.)",
           minArea: 250,
           maxArea: 4000,
-          perSqLow: 3.5,  // slightly above national average
+          perSqLow: 3.5,
           perSqHigh: 7.5,
           minLow: 1800,
           minHigh: 3500,
@@ -546,6 +592,16 @@
         "rush": 1.15
       };
 
+      const SERVICE_LABEL = {
+        "masonry": "Masonry / Pavers / Concrete",
+        "interior-paint": "Interior Painting",
+        "exterior-paint": "Exterior Facade / Painting",
+        "bathroom": "Bathroom Remodel",
+        "kitchen": "Kitchen Remodel",
+        "basement": "Basement Finishing",
+        "handyman": "Small Repairs / Handyman Visit"
+      };
+
       function formatMoney(num){
         return "$" + Math.round(num).toLocaleString("en-US");
       }
@@ -593,6 +649,8 @@
         }
 
         let baseLow, baseHigh;
+        let usedArea = null;
+        let usedScopeLabel = "";
 
         if (cfg.mode === "area" || cfg.mode === "both"){
           let area = parseFloat((sizeInput.value || "").replace(/,/g,""));
@@ -603,6 +661,7 @@
           const minArea = cfg.minArea || 1;
           const maxArea = cfg.maxArea || 5000;
           area = Math.max(minArea, Math.min(area, maxArea));
+          usedArea = area;
 
           baseLow  = cfg.perSqLow  * area;
           baseHigh = cfg.perSqHigh * area;
@@ -618,10 +677,13 @@
           }
           baseLow  = scopeCfg.low;
           baseHigh = scopeCfg.high;
+          usedScopeLabel = scopeCfg.label;
         }
 
         const borough   = boroughEl.value;
+        const boroughText = boroughEl.options[boroughEl.selectedIndex].textContent;
         const building  = buildingEl.value;
+        const buildingText = buildingEl.options[buildingEl.selectedIndex].textContent;
         const finish    = finishEl.value;
         const urgency   = urgencyEl.value;
         const leadValue = leadEl.value;
@@ -639,9 +701,55 @@
         let low  = baseLow  * factor;
         let high = baseHigh * factor;
 
+        // add-ons
+        const dumpsterVal = Number(dumpsterEl.value || 0);
+        const demoVal     = Number(demoEl.value || 0);
+        const permitVal   = Number(permitEl.value || 0);
+        const addOnsTotal = dumpsterVal + demoVal + permitVal;
+
+        low  += addOnsTotal;
+        high += addOnsTotal;
+
         // widen range slightly for unknowns / hidden conditions
         const softLow  = low  * 0.95;
         const softHigh = high * 1.12;
+
+        const svcLabel = SERVICE_LABEL[svc] || svc;
+
+        const bodyLines = [
+          "Hello,",
+          "",
+          "Please send me a written estimate based on this ballpark from your website:",
+          "",
+          "Project Type: " + svcLabel,
+          usedArea ? ("Approx. Size (sq ft): " + usedArea) : "",
+          usedScopeLabel ? ("Scope Level: " + usedScopeLabel) : "",
+          "Location (Borough): " + boroughText,
+          "Building Type: " + buildingText,
+          "Finish Level: " + FINISH_FACTOR[finish] + " (selected: " + finish + ")",
+          "Timeline: " + urgency,
+          "Pre-1978 / Lead-Sensitive: " + (leadValue === "yes" ? "Yes / Unsure" : "No / Tested Negative or 1978+"),
+          "",
+          "Selected Add-Ons:",
+          "  Dumpster: $" + dumpsterVal.toLocaleString("en-US"),
+          "  Demolition: $" + demoVal.toLocaleString("en-US"),
+          "  DOB Permit (approx): $" + permitVal.toLocaleString("en-US"),
+          "",
+          "Ballpark Range Shown:",
+          "  " + formatMoney(softLow) + " – " + formatMoney(softHigh),
+          "",
+          "My Contact Info:",
+          "Name:",
+          "Service Address:",
+          "Phone:",
+          "Email:",
+          "",
+          "Thank you!"
+        ].filter(Boolean).join("\n");
+
+        const mailtoHref = "mailto:Hammerbrickhome@gmail.com"
+          + "?subject=" + encodeURIComponent("Estimate Request – Website Tool")
+          + "&body=" + encodeURIComponent(bodyLines);
 
         resultBox.innerHTML = `
           <p class="muted">NYC-area ballpark only — not a formal quote.</p>
@@ -653,10 +761,12 @@
           </p>
           <ul class="bullets">
             <li>Includes a buffer for typical NYC access, protection, and cleanup.</li>
-            <li>Does <strong>not</strong> include architect/engineer fees, DOB filing costs, major structural/MEP changes, or unforeseen conditions.</li>
+            <li>Approximate add-ons included in this range: <strong>${formatMoney(addOnsTotal)}</strong> (dumpster, demo, permit).</li>
+            <li>Does <strong>not</strong> include architect/engineer fees, DOB filing surcharges beyond this allowance, major structural/MEP changes, or unforeseen conditions.</li>
             <li>Final pricing is only confirmed in a written estimate after a walkthrough.</li>
           </ul>
-          <a class="btn" href="contact.html">Book a walkthrough for an exact quote</a>
+          <a class="btn-email-est" href="${mailtoHref}">📧 Email me this estimate</a>
+          <a class="btn" style="margin-left:6px;margin-top:10px;" href="contact.html">Book a walkthrough for an exact quote</a>
         `;
       }
 
