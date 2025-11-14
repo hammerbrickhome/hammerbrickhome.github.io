@@ -1,488 +1,672 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pricing & Packages — Hammer Brick & Home LLC</title>
+  <meta name="description" content="Transparent packages and executive options. Final quotes follow a site visit and written estimate.">
+  <link rel="icon" href="images/hero.PNG">
+  <link rel="preload" as="image" href="images/hero.PNG">
+  <link rel="stylesheet" href="style.css">
 
-<title>Pricing & Packages — Hammer Brick & Home LLC</title>
-<meta name="description" content="Transparent packages, borough-based ballpark ranges, and luxury upgrade options. Final quotes follow a site visit and written estimate.">
-<link rel="icon" href="images/hero.PNG">
-<link rel="preload" as="image" href="images/hero.PNG">
-<link rel="stylesheet" href="style.css">
-
-<!-- Optional structured data (simple, safe) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Home Improvement, Masonry & Remodeling Packages",
-  "provider": {
-    "@type": "HomeAndConstructionBusiness",
-    "name": "Hammer Brick & Home LLC",
-    "url": "https://www.hammerbrickhome.com/"
-  },
-  "areaServed": [
-    "Staten Island",
-    "Brooklyn",
-    "Queens",
-    "Manhattan",
-    "Bronx",
-    "New Jersey"
-  ],
-  "description": "Transparent home improvement packages for masonry, remodeling, painting and exterior care. Final pricing confirmed after site visit and written proposal.",
-  "offers": {
-    "@type": "AggregateOffer",
-    "priceCurrency": "USD",
-    "lowPrice": "299",
-    "highPrice": "12500",
-    "availability": "https://schema.org/InStock"
-  }
-}
-</script>
+  <!-- Advanced Estimator Styles -->
+  <style>
+    .estimator-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+      gap:18px;
+      max-width:980px;
+      margin:18px auto 0;
+      align-items:flex-start;
+    }
+    @media (max-width:840px){
+      .estimator-grid{grid-template-columns:1fr;}
+    }
+    .est-card{
+      border:1px solid rgba(231,191,99,.35);
+      border-radius:var(--radius);
+      padding:16px 18px 18px;
+      background:rgba(5,12,25,.9);
+      box-shadow:0 14px 36px rgba(0,0,0,.55);
+    }
+    .field-row{margin-bottom:12px;}
+    .field-row label{
+      display:block;
+      font-size:13px;
+      font-weight:600;
+      letter-spacing:.2px;
+      margin-bottom:4px;
+      color:var(--muted);
+    }
+    .field-row input,
+    .field-row select{
+      width:100%;
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid rgba(231,191,99,.4);
+      background:rgba(6,12,24,.95);
+      color:var(--ink);
+      font-size:14px;
+    }
+    .field-row.two-col{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:10px;
+    }
+    .tiny-note{
+      font-size:11px;
+      margin-top:6px;
+      color:var(--muted);
+    }
+    .est-result-card h3{
+      margin-top:0;
+      margin-bottom:8px;
+    }
+    .est-main{
+      font-size:24px;
+      font-weight:800;
+      color:var(--gold-soft);
+      margin:8px 0 6px;
+    }
+    .est-note{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .est-legal{
+      margin-top:12px;
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+  </style>
 </head>
 
 <body>
-<!-- ✅ Include Header -->
-<div id="header-include"></div>
+  <!-- ✅ Include Header -->
+  <div id="header-include"></div>
 
-<a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
+  <main class="page">
+    <section class="hero hero-inner fade-up">
+      <div class="hero-content">
+        <h1>Pricing &amp; Packages</h1>
+        <p>Clear structures, premium delivery. Final pricing confirmed after on-site visit and written proposal.</p>
+      </div>
+    </section>
 
-<main class="page">
+    <!-- =====================
+         POPULAR PACKAGES
+    ===================== -->
+    <section class="section fade-up">
+      <h2>Popular Packages</h2>
+      <div class="card-grid">
+        <article class="pkg-card">
+          <h3>Curb Appeal Refresh</h3>
+          <ul>
+            <li>Walkway &amp; steps power-wash</li>
+            <li>Trim paint touch-ups</li>
+            <li>Light gutter cleaning (select homes)</li>
+          </ul>
+          <p class="price">From $399</p>
+        </article>
 
-  <!-- HERO -->
-  <section class="hero hero-inner fade-up">
-    <div class="hero-content">
-      <h1>Pricing &amp; Packages</h1>
-      <p>Clear structures, premium delivery. Final pricing is always confirmed after an on-site visit and a written, line-item proposal.</p>
-      <ul class="trust-pills" role="list" style="margin-top:10px">
-        <li>NYC Licensed &amp; Insured · HIC #21311291</li>
-        <li>EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
-        <li>Serving NYC boroughs &amp; select New Jersey</li>
+        <article class="pkg-card">
+          <h3>Bathroom Refresh</h3>
+          <ul>
+            <li>Regrout &amp; recaulk tub/shower</li>
+            <li>Paint walls &amp; trim</li>
+            <li>Hardware upgrades</li>
+          </ul>
+          <p class="price">$1,650+</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Paver Walkway</h3>
+          <ul>
+            <li>Up to 120 sq ft</li>
+            <li>Compacted base &amp; polymeric sand</li>
+            <li>Edge restraints</li>
+          </ul>
+          <p class="price">$2,900+</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Handyman Essentials</h3>
+          <p>Pick any 3 focused tasks for one visit.</p>
+          <p class="price">$299–$499</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Kitchen Mini-Remodel</h3>
+          <ul>
+            <li>Cabinet repaint or refinish</li>
+            <li>New backsplash install</li>
+            <li>Fixture &amp; handle swap</li>
+          </ul>
+          <p class="price">$3,200+</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Driveway Renewal</h3>
+          <ul>
+            <li>Pressure wash &amp; crack fill</li>
+            <li>Seal coat application</li>
+            <li>Edge clean &amp; debris removal</li>
+          </ul>
+          <p class="price">$1,100–$2,400</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Fence &amp; Gate Install</h3>
+          <ul>
+            <li>Wood or vinyl panels (per ft)</li>
+            <li>Gate alignment &amp; posts set</li>
+            <li>Includes site clean-up</li>
+          </ul>
+          <p class="price">From $2,500</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Patio Glow-Up</h3>
+          <ul>
+            <li>Power wash + re-sand</li>
+            <li>Sealant &amp; border cleanup</li>
+            <li>Optional lighting add-on</li>
+          </ul>
+          <p class="price">$1,200+</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =====================
+         EXECUTIVE & SEASONAL
+    ===================== -->
+    <section class="section fade-up">
+      <h2>Executive &amp; Seasonal Plans</h2>
+      <div class="card-grid">
+        <article class="pkg-card">
+          <h3>Executive Home Makeover</h3>
+          <p class="price">$7,500–$12,500</p>
+          <p>Curated interior repaint, feature upgrades, and detailing.</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Executive Curb Luxury</h3>
+          <p class="price">$4,500–$9,000</p>
+          <p>Exterior wash, trim repaint, and a paver feature.</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Seasonal Home Care Plan</h3>
+          <p class="price">From $399 per season</p>
+          <p>Spring, Summer, Fall, Winter bundles to keep your property protected.</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Premium Maintenance Club</h3>
+          <p class="price">$99/mo</p>
+          <p>Quarterly inspection + priority repair scheduling for members.</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Designer Finish Upgrade</h3>
+          <p class="price">$3,000–$6,000</p>
+          <p>Feature wall, lighting highlights, and premium trim detailing.</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Backyard Comfort Plan</h3>
+          <p class="price">$2,400–$4,800</p>
+          <p>Deck wash &amp; stain, furniture layout, and seasonal décor alignment.</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Snow &amp; Storm Priority</h3>
+          <p class="price">$299–$699</p>
+          <p>Guaranteed snow-clear calls and post-storm checkups.</p>
+        </article>
+
+        <article class="pkg-card">
+          <h3>Executive Move-In Ready</h3>
+          <p class="price">$5,000–$9,000</p>
+          <p>Interior refresh, basic repairs, and white-glove deep cleaning before move-in.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =====================
+         WHAT AFFECTS PRICE
+    ===================== -->
+    <section class="section note-box fade-up">
+      <h2>What Affects Price?</h2>
+      <ul class="bullets">
+        <li>Access, parking, and building rules</li>
+        <li>Material selections</li>
+        <li>Existing conditions</li>
+        <li>Permits, DOB requirements, inspections</li>
       </ul>
-    </div>
-  </section>
+      <p>Every proposal is written, line-itemed, and approved before work begins.</p>
+    </section>
 
-  <!-- =====================
-       ADVANCED BALLPARK ESTIMATOR
-  ===================== -->
-  <section class="section fade-up">
-    <h2>Instant Ballpark Estimator (No Obligation)</h2>
-    <p class="section-note">
-      Answer a few quick questions for a <strong>rough range only</strong>. Final pricing always follows an on-site visit and written estimate.
-    </p>
+    <!-- =====================
+         ADVANCED ESTIMATOR
+    ===================== -->
+    <section class="section fade-up" id="estimator">
+      <h2>NYC &amp; NJ Project Estimator (Ballpark Only)</h2>
+      <p class="muted">
+        This tool gives a rough NYC-area range based on current market data and typical labor/material rates.
+        It is <strong>not</strong> a formal quote, bid, or contract.
+      </p>
 
-    <div class="split">
-      <!-- Estimator form -->
-      <div class="accent-card">
-        <h3>Project Snapshot</h3>
+      <div class="estimator-grid">
+        <!-- LEFT: FORM -->
+        <form id="est-form" class="est-card">
+          <div class="field-row">
+            <label for="est-service">Project Type</label>
+            <select id="est-service" required>
+              <option value="masonry">Masonry / Pavers / Concrete</option>
+              <option value="interior-paint">Interior Painting</option>
+              <option value="exterior-paint">Exterior Facade / Painting</option>
+              <option value="bathroom">Bathroom Remodel</option>
+              <option value="kitchen">Kitchen Remodel</option>
+              <option value="basement">Basement Finishing</option>
+              <option value="handyman">Small Repairs / Handyman Visit</option>
+            </select>
+          </div>
 
-        <form id="estimatorForm" aria-label="Ballpark estimate form">
-          <label for="estService" style="font-size:13px;">Type of work</label>
-          <select id="estService" required style="margin-bottom:8px;width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(3,8,16,.96);color:#fff;font-size:13px;">
-            <option value="">Select…</option>
-            <option value="masonry">Masonry / Sidewalk / Pavers</option>
-            <option value="interior-remodel">Interior Remodel (Kitchen / General)</option>
-            <option value="bath">Bathroom Remodel</option>
-            <option value="paint">Interior / Exterior Painting</option>
-            <option value="patio">Patio / Backyard Hardscape</option>
-            <option value="exterior-care">Exterior Care / Power-Wash</option>
-          </select>
+          <div class="field-row">
+            <label for="est-borough">Project Location</label>
+            <select id="est-borough" required>
+              <option value="staten-island" selected>Staten Island</option>
+              <option value="brooklyn">Brooklyn</option>
+              <option value="queens">Queens</option>
+              <option value="manhattan">Manhattan</option>
+              <option value="bronx">Bronx</option>
+              <option value="nj">New Jersey (select towns)</option>
+            </select>
+          </div>
 
-          <label for="estSize" style="font-size:13px;">Project size</label>
-          <select id="estSize" required style="margin-bottom:8px;width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(3,8,16,.96);color:#fff;font-size:13px;">
-            <option value="">Select…</option>
-            <option value="small">Small (single area / up to ~120 sq ft)</option>
-            <option value="medium">Medium (120–300 sq ft or 2–3 rooms)</option>
-            <option value="large">Large (300+ sq ft or whole areas)</option>
-          </select>
+          <div class="field-row">
+            <label for="est-building">Building Type</label>
+            <select id="est-building" required>
+              <option value="house" selected>1–2 Family House / Townhouse</option>
+              <option value="small-multi">Small Multi-Family (2–4 units)</option>
+              <option value="coop-condo">Co-op / Condo (Elevator / Doorman)</option>
+              <option value="mixed">Mixed-Use / Commercial Front</option>
+            </select>
+          </div>
 
-          <label for="estFinish" style="font-size:13px;">Finish level</label>
-          <select id="estFinish" required style="margin-bottom:8px;width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(3,8,16,.96);color:#fff;font-size:13px;">
-            <option value="">Select…</option>
-            <option value="standard">Solid &amp; clean (Standard)</option>
-            <option value="premium">Designer touches (Premium)</option>
-            <option value="luxury">High-end details (Luxury)</option>
-          </select>
+          <div class="field-row" id="est-size-row">
+            <label for="est-size" id="est-size-label">Approx. size (sq. ft.)</label>
+            <input id="est-size" type="number" min="1" step="1" placeholder="e.g., 350">
+          </div>
 
-          <label for="estBorough" style="font-size:13px;">Borough / Area</label>
-          <select id="estBorough" required style="margin-bottom:8px;width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(3,8,16,.96);color:#fff;font-size:13px;">
-            <option value="">Select…</option>
-            <option value="staten-island">Staten Island</option>
-            <option value="brooklyn">Brooklyn</option>
-            <option value="queens">Queens</option>
-            <option value="manhattan">Manhattan</option>
-            <option value="bronx">Bronx</option>
-            <option value="new-jersey">New Jersey (select)</option>
-          </select>
+          <div class="field-row" id="est-scope-row">
+            <label for="est-scope">Scope Level</label>
+            <select id="est-scope">
+              <option value="">Select scope…</option>
+              <!-- options populated by JS based on project type -->
+            </select>
+          </div>
 
-          <label for="estTimeline" style="font-size:13px;">Timeline</label>
-          <select id="estTimeline" required style="margin-bottom:10px;width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(3,8,16,.96);color:#fff;font-size:13px;">
-            <option value="">Select…</option>
-            <option value="flexible">Flexible (4–8+ weeks)</option>
-            <option value="soon">Soon (2–4 weeks)</option>
-            <option value="rush">Rush / ASAP</option>
-          </select>
+          <div class="field-row two-col">
+            <div>
+              <label for="est-finish">Finish Level</label>
+              <select id="est-finish">
+                <option value="standard">Standard</option>
+                <option value="premium" selected>Premium</option>
+                <option value="luxury">Luxury</option>
+              </select>
+            </div>
+            <div>
+              <label for="est-urgency">Timeline</label>
+              <select id="est-urgency">
+                <option value="flex">Flexible (2–3+ months)</option>
+                <option value="soon" selected>Soon (4–8 weeks)</option>
+                <option value="rush">Rush (&lt; 4 weeks)</option>
+              </select>
+            </div>
+          </div>
 
-          <button type="submit" class="btn" style="width:100%;margin-top:4px;">Calculate Ballpark Range</button>
+          <div class="field-row">
+            <label for="est-lead">Pre-1978 / lead-sensitive?</label>
+            <select id="est-lead">
+              <option value="no" selected>No / 1978 or newer / tested negative</option>
+              <option value="yes">Yes / Unsure (we assume lead-safe practices)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn">Calculate Ballpark Range</button>
+          <p class="tiny-note">
+            By using this tool you agree this is an approximate range only and not a guaranteed quote or offer.
+          </p>
         </form>
 
-        <div id="estimatorResult" style="margin-top:12px;font-size:13px;color:var(--muted);display:none;">
-          <div style="font-weight:800;font-size:15px;margin-bottom:4px;" id="estimatorRangeLabel"></div>
-          <div id="estimatorRangeValue"></div>
-          <p style="margin-top:8px;font-size:11px;">
-            This is a <strong>non-binding estimate range only</strong>. Hidden conditions, building rules, or design upgrades can move the final proposal up or down.
-          </p>
-        </div>
+        <!-- RIGHT: RESULT / DISCLAIMER -->
+        <aside class="est-card est-result-card">
+          <h3>Ballpark Range (Not a Formal Estimate)</h3>
+          <div id="est-result">
+            <p class="muted">
+              Fill in the details on the left and we’ll show a <strong>rough NYC-area range</strong> based on
+              typical pricing for similar projects.
+            </p>
+            <ul class="bullets">
+              <li>Uses NYC &amp; North Jersey cost ranges</li>
+              <li>Includes setup, protection &amp; cleanup</li>
+              <li>Adds buffer for access, parking &amp; logistics</li>
+            </ul>
+          </div>
+          <div class="est-legal">
+            <p>
+              <strong>Important:</strong> This calculator is for <em>informational purposes only</em>. It does
+              not account for all conditions, is <strong>not</strong> a bid, quote, or contract, and does not
+              create any obligation for Hammer Brick &amp; Home LLC. Final pricing is issued only in a written
+              estimate after a walkthrough.
+            </p>
+          </div>
+        </aside>
       </div>
+    </section>
+  </main>
 
-      <!-- Sidebar: Financing / VIP -->
-      <div class="accent-card">
-        <h3>Financing &amp; VIP Treatment</h3>
-        <p class="muted">We understand that major projects are an investment. Talk to us about:</p>
-        <ul class="bullets">
-          <li>Staged payments aligned with milestones</li>
-          <li>Options to split scopes into phases</li>
-          <li>Prioritized scheduling for repeat clients</li>
-          <li>Access to exclusive perks via our membership program</li>
-        </ul>
-        <p class="muted" style="font-size:11px;margin-top:6px;">
-          Exact terms are discussed during your estimate visit and tailored to your project scope.
-        </p>
-        <a class="btn ghost" href="membership.html" style="margin-top:8px;">View Perks &amp; Rules</a>
-      </div>
-    </div>
-  </section>
+  <!-- ✅ Include Footer -->
+  <div id="footer-include"></div>
 
-  <!-- =====================
-       POPULAR PACKAGES
-  ===================== -->
-  <section class="section fade-up">
-    <h2>Popular Packages</h2>
-    <p class="section-note">Ballpark ranges below. Final numbers depend on site conditions, access, building rules, and selections.</p>
+  <!-- ✅ Script Loader -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      Promise.all([
+        fetch("header.html").then(r => r.text()),
+        fetch("footer.html").then(r => r.text())
+      ])
+      .then(([header, footer]) => {
+        document.getElementById("header-include").innerHTML = header;
+        document.getElementById("footer-include").innerHTML = footer;
 
-    <div class="card-grid">
-      <article class="pkg-card">
-        <h3>🏠 Curb Appeal Refresh</h3>
-        <ul>
-          <li>Walkway &amp; steps power-wash</li>
-          <li>Trim paint touch-ups</li>
-          <li>Light gutter cleaning (select homes)</li>
-        </ul>
-        <p class="price">From $399</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🛁 Bathroom Refresh</h3>
-        <ul>
-          <li>Regrout &amp; recaulk tub/shower</li>
-          <li>Paint walls &amp; trim</li>
-          <li>Hardware upgrades</li>
-        </ul>
-        <p class="price">$1,650+</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🧱 Paver Walkway</h3>
-        <ul>
-          <li>Up to 120 sq ft</li>
-          <li>Compacted base &amp; polymeric sand</li>
-          <li>Edge restraints</li>
-        </ul>
-        <p class="price">$2,900+</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🧰 Handyman Essentials</h3>
-        <p>Pick any 3 focused tasks in one visit.</p>
-        <p class="price">$299–$499</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🍽️ Kitchen Mini-Remodel</h3>
-        <ul>
-          <li>Cabinet repaint or refinish</li>
-          <li>New backsplash install</li>
-          <li>Fixture &amp; handle swap</li>
-        </ul>
-        <p class="price">$3,200+</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🚗 Driveway Renewal</h3>
-        <ul>
-          <li>Pressure wash &amp; crack fill</li>
-          <li>Seal coat application</li>
-          <li>Edge clean &amp; debris removal</li>
-        </ul>
-        <p class="price">$1,100–$2,400</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🚧 Fence &amp; Gate Install</h3>
-        <ul>
-          <li>Wood or vinyl panels (per ft)</li>
-          <li>Gate alignment &amp; posts set</li>
-          <li>Includes site clean-up</li>
-        </ul>
-        <p class="price">From $2,500</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🌅 Patio Glow-Up</h3>
-        <ul>
-          <li>Power wash + re-sand</li>
-          <li>Sealant &amp; border cleanup</li>
-          <li>Optional lighting add-on</li>
-        </ul>
-        <p class="price">$1,200+</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- =====================
-       EXECUTIVE & SEASONAL
-  ===================== -->
-  <section class="section fade-up">
-    <h2>Executive &amp; Seasonal Plans</h2>
-    <div class="card-grid">
-      <article class="pkg-card">
-        <h3>🏡 Executive Home Makeover</h3>
-        <p class="price">$7,500–$12,500</p>
-        <p>Curated interior repaint, feature upgrades, and detailed finishing for a move-in-ready feel.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🌟 Executive Curb Luxury</h3>
-        <p class="price">$4,500–$9,000</p>
-        <p>Exterior wash, trim repaint, and a signature paver feature to elevate street presence.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🍂 Seasonal Home Care Plan</h3>
-        <p class="price">From $399 per season</p>
-        <p>Spring, Summer, Fall, Winter bundles to keep your property protected and presentable.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🔒 Premium Maintenance Club</h3>
-        <p class="price">$99/mo</p>
-        <p>Quarterly inspection, small proactive fixes, and priority repair scheduling.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>✨ Designer Finish Upgrade</h3>
-        <p class="price">$3,000–$6,000</p>
-        <p>Feature wall, lighting highlights, and premium trim detailing for a luxury look.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>🌳 Backyard Comfort Plan</h3>
-        <p class="price">$2,400–$4,800</p>
-        <p>Deck wash &amp; stain, layout tweaks, and seasonal décor alignment for outdoor relaxing.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>❄️ Snow &amp; Storm Priority</h3>
-        <p class="price">$299–$699</p>
-        <p>Priority snow-clear calls and post-storm checkups for existing clients.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>📦 Executive Move-In Ready</h3>
-        <p class="price">$5,000–$9,000</p>
-        <p>Interior refresh, basic repairs, and white-glove deep cleaning before move-in.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- =====================
-       BOROUGH-BASED PRICING
-  ===================== -->
-  <section class="section fade-up">
-    <h2>Borough-Based Ballpark Ranges</h2>
-    <p class="section-note">
-      Labor, access, and building rules vary by area. Below are typical ranges for a <strong>curb appeal / small-to-medium project</strong>.
-    </p>
-
-    <div class="card-grid">
-      <article class="pkg-card">
-        <h3>Staten Island</h3>
-        <p class="price">Typical: $1,200 – $6,000</p>
-        <p>Driveways, pavers, porches, and light interior refreshes with easier parking and access.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Brooklyn</h3>
-        <p class="price">Typical: $1,800 – $7,500</p>
-        <p>Brownstone stoops, sidewalks, and interiors with tighter access and permit needs.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Queens</h3>
-        <p class="price">Typical: $1,500 – $7,000</p>
-        <p>Driveways, walkways, and full-floor updates in mixed low-rise housing.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Manhattan</h3>
-        <p class="price">Typical: $2,500 – $10,000+</p>
-        <p>Co-ops/condos with elevator coordination, protection, and stricter building rules.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Bronx</h3>
-        <p class="price">Typical: $1,600 – $7,000</p>
-        <p>Masonry repairs, steps, retaining walls, and family-home interiors.</p>
-      </article>
-
-      <article class="pkg-card">
-        <h3>New Jersey (Select)</h3>
-        <p class="price">Typical: $1,400 – $7,000</p>
-        <p>Pavers, masonry, and remodeling in select towns with easier access and parking.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- =====================
-       WHAT AFFECTS PRICE
-  ===================== -->
-  <section class="section note-box fade-up">
-    <h2>What Affects Final Price?</h2>
-    <ul class="bullets">
-      <li>Access, parking, and building rules</li>
-      <li>Material selections and finishes</li>
-      <li>Existing conditions and hidden issues</li>
-      <li>Permits, DOB requirements, inspections</li>
-      <li>Timeline (flexible vs rush)</li>
-    </ul>
-    <p style="margin-top:8px;">Every proposal is <strong>written, line-itemed, and approved</strong> before work begins.</p>
-  </section>
-
-  <!-- CTA BAND -->
-  <section class="section cta-band fade-up">
-    <div class="cta-text">
-      <h2>Want a Precise Number?</h2>
-      <p>Text photos, call for a walkthrough, or send drawings — we’ll respond quickly with a clear, professional proposal.</p>
-    </div>
-    <div class="cta-actions">
-      <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
-      <a class="btn ghost" href="contact.html">Request a Site Visit</a>
-    </div>
-  </section>
-
-</main>
-
-<!-- ✅ Include Footer -->
-<div id="footer-include"></div>
-
-<!-- ✅ Loader for header/footer + estimator logic -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Load shared header/footer
-  Promise.all([
-    fetch("header.html").then(r => r.text()),
-    fetch("footer.html").then(r => r.text())
-  ])
-  .then(([header, footer]) => {
-    document.getElementById("header-include").innerHTML = header;
-    document.getElementById("footer-include").innerHTML = footer;
-
-    const yr = document.getElementById("yr");
-    if (yr) yr.textContent = new Date().getFullYear();
-
-    if (typeof initHeaderInteractions === "function") {
-      initHeaderInteractions();
-    }
-  })
-  .catch(err => console.error("Include load error", err));
-
-  // Advanced estimator (range only)
-  const form = document.getElementById("estimatorForm");
-  const resultBox = document.getElementById("estimatorResult");
-  const labelEl = document.getElementById("estimatorRangeLabel");
-  const valueEl = document.getElementById("estimatorRangeValue");
-
-  if (form && resultBox && labelEl && valueEl) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const service = document.getElementById("estService").value;
-      const size = document.getElementById("estSize").value;
-      const finish = document.getElementById("estFinish").value;
-      const borough = document.getElementById("estBorough").value;
-      const timeline = document.getElementById("estTimeline").value;
-
-      if (!service || !size || !finish || !borough || !timeline) return;
-
-      // Base map (rough, conservative)
-      const baseMap = {
-        "masonry":       { small: 2400, medium: 4200, large: 7800 },
-        "interior-remodel": { small: 3800, medium: 6400, large: 11500 },
-        "bath":          { small: 5200, medium: 7800, large: 12000 },
-        "paint":         { small: 1800, medium: 3200, large: 5800 },
-        "patio":         { small: 3200, medium: 5900, large: 9800 },
-        "exterior-care": { small: 750,  medium: 1600, large: 2800 }
-      };
-
-      const finishFactor = {
-        "standard": 1.00,
-        "premium":  1.15,
-        "luxury":   1.30
-      };
-
-      const boroughFactor = {
-        "staten-island": 1.00,
-        "brooklyn":      1.08,
-        "queens":        1.05,
-        "manhattan":     1.20,
-        "bronx":         1.03,
-        "new-jersey":    0.98
-      };
-
-      const timelineFactor = {
-        "flexible": 1.00,
-        "soon":     1.05,
-        "rush":     1.12
-      };
-
-      const base = (baseMap[service] || baseMap["masonry"])[size] || 2500;
-      const total = base *
-        (finishFactor[finish] || 1) *
-        (boroughFactor[borough] || 1) *
-        (timelineFactor[timeline] || 1);
-
-      const low = Math.round((total * 0.9) / 50) * 50;
-      const high = Math.round((total * 1.15) / 50) * 50;
-
-      const serviceLabel = {
-        "masonry": "Masonry / Sidewalk / Pavers",
-        "interior-remodel": "Interior Remodel",
-        "bath": "Bathroom Remodel",
-        "paint": "Painting",
-        "patio": "Patio / Backyard Hardscape",
-        "exterior-care": "Exterior Care / Power-Wash"
-      }[service] || "Project";
-
-      const boroughLabel = {
-        "staten-island": "Staten Island",
-        "brooklyn": "Brooklyn",
-        "queens": "Queens",
-        "manhattan": "Manhattan",
-        "bronx": "Bronx",
-        "new-jersey": "New Jersey"
-      }[borough] || "your area";
-
-      labelEl.textContent = `${serviceLabel} in ${boroughLabel}`;
-      valueEl.textContent = `Estimated ballpark: $${low.toLocaleString()} – $${high.toLocaleString()} (labor + typical materials)`;
-
-      resultBox.style.display = "block";
+        const yr = document.getElementById("yr");
+        if (yr) yr.textContent = new Date().getFullYear();
+      })
+      .catch(err => console.error("Include load error", err));
     });
-  }
-});
-</script>
 
-<script src="script.js"></script>
+    /* Advanced Estimator Logic */
+    document.addEventListener("DOMContentLoaded", () => {
+      const form        = document.getElementById("est-form");
+      if (!form) return;
+
+      const serviceEl   = document.getElementById("est-service");
+      const boroughEl   = document.getElementById("est-borough");
+      const buildingEl  = document.getElementById("est-building");
+      const sizeRow     = document.getElementById("est-size-row");
+      const sizeLabel   = document.getElementById("est-size-label");
+      const sizeInput   = document.getElementById("est-size");
+      const scopeRow    = document.getElementById("est-scope-row");
+      const scopeSelect = document.getElementById("est-scope");
+      const finishEl    = document.getElementById("est-finish");
+      const urgencyEl   = document.getElementById("est-urgency");
+      const leadEl      = document.getElementById("est-lead");
+      const resultBox   = document.getElementById("est-result");
+
+      // NYC-leaning ranges (intentionally conservative to protect you)
+      const SERVICE_CONFIG = {
+        "masonry": {
+          mode: "area",
+          label: "Approx. masonry / paver area (sq. ft.)",
+          minArea: 60,
+          maxArea: 2000,
+          perSqLow: 25,   // NYC premium range
+          perSqHigh: 45,
+          minLow: 3500,
+          minHigh: 7500,
+          leadSensitive: false
+        },
+        "interior-paint": {
+          mode: "area",
+          label: "Approx. interior floor area (sq. ft.)",
+          minArea: 250,
+          maxArea: 4000,
+          perSqLow: 3.5,  // slightly above national average
+          perSqHigh: 7.5,
+          minLow: 1800,
+          minHigh: 3500,
+          leadSensitive: true
+        },
+        "exterior-paint": {
+          mode: "area",
+          label: "Approx. exterior wall area (sq. ft.)",
+          minArea: 400,
+          maxArea: 5000,
+          perSqLow: 4.5,
+          perSqHigh: 9.5,
+          minLow: 3500,
+          minHigh: 9000,
+          leadSensitive: true
+        },
+        "bathroom": {
+          mode: "scope",
+          leadSensitive: true,
+          scopes: {
+            "refresh": {
+              label: "Light refresh (keep layout & fixtures)",
+              low: 15000,
+              high: 28000
+            },
+            "mid": {
+              label: "Mid-level upgrade (some layout / tile changes)",
+              low: 28000,
+              high: 48000
+            },
+            "gut": {
+              label: "Full gut with luxury finishes",
+              low: 48000,
+              high: 90000
+            }
+          }
+        },
+        "kitchen": {
+          mode: "scope",
+          leadSensitive: true,
+          scopes: {
+            "refresh": {
+              label: "Cosmetic refresh (paint, backsplash, hardware)",
+              low: 25000,
+              high: 45000
+            },
+            "mid": {
+              label: "Mid-level remodel (cabinets + surfaces)",
+              low: 45000,
+              high: 85000
+            },
+            "gut": {
+              label: "Full gut / high-end kitchen",
+              low: 85000,
+              high: 160000
+            }
+          }
+        },
+        "basement": {
+          mode: "area",
+          label: "Approx. finished basement area (sq. ft.)",
+          minArea: 400,
+          maxArea: 2000,
+          perSqLow: 20,
+          perSqHigh: 60,
+          minLow: 25000,
+          minHigh: 65000,
+          leadSensitive: true
+        },
+        "handyman": {
+          mode: "scope",
+          leadSensitive: false,
+          scopes: {
+            "small": {
+              label: "Small visit (up to 2 hours)",
+              low: 350,
+              high: 550
+            },
+            "halfday": {
+              label: "Half day (up to 4 hours)",
+              low: 550,
+              high: 850
+            },
+            "fullday": {
+              label: "Full day (up to 8 hours)",
+              low: 850,
+              high: 1400
+            }
+          }
+        }
+      };
+
+      const BOROUGH_FACTOR = {
+        "staten-island": 1.00,
+        "brooklyn": 1.10,
+        "queens": 1.08,
+        "bronx": 1.05,
+        "manhattan": 1.20,
+        "nj": 1.05
+      };
+
+      const BUILDING_FACTOR = {
+        "house": 1.00,
+        "small-multi": 1.08,
+        "coop-condo": 1.15,
+        "mixed": 1.20
+      };
+
+      const FINISH_FACTOR = {
+        "standard": 1.00,
+        "premium": 1.15,
+        "luxury": 1.30
+      };
+
+      const URGENCY_FACTOR = {
+        "flex": 1.00,
+        "soon": 1.07,
+        "rush": 1.15
+      };
+
+      function formatMoney(num){
+        return "$" + Math.round(num).toLocaleString("en-US");
+      }
+
+      function rebuildScopeOptions(cfg){
+        scopeSelect.innerHTML = '<option value="">Select scope…</option>';
+        if (!cfg.scopes) return;
+        Object.entries(cfg.scopes).forEach(([value, sc]) => {
+          const opt = document.createElement("option");
+          opt.value = value;
+          opt.textContent = sc.label;
+          scopeSelect.appendChild(opt);
+        });
+      }
+
+      function updateVisibility(){
+        const svc = serviceEl.value;
+        const cfg = SERVICE_CONFIG[svc];
+        if (!cfg) return;
+
+        if (cfg.mode === "area"){
+          sizeRow.style.display  = "";
+          scopeRow.style.display = "none";
+          sizeLabel.textContent  = cfg.label || "Approx. size (sq. ft.)";
+        } else if (cfg.mode === "scope"){
+          sizeRow.style.display  = "none";
+          scopeRow.style.display = "";
+          rebuildScopeOptions(cfg);
+        } else {
+          sizeRow.style.display  = "";
+          scopeRow.style.display = "";
+          sizeLabel.textContent  = cfg.label || "Approx. size (sq. ft.)";
+          rebuildScopeOptions(cfg);
+        }
+      }
+
+      function calculateEstimate(evt){
+        evt.preventDefault();
+
+        const svc = serviceEl.value;
+        const cfg = SERVICE_CONFIG[svc];
+        if (!cfg){
+          resultBox.innerHTML = "<p>Choose a project type to begin.</p>";
+          return;
+        }
+
+        let baseLow, baseHigh;
+
+        if (cfg.mode === "area" || cfg.mode === "both"){
+          let area = parseFloat((sizeInput.value || "").replace(/,/g,""));
+          if (isNaN(area) || area <= 0){
+            resultBox.innerHTML = "<p>Please enter an approximate size in square feet.</p>";
+            return;
+          }
+          const minArea = cfg.minArea || 1;
+          const maxArea = cfg.maxArea || 5000;
+          area = Math.max(minArea, Math.min(area, maxArea));
+
+          baseLow  = cfg.perSqLow  * area;
+          baseHigh = cfg.perSqHigh * area;
+
+          if (cfg.minLow  && baseLow  < cfg.minLow)  baseLow  = cfg.minLow;
+          if (cfg.minHigh && baseHigh < cfg.minHigh) baseHigh = cfg.minHigh;
+        } else if (cfg.mode === "scope"){
+          const scopeVal = scopeSelect.value;
+          const scopeCfg = cfg.scopes && cfg.scopes[scopeVal];
+          if (!scopeCfg){
+            resultBox.innerHTML = "<p>Please choose a scope level for this project type.</p>";
+            return;
+          }
+          baseLow  = scopeCfg.low;
+          baseHigh = scopeCfg.high;
+        }
+
+        const borough   = boroughEl.value;
+        const building  = buildingEl.value;
+        const finish    = finishEl.value;
+        const urgency   = urgencyEl.value;
+        const leadValue = leadEl.value;
+
+        let factor = 1;
+        factor *= BOROUGH_FACTOR[borough]  || 1;
+        factor *= BUILDING_FACTOR[building]|| 1;
+        factor *= FINISH_FACTOR[finish]    || 1;
+        factor *= URGENCY_FACTOR[urgency]  || 1;
+
+        if (leadValue === "yes" && cfg.leadSensitive){
+          factor *= 1.10; // extra time for RRP setup, containment & cleaning
+        }
+
+        let low  = baseLow  * factor;
+        let high = baseHigh * factor;
+
+        // widen range slightly for unknowns / hidden conditions
+        const softLow  = low  * 0.95;
+        const softHigh = high * 1.12;
+
+        resultBox.innerHTML = `
+          <p class="muted">NYC-area ballpark only — not a formal quote.</p>
+          <p>Estimated range for this type of project:</p>
+          <p class="est-main">${formatMoney(softLow)} – ${formatMoney(softHigh)}</p>
+          <p class="est-note">
+            Most approved projects land somewhere in the middle of this range once we see
+            access, existing conditions, and final finish choices.
+          </p>
+          <ul class="bullets">
+            <li>Includes a buffer for typical NYC access, protection, and cleanup.</li>
+            <li>Does <strong>not</strong> include architect/engineer fees, DOB filing costs, major structural/MEP changes, or unforeseen conditions.</li>
+            <li>Final pricing is only confirmed in a written estimate after a walkthrough.</li>
+          </ul>
+          <a class="btn" href="contact.html">Book a walkthrough for an exact quote</a>
+        `;
+      }
+
+      serviceEl.addEventListener("change", updateVisibility);
+      form.addEventListener("submit", calculateEstimate);
+
+      updateVisibility();
+    });
+  </script>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
-
