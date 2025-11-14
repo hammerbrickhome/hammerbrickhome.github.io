@@ -41,17 +41,11 @@
   box-shadow: 0 10px 28px rgba(0,0,0,0.75);
 }
 
-/* Search bar */
-.search-input {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 15px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.2);
-  background: rgba(5,10,18,.85);
-  color: var(--ink);
-  margin-top: 6px;
-}
+
+/* ----------------------------------
+   LUXURY GOLD SEARCH BAR (Matches Gallery)
+----------------------------------- */
+
 .search-label {
   display: block;
   margin-bottom: 6px;
@@ -59,7 +53,29 @@
   color: var(--muted);
 }
 
-/* "No results" message */
+.search-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 12px;
+  background: rgba(7,14,26,0.92);
+  border: 1px solid rgba(231,191,99,0.35);
+  color: var(--ink);
+  margin: 0 auto 10px auto;
+  display: block;
+  box-shadow: 0 0 12px rgba(212,175,55,0.12);
+  transition: 0.25s ease;
+}
+
+/* Glow on focus */
+.search-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 18px rgba(212,175,55,0.45);
+  outline: none;
+}
+
+/* "No results" */
 #noResults {
   display: none;
   margin-top: 10px;
@@ -92,6 +108,7 @@
   <input id="serviceSearch" class="search-input" placeholder="Type to filter (e.g., pavers, bathroom, sidewalk)...">
   <p id="noResults">No matching services found.</p>
 </section>
+
 
 <!-- ============================================
      NEW CATEGORY — LEAD-SAFE RENOVATION (RRP)
@@ -183,47 +200,57 @@
   <h2>Roofing Policy</h2>
   <p>We perform <strong>safe, accessible roof repairs only</strong>: small shingle fixes, flashing adjustments, and leak tracing. Full roof installations are referred to trusted partners.</p>
 </section>
+
 </main>
 
-<!-- ✅ Include Footer -->
+<!-- FOOTER -->
 <div id="footer-include"></div>
 
-<!-- ✅ Includes Loader -->
+<!-- HEADER / FOOTER LOADER + SEARCH FILTER -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Load header/footer
   Promise.all([
     fetch("header.html").then(r => r.text()),
     fetch("footer.html").then(r => r.text())
   ]).then(([header, footer]) => {
+
     document.getElementById("header-include").innerHTML = header;
     document.getElementById("footer-include").innerHTML = footer;
+
     const yr = document.getElementById("yr");
     if (yr) yr.textContent = new Date().getFullYear();
+  });
 
-    // Initialize search filter after header/footer load
-    const input = document.getElementById("serviceSearch");
-    const noResults = document.getElementById("noResults");
-    const buttons = document.querySelectorAll(".service-button");
+  // Search filter
+  const input = document.getElementById("serviceSearch");
+  const noResults = document.getElementById("noResults");
+  const buttons = document.querySelectorAll(".service-button");
 
-    if (input && buttons.length) {
-      input.addEventListener("input", () => {
-        const q = input.value.toLowerCase().trim();
-        let visible = 0;
-        buttons.forEach(btn => {
-          const show = btn.textContent.toLowerCase().includes(q);
-          btn.style.display = show ? "" : "none";
-          if (show) visible++;
-        });
-        if (noResults) noResults.style.display = visible ? "none" : "block";
+  if (input && buttons.length) {
+    input.addEventListener("input", () => {
+      const q = input.value.toLowerCase().trim();
+      let visible = 0;
+
+      buttons.forEach(btn => {
+        const show = btn.textContent.toLowerCase().includes(q);
+        btn.style.display = show ? "" : "none";
+        if (show) visible++;
       });
-    }
-  }).catch(err => console.error("Include load error", err));
+
+      noResults.style.display = visible ? "none" : "block";
+    });
+  }
+
 });
 </script>
 
 <script src="script.js"></script>
+
 </body>
 </html>
+
 
 
 
