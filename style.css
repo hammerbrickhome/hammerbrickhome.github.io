@@ -1060,3 +1060,89 @@ body::before {
   background: #f5c400 !important;
   color: #0a0a0a !important;
 }
+
+/* ============================================================
+   HEADER MENU — LUXURY VERSION (SLIGHT GOLD TINT + SHIMMER)
+   Applies ONLY to header <nav> — Does NOT affect hero, pills,
+   trust badges, buttons, or gold animations elsewhere.
+=============================================================== */
+
+/* Base menu links — clean, sharp, and lightly gold-tinted */
+.main-nav a {
+  color: rgba(245,196,0,0.75); /* slight gold tint ALWAYS */
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  animation: none !important;
+  text-shadow: 0 0 3px rgba(212,175,55,0.28); /* subtle luxury glow */
+  transition: .28s ease-out;
+  position: relative;
+}
+
+/* HOVER — bright gold + shimmer underline */
+.main-nav a:hover {
+  color: #f5c400;
+  background: rgba(255,255,255,0.05);
+  text-shadow: 0 0 8px rgba(245,196,0,0.75);
+}
+
+/* GOLD SHIMMER UNDERLINE */
+.main-nav a:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #f5c400,
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(245,196,0,0.85);
+  animation: shimmer-scan 0.9s ease-out forwards;
+}
+
+/* SHIMMER MOTION */
+@keyframes shimmer-scan {
+  0% { opacity: 0; transform: translateX(-35%); }
+  45% { opacity: 1; transform: translateX(0%); }
+  100% { opacity: 0; transform: translateX(35%); }
+}
+
+/* DROPDOWN BUTTON — slight gold tint always */
+.nav-link.dropbtn {
+  color: rgba(245,196,0,0.8) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-shadow: 0 0 3px rgba(212,175,55,0.25);
+  transition: .25s ease-out;
+}
+
+/* Dropdown hover */
+.nav-link.dropbtn:hover {
+  background: rgba(255,255,255,0.06) !important;
+  color: #fff !important;
+  text-shadow: 0 0 8px rgba(245,196,0,0.65) !important;
+}
+
+/* Dropdown items */
+.dropdown-content a {
+  color: rgba(245,196,0,0.85) !important;
+  border-radius: 0 !important;
+  background: #0a0a0a !important;
+  text-shadow: none !important;
+  transition: .22s;
+}
+
+.dropdown-content a:hover {
+  background: #f5c400 !important;
+  color: #0a0a0a !important;
+  text-shadow: none !important;
+}
+
