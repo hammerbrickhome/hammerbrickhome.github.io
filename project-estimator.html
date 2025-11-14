@@ -564,17 +564,17 @@
 
       const designStyleEl  = document.getElementById("design-style");
 
-      // NYC-leaning ranges based on recent cost guides (Angi, Fixr, Sweeten, etc.)
+      // NYC-leaning ranges based on recent cost guides (corrected Option A)
       const SERVICE_CONFIG = {
         "masonry": {
           mode: "area",
           label: "Approx. masonry / paver area (sq. ft.)",
           minArea: 80,
           maxArea: 4000,
-          perSqLow: 18,
-          perSqHigh: 32,
-          minLow: 3500,
-          minHigh: 8500,
+          perSqLow: 16,
+          perSqHigh: 28,
+          minLow: 2500,
+          minHigh: 6500,
           leadSensitive: false,
           permit: "maybe"
         },
@@ -583,10 +583,10 @@
           label: "Driveway / parking area (sq. ft.)",
           minArea: 250,
           maxArea: 5000,
-          perSqLow: 10,
-          perSqHigh: 26,
-          minLow: 4500,
-          minHigh: 18000,
+          perSqLow: 8,
+          perSqHigh: 20,
+          minLow: 3500,
+          minHigh: 15000,
           leadSensitive: false,
           permit: "maybe"
         },
@@ -595,10 +595,10 @@
           label: "Roof area (sq. ft. of deck)",
           minArea: 700,
           maxArea: 5000,
-          perSqLow: 4.5,
-          perSqHigh: 12.5,
-          minLow: 8500,
-          minHigh: 32000,
+          perSqLow: 3.75,
+          perSqHigh: 9.5,
+          minLow: 6500,
+          minHigh: 22000,
           leadSensitive: false,
           permit: "likely"
         },
@@ -607,10 +607,10 @@
           label: "Wall area to side (sq. ft.)",
           minArea: 600,
           maxArea: 4500,
-          perSqLow: 6,
-          perSqHigh: 16,
-          minLow: 9000,
-          minHigh: 42000,
+          perSqLow: 5,
+          perSqHigh: 12,
+          minLow: 6500,
+          minHigh: 28000,
           leadSensitive: true,
           permit: "likely"
         },
@@ -619,10 +619,10 @@
           label: "Total openings (windows + doors count)",
           minArea: 3,
           maxArea: 40,
-          perSqLow: 900,
-          perSqHigh: 2300,
-          minLow: 6500,
-          minHigh: 65000,
+          perSqLow: 750,
+          perSqHigh: 1600,
+          minLow: 5000,
+          minHigh: 45000,
           leadSensitive: true,
           permit: "maybe"
         },
@@ -631,10 +631,10 @@
           label: "Approx. exterior wall area (sq. ft.)",
           minArea: 400,
           maxArea: 5000,
-          perSqLow: 3.5,
-          perSqHigh: 8.25,
-          minLow: 3500,
-          minHigh: 14000,
+          perSqLow: 2.5,
+          perSqHigh: 6.5,
+          minLow: 2800,
+          minHigh: 10000,
           leadSensitive: true,
           permit: "maybe"
         },
@@ -643,10 +643,10 @@
           label: "Approx. deck / patio area (sq. ft.)",
           minArea: 120,
           maxArea: 1500,
-          perSqLow: 30,
-          perSqHigh: 75,
-          minLow: 7500,
-          minHigh: 35000,
+          perSqLow: 28,
+          perSqHigh: 60,
+          minLow: 6000,
+          minHigh: 26000,
           leadSensitive: false,
           permit: "likely"
         },
@@ -657,18 +657,18 @@
           scopes: {
             "yard": {
               label: "Standard run (approx. 50–120 ft)",
-              low: 3500,
-              high: 8500
+              low: 3000,
+              high: 6500
             },
             "corner": {
               label: "Corner / larger yard (120–220 ft)",
-              low: 8500,
-              high: 17000
+              low: 6500,
+              high: 12000
             },
             "premium": {
               label: "Premium/custom fence or multiple gates",
-              low: 17000,
-              high: 28000
+              low: 12000,
+              high: 20000
             }
           }
         },
@@ -677,10 +677,10 @@
           label: "Approx. basement / wall area (sq. ft.)",
           minArea: 200,
           maxArea: 2000,
-          perSqLow: 22,
-          perSqHigh: 55,
-          minLow: 5500,
-          minHigh: 38000,
+          perSqLow: 18,
+          perSqHigh: 40,
+          minLow: 3800,
+          minHigh: 22000,
           leadSensitive: true,
           permit: "likely"
         },
@@ -689,10 +689,10 @@
           label: "Approx. area to wash (sq. ft.)",
           minArea: 400,
           maxArea: 6000,
-          perSqLow: 0.9,
-          perSqHigh: 2.5,
-          minLow: 450,
-          minHigh: 4800,
+          perSqLow: 0.5,
+          perSqHigh: 1.6,
+          minLow: 300,
+          minHigh: 2500,
           leadSensitive: false,
           permit: "none"
         },
@@ -703,18 +703,18 @@
           scopes: {
             "basic": {
               label: "Basic monthly care (lawn, trim, light cleanup)",
-              low: 250,
-              high: 650
+              low: 180,
+              high: 450
             },
             "seasonal": {
               label: "Spring / Fall cleanup bundle",
-              low: 950,
-              high: 2800
+              low: 650,
+              high: 1800
             },
             "upgrade": {
               label: "Landscape upgrade (beds, plants, small hardscape)",
-              low: 3500,
-              high: 12000
+              low: 2500,
+              high: 9000
             }
           }
         },
@@ -725,18 +725,18 @@
           scopes: {
             "basic": {
               label: "Basic package (3–6 fixtures, simple controls)",
-              low: 1800,
-              high: 4200
+              low: 1500,
+              high: 3500
             },
             "standard": {
               label: "Full front package (6–12 fixtures, timer/smart)",
-              low: 4200,
-              high: 9800
+              low: 3500,
+              high: 7500
             },
             "premium": {
               label: "Whole-property or high-end system",
-              low: 9800,
-              high: 22000
+              low: 7500,
+              high: 16000
             }
           }
         },
@@ -745,10 +745,10 @@
           label: "Sidewalk / DOT concrete area (sq. ft.)",
           minArea: 80,
           maxArea: 800,
-          perSqLow: 22,
-          perSqHigh: 45,
-          minLow: 5500,
-          minHigh: 28000,
+          perSqLow: 18,
+          perSqHigh: 35,
+          minLow: 4500,
+          minHigh: 18000,
           leadSensitive: false,
           permit: "likely"
         },
@@ -759,18 +759,18 @@
           scopes: {
             "clean": {
               label: "Cleanout / minor repair",
-              low: 350,
-              high: 950
+              low: 250,
+              high: 700
             },
             "replace": {
               label: "Standard replacement (typical home)",
-              low: 1800,
-              high: 4800
+              low: 1500,
+              high: 3500
             },
             "guards": {
               label: "Install gutter guards (with minor repairs)",
-              low: 1800,
-              high: 5200
+              low: 1500,
+              high: 3800
             }
           }
         },
@@ -779,10 +779,10 @@
           label: "Approx. interior floor area (sq. ft.)",
           minArea: 250,
           maxArea: 4000,
-          perSqLow: 2.5,
-          perSqHigh: 5.5,
-          minLow: 2500,
-          minHigh: 14500,
+          perSqLow: 1.5,
+          perSqHigh: 3.5,
+          minLow: 1800,
+          minHigh: 9000,
           leadSensitive: true,
           permit: "none"
         },
@@ -791,10 +791,10 @@
           label: "Floor area (sq. ft.)",
           minArea: 200,
           maxArea: 3000,
-          perSqLow: 5,
-          perSqHigh: 18,
-          minLow: 3500,
-          minHigh: 38000,
+          perSqLow: 4,
+          perSqHigh: 14,
+          minLow: 2500,
+          minHigh: 26000,
           leadSensitive: false,
           permit: "none"
         },
@@ -803,10 +803,10 @@
           label: "Wall / ceiling surface area (sq. ft.)",
           minArea: 200,
           maxArea: 4000,
-          perSqLow: 3.5,
-          perSqHigh: 9.5,
-          minLow: 2500,
-          minHigh: 26000,
+          perSqLow: 2.75,
+          perSqHigh: 7.5,
+          minLow: 2000,
+          minHigh: 18000,
           leadSensitive: true,
           permit: "maybe"
         },
@@ -815,10 +815,10 @@
           label: "Number of doors to replace",
           minArea: 2,
           maxArea: 20,
-          perSqLow: 450,
-          perSqHigh: 1150,
-          minLow: 1000,
-          minHigh: 18000,
+          perSqLow: 300,
+          perSqHigh: 900,
+          minLow: 600,
+          minHigh: 12000,
           leadSensitive: false,
           permit: "none"
         },
@@ -829,18 +829,18 @@
           scopes: {
             "simple": {
               label: "Simple reach-in or small closet",
-              low: 1800,
-              high: 4200
+              low: 1500,
+              high: 3500
             },
             "walkin": {
               label: "Standard walk-in layout",
-              low: 4200,
-              high: 9800
+              low: 3500,
+              high: 7800
             },
             "premium": {
               label: "Custom built-ins / dressing room",
-              low: 9800,
-              high: 22000
+              low: 7800,
+              high: 15000
             }
           }
         },
@@ -851,18 +851,18 @@
           scopes: {
             "room": {
               label: "Single room upgrade (recessed / fixture)",
-              low: 1800,
-              high: 4200
+              low: 1500,
+              high: 3000
             },
             "multi": {
               label: "Multiple rooms / small apartment",
-              low: 4200,
-              high: 9800
+              low: 3000,
+              high: 6500
             },
             "whole": {
               label: "Whole-home smart lighting package",
-              low: 9800,
-              high: 26000
+              low: 6500,
+              high: 18000
             }
           }
         },
@@ -873,18 +873,18 @@
           scopes: {
             "refresh": {
               label: "Light refresh (keep layout & most fixtures)",
-              low: 14000,
-              high: 26000
+              low: 9000,
+              high: 16000
             },
             "mid": {
               label: "Mid-level remodel (tile + fixtures upgrade)",
-              low: 26000,
-              high: 45000
+              low: 16000,
+              high: 28000
             },
             "gut": {
               label: "Full gut with higher-end finishes",
-              low: 45000,
-              high: 85000
+              low: 28000,
+              high: 45000
             }
           }
         },
@@ -895,18 +895,18 @@
           scopes: {
             "refresh": {
               label: "Cosmetic refresh (paint, backsplash, hardware)",
-              low: 18000,
-              high: 32000
+              low: 16000,
+              high: 28000
             },
             "mid": {
               label: "Mid-level remodel (cabinets + surfaces)",
-              low: 32000,
-              high: 65000
+              low: 28000,
+              high: 55000
             },
             "gut": {
               label: "Full gut / higher-end kitchen",
-              low: 65000,
-              high: 120000
+              low: 55000,
+              high: 90000
             }
           }
         },
@@ -915,10 +915,10 @@
           label: "Approx. finished basement area (sq. ft.)",
           minArea: 400,
           maxArea: 2000,
-          perSqLow: 45,
-          perSqHigh: 110,
-          minLow: 25000,
-          minHigh: 95000,
+          perSqLow: 35,
+          perSqHigh: 85,
+          minLow: 22000,
+          minHigh: 65000,
           leadSensitive: true,
           permit: "likely"
         },
@@ -929,13 +929,13 @@
           scopes: {
             "basic": {
               label: "Basic insulated studio / office conversion",
-              low: 22000,
-              high: 42000
+              low: 18000,
+              high: 35000
             },
             "enhanced": {
               label: "Enhanced conversion (bath / kitchenette)",
-              low: 42000,
-              high: 78000
+              low: 35000,
+              high: 65000
             }
           }
         },
@@ -944,10 +944,10 @@
           label: "Garage floor area (sq. ft.)",
           minArea: 250,
           maxArea: 1500,
-          perSqLow: 5,
-          perSqHigh: 12,
-          minLow: 2200,
-          minHigh: 14500,
+          perSqLow: 4.25,
+          perSqHigh: 9.5,
+          minLow: 1800,
+          minHigh: 9000,
           leadSensitive: false,
           permit: "none"
         },
@@ -958,18 +958,18 @@
           scopes: {
             "basic": {
               label: "Doorbell / a few cameras / smart lock",
-              low: 1800,
-              high: 4200
+              low: 1500,
+              high: 3000
             },
             "standard": {
               label: "Full-floor or small home package",
-              low: 4200,
-              high: 9800
+              low: 3000,
+              high: 6500
             },
             "premium": {
               label: "Whole-home integrated smart system",
-              low: 9800,
-              high: 26000
+              low: 6500,
+              high: 15000
             }
           }
         },
@@ -980,18 +980,18 @@
           scopes: {
             "small": {
               label: "Small visit (up to 2 hours)",
-              low: 350,
-              high: 550
+              low: 250,
+              high: 450
             },
             "halfday": {
               label: "Half day (up to 4 hours)",
-              low: 550,
-              high: 850
+              low: 450,
+              high: 700
             },
             "fullday": {
               label: "Full day (up to 8 hours)",
-              low: 850,
-              high: 1400
+              low: 700,
+              high: 1000
             }
           }
         },
@@ -1000,10 +1000,10 @@
           label: "Approx. wall/ceiling area to soundproof (sq. ft.)",
           minArea: 150,
           maxArea: 2000,
-          perSqLow: 18,
-          perSqHigh: 48,
-          minLow: 5500,
-          minHigh: 42000,
+          perSqLow: 12,
+          perSqHigh: 28,
+          minLow: 3000,
+          minHigh: 15000,
           leadSensitive: true,
           permit: "maybe"
         },
@@ -1012,10 +1012,10 @@
           label: "Approx. treated area (sq. ft.)",
           minArea: 150,
           maxArea: 2000,
-          perSqLow: 10,
-          perSqHigh: 32,
-          minLow: 3500,
-          minHigh: 26000,
+          perSqLow: 8,
+          perSqHigh: 22,
+          minLow: 2500,
+          minHigh: 15000,
           leadSensitive: true,
           permit: "maybe"
         }
@@ -1531,4 +1531,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
