@@ -1439,5 +1439,41 @@ input.gallery-search-box,
       0 0 14px rgba(212,175,55,0.25);
   }
 }
+/* ============================================================
+   PROJECT ESTIMATOR — GOLD SHIMMER / HOVER (TWO TITLES ONLY)
+=============================================================== */
+
+.shimmer-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 900;
+  font-family: var(--font-serif);
+  color: var(--gold-soft);
+  margin: 38px auto 10px;
+  text-shadow:
+    0 0 10px rgba(212,175,55,0.55),
+    0 0 20px rgba(212,175,55,0.35);
+  display: block;
+  animation: shimmerTitle 3s linear infinite;
+  transition: .25s ease-out;
+  cursor: pointer;
+}
+
+/* Hover Glow */
+.shimmer-title:hover {
+  filter: brightness(1.25);
+  transform: scale(1.03);
+  text-shadow:
+    0 0 16px rgba(245,196,0,1),
+    0 0 28px rgba(245,196,0,.9),
+    0 0 40px rgba(245,196,0,.7);
+}
+
+/* Shimmer breathing animation */
+@keyframes shimmerTitle {
+  0%   { filter: brightness(85%); }
+  50%  { filter: brightness(150%); }
+  100% { filter: brightness(85%); }
+}
 
 
