@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Staten Island Home Improvement | Luxury Remodeling & Masonry | Hammer Brick & Home LLC</title>
-
 <meta name="description" content="Trusted Staten Island home improvement contractor specializing in masonry, pavers, kitchens, bathrooms, painting, and exterior care. Licensed & Insured (NYC HIC #21311291). EPA Lead-Safe Certified Firm. Free estimates.">
 
 <link rel="icon" href="/images/hero.PNG">
@@ -25,7 +24,7 @@
 <meta name="twitter:description" content="Serving Staten Island homeowners with precision craftsmanship and clean, respectful work.">
 <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-<!-- ⭐ Staten Island Schema -->
+<!-- JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -53,14 +52,14 @@
   }
 }
 </script>
-
 </head>
+
 <body>
 
-<!-- HEADER INCLUDE -->
+<!-- HEADER -->
 <div id="header-include"></div>
 
-<!-- Floating Call Button -->
+<!-- Sticky Call -->
 <a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
 
 <main class="page">
@@ -95,7 +94,6 @@
 
   <div class="accent-card">
     <h3>Why Staten Island Chooses Us</h3>
-
     <ul class="bullets">
       <li>Clean prep, drop cloths & dust control</li>
       <li>Precise lines, finishes & premium materials</li>
@@ -126,7 +124,7 @@
 
 </main>
 
-<!-- CTA Include + Footer -->
+<!-- CTA + Footer -->
 <div id="cta-include"></div>
 <div id="footer-include"></div>
 
@@ -141,6 +139,7 @@
   </div>
 </div>
 
+<!-- SCRIPTS -->
 <script src="/script.js"></script>
 
 <script>
@@ -155,12 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("cta-include").innerHTML = cta;
     document.getElementById("footer-include").innerHTML = footer;
 
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+
     if (typeof initHeaderInteractions === "function") {
       initHeaderInteractions();
     }
-
-    const yr = document.getElementById("yr");
-    if (yr) yr.textContent = new Date().getFullYear();
   })
   .catch(console.error);
 });
@@ -168,5 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
