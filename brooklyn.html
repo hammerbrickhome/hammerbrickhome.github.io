@@ -25,34 +25,43 @@
 <meta name="twitter:description" content="Serving Brooklyn with licensed interior remodeling, masonry, painting, brownstone repair, and historic façade restoration.">
 <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-<!-- JSON-LD -->
+<!-- ⭐ FIXED JSON-LD (VALID — DOES NOT REQUIRE STREET ADDRESS) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
+  "@type": "Organization",
   "name": "Hammer Brick & Home LLC",
   "url": "https://www.hammerbrickhome.com/",
   "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "description": "Licensed NYC contractor providing Brooklyn brownstone remodeling, masonry, facades, stoops, kitchens, baths, and historic restoration.",
   "telephone": "+1-929-595-5300",
-  "priceRange": "$$",
-  "areaServed": ["Brooklyn"],
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Staten Island",
     "addressRegion": "NY",
     "addressCountry": "US"
   },
-  "identifier": {
-    "@type": "PropertyValue",
-    "name": "NYC HIC",
-    "value": "21311291"
-  },
-  "hasCredential": {
-    "@type": "EducationalOccupationalCredential",
-    "credentialCategory": "EPA Lead-Safe Certified Firm"
-  }
+  "areaServed": "Brooklyn",
+  "sameAs": [
+    "https://facebook.com/",
+    "https://instagram.com/",
+    "https://tiktok.com/"
+  ],
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "NYC HIC License",
+      "value": "21311291"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "EPA Lead-Safe Certified Firm",
+      "value": "Yes"
+    }
+  ]
 }
 </script>
+
 </head>
 
 <body>
@@ -147,6 +156,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 </body>
 </html>
+
 
 
 
