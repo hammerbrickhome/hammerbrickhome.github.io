@@ -340,7 +340,7 @@ async function initHomepageBA() {
 /* ============================================================
    ✅ MASTER INIT
 =============================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   loadGalleryPage();
   initHomepageBA();
   initGallerySearch();
