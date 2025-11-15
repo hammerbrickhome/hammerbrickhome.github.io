@@ -12,8 +12,6 @@
 <link rel="preload" as="image" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css">
 
-  
-
 <!-- Open Graph -->
 <meta property="og:title" content="About Us — Hammer Brick & Home LLC">
 <meta property="og:description" content="Our craftsmanship, values, and credentials. Luxury NYC remodeling & true masonry with white-glove clean-up.">
@@ -114,7 +112,7 @@
 
     <div class="hero-actions">
       <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
-      <a class="btn ghost" href="contact.html">Contact Form</a>
+      <a class="btn ghost" href="/contact.html">Contact Form</a>
     </div>
   </section>
 
@@ -127,21 +125,26 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
-    fetch("header.html").then(r => r.text()),
-    fetch("footer.html").then(r => r.text())
+    fetch("/header.html").then(r => r.text()),
+    fetch("/footer.html").then(r => r.text())
   ])
   .then(([header, footer]) => {
     document.getElementById("header-include").innerHTML = header;
     document.getElementById("footer-include").innerHTML = footer;
+
     const yr = document.getElementById("yr");
     if (yr) yr.textContent = new Date().getFullYear();
-    if (typeof initHeaderInteractions === "function") initHeaderInteractions();
+
+    if (typeof initHeaderInteractions === "function") {
+      initHeaderInteractions();
+    }
   })
   .catch(err => console.error("Include load error", err));
 });
 </script>
 
-<script src="script.js"></script>
+<script src="/script.js"></script>
 
 </body>
 </html>
+
