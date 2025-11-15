@@ -73,7 +73,6 @@ function shuffle(arr) {
 let galleryInitialized = false;
 
 async function loadGalleryPage() {
-  // Prevent double-init if something calls this twice
   if (galleryInitialized) return;
   galleryInitialized = true;
 
@@ -82,11 +81,10 @@ async function loadGalleryPage() {
   const baBtn = document.getElementById('loadMoreBA');
   const gridBtn = document.getElementById('loadMoreGrid');
 
-  // If we're not on the gallery page, just exit
   if (!galleryContainer && !compareRow) return;
 
   try {
-    const res = await fetch('gallery.json', { cache: 'no-store' });
+    const res = await fetch('/gallery.json', { cache: 'no-store' });
     if (!res.ok) {
       console.error('gallery.json failed to load');
       return;
@@ -103,7 +101,6 @@ async function loadGalleryPage() {
     let gridIndex = 0;
     let pairIndex = 0;
 
-    // ---- Helper: gold skeleton shim (luxury shimmer) ----
     function makeSkeleton(heightPx) {
       const sk = document.createElement('div');
       sk.className = 'skeleton';
@@ -111,7 +108,6 @@ async function loadGalleryPage() {
       return sk;
     }
 
-    // ---- BEFORE/AFTER cards (using homepage style) ----
     function buildCompareCard(pair) {
       const card = document.createElement('div');
       card.className = 'ba-card fade-in';
@@ -121,18 +117,16 @@ async function loadGalleryPage() {
 
       const before = document.createElement('img');
       before.className = 'ba-before';
-      before.src = 'images/' + pair.before;
+      before.src = '/images/' + pair.before;
       before.loading = 'lazy';
-      before.alt = (pair.label || 'Before project') + ' — before';
 
       const afterWrap = document.createElement('div');
       afterWrap.className = 'ba-after-wrap';
 
       const after = document.createElement('img');
       after.className = 'ba-after';
-      after.src = 'images/' + pair.after;
+      after.src = '/images/' + pair.after;
       after.loading = 'lazy';
-      after.alt = (pair.label || 'After project') + ' — after';
 
       afterWrap.appendChild(after);
 
@@ -171,18 +165,17 @@ async function loadGalleryPage() {
 
     function renderMorePairs() {
       if (!compareRow) return;
+
       const slice = pairs.slice(pairIndex, pairIndex + PAGE);
 
       slice.forEach(pair => {
         if (!pair.before || !pair.after) return;
 
-        // Skeleton placeholder while images settle
         const sk = makeSkeleton(230);
         compareRow.appendChild(sk);
 
         const card = buildCompareCard(pair);
 
-        // Quick swap to feel responsive but still show shimmer
         setTimeout(() => {
           sk.replaceWith(card);
         }, 220);
@@ -195,9 +188,9 @@ async function loadGalleryPage() {
       }
     }
 
-    // ---- PHOTO GRID ----
     function renderMoreGrid() {
       if (!galleryContainer) return;
+
       const slice = grid.slice(gridIndex, gridIndex + PAGE);
 
       slice.forEach(name => {
@@ -205,7 +198,7 @@ async function loadGalleryPage() {
         galleryContainer.appendChild(sk);
 
         const img = new Image();
-        img.src = 'images/' + name;
+        img.src = '/images/' + name;
         img.loading = 'lazy';
         img.decoding = 'async';
         img.alt = name;
@@ -224,11 +217,9 @@ async function loadGalleryPage() {
       }
     }
 
-    // First batch
     if (compareRow && pairs.length) renderMorePairs();
     if (galleryContainer && grid.length) renderMoreGrid();
 
-    // Button hooks
     if (baBtn) baBtn.addEventListener('click', renderMorePairs);
     if (gridBtn) gridBtn.addEventListener('click', renderMoreGrid);
 
@@ -265,31 +256,28 @@ function initGallerySearch() {
   input.addEventListener('input', () => {
     const q = input.value.toLowerCase();
 
-    // Filter grid photos
     document.querySelectorAll('.grid-photo').forEach(img => {
-      const text = (img.alt || '').toLowerCase();
-      img.style.display = text.includes(q) ? '' : 'none';
+      img.style.display = img.alt.toLowerCase().includes(q) ? '' : 'none';
     });
 
-    // Filter before/after cards by caption text
     document.querySelectorAll('#compareRow .compare-caption').forEach(cap => {
-      const card = cap.closest('.ba-card') || cap.parentElement;
-      const text = cap.textContent.toLowerCase();
+      const card = cap.closest('.ba-card');
       if (!card) return;
-      card.style.display = text.includes(q) ? '' : 'none';
+      card.style.display = cap.textContent.toLowerCase().includes(q)
+        ? ''
+        : 'none';
     });
   });
 }
 
 /* ============================================================
-   ✅ HOMEPAGE — BEFORE & AFTER FROM gallery.json → homePairs
+   ✅ HOMEPAGE — BEFORE & AFTER
 =============================================================== */
 async function initHomepageBA() {
   const grid = document.getElementById('ba-grid');
   const loadMoreBtn = document.getElementById('ba-loadmore');
   const template = document.getElementById('ba-card');
 
-  // Not on homepage
   if (!grid || !template) return;
 
   let allPairs = [];
@@ -298,18 +286,18 @@ async function initHomepageBA() {
 
   async function loadPairsFromJSON() {
     try {
-      const res = await fetch('gallery.json', { cache: 'no-store' });
+      const res = await fetch('/gallery.json', { cache: 'no-store' });
       if (!res.ok) return [];
       const data = await res.json();
       return Array.isArray(data.homePairs) ? data.homePairs : [];
     } catch (e) {
-      console.error('JSON load error', e);
       return [];
     }
   }
 
   function renderNextSix() {
     const slice = allPairs.slice(index, index + BATCH);
+
     slice.forEach(pair => {
       const card = template.content.cloneNode(true);
       const before = card.querySelector('.ba-before');
@@ -318,22 +306,17 @@ async function initHomepageBA() {
       const slider = card.querySelector('.ba-slider');
       const wrap = card.querySelector('.ba-after-wrap');
 
-      if (before) {
-        before.src = 'images/' + pair.before;
-        before.loading = 'lazy';
-      }
-      if (after) {
-        after.src = 'images/' + pair.after;
-        after.loading = 'lazy';
-      }
-      if (caption) caption.textContent = pair.label || '';
-      if (slider && wrap) {
-        slider.addEventListener('input', () => {
-          wrap.style.width = slider.value + '%';
-        });
-      }
+      before.src = '/images/' + pair.before;
+      after.src = '/images/' + pair.after;
+      caption.textContent = pair.label || '';
+
+      slider.addEventListener('input', () => {
+        wrap.style.width = slider.value + '%';
+      });
+
       grid.appendChild(card);
     });
+
     index += slice.length;
     if (loadMoreBtn && index >= allPairs.length) {
       loadMoreBtn.style.display = 'none';
@@ -348,6 +331,7 @@ async function initHomepageBA() {
   }
 
   renderNextSix();
+
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', renderNextSix);
   }
@@ -357,8 +341,7 @@ async function initHomepageBA() {
    ✅ MASTER INIT
 =============================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  loadGalleryPage();    // only does anything on /gallery
-  initHomepageBA();     // only does anything on homepage
-  initGallerySearch();  // only does anything if #gallerySearch exists
+  loadGalleryPage();
+  initHomepageBA();
+  initGallerySearch();
 });
-
