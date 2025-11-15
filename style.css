@@ -1476,4 +1476,64 @@ input.gallery-search-box,
   100% { filter: brightness(85%); }
 }
 
+/* ============================================================
+   FIX PROJECT ESTIMATOR ALIGNMENT (NO HTML CHANGES)
+=============================================================== */
+
+/* Center ONLY the estimator heading block */
+.hero-inner .hero-content,
+.hero-inner .hero-content h1,
+.hero-inner .hero-content p {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* First title (Project Estimator) */
+.hero-inner .hero-content h1 {
+  font-size: 36px !important;
+  font-weight: 900 !important;
+  color: var(--gold-soft) !important;
+  text-shadow:
+    0 0 10px rgba(212,175,55,0.55),
+    0 0 20px rgba(212,175,55,0.35);
+  animation: shimmerTitle 3s linear infinite;
+}
+
+/* Subtitle under Project Estimator */
+.hero-inner .hero-content p {
+  max-width: 780px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  color: var(--muted) !important;
+  font-size: 14px !important;
+}
+
+/* Second title (NYC & NJ Project Estimator) */
+.section h2 {
+  text-align: center !important;
+  width: 100%;
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  animation: shimmerTitle 3s linear infinite;
+}
+
+/* Hover glow on both titles */
+.hero-inner .hero-content h1:hover,
+.section h2:hover {
+  filter: brightness(1.25);
+  transform: scale(1.03);
+  text-shadow:
+    0 0 16px rgba(245,196,0,1),
+    0 0 28px rgba(245,196,0,.9),
+    0 0 40px rgba(245,196,0,.7);
+}
+
+/* Continuous shimmer animation */
+@keyframes shimmerTitle {
+  0%   { filter: brightness(85%); }
+  50%  { filter: brightness(150%); }
+  100% { filter: brightness(85%); }
+}
 
