@@ -1362,3 +1362,82 @@ input.gallery-search-box,
   }
 }
 
+/* ============================================
+   FAQ TITLE — GOLD • SHIMMER • GLOW • HOVER
+   ============================================ */
+
+.faq-title {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  font-weight: 900;
+  text-align: center;
+  margin: 45px 0 28px;
+  color: var(--gold-soft);
+  letter-spacing: 0.5px;
+  text-shadow:
+    0 0 8px rgba(212,175,55,0.55),
+    0 0 16px rgba(212,175,55,0.35);
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Continuous shimmer line */
+.faq-title::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #f5c400, transparent);
+  transform: translateX(-50%);
+  animation: faqShimmer 2.4s infinite ease-in-out;
+  border-radius: 999px;
+}
+
+/* Gold pulsing glow */
+.shimmer-gold {
+  animation: faqGlow 3s infinite ease-in-out alternate;
+}
+
+/* Hover = brighter + stronger shimmer */
+.faq-title:hover {
+  filter: brightness(1.25);
+  text-shadow:
+    0 0 12px rgba(245,196,0,0.95),
+    0 0 24px rgba(245,196,0,0.75);
+  transform: scale(1.02);
+  transition: 0.25s ease-out;
+}
+
+/* Shimmer animation */
+@keyframes faqShimmer {
+  0%   { width: 20%; opacity: 0.2; }
+  50%  { width: 65%; opacity: 1; }
+  100% { width: 20%; opacity: 0.25; }
+}
+
+/* Gold breathing glow */
+@keyframes faqGlow {
+  0% {
+    opacity: 0.85;
+    text-shadow:
+      0 0 8px rgba(212,175,55,0.45),
+      0 0 14px rgba(212,175,55,0.25);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 16px rgba(245,196,0,0.75),
+      0 0 32px rgba(245,196,0,0.55);
+  }
+  100% {
+    opacity: 0.85;
+    text-shadow:
+      0 0 8px rgba(212,175,55,0.45),
+      0 0 14px rgba(212,175,55,0.25);
+  }
+}
+
+
