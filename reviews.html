@@ -5,21 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Reviews — Hammer Brick & Home LLC | Licensed Remodeling & Masonry (NYC & NJ)</title>
-
 <meta name="description" content="What homeowners say about our precision, cleanliness, and friendly crew. Licensed & insured (NYC HIC #21311291). EPA Lead-Safe Certified Firm.">
 
 <link rel="icon" href="/images/hero.PNG">
 <link rel="preload" as="image" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css">
 
-<!-- OG -->
+<!-- Open Graph -->
 <meta property="og:title" content="Reviews — Hammer Brick & Home LLC">
 <meta property="og:description" content="Precision work, spotless cleanup, and a friendly team. Read reviews from NYC & NJ homeowners.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.hammerbrickhome.com/reviews.html">
 <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-<!-- TW -->
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Reviews — Hammer Brick & Home LLC">
 <meta name="twitter:description" content="Trusted NYC & NJ contractor. Read verified homeowner reviews.">
@@ -28,31 +27,50 @@
 <!-- Review Schema -->
 <script type="application/ld+json">
 {
-"@context": "https://schema.org",
-"@type": "Product",
-"name": "Hammer Brick & Home LLC — Remodeling & Masonry",
-"image": "https://www.hammerbrickhome.com/images/hero.PNG",
-"brand": "Hammer Brick & Home LLC",
-"aggregateRating": {
-  "@type": "AggregateRating",
-  "ratingValue": "4.9",
-  "bestRating": "5",
-  "ratingCount": "47"
-},
-"review": [
-  {
-    "@type": "Review",
-    "reviewRating": {"@type": "Rating","ratingValue": "5"},
-    "author": "Verified Homeowner — Staten Island",
-    "reviewBody": "Floors protected, dust controlled, updates daily. Bathroom refresh came out spotless."
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Hammer Brick & Home LLC — Remodeling & Masonry",
+  "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "brand": "Hammer Brick & Home LLC",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "ratingCount": "47"
   },
-  {
-    "@type": "Review",
-    "reviewRating": {"@type": "Rating","ratingValue": "5"},
-    "author": "Verified Homeowner — Brooklyn",
-    "reviewBody": "Precise repointing and paver work. Clean and on schedule."
-  }
-]}
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating","ratingValue": "5"},
+      "author": "Verified Homeowner — Staten Island",
+      "reviewBody": "Floors protected, dust controlled, updates daily. Bathroom refresh came out spotless."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating","ratingValue": "5"},
+      "author": "Verified Homeowner — Brooklyn",
+      "reviewBody": "Precise repointing and paver work. Clean and on schedule."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating","ratingValue": "5"},
+      "author": "Verified Homeowner — Queens",
+      "reviewBody": "Lead-safe window repair in our pre-war home was handled so professionally. Containment and cleanup were perfect."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating","ratingValue": "5"},
+      "author": "Verified Homeowner — Manhattan",
+      "reviewBody": "Building rules, elevator scheduling — they handled it all. Trim work and painting came out amazing."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating","ratingValue": "4"},
+      "author": "Verified Homeowner — New Jersey",
+      "reviewBody": "Great value and solid craftsmanship. Small material delay but they communicated well and made up the time."
+    }
+  ]
+}
 </script>
 
 <style>
@@ -83,9 +101,8 @@
   <div class="hero-content">
     <h1>Customer Reviews</h1>
     <p class="reviews-intro">
-      We focus on <strong>precision, respect, and spotless cleanup</strong>. While we’re licensed and certified,
+      We focus on <strong>precision, respect, and spotless cleanup</strong>. Licensed and certified,
       homeowners say what stands out most is how we treat their home — careful, clean, and friendly.
-      Here’s what NYC & NJ families say about working with us.
     </p>
 
     <ul class="trust-pills" role="list" style="margin-top:10px">
@@ -165,7 +182,6 @@
 </div>
 
 <script src="/script.js"></script>
-
 <script>
 document.addEventListener("DOMContentLoaded",()=>{
   Promise.all([
@@ -176,10 +192,14 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("header-include").innerHTML = h;
     document.getElementById("cta-include").innerHTML = c;
     document.getElementById("footer-include").innerHTML = f;
+
+    const yr = document.getElementById("yr");
+    if(yr) yr.textContent = new Date().getFullYear();
   }).catch(console.error);
 });
 </script>
 
 </body>
 </html>
+
 
