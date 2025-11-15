@@ -26,25 +26,36 @@
 <meta name="twitter:description" content="Fast estimates, site visits, and project inquiries.">
 <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-<!-- ⭐ LocalBusiness Schema -->
+<!-- ⭐ FIXED SCHEMA (VALID — NO STREET ADDRESS REQUIRED) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
+  "@type": "Organization",
   "name": "Hammer Brick & Home LLC",
   "url": "https://www.hammerbrickhome.com/contact.html",
   "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "description": "Contact Hammer Brick & Home LLC for fast estimates and site visits.",
   "telephone": "+1-929-595-5300",
-  "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Staten Island",
     "addressRegion": "NY",
     "addressCountry": "US"
   },
-  "description": "Contact Hammer Brick & Home LLC for fast estimates and site visits.",
   "openingHours": "Mo-Su 08:00-20:00",
-  "areaServed": ["Staten Island","Brooklyn","Queens","Manhattan","Bronx","New Jersey"],
+  "areaServed": [
+    "Staten Island",
+    "Brooklyn",
+    "Queens",
+    "Manhattan",
+    "Bronx",
+    "New Jersey"
+  ],
+  "sameAs": [
+    "https://facebook.com/",
+    "https://instagram.com/",
+    "https://tiktok.com/"
+  ],
   "additionalProperty": [
     { "@type": "PropertyValue", "name": "NYC HIC", "value": "21311291" },
     { "@type": "PropertyValue", "name": "EPA Lead-Safe Certified", "value": "Yes" }
@@ -158,5 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
