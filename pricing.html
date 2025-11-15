@@ -5,18 +5,192 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Pricing & Packages — Hammer Brick & Home LLC</title>
-<meta name="description" content="Transparent packages and executive options. Final quotes follow a site visit and written estimate.">
+<meta name="description" content="Transparent packages and monthly home care plans. Final quotes follow a site visit and written estimate.">
 
 <!-- Root paths -->
 <link rel="icon" href="/images/hero.PNG">
 <link rel="preload" as="image" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css">
 
-<!-- Extra styles for estimator + accordions -->
+<!-- Extra styles for cards + accordions -->
 <style>
-/* (All your existing CSS — unchanged) */
-</style>
+/* Basic layout helpers; assumes your main theme variables exist in style.css */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+.pkg-card{
+  border:1px solid rgba(231,191,99,.35);
+  border-radius:var(--radius,16px);
+  padding:18px;
+  background:rgba(5,12,25,.96);
+  box-shadow:0 14px 36px rgba(0,0,0,.45);
+}
+.pkg-card h3{
+  margin-top:0;
+}
+.pkg-card ul{
+  padding-left:18px;
+  margin:8px 0;
+}
+.price{
+  color:var(--gold,#e7bf63);
+  font-weight:700;
+  margin-top:8px;
+}
 
+/* Monthly plan accordion */
+.plan-accordion{
+  max-width:980px;
+  margin:0 auto;
+}
+.plan-details{
+  margin-bottom:16px;
+  border:1px solid rgba(231,191,99,.45);
+  border-radius:18px;
+  padding:12px 14px;
+  background:rgba(4,10,22,.97);
+  box-shadow:0 12px 30px rgba(0,0,0,.55);
+}
+.plan-details summary{
+  list-style:none;
+  cursor:pointer;
+}
+.plan-details summary::-webkit-details-marker{display:none;}
+
+.plan-summary-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+.plan-title{
+  font-size:18px;
+  font-weight:800;
+  color:var(--gold-soft,#f5d89b);
+}
+.plan-tagline{
+  font-size:13px;
+  color:var(--muted,rgba(255,255,255,.78));
+}
+.plan-price-line{
+  font-size:13px;
+  text-align:right;
+  color:var(--gold-soft,#f5d89b);
+}
+.plan-price-line strong{
+  color:var(--gold,#e7bf63);
+}
+.plan-body{
+  margin-top:12px;
+  border-top:1px solid rgba(231,191,99,.26);
+  padding-top:10px;
+}
+
+/* Category-level details (Masonry / Carpentry etc) */
+.category-details{
+  margin-bottom:10px;
+  border:1px solid rgba(231,191,99,.3);
+  border-radius:14px;
+  background:rgba(5,12,25,.98);
+  padding:8px 10px;
+}
+.category-details summary{
+  list-style:none;
+  font-size:14px;
+  font-weight:600;
+  color:var(--gold-soft,#f5d89b);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+.category-details summary::-webkit-details-marker{display:none;}
+.category-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.category-pill{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:2px 7px;
+  border-radius:999px;
+  border:1px solid rgba(231,191,99,.5);
+}
+.category-body{
+  margin-top:8px;
+  padding-top:6px;
+  border-top:1px dashed rgba(231,191,99,.25);
+}
+
+/* Service-level details */
+.service-details{
+  margin:6px 0;
+  border-radius:10px;
+  border:1px solid rgba(231,191,99,.28);
+  background:rgba(6,12,24,.99);
+  padding:6px 8px;
+}
+.service-details summary{
+  list-style:none;
+  font-size:13px;
+  font-weight:600;
+  color:var(--ink,#ffffff);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+.service-details summary::-webkit-details-marker{display:none;}
+.service-name{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.service-chip{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:1px 6px;
+  border-radius:999px;
+  border:1px solid rgba(231,191,99,.4);
+  color:var(--gold-soft,#f5d89b);
+}
+.service-body{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted,rgba(255,255,255,.78));
+  line-height:1.5;
+}
+.service-body p{
+  margin:0 0 6px;
+}
+.service-prices{
+  font-size:12px;
+  color:var(--gold-soft,#f5d89b);
+}
+.service-prices strong{
+  color:var(--gold,#e7bf63);
+}
+
+/* Small arrow indicator */
+.summary-arrow{
+  font-size:12px;
+  opacity:.9;
+}
+
+/* Spacing tweaks */
+.section h2 + p.muted{
+  margin-top:6px;
+  font-size:13px;
+}
+.muted{
+  color:var(--muted,rgba(255,255,255,.78));
+}
+</style>
 </head>
 
 <body>
@@ -30,104 +204,122 @@
 <section class="hero hero-inner fade-up">
   <div class="hero-content">
     <h1>Pricing &amp; Packages</h1>
-    <p>Clear structures, premium delivery. Final pricing confirmed after on-site visit and written proposal.</p>
+    <p>Clear structures, premium delivery. Final pricing is always confirmed after an on-site visit and written proposal.</p>
   </div>
 </section>
 
-<!-- Popular Packages (unchanged) -->
+<!-- POPULAR PACKAGES -->
 <section class="section fade-up">
-  <h2>Popular Packages</h2>
+  <h2>Popular Project Packages</h2>
+  <p class="muted">These are typical starting points for common projects. Scope, access, and materials can move the final price up or down.</p>
+
   <div class="card-grid">
 
     <article class="pkg-card">
       <h3>Curb Appeal Refresh</h3>
       <ul>
-        <li>Walkway &amp; steps power-wash</li>
-        <li>Trim paint touch-ups</li>
-        <li>Light gutter cleaning (select homes)</li>
+        <li>Walkway &amp; front steps power-wash</li>
+        <li>Front trim &amp; rail touch-up painting</li>
+        <li>Light gutter clean (select homes)</li>
+        <li>Basic front landscaping tidy-up</li>
       </ul>
-      <p class="price">From $399</p>
+      <p class="price">From <strong>$650+</strong></p>
+      <p class="muted">Starter curb appeal package ideal for quick front-of-house improvement before photos, appraisals, or guests.</p>
     </article>
 
     <article class="pkg-card">
       <h3>Bathroom Refresh</h3>
       <ul>
-        <li>Regrout &amp; recaulk tub/shower</li>
-        <li>Paint walls &amp; trim</li>
-        <li>Hardware upgrades</li>
+        <li>Regrout &amp; recaulk tub or shower</li>
+        <li>Paint walls &amp; trim (standard bathroom)</li>
+        <li>Fixture &amp; hardware updates (faucets, bars, etc.)</li>
+        <li>Minor tile or drywall touch-up as needed</li>
       </ul>
-      <p class="price">$1,650+</p>
+      <p class="price">From <strong>$2,850+</strong></p>
+      <p class="muted">Cosmetic refresh (not a full gut renovation) to brighten and clean up an existing bathroom.</p>
     </article>
 
     <article class="pkg-card">
-      <h3>Paver Walkway</h3>
+      <h3>Paver Walkway Install</h3>
       <ul>
-        <li>Up to 120 sq ft</li>
-        <li>Compacted base &amp; polymeric sand</li>
-        <li>Edge restraints</li>
+        <li>Up to ~120 sq ft walkway</li>
+        <li>Compacted base &amp; bedding layer</li>
+        <li>Edge restraints &amp; joint sand</li>
+        <li>Standard paver selection</li>
       </ul>
-      <p class="price">$2,900+</p>
+      <p class="price">From <strong>$3,200+</strong></p>
+      <p class="muted">Typical for a straight or gently curved walkway in standard pavers. Complex layouts, steps, or premium stone will increase cost.</p>
     </article>
 
     <article class="pkg-card">
-      <h3>Handyman Essentials</h3>
-      <p>Pick any 3 focused tasks for one visit.</p>
-      <p class="price">$299–$499</p>
+      <h3>Handyman Essentials Visit</h3>
+      <ul>
+        <li>Pick any 3–5 focused tasks</li>
+        <li>Examples: caulking, small drywall patch, hardware swaps</li>
+        <li>One technician, single visit</li>
+      </ul>
+      <p class="price"><strong>$299–$499</strong></p>
+      <p class="muted">Great for punch lists and small fixes that are too much for DIY but too small for a full remodel.</p>
     </article>
 
     <article class="pkg-card">
       <h3>Kitchen Mini-Remodel</h3>
       <ul>
-        <li>Cabinet repaint or refinish</li>
-        <li>New backsplash install</li>
-        <li>Fixture &amp; handle swap</li>
+        <li>Cabinet repaint or light refinish</li>
+        <li>New backsplash installation</li>
+        <li>New hardware &amp; small fixture updates</li>
       </ul>
-      <p class="price">$3,200+</p>
+      <p class="price">From <strong>$4,500+</strong></p>
+      <p class="muted">Focused update for an existing kitchen without changing layout, plumbing locations, or cabinetry boxes.</p>
     </article>
 
     <article class="pkg-card">
       <h3>Driveway Renewal</h3>
       <ul>
-        <li>Pressure wash &amp; crack fill</li>
-        <li>Seal coat application</li>
-        <li>Edge clean &amp; debris removal</li>
+        <li>Pressure wash and surface clean</li>
+        <li>Crack fill for non-structural cracks</li>
+        <li>Seal coat application (where appropriate)</li>
+        <li>Edge clean-up &amp; debris removal</li>
       </ul>
-      <p class="price">$1,100–$2,400</p>
+      <p class="price"><strong>$1,200–$2,900</strong></p>
+      <p class="muted">Typical for residential driveways; final cost depends heavily on size, condition, and repairs needed.</p>
     </article>
 
     <article class="pkg-card">
       <h3>Fence &amp; Gate Install</h3>
       <ul>
-        <li>Wood or vinyl panels (per ft)</li>
-        <li>Gate alignment &amp; posts set</li>
-        <li>Includes site clean-up</li>
+        <li>Wood or vinyl fence panels (per ft)</li>
+        <li>Posts set in concrete where needed</li>
+        <li>Gate install &amp; alignment</li>
+        <li>Site clean-up &amp; haul-away of job debris</li>
       </ul>
-      <p class="price">From $2,500</p>
+      <p class="price">From <strong>$3,200+</strong></p>
+      <p class="muted">Pricing is per linear foot and varies based on height, material, access, and number of gates.</p>
     </article>
 
     <article class="pkg-card">
       <h3>Patio Glow-Up</h3>
       <ul>
-        <li>Power wash + re-sand</li>
-        <li>Sealant &amp; border cleanup</li>
-        <li>Optional lighting add-on</li>
+        <li>Power wash patio surface</li>
+        <li>Re-sand joints where needed</li>
+        <li>Sealant application (if compatible)</li>
+        <li>Border &amp; edge clean-up</li>
       </ul>
-      <p class="price">$1,200+</p>
+      <p class="price">From <strong>$1,450+</strong></p>
+      <p class="muted">Ideal for existing paver or concrete patios needing a deep clean and maintenance, not full reconstruction.</p>
     </article>
 
   </div>
 </section>
 
-<!-- 🚫 REMOVED SECTION:
-Membership Plans & Home Care Programs
-(12-card grid)
--->
-
-
-  <!-- 🔥 NEW ACCORDION: BASIC / PREMIUM / LUXURY WITH NESTED SERVICES -->
+<!-- MONTHLY PLANS -->
 <section class="section fade-up">
-  <h2>Whole-Home Plans by Tier</h2>
-  <p class="muted">Open a plan to explore included services, pricing, and detailed breakdowns.</p>
+  <h2>Monthly Home Care Plans</h2>
+  <p class="muted">
+    Choose a tier that fits your home. Most services can be scheduled monthly, with options to
+    prepay and save:
+    <br><strong>6-Month Prepay: Save ~5% &nbsp;&bull;&nbsp; 12-Month Prepay: Save ~10%</strong>
+  </p>
 
   <div class="plan-accordion">
 
@@ -137,11 +329,11 @@ Membership Plans & Home Care Programs
         <div class="plan-summary-header">
           <div>
             <div class="plan-title">Basic Plan</div>
-            <div class="plan-tagline">Regular upkeep for busy homeowners who want essential areas covered.</div>
+            <div class="plan-tagline">Regular upkeep for busy homeowners who want the essentials covered without a full remodel.</div>
           </div>
           <div class="plan-price-line">
             <div><strong>Starting at $79/mo</strong></div>
-            <div>10% OFF when paying yearly</div>
+            <div>6-Month Prepay: Save 5% • 12-Month: Save 10%</div>
           </div>
         </div>
       </summary>
@@ -170,12 +362,12 @@ Membership Plans & Home Care Programs
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>We inspect surface conditions and provide a photo-backed list of findings.</p>
-                <p class="service-prices"><strong>Included in Basic Plan.</strong></p>
+                <p>We walk your paver walkways and steps to look for trip hazards, loose areas, and early signs of sinking or separation. You receive a simple, photo-backed list of issues to watch or repair.</p>
+                <p class="service-prices"><strong>Price:</strong> Included with any active Basic Masonry monthly plan.</p>
               </div>
             </details>
 
-            <!-- Service: Small Reset -->
+            <!-- Service: Small Paver Reset -->
             <details class="service-details">
               <summary>
                 <span class="service-name">
@@ -185,8 +377,13 @@ Membership Plans & Home Care Programs
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Lift & relevel small sunken areas. Bedding layer fixed as needed.</p>
-                <p class="service-prices"><strong>Monthly $119 &bull; 6-Month Prepay $113 (Save 5%) &bull; Yearly Prepay $107 (Save 10%).</strong></p>
+                <p>We lift, level, and reset small sunken or uneven paver spots. Bedding layer is cleaned, base material added if needed, and pavers are reinstalled for a smoother, safer surface.</p>
+                <p class="service-prices">
+                  <strong>Pricing Example:</strong><br>
+                  Monthly: <strong>$119</strong><br>
+                  6-Month Prepay: <strong>$113/mo</strong> (Save ~5%)<br>
+                  12-Month Prepay: <strong>$107/mo</strong> (Save ~10%)
+                </p>
               </div>
             </details>
 
@@ -200,12 +397,15 @@ Membership Plans & Home Care Programs
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Hairline crack sealing for concrete, brick, or mortar joints.</p>
-                <p class="service-prices"><strong>Included in service plan range.</strong></p>
+                <p>We seal small cracks in concrete, brick, and mortar before they grow. This helps keep water out, reduces freeze-thaw damage, and slows long-term movement or crumbling.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Around $89/mo<br>
+                  6-Month Prepay: Save 5% • 12-Month: Save 10%
+                </p>
               </div>
             </details>
 
-            <!-- Service: Joint Sand -->
+            <!-- Service: Joint Sand & Edge Cleanup -->
             <details class="service-details">
               <summary>
                 <span class="service-name">
@@ -215,8 +415,10 @@ Membership Plans & Home Care Programs
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Light sanding, brushing, and edge cleanup to maintain stability.</p>
-                <p class="service-prices"><strong>Included in plan.</strong></p>
+                <p>We brush and refresh sand between pavers in light-wear areas and clean edges where dirt, grass, and weeds try to creep in. This helps keep pavers tighter and your borders neat.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Around $99/mo with multi-month discounts available.
+                </p>
               </div>
             </details>
 
@@ -228,33 +430,64 @@ Membership Plans & Home Care Programs
           <summary>
             <span class="category-label">
               <span class="category-pill">Carpentry &amp; Remodeling</span>
-              <span>Doors, trim, cabinets, drywall & minor repairs.</span>
+              <span>Doors, trim, cabinets, drywall &amp; small upgrades.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
 
           <div class="category-body">
+
+            <!-- Service: Door Alignment -->
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Basic</span>Door Alignment</span>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Door Alignment &amp; Hinge Adjustments</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Adjust hinges, strike plates & minor planing.</p>
-                <p class="service-prices"><strong>Included.</strong></p>
+                <p>We adjust doors that stick, rub, or don’t latch correctly. Hinges are tightened, strike plates adjusted, and minor planing done where needed so doors open and close smoothly.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> ~ $99/mo as part of a Basic carpentry plan.
+                </p>
               </div>
             </details>
 
+            <!-- Service: Cabinet & Drawer Repairs -->
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Basic</span>Cabinet & Drawer Fixes</span>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Cabinet &amp; Drawer Tune-Up</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Adjust, tighten, or upgrade small hardware.</p>
-                <p class="service-prices"><strong>Included.</strong></p>
+                <p>We fix sagging doors, loose hinges, and drawers that no longer slide properly. Where possible, we upgrade to better fasteners or tracks for smoother everyday use.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> ~ $129/mo • Prepay to save 5–10%.
+                </p>
               </div>
             </details>
+
+            <!-- Service: Small Drywall Patches -->
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Drywall Patching (Small Holes)</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We repair small dents and holes from anchors, screws, and door knobs, then blend the area for a clean, paint-ready finish.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> ~ $119/mo in a Basic interior plan.
+                </p>
+              </div>
+            </details>
+
           </div>
         </details>
 
@@ -263,22 +496,65 @@ Membership Plans & Home Care Programs
           <summary>
             <span class="category-label">
               <span class="category-pill">Painting &amp; Finishes</span>
-              <span>Touch-ups, trim paint, cracks & caulking.</span>
+              <span>Touch-ups, trim repainting, cracks &amp; caulking.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
 
           <div class="category-body">
+
+            <!-- Service: Wall Touch-Ups -->
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Basic</span>Wall Touch-Ups</span>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Wall Touch-Ups</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Blend minor scuffs and marks.</p>
-                <p class="service-prices"><strong>Included.</strong></p>
+                <p>We cover marks, scuffs, and light wear on high-traffic walls using matching or blended paint so your space stays fresh without the cost of a full repaint.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Monthly from $79<br>
+                  6-Month Prepay: Save 5% • 12-Month: Save 10%
+                </p>
               </div>
             </details>
+
+            <!-- Service: Trim Repaint (Small Areas) -->
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Trim Repaint (Selective Areas)</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We repaint chipped or worn trim around doors, windows, and baseboards in selected rooms, keeping lines crisp and clean.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Around $89/mo with discount options.
+                </p>
+              </div>
+            </details>
+
+            <!-- Service: Caulking & Hairline Cracks -->
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Caulking &amp; Hairline Crack Repair</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We fill small gaps and hairline cracks along trim, corners, and joints, then touch up paint so seasonal movement is less visible.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> ~ $79/mo as part of Basic finishes care.
+                </p>
+              </div>
+            </details>
+
           </div>
         </details>
 
@@ -287,22 +563,47 @@ Membership Plans & Home Care Programs
           <summary>
             <span class="category-label">
               <span class="category-pill">Exterior Care</span>
-              <span>Small fence fixes, light washing & safety checks.</span>
+              <span>Fence &amp; gates, small power-wash zones &amp; checks.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
 
           <div class="category-body">
+
+            <!-- Service: Fence & Gate Tune-Up -->
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Basic</span>Fence & Gate Tune-Up</span>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Fence &amp; Gate Tune-Up</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Adjust hinges, latches & gate alignment.</p>
-                <p class="service-prices"><strong>Included.</strong></p>
+                <p>We tighten loose hinges, latches, and fasteners on fences and gates, adjust alignment, and make sure they open and close correctly.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $99/mo (discounted with multi-month commitment).
+                </p>
               </div>
             </details>
+
+            <!-- Service: Spot Power Wash -->
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Spot Power Wash (Small Area)</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We clean a targeted area such as front steps, a short walkway, or a small section of siding to remove surface dirt and buildup.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Around $89/mo when part of a recurring plan.
+                </p>
+              </div>
+            </details>
+
           </div>
         </details>
 
@@ -310,22 +611,49 @@ Membership Plans & Home Care Programs
         <details class="category-details">
           <summary>
             <span class="category-label">
-              <span class="category-pill">Landscaping</span>
-              <span>Lawn, edging, trimming & cleanup.</span>
+              <span class="category-pill">Landscaping &amp; Outdoor</span>
+              <span>Lawn mowing, edging, light trimming &amp; cleanup.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
 
           <div class="category-body">
+
+            <!-- Service: Lawn Mowing & Edging -->
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Basic</span>Lawn Mowing + Edging</span>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Lawn Mowing &amp; Edging (Small/Medium)</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
 
               <div class="service-body">
-                <p>Recurring mowing for small/medium yards.</p>
-                <p class="service-prices"><strong>Starts at $89/mo.</strong></p>
+                <p>We cut the grass, trim along walkways and fences, and blow clippings off hard surfaces so your yard looks tidy and maintained.</p>
+                <p class="service-prices">
+                  <strong>Pricing Example:</strong><br>
+                  Monthly: <strong>From $89</strong><br>
+                  6-Month Prepay: Save 5% • 12-Month: Save 10%
+                </p>
+              </div>
+            </details>
+
+            <!-- Service: Light Trimming & Weed Cleanup -->
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Light Trimming &amp; Weed Cleanup</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+
+              <div class="service-body">
+                <p>We lightly trim small shrubs, remove visible weeds from main beds, and clean up edges so your front-facing areas stay presentable.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Often bundled into mowing; stand-alone service quoted by property size.
+                </p>
               </div>
             </details>
 
@@ -333,7 +661,7 @@ Membership Plans & Home Care Programs
         </details>
 
       </div>
-    </details><!-- END BASIC -->
+    </details><!-- END BASIC PLAN -->
 
     <!-- PREMIUM PLAN -->
     <details class="plan-details">
@@ -341,11 +669,11 @@ Membership Plans & Home Care Programs
         <div class="plan-summary-header">
           <div>
             <div class="plan-title">Premium Plan</div>
-            <div class="plan-tagline">For deeper care, upgrades, & more noticeable improvements.</div>
+            <div class="plan-tagline">For homes that need deeper care, visible upgrades, and more detailed maintenance throughout the year.</div>
           </div>
           <div class="plan-price-line">
             <div><strong>Starting at $149/mo</strong></div>
-            <div>10% OFF yearly</div>
+            <div>6-Month Prepay: Save 5% • 12-Month: Save 10%</div>
           </div>
         </div>
       </summary>
@@ -356,8 +684,8 @@ Membership Plans & Home Care Programs
         <details class="category-details">
           <summary>
             <span class="category-label">
-              <span class="category-pill">Masonry & Pavers</span>
-              <span>Medium resets, polymeric sand, power wash.</span>
+              <span class="category-pill">Masonry &amp; Pavers</span>
+              <span>Medium resets, polymeric sand, annual wash.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
@@ -365,24 +693,134 @@ Membership Plans & Home Care Programs
           <div class="category-body">
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Premium</span>Medium Paver Reset</span>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Medium Area Paver Reset</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Lift & level medium areas with proper base correction.</p>
-                <p class="service-prices"><strong>$169/mo — save 10% on yearly.</strong></p>
+                <p>We lift, re-level, and reset medium-sized sunken or shifted sections, restoring both the appearance and safety of your walkways and patios.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $169/mo with 5–10% savings when prepaid.
+                </p>
               </div>
             </details>
 
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Premium</span>Polymeric Sand + Wash</span>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Polymeric Sand &amp; Annual Wash</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
-
               <div class="service-body">
-                <p>Deep wash, sanding, and lock-in joint stabilizing.</p>
-                <p class="service-prices"><strong>$169/mo options available.</strong></p>
+                <p>We clean the joints, apply polymeric sand to lock pavers in place, and perform a wash to remove dirt, algae, and surface buildup.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Often bundled at $169–$199/mo depending on area size.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- Carpentry PREMIUM -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Carpentry &amp; Interior</span>
+              <span>Accent walls, shelving, small trim upgrades.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+
+          <div class="category-body">
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Accent Wall Painting</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We prep and repaint a feature wall with your chosen color, turning a plain room into a focal space with minimal disruption.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $159–$189/mo in a Premium plan.
+                </p>
+              </div>
+            </details>
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Shelving &amp; Small Trim Upgrades</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We install floating shelves, swap trim profiles, or sharpen casings to give your room a more custom look.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Around $149–$199/mo depending on scope.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- Painting PREMIUM -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Painting &amp; Finishes</span>
+              <span>Full-room repaints and smoothing.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Full Room Repaint</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We repaint walls (and optionally trim) in a bedroom, office, or small living area with proper prep and clean lines for a fresh, updated feel.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $229/mo as part of a Premium plan.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- Exterior PREMIUM -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Exterior Care</span>
+              <span>Soft-wash zones, gutter cleaning &amp; seasonal prep.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Soft Wash (One Area)</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We gently wash a section of siding, a fence line, or part of a deck to remove mildew and grime without harsh pressure damage.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Starting around $149/mo with seasonal scheduling.
+                </p>
               </div>
             </details>
           </div>
@@ -392,29 +830,32 @@ Membership Plans & Home Care Programs
         <details class="category-details">
           <summary>
             <span class="category-label">
-              <span class="category-pill">Landscaping</span>
-              <span>Mulch, planting, shrub shaping.</span>
+              <span class="category-pill">Landscaping &amp; Outdoor</span>
+              <span>Mulch, bed refresh &amp; small planting.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
-
           <div class="category-body">
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Premium</span>Mulch & Bed Refresh</span>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Mulch &amp; Bed Refresh</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
-
               <div class="service-body">
-                <p>Includes cleanup, trimming & fresh mulch.</p>
-                <p class="service-prices"><strong>Starting at $149/mo.</strong></p>
+                <p>We clean out beds, trim small shrubs, edge, and install fresh mulch so your front and side yards look sharp and intentional again.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $149/mo, depending on bed size and material choice.
+                </p>
               </div>
             </details>
           </div>
         </details>
 
       </div>
-    </details><!-- END PREMIUM -->
+    </details><!-- END PREMIUM PLAN -->
 
     <!-- LUXURY PLAN -->
     <details class="plan-details">
@@ -422,11 +863,11 @@ Membership Plans & Home Care Programs
         <div class="plan-summary-header">
           <div>
             <div class="plan-title">Luxury Plan</div>
-            <div class="plan-tagline">Concierge-style full home care.</div>
+            <div class="plan-tagline">Concierge-style home care for clients who want curb appeal, interiors, and outdoor spaces managed year-round.</div>
           </div>
           <div class="plan-price-line">
             <div><strong>Starting at $219/mo</strong></div>
-            <div>10% OFF yearly</div>
+            <div>6-Month Prepay: Save 5% • 12-Month: Save 10%</div>
           </div>
         </div>
       </summary>
@@ -437,22 +878,109 @@ Membership Plans & Home Care Programs
         <details class="category-details">
           <summary>
             <span class="category-label">
-              <span class="category-pill">Masonry & Pavers</span>
-              <span>Large resets, sand + seal, retaining wall patches.</span>
+              <span class="category-pill">Masonry &amp; Pavers</span>
+              <span>Large resets, full sand &amp; seal, retaining wall touch-ups.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
-
           <div class="category-body">
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Luxury</span>Full Sand + Seal</span>
+                <span class="service-name">
+                  <span class="service-chip">Luxury</span>
+                  <span>Large Area Reset &amp; Annual Sand/Seal</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
-
               <div class="service-body">
-                <p>Deep restoration and sealing.</p>
-                <p class="service-prices"><strong>$299/mo + full upgrades.</strong></p>
+                <p>We reset substantial paver sections, rebuild the base where necessary, resand all joints, and apply a protective sealer to bring back stability and color.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $299/mo in a Luxury masonry program.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- Carpentry LUXURY -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Carpentry &amp; Remodeling</span>
+              <span>Bathroom refresh, kitchen upgrades &amp; premium trim.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Luxury</span>
+                  <span>Annual Bathroom Refresh</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We recaulk, repaint, swap hardware, and handle minor tile or grout repairs in a key bathroom to keep it looking fresh and cared for.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Built into Luxury plans that start around $349/mo for combined interior upgrades.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- Painting LUXURY -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Painting &amp; Design</span>
+              <span>Designer feature walls &amp; multi-room rotations.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Luxury</span>
+                  <span>Designer Feature Walls</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We build and paint high-end feature walls using trims, panels, or slats to create custom focal points in living rooms or primary bedrooms.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $229–$299/mo depending on design complexity.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- Exterior LUXURY -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Exterior &amp; Hardscape</span>
+              <span>Full home soft wash &amp; hardscape cleaning.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Luxury</span>
+                  <span>Full House Soft Wash &amp; Hardscape Clean</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We soft-wash your home’s exterior and deep-clean chosen hard surfaces such as driveways, patios, and entry stairs to maintain high curb appeal.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> From $219–$279/mo in a Luxury exterior plan.
+                </p>
               </div>
             </details>
           </div>
@@ -462,69 +990,61 @@ Membership Plans & Home Care Programs
         <details class="category-details">
           <summary>
             <span class="category-label">
-              <span class="category-pill">Landscaping</span>
-              <span>Deck staining, planting, major cleanup.</span>
+              <span class="category-pill">Landscaping &amp; Outdoor</span>
+              <span>Deck staining, seasonal flowers &amp; major clean-ups.</span>
             </span>
             <span class="summary-arrow">▼</span>
           </summary>
-
           <div class="category-body">
-
             <details class="service-details">
               <summary>
-                <span class="service-name"><span class="service-chip">Luxury</span>Annual Deck Wash & Stain</span>
+                <span class="service-name">
+                  <span class="service-chip">Luxury</span>
+                  <span>Annual Deck Wash &amp; Stain</span>
+                </span>
                 <span class="summary-arrow">+</span>
               </summary>
               <div class="service-body">
-                <p>Yearly wash + stain upgrade included.</p>
-                <p class="service-prices"><strong>Included in plan.</strong></p>
+                <p>We wash and apply stain or sealer to your deck each year to help protect against weather, improve appearance, and extend the life of the wood.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Custom quoted within Luxury plans depending on deck size and condition.
+                </p>
               </div>
             </details>
 
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Luxury</span>
+                  <span>Seasonal Flower &amp; Bed Rotation</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We refresh beds with seasonal flowers, adjust plantings, and top off mulch or decorative stone so your property looks curated every season.</p>
+                <p class="service-prices">
+                  <strong>Typical:</strong> Included as part of a custom Luxury outdoor package; final price confirmed after a site walk.</p>
+              </div>
+            </details>
           </div>
         </details>
 
       </div>
-    </details><!-- END LUXURY -->
+    </details><!-- END LUXURY PLAN -->
 
   </div>
 </section>
 
-
-<!-- Executive & Seasonal Plans -->
-<section class="section fade-up">
-  <h2>Executive &amp; Seasonal Plans</h2>
-  <div class="card-grid">
-    <article class="pkg-card">
-      <h3>Executive Home Makeover</h3>
-      <p class="price">$7,500–$12,500</p>
-      <p>Curated interior repaint, feature upgrades, and detailing.</p>
-    </article>
-
-    <article class="pkg-card">
-      <h3>Executive Curb Luxury</h3>
-      <p class="price">$4,500–$9,000</p>
-      <p>Exterior wash, trim repaint, and paver restoration.</p>
-    </article>
-
-    <article class="pkg-card">
-      <h3>Seasonal Home Care Plan</h3>
-      <p class="price">From $399 per season</p>
-      <p>Spring, Summer, Fall, Winter bundles to protect your home.</p>
-    </article>
-
-    <article class="pkg-card">
-      <h3>Backyard Comfort Plan</h3>
-      <p class="price">$2,400–$4,800</p>
-      <p>Deck staining, layout help & décor alignment.</p>
-    </article>
-  </div>
-</section>
-
-<!-- Advanced Estimator -->
-<section class="section fade-up" id="estimator">
-  <h2>NYC &amp; NJ Project Estimator (Ballpark Only)</h2>
-  <p class="muted">Not a formal quote — provides rough ranges.</p>
+<!-- NOTE ABOUT PRICING -->
+<section class="section note-box fade-up">
+  <h2>How We Finalize Your Price</h2>
+  <ul class="bullets">
+    <li>All pricing depends on access, parking, and building rules.</li>
+    <li>Material choices (standard vs. premium) can move numbers up or down.</li>
+    <li>Existing conditions, repairs, and hidden damage affect final cost.</li>
+    <li>Permits, DOB requirements, and inspections (when needed) are reviewed up front.</li>
+  </ul>
+  <p>Every project receives a written, line-itemed proposal for your approval before work begins.</p>
 </section>
 
 </main>
@@ -532,6 +1052,7 @@ Membership Plans & Home Care Programs
 <!-- Footer include -->
 <div id="footer-include"></div>
 
+<!-- Header/Footer Loader -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
@@ -552,6 +1073,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
