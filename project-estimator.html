@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Project Estimator — Hammer Brick & Home LLC</title>
   <meta name="description" content="NYC & NJ home improvement estimate calculator for transparent ballpark pricing.">
-  <link rel="icon" href="images/hero.PNG">
-  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="/images/hero.PNG">
+  <link rel="stylesheet" href="/style.css">
 
   <style>
     .estimator-grid{
@@ -1851,8 +1851,8 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     Promise.all([
-      fetch("header.html").then(r => r.text()),
-      fetch("footer.html").then(r => r.text())
+      fetch("/header.html").then(r => r.text()),
+      fetch("/footer.html").then(r => r.text())
     ])
     .then(([header, footer]) => {
       document.getElementById("header-include").innerHTML = header;
