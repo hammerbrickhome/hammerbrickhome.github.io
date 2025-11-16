@@ -11,20 +11,34 @@ function initHeaderInteractions() {
     });
   }
 
-  // --- Dropdown (Service Areas) toggle ---
-  const dropbtn = document.querySelector('.dropbtn');
-  const dropdown = document.querySelector('.dropdown');
-  if (dropbtn && dropdown) {
-    dropbtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      dropdown.classList.toggle('show');
+// --- Dropdowns (ALL dropdowns) ---
+const dropdowns = document.querySelectorAll('.dropdown');
+
+dropdowns.forEach(drop => {
+  const btn = drop.querySelector('.dropbtn');
+  const menu = drop.querySelector('.dropdown-content');
+
+  if (!btn || !menu) return;
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Close other dropdowns
+    dropdowns.forEach(d => {
+      if (d !== drop) d.classList.remove('show');
     });
-    document.addEventListener('click', (event) => {
-      if (!dropdown.contains(event.target) && event.target !== dropbtn) {
-        dropdown.classList.remove('show');
-      }
-    });
-  }
+
+    // Toggle current
+    drop.classList.toggle('show');
+  });
+});
+
+// Click outside to close ALL
+document.addEventListener('click', () => {
+  dropdowns.forEach(d => d.classList.remove('show'));
+});
+
 
   // --- Chat bubble toggle ---
   const chatToggle = document.querySelector('.chat-toggle');
