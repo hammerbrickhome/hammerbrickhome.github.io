@@ -1,7 +1,9 @@
+<script>
 /* ============================================================
-   ✅ HEADER + FOOTER READY HOOKS (works with dynamic include)
+   ✅ HEADER + FOOTER READY HOOKS
 =============================================================== */
 function initHeaderInteractions() {
+
   // --- Mobile nav toggle ---
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
@@ -11,38 +13,31 @@ function initHeaderInteractions() {
     });
   }
 
-  // --- Dropdowns (ALL dropdowns: Pricing, Service Areas, etc.) ---
-  const setupDropdowns = function () {
-    const list = document.querySelectorAll('.dropdown');
+  // --- Dropdowns (ALL dropdowns) ---
+  const list = document.querySelectorAll('.dropdown');
 
-    list.forEach(drop => {
-      const btn = drop.querySelector('.dropbtn');
-      const menu = drop.querySelector('.dropdown-content');
+  list.forEach(drop => {
+    const btn = drop.querySelector('.dropbtn');
+    const menu = drop.querySelector('.dropdown-content');
+    if (!btn || !menu) return;
 
-      if (!btn || !menu) return;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Close all other dropdowns
-        list.forEach(d => {
-          if (d !== drop) d.classList.remove('show');
-        });
-
-        // Toggle this one
-        drop.classList.toggle('show');
+      // close other dropdowns
+      list.forEach(d => {
+        if (d !== drop) d.classList.remove('show');
       });
-    });
 
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', () => {
-      list.forEach(d => d.classList.remove('show'));
+      drop.classList.toggle('show');
     });
-  };
+  });
 
-  // Run dropdown hookup
-  setupDropdowns();
+  // Click outside — close all dropdowns
+  document.addEventListener('click', () => {
+    list.forEach(d => d.classList.remove('show'));
+  });
 
   // --- Chat bubble toggle ---
   const chatToggle = document.querySelector('.chat-toggle');
@@ -55,17 +50,18 @@ function initHeaderInteractions() {
   }
 }
 
-// Fallback for pages that don't use header.html/footer.html includes
+/* ============================================================
+   RUN HEADER INIT
+=============================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initHeaderInteractions, 500);
 });
 
-/* ---------------------------
-   ✅ Service Filter (Services page)
----------------------------- */
+/* ============================================================
+   SERVICE FILTER
+=============================================================== */
 function filterServices() {
-  const q =
-    (document.getElementById('serviceSearch')?.value || '').toLowerCase();
+  const q = (document.getElementById('serviceSearch')?.value || '').toLowerCase();
   document.querySelectorAll('.service-grid .card').forEach(card => {
     const show = card.textContent.toLowerCase().includes(q);
     card.style.display = show ? '' : 'none';
@@ -74,7 +70,7 @@ function filterServices() {
 window.filterServices = filterServices;
 
 /* ============================================================
-   ✅ UTIL: shuffle
+   SHUFFLE
 =============================================================== */
 function shuffle(arr) {
   const a = arr.slice();
@@ -86,7 +82,7 @@ function shuffle(arr) {
 }
 
 /* ============================================================
-   ✅ GALLERY PAGE — galleryPairs + galleryGrid
+   GALLERY PAGE
 =============================================================== */
 let galleryInitialized = false;
 
@@ -103,26 +99,21 @@ async function loadGalleryPage() {
 
   try {
     const res = await fetch('/gallery.json', { cache: 'no-store' });
-    if (!res.ok) {
-      console.error('gallery.json failed to load');
-      return;
-    }
+    if (!res.ok) return;
+
     const data = await res.json();
 
-    const rawGrid = Array.isArray(data.galleryGrid) ? data.galleryGrid : [];
-    const rawPairs = Array.isArray(data.galleryPairs) ? data.galleryPairs : [];
-
-    const grid = shuffle(rawGrid);
-    const pairs = shuffle(rawPairs);
+    const grid = shuffle(data.galleryGrid || []);
+    const pairs = shuffle(data.galleryPairs || []);
 
     const PAGE = 8;
     let gridIndex = 0;
     let pairIndex = 0;
 
-    function makeSkeleton(heightPx) {
+    function makeSkeleton(h) {
       const sk = document.createElement('div');
       sk.className = 'skeleton';
-      sk.style.height = heightPx + 'px';
+      sk.style.height = h + 'px';
       return sk;
     }
 
@@ -136,7 +127,6 @@ async function loadGalleryPage() {
       const before = document.createElement('img');
       before.className = 'ba-before';
       before.src = '/images/' + pair.before;
-      before.loading = 'lazy';
 
       const afterWrap = document.createElement('div');
       afterWrap.className = 'ba-after-wrap';
@@ -144,7 +134,6 @@ async function loadGalleryPage() {
       const after = document.createElement('img');
       after.className = 'ba-after';
       after.src = '/images/' + pair.after;
-      after.loading = 'lazy';
 
       afterWrap.appendChild(after);
 
@@ -162,6 +151,7 @@ async function loadGalleryPage() {
       slider.max = '100';
       slider.value = '50';
       slider.className = 'ba-slider';
+
       slider.addEventListener('input', () => {
         afterWrap.style.width = slider.value + '%';
       });
@@ -178,61 +168,37 @@ async function loadGalleryPage() {
 
       card.appendChild(frame);
       card.appendChild(caption);
+
       return card;
     }
 
     function renderMorePairs() {
-      if (!compareRow) return;
-
       const slice = pairs.slice(pairIndex, pairIndex + PAGE);
-
       slice.forEach(pair => {
-        if (!pair.before || !pair.after) return;
-
         const sk = makeSkeleton(230);
         compareRow.appendChild(sk);
-
         const card = buildCompareCard(pair);
-
-        setTimeout(() => {
-          sk.replaceWith(card);
-        }, 220);
+        setTimeout(() => sk.replaceWith(card), 200);
       });
-
       pairIndex += slice.length;
-      if (baBtn) {
-        baBtn.style.display =
-          pairIndex >= pairs.length ? 'none' : 'inline-block';
-      }
+
+      if (baBtn) baBtn.style.display = pairIndex >= pairs.length ? 'none' : 'inline-block';
     }
 
     function renderMoreGrid() {
-      if (!galleryContainer) return;
-
       const slice = grid.slice(gridIndex, gridIndex + PAGE);
-
       slice.forEach(name => {
         const sk = makeSkeleton(180);
         galleryContainer.appendChild(sk);
 
         const img = new Image();
         img.src = '/images/' + name;
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        img.alt = name;
         img.className = 'grid-photo';
-        img.addEventListener('click', () => openLightbox(img.src));
-        img.addEventListener('load', () => {
-          img.classList.add('lazyloaded');
-          sk.replaceWith(img);
-        });
+        img.addEventListener('load', () => sk.replaceWith(img));
       });
-
       gridIndex += slice.length;
-      if (gridBtn) {
-        gridBtn.style.display =
-          gridIndex >= grid.length ? 'none' : 'inline-block';
-      }
+
+      if (gridBtn) gridBtn.style.display = gridIndex >= grid.length ? 'none' : 'inline-block';
     }
 
     if (compareRow && pairs.length) renderMorePairs();
@@ -247,49 +213,23 @@ async function loadGalleryPage() {
 }
 
 /* ============================================================
-   ✅ LIGHTBOX
+   LIGHTBOX
 =============================================================== */
 function openLightbox(src) {
-  const lightbox = document.getElementById('lightbox');
-  if (!lightbox) return;
-  const img = lightbox.querySelector('img');
-  if (img) img.src = src;
-  lightbox.classList.add('show');
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+
+  lb.querySelector('img').src = src;
+  lb.classList.add('show');
 }
 
 document.addEventListener('click', e => {
-  const lightbox = document.getElementById('lightbox');
-  if (lightbox && e.target === lightbox) {
-    lightbox.classList.remove('show');
-  }
+  const lb = document.getElementById('lightbox');
+  if (lb && e.target === lb) lb.classList.remove('show');
 });
 
 /* ============================================================
-   ✅ GALLERY SEARCH
-=============================================================== */
-function initGallerySearch() {
-  const input = document.getElementById('gallerySearch');
-  if (!input) return;
-
-  input.addEventListener('input', () => {
-    const q = input.value.toLowerCase();
-
-    document.querySelectorAll('.grid-photo').forEach(img => {
-      img.style.display = img.alt.toLowerCase().includes(q) ? '' : 'none';
-    });
-
-    document.querySelectorAll('#compareRow .compare-caption').forEach(cap => {
-      const card = cap.closest('.ba-card');
-      if (!card) return;
-      card.style.display = cap.textContent.toLowerCase().includes(q)
-        ? ''
-        : 'none';
-    });
-  });
-}
-
-/* ============================================================
-   ✅ HOMEPAGE — BEFORE & AFTER
+   HOMEPAGE BEFORE/AFTER
 =============================================================== */
 async function initHomepageBA() {
   const grid = document.getElementById('ba-grid');
@@ -298,35 +238,26 @@ async function initHomepageBA() {
 
   if (!grid || !template) return;
 
-  let allPairs = [];
+  const res = await fetch('/gallery.json', { cache: 'no-store' });
+  if (!res.ok) return;
+
+  const data = await res.json();
+  const allPairs = data.homePairs || [];
+
   let index = 0;
   const BATCH = 6;
 
-  async function loadPairsFromJSON() {
-    try {
-      const res = await fetch('/gallery.json', { cache: 'no-store' });
-      if (!res.ok) return [];
-      const data = await res.json();
-      return Array.isArray(data.homePairs) ? data.homePairs : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function renderNextSix() {
+  function renderNext() {
     const slice = allPairs.slice(index, index + BATCH);
-
     slice.forEach(pair => {
       const card = template.content.cloneNode(true);
-      const before = card.querySelector('.ba-before');
-      const after = card.querySelector('.ba-after');
-      const caption = card.querySelector('.ba-caption');
+
+      card.querySelector('.ba-before').src = '/images/' + pair.before;
+      card.querySelector('.ba-after').src = '/images/' + pair.after;
+      card.querySelector('.ba-caption').textContent = pair.label || '';
+
       const slider = card.querySelector('.ba-slider');
       const wrap = card.querySelector('.ba-after-wrap');
-
-      before.src = '/images/' + pair.before;
-      after.src = '/images/' + pair.after;
-      caption.textContent = pair.label || '';
 
       slider.addEventListener('input', () => {
         wrap.style.width = slider.value + '%';
@@ -341,26 +272,16 @@ async function initHomepageBA() {
     }
   }
 
-  allPairs = await loadPairsFromJSON();
-  if (!allPairs.length) {
-    grid.innerHTML = '<p>No before/after pairs found.</p>';
-    if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-    return;
-  }
-
-  renderNextSix();
-
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', renderNextSix);
-  }
+  renderNext();
+  if (loadMoreBtn) loadMoreBtn.addEventListener('click', renderNext);
 }
 
 /* ============================================================
-   ✅ MASTER INIT
+   MASTER INIT
 =============================================================== */
 window.addEventListener('load', () => {
   loadGalleryPage();
   initHomepageBA();
   initGallerySearch();
 });
-
+</script>
