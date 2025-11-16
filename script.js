@@ -11,39 +11,38 @@ function initHeaderInteractions() {
     });
   }
 
-// --- Dropdowns (ALL dropdowns) ---
-const dropdowns = function() {
-  const list = document.querySelectorAll('.dropdown');
+  // --- Dropdowns (ALL dropdowns: Pricing, Service Areas, etc.) ---
+  const setupDropdowns = function () {
+    const list = document.querySelectorAll('.dropdown');
 
-  list.forEach(drop => {
-    const btn = drop.querySelector('.dropbtn');
-    const menu = drop.querySelector('.dropdown-content');
+    list.forEach(drop => {
+      const btn = drop.querySelector('.dropbtn');
+      const menu = drop.querySelector('.dropdown-content');
 
-    if (!btn || !menu) return;
+      if (!btn || !menu) return;
 
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-      // Close other dropdowns
-      list.forEach(d => {
-        if (d !== drop) d.classList.remove('show');
+        // Close all other dropdowns
+        list.forEach(d => {
+          if (d !== drop) d.classList.remove('show');
+        });
+
+        // Toggle this one
+        drop.classList.toggle('show');
       });
-
-      drop.classList.toggle('show');
     });
-  });
 
-  // Click outside — closes all dropdowns
-  document.addEventListener('click', () => {
-    list.forEach(d => d.classList.remove('show'));
-  });
-};
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', () => {
+      list.forEach(d => d.classList.remove('show'));
+    });
+  };
 
-dropdowns();
-
- 
-    
+  // Run dropdown hookup
+  setupDropdowns();
 
   // --- Chat bubble toggle ---
   const chatToggle = document.querySelector('.chat-toggle');
@@ -364,3 +363,4 @@ window.addEventListener('load', () => {
   initHomepageBA();
   initGallerySearch();
 });
+
