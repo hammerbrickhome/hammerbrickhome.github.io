@@ -1555,18 +1555,38 @@ input.gallery-search-box,
   z-index: 9999;
 }
 
-.dropdown:hover .dropdown-content {
+/* MOBILE + SAFARI SAFE DROPDOWN */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #0d1a2e;
+  min-width: 200px;
+  border-radius: 12px;
+  padding: 10px 0;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.55);
+  z-index: 99999;
+}
+
+/* JS-controlled state */
+.dropdown.show .dropdown-content {
   display: block;
 }
 
-.dropdown-content a {
-  display: block;
-  padding: 10px 18px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.dropdown-content a:hover {
-  background-color: rgba(255,255,255,0.08);
+/* MOBILE-only styling, no position:static */
+@media (max-width: 768px) {
+  .dropdown-content {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgba(7,14,26,0.92);
+    box-shadow: none;
+  }
 }
 
