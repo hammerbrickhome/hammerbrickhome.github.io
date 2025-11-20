@@ -897,19 +897,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
  
 
-  // Rebuild dropdown
-  brandSelect.innerHTML = "";
-  names.forEach(name => {
-    const opt = document.createElement("option");
-    opt.value = name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-    opt.textContent = name;
-    brandSelect.appendChild(opt);
-  });
-}
+
 
 
   function updatePermitHelper(svc){
-    const cfg = SERVICE_CONFIG[svc];
+    const cfg = SERVICE_CONFIG[svc]
     if (!cfg){
       permitBox.style.display = "none";
       permitBox.innerHTML = "";
@@ -972,8 +964,8 @@ document.addEventListener("DOMContentLoaded", () => {
       advStyle.style.display = "";
     }
 
-    updateBrandOptions();
-    updatePermitHelper(svc);
+   
+  
   }
 
   // Confidence meter based on level of input detail
@@ -1727,10 +1719,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ==========================
-  // EVENTS
-  // ==========================
-  serviceEl.addEventListener("change", updateVisibility);
+// 🔥 FINAL FIX — Correct service change behavior
+serviceEl.addEventListener("change", () => {
+  updateVisibility();
+
+  // 1. FULL reset of brand system
+  brandSelect.innerHTML = "";
+  brandRow.style.display = "none";
+
+  // 2. Force finish logic AFTER reset (correct timing)
+  setTimeout(() => {
+    finishEl.dispatchEvent(new Event("change"));
+  }, 0);
+});
+
+
+
+
 finishEl.addEventListener("change", () => {
   const svc = serviceEl.value;
   const cfg = BRAND_CONFIG[svc];
@@ -1756,8 +1761,7 @@ finishEl.addEventListener("change", () => {
   } else if (finishEl.value === "luxury") {
     names = cfg.luxury || [];
   }
-
-  // Rebuild dropdown
+  // ✅ THIS PART WAS MISSING — ADD IT
   brandSelect.innerHTML = "";
   names.forEach(name => {
     const opt = document.createElement("option");
@@ -1766,6 +1770,7 @@ finishEl.addEventListener("change", () => {
     brandSelect.appendChild(opt);
   });
 });
+
 
   boroughEl.addEventListener("change", updateRegionNote);
   form.addEventListener("submit", calculateEstimate);
