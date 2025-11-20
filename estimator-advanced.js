@@ -178,8 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Add-on panel DOM (optional – only used if present in HTML)
-const addonsPanel = document.getElementById("smart-addons-panel");
-
+  const addonsPanel = document.getElementById("est-addons-panel");
   let extraAddonsValue = 0; // running total from selected smart add-ons (average of low/high)
 
   // Brand elements
@@ -2438,8 +2437,6 @@ const addonsPanel = document.getElementById("smart-addons-panel");
     const demoVal     = Number(demoEl.value || 0);
     const permitVal   = Number(permitEl.value || 0);
     const smartAddonsVal = extraAddonsValue || 0;
-    const selectedSmartAddons = getSelectedSmartAddonsList();
-
     const addOnsTotal = dumpsterVal + demoVal + permitVal + smartAddonsVal;
 
     let low  = adjustedLow  + addOnsTotal;
@@ -3049,3 +3046,4 @@ function injectEstimatorExtraStyles(){
   style.textContent = css;
   document.head.appendChild(style);
 }
+
