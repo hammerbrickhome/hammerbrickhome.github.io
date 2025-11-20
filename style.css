@@ -1777,4 +1777,127 @@ input.gallery-search-box,
     padding-left: 15px;
   }
 }
+/* ============================================================
+   CLEAN HEADER MENU — NO HOVER, NO SHIMMER, CLICK DROPDOWNS
+=============================================================== */
+
+/* Base menu links */
+.main-nav a,
+.nav-link.dropbtn {
+  color: rgba(245,196,0,0.75);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+  position: relative;
+}
+
+/* NO HOVER EFFECTS */
+.main-nav a:hover,
+.nav-link.dropbtn:hover {
+  background: none !important;
+  color: rgba(245,196,0,0.75) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.main-nav a:hover::after,
+.nav-link.dropbtn:hover::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* GOLD CALL BUTTON (keep gold) */
+.main-nav .nav-call {
+  background: linear-gradient(180deg,var(--gold-soft),var(--gold));
+  color: #151515 !important;
+  font-weight: 800;
+}
+
+/* Dropdown wrapper */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content (always hidden unless .show is added by JS) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: #0a0a0a;
+  border-radius: 10px;
+  border: 1px solid rgba(245,196,0,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  z-index: 9999;
+}
+
+/* Remove dropdown-item hover */
+.dropdown-content a {
+  padding: 12px 18px;
+  display: block;
+  text-decoration: none;
+  color: rgba(245,196,0,0.85);
+  background: #0a0a0a !important;
+}
+
+.dropdown-content a:hover {
+  background: #0a0a0a !important;
+  color: rgba(245,196,0,0.85) !important;
+}
+
+/* Show dropdown ONLY when JS adds .show */
+.dropdown.show .dropdown-content {
+  display: block !important;
+}
+
+/* Disable hover-open dropdown */
+.dropdown:hover .dropdown-content {
+  display: none !important;
+}
+
+/* MOBILE MENU */
+@media (max-width: 860px) {
+  .main-nav {
+    position: absolute;
+    right: 10px;
+    top: 54px;
+    flex-direction: column;
+    align-items: flex-end;
+    background: rgba(4,10,20,.98);
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    display: none;
+  }
+
+  .main-nav.show {
+    display: flex;
+  }
+
+  .dropdown-content {
+    position: static !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding-left: 15px;
+  }
+}
+
+/* Disable all hover styling inside topbar */
+.topbar *:hover {
+  background: none !important;
+  color: inherit !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
 
