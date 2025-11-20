@@ -1570,3 +1570,37 @@ input.gallery-search-box,
   background-color: rgba(255,255,255,0.08);
 }
 
+/* =======================================================
+   REMOVE HOVER MENUS ON MOBILE
+   KEEP NORMAL HOVER ON DESKTOP
+======================================================= */
+
+/* Desktop hover behavior stays normal */
+@media (hover: hover) and (pointer: fine) {
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+}
+
+/* Mobile: disable hover completely */
+@media (hover: none), (pointer: coarse) {
+
+  /* Hide dropdowns unless opened via JS */
+  .dropdown .dropdown-content {
+    display: none !important;
+  }
+
+  /* Prevent hover color states */
+  .main-nav a:hover,
+  .dropbtn:hover {
+    background: none !important;
+    color: inherit !important;
+  }
+}
+
+/* GOLD ACTIVE STATE ON TAP */
+.main-nav a.active,
+.dropdown.open > .dropbtn {
+  color: var(--gold) !important;
+}
+
