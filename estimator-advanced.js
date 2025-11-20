@@ -2530,6 +2530,8 @@ const addonsPanel = document.getElementById("smart-addons-panel");
       "  DOB Permit (approx): $" + permitVal.toLocaleString("en-US"),
       smartAddonsVal ? ("  Smart Add-Ons (approx mid): $" + Math.round(smartAddonsVal).toLocaleString("en-US")) : "",
       "",
+      ...selectedSmartAddons.map(a => "  - " + a),
+
       "Ballpark Range Shown:",
       "  " + formatMoney(softLow) + " – " + formatMoney(softHigh)
     ].filter(Boolean);
