@@ -1659,4 +1659,20 @@ input.gallery-search-box,
     padding-left: 24px !important;
   }
 }
+/* ============================================================
+   FIX DROPDOWNS FOR CLICK MODE
+   (Override old hover rules that block mobile & desktop)
+=============================================================== */
+
+.dropdown:hover .dropdown-content {
+  display: none !important;   /* disable hover-open */
+}
+
+.dropdown-content {
+  display: none !important;   /* default hidden */
+}
+
+.dropdown.show .dropdown-content {
+  display: block !important;  /* click to open */
+}
 
