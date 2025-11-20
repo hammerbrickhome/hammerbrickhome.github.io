@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sizeRow     = document.getElementById("est-size-row");
   const sizeLabel   = document.getElementById("est-size-label");
   const sizeInput   = document.getElementById("est-size");
-  const scopeRow    = document.getElementById("est-scope-row");
+  const scopeRow    = document.getElementById("est-scope-roaw");
   const scopeSelect = document.getElementById("est-scope");
   const finishEl    = document.getElementById("est-finish");
   const urgencyEl   = document.getElementById("est-urgency");
@@ -744,10 +744,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Brand config (extended)
   const BRAND_CONFIG = {
-    // ... (rest of BRAND_CONFIG & SOW_CONFIG continues here in Part 2)
-
-
-        "windows": {
+    "windows": {
       label: "Preferred Window / Door Brand",
       budget: [
         "Alside",
@@ -1011,6 +1008,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // SCOPE OF WORK + UPSELLS CONFIG
   // ==========================
   const SOW_CONFIG = {
+    // ... (unchanged, same SOW_CONFIG content as your original – keeping all services)
     "masonry": {
       title: "Scope of Work – Masonry · Pavers · Concrete",
       bullets: [
@@ -1091,8 +1089,216 @@ document.addEventListener("DOMContentLoaded", () => {
         "Clean up site and remove excess materials."
       ]
     },
-    // ... (SOW_CONFIG continues for all services, unchanged from your file)
-    // (bathroom, kitchen, basement, etc.)
+    "waterproofing": {
+      title: "Scope of Work – Waterproofing & Foundation Sealing",
+      bullets: [
+        "Inspect interior/exterior conditions and identify water entry paths.",
+        "Prepare walls/areas and perform crack repair or joint treatment as specified.",
+        "Install sealers, membranes, or drainage components included in scope.",
+        "Coordinate with sump/drainage components if part of project.",
+        "Clean work area; moisture performance may depend on site conditions."
+      ]
+    },
+    "power-wash": {
+      title: "Scope of Work – Power / Soft Washing",
+      bullets: [
+        "Pre-rinse surfaces and wet sensitive landscaping as needed.",
+        "Apply appropriate cleaning solution to siding, masonry, or flatwork.",
+        "Rinse with controlled pressure/soft-wash techniques per surface type.",
+        "Spot-treat stubborn areas within reason.",
+        "Rinse walkways and leave area tidy."
+      ]
+    },
+    "landscaping": {
+      title: "Scope of Work – Landscaping & Seasonal Care",
+      bullets: [
+        "Perform mowing, trimming, and edging in included areas.",
+        "Remove basic leaves/debris as specified for the visit/season.",
+        "Maintain beds (weeding/pruning) per agreed scope.",
+        "Bag or cart away yard waste as noted.",
+        "Blow off walkways and hard surfaces."
+      ]
+    },
+    "exterior-lighting": {
+      title: "Scope of Work – Exterior Lighting & Smart Security",
+      bullets: [
+        "Confirm fixture locations, light levels, and control methods.",
+        "Mount fixtures and run wiring per code and product guidelines.",
+        "Install transformers, timers, or smart controls as specified.",
+        "Aim and adjust fixtures for safety and appearance.",
+        "Test system operation and review basic use with homeowner."
+      ]
+    },
+    "sidewalk": {
+      title: "Scope of Work – Sidewalk / DOT Concrete",
+      bullets: [
+        "Sawcut and remove existing sidewalk panels as included.",
+        "Prepare subgrade and install compacted base to required thickness.",
+        "Set forms and pour concrete to required thickness and scoring pattern.",
+        "Finish, edge, and broom per NYC / local standards.",
+        "Strip forms, backfill edges, and clean site."
+      ]
+    },
+    "gutters": {
+      title: "Scope of Work – Gutter Install / Repair",
+      bullets: [
+        "Inspect gutter runs, downspout locations, and drainage path.",
+        "Remove existing gutters/guards where included.",
+        "Install new gutters, hangers, and downspouts per layout.",
+        "Seal joints and test basic flow.",
+        "Clean up and remove gutter debris/materials."
+      ]
+    },
+    "interior-paint": {
+      title: "Scope of Work – Interior Painting",
+      bullets: [
+        "Protect floors, furniture, and adjacent finishes in work areas.",
+        "Patch minor nail holes and small surface imperfections.",
+        "Spot prime repairs and apply specified finish coats to walls/ceilings/trims.",
+        "Remove masking and reinstall basic cover plates as applicable.",
+        "Clean work areas and leave space swept/vacuumed."
+      ]
+    },
+    "flooring": {
+      title: "Scope of Work – Flooring (LVP / Tile / Hardwood)",
+      bullets: [
+        "Verify subfloor condition and transitions to adjacent rooms.",
+        "Remove existing flooring as listed in estimate.",
+        "Prepare subfloor (leveling/basic repair) within included scope.",
+        "Install new flooring, trims, and transitions as specified.",
+        "Clean surface and remove packaging/debris."
+      ]
+    },
+    "drywall": {
+      title: "Scope of Work – Drywall / Plaster / Skim Coat",
+      bullets: [
+        "Protect floors and nearby finishes from dust.",
+        "Hang/repair board or lath/plaster surfaces as scoped.",
+        "Tape, mud, and sand to an agreed finish level.",
+        "Spot prime repaired areas once dry.",
+        "Collect demolition dust/debris and remove from site as included."
+      ]
+    },
+    "interior-doors": {
+      title: "Scope of Work – Interior Doors & Trim",
+      bullets: [
+        "Confirm door sizes, swings, and hardware preferences.",
+        "Remove existing doors/trim as included.",
+        "Install new slabs/frames, adjust for smooth operation.",
+        "Install casing, base, and other trim items in scope.",
+        "Patch nail holes and leave ready for paint or touch-up."
+      ]
+    },
+    "closets": {
+      title: "Scope of Work – Closet / Storage Buildouts",
+      bullets: [
+        "Confirm shelving layout, hanging sections, and specialty features.",
+        "Install rails, panels, rods, and shelving per system design.",
+        "Secure fasteners into suitable framing or anchors.",
+        "Adjust doors/fronts if part of scope.",
+        "Clean up and remove packaging."
+      ]
+    },
+    "interior-lighting": {
+      title: "Scope of Work – Interior Lighting / Smart Lighting",
+      bullets: [
+        "Confirm fixture locations, switching, and dimming needs.",
+        "Cut openings and run wiring per code where included.",
+        "Install fixtures, trims, and controls/smart switches.",
+        "Test operation and basic programming if smart devices.",
+        "Patch small access holes as scoped (if applicable)."
+      ]
+    },
+    "bathroom": {
+      title: "Scope of Work – Bathroom Remodel",
+      bullets: [
+        "Protect adjacent rooms and paths to work area.",
+        "Demo fixtures, finishes, and walls/floors as included in scope.",
+        "Rough-in plumbing, electrical, and ventilation per plan.",
+        "Install tile, fixtures, vanity, and accessories per selections.",
+        "Grout, caulk, and clean up bathroom ready for final painting/finishes."
+      ]
+    },
+    "kitchen": {
+      title: "Scope of Work – Kitchen Remodel",
+      bullets: [
+        "Protect floors/adjacent rooms and set up dust control where practical.",
+        "Demo cabinets, tops, appliances, and finishes as listed.",
+        "Rough-in plumbing, electrical, and ventilation to support new layout.",
+        "Install cabinets, countertops, backsplash, and fixtures per selections.",
+        "Coordinate appliance set-in (by others or by us if included) and clean up."
+      ]
+    },
+    "basement": {
+      title: "Scope of Work – Basement Finishing",
+      bullets: [
+        "Review layout, clearances, and egress requirements.",
+        "Frame walls/ceilings and rough-in MEP as scoped.",
+        "Insulate, drywall, and finish surfaces to agreed level.",
+        "Install flooring, trims, and doors included in scope.",
+        "Clean up work areas; final paint or extras per estimate."
+      ]
+    },
+    "garage-conversion": {
+      title: "Scope of Work – Garage Conversion / Remodel",
+      bullets: [
+        "Confirm layout, insulation, and egress requirements.",
+        "Demo existing finishes as necessary for conversion.",
+        "Frame, insulate, and rough-in electrical/MEP per design.",
+        "Install wall/ceiling finishes, flooring, and trims as scoped.",
+        "Clean up and leave space ready for final furnishings."
+      ]
+    },
+    "epoxy-garage": {
+      title: "Scope of Work – Epoxy Garage Floor",
+      bullets: [
+        "Inspect concrete and perform basic crack/spall repair as included.",
+        "Mechanically prep floor (grinding/etching) for coating bond.",
+        "Apply primer, epoxy/flake build, and topcoat per system.",
+        "Allow proper cure time and re-open for light use as directed.",
+        "Clean up and remove dust and masking."
+      ]
+    },
+    "smart-home": {
+      title: "Scope of Work – Smart Home Upgrades",
+      bullets: [
+        "Confirm device locations, Wi-Fi coverage, and app ecosystem.",
+        "Install doorbells, cameras, locks, and hubs per plan.",
+        "Run low-voltage wiring where included and allowed.",
+        "Pair devices to app and perform basic testing.",
+        "Provide simple overview of controls (not full IT support)."
+      ]
+    },
+    "handyman": {
+      title: "Scope of Work – Small Repairs / Handyman Visit",
+      bullets: [
+        "Complete punch-list items agreed for the visit window.",
+        "Provide basic materials (anchors, screws, caulk) within reason.",
+        "Advise if any items require a larger project or separate estimate.",
+        "Clean up work areas at end of visit.",
+        "Time and materials are limited to booked duration."
+      ]
+    },
+    "soundproofing": {
+      title: "Scope of Work – Soundproofing",
+      bullets: [
+        "Identify primary noise paths and target walls/ceilings.",
+        "Install sound-rated assemblies (insulation, channels, board) as scoped.",
+        "Seal perimeter gaps and penetrations with acoustical sealant.",
+        "Finish surfaces to a paint-ready or specified level.",
+        "Clean up and remove construction debris."
+      ]
+    },
+    "moisture-control": {
+      title: "Scope of Work – Mold / Moisture Prevention (Non-Remediation)",
+      bullets: [
+        "Identify moisture sources and targeted treatment areas.",
+        "Apply sealers, coatings, or ventilation strategies as included.",
+        "Address small non-structural cracks or joints within scope.",
+        "Recommend further remediation/engineering if issues exceed scope.",
+        "Clean work areas after treatments."
+      ]
+    }
   };
 
   const UPSELL_CONFIG = {
@@ -1104,7 +1310,230 @@ document.addEventListener("DOMContentLoaded", () => {
         "Include sealer and joint sand stabilization for longer life."
       ]
     },
-    // ... (UPSELL_CONFIG continues for all services, unchanged)
+    "driveway": {
+      title: "Popular Upgrades for Driveways",
+      bullets: [
+        "Add decorative border or apron at street/front entry.",
+        "Upgrade to stamped or exposed aggregate concrete.",
+        "Include drainage channels or trench drains where needed."
+      ]
+    },
+    "roofing": {
+      title: "Popular Roofing Upgrades",
+      bullets: [
+        "Upgrade to higher-end architectural/composite shingles.",
+        "Add ice/water shield in additional areas for extra protection.",
+        "Improve ventilation with ridge vents or attic fans."
+      ]
+    },
+    "siding": {
+      title: "Popular Siding Upgrades",
+      bullets: [
+        "Upgrade to fiber cement or premium vinyl profiles.",
+        "Add decorative trims, crown details, or accent shakes.",
+        "Include additional insulation or housewrap upgrades."
+      ]
+    },
+    "windows": {
+      title: "Popular Window & Door Upgrades",
+      bullets: [
+        "Upgrade to higher-efficiency glass or premium lines (Andersen, Marvin, etc.).",
+        "Add interior casing/trim packages for a finished look.",
+        "Include exterior aluminum capping or color upgrades."
+      ]
+    },
+    "exterior-paint": {
+      title: "Popular Exterior Paint Upgrades",
+      bullets: [
+        "Upgrade to premium or specialty coatings for longer life.",
+        "Add accent colors to doors, shutters, and trims.",
+        "Include additional prep on heavily weathered areas."
+      ]
+    },
+    "deck": {
+      title: "Popular Deck Upgrades",
+      bullets: [
+        "Upgrade to composite or PVC decking and rail systems.",
+        "Add lighting to steps, posts, or rails.",
+        "Include privacy screens, benches, or planters."
+      ]
+    },
+    "fence": {
+      title: "Popular Fence Upgrades",
+      bullets: [
+        "Upgrade to decorative panels or custom gate designs.",
+        "Add privacy or lattice toppers.",
+        "Include sealing or stain on wood fences."
+      ]
+    },
+    "waterproofing": {
+      title: "Popular Waterproofing Upgrades",
+      bullets: [
+        "Add interior drains or sump pump system where appropriate.",
+        "Upgrade to longer-warranty membranes or coatings.",
+        "Include monitoring or alarm devices for water events."
+      ]
+    },
+    "power-wash": {
+      title: "Popular Power Wash Upgrades",
+      bullets: [
+        "Add surface sealing for concrete, pavers, or stone.",
+        "Include gutter whitening or rust-stain treatments.",
+        "Bundle driveway, walkways, and patio in one visit."
+      ]
+    },
+    "landscaping": {
+      title: "Popular Landscaping Upgrades",
+      bullets: [
+        "Add seasonal color plantings and mulch refresh.",
+        "Include simple lighting around paths and beds.",
+        "Upgrade to a recurring maintenance package."
+      ]
+    },
+    "exterior-lighting": {
+      title: "Popular Exterior Lighting Upgrades",
+      bullets: [
+        "Upgrade fixtures to architectural or smart lines.",
+        "Add path, step, and accent lighting for layered effect.",
+        "Integrate security cameras or smart doorbells."
+      ]
+    },
+    "sidewalk": {
+      title: "Popular Sidewalk Upgrades",
+      bullets: [
+        "Add decorative broom or stamp patterns (where allowed).",
+        "Include transition repairs to stoops or drive entries.",
+        "Add sealer to help with stain resistance."
+      ]
+    },
+    "gutters": {
+      title: "Popular Gutter Upgrades",
+      bullets: [
+        "Add gutter guards to reduce clogging and maintenance.",
+        "Upgrade downspouts and outlets for better flow.",
+        "Tie downspouts into extensions or drainage solutions."
+      ]
+    },
+    "interior-paint": {
+      title: "Popular Interior Paint Upgrades",
+      bullets: [
+        "Upgrade to premium or washable paints for high-use areas.",
+        "Add accent walls, ceilings, or trim colors.",
+        "Include painting of doors, trims, and built-ins."
+      ]
+    },
+    "flooring": {
+      title: "Popular Flooring Upgrades",
+      bullets: [
+        "Upgrade to wider planks or higher-end finishes.",
+        "Add sound underlayment where helpful (multi-family/condos).",
+        "Include stair treads, nosings, and railing touch-ups."
+      ]
+    },
+    "drywall": {
+      title: "Popular Drywall/Finishing Upgrades",
+      bullets: [
+        "Upgrade to a higher smoothness level where feasible.",
+        "Add decorative trims, beams, or panel details.",
+        "Include full-room repainting after skim coat."
+      ]
+    },
+    "interior-doors": {
+      title: "Popular Door & Trim Upgrades",
+      bullets: [
+        "Upgrade to solid-core or specialty doors.",
+        "Add higher profile casings/baseboards.",
+        "Include upgraded hardware (hinges, levers, handles)."
+      ]
+    },
+    "closets": {
+      title: "Popular Closet Upgrades",
+      bullets: [
+        "Upgrade to custom built-ins or drawers.",
+        "Add lighting and mirrors inside closet.",
+        "Include premium finishes or glass doors."
+      ]
+    },
+    "interior-lighting": {
+      title: "Popular Interior Lighting Upgrades",
+      bullets: [
+        "Add dimmers or smart switches for scenes.",
+        "Upgrade to higher-end fixtures or trims.",
+        "Include under-cabinet or cove lighting where applicable."
+      ]
+    },
+    "bathroom": {
+      title: "Popular Bathroom Upgrades",
+      bullets: [
+        "Upgrade to frameless glass, niche shelving, and linear drains.",
+        "Add heated floors or towel warmers.",
+        "Include higher-end fixtures and vanity packages."
+      ]
+    },
+    "kitchen": {
+      title: "Popular Kitchen Upgrades",
+      bullets: [
+        "Upgrade to custom cabinets, pull-outs, and organizers.",
+        "Add under-cabinet lighting and integrated outlets.",
+        "Include higher-end counters, backsplashes, and hardware."
+      ]
+    },
+    "basement": {
+      title: "Popular Basement Upgrades",
+      bullets: [
+        "Add media wall, bar area, or built-ins.",
+        "Upgrade to sound-rated assemblies for theater spaces.",
+        "Include upgraded flooring and lighting packages."
+      ]
+    },
+    "garage-conversion": {
+      title: "Popular Garage Conversion Upgrades",
+      bullets: [
+        "Add mini-split heating/cooling system.",
+        "Include built-in storage or office cabinetry.",
+        "Upgrade doors, windows, and trim packages."
+      ]
+    },
+    "epoxy-garage": {
+      title: "Popular Garage Floor Upgrades",
+      bullets: [
+        "Upgrade to polyaspartic or quartz systems.",
+        "Add more decorative flake or metallic finishes.",
+        "Include stem wall or cove base coating."
+      ]
+    },
+    "smart-home": {
+      title: "Popular Smart Home Upgrades",
+      bullets: [
+        "Expand to whole-home smart lighting.",
+        "Add extra cameras or sensors at key locations.",
+        "Integrate with voice/control systems where available."
+      ]
+    },
+    "handyman": {
+      title: "Popular Small Job Add-Ons",
+      bullets: [
+        "Bundle multiple small repairs into one visit.",
+        "Add minor caulking and touch-up painting.",
+        "Install small accessories (shelves, hooks, rods) while on site."
+      ]
+    },
+    "soundproofing": {
+      title: "Popular Soundproofing Upgrades",
+      bullets: [
+        "Add additional mass layers or specialty boards.",
+        "Include upgraded doors and seals at openings.",
+        "Combine with smart-home white noise solutions."
+      ]
+    },
+    "moisture-control": {
+      title: "Popular Moisture Prevention Upgrades",
+      bullets: [
+        "Add dehumidification or basic ventilation solutions.",
+        "Upgrade to extended-warranty sealers or coatings.",
+        "Combine with waterproofing/drainage improvements where needed."
+      ]
+    }
   };
 
   // ==========================
@@ -1227,13 +1656,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (totalSpan){
           totalSpan.textContent = formatMoney(extraAddonsValue);
         }
-        // Auto-recalculate estimate when smart add-ons change
-        calculateEstimate();
       });
     });
   }
 
-  // 🔹 helper to collect selected smart add-ons for PDF + email
+  // 🔹 NEW: helper to collect selected smart add-ons for PDF + email
   function getSelectedSmartAddons(){
     if (!addonsPanel) return [];
     const boxes = addonsPanel.querySelectorAll(".addon-checkbox");
@@ -1342,6 +1769,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return { label: "Low",   note: "Good starting point only — we recommend a walkthrough or more detail for better accuracy." };
   }
 
+  // Pro tips per service
   function getProTipsHtml(svc){
     switch (svc){
       case "bathroom":
@@ -1566,45 +1994,305 @@ document.addEventListener("DOMContentLoaded", () => {
       "Review project area and confirm scope on site.",
       "Perform work described in the written estimate and contract.",
       "Protect adjacent surfaces where practical during work.",
-      "Clean up and haul away included construction debris."
+      "Clean up active work areas at the end of the project."
     ];
-    const lis = bullets.map(b => `<li>${b}</li>`).join("");
+    const items = bullets.map(b => `<li>${b}</li>`).join("");
     return `
-      <h3>Scope of Work (Typical)</h3>
-      <ul>${lis}</ul>
+      <div class="section-box">
+        <h2 class="section-title">${title}</h2>
+        <ul class="section-list">
+          ${items}
+        </ul>
+      </div>
     `;
   }
 
   function buildUpsellsHtml(svc){
     const cfg = UPSELL_CONFIG[svc];
     if (!cfg) return "";
-    const lis = cfg.bullets.map(b => `<li>${b}</li>`).join("");
+    const items = cfg.bullets.map(b => `<li>${b}</li>`).join("");
     return `
-      <h3>Popular Upgrades to Consider</h3>
-      <ul>${lis}</ul>
+      <div class="section-box">
+        <h2 class="section-title">${cfg.title}</h2>
+        <ul class="section-list">
+          ${items}
+        </ul>
+      </div>
     `;
   }
 
   function buildTermsHtml(){
     const bullets = [
-      "This is a ballpark range, not a formal quote. Final pricing follows an in-person walkthrough.",
-      "Lead-safe, DOB, HOA, co-op, or condo requirements may affect cost and schedule.",
-      "Hidden conditions (rot, structural issues, water damage, code issues) are not included until discovered.",
-      "Materials, brands, and finishes will be confirmed in a written estimate and contract before work begins.",
-      "Scheduling depends on season, crew availability, permits, and material lead times."
+      "This document is a ballpark estimate only. It is not a formal bid, proposal, or contract.",
+      "Final pricing, scope, and schedule are confirmed only in a written estimate and signed agreement.",
+      "Range assumes typical access, site conditions, and standard building/code requirements.",
+      "Architect/engineer fees, major structural changes, utility upgrades, or hidden conditions are not included unless specifically listed.",
+      "Permits, inspections, and municipal fees are approximate and may change based on final scope and agency review."
     ];
-    const lis = bullets.map(b => `<li>${b}</li>`).join("");
+    const items = bullets.map(b => `<li>${b}</li>`).join("");
     return `
-      <h3>Important Notes & Assumptions</h3>
-      <ul>${lis}</ul>
+      <div class="section-box">
+        <h2 class="section-title">Key Notes & Conditions</h2>
+        <ul class="section-list">
+          ${items}
+        </ul>
+      </div>
     `;
   }
 
-    // ==========================
+  function buildScopeOfWorkTextLines(svc, svcLabel){
+    const cfg = SOW_CONFIG[svc];
+    const bullets = cfg?.bullets || [
+      "Review project area and confirm final scope on site.",
+      "Perform work described in written estimate and agreement.",
+      "Protect nearby areas where practical and clean up work zone."
+    ];
+    // Keep short for email body
+    return bullets.slice(0, 3).map(b => "- " + b);
+  }
+
+  function buildUpsellsTextLines(svc){
+    const cfg = UPSELL_CONFIG[svc];
+    if (!cfg) return [];
+    return cfg.bullets.slice(0, 3).map(b => "- " + b);
+  }
+
+  function buildTermsTextLines(){
+    const bullets = [
+      "Ballpark only — not a formal contract.",
+      "Final pricing/scope confirmed in written estimate + signed agreement.",
+      "Does not include major hidden conditions or structural/engineering unless listed."
+    ];
+    return bullets.map(b => "- " + b);
+  }
+
+  // ==========================
+  // PDF BUILDER (UPDATED TO SHOW SMART ADD-ONS)
+  // ==========================
+  function openPrintableEstimate(estimateData){
+    const w = window.open("", "_blank");
+    if (!w) return;
+
+    const {
+      svc,
+      svcLabel,
+      softLow,
+      softHigh,
+      boroughText,
+      buildingText,
+      finishLabel,
+      urgencyLabel,
+      leadSummary,
+      usedArea,
+      usedScopeLabel,
+      addOnsTotal,
+      dumpsterVal,
+      demoVal,
+      permitVal,
+      selectedAddons = []
+    } = estimateData;
+
+    const sowHtml    = buildScopeOfWorkHtml(svc, svcLabel);
+    const upsellsHtml= buildUpsellsHtml(svc);
+    const termsHtml  = buildTermsHtml();
+
+    const smartAddonsSection = selectedAddons.length
+      ? `
+        <h3 style="color:#f0dca0;margin:12px 0 6px;font-size:14px;">Selected Smart Add-Ons</h3>
+        <ul>
+          ${selectedAddons.map(a => `<li>${a.label}: ${formatMoney(a.low)} – ${formatMoney(a.high)}</li>`).join("")}
+        </ul>
+      `
+      : "";
+
+    w.document.write(`<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Estimate Preview — Hammer Brick & Home</title>
+  <style>
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,system-ui,sans-serif;
+      background:#070b14;
+      color:#f5f5f5;
+      padding:20px 26px;
+    }
+    .box{
+      max-width:720px;
+      margin:0 auto;
+      border:1px solid rgba(231,191,99,.45);
+      border-radius:12px;
+      padding:20px 22px 24px;
+      background:#050914;
+      box-shadow:0 18px 40px rgba(0,0,0,.7);
+    }
+    .brand-block div{
+      font-size:13px;
+      color:#f0dca0;
+    }
+    .brand-name{
+      font-size:22px;
+      font-weight:700;
+      color:#e7bf63;
+    }
+    .gold-divider{
+      width:100%;
+      height:2.5px;
+      background:#e7bf63;
+      border-radius:2px;
+      margin:8px 0 12px;
+    }
+    h1.main-title{
+      font-size:24px;
+      font-weight:800;
+      color:#ff4d4d;
+      margin:6px 0 14px;
+      text-transform:none;
+    }
+    h2{
+      font-size:17px;
+      margin:18px 0 6px;
+      color:#f0dca0;
+    }
+    p,li{
+      font-size:13px;
+      line-height:1.5;
+    }
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      font-size:13px;
+      margin:8px 0;
+    }
+    .row div{
+      flex:1 1 220px;
+      margin-bottom:4px;
+    }
+    .range{
+      font-size:20px;
+      font-weight:700;
+      margin:8px 0;
+      color:#f5d89b;
+    }
+    ul{
+      padding-left:18px;
+      margin:6px 0;
+    }
+    .footer-note{
+      font-size:11px;
+      color:#bbb;
+      margin-top:14px;
+    }
+    .section-box{
+      border:1px solid rgba(231,191,99,.45);
+      border-radius:10px;
+      padding:10px 12px;
+      margin-top:14px;
+      background:#050a15;
+    }
+    .section-title{
+      font-size:15px;
+      margin:0 0 6px;
+      color:#f0dca0;
+      font-weight:600;
+    }
+    .section-list li{
+      font-size:12px;
+      color:#f5f5f5;
+      margin-bottom:3px;
+    }
+    .sig-block{
+      margin-top:16px;
+      font-size:12px;
+      color:#d5d5d5;
+    }
+    .sig-line{
+      margin-top:10px;
+      border-top:1px solid rgba(255,255,255,.35);
+      width:220px;
+      padding-top:3px;
+    }
+    @media print{
+      body{
+        background:#ffffff;
+      }
+      .box{
+        box-shadow:none;
+        border:1px solid #ccc;
+      }
+      h1.main-title{
+        color:#cc0000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="brand-block" style="text-align:left;margin-bottom:12px;">
+      <div class="brand-name">HAMMER BRICK &amp; HOME LLC</div>
+      <div>Precision • Protection • Professionalism</div>
+      <div>Licensed • Insured • Bonded</div>
+      <div>HIC #21311291</div>
+      <div>Call: 929-595-5300</div>
+      <div style="margin-bottom:6px;">Building trust one brick at a time.</div>
+      <div class="gold-divider"></div>
+    </div>
+
+    <h1 class="main-title">Ballpark Estimate (Not a Formal Quote)</h1>
+
+    <h2>Project Summary</h2>
+    <div class="row">
+      <div><strong>Project Type:</strong> ${svcLabel}</div>
+      <div><strong>Location:</strong> ${boroughText}</div>
+      <div><strong>Building Type:</strong> ${buildingText}</div>
+    </div>
+    <div class="row">
+      <div><strong>Finish Level:</strong> ${finishLabel}</div>
+      <div><strong>Timeline:</strong> ${urgencyLabel}</div>
+      <div><strong>Lead / Pre-1978:</strong> ${leadSummary}</div>
+    </div>
+    ${usedArea ? `<p><strong>Approx. Size:</strong> ${usedArea}</p>` : ""}
+    ${usedScopeLabel ? `<p><strong>Scope Level:</strong> ${usedScopeLabel}</p>` : ""}
+
+    <h2>Ballpark Range</h2>
+    <p class="range">${formatMoney(softLow)} – ${formatMoney(softHigh)}</p>
+    <p>This is a ballpark NYC-area range only. Final pricing is confirmed in a written estimate after an on-site walkthrough.</p>
+
+    <h2>Add-Ons Included in This Range</h2>
+    <ul>
+      <li>Dumpster: ${formatMoney(dumpsterVal)}</li>
+      <li>Demolition: ${formatMoney(demoVal)}</li>
+      <li>Permit / Filing (approx): ${formatMoney(permitVal)}</li>
+      <li>Total add-ons included (dumpster, demo, permits, smart add-ons): ${formatMoney(addOnsTotal)}</li>
+    </ul>
+    ${smartAddonsSection}
+
+    ${sowHtml}
+    ${upsellsHtml}
+    ${termsHtml}
+
+    <div class="sig-block">
+      <div>Prepared as a courtesy ballpark by Hammer Brick &amp; Home LLC.</div>
+      <div class="sig-line">Client Signature &amp; Date (for discussion only)</div>
+    </div>
+
+    <p class="footer-note">
+      Important: This document is for informational purposes only. It is not a bid, proposal, or contract, and does not create
+      any obligation for Hammer Brick &amp; Home LLC. Final pricing, timeline, and scope are only set out in a written estimate
+      and signed agreement after a walkthrough.
+    </p>
+  </div>
+  <script>window.print && window.print();</script>
+</body>
+</html>`);
+    w.document.close();
+  }
+
+  // ==========================
   // MAIN CALCULATION (UPDATED TO USE SMART ADD-ONS IN PDF + EMAIL)
   // ==========================
   function calculateEstimate(evt){
-    if (evt) evt.preventDefault();
+    evt.preventDefault();
 
     const svc = serviceEl.value;
     const cfg = SERVICE_CONFIG[svc];
@@ -1619,98 +2307,149 @@ document.addEventListener("DOMContentLoaded", () => {
     let hasScope = false;
 
     // Core calculation
-    if (cfg.mode === "area"){
-      const raw = Number(sizeInput.value || 0);
-      if (!raw || raw <= 0){
-        resultBox.innerHTML = "<p>Please enter an approximate size or quantity.</p>";
+    if (cfg.mode === "area" || cfg.mode === "both"){
+      let areaRaw = (sizeInput.value || "").toString().replace(/,/g,"");
+      let area = parseFloat(areaRaw);
+      if (isNaN(area) || area <= 0){
+        resultBox.innerHTML = "<p>Please enter an approximate size (sq. ft. or openings).</p>";
         return;
       }
-      let area = raw;
+      const minArea = cfg.minArea || 1;
+      const maxArea = cfg.maxArea || 5000;
+      area = Math.max(minArea, Math.min(area, maxArea));
       usedArea = area;
 
-      if (cfg.minArea && area < cfg.minArea) area = cfg.minArea;
-      if (cfg.maxArea && area > cfg.maxArea) area = cfg.maxArea;
+      baseLow  = cfg.perSqLow  * area;
+      baseHigh = cfg.perSqHigh * area;
 
-      baseLow  = area * cfg.perSqLow;
-      baseHigh = area * cfg.perSqHigh;
-
-      if (cfg.minLow && baseLow < cfg.minLow)   baseLow  = cfg.minLow;
+      if (cfg.minLow  && baseLow  < cfg.minLow)  baseLow  = cfg.minLow;
       if (cfg.minHigh && baseHigh < cfg.minHigh) baseHigh = cfg.minHigh;
     } else if (cfg.mode === "scope"){
       const scopeVal = scopeSelect.value;
-      if (!scopeVal || !cfg.scopes || !cfg.scopes[scopeVal]){
-        resultBox.innerHTML = "<p>Select a scope level to get a ballpark.</p>";
+      const scopeCfg = cfg.scopes && cfg.scopes[scopeVal];
+      if (!scopeCfg){
+        resultBox.innerHTML = "<p>Please choose a scope level for this project type.</p>";
         return;
       }
-      const sc = cfg.scopes[scopeVal];
-      baseLow  = sc.low;
-      baseHigh = sc.high;
-      usedScopeLabel = sc.label;
+      baseLow  = scopeCfg.low;
+      baseHigh = scopeCfg.high;
+      usedScopeLabel = scopeCfg.label;
       hasScope = true;
-    } else {
-      baseLow  = cfg.minLow || 0;
-      baseHigh = cfg.minHigh || 0;
     }
 
+    const borough     = boroughEl.value;
+    const boroughText = boroughEl.options[boroughEl.selectedIndex].textContent;
+    const building    = buildingEl.value;
+    const buildingText= buildingEl.options[buildingEl.selectedIndex].textContent;
+    const finish      = finishEl.value;
+    const urgency     = urgencyEl.value;
+    const leadValue   = leadEl.value;
+
     let factor = 1;
-    const borough = boroughEl.value || "staten-island";
-    const building = buildingEl.value || "house";
-    const finish = finishEl.value || "standard";
-    const urgency = urgencyEl.value || "flex";
+    factor *= BOROUGH_FACTOR[borough]   || 1;
+    factor *= BUILDING_FACTOR[building] || 1;
+    factor *= FINISH_FACTOR[finish]     || 1;
+    factor *= URGENCY_FACTOR[urgency]   || 1;
 
-    factor *= BOROUGH_FACTOR[borough]  || 1;
-    factor *= BUILDING_FACTOR[building]|| 1;
-    factor *= FINISH_FACTOR[finish]    || 1;
-    factor *= URGENCY_FACTOR[urgency]  || 1;
+    if (leadRow.style.display !== "none" && leadValue === "yes" && cfg.leadSensitive){
+      factor *= 1.10;
+    }
 
-    const leadValue = leadEl.value || "no";
-    if (cfg.leadSensitive && leadValue === "yes"){
-      factor *= 1.08;
+    let hasTightAccess = false;
+    let hasCityRowAccess = false;
+
+    if (svc === "masonry" || svc === "driveway"){
+      const focus    = masonryFocusEl.value;
+      const existing = driveExistingEl.value;
+      const remove   = driveRemoveEl.value;
+      const access   = driveAccessEl.value;
+
+      if (focus === "driveway"){
+        factor *= 1.05;
+      }
+
+      if (remove === "partial"){
+        baseLow  += 1500;
+        baseHigh += 2800;
+      } else if (remove === "full"){
+        baseLow  += 3500;
+        baseHigh += 6500;
+      }
+
+      if (existing === "concrete"){
+        baseLow  += 800;
+        baseHigh += 1800;
+      } else if (existing === "pavers"){
+        baseLow  += 500;
+        baseHigh += 1400;
+      }
+
+      if (access === "tight"){
+        factor *= 1.06;
+        hasTightAccess = true;
+      } else if (access === "cityrow"){
+        factor *= 1.12;
+        hasCityRowAccess = true;
+      }
     }
 
     if (svc === "roofing"){
-      if (roofTearoffEl.value === "multi"){
-        factor *= 1.08;
-      } else if (roofTearoffEl.value === "many"){
-        factor *= 1.14;
+      const tear   = parseInt(roofTearoffEl.value,10) || 0;
+      const pitch  = roofPitchEl.value;
+      const height = roofHeightEl.value;
+
+      if (tear === 1){
+        factor *= 1.05;
+      } else if (tear === 2){
+        factor *= 1.12;
+      } else if (tear >= 3){
+        factor *= 1.20;
       }
-      if (roofPitchEl.value === "steep"){
-        factor *= 1.10;
+
+      if (pitch === "steep"){
+        factor *= 1.12;
+      } else if (pitch === "low"){
+        factor *= 0.97;
       }
-      if (roofHeightEl.value === "tall"){
-        factor *= 1.08;
+
+      if (height === "mid"){
+        factor *= 1.06;
+      } else if (height === "high"){
+        factor *= 1.15;
       }
     }
 
-    if (svc === "masonry" || svc === "driveway"){
-      if (driveExistingEl.value === "bad"){
-        factor *= 1.06;
-      }
-      if (driveRemoveEl.value === "heavy"){
+    if (svc === "siding"){
+      const removeType = sidingRemoveEl.value;
+      const stories    = sidingStoriesEl.value;
+
+      if (removeType === "wood"){
         factor *= 1.08;
+      } else if (removeType === "stucco"){
+        factor *= 1.18;
       }
-      if (driveAccessEl.value === "tight"){
-        factor *= 1.06;
+
+      if (stories === "3"){
+        factor *= 1.12;
       }
     }
 
     if (svc === "windows"){
-      const wCount = Number(windowCountEl.value || 0);
-      const dCount = Number(doorCountEl.value || 0);
-      const totalOpenings = wCount + dCount;
-      if (totalOpenings > 0){
-        const extra = Math.max(0, totalOpenings - 8);
-        if (extra > 0){
-          baseLow  += extra * 450;
-          baseHigh += extra * 900;
-        }
+      const winCount  = parseInt(windowCountEl.value || "0",10);
+      const doorCount = parseInt(doorCountEl.value || "0",10);
+      let openingsCount = winCount + doorCount;
+      if (!openingsCount || openingsCount < 3){
+        openingsCount = 3;
       }
-      if (SERVICE_CONFIG["windows"].minLow && baseLow  < SERVICE_CONFIG["windows"].minLow)  baseLow  = SERVICE_CONFIG["windows"].minLow;
+
+      baseLow  = SERVICE_CONFIG["windows"].perSqLow  * openingsCount;
+      baseHigh = SERVICE_CONFIG["windows"].perSqHigh * openingsCount;
+      if (SERVICE_CONFIG["windows"].minLow  && baseLow  < SERVICE_CONFIG["windows"].minLow)  baseLow  = SERVICE_CONFIG["windows"].minLow;
       if (SERVICE_CONFIG["windows"].minHigh && baseHigh < SERVICE_CONFIG["windows"].minHigh) baseHigh = SERVICE_CONFIG["windows"].minHigh;
 
-      if (dCount > 0){
-        baseLow  += 2200 * dCount;
-        baseHigh += 3200 * dCount;
+      if (doorCount > 0){
+        baseLow  += 2200 * doorCount;
+        baseHigh += 3200 * doorCount;
       }
     }
 
@@ -1720,8 +2459,6 @@ document.addEventListener("DOMContentLoaded", () => {
         factor *= 1.06;
       } else if (style === "italian"){
         factor *= 1.16;
-      } else if (style === "classic"){
-        factor *= 1.04;
       }
     }
 
@@ -1733,7 +2470,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const permitVal   = Number(permitEl.value || 0);
     const smartAddonsVal = extraAddonsValue || 0;
 
-    // collect selected smart add-ons for PDF + email
+    // 🔹 NEW: collect selected smart add-ons for PDF + email
     const selectedAddons = getSelectedSmartAddons();
 
     const addOnsTotal = dumpsterVal + demoVal + permitVal + smartAddonsVal;
@@ -1754,11 +2491,8 @@ document.addEventListener("DOMContentLoaded", () => {
       : "";
 
     const leadSummary = (leadRow.style.display !== "none"
-      ? (leadValue === "yes" ? "Pre-1978 or lead-sensitive surfaces." : "Not marked as lead-sensitive.")
-      : "Not applicable for this project type.");
-
-    const hasTightAccess = (svc === "masonry" || svc === "driveway") && driveAccessEl.value === "tight";
-    const hasCityRowAccess = (borough === "brooklyn" || borough === "manhattan");
+      ? (leadValue === "yes" ? "Yes / Unsure" : "No / Tested Negative or 1978+")
+      : "Not applicable for this project type");
 
     const complexity = computeComplexityDetails({
       svc,
@@ -1771,28 +2505,6 @@ document.addEventListener("DOMContentLoaded", () => {
       hasCityRowAccess
     });
 
-    const boroughText = (() => {
-      switch (borough){
-        case "staten-island": return "Staten Island";
-        case "brooklyn": return "Brooklyn";
-        case "queens": return "Queens";
-        case "bronx": return "The Bronx";
-        case "manhattan": return "Manhattan";
-        case "nj": return "Nearby New Jersey areas";
-        default: return "NYC area";
-      }
-    })();
-
-    const buildingText = (() => {
-      switch (building){
-        case "house": return "1–2 family home";
-        case "small-multi": return "small multi-family building";
-        case "coop-condo": return "co-op / condo unit";
-        case "mixed": return "mixed-use / commercial frontage building";
-        default: return "residential building";
-      }
-    })();
-
     const averages = computeNationalAndNYCAverages({
       baseLow,
       baseHigh,
@@ -1802,12 +2514,17 @@ document.addEventListener("DOMContentLoaded", () => {
       addOnsTotal
     });
 
-    const complexityHtml = `
-      <div class="est-complexity-row">
-        <span class="est-pill">Complexity: ${complexity.level}</span>
-        <span class="est-pill est-pill-soft">Score: ${complexity.score}</span>
-      </div>
-    `;
+    const laborMaterialLow = adjustedLow;
+    const baseForPct = laborMaterialLow + addOnsTotal;
+    let laborPct = 0;
+    let addonPct = 0;
+    if (baseForPct > 0){
+      laborPct = Math.round((laborMaterialLow / baseForPct) * 100);
+      addonPct = 100 - laborPct;
+    }
+
+    const confidence = getConfidenceLevel(svc, cfg, usedArea, hasScope, addOnsTotal);
+    const approxMonthly = mid > 0 ? (mid / 120) : 0; // 10-year divide (conversation only)
 
     const insightsHtml = buildSmartInsightsHtml({
       svc,
@@ -1820,120 +2537,171 @@ document.addEventListener("DOMContentLoaded", () => {
       urgencyLabel
     });
 
-    const proTipsHtml = getProTipsHtml(svc);
+    // EMAIL BODY LINES (with SOW + UPSELL + TERMS)
+    const sowEmailLines     = buildScopeOfWorkTextLines(svc, svcLabel);
+    const upsellEmailLines  = buildUpsellsTextLines(svc);
+    const termsEmailLines   = buildTermsTextLines();
 
-    const scenarioBasic  = buildScenarioRow("basic",  softLow, softHigh);
-    const scenarioPrem   = buildScenarioRow("premium",softLow, softHigh);
-    const scenarioLux    = buildScenarioRow("luxury", softLow, softHigh);
+    const bodyLines = [
+      "Hello,",
+      "",
+      "Please send me a written estimate based on this ballpark from your website:",
+      "",
+      "Project Type: " + svcLabel,
+      usedArea ? ("Approx. Size (sq ft or openings): " + usedArea) : "",
+      usedScopeLabel ? ("Scope Level: " + usedScopeLabel) : "",
+      "Location (Borough): " + boroughText,
+      "Building Type: " + buildingText,
+      "Finish Level: " + finishLabel,
+      "Timeline: " + urgencyLabel,
+      "Pre-1978 / Lead-Sensitive: " + leadSummary,
+      brandName ? ("Preferred Brand/Line: " + brandName) : "",
+      "",
+      "Selected Add-Ons:",
+      "  Dumpster: $" + dumpsterVal.toLocaleString("en-US"),
+      "  Demolition: $" + demoVal.toLocaleString("en-US"),
+      "  DOB Permit (approx): $" + permitVal.toLocaleString("en-US"),
+      smartAddonsVal ? ("  Smart Add-Ons Total (avg): $" + Math.round(smartAddonsVal).toLocaleString("en-US")) : "",
+      ...selectedAddons.map(a =>
+        "    - " + a.label + " (" + formatMoney(a.low) + " – " + formatMoney(a.high) + ")"
+      ),
+      "",
+      "Ballpark Range Shown:",
+      "  " + formatMoney(softLow) + " – " + formatMoney(softHigh)
+    ].filter(Boolean);
 
-    const addonsLine = smartAddonsVal
-      ? `Dumpster, demo, permits + smart add-ons are included in this ballpark.`
-      : `Dumpster, demo, and permits (if you entered them) are included in this ballpark.`;
+    if (sowEmailLines.length){
+      bodyLines.push("");
+      bodyLines.push("Scope of Work (summary):");
+      bodyLines.push(...sowEmailLines);
+    }
 
-    const estimateHtml = `
-      <div class="est-result-card">
-        <h3 class="est-title">${svcLabel}</h3>
-        <p class="est-subtitle">
-          For a project like this in <strong>${boroughText}</strong> in a <strong>${buildingText}</strong>,
-          with <strong>${finishLabel}</strong> finishes and a <strong>${urgencyLabel}</strong> timeline:
+    if (upsellEmailLines.length){
+      bodyLines.push("");
+      bodyLines.push("Popular Upgrades to Consider:");
+      bodyLines.push(...upsellEmailLines);
+    }
+
+    if (termsEmailLines.length){
+      bodyLines.push("");
+      bodyLines.push("Key Notes:");
+      bodyLines.push(...termsEmailLines);
+    }
+
+    bodyLines.push("");
+    bodyLines.push("My Contact Info:");
+    bodyLines.push("Name:");
+    bodyLines.push("Service Address:");
+    bodyLines.push("Phone:");
+    bodyLines.push("Email:");
+    bodyLines.push("");
+    bodyLines.push("Thank you!");
+
+    const mailtoHref = "mailto:Hammerbrickhome@gmail.com"
+      + "?subject=" + encodeURIComponent("Estimate Request – Website Tool")
+      + "&body=" + encodeURIComponent(bodyLines.join("\n"));
+
+    updatePermitHelper(svc);
+
+    resultBox.innerHTML = `
+      <p class="muted">NYC-area ballpark only — not a formal quote.</p>
+      <p>Estimated range for this type of project:</p>
+      <p class="est-main">${formatMoney(softLow)} – ${formatMoney(softHigh)}</p>
+      <p class="est-note">
+        Most approved projects land somewhere in the middle of this range once we see
+        access, existing conditions, and final finish choices.
+      </p>
+
+      <div class="advanced-summary">
+        <div class="advanced-chip">
+          <span class="chip-label">Confidence:</span>
+          <span class="chip-value chip-${confidence.label.toLowerCase()}">${confidence.label}</span>
+        </div>
+        <div class="advanced-chip">
+          <span class="chip-label">Sample Monthly (example only):</span>
+          <span class="chip-value">${formatMonthly(approxMonthly)}</span>
+        </div>
+      </div>
+
+      <div class="scenario-grid">
+        <h4 class="scenario-title">Compare bands by finish / budget level</h4>
+        ${buildScenarioRow("basic", softLow, softHigh)}
+        ${buildScenarioRow("premium", softLow, softHigh)}
+        ${buildScenarioRow("luxury", softLow, softHigh)}
+      </div>
+
+      <div class="est-avg-box">
+        <h4>How this compares</h4>
+        <div class="est-avg-row">
+          <div>
+            <div class="est-avg-label">National Avg.</div>
+            <div class="est-avg-value">${formatMoney(averages.nationalLow)} – ${formatMoney(averages.nationalHigh)}</div>
+          </div>
+          <div>
+            <div class="est-avg-label">NYC / North Jersey Avg.</div>
+            <div class="est-avg-value">${formatMoney(averages.nycLow)} – ${formatMoney(averages.nycHigh)}</div>
+          </div>
+        </div>
+        <p class="est-avg-note">
+          Your home is estimated slightly ${
+            softLow > averages.nycHigh
+              ? "above"
+              : softHigh < averages.nycLow
+                ? "below"
+                : "within"
+          } typical NYC-area ranges for similar projects.
         </p>
+      </div>
 
-        <div class="est-main-range">
-          <div class="est-main-number">${formatMoney(softLow)} – ${formatMoney(softHigh)}</div>
-          <div class="est-main-note">Most projects of this type land somewhere in this range.</div>
-        </div>
-
-        <div class="est-avg-box">
-          <div class="est-avg-row">
-            <span>Soft ballpark midpoint:</span>
-            <span class="est-avg-number">${formatMoney(mid)}</span>
+      <div class="est-breakdown-box">
+        <h4>Approximate Cost Breakdown</h4>
+        <div class="est-break-row">
+          <div class="est-break-label">Labor + Materials</div>
+          <div class="est-break-bar">
+            <div class="est-break-bar-inner" style="width:${laborPct}%;"></div>
           </div>
-          <p class="tiny-note">
-            This is a starting point only. A walkthrough and final design/finish selections will tighten this up.
-          </p>
+          <div class="est-break-pct">${laborPct}%</div>
         </div>
-
-        <div class="est-avg-grid">
-          <div class="est-avg-col">
-            <h4>National Averages (similar projects)</h4>
-            <p class="est-avg-range">${formatMoney(averages.nationalLow)} – ${formatMoney(averages.nationalHigh)}</p>
-            <p class="tiny-note">Broad national range, including lower-cost and higher-cost markets.</p>
+        <div class="est-break-row">
+          <div class="est-break-label">Dumpster, Demo & Permits</div>
+          <div class="est-break-bar est-break-bar--secondary">
+            <div class="est-break-bar-inner" style="width:${addonPct}%;"></div>
           </div>
-          <div class="est-avg-col">
-            <h4>NYC-Area Typical Range</h4>
-            <p class="est-avg-range">${formatMoney(averages.nycLow)} – ${formatMoney(averages.nycHigh)}</p>
-            <p class="tiny-note">
-              Your soft ballpark is
-              <strong>${
-                softLow > averages.nycHigh
-                  ? "above"
-                  : softHigh < averages.nycLow
-                    ? "below"
-                    : "within"
-              }</strong>
-              typical NYC-area ranges for similar projects.
-            </p>
-          </div>
+          <div class="est-break-pct">${addonPct}%</div>
         </div>
+        <p class="tiny-note">
+          Approximate add-ons included in this range: <strong>${formatMoney(addOnsTotal)}</strong> (dumpster, demo, permits${smartAddonsVal ? " + smart add-ons" : ""}).
+        </p>
+      </div>
 
-        <div class="est-breakdown-box">
-          <h4>Approximate Cost Breakdown</h4>
-          <div class="est-break-row">
-            <div class="est-break-label">Labor + Materials</div>
-            <div class="est-break-bar">
-              <div class="est-break-bar-inner" style="width:70%;"></div>
-            </div>
-            <div class="est-break-pct">~70%</div>
-          </div>
-          <div class="est-break-row">
-            <div class="est-break-label">Permits, Insurance, Overhead</div>
-            <div class="est-break-bar">
-              <div class="est-break-bar-inner" style="width:18%;"></div>
-            </div>
-            <div class="est-break-pct">~18%</div>
-          </div>
-          <div class="est-break-row">
-            <div class="est-break-label">Contingency / Unknowns</div>
-            <div class="est-break-bar">
-              <div class="est-break-bar-inner" style="width:12%;"></div>
-            </div>
-            <div class="est-break-pct">~12%</div>
-          </div>
-          <p class="tiny-note">
-            Approximate add-ons included in this range: <strong>${formatMoney(addOnsTotal)}</strong> (dumpster, demo, permits${smartAddonsVal ? " + smart add-ons" : ""}).
-          </p>
-        </div>
+      ${insightsHtml}
 
-        ${insightsHtml}
+      <p class="muted" style="margin-bottom:10px;">
+        <strong>Assumptions:</strong>
+        ${boroughText} · ${buildingText} · ${finishLabel} finish · ${urgencyLabel}.
+      </p>
+      <ul class="bullets">
+        <li>Includes a buffer for typical NYC access, protection, and cleanup.</li>
+        <li>Does <strong>not</strong> include architect/engineer fees, major structural/MEP changes, or unforeseen conditions.</li>
+        <li>Final pricing is only confirmed in a written estimate after a walkthrough.</li>
+      </ul>
 
-        <div class="est-scenarios-box">
-          <h4>How finish level and selections can shift budget</h4>
-          ${scenarioBasic}
-          ${scenarioPrem}
-          ${scenarioLux}
-        </div>
+      <div class="pro-tips-box">
+        <h4>Quick Pro Tips for this type of project</h4>
+        ${getProTipsHtml(svc)}
+      </div>
 
-        <div class="est-notes-box">
-          <h4>Pro Tips for This Type of Project</h4>
-          ${proTipsHtml}
-        </div>
-
-        <p class="tiny-note">${addonsLine}</p>
-
-        <div class="est-cta-row">
-          <a class="btn est-cta" href="#contact">Request a walkthrough & written estimate</a>
-          <button type="button" id="btn-est-pdf" class="btn est-cta-alt est-cta-outline">🖨 Save / Print PDF</button>
-          <a class="btn est-cta-alt" href="sms:19295955300">💬 Text photos for faster quote</a>
-        </div>
+      <div class="est-cta-row">
+        <a class="btn-email-est" href="${mailtoHref}">📧 Email me this estimate</a>
+        <a class="btn est-cta-alt" href="contact.html">📝 Book a walkthrough</a>
+        <button type="button" id="btn-est-pdf" class="btn est-cta-alt est-cta-outline">🖨 Save / Print PDF</button>
+        <a class="btn est-cta-alt" href="sms:19295955300">💬 Text photos for faster quote</a>
       </div>
     `;
 
-    resultBox.innerHTML = estimateHtml;
-
-    // PDF button: always use latest data (including smart add-ons)
     const pdfBtn = document.getElementById("btn-est-pdf");
     if (pdfBtn){
-      pdfBtn.onclick = () => {
+      pdfBtn.addEventListener("click", () => {
         openPrintableEstimate({
           svc,
           svcLabel,
@@ -1952,24 +2720,68 @@ document.addEventListener("DOMContentLoaded", () => {
           permitVal,
           selectedAddons  // 🔹 now included
         });
-      };
+      });
     }
   }
-
   // 🔥 FINAL FIX — Correct service change behavior
   serviceEl.addEventListener("change", () => {
     updateVisibility();
-    updateRegionNote();
-    updatePermitHelper(serviceEl.value);
+
+    // 1. FULL reset of brand system
+    if (brandSelect) {
+      brandSelect.innerHTML = "";
+    }
+    if (brandRow) {
+      brandRow.style.display = "none";
+    }
+
+    // 2. Force finish logic AFTER reset (correct timing)
+    setTimeout(() => {
+      finishEl.dispatchEvent(new Event("change"));
+    }, 0);
+  });
+
+  finishEl.addEventListener("change", () => {
+    const svc = serviceEl.value;
+    const cfg = BRAND_CONFIG[svc];
+    if (!cfg || !brandRow || !brandSelect || !brandLabel) {
+      if (brandRow) brandRow.style.display = "none";
+      if (brandSelect) brandSelect.innerHTML = "";
+      return;
+    }
+
+    brandRow.style.display = "";
+    brandLabel.textContent = cfg.label || "Preferred Brand / Line";
+
+    let names = [];
+
+    // Enforce:
+    // STANDARD → budget
+    // PREMIUM → standard
+    // LUXURY  → luxury
+    if (finishEl.value === "standard") {
+      names = cfg.budget || [];
+    } else if (finishEl.value === "premium") {
+      names = cfg.standard || [];
+    } else if (finishEl.value === "luxury") {
+      names = cfg.luxury || [];
+    }
+
+    brandSelect.innerHTML = "";
+    names.forEach(name => {
+      const opt = document.createElement("option");
+      opt.value = name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      opt.textContent = name;
+      brandSelect.appendChild(opt);
+    });
   });
 
   boroughEl.addEventListener("change", updateRegionNote);
   form.addEventListener("submit", calculateEstimate);
 
-  // Initialize view
+  // Init
   updateVisibility();
   updateRegionNote();
-  updatePermitHelper(serviceEl.value);
 }); // end DOMContentLoaded
 
 // ==========================
@@ -1977,225 +2789,291 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================
 function injectEstimatorExtraStyles(){
   const css = `
-  .est-result-card{
-    border-radius:18px;
-    padding:18px 18px 20px;
-    background:linear-gradient(135deg,rgba(7,20,38,0.96),rgba(15,28,52,0.98));
-    box-shadow:0 18px 45px rgba(0,0,0,0.75);
-    border:1px solid rgba(231,191,99,0.32);
-    color:#f8f7f2;
-    margin-top:18px;
-  }
-  .est-title{
-    font-size:20px;
-    font-weight:600;
-    margin-bottom:4px;
-  }
-  .est-subtitle{
-    font-size:13px;
-    color:rgba(248,247,242,0.78);
-    margin-bottom:10px;
-  }
-  .est-main-range{
-    margin:10px 0 14px;
-  }
-  .est-main-number{
-    font-size:22px;
-    font-weight:700;
-    letter-spacing:0.01em;
-    color:#f5d89b;
-  }
-  .est-main-note{
-    font-size:12px;
-    color:rgba(248,247,242,0.78);
-  }
   .est-avg-box{
     border:1px solid rgba(231,191,99,0.45);
     padding:10px 12px;
     border-radius:10px;
     margin:12px 0;
-    background:radial-gradient(circle at top left,rgba(231,191,99,0.22),transparent 56%);
+    background:rgba(10,20,35,0.55);
+    box-shadow:0 0 14px rgba(231,191,99,0.18);
   }
   .est-avg-row{
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:13px;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:4px;
   }
-  .est-avg-number{
-    font-weight:600;
+  .est-avg-row > div{
+    flex:1 1 180px;
   }
-  .tiny-note{
+  .est-avg-label{
     font-size:11px;
-    color:rgba(248,247,242,0.72);
-    margin-top:6px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#d2c08c;
+    margin-bottom:2px;
   }
-  .est-avg-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
-    margin-top:12px;
-  }
-  .est-avg-col{
-    border-radius:10px;
-    border:1px solid rgba(255,255,255,0.06);
-    padding:10px 11px;
-    background:rgba(3,10,22,0.75);
-  }
-  .est-avg-col h4{
-    font-size:13px;
-    margin-bottom:4px;
-  }
-  .est-avg-range{
+  .est-avg-value{
     font-size:13px;
     font-weight:600;
-    color:#f5d89b;
+    color:#fff;
+  }
+  .est-avg-note{
+    font-size:11px;
+    color:#c9c9c9;
+    margin-top:8px;
   }
   .est-breakdown-box{
-    margin-top:14px;
-    border-top:1px dashed rgba(255,255,255,0.18);
-    padding-top:10px;
+    border:1px solid rgba(231,191,99,0.35);
+    padding:10px 12px;
+    border-radius:10px;
+    margin:10px 0;
+    background:rgba(7,14,26,0.75);
+  }
+  .est-breakdown-box h4{
+    font-size:13px;
+    margin:0 0 6px;
+    color:#f0dca0;
   }
   .est-break-row{
     display:grid;
-    grid-template-columns:minmax(0,2.2fr) minmax(0,4fr) auto;
+    grid-template-columns:minmax(0,1.4fr) minmax(0,2fr) auto;
+    gap:6px;
     align-items:center;
-    gap:8px;
     margin-bottom:6px;
   }
   .est-break-label{
-    font-size:12px;
+    font-size:11px;
+    color:#ddd;
   }
   .est-break-bar{
     position:relative;
-    height:6px;
+    height:7px;
     border-radius:999px;
-    background:rgba(14,27,53,0.95);
+    background:rgba(255,255,255,0.06);
     overflow:hidden;
   }
   .est-break-bar-inner{
     position:absolute;
-    inset:0;
-    border-radius:inherit;
-    background:linear-gradient(90deg,#f5d89b,#e7bf63,#f5d89b);
+    top:0;
+    left:0;
+    bottom:0;
+    border-radius:999px;
+    background:linear-gradient(90deg,#f5d89b,#e7bf63);
+  }
+  .est-break-bar--secondary .est-break-bar-inner{
+    background:linear-gradient(90deg,#ffc3a0,#ff9472);
   }
   .est-break-pct{
     font-size:11px;
-    color:rgba(248,247,242,0.82);
     text-align:right;
-  }
-  .est-complexity-row{
-    display:flex;
-    gap:8px;
-    margin:10px 0 6px;
-    flex-wrap:wrap;
-  }
-  .est-pill{
-    font-size:11px;
-    padding:4px 9px;
-    border-radius:999px;
-    border:1px solid rgba(245,216,155,0.9);
-    background:rgba(5,16,33,0.96);
-  }
-  .est-pill-soft{
-    border-color:rgba(255,255,255,0.4);
-    color:rgba(248,247,242,0.86);
+    color:#eee;
   }
   .est-insights-box{
-    margin-top:8px;
+    border:1px solid rgba(231,191,99,0.4);
+    padding:10px 12px;
     border-radius:10px;
-    border:1px solid rgba(255,255,255,0.08);
-    padding:10px 11px;
-    background:rgba(5,16,33,0.95);
+    margin:10px 0;
+    background:rgba(10,18,32,0.9);
+  }
+  .est-badge-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:6px;
+  }
+  .est-badge{
+    display:inline-flex;
+    align-items:center;
+    border-radius:999px;
+    border:1px solid rgba(231,191,99,0.65);
+    padding:2px 9px;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:#f5e2aa;
+    background:rgba(7,14,26,0.9);
+  }
+  .est-badge-complexity{
+    border-color:rgba(255,205,120,0.85);
+  }
+  .est-badge-score{
+    border-color:rgba(173,215,255,0.85);
   }
   .est-insights-list{
+    list-style:disc;
+    margin:0;
     padding-left:18px;
-    margin:6px 0 2px;
-    font-size:12px;
   }
-  .est-scenarios-box{
-    margin-top:14px;
+  .est-insights-list li{
+    font-size:11px;
+    color:#ddd;
+    margin-bottom:4px;
+  }
+  .est-cta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:10px;
+  }
+  .est-cta-alt{
+    font-size:12px;
+    padding:8px 12px;
+  }
+  .est-cta-outline{
+    background:transparent;
+    border:1px solid rgba(231,191,99,0.8);
+    color:#f5e2aa;
+  }
+  .advanced-summary{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:10px 0 6px;
+  }
+  .advanced-chip{
+    display:inline-flex;
+    flex-wrap:nowrap;
+    align-items:center;
+    gap:4px;
+    padding:4px 10px;
+    border-radius:999px;
+    border:1px solid rgba(231,191,99,0.7);
+    background:rgba(7,14,26,0.9);
+  }
+  .chip-label{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#d9c693;
+  }
+  .chip-value{
+    font-size:11px;
+    font-weight:600;
+  }
+  .chip-high{
+    color:#9cffb0;
+  }
+  .chip-medium{
+    color:#ffe8a3;
+  }
+  .chip-low{
+    color:#ffb3b3;
+  }
+  .scenario-grid{
+    border:1px solid rgba(231,191,99,0.4);
     border-radius:10px;
-    border:1px solid rgba(255,255,255,0.08);
-    padding:10px 11px;
-    background:linear-gradient(135deg,rgba(10,22,46,0.96),rgba(12,26,52,0.98));
+    padding:10px 12px;
+    margin:10px 0;
+    background:rgba(8,14,26,0.9);
+  }
+  .scenario-title{
+    font-size:13px;
+    margin:0 0 6px;
+    color:#f0dca0;
   }
   .scenario-row{
     display:grid;
-    grid-template-columns:minmax(0,1.4fr) minmax(0,2fr);
-    gap:6px 10px;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1.7fr);
+    gap:6px;
     align-items:center;
-    font-size:12px;
+    font-size:11px;
     padding:4px 0;
-    border-bottom:1px dashed rgba(255,255,255,0.10);
+    border-top:1px solid rgba(255,255,255,0.04);
   }
-  .scenario-row:last-child{
-    border-bottom:none;
+  .scenario-row:first-of-type{
+    border-top:none;
   }
   .scenario-label{
     font-weight:600;
+    color:#f5d89b;
   }
   .scenario-range{
-    color:#f5d89b;
-    font-weight:500;
+    color:#fff;
   }
   .scenario-note{
-    grid-column:1/-1;
-    font-size:11px;
-    color:rgba(248,247,242,0.75);
+    color:#d0d0d0;
+    font-size:10px;
   }
-  .est-notes-box{
-    margin-top:14px;
+  .pro-tips-box{
+    border:1px solid rgba(231,191,99,0.4);
     border-radius:10px;
-    border:1px solid rgba(255,255,255,0.08);
-    padding:10px 11px;
-    background:rgba(4,14,30,0.96);
-    font-size:12px;
+    padding:10px 12px;
+    margin:10px 0;
+    background:rgba(7,14,26,0.9);
   }
-  .est-notes-box .bullets{
+  .pro-tips-box h4{
+    font-size:13px;
+    margin:0 0 6px;
+    color:#f0dca0;
+  }
+  .pro-tips-box .bullets{
+    margin:0;
     padding-left:18px;
-    margin:6px 0 2px;
   }
-  .est-cta-row{
-    margin-top:16px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  .addons-title{
-    font-size:14px;
-    font-weight:600;
+  .pro-tips-box .bullets li{
+    font-size:11px;
+    color:#ddd;
     margin-bottom:4px;
   }
-  .addons-subnote{
-    font-size:11px;
-    color:rgba(248,247,242,0.74);
-    margin-bottom:6px;
+
+  /* Smart Add-Ons Panel */
+  #est-addons-panel{
+    border:1px solid rgba(231,191,99,0.4);
+    border-radius:10px;
+    padding:10px 12px;
+    margin:10px 0;
+    background:rgba(7,14,26,0.9);
   }
-  .addons-list{
+  #est-addons-panel .addons-title{
+    font-size:13px;
+    margin:0 0 4px;
+    color:#f0dca0;
+  }
+  #est-addons-panel .addons-subnote{
+    font-size:11px;
+    color:#d0d0d0;
+    margin:0 0 6px;
+  }
+  #est-addons-panel .addons-list{
     display:flex;
     flex-direction:column;
     gap:4px;
-    margin-bottom:4px;
+    margin-bottom:6px;
   }
-  .addon-item{
+  #est-addons-panel .addon-item{
     display:flex;
     align-items:center;
     gap:6px;
-    font-size:12px;
+    font-size:11px;
+    color:#eee;
   }
-  .addon-price{
-    margin-left:auto;
+  #est-addons-panel .addon-item input[type="checkbox"]{
+    transform:scale(0.95);
+    accent-color:#e7bf63;
+  }
+  #est-addons-panel .addon-label{
+    flex:1 1 auto;
+  }
+  #est-addons-panel .addon-price{
     font-size:11px;
     color:#f5d89b;
+    white-space:nowrap;
   }
-  .addons-total-row{
-    font-size:12px;
-    margin-top:4px;
+  #est-addons-panel .addons-total-row{
+    font-size:11px;
+    color:#d0d0d0;
+    margin:4px 0 0;
   }
-  @media (max-width:768px){
-    .est-avg-grid{
-      grid-template-columns:minmax(0,1fr);
+  #est-addons-panel #est-addons-total-val{
+    font-weight:600;
+    color:#f5d89b;
+    margin-left:4px;
+  }
+
+  @media (max-width:640px){
+    .est-break-row{
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1.8fr) auto;
     }
     .scenario-row{
       grid-template-columns:minmax(0,1fr);
@@ -2207,6 +3085,11 @@ function injectEstimatorExtraStyles(){
   style.textContent = css;
   document.head.appendChild(style);
 }
+
+
+
+
+    
 
 
 
