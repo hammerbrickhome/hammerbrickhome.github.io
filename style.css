@@ -1,7 +1,7 @@
 /* ============================================================
    HAMMER BRICK & HOME LLC
-   Luxury Dark + Gold UI — v3 (Stabilized Edition)
-   SAFE • CLEAN • NON-BREAKING • OPTIMIZED
+   Luxury Dark + Gold UI â€” v3 (Stabilized Edition)
+   SAFE â€¢ CLEAN â€¢ NON-BREAKING â€¢ OPTIMIZED
 =============================================================== */
 
 :root{
@@ -376,7 +376,7 @@ body::before {
 }
 
 .bullets li::before{
-  content:"•";
+  content:"â€¢";
   position:absolute;
   left:0;
   color:var(--gold);
@@ -482,7 +482,7 @@ body::before {
 .lightbox.show{display:flex;}
 
 /* ============================================================
-   BEFORE / AFTER — COMPARE GRID
+   BEFORE / AFTER â€” COMPARE GRID
 =============================================================== */
 
 .compare-grid{
@@ -777,7 +777,7 @@ body::before {
 }
 
 /* ============================================================
-   ANIMATIONS — GOLD EFFECTS
+   ANIMATIONS â€” GOLD EFFECTS
 =============================================================== */
 
 .fade-up{
@@ -857,7 +857,7 @@ body::before {
 }
 
 /* ============================================================
-   SAFARI DESKTOP FIX — SAFE & NON-BREAKING
+   SAFARI DESKTOP FIX â€” SAFE & NON-BREAKING
 =============================================================== */
 
 @media (min-width:900px){
@@ -916,7 +916,7 @@ body::before {
 
 
 /* ============================================================
-   UNIVERSAL GOLD PILL — MENU + HERO (Animated)
+   UNIVERSAL GOLD PILL â€” MENU + HERO (Animated)
 =============================================================== */
 
 .gold-pill {
@@ -954,12 +954,12 @@ body::before {
 
 
 /* ============================================================
-   HEADER MENU — LUXURY VERSION (SLIGHT GOLD TINT + SHIMMER)
-   Applies ONLY to header <nav> — Does NOT affect hero, pills,
+   HEADER MENU â€” LUXURY VERSION (SLIGHT GOLD TINT + SHIMMER)
+   Applies ONLY to header <nav> â€” Does NOT affect hero, pills,
    trust badges, buttons, or gold animations elsewhere.
 =============================================================== */
 
-/* Base menu links — clean, sharp, and lightly gold-tinted */
+/* Base menu links â€” clean, sharp, and lightly gold-tinted */
 .main-nav a {
   color: rgba(245,196,0,0.75); /* slight gold tint ALWAYS */
   text-decoration: none;
@@ -980,7 +980,7 @@ body::before {
   text-shadow:none;
 }
 
-/* HOVER — bright gold + shimmer underline */
+/* HOVER â€” bright gold + shimmer underline */
 .main-nav a:hover {
   color: #f5c400;
   background: rgba(255,255,255,0.05);
@@ -1012,7 +1012,7 @@ body::before {
   100% { opacity: 0; transform: translateX(35%); }
 }
 
-/* DROPDOWN BUTTON — slight gold tint always */
+/* DROPDOWN BUTTON â€” slight gold tint always */
 .nav-link.dropbtn {
   color: rgba(245,196,0,0.8) !important;
   background: transparent !important;
@@ -1046,7 +1046,7 @@ body::before {
 
 
 /* ============================================================
-   GALLERY + SERVICES PAGE — Luxury Gold Search Upgrade
+   GALLERY + SERVICES PAGE â€” Luxury Gold Search Upgrade
 =============================================================== */
 
 /* Gallery Title */
@@ -1110,7 +1110,7 @@ input.gallery-search-box,
 
 
 /* ============================================================
-   FAQ — LUXURY DARK + GOLD UI (FINAL VERSION)
+   FAQ â€” LUXURY DARK + GOLD UI (FINAL VERSION)
    Hammer Brick & Home LLC
 =============================================================== */
 
@@ -1175,7 +1175,7 @@ input.gallery-search-box,
 
 /* Gold arrow */
 .faq-section summary::after {
-  content: "›";
+  content: "â€º";
   position: absolute;
   right: 20px;
   top: 50%;
@@ -1240,7 +1240,7 @@ input.gallery-search-box,
 }
 
 /* ============================================================
-   CONTACT BOX — FINAL GOLD VERSION
+   CONTACT BOX â€” FINAL GOLD VERSION
 =============================================================== */
 
 .contact-box {
@@ -1294,7 +1294,7 @@ input.gallery-search-box,
   }
 }
 /* ============================================================
-   CONTACT PILL BUTTONS — GOLD LUXURY VERSION
+   CONTACT PILL BUTTONS â€” GOLD LUXURY VERSION
 =============================================================== */
 
 .contact-box {
@@ -1341,7 +1341,7 @@ input.gallery-search-box,
     inset 0 0 8px rgba(212,175,55,0.25);
 }
 
-/* HOVER — bright gold shimmer */
+/* HOVER â€” bright gold shimmer */
 .pill-btn:hover {
   color: #fff;
   border-color: var(--gold);
@@ -1353,7 +1353,7 @@ input.gallery-search-box,
   text-shadow: 0 0 12px rgba(245,196,0,0.95);
 }
 
-/* MOBILE — full-width buttons */
+/* MOBILE â€” full-width buttons */
 @media (max-width: 600px) {
   .pill-btn {
     width: 100%;
@@ -1363,7 +1363,7 @@ input.gallery-search-box,
 }
 
 /* ============================================
-   FAQ TITLE — GOLD • SHIMMER • GLOW • HOVER
+   FAQ TITLE â€” GOLD â€¢ SHIMMER â€¢ GLOW â€¢ HOVER
    ============================================ */
 
 .faq-title {
@@ -1440,7 +1440,7 @@ input.gallery-search-box,
   }
 }
 /* ============================================================
-   PROJECT ESTIMATOR — GOLD SHIMMER / HOVER (TWO TITLES ONLY)
+   PROJECT ESTIMATOR â€” GOLD SHIMMER / HOVER (TWO TITLES ONLY)
 =============================================================== */
 
 .shimmer-title {
@@ -1555,7 +1555,6 @@ input.gallery-search-box,
   z-index: 9999;
 }
 
-.dropdown:hover .dropdown-content {
   display: block;
 }
 
@@ -1568,488 +1567,6 @@ input.gallery-search-box,
 
 .dropdown-content a:hover {
   background-color: rgba(255,255,255,0.08);
-}
-
-/* ============================================================
-   SIMPLE CLEAN MENU — GOLD TEXT — NO EFFECTS
-   Overrides all previous menu styling
-=============================================================== */
-
-.main-nav a,
-.nav-link.dropbtn {
-  color: #e7bf63 !important;           /* gold text */
-  background: transparent !important;  
-  text-shadow: none !important;        
-  box-shadow: none !important;         
-  border: none !important;             
-  padding: 8px 12px !important;
-  transition: none !important;         
-  animation: none !important;          
-}
-
-/* Disable all menu hover effects */
-.main-nav a:hover,
-.nav-link.dropbtn:hover {
-  color: #e7bf63 !important;           /* SAME gold on hover */
-  background: transparent !important;  
-  text-shadow: none !important;        
-  box-shadow: none !important;         
-}
-
-/* Remove shimmer underline */
-.main-nav a::after,
-.main-nav a:hover::after,
-.nav-link.dropbtn::after,
-.nav-link.dropbtn:hover::after {
-  content: none !important;
-}
-
-/* ================================
-   DROPDOWN — SIMPLE, CLEAN
-================================ */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: #0d1a2e !important;
-  padding: 6px 0;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: none !important;
-  animation: none !important;
-}
-
-.dropdown-content a {
-  padding: 10px 16px !important;
-  color: #e7bf63 !important;
-  background: transparent !important;
-  text-shadow: none !important;
-  transition: none !important;
-}
-
-.dropdown-content a:hover {
-  background: transparent !important;
-  color: #e7bf63 !important;
-}
-
-/* Disable hover-open on desktop */
-.dropdown:hover .dropdown-content {
-  display: none !important;
-}
-
-/* Enable CLICK dropdown (mobile + desktop) */
-.dropdown.show .dropdown-content {
-  display: block !important;
-}
-
-/* ================================
-   MOBILE MENU CLEANUP
-================================ */
-@media (max-width: 860px) {
-  .main-nav {
-    background: rgba(6,12,23,0.98) !important;
-    box-shadow: none !important;
-    animation: none !important;
-  }
-  .dropdown-content {
-    position: static !important;
-    border: none !important;
-    background: transparent !important;
-  }
-  .dropdown-content a {
-    padding-left: 24px !important;
-  }
-}
-/* ============================================================
-   FIX DROPDOWNS FOR CLICK MODE
-   (Override old hover rules that block mobile & desktop)
-=============================================================== */
-
-.dropdown:hover .dropdown-content {
-  display: none !important;   /* disable hover-open */
-}
-
-.dropdown-content {
-  display: none !important;   /* default hidden */
-}
-
-.dropdown.show .dropdown-content {
-  display: block !important;  /* click to open */
-}
-/* ============================================================
-   CLEAN SIMPLE MENU — GOLD TEXT — NO ANIMATIONS
-   Hammer Brick & Home LLC
-=============================================================== */
-
-/* TOPBAR */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(12px);
-  background: rgba(5,12,22,0.95);
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-}
-
-.topbar-inner {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 10px 18px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* BRAND */
-.brand-lockup {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: #fff;
-}
-
-.brand-logo {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.brand-name {
-  font-weight: 800;
-  font-size: 17px;
-}
-
-.brand-sub {
-  font-size: 11px;
-  opacity: 0.75;
-}
-
-/* MOBILE TOGGLE */
-.nav-toggle {
-  display: none;
-  margin-left: auto;
-  background: none;
-  border: none;
-  color: #e7bf63;
-  font-size: 26px;
-  cursor: pointer;
-}
-
-/* MAIN NAV */
-.main-nav {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.main-nav a,
-.nav-link.dropbtn {
-  color: #e7bf63 !important;      /* Gold text */
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 4px;
-  background: transparent !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  transition: none !important;
-  animation: none !important;
-}
-
-/* No hover effect */
-.main-nav a:hover,
-.nav-link.dropbtn:hover {
-  color: #e7bf63 !important;
-  background: transparent !important;
-}
-
-/* CALL BUTTON */
-.nav-call {
-  background: linear-gradient(180deg, #f5d89b, #e7bf63) !important;
-  color: #111 !important;
-  font-weight: 800;
-  padding: 9px 15px !important;
-  border-radius: 30px;
-}
-
-/* ============================================================
-   DROPDOWN — SIMPLE CLICK OPEN
-=============================================================== */
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  display: none !important;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: rgba(8,14,26,0.98);
-  min-width: 190px;
-  padding: 6px 0;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.15);
-  z-index: 9999;
-}
-
-.dropdown-content a {
-  color: #e7bf63 !important;
-  padding: 10px 16px !important;
-  display: block;
-  background: transparent !important;
-  text-shadow: none !important;
-}
-
-/* CLICK TO OPEN */
-.dropdown.show .dropdown-content {
-  display: block !important;
-}
-
-/* Disable hover-open */
-.dropdown:hover .dropdown-content {
-  display: none !important;
-}
-
-/* MOBILE NAV */
-@media (max-width: 860px) {
-  .nav-toggle {
-    display: block;
-  }
-
-  .main-nav {
-    position: absolute;
-    top: 60px;
-    right: 10px;
-    background: rgba(5,12,22,0.98);
-    padding: 12px;
-    border-radius: 14px;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-    display: none;
-  }
-
-  .main-nav.show {
-    display: flex;
-  }
-
-  .dropdown-content {
-    position: static;
-    border: none;
-    background: transparent !important;
-  }
-
-  .dropdown-content a {
-    padding-left: 25px !important;
-  }
-}
-
-/* ============================================================
-   🔥 MOBILE MENU FORCE FIX — GUARANTEED
-=============================================================== */
-
-@media (max-width: 860px) {
-
-  /* Make sure main-nav is ABOVE everything */
-  .main-nav {
-    position: fixed !important;
-    top: 60px !important;
-    right: 10px !important;
-    width: calc(100% - 20px) !important;
-    background: rgba(5,12,22,0.98) !important;
-    border-radius: 14px !important;
-    padding: 18px 16px !important;
-    display: none !important;    /* default */
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    z-index: 99999 !important;
-  }
-
-  /* When JS adds .show, menu becomes visible */
-  .main-nav.show {
-    display: flex !important;
-  }
-
-  /* Make the toggle button work on all devices */
-  .nav-toggle {
-    display: block !important;
-    z-index: 100000 !important;
-    font-size: 28px !important;
-  }
-
-  /* Fix dropdown items inside mobile */
-  .dropdown-content {
-    position: relative !important;
-    display: none !important;
-    background: transparent !important;
-    border: none !important;
-    padding-left: 10px !important;
-  }
-
-  .dropdown.show .dropdown-content {
-    display: block !important;
-  }
-}
-/* ============================================================
-   🚀 FINAL MOBILE MENU FIX (Guaranteed)
-=============================================================== */
-
-@media (max-width: 860px) {
-
-  /* Force mobile menu toggle to work */
-  .main-nav {
-    position: fixed !important;
-    top: 60px !important;
-    right: 10px !important;
-    width: calc(100% - 20px) !important;
-    background: rgba(5,12,22,0.97) !important;
-    border-radius: 14px !important;
-    padding: 18px 16px !important;
-
-    display: none !important;      /* default hidden */
-    flex-direction: column !important;
-    align-items: flex-start !important;
-
-    z-index: 999999 !important;    /* highest priority */
-  }
-
-  /* When nav toggle pressed */
-  .main-nav.show {
-    display: flex !important;
-  }
-
-  /* Mobile hamburger icon must be visible */
-  .nav-toggle {
-    display: block !important;
-    font-size: 30px !important;
-    z-index: 1000000 !important;
-  }
-
-  /* Dropdowns inside mobile */
-  .dropdown-content {
-    display: none !important;
-    position: relative !important;
-    background: transparent !important;
-    border: none !important;
-    padding-left: 10px !important;
-  }
-
-  .dropdown.show .dropdown-content {
-    display: block !important;
-  }
-}
-/* ============================================================
-   CLEAN MENU (DESKTOP + MOBILE) — GOLD TEXT — NO HOVER EFFECTS
-=============================================================== */
-
-/* Desktop menu */
-.main-nav {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-/* Links */
-.main-nav a,
-.nav-link.dropbtn {
-  color: #e7bf63 !important;
-  padding: 8px 12px;
-  text-decoration: none;
-  background: transparent !important;
-  border: none !important;
-  text-shadow: none !important;
-  box-shadow: none !important;
-  transition: none !important;
-}
-
-/* Dropdown wrapper */
-.dropdown {
-  position: relative;
-}
-
-/* Dropdown content (desktop) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 190px;
-  background: rgba(5,12,22,0.98);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 6px 0;
-  z-index: 9999;
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 10px 16px;
-  color: #e7bf63 !important;
-  background: transparent !important;
-}
-
-/* CLICK TO OPEN */
-.dropdown.show .dropdown-content {
-  display: block !important;
-}
-
-/* Disable hover-open completely */
-.dropdown:hover .dropdown-content {
-  display: none !important;
-}
-
-/* ============================================================
-   MOBILE MENU
-=============================================================== */
-
-.nav-toggle {
-  display: none;
-  font-size: 30px;
-  background: none;
-  border: none;
-  color: #e7bf63;
-  cursor: pointer;
-}
-
-/* Mobile layout */
-@media (max-width:860px) {
-  .nav-toggle {
-    display: block;
-    margin-left: auto;
-    z-index: 100000;
-  }
-
-  .main-nav {
-    position: fixed;
-    top: 60px;
-    right: 10px;
-    width: calc(100% - 20px);
-    flex-direction: column;
-    align-items: flex-start;
-    background: rgba(5,12,22,0.97);
-    padding: 18px 16px;
-    border-radius: 14px;
-    z-index: 99999;
-    display: none;
-  }
-
-  .main-nav.show {
-    display: flex;
-  }
-
-  .dropdown-content {
-    position: static;
-    border: none;
-    background: transparent !important;
-    padding-left: 15px;
-  }
-
-  .dropdown.show .dropdown-content {
-    display: block !important;
-  }
 }
 
 
