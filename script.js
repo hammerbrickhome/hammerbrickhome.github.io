@@ -29,6 +29,9 @@ function initHeaderInteractions() {
       // 1. Click to toggle dropdown
       dropbtn.addEventListener('click', (e) => {
         e.preventDefault();
+        
+        // OPTIONAL: Add e.stopPropagation() here if mobile menu is still closing unexpectedly on click.
+        // e.stopPropagation(); 
 
         // Close other open dropdowns first
         dropdowns.forEach(otherDropdown => {
