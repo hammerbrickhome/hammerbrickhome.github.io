@@ -1892,4 +1892,53 @@ input.gallery-search-box,
     display: block !important;
   }
 }
+/* ============================================================
+   🚀 FINAL MOBILE MENU FIX (Guaranteed)
+=============================================================== */
+
+@media (max-width: 860px) {
+
+  /* Force mobile menu toggle to work */
+  .main-nav {
+    position: fixed !important;
+    top: 60px !important;
+    right: 10px !important;
+    width: calc(100% - 20px) !important;
+    background: rgba(5,12,22,0.97) !important;
+    border-radius: 14px !important;
+    padding: 18px 16px !important;
+
+    display: none !important;      /* default hidden */
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    z-index: 999999 !important;    /* highest priority */
+  }
+
+  /* When nav toggle pressed */
+  .main-nav.show {
+    display: flex !important;
+  }
+
+  /* Mobile hamburger icon must be visible */
+  .nav-toggle {
+    display: block !important;
+    font-size: 30px !important;
+    z-index: 1000000 !important;
+  }
+
+  /* Dropdowns inside mobile */
+  .dropdown-content {
+    display: none !important;
+    position: relative !important;
+    background: transparent !important;
+    border: none !important;
+    padding-left: 10px !important;
+  }
+
+  .dropdown.show .dropdown-content {
+    display: block !important;
+  }
+}
+
 
