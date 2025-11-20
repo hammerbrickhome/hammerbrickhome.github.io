@@ -1,23 +1,28 @@
 console.log("HEADER JS LOADED");
+
 /* ============================================================
    ✅ HEADER + FOOTER READY HOOKS (works with dynamic include)
 =============================================================== */
 function initHeaderInteractions() {
+
   /* -------------------------------
      MOBILE NAV TOGGLE
   -------------------------------- */
   const navToggle = document.querySelector('.nav-toggle');
-  const mainNav = document.querySelector('.main-nav');
+  const mainNav   = document.querySelector('.main-nav');
 
   if (navToggle && mainNav) {
     navToggle.addEventListener('click', () => {
       mainNav.classList.toggle('show');
+
+      // Close dropdowns when mobile menu is toggled
+      document.querySelectorAll('.dropdown')
+        .forEach(d => d.classList.remove('show'));
     });
   }
 
   /* -------------------------------
-     UNIVERSAL CLICK DROPDOWN HANDLER
-     (Supports ALL dropdowns)
+     CLICK-BASED DROPDOWNS (ALL)
   -------------------------------- */
   const dropdowns = document.querySelectorAll('.dropdown');
 
@@ -27,30 +32,33 @@ function initHeaderInteractions() {
 
     btn.addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
 
-      // Close other dropdowns
+      // Close others first
       dropdowns.forEach(d => {
         if (d !== drop) d.classList.remove('show');
       });
 
-      // Toggle this dropdown
+      // Toggle clicked dropdown
       drop.classList.toggle('show');
     });
   });
 
-  // Close if clicking outside all dropdowns
+  /* -------------------------------
+     CLOSE ALL ON OUTSIDE CLICK
+  -------------------------------- */
   document.addEventListener('click', (e) => {
-    const clickedInside = [...dropdowns].some(d => d.contains(e.target));
-    if (!clickedInside) {
+    if (!e.target.closest('.dropdown')) {
       dropdowns.forEach(d => d.classList.remove('show'));
     }
   });
+
 
   /* -------------------------------
      CHAT BUBBLE TOGGLE
   -------------------------------- */
   const chatToggle = document.querySelector('.chat-toggle');
-  const chatModal = document.querySelector('.chat-modal');
+  const chatModal  = document.querySelector('.chat-modal');
 
   if (chatToggle && chatModal) {
     chatToggle.addEventListener('click', () => {
@@ -60,18 +68,16 @@ function initHeaderInteractions() {
   }
 }
 
-/* Fallback for pages missing header/footer includes */
-document.addEventListener('DOMContentLoaded', () => {
-  initHeaderInteractions();
-});
+/* Load interactions after DOM ready */
+document.addEventListener('DOMContentLoaded', initHeaderInteractions);
+
 
 
 /* ============================================================
    ✅ SERVICE FILTER (Services page)
 =============================================================== */
 function filterServices() {
-  const q =
-    (document.getElementById('serviceSearch')?.value || '').toLowerCase();
+  const q = (document.getElementById('serviceSearch')?.value || '').toLowerCase();
 
   document.querySelectorAll('.service-grid .card').forEach(card => {
     const match = card.textContent.toLowerCase().includes(q);
@@ -104,9 +110,9 @@ async function loadGalleryPage() {
   galleryInitialized = true;
 
   const galleryContainer = document.getElementById('galleryContainer');
-  const compareRow = document.getElementById('compareRow');
-  const baBtn = document.getElementById('loadMoreBA');
-  const gridBtn = document.getElementById('loadMoreGrid');
+  const compareRow       = document.getElementById('compareRow');
+  const baBtn            = document.getElementById('loadMoreBA');
+  const gridBtn          = document.getElementById('loadMoreGrid');
 
   if (!galleryContainer && !compareRow) return;
 
@@ -116,27 +122,27 @@ async function loadGalleryPage() {
       console.error('gallery.json failed to load');
       return;
     }
-    const data = await res.json();
 
-    const rawGrid = Array.isArray(data.galleryGrid) ? data.galleryGrid : [];
+    const data     = await res.json();
+    const rawGrid  = Array.isArray(data.galleryGrid)  ? data.galleryGrid  : [];
     const rawPairs = Array.isArray(data.galleryPairs) ? data.galleryPairs : [];
 
-    const grid = shuffle(rawGrid);
+    const grid  = shuffle(rawGrid);
     const pairs = shuffle(rawPairs);
 
     const PAGE = 8;
     let gridIndex = 0;
     let pairIndex = 0;
 
-    function makeSkeleton(heightPx) {
+    function makeSkeleton(h) {
       const sk = document.createElement('div');
       sk.className = 'skeleton';
-      sk.style.height = heightPx + 'px';
+      sk.style.height = h + 'px';
       return sk;
     }
 
     function buildCompareCard(pair) {
-      const card = document.createElement('div');
+      const card  = document.createElement('div');
       card.className = 'ba-card fade-in';
 
       const frame = document.createElement('div');
@@ -167,8 +173,8 @@ async function loadGalleryPage() {
 
       const slider = document.createElement('input');
       slider.type = 'range';
-      slider.min = '0';
-      slider.max = '100';
+      slider.min  = '0';
+      slider.max  = '100';
       slider.value = '50';
       slider.className = 'ba-slider';
       slider.addEventListener('input', () => {
@@ -191,8 +197,6 @@ async function loadGalleryPage() {
     }
 
     function renderMorePairs() {
-      if (!compareRow) return;
-
       const slice = pairs.slice(pairIndex, pairIndex + PAGE);
 
       slice.forEach(pair => {
@@ -203,21 +207,16 @@ async function loadGalleryPage() {
 
         const card = buildCompareCard(pair);
 
-        setTimeout(() => {
-          sk.replaceWith(card);
-        }, 220);
+        setTimeout(() => sk.replaceWith(card), 220);
       });
 
       pairIndex += slice.length;
       if (baBtn) {
-        baBtn.style.display =
-          pairIndex >= pairs.length ? 'none' : 'inline-block';
+        baBtn.style.display = pairIndex >= pairs.length ? 'none' : 'inline-block';
       }
     }
 
     function renderMoreGrid() {
-      if (!galleryContainer) return;
-
       const slice = grid.slice(gridIndex, gridIndex + PAGE);
 
       slice.forEach(name => {
@@ -225,12 +224,14 @@ async function loadGalleryPage() {
         galleryContainer.appendChild(sk);
 
         const img = new Image();
-        img.src = '/images/' + name;
-        img.loading = 'lazy';
+        img.src      = '/images/' + name;
+        img.loading  = 'lazy';
         img.decoding = 'async';
-        img.alt = name;
+        img.alt      = name;
         img.className = 'grid-photo';
+
         img.addEventListener('click', () => openLightbox(img.src));
+
         img.addEventListener('load', () => {
           img.classList.add('lazyloaded');
           sk.replaceWith(img);
@@ -238,16 +239,16 @@ async function loadGalleryPage() {
       });
 
       gridIndex += slice.length;
+
       if (gridBtn) {
-        gridBtn.style.display =
-          gridIndex >= grid.length ? 'none' : 'inline-block';
+        gridBtn.style.display = gridIndex >= grid.length ? 'none' : 'inline-block';
       }
     }
 
     if (compareRow && pairs.length) renderMorePairs();
     if (galleryContainer && grid.length) renderMoreGrid();
 
-    if (baBtn) baBtn.addEventListener('click', renderMorePairs);
+    if (baBtn)  baBtn.addEventListener('click', renderMorePairs);
     if (gridBtn) gridBtn.addEventListener('click', renderMoreGrid);
 
   } catch (err) {
@@ -262,8 +263,10 @@ async function loadGalleryPage() {
 function openLightbox(src) {
   const lightbox = document.getElementById('lightbox');
   if (!lightbox) return;
+
   const img = lightbox.querySelector('img');
   if (img) img.src = src;
+
   lightbox.classList.add('show');
 }
 
@@ -292,9 +295,9 @@ function initGallerySearch() {
     document.querySelectorAll('#compareRow .compare-caption').forEach(cap => {
       const card = cap.closest('.ba-card');
       if (!card) return;
-      card.style.display = cap.textContent.toLowerCase().includes(q)
-        ? ''
-        : 'none';
+
+      card.style.display =
+        cap.textContent.toLowerCase().includes(q) ? '' : 'none';
     });
   });
 }
@@ -304,15 +307,15 @@ function initGallerySearch() {
    ✅ HOMEPAGE — BEFORE & AFTER
 =============================================================== */
 async function initHomepageBA() {
-  const grid = document.getElementById('ba-grid');
+  const grid       = document.getElementById('ba-grid');
   const loadMoreBtn = document.getElementById('ba-loadmore');
-  const template = document.getElementById('ba-card');
+  const template   = document.getElementById('ba-card');
 
   if (!grid || !template) return;
 
   let allPairs = [];
-  let index = 0;
-  const BATCH = 6;
+  let index    = 0;
+  const BATCH  = 6;
 
   async function loadPairsFromJSON() {
     try {
@@ -320,7 +323,7 @@ async function initHomepageBA() {
       if (!res.ok) return [];
       const data = await res.json();
       return Array.isArray(data.homePairs) ? data.homePairs : [];
-    } catch (e) {
+    } catch {
       return [];
     }
   }
@@ -329,15 +332,15 @@ async function initHomepageBA() {
     const slice = allPairs.slice(index, index + BATCH);
 
     slice.forEach(pair => {
-      const card = template.content.cloneNode(true);
-      const before = card.querySelector('.ba-before');
-      const after = card.querySelector('.ba-after');
+      const card    = template.content.cloneNode(true);
+      const before  = card.querySelector('.ba-before');
+      const after   = card.querySelector('.ba-after');
       const caption = card.querySelector('.ba-caption');
-      const slider = card.querySelector('.ba-slider');
-      const wrap = card.querySelector('.ba-after-wrap');
+      const slider  = card.querySelector('.ba-slider');
+      const wrap    = card.querySelector('.ba-after-wrap');
 
-      before.src = '/images/' + pair.before;
-      after.src = '/images/' + pair.after;
+      before.src      = '/images/' + pair.before;
+      after.src       = '/images/' + pair.after;
       caption.textContent = pair.label || '';
 
       slider.addEventListener('input', () => {
@@ -348,12 +351,14 @@ async function initHomepageBA() {
     });
 
     index += slice.length;
+
     if (loadMoreBtn && index >= allPairs.length) {
       loadMoreBtn.style.display = 'none';
     }
   }
 
   allPairs = await loadPairsFromJSON();
+
   if (!allPairs.length) {
     grid.innerHTML = '<p>No before/after pairs found.</p>';
     if (loadMoreBtn) loadMoreBtn.style.display = 'none';
@@ -376,4 +381,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initHomepageBA();
   initGallerySearch();
 });
+
 
