@@ -1,43 +1,43 @@
 /* ============================================================
-   ✅ HEADER + FOOTER READY HOOKS (works with dynamic include)
+   HEADER INTERACTIONS — WORKS WITH DYNAMIC HEADER INCLUDE
 =============================================================== */
 function initHeaderInteractions() {
-  // --- Mobile nav toggle ---
+  // --- Mobile navigation toggle ---
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
+
   if (navToggle && mainNav) {
     navToggle.addEventListener('click', () => {
       mainNav.classList.toggle('show');
     });
   }
 
-  // --- Dropdowns (ALL dropdown menus: Pricing + Service Areas) ---
+  // --- Dropdown: Pricing + Service Areas ---
   const dropdowns = document.querySelectorAll('.dropdown');
 
   dropdowns.forEach(dd => {
     const btn = dd.querySelector('.dropbtn');
     if (!btn) return;
 
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', e => {
       e.preventDefault();
 
-      // MOBILE ONLY → disable hover logic
       const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
       if (isTouch) {
-        // Close any other dropdowns
+        // Close all other dropdowns
         dropdowns.forEach(other => {
           if (other !== dd) other.classList.remove('show');
         });
 
-        // Toggle this one
+        // Toggle current dropdown
         dd.classList.toggle('show');
       }
     });
   });
 
-  // Close dropdowns if clicking outside (mobile only)
-  document.addEventListener('click', (event) => {
+  // Close dropdowns when tapping outside (mobile only)
+  document.addEventListener('click', event => {
     const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
     if (!isTouch) return;
 
@@ -60,17 +60,16 @@ function initHeaderInteractions() {
   }
 }
 
-// Fallback for pages that don't use header include
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(initHeaderInteractions, 500);
-});
+/* !!! REMOVE OLD FALLBACK — NO DOMContentLoaded INIT HERE !!!
+   Header is loaded dynamically — init happens AFTER header loads
+*/
 
-/* ---------------------------
-   ✅ Service Filter (Services page)
----------------------------- */
+
+/* ============================================================
+   SERVICE FILTER
+=============================================================== */
 function filterServices() {
-  const q =
-    (document.getElementById('serviceSearch')?.value || '').toLowerCase();
+  const q = (document.getElementById('serviceSearch')?.value || '').toLowerCase();
   document.querySelectorAll('.service-grid .card').forEach(card => {
     const show = card.textContent.toLowerCase().includes(q);
     card.style.display = show ? '' : 'none';
@@ -78,8 +77,9 @@ function filterServices() {
 }
 window.filterServices = filterServices;
 
+
 /* ============================================================
-   ✅ UTIL: shuffle
+   UTIL — SHUFFLE
 =============================================================== */
 function shuffle(arr) {
   const a = arr.slice();
@@ -90,8 +90,9 @@ function shuffle(arr) {
   return a;
 }
 
+
 /* ============================================================
-   ✅ GALLERY PAGE — galleryPairs + galleryGrid
+   GALLERY PAGE (grid + before/after)
 =============================================================== */
 let galleryInitialized = false;
 
@@ -108,10 +109,8 @@ async function loadGalleryPage() {
 
   try {
     const res = await fetch('/gallery.json', { cache: 'no-store' });
-    if (!res.ok) {
-      console.error('gallery.json failed to load');
-      return;
-    }
+    if (!res.ok) return console.error('gallery.json failed to load');
+
     const data = await res.json();
 
     const rawGrid = Array.isArray(data.galleryGrid) ? data.galleryGrid : [];
@@ -124,10 +123,10 @@ async function loadGalleryPage() {
     let gridIndex = 0;
     let pairIndex = 0;
 
-    function makeSkeleton(heightPx) {
+    function makeSkeleton(h) {
       const sk = document.createElement('div');
       sk.className = 'skeleton';
-      sk.style.height = heightPx + 'px';
+      sk.style.height = h + 'px';
       return sk;
     }
 
@@ -141,7 +140,6 @@ async function loadGalleryPage() {
       const before = document.createElement('img');
       before.className = 'ba-before';
       before.src = '/images/' + pair.before;
-      before.loading = 'lazy';
 
       const afterWrap = document.createElement('div');
       afterWrap.className = 'ba-after-wrap';
@@ -149,7 +147,6 @@ async function loadGalleryPage() {
       const after = document.createElement('img');
       after.className = 'ba-after';
       after.src = '/images/' + pair.after;
-      after.loading = 'lazy';
 
       afterWrap.appendChild(after);
 
@@ -193,22 +190,14 @@ async function loadGalleryPage() {
 
       slice.forEach(pair => {
         if (!pair.before || !pair.after) return;
-
         const sk = makeSkeleton(230);
         compareRow.appendChild(sk);
-
         const card = buildCompareCard(pair);
-
-        setTimeout(() => {
-          sk.replaceWith(card);
-        }, 220);
+        setTimeout(() => sk.replaceWith(card), 200);
       });
 
       pairIndex += slice.length;
-      if (baBtn) {
-        baBtn.style.display =
-          pairIndex >= pairs.length ? 'none' : 'inline-block';
-      }
+      if (baBtn) baBtn.style.display = pairIndex >= pairs.length ? 'none' : 'inline-block';
     }
 
     function renderMoreGrid() {
@@ -223,21 +212,14 @@ async function loadGalleryPage() {
         const img = new Image();
         img.src = '/images/' + name;
         img.loading = 'lazy';
-        img.decoding = 'async';
         img.alt = name;
         img.className = 'grid-photo';
         img.addEventListener('click', () => openLightbox(img.src));
-        img.addEventListener('load', () => {
-          img.classList.add('lazyloaded');
-          sk.replaceWith(img);
-        });
+        img.addEventListener('load', () => sk.replaceWith(img));
       });
 
       gridIndex += slice.length;
-      if (gridBtn) {
-        gridBtn.style.display =
-          gridIndex >= grid.length ? 'none' : 'inline-block';
-      }
+      if (gridBtn) gridBtn.style.display = gridIndex >= grid.length ? 'none' : 'inline-block';
     }
 
     if (compareRow && pairs.length) renderMorePairs();
@@ -251,8 +233,9 @@ async function loadGalleryPage() {
   }
 }
 
+
 /* ============================================================
-   ✅ LIGHTBOX
+   LIGHTBOX
 =============================================================== */
 function openLightbox(src) {
   const lightbox = document.getElementById('lightbox');
@@ -269,8 +252,9 @@ document.addEventListener('click', e => {
   }
 });
 
+
 /* ============================================================
-   ✅ GALLERY SEARCH
+   GALLERY SEARCH
 =============================================================== */
 function initGallerySearch() {
   const input = document.getElementById('gallerySearch');
@@ -279,22 +263,20 @@ function initGallerySearch() {
   input.addEventListener('input', () => {
     const q = input.value.toLowerCase();
 
-    document.querySelectorAll('.grid-photo').forEach(img => {
-      img.style.display = img.alt.toLowerCase().includes(q) ? '' : 'none';
-    });
+    document.querySelectorAll('.grid-photo')
+      .forEach(img => img.style.display = img.alt.toLowerCase().includes(q) ? '' : 'none');
 
-    document.querySelectorAll('#compareRow .compare-caption').forEach(cap => {
-      const card = cap.closest('.ba-card');
-      if (!card) return;
-      card.style.display = cap.textContent.toLowerCase().includes(q)
-        ? ''
-        : 'none';
-    });
+    document.querySelectorAll('#compareRow .compare-caption')
+      .forEach(cap => {
+        const card = cap.closest('.ba-card');
+        if (card) card.style.display = cap.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
   });
 }
 
+
 /* ============================================================
-   ✅ HOMEPAGE — BEFORE & AFTER
+   HOMEPAGE BEFORE & AFTER
 =============================================================== */
 async function initHomepageBA() {
   const grid = document.getElementById('ba-grid');
@@ -307,22 +289,19 @@ async function initHomepageBA() {
   let index = 0;
   const BATCH = 6;
 
-  async function loadPairsFromJSON() {
-    try {
-      const res = await fetch('/gallery.json', { cache: 'no-store' });
-      if (!res.ok) return [];
-      const data = await res.json();
-      return Array.isArray(data.homePairs) ? data.homePairs : [];
-    } catch (e) {
-      return [];
-    }
+  async function loadPairs() {
+    const res = await fetch('/gallery.json', { cache: 'no-store' });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.homePairs) ? data.homePairs : [];
   }
 
-  function renderNextSix() {
+  function renderNext() {
     const slice = allPairs.slice(index, index + BATCH);
 
     slice.forEach(pair => {
       const card = template.content.cloneNode(true);
+
       const before = card.querySelector('.ba-before');
       const after = card.querySelector('.ba-after');
       const caption = card.querySelector('.ba-caption');
@@ -341,30 +320,29 @@ async function initHomepageBA() {
     });
 
     index += slice.length;
-    if (loadMoreBtn && index >= allPairs.length) {
+    if (loadMoreBtn && index >= allPairs.length)
       loadMoreBtn.style.display = 'none';
-    }
   }
 
-  allPairs = await loadPairsFromJSON();
+  allPairs = await loadPairs();
   if (!allPairs.length) {
     grid.innerHTML = '<p>No before/after pairs found.</p>';
     if (loadMoreBtn) loadMoreBtn.style.display = 'none';
     return;
   }
 
-  renderNextSix();
+  renderNext();
 
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', renderNextSix);
-  }
+  if (loadMoreBtn) loadMoreBtn.addEventListener('click', renderNext);
 }
 
+
 /* ============================================================
-   ✅ MASTER INIT
+   MASTER INIT — Runs for EVERY page
 =============================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   loadGalleryPage();
   initHomepageBA();
   initGallerySearch();
 });
+
