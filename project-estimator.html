@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -365,8 +371,6 @@
 }
 </script>
 
- 
-
   <style>
     .estimator-grid{
       display:grid;
@@ -456,6 +460,42 @@
       font-size:11px;
       color:#999;
       margin-top:4px;
+    }
+
+    /* SMART ADD-ONS UI */
+    .smart-addons-grid{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-top:8px;
+    }
+    .addon-item{
+      display:block;
+      border-radius:8px;
+      border:1px solid rgba(231,191,99,.25);
+      background:rgba(3,10,22,.95);
+      padding:6px 8px;
+      font-size:12px;
+    }
+    .addon-header{
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+    }
+    .addon-header input[type="checkbox"]{
+      margin-top:2px;
+    }
+    .addon-text{
+      flex:1;
+    }
+    .addon-main{
+      font-weight:600;
+      color:#eee;
+      margin-bottom:2px;
+    }
+    .addon-price{
+      font-size:11px;
+      color:#c9b07a;
     }
   </style>
 </head>
@@ -761,6 +801,14 @@
             </p>
           </div>
 
+          <!-- SMART ADD-ONS PANEL (AUTO-POPULATED BY JS) -->
+          <div id="smart-addons-panel" 
+               class="addons-panel" 
+               style="display:none; margin-top:20px; border:1px solid rgba(231,191,99,.45);
+                      padding:12px 14px; border-radius:10px; background:rgba(7,14,26,.9);">
+            <!-- JS will insert add-on checkboxes here -->
+          </div>
+
           <button type="submit" class="btn">Calculate Ballpark Range</button>
           <p class="tiny-note">
             By using this tool you agree this is an approximate range only and not a guaranteed quote or offer.
@@ -886,8 +934,7 @@
     </section>
   </main>
 
-  
-  <!-- ADVANCED ESTIMATOR LOGIC -->
+  <!-- ADVANCED ESTIMATOR LOGIC (INLINE MASTER VERSION) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const form        = document.getElementById("est-form");
@@ -911,6 +958,8 @@
       const resultBox   = document.getElementById("est-result");
       const permitBox   = document.getElementById("permit-helper");
       const regionNoteEl= document.getElementById("region-note");
+
+      const smartAddonsPanel = document.getElementById("smart-addons-panel");
 
       // Brand elements
       const brandRow    = document.getElementById("brand-row");
@@ -1645,6 +1694,191 @@
         }
       };
 
+      // ✅ SMART ADD-ONS CONFIG — adds $ to total
+      const SMART_ADDONS_CONFIG = {
+        "bathroom": {
+          title: "Popular Bathroom Add-Ons",
+          subtitle: "Most NYC bathrooms add a few of these upgrades.",
+          items: [
+            { id: "bath-niche", label: "Built-in shampoo niche / shelf", min: 450, max: 950 },
+            { id: "bath-glass", label: "Frameless shower glass (approx.)", min: 1800, max: 3200 },
+            { id: "bath-heated-floor", label: "Heated bathroom floor (per room)", min: 1800, max: 3200 },
+            { id: "bath-led-mirror", label: "LED mirror / medicine cabinet install", min: 350, max: 900 },
+            { id: "bath-extra-lighting", label: "Extra recessed / vanity lighting", min: 400, max: 1200 },
+            { id: "bath-fan-upgrade", label: "Upgraded exhaust fan with timer", min: 650, max: 1200 }
+          ]
+        },
+        "kitchen": {
+          title: "Popular Kitchen Add-Ons",
+          subtitle: "Cabinet lighting, backsplash, and layout tweaks are common.",
+          items: [
+            { id: "kit-backsplash", label: "Full-height tile backsplash upgrade", min: 1500, max: 3500 },
+            { id: "kit-under-cabinet", label: "Under-cabinet LED lighting", min: 900, max: 2200 },
+            { id: "kit-island", label: "Add or enlarge kitchen island (labor only)", min: 3200, max: 8500 },
+            { id: "kit-trash", label: "Built-in pull-out trash / recycle center", min: 550, max: 1200 },
+            { id: "kit-appliance-install", label: "Appliance install package (range, DW, MW)", min: 850, max: 2200 }
+          ]
+        },
+        "basement": {
+          title: "Basement Finishing Add-Ons",
+          subtitle: "Often added for comfort, storage, and rental-ready spaces.",
+          items: [
+            { id: "base-bath", label: "Add small basement bathroom (rough-in exists)", min: 9500, max: 16500 },
+            { id: "base-ceiling", label: "Acoustic / drop ceiling upgrade", min: 2800, max: 7800 },
+            { id: "base-storage", label: "Custom storage / closet build-outs", min: 2200, max: 6500 },
+            { id: "base-lvt-upgrade", label: "Upgrade to waterproof LVP flooring", min: 2800, max: 7200 }
+          ]
+        },
+        "masonry": {
+          title: "Masonry / Paver Add-Ons",
+          subtitle: "Coping, borders, and lighting take it from basic to luxury.",
+          items: [
+            { id: "mas-border", label: "Decorative soldier course / border", min: 1200, max: 3800 },
+            { id: "mas-wall", label: "Short garden / seating wall", min: 3800, max: 9800 },
+            { id: "mas-steps", label: "New front entry steps (labor only)", min: 3500, max: 9500 },
+            { id: "mas-lighting", label: "Low-voltage step / wall lighting", min: 1800, max: 4200 }
+          ]
+        },
+        "driveway": {
+          title: "Driveway Extras",
+          subtitle: "Common for NYC driveways and parking pads.",
+          items: [
+            { id: "drive-drain", label: "Trench drain / channel drain at garage or sidewalk", min: 1800, max: 4200 },
+            { id: "drive-border", label: "Paver or stone decorative border", min: 2200, max: 5200 },
+            { id: "drive-gate", label: "Manual driveway gate (labor only)", min: 2500, max: 6500 }
+          ]
+        },
+        "roofing": {
+          title: "Roofing Add-Ons",
+          subtitle: "Protection upgrades and ventilation add long-term value.",
+          items: [
+            { id: "roof-ice", label: "Ice & water shield upgrade (typical roof)", min: 1200, max: 2800 },
+            { id: "roof-vent", label: "Ridge vent / attic venting upgrade", min: 950, max: 2200 },
+            { id: "roof-skylight", label: "Replace or add skylight (each, labor only)", min: 1800, max: 3600 }
+          ]
+        },
+        "siding": {
+          title: "Siding Add-Ons",
+          subtitle: "Trim, insulation, and details for better curb appeal.",
+          items: [
+            { id: "sid-insul", label: "Insulated house wrap upgrade", min: 1800, max: 5200 },
+            { id: "sid-trim", label: "Decorative trim / crown at windows & doors", min: 2200, max: 5800 },
+            { id: "sid-shake", label: "Shake or accent siding at front gable", min: 2800, max: 7800 }
+          ]
+        },
+        "windows": {
+          title: "Window & Door Add-Ons",
+          subtitle: "Common for energy savings and appearance.",
+          items: [
+            { id: "win-trim", label: "Exterior PVC trim package", min: 2200, max: 5800 },
+            { id: "win-bay", label: "Convert to bay / bow window (labor only)", min: 4500, max: 9800 },
+            { id: "win-low-e", label: "Higher-efficiency glass / Low-E upgrade", min: 1800, max: 4200 }
+          ]
+        },
+        "interior-paint": {
+          title: "Interior Painting Extras",
+          subtitle: "Often added for a full fresh look.",
+          items: [
+            { id: "paint-trim", label: "Upgrade trim & doors repaint", min: 1200, max: 3200 },
+            { id: "paint-accent", label: "Accent wall / feature wall (per room)", min: 350, max: 900 },
+            { id: "paint-cabinets", label: "Paint existing kitchen cabinets", min: 2800, max: 7500 }
+          ]
+        },
+        "flooring": {
+          title: "Flooring Add-Ons",
+          subtitle: "Underlayment, stairs, and transitions are common extras.",
+          items: [
+            { id: "floor-stairs", label: "Refinish / re-cover stair treads & risers", min: 2800, max: 6500 },
+            { id: "floor-lvl", label: "Self-leveling compound for uneven areas", min: 1500, max: 4200 },
+            { id: "floor-trim", label: "Baseboard / shoe molding upgrade", min: 1200, max: 3500 }
+          ]
+        },
+        "power-wash": {
+          title: "Power Washing Add-Ons",
+          subtitle: "Bundle multiple surfaces to save per visit.",
+          items: [
+            { id: "pw-walks", label: "Add walks / front steps", min: 200, max: 650 },
+            { id: "pw-fence", label: "Add fence cleaning (typical yard)", min: 350, max: 950 },
+            { id: "pw-seal", label: "Add sealer for pavers / concrete", min: 750, max: 2200 }
+          ]
+        },
+        "landscaping": {
+          title: "Landscaping & Seasonal Add-Ons",
+          subtitle: "Great for curb appeal and ongoing care.",
+          items: [
+            { id: "land-mulch", label: "Mulch refresh & bed edging", min: 450, max: 1400 },
+            { id: "land-plants", label: "Shrub / plant package (typical front yard)", min: 900, max: 2800 },
+            { id: "land-maint", label: "Monthly curb appeal tune-up (starting)", min: 180, max: 450 }
+          ]
+        },
+        "deck": {
+          title: "Deck / Patio Add-Ons",
+          subtitle: "Railings, lighting, and stairs are common upgrades.",
+          items: [
+            { id: "deck-lighting", label: "Post / stair lighting package", min: 1500, max: 3800 },
+            { id: "deck-privacy", label: "Privacy screen / lattice sections", min: 1800, max: 5200 },
+            { id: "deck-stairs", label: "Extra set of stairs / landing", min: 2800, max: 6800 }
+          ]
+        },
+        "fence": {
+          title: "Fence Add-Ons",
+          subtitle: "Most corner lots add at least one of these.",
+          items: [
+            { id: "fence-gate", label: "Extra walk gate (labor only)", min: 650, max: 1400 },
+            { id: "fence-drive-gate", label: "Drive gate upgrade (manual)", min: 2500, max: 6500 },
+            { id: "fence-privacy", label: "Extra height / privacy upgrade", min: 1800, max: 4200 }
+          ]
+        },
+        "interior-lighting": {
+          title: "Interior Lighting Add-Ons",
+          subtitle: "Works well with smart switches and dimmers.",
+          items: [
+            { id: "lit-dimmers", label: "Dimmer & smart switch package (per room group)", min: 550, max: 1600 },
+            { id: "lit-feature", label: "Feature chandelier / pendant install", min: 450, max: 1200 }
+          ]
+        },
+        "exterior-lighting": {
+          title: "Exterior Lighting Add-Ons",
+          subtitle: "Security plus curb appeal.",
+          items: [
+            { id: "ext-smart", label: "Smart control / app integration", min: 550, max: 1800 },
+            { id: "ext-path", label: "Additional path / step lights", min: 850, max: 2600 }
+          ]
+        },
+        "smart-home": {
+          title: "Smart Home Add-Ons",
+          subtitle: "Great for security and comfort.",
+          items: [
+            { id: "smart-thermostat", label: "Smart thermostat install (each)", min: 350, max: 850 },
+            { id: "smart-wifi", label: "WiFi / network optimization visit", min: 550, max: 1500 }
+          ]
+        },
+        "handyman": {
+          title: "Handyman Visit Add-Ons",
+          subtitle: "Common small upgrades while we're already there.",
+          items: [
+            { id: "hand-safety", label: "Install basic safety package (CO/smoke, grab bars, etc.)", min: 350, max: 950 },
+            { id: "hand-caulk", label: "Extra caulking / small sealing around wet areas", min: 180, max: 450 }
+          ]
+        },
+        "waterproofing": {
+          title: "Waterproofing Add-Ons",
+          subtitle: "Helps keep basements drier and cleaner.",
+          items: [
+            { id: "wp-sump", label: "Sump pump install / upgrade (pump only)", min: 1800, max: 3800 },
+            { id: "wp-dehumid", label: "Basement dehumidifier setup", min: 650, max: 1800 }
+          ]
+        },
+        "soundproofing": {
+          title: "Soundproofing Add-Ons",
+          subtitle: "Focus on priority walls / ceilings.",
+          items: [
+            { id: "sp-door", label: "Upgrade door to solid-core", min: 850, max: 1800 },
+            { id: "sp-seal", label: "Acoustic sealant / gaskets package", min: 550, max: 1400 }
+          ]
+        }
+      };
+
       function formatMoney(num){
         return "$" + Math.round(num).toLocaleString("en-US");
       }
@@ -1735,6 +1969,75 @@
         permitBox.style.display = "block";
       }
 
+      // ✅ Render Smart Add-Ons based on service
+      function renderAddons(service){
+        if (!smartAddonsPanel) return;
+        const cfg = SMART_ADDONS_CONFIG[service];
+        if (!cfg){
+          smartAddonsPanel.style.display = "none";
+          smartAddonsPanel.innerHTML = "";
+          return;
+        }
+
+        let html = `
+          <div class="adv-label">Smart Add-Ons (Optional)</div>
+          <p class="adv-subnote">${cfg.subtitle || "Toggle any extras you’re considering. These will adjust the ballpark range."}</p>
+          <div class="smart-addons-grid">
+        `;
+
+        cfg.items.forEach(item => {
+          html += `
+            <label class="addon-item">
+              <div class="addon-header">
+                <input type="checkbox"
+                       class="addon-checkbox"
+                       data-id="${item.id}"
+                       data-min="${item.min}"
+                       data-max="${item.max}">
+                <div class="addon-text">
+                  <div class="addon-main">${item.label}</div>
+                  <div class="addon-price">+ ${formatMoney(item.min)} – ${formatMoney(item.max)} (approx.)</div>
+                </div>
+              </div>
+            </label>
+          `;
+        });
+
+        html += `
+          </div>
+          <p class="tiny-note">
+            These add-ons are approximate and for planning only. Final pricing is confirmed in your written estimate.
+          </p>
+        `;
+
+        smartAddonsPanel.innerHTML = html;
+        smartAddonsPanel.style.display = "block";
+      }
+
+      // ✅ Get selected Smart Add-Ons and totals
+      function getSelectedAddons(){
+        const checkboxes = smartAddonsPanel
+          ? smartAddonsPanel.querySelectorAll(".addon-checkbox")
+          : [];
+        let low = 0;
+        let high = 0;
+        const lines = [];
+
+        checkboxes.forEach(cb => {
+          if (!cb.checked) return;
+          const min = parseFloat(cb.dataset.min || "0") || 0;
+          const max = parseFloat(cb.dataset.max || "0") || 0;
+          low += min;
+          high += max;
+
+          const textEl = cb.closest(".addon-item")?.querySelector(".addon-main");
+          const label = textEl ? textEl.textContent.trim() : (cb.dataset.id || "Add-on");
+          lines.push(label + " (" + formatMoney(min) + "–" + formatMoney(max) + ")");
+        });
+
+        return { low, high, lines };
+      }
+
       function updateVisibility(){
         const svc = serviceEl.value;
         const cfg = SERVICE_CONFIG[svc];
@@ -1782,6 +2085,7 @@
 
         updateBrandOptions();
         updatePermitHelper(svc);
+        renderAddons(svc);
       }
 
       function calculateEstimate(evt){
@@ -1922,7 +2226,7 @@
         if (svc === "windows"){
           const winCount = parseInt(windowCountEl.value || "0",10);
           const doorCount = parseInt(doorCountEl.value || "0",10);
-          let openingsCount = Math.max(3, winCount + doorCount || 0);
+          let openingsCount = Math.max(3, (winCount + doorCount) || 0);
 
           baseLow  = SERVICE_CONFIG["windows"].perSqLow  * openingsCount;
           baseHigh = SERVICE_CONFIG["windows"].perSqHigh * openingsCount;
@@ -1950,10 +2254,15 @@
         const dumpsterVal = Number(dumpsterEl.value || 0);
         const demoVal     = Number(demoEl.value || 0);
         const permitVal   = Number(permitEl.value || 0);
-        const addOnsTotal = dumpsterVal + demoVal + permitVal;
+        const coreAddOns  = dumpsterVal + demoVal + permitVal;
 
-        low  += addOnsTotal;
-        high += addOnsTotal;
+        // ✅ Smart Add-Ons (extra dollars)
+        const smartAddons = getSelectedAddons();
+        const addonsLow   = coreAddOns + smartAddons.low;
+        const addonsHigh  = coreAddOns + smartAddons.high;
+
+        low  += addonsLow;
+        high += addonsHigh;
 
         const softLow  = low  * 0.95;
         const softHigh = high * 1.10;
@@ -1966,6 +2275,9 @@
           ? brandSelect.options[brandSelect.selectedIndex].textContent
           : "";
 
+        const boroughTextShort = boroughText;
+        const buildingTextShort = buildingText;
+
         const bodyLines = [
           "Hello,",
           "",
@@ -1974,8 +2286,8 @@
           "Project Type: " + svcLabel,
           usedArea ? ("Approx. Size (sq ft or openings): " + usedArea) : "",
           usedScopeLabel ? ("Scope Level: " + usedScopeLabel) : "",
-          "Location (Borough): " + boroughText,
-          "Building Type: " + buildingText,
+          "Location (Borough): " + boroughTextShort,
+          "Building Type: " + buildingTextShort,
           "Finish Level: " + finishLabel,
           "Timeline: " + urgencyLabel,
           "Pre-1978 / Lead-Sensitive: " + (leadRow.style.display !== "none"
@@ -1983,22 +2295,29 @@
             : "Not applicable for this project type"),
           brandName ? ("Preferred Brand/Line: " + brandName) : "",
           "",
-          "Selected Add-Ons:",
-          "  Dumpster: $" + dumpsterVal.toLocaleString("en-US"),
-          "  Demolition: $" + demoVal.toLocaleString("en-US"),
-          "  DOB Permit (approx): $" + permitVal.toLocaleString("en-US"),
-          "",
-          "Ballpark Range Shown:",
-          "  " + formatMoney(softLow) + " – " + formatMoney(softHigh),
-          "",
-          "My Contact Info:",
-          "Name:",
-          "Service Address:",
-          "Phone:",
-          "Email:",
-          "",
-          "Thank you!"
+          "Selected Add-Ons (approximate):",
+          "  Dumpster: " + formatMoney(dumpsterVal),
+          "  Demolition: " + formatMoney(demoVal),
+          "  DOB Permit (approx): " + formatMoney(permitVal)
         ];
+
+        if (smartAddons.lines.length){
+          bodyLines.push("");
+          bodyLines.push("Smart Add-Ons:");
+          smartAddons.lines.forEach(line => bodyLines.push("  • " + line));
+        }
+
+        bodyLines.push("");
+        bodyLines.push("Ballpark Range Shown:");
+        bodyLines.push("  " + formatMoney(softLow) + " – " + formatMoney(softHigh));
+        bodyLines.push("");
+        bodyLines.push("My Contact Info:");
+        bodyLines.push("Name:");
+        bodyLines.push("Service Address:");
+        bodyLines.push("Phone:");
+        bodyLines.push("Email:");
+        bodyLines.push("");
+        bodyLines.push("Thank you!");
 
         const mailtoHref = "mailto:Hammerbrickhome@gmail.com"
           + "?subject=" + encodeURIComponent("Estimate Request – Website Tool")
@@ -2016,11 +2335,14 @@
           </p>
           <p class="muted" style="margin-bottom:10px;">
             <strong>Assumptions:</strong>
-            ${boroughText} · ${buildingText} · ${finishLabel} finish · ${urgencyLabel}.
+            ${boroughTextShort} · ${buildingTextShort} · ${finishLabel} finish · ${urgencyLabel}.
           </p>
           <ul class="bullets">
             <li>Includes a buffer for typical NYC access, protection, and cleanup.</li>
-            <li>Approximate add-ons included in this range: <strong>${formatMoney(addOnsTotal)}</strong> (dumpster, demo, permit).</li>
+            <li>Approximate add-ons included in this range:
+              <strong>${formatMoney(addonsLow)} – ${formatMoney(addonsHigh)}</strong>
+              (dumpster, demo, permit, and any selected options).
+            </li>
             <li>Does <strong>not</strong> include architect/engineer fees, major structural/MEP changes, or unforeseen conditions.</li>
             <li>Final pricing is only confirmed in a written estimate after a walkthrough.</li>
           </ul>
@@ -2032,6 +2354,7 @@
       serviceEl.addEventListener("change", updateVisibility);
       finishEl.addEventListener("change", () => {
         updateBrandOptions();
+        renderAddons(serviceEl.value);
       });
       boroughEl.addEventListener("change", updateRegionNote);
       form.addEventListener("submit", calculateEstimate);
@@ -2041,17 +2364,10 @@
     });
   </script>
 
- 
-
-     </section>
-  </main>  <!-- ✅ main is closed here, correct place -->
   <!-- ⭐ FAQ TITLE (centered) ⭐ -->
   <h1 class="faq-title shimmer-gold">Frequently Asked Questions</h1>
 
   <div class="faq-section">
-
-
-
 
   <!-- =====================
        CATEGORY: SERVICE AREA & LICENSING
@@ -2226,9 +2542,6 @@
   </div>
 </div>
 
-
-
-
 <!-- FOOTER INCLUDE -->
 <div id="footer-include"></div>
 
@@ -2250,15 +2563,5 @@
   });
 </script>
 
-
-<!-- LOAD THE ADVANCED ESTIMATOR LOGIC -->
-<script src="/estimator-advanced.js"></script>
-
 </body>
 </html>
-  
-
-
-
-
-
