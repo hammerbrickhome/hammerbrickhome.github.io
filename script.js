@@ -345,3 +345,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initHomepageBA();
   initGallerySearch();
 });
+// AUTOMATIC HEADER LOADER
+document.addEventListener("DOMContentLoaded", () => {
+  // Only run if the header placeholder exists
+  if (document.getElementById("header-include")) {
+      Promise.all([
+        fetch("/header.html").then(r => r.text()),
+        fetch("/footer.html").then(r => r.text())
+      ])
+      .then(([header, footer]) => {
+        document.getElementById("header-include").innerHTML = header;
+        document.getElementById("footer-include").innerHTML = footer;
+        
+        // Update Year
+        const yr = document.getElementById("yr");
+        if (yr) yr.textContent = new Date().getFullYear();
+
+        // Initialize Menu
+        if (typeof initHeaderInteractions === 'function') {
+            initHeaderInteractions();
+        }
+      })
+      .catch(err => console.error("Include load error", err));
+  }
+});
