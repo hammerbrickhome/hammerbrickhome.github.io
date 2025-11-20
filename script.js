@@ -1,11 +1,10 @@
 /* ============================================================
-    ✅ FIXED & OPTIMIZED JAVASCRIPT
-    (Consolidated for easy copy/paste)
+    ✅ FINAL FIXED JAVASCRIPT
+    (Includes event propagation fix for Safari/DuckDuckGo)
 =============================================================== */
 
 /* ============================================================
     ✅ HEADER + FOOTER READY HOOKS (works with dynamic include)
-    FIX: Correctly handles multiple dropdowns using querySelectorAll
 =============================================================== */
 function initHeaderInteractions() {
   // --- Mobile nav toggle ---
@@ -30,8 +29,8 @@ function initHeaderInteractions() {
       dropbtn.addEventListener('click', (e) => {
         e.preventDefault();
         
-        // OPTIONAL: Add e.stopPropagation() here if mobile menu is still closing unexpectedly on click.
-        // e.stopPropagation(); 
+        // 🛑 CRITICAL FIX: Stop the click from closing the menu instantly in Safari/WebKit
+        e.stopPropagation(); 
 
         // Close other open dropdowns first
         dropdowns.forEach(otherDropdown => {
@@ -71,7 +70,6 @@ function initHeaderInteractions() {
 }
 
 // Fallback for pages that don't use header.html/footer.html includes
-// FIX: Removed setTimeout(initHeaderInteractions, 500); call as it is not needed.
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderInteractions(); // Run header interactions immediately
   // Rest of the master init functions
