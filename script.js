@@ -1,5 +1,5 @@
 /* ============================================================
-   HEADER INTERACTIONS — FIXED VERSION (NO HOVER DROPDOWNS)
+   HEADER INTERACTIONS — WORKS ON DESKTOP + MOBILE
 =============================================================== */
 function initHeaderInteractions() {
   // --- Mobile navigation toggle ---
@@ -7,7 +7,8 @@ function initHeaderInteractions() {
   const mainNav = document.querySelector('.main-nav');
 
   if (navToggle && mainNav) {
-    navToggle.addEventListener('click', () => {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // don't trigger document click close
       mainNav.classList.toggle('show');
     });
   }
@@ -19,25 +20,31 @@ function initHeaderInteractions() {
     const btn = dd.querySelector('.dropbtn');
     if (!btn) return;
 
-    btn.addEventListener('click', e => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
 
-      // Always toggle on click — NO HOVER AT ALL
+      // Close all other dropdowns
       dropdowns.forEach(other => {
         if (other !== dd) other.classList.remove('show');
       });
 
+      // Toggle current dropdown (desktop + mobile)
       dd.classList.toggle('show');
     });
   });
 
-  // --- Close dropdowns when clicking outside ---
-  document.addEventListener('click', event => {
-    const clickedInsideDropdown = [...dropdowns].some(dd => dd.contains(event.target));
-    const clickedButton = event.target.classList.contains('dropbtn');
+  // Close dropdowns when clicking anywhere outside (desktop + mobile)
+  document.addEventListener('click', (event) => {
+    dropdowns.forEach(dd => {
+      if (!dd.contains(event.target)) {
+        dd.classList.remove('show');
+      }
+    });
 
-    if (!clickedInsideDropdown && !clickedButton) {
-      dropdowns.forEach(dd => dd.classList.remove('show'));
+    // Close mobile nav if click outside
+    if (mainNav && !mainNav.contains(event.target) && event.target !== navToggle) {
+      mainNav.classList.remove('show');
     }
   });
 
@@ -45,13 +52,13 @@ function initHeaderInteractions() {
   const chatToggle = document.querySelector('.chat-toggle');
   const chatModal = document.querySelector('.chat-modal');
   if (chatToggle && chatModal) {
-    chatToggle.addEventListener('click', () => {
+    chatToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       chatModal.style.display =
         chatModal.style.display === 'flex' ? 'none' : 'flex';
     });
   }
 }
-
 
 /* ============================================================
    SERVICE FILTER
@@ -65,7 +72,6 @@ function filterServices() {
 }
 window.filterServices = filterServices;
 
-
 /* ============================================================
    UTIL — SHUFFLE
 =============================================================== */
@@ -77,7 +83,6 @@ function shuffle(arr) {
   }
   return a;
 }
-
 
 /* ============================================================
    GALLERY PAGE (grid + before/after)
@@ -97,8 +102,10 @@ async function loadGalleryPage() {
 
   try {
     const res = await fetch('/gallery.json', { cache: 'no-store' });
-    if (!res.ok) return console.error('gallery.json failed to load');
-
+    if (!res.ok) {
+      console.error('gallery.json failed to load');
+      return;
+    }
     const data = await res.json();
 
     const rawGrid = Array.isArray(data.galleryGrid) ? data.galleryGrid : [];
@@ -128,6 +135,7 @@ async function loadGalleryPage() {
       const before = document.createElement('img');
       before.className = 'ba-before';
       before.src = '/images/' + pair.before;
+      before.loading = 'lazy';
 
       const afterWrap = document.createElement('div');
       afterWrap.className = 'ba-after-wrap';
@@ -135,6 +143,7 @@ async function loadGalleryPage() {
       const after = document.createElement('img');
       after.className = 'ba-after';
       after.src = '/images/' + pair.after;
+      after.loading = 'lazy';
 
       afterWrap.appendChild(after);
 
@@ -178,14 +187,21 @@ async function loadGalleryPage() {
 
       slice.forEach(pair => {
         if (!pair.before || !pair.after) return;
+
         const sk = makeSkeleton(230);
         compareRow.appendChild(sk);
+
         const card = buildCompareCard(pair);
-        setTimeout(() => sk.replaceWith(card), 200);
+        setTimeout(() => {
+          sk.replaceWith(card);
+        }, 200);
       });
 
       pairIndex += slice.length;
-      if (baBtn) baBtn.style.display = pairIndex >= pairs.length ? 'none' : 'inline-block';
+      if (baBtn) {
+        baBtn.style.display =
+          pairIndex >= pairs.length ? 'none' : 'inline-block';
+      }
     }
 
     function renderMoreGrid() {
@@ -200,14 +216,20 @@ async function loadGalleryPage() {
         const img = new Image();
         img.src = '/images/' + name;
         img.loading = 'lazy';
+        img.decoding = 'async';
         img.alt = name;
         img.className = 'grid-photo';
         img.addEventListener('click', () => openLightbox(img.src));
-        img.addEventListener('load', () => sk.replaceWith(img));
+        img.addEventListener('load', () => {
+          sk.replaceWith(img);
+        });
       });
 
       gridIndex += slice.length;
-      if (gridBtn) gridBtn.style.display = gridIndex >= grid.length ? 'none' : 'inline-block';
+      if (gridBtn) {
+        gridBtn.style.display =
+          gridIndex >= grid.length ? 'none' : 'inline-block';
+      }
     }
 
     if (compareRow && pairs.length) renderMorePairs();
@@ -220,7 +242,6 @@ async function loadGalleryPage() {
     console.error('Gallery load error:', err);
   }
 }
-
 
 /* ============================================================
    LIGHTBOX
@@ -240,7 +261,6 @@ document.addEventListener('click', e => {
   }
 });
 
-
 /* ============================================================
    GALLERY SEARCH
 =============================================================== */
@@ -251,17 +271,19 @@ function initGallerySearch() {
   input.addEventListener('input', () => {
     const q = input.value.toLowerCase();
 
-    document.querySelectorAll('.grid-photo')
-      .forEach(img => img.style.display = img.alt.toLowerCase().includes(q) ? '' : 'none');
+    document.querySelectorAll('.grid-photo').forEach(img => {
+      img.style.display = img.alt.toLowerCase().includes(q) ? '' : 'none';
+    });
 
-    document.querySelectorAll('#compareRow .compare-caption')
-      .forEach(cap => {
-        const card = cap.closest('.ba-card');
-        if (card) card.style.display = cap.textContent.toLowerCase().includes(q) ? '' : 'none';
-      });
+    document.querySelectorAll('#compareRow .compare-caption').forEach(cap => {
+      const card = cap.closest('.ba-card');
+      if (!card) return;
+      card.style.display = cap.textContent.toLowerCase().includes(q)
+        ? ''
+        : 'none';
+    });
   });
 }
-
 
 /* ============================================================
    HOMEPAGE BEFORE & AFTER
@@ -278,10 +300,15 @@ async function initHomepageBA() {
   const BATCH = 6;
 
   async function loadPairs() {
-    const res = await fetch('/gallery.json', { cache: 'no-store' });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return Array.isArray(data.homePairs) ? data.homePairs : [];
+    try {
+      const res = await fetch('/gallery.json', { cache: 'no-store' });
+      if (!res.ok) return [];
+      const data = await res.json();
+      return Array.isArray(data.homePairs) ? data.homePairs : [];
+    } catch (e) {
+      console.error('homePairs load error', e);
+      return [];
+    }
   }
 
   function renderNext() {
@@ -289,7 +316,6 @@ async function initHomepageBA() {
 
     slice.forEach(pair => {
       const card = template.content.cloneNode(true);
-
       const before = card.querySelector('.ba-before');
       const after = card.querySelector('.ba-after');
       const caption = card.querySelector('.ba-caption');
@@ -308,8 +334,9 @@ async function initHomepageBA() {
     });
 
     index += slice.length;
-    if (loadMoreBtn && index >= allPairs.length)
+    if (loadMoreBtn && index >= allPairs.length) {
       loadMoreBtn.style.display = 'none';
+    }
   }
 
   allPairs = await loadPairs();
@@ -321,18 +348,18 @@ async function initHomepageBA() {
 
   renderNext();
 
-  if (loadMoreBtn) loadMoreBtn.addEventListener('click', renderNext);
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', renderNext);
+  }
 }
-
 
 /* ============================================================
    MASTER INIT — Runs for EVERY page
 =============================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  initHeaderInteractions();   // 🔑 THIS WAS MISSING BEFORE
   loadGalleryPage();
   initHomepageBA();
   initGallerySearch();
-
-  // MUST RUN AFTER HEADER IS LOADED
-  setTimeout(() => initHeaderInteractions(), 50);
 });
+
