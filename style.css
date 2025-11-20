@@ -1570,3 +1570,93 @@ input.gallery-search-box,
   background-color: rgba(255,255,255,0.08);
 }
 
+/* ============================================================
+   SIMPLE CLEAN MENU — GOLD TEXT — NO EFFECTS
+   Overrides all previous menu styling
+=============================================================== */
+
+.main-nav a,
+.nav-link.dropbtn {
+  color: #e7bf63 !important;           /* gold text */
+  background: transparent !important;  
+  text-shadow: none !important;        
+  box-shadow: none !important;         
+  border: none !important;             
+  padding: 8px 12px !important;
+  transition: none !important;         
+  animation: none !important;          
+}
+
+/* Disable all menu hover effects */
+.main-nav a:hover,
+.nav-link.dropbtn:hover {
+  color: #e7bf63 !important;           /* SAME gold on hover */
+  background: transparent !important;  
+  text-shadow: none !important;        
+  box-shadow: none !important;         
+}
+
+/* Remove shimmer underline */
+.main-nav a::after,
+.main-nav a:hover::after,
+.nav-link.dropbtn::after,
+.nav-link.dropbtn:hover::after {
+  content: none !important;
+}
+
+/* ================================
+   DROPDOWN — SIMPLE, CLEAN
+================================ */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #0d1a2e !important;
+  padding: 6px 0;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+.dropdown-content a {
+  padding: 10px 16px !important;
+  color: #e7bf63 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
+
+.dropdown-content a:hover {
+  background: transparent !important;
+  color: #e7bf63 !important;
+}
+
+/* Disable hover-open on desktop */
+.dropdown:hover .dropdown-content {
+  display: none !important;
+}
+
+/* Enable CLICK dropdown (mobile + desktop) */
+.dropdown.show .dropdown-content {
+  display: block !important;
+}
+
+/* ================================
+   MOBILE MENU CLEANUP
+================================ */
+@media (max-width: 860px) {
+  .main-nav {
+    background: rgba(6,12,23,0.98) !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+  .dropdown-content {
+    position: static !important;
+    border: none !important;
+    background: transparent !important;
+  }
+  .dropdown-content a {
+    padding-left: 24px !important;
+  }
+}
+
