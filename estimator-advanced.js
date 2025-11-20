@@ -1542,6 +1542,26 @@ const addonsPanel = document.getElementById("smart-addons-panel");
   function formatMoney(num){
     return "$" + Math.round(num).toLocaleString("en-US");
   }
+//------------------------------------------------------------
+// SMART ADD-ONS: Get list of selected add-ons with labels & mid-values
+//------------------------------------------------------------
+function getSelectedSmartAddonsList() {
+  const panel = document.getElementById("smart-addons-panel");
+  if (!panel) return [];
+
+  const checks = panel.querySelectorAll(".addon-checkbox:checked");
+  const list = [];
+
+  checks.forEach(cb => {
+    const label = cb.parentElement.querySelector(".addon-label")?.textContent.trim() || "";
+    const low = Number(cb.dataset.addonLow) || 0;
+    const high = Number(cb.dataset.addonHigh) || 0;
+    const mid = Math.round((low + high) / 2);
+    list.push(`${label} (+$${mid.toLocaleString()})`);
+  });
+
+  return list;
+}
 
   function formatMonthly(num){
     if (!num || num <= 0) return "$0/mo";
