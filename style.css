@@ -1538,49 +1538,6 @@ input.gallery-search-box,
 }
 
 
-/* Dropdown FIX */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #0d1a2e;
-  min-width: 190px;
-  padding: 10px 0;
-  border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.55);
-  z-index: 9999;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 10px 18px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.dropdown-content a:hover {
-  background-color: rgba(255,255,255,0.08);
-}
-
-/* =======================================================
-   REMOVE HOVER MENUS ON MOBILE
-   KEEP NORMAL HOVER ON DESKTOP
-======================================================= */
-
-/* Desktop hover behavior stays normal */
-@media (hover: hover) and (pointer: fine) {
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-}
 
 /* Mobile: disable hover completely */
 @media (hover: none), (pointer: coarse) {
