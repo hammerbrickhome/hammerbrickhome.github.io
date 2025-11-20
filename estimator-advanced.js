@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Add-on panel DOM (optional – only used if present in HTML)
+  // Add-on panel DOM
   const addonsPanel = document.getElementById("est-addons-panel");
   let extraAddonsValue = 0; // running total from selected smart add-ons (average of low/high)
 
@@ -1008,6 +1008,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // SCOPE OF WORK + UPSELLS CONFIG
   // ==========================
   const SOW_CONFIG = {
+    // ... (unchanged, same SOW_CONFIG content as your original – keeping all services)
     "masonry": {
       title: "Scope of Work – Masonry · Pavers · Concrete",
       bullets: [
@@ -1659,6 +1660,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 🔹 NEW: helper to collect selected smart add-ons for PDF + email
+  function getSelectedSmartAddons(){
+    if (!addonsPanel) return [];
+    const boxes = addonsPanel.querySelectorAll(".addon-checkbox");
+    const selected = [];
+    boxes.forEach(box => {
+      if (box.checked){
+        const wrapper = box.closest(".addon-item");
+        const labelEl = wrapper ? wrapper.querySelector(".addon-label") : null;
+        selected.push({
+          label: labelEl ? labelEl.textContent : (box.dataset.addonId || "Add-On"),
+          low: Number(box.dataset.addonLow) || 0,
+          high: Number(box.dataset.addonHigh) || 0,
+          avg: ((Number(box.dataset.addonLow) || 0) + (Number(box.dataset.addonHigh) || 0)) / 2
+        });
+      }
+    });
+    return selected;
+  }
+
   function updateVisibility(){
     const svc = serviceEl.value;
     const cfg = SERVICE_CONFIG[svc];
@@ -2046,7 +2067,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================
-  // PDF BUILDER
+  // PDF BUILDER (UPDATED TO SHOW SMART ADD-ONS)
   // ==========================
   function openPrintableEstimate(estimateData){
     const w = window.open("", "_blank");
@@ -2067,12 +2088,22 @@ document.addEventListener("DOMContentLoaded", () => {
       addOnsTotal,
       dumpsterVal,
       demoVal,
-      permitVal
+      permitVal,
+      selectedAddons = []
     } = estimateData;
 
     const sowHtml    = buildScopeOfWorkHtml(svc, svcLabel);
     const upsellsHtml= buildUpsellsHtml(svc);
     const termsHtml  = buildTermsHtml();
+
+    const smartAddonsSection = selectedAddons.length
+      ? `
+        <h3 style="color:#f0dca0;margin:12px 0 6px;font-size:14px;">Selected Smart Add-Ons</h3>
+        <ul>
+          ${selectedAddons.map(a => `<li>${a.label}: ${formatMoney(a.low)} – ${formatMoney(a.high)}</li>`).join("")}
+        </ul>
+      `
+      : "";
 
     w.document.write(`<!doctype html>
 <html>
@@ -2232,8 +2263,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <li>Dumpster: ${formatMoney(dumpsterVal)}</li>
       <li>Demolition: ${formatMoney(demoVal)}</li>
       <li>Permit / Filing (approx): ${formatMoney(permitVal)}</li>
-      <li>Total add-ons included: ${formatMoney(addOnsTotal)}</li>
+      <li>Total add-ons included (dumpster, demo, permits, smart add-ons): ${formatMoney(addOnsTotal)}</li>
     </ul>
+    ${smartAddonsSection}
 
     ${sowHtml}
     ${upsellsHtml}
@@ -2257,7 +2289,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================
-  // MAIN CALCULATION
+  // MAIN CALCULATION (UPDATED TO USE SMART ADD-ONS IN PDF + EMAIL)
   // ==========================
   function calculateEstimate(evt){
     evt.preventDefault();
@@ -2274,7 +2306,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let usedScopeLabel = "";
     let hasScope = false;
 
-    // Core calculation: keep original logic
+    // Core calculation
     if (cfg.mode === "area" || cfg.mode === "both"){
       let areaRaw = (sizeInput.value || "").toString().replace(/,/g,"");
       let area = parseFloat(areaRaw);
@@ -2437,6 +2469,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const demoVal     = Number(demoEl.value || 0);
     const permitVal   = Number(permitEl.value || 0);
     const smartAddonsVal = extraAddonsValue || 0;
+
+    // 🔹 NEW: collect selected smart add-ons for PDF + email
+    const selectedAddons = getSelectedSmartAddons();
+
     const addOnsTotal = dumpsterVal + demoVal + permitVal + smartAddonsVal;
 
     let low  = adjustedLow  + addOnsTotal;
@@ -2525,7 +2561,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "  Dumpster: $" + dumpsterVal.toLocaleString("en-US"),
       "  Demolition: $" + demoVal.toLocaleString("en-US"),
       "  DOB Permit (approx): $" + permitVal.toLocaleString("en-US"),
-      smartAddonsVal ? ("  Smart Add-Ons (approx mid): $" + Math.round(smartAddonsVal).toLocaleString("en-US")) : "",
+      smartAddonsVal ? ("  Smart Add-Ons Total (avg): $" + Math.round(smartAddonsVal).toLocaleString("en-US")) : "",
+      ...selectedAddons.map(a =>
+        "    - " + a.label + " (" + formatMoney(a.low) + " – " + formatMoney(a.high) + ")"
+      ),
       "",
       "Ballpark Range Shown:",
       "  " + formatMoney(softLow) + " – " + formatMoney(softHigh)
@@ -2678,12 +2717,12 @@ document.addEventListener("DOMContentLoaded", () => {
           addOnsTotal,
           dumpsterVal,
           demoVal,
-          permitVal
+          permitVal,
+          selectedAddons  // 🔹 now included
         });
       });
     }
   }
-
   // 🔥 FINAL FIX — Correct service change behavior
   serviceEl.addEventListener("change", () => {
     updateVisibility();
@@ -2743,7 +2782,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Init
   updateVisibility();
   updateRegionNote();
-});
+}); // end DOMContentLoaded
 
 // ==========================
 // STYLE INJECTION
@@ -3046,4 +3085,10 @@ function injectEstimatorExtraStyles(){
   style.textContent = css;
   document.head.appendChild(style);
 }
+
+
+
+
+    
+
 
