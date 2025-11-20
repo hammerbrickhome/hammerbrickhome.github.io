@@ -1600,7 +1600,6 @@ input.gallery-search-box,
 
 /* GOLD ACTIVE STATE ON TAP */
 .main-nav a.active,
-.dropdown.open > .dropbtn {
+.dropdown.show > .dropbtn {
   color: var(--gold) !important;
 }
-
