@@ -1739,3 +1739,42 @@ input.gallery-search-box,
   filter: none !important;
 }
 
+
+/* ============================================================
+   FIXED DROPDOWN BEHAVIOR — ONLY OPEN ON CLICK
+=============================================================== */
+
+/* Always hide by default */
+.dropdown .dropdown-content {
+  display: none;
+}
+
+/* When JS adds .show → open dropdown */
+.dropdown.show .dropdown-content {
+  display: block !important;
+}
+
+/* Remove ALL hover activation */
+.dropdown:hover .dropdown-content {
+  display: none !important;
+}
+
+/* Remove menu hover styling */
+.main-nav a:hover,
+.nav-link.dropbtn:hover {
+  background: none !important;
+  color: inherit !important;
+  text-shadow: none !important;
+}
+
+/* Mobile-friendly dropdown positioning */
+@media (max-width: 860px) {
+  .dropdown .dropdown-content {
+    position: static;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding-left: 15px;
+  }
+}
+
