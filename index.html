@@ -5,28 +5,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Hammer Brick & Home LLC | Luxury Remodeling & Masonry in NYC</title>
 
-  <!-- ✅ SEO Meta -->
   <meta name="description" content="Hammer Brick & Home LLC provides luxury remodeling and true masonry in NYC. EPA Lead-Safe Certified Firm, licensed & insured HIC #21311291. Staten Island based. Clean, precise, and respectful crew.">
 
-  <!-- Favicon -->
   <link rel="icon" href="/images/hero.PNG">
   <link rel="preload" as="image" href="/images/hero.PNG">
   <link rel="stylesheet" href="/style.css">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
   <meta property="og:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #21311291. Staten Island based. Clean, precise, and respectful crew.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.hammerbrickhome.com/">
   <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
   <meta name="twitter:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #21311291. Staten Island based. Clean, precise, and respectful crew.">
   <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-  <!-- ⭐⭐⭐ FINAL FIXED STRUCTURED DATA ⭐⭐⭐ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -90,7 +85,6 @@
   }
   </script>
 
-  <!-- ⭐ WebSite SearchAction -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -104,17 +98,13 @@
     }
   }
   </script>
-  <!-- END OF SCHEMA -->
-
-</head>
+  </head>
 <body>
 
-  <!-- Header include -->
   <div id="header-include"></div>
 
   <main class="page" id="main">
 
-    <!-- HERO -->
     <section class="hero hero-home fade-up">
       <div class="hero-content">
         <h1>Luxury Remodeling &amp; True Masonry for NYC Homes</h1>
@@ -135,7 +125,6 @@
       </div>
     </section>
 
-    <!-- Credentials Section -->
     <section class="section split fade-up">
       <div>
         <h2>Trust • Credentials • Local Expertise</h2>
@@ -162,7 +151,6 @@
       </div>
     </section>
 
-    <!-- Before & After Section -->
     <section id="before-after" class="section fade-up">
       <div class="ba-head">
         <h2>Before &amp; After</h2>
@@ -188,7 +176,6 @@
       </template>
     </section>
 
-    <!-- CTA -->
     <section class="section cta-band fade-up">
       <div class="cta-text">
         <h2>Ready for a Cleaner, Stronger, Better Looking Home?</h2>
@@ -202,10 +189,8 @@
 
   </main>
 
-  <!-- Footer include -->
   <div id="footer-include"></div>
 
-  <!-- Header/Footer Loader -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       Promise.all([
@@ -217,12 +202,16 @@
         document.getElementById("footer-include").innerHTML = footer;
         const yr = document.getElementById("yr");
         if (yr) yr.textContent = new Date().getFullYear();
+
+        // ✅ FIX: Initialize menu interactions NOW that header is loaded
+        if (typeof initHeaderInteractions === 'function') {
+            initHeaderInteractions();
+        }
       })
       .catch(err => console.error("Include load error", err));
     });
   </script>
 
-  <!-- Before/After Loader -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       fetch("/gallery.json")
@@ -269,4 +258,4 @@
   <script src="/script.js"></script>
 
 </body>
-</html>
+</html> 
