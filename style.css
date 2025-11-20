@@ -1569,4 +1569,82 @@ input.gallery-search-box,
 .dropdown-content a:hover {
   background-color: rgba(255,255,255,0.08);
 }
+/* ==========================================
+   FINAL SIMPLE GOLD MENU (NO EFFECTS)
+   ========================================== */
+
+/* Main nav links */
+.main-nav a {
+  color: #f5c400 !important;          /* solid gold */
+  background: transparent !important;
+  text-decoration: none !important;
+  padding: 6px 10px;
+  border: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
+
+/* Hover stays exactly the same */
+.main-nav a:hover {
+  color: #f5c400 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+}
+
+/* Dropdown button */
+.nav-link.dropbtn {
+  color: #f5c400 !important;
+  background: transparent !important;
+  border: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+  padding: 6px 10px;
+}
+
+/* Dropdown button hover */
+.nav-link.dropbtn:hover {
+  color: #f5c400 !important;
+  background: transparent !important;
+}
+
+/* Dropdown panel */
+.dropdown-content {
+  background-color: #050a14 !important;
+  border: 1px solid rgba(231,191,99,0.25) !important;
+  border-radius: 10px !important;
+  padding: 6px 0 !important;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.6) !important;
+}
+
+/* Dropdown items */
+.dropdown-content a {
+  color: #f5c400 !important;
+  background: transparent !important;
+  padding: 8px 16px !important;
+  text-decoration: none !important;
+  border: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+  display: block;
+}
+
+/* Dropdown hover (NO color change — ONLY tiny neutral background) */
+.dropdown-content a:hover {
+  background: rgba(255,255,255,0.03) !important;
+  color: #f5c400 !important;
+}
+
+/* Call button stays gold pill */
+.main-nav .nav-call {
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold)) !important;
+  color: #151515 !important;
+  border-radius: 999px !important;
+  font-weight: 800 !important;
+  padding: 8px 16px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
 
