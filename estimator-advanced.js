@@ -1556,62 +1556,6 @@ document.addEventListener("DOMContentLoaded", () => {
       opt.textContent = sc.label;
       scopeSelect.appendChild(opt);
     });
-  // ===================================
-// NEW: SMART ADD-ONS LOGIC (FIX)
-// ===================================
-
-// 1. Function to get a list of all selected smart add-ons
-// This function reads the checkboxes and calculates the average price.
-function getSelectedSmartAddons() {
-    const selected = [];
-    // Assumes your Add-ons panel container has the ID 'est-addons-panel'
-    const addonsPanel = document.getElementById("est-addons-panel");
-    if (!addonsPanel) return selected;
-
-    const checkboxes = addonsPanel.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(chk => {
-        if (chk.checked) {
-            const labelEl = chk.closest('label').querySelector('.addon-label');
-            const label = labelEl ? labelEl.textContent.trim() : 'Unnamed Add-On';
-            
-            // Get prices from data attributes
-            const low = parseFloat(chk.getAttribute("data-addon-low") || 0);
-            const high = parseFloat(chk.getAttribute("data-addon-high") || 0);
-            const price = (low + high) / 2; // Use the average price for calculation/itemization
-
-            selected.push({
-                label: label,
-                price: price
-            });
-        }
-    });
-    return selected;
-}
-
-// 2. Function to update the global total for smart add-ons
-// This function updates window.extraAddonsValue and the display.
-function updateSmartAddonsTotal() {
-    const selectedAddons = getSelectedSmartAddons();
-    let newTotal = 0;
-    selectedAddons.forEach(addon => {
-        newTotal += addon.price;
-    });
-
-    // Update the global extraAddonsValue variable (Fix for total not changing)
-    window.extraAddonsValue = newTotal;
-
-    // Update the visual total displayed in the add-ons panel
-    const totalEl = document.getElementById("est-addons-total-val");
-    if (totalEl) {
-        // formatMoney should be an existing function in your file
-        totalEl.textContent = formatMoney(window.extraAddonsValue);
-    }
-}
-// ===================================
-// END NEW: SMART ADD-ONS LOGIC (FIX)
-// ===================================
-  
-  
   }
 
   function resetAdvanced(){
@@ -3102,3 +3046,4 @@ function injectEstimatorExtraStyles(){
   style.textContent = css;
   document.head.appendChild(style);
 }
+
