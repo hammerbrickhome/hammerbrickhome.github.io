@@ -1,12 +1,12 @@
-\/* ============================================================
+/* ============================================================
    HAMMER BRICK & HOME LLC
    Luxury Dark + Simple UI — v3 (Fixed Navigation)
    FIXED • CLEAN • SIMPLE NAVIGATION
 =============================================================== */
 
 :root{
-  --bg:#071426;
-  --bg-alt:#0d1a2e;
+  --bg:#071426; /* RESTORED: Core Dark Blue Background */
+  --bg-alt:#0d1a2e; /* RESTORED: Alternate Dark Blue Background */
   --ink:#ffffff;
   --muted:rgba(255,255,255,.78);
   --gold:#e7bf63; /* Kept for other elements like buttons/titles */
@@ -27,7 +27,7 @@ body{
   background:
     radial-gradient(1200px 800px at 80% -10%,rgba(231,191,99,.06),transparent),
     radial-gradient(900px 600px at -10% 40%,rgba(32,91,158,.18),transparent),
-    var(--bg);
+    var(--bg); /* Using the restored dark blue background variable */
   color:var(--ink);
   -webkit-font-smoothing:antialiased;
 }
@@ -165,7 +165,8 @@ body::before {
   min-width:190px;
   border-radius:12px;
   overflow:hidden;
-  top:calc(100% + 8px); /* Lowered it slightly */
+  /* FIX: Removed the vertical gap to prevent the dropdown from hiding on mouse movement */
+  top:100%; 
   left:0;
   z-index:9999;
   border:var(--border-soft);
@@ -229,11 +230,12 @@ body::before {
   /* Other mobile layout fixes */
   .hero{flex-direction:column;}
   
-  /* --- START MOBILE LAYOUT FIX --- */
+  /* --- START MOBILE LAYOUT FIX (Services above Credentials) --- */
   /* FIX: Override desktop grid to use a flexible column for reordering */
   .split {
     display: flex;
     flex-direction: column;
+    gap: 22px; /* Maintain spacing */
   }
   /* FIX: Put the Services Card (accent-card) FIRST (order: -1) */
   .split > .accent-card {
@@ -437,6 +439,14 @@ body::before {
   gap:22px;
   align-items:flex-start;
 }
+
+/* NEW FIX: Make the main content block span two rows. 
+ * This forces the second and third block to stack vertically in the second column.
+ */
+.split > div:first-child:not(.accent-card) {
+  grid-row: span 2;
+}
+
 
 .accent-card,
 .note-box{
@@ -1015,6 +1025,7 @@ body::before {
   box-shadow:
     0 0 18px rgba(212,175,55,0.95),
     inset 0 0 12px rgba(212,175,55,0.65);
+  text-shadow: 0 0 12px rgba(245,196,0,0.95);
 }
 
 
@@ -1509,8 +1520,9 @@ input.gallery-search-box,
   50%  { filter: brightness(150%); }
   100% { filter: brightness(85%); }
 }
+
 /* ============================================================
-   📱 MOBILE MENU + Z-INDEX FIX (Replace existing media query)
+   MOBILE MENU + Z-INDEX FIX (Replace existing media query)
 =============================================================== */
 
 /* Ensure Header Bar is always on top */
