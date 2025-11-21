@@ -1,0 +1,17 @@
+\<footer class="site-footer" style="text-align:center; padding:16px; background:#071426; color:#f5d89b; font-size:14px; line-height:1.5;">
+  <div>© <span id="yr"></span> Hammer Brick & Home LLC · NYC HIC #21311291</div>
+  <div>Staten Island · NYC · Licensed & Insured · EPA Lead-Safe Certified Firm · Serving NYC & NJ</div>
+</footer>
+
+<script>
+  // Auto-updates year in the footer
+  (function () {
+    const y = document.getElementById('yr');
+    if (y) {
+      y.textContent = new Date().getFullYear();
+    }
+  })();
+</script>
+
+
+
