@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Queens Home Improvement — Remodeling & Masonry | Hammer Brick & Home LLC</title>
+<meta name="description" content="Serving Queens homeowners with licensed remodeling, masonry, painting, pavers, and repairs. NYC Licensed & Insured (HIC #21311291). EPA Lead-Safe Certified Firm. Fast estimates." />
+
+<link rel="icon" href="/images/hero.PNG" />
+<link rel="preload" as="image" href="/images/hero.PNG" />
+<link rel="stylesheet" href="/style.css" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Queens Home Improvement — Remodeling & Masonry | Hammer Brick & Home LLC" />
+<meta property="og:description" content="Queens remodeling, masonry, painting, pavers, and exterior upgrades. Licensed & Insured. EPA Lead-Safe Certified Firm." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.hammerbrickhome.com/queens.html" />
+<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Queens Home Improvement — Hammer Brick & Home LLC" />
+<meta name="twitter:description" content="Professional remodeling & masonry for Queens homeowners." />
+<meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG" />
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Hammer Brick & Home LLC",
+  "url": "https://www.hammerbrickhome.com/",
+  "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "telephone": "+1-929-595-5300",
+  "priceRange": "$$",
+  "areaServed": ["Queens"],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Staten Island",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "NYC HIC",
+    "value": "21311291"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "EPA Lead-Safe Certified Firm"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="header-include"></div>
+
+<!-- Mobile sticky call -->
+<a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
+
+<main class="page">
+
+  <!-- HERO -->
+  <section class="hero hero-inner fade-up">
+    <div class="hero-content">
+      <h1>Queens — Remodeling & Masonry</h1>
+      <p>We work across Queens — from single-family homes to multi-family and mixed-use buildings. Clean, careful work with clear scheduling, protection, and communication.</p>
+
+      <ul class="trust-pills" role="list" style="margin-top:10px;">
+        <li>Licensed & Insured · NYC HIC #21311291</li>
+        <li>EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
+        <li>Line-item estimates · Transparent timelines</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section split fade-up">
+    <div>
+      <h2>Popular Services in Queens</h2>
+      <ul class="bullets">
+        <li><strong>Masonry & Concrete:</strong> sidewalks · pavers · stoops · retaining walls · pointing</li>
+        <li><strong>Remodeling & Carpentry:</strong> kitchens · baths · basements · decks · fences</li>
+        <li><strong>Painting & Finishes:</strong> interior & exterior paint · patching · stucco repair</li>
+        <li><strong>Exterior Care:</strong> soft-wash · gutter cleaning · seasonal maintenance</li>
+      </ul>
+    </div>
+
+    <div class="accent-card">
+      <h3>Why Queens Chooses Us</h3>
+      <ul class="bullets">
+        <li>Fast scheduling with clean daily prep</li>
+        <li>White-glove cleanup on every project</li>
+        <li>Respectful, background-checked crew</li>
+        <li>Permit guidance & building rules compliance</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section note-box fade-up">
+    <h2>Ready to Start?</h2>
+    <p>Text photos, call for a walkthrough, or send plans — we’ll reply quickly with a clear, professional proposal.</p>
+    <div class="cta-actions">
+      <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
+      <a class="btn ghost" href="/contact.html">Request a Quote</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- CTA & Footer Includes -->
+<div id="cta-include"></div>
+<div id="footer-include"></div>
+
+<!-- Chat Widget -->
+<div class="chat-bubble">
+  <button class="chat-toggle">💬 Chat</button>
+  <div class="chat-modal">
+    <div class="chat-title">Talk to Hammer Brick &amp; Home</div>
+    <a class="btn" target="_blank" href="https://wa.me/19295955300">WhatsApp</a>
+    <a class="btn ghost" href="sms:+19295955300">Text Message</a>
+    <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com">Email</a>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([
+    fetch("/header.html").then(r => r.text()),
+    fetch("/contact-cta.html").then(r => r.text()),
+    fetch("/footer.html").then(r => r.text())
+  ])
+  .then(([h, c, f]) => {
+    document.getElementById("header-include").innerHTML = h;
+    document.getElementById("cta-include").innerHTML = c;
+    document.getElementById("footer-include").innerHTML = f;
+
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+  })
+  .catch(console.error);
+});
+</script>
+
+</body>
+</html>
+
+
+
