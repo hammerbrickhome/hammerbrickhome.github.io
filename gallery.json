@@ -1,70 +1,66 @@
 {
   "homePairs": [
     {
-      "before": "Livingroom-after33.HEIC",
-      "after": "Livingroom-after33.HEIC",
+      "before": "Livingroom-after33.jpeg",
+      "after": "Livingroom-after33.jpeg",
       "label": "Living-room-full-remodel"
     },
     {
-      "before": "diningroom-full-gut-after.HEIC",
-      "after": "diningroom-full-gut-before.HEIC",
+      "before": "diningroom-full-gut-after.jpeg",
+      "after": "diningroom-full-gut-before.jpeg",
       "label": "Dinning-room-full-remodel"
     },
     {
-      "before": "diningroom-full-gut-after2.HEIC",
-      "after": "diningroom-full-gut-before2.HEIC",
+      "before": "diningroom-full-gut-after2.jpeg",
+      "after": "diningroom-full-gut-before2.jpeg",
       "label": "Diningroom Recessed light"
     },
     {
-      "before": "front-walk-way-wood-gut-after.HEIC",
-      "after": "front-walk-way-wood-gut-before.HEIC",
+      "before": "front-walk-way-wood-gut-after.jpeg",
+      "after": "front-walk-way-wood-gut-before.jpeg",
       "label": "Front Walkway Tiles"
     },
     {
-      "before": "front-walkway-after.HEIC",
-      "after": "front-walkway-before.HEIC",
+      "before": "front-walkway-after.jpeg",
+      "after": "front-walkway-before.jpeg",
       "label": "Full Front Remodel "
     },
     {
-      "before": "full-front-remodel-after.HEIC",
-      "after": "Full-front-remodel-before.HEIC",
+      "before": "full-front-remodel-after.jpeg",
+      "after": "Full-front-remodel-before.jpeg",
       "label": "Full front House Rebuild"
     },
     {
-      "before": "Full-gut-deck-after.HEIC",
-      "after": "Full-gut-deck-before.HEIC",
+      "before": "Full-gut-deck-after.jpeg",
+      "after": "Full-gut-deck-before.jpeg",
       "label": "Full Deck Rebuild"
     },
     {
-      "before": "full-gut-deck-remodel-after.HEIC",
-      "after": "full-gut-deck-remodel-before.HEIC",
+      "before": "full-gut-deck-remodel-after.jpeg",
+      "after": "full-gut-deck-remodel-before.jpeg",
       "label": "Full Deck Rebuild"
     },
     {
-      "before": "Full-gut-driveway-after.HEIC",
-      "after": "Full-gut-driveway-before.HEIC",
+      "before": "Full-gut-driveway-after.jpeg",
+      "after": "Full-gut-driveway-before.jpeg",
       "label": "Driveway Rebuld Process "
     },
     {
-      "before": "Full-stairs-remodel-after.HEIC",
-      "after": "Full-stairs-remodel-before.HEIC",
+      "before": "Full-stairs-remodel-after.jpeg",
+      "after": "Full-stairs-remodel-before.jpeg",
       "label": "Full Front House Rebuild"
     },
     {
-      "before": "Livingroom-fullgut-after1.HEIC",
-      "after": "Livingroom-fullgut-before1.HEIC",
+      "before": "Livingroom-fullgut-after1.jpeg",
+      "after": "Livingroom-fullgut-before1.jpeg",
       "label": "Full Dinning Room Rebuild"
     }
-
-
-
-
   ],
 
   "galleryPairs": [
     {
-      "before": "Livingroom-33.HEIC",
-      "after": "Livingroom-after33.HEIC",
+      "before": "Livingroom-33.jpeg",
+      "after": "Livingroom-after33.jpeg",
       "label": "Repair Project 1"
     },
     {
@@ -92,7 +88,7 @@
       "after": "after5.png",
       "label": "Entry Steps Rebuild"
     },
-    
+
     {
       "before": "stone2-before.png",
       "after": "stone2-after.png",
@@ -141,34 +137,20 @@
   ],
 
   "galleryGrid": [
-    "Livingroom-after33.HEIC",
-    "Full-stairs-remodel-after.HEIC",
-    "Livingroom-fullgut-after1.HEIC",
-    "Full-gut-driveway-after.HEIC",
-    "full-gut-deck-remodel-after.HEIC",
-    "full-front-remodel-after.HEIC",
-    "front-walkway-after.HEIC",
-    "front-walk-way-wood-gut-after.HEIC",
-    "diningroom-full-gut-after.HEIC",
-     "diningroom-full-gut-after2.HEIC",
-    "front-walk-way-wood-gut-after.HEIC",
-    "front-walkway-after.HEIC",
+    "Livingroom-after33.jpeg",
+    "Full-stairs-remodel-after.jpeg",
+    "Livingroom-fullgut-after1.jpeg",
+    "Full-gut-driveway-after.jpeg",
+    "full-gut-deck-remodel-after.jpeg",
+    "full-front-remodel-after.jpeg",
+    "front-walkway-after.jpeg",
+    "front-walk-way-wood-gut-after.jpeg",
+    "diningroom-full-gut-after.jpeg",
+    "diningroom-full-gut-after2.jpeg",
+    "front-walk-way-wood-gut-after.jpeg",
+    "front-walkway-after.jpeg",
     "after2.jpg",
     "hero.jpg",
     "qr-hammerbrick-membership.png"
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
