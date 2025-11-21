@@ -59,14 +59,14 @@
 
   "galleryPairs": [
     {
-      "before": "Livingroom-fullgut-after1.jpeg",
-      "after": "Livingroom-fullgut-before1.jpeg",
-      "label": "Repair Project 1"
+      "before": "Full-stairs-remodel-after",
+      "after": "Full-stairs-remodel-before.jpeg",
+      "label": "Full Front Home Remodel"
     },
     {
       "before": "Full-stairs-remodel-after.jpeg",
       "after": "Full-stairs-remodel-before.jpeg",
-      "label": "Repair Project 2"
+      "label": "Full Granite Stairs"
     },
     {
       "before": "stone2-before.png",
