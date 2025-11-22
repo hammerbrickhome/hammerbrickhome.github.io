@@ -1,21 +1,76 @@
-<header class="topbar" role="banner">
+
+
+
+
+
+<style>
+  /* Gold Glow */
+  .gold-glow {
+    border:1px solid rgba(231,191,99,0.55);
+    box-shadow:0 0 18px rgba(231,191,99,0.25), inset 0 0 8px rgba(231,191,99,0.15);
+    border-radius:18px;
+  }
+
+  /* Gold text glow */
+  .gold-text {
+    color:#e7bf63;
+    text-shadow:0 0 6px rgba(231,191,99,0.7);
+  }
+
+  /* Subtle gold hover */
+  .pkg-card:hover {
+    box-shadow:0 0 20px rgba(231,191,99,0.35);
+    transform:translateY(-3px);
+    transition:0.25s ease;
+  }
+
+  /* Button luxury gold */
+  .btn, .pill-btn {
+    position:relative;
+    overflow:hidden;
+  }
+  .btn::after, .pill-btn::after {
+    content:"";
+    position:absolute;
+    top:0; left:-120%;
+    width:120%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(231,191,99,0.35), transparent);
+    transform:skewX(-20deg);
+    transition:0.45s;
+  }
+  .btn:hover::after, .pill-btn:hover::after {
+    left:120%;
+  }
+
+  /* Mobile-friendly gold glow on hero badge */
+  .hero-badge img {
+    filter:drop-shadow(0 0 12px rgba(231,191,99,0.45));
+  }
+
+  /* Note box luxury border */
+  .note-box.lux {
+    border:1px solid rgba(231,191,99,0.55);
+    background:rgba(10,15,25,0.82);
+    box-shadow:0 0 18px rgba(231,191,99,0.25);
+    border-radius:18px;
+  }
+</style>
+
+<header class="topbar gold-glow" role="banner">
   <div class="topbar-inner">
 
-    <!-- Brand -->
     <a class="brand-lockup" href="/index.html">
       <img class="brand-logo" src="/images/hero.PNG" alt="Hammer Brick & Home LLC Logo">
       <div class="brand-text">
-        <div class="brand-name">Hammer Brick & Home LLC</div>
+        <div class="brand-name gold-text">Hammer Brick & Home LLC</div>
         <div class="brand-sub">
           Luxury Remodeling & Masonry · HIC #21311291 · Licensed & Insured · EPA Lead-Safe Certified Firm
         </div>
       </div>
     </a>
 
-    <!-- Mobile Menu Button -->
     <button class="nav-toggle" aria-label="Open menu">☰</button>
 
-    <!-- Navigation -->
     <nav class="main-nav" aria-label="Primary Navigation">
 
       <a href="/index.html">Home</a>
@@ -24,7 +79,6 @@
       <a href="/gallery.html">Gallery</a>
       <a href="/reviews.html">Reviews</a>
 
-      <!-- Pricing Dropdown -->
       <div class="dropdown">
         <a href="#" class="nav-link dropbtn">Pricing ▾</a>
         <div class="dropdown-content">
@@ -33,14 +87,12 @@
         </div>
       </div>
 
-      <!-- New Pages -->
       <a href="/monthly-specials">Monthly Specials</a>
       <a href="/downloads">Home Care Library</a>
 
       <a href="/membership.html">Perks & Rules</a>
       <a href="/faq.html">FAQ</a>
 
-      <!-- Service Areas Dropdown -->
       <div class="dropdown">
         <a href="#" class="nav-link dropbtn">Service Areas ▾</a>
         <div class="dropdown-content">
@@ -54,20 +106,10 @@
       </div>
 
       <a href="/contact.html">Contact</a>
-
-    </nav>
+      </nav>
 
   </div>
 </header>
-
-<!-- Sticky Call (Mobile Only) -->
-<a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
-
-
-
-
-
-
 
 
 
