@@ -494,4 +494,65 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+/* ============================================================
+   NEW GLOBAL STICKY BUTTON (Fully Independent)
+=============================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Avoid duplicates
+  if (!document.querySelector(".sticky-quick-btn")) {
+
+    // ⭐ Sticky Button
+    const stickyBtn = document.createElement("button");
+    stickyBtn.className = "sticky-quick-btn";
+    stickyBtn.innerHTML = "💬 Contact";
+    stickyBtn.style.zIndex = "99999"; // make sure on top
+    document.body.appendChild(stickyBtn);
+
+    // ⭐ New Panel (Independent)
+    const panel = document.createElement("div");
+    panel.id = "quick-contact-panel";
+    panel.className = "quick-contact-panel";
+    panel.style.display = "none";
+    panel.style.zIndex = "99998";
+
+    panel.innerHTML = `
+      <div class="quick-contact-inner" role="dialog">
+        <button class="quick-close" aria-label="Close">×</button>
+        <h2>Quick Contact</h2>
+        <ul>
+          <li><a href="tel:+19295955300">📞 Call Now</a></li>
+          <li><a href="sms:+19295955300">💬 Text Us</a></li>
+          <li><a href="mailto:hammerbrickhome@gmail.com">✉️ Email Us</a></li>
+          <li><a href="/project-estimator.html">🧮 Free Estimate</a></li>
+          <li><a href="/contact.html">📝 Contact Form</a></li>
+          <li><a href="sms:+19295955300">📷 Send Photos</a></li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(panel);
+
+    // ⭐ STOP event bubbling so home modal does NOT open
+    stickyBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      panel.style.display = "flex";
+    }, true);
+
+    // Close logic
+    panel.addEventListener("click", (e) => {
+      if (e.target === panel) panel.style.display = "none";
+    });
+
+    const closeBtn = panel.querySelector(".quick-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        panel.style.display = "none";
+      }, true);
+    }
+  }
+});
+
 
