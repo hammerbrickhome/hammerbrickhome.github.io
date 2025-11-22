@@ -23,7 +23,41 @@
 <meta name="twitter:description" content="Masonry, sidewalks, stoops, kitchens, baths, painting and remodeling for Bronx homes and multi-family buildings. Licensed & Insured.">
 <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Hammer Brick & Home LLC","url":"https://www.hammerbrickhome.com/","image":"https://www.hammerbrickhome.com/images/hero.PNG","description":"Licensed & insured NYC contractor providing Bronx masonry, concrete, sidewalks, pavers, stoops, kitchens, baths, painting, and remodeling.","telephone":"+1-929-595-5300","address":{"@type":"PostalAddress","addressLocality":"Staten Island","addressRegion":"NY","addressCountry":"US"},"areaServed":"Bronx","sameAs":["https://facebook.com/","https://instagram.com/","https://tiktok.com/"],"additionalProperty":[{"@type":"PropertyValue","name":"NYC HIC License","value":"21311291"},{"@type":"PropertyValue","name":"EPA Lead-Safe Certified Firm","value":"Yes"}]} </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Hammer Brick & Home LLC",
+  "url": "https://www.hammerbrickhome.com/",
+  "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "description": "Licensed & insured NYC contractor providing Bronx masonry, concrete, sidewalks, pavers, stoops, kitchens, baths, painting, and remodeling.",
+  "telephone": "+1-929-595-5300",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Staten Island",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  },
+  "areaServed": "Bronx",
+  "sameAs": [
+    "https://facebook.com/",
+    "https://instagram.com/",
+    "https://tiktok.com/"
+  ],
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "NYC HIC License",
+      "value": "21311291"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "EPA Lead-Safe Certified Firm",
+      "value": "Yes"
+    }
+  ]
+}
+</script>
 
 </head>
 <body>
@@ -74,12 +108,12 @@
     <h2>Get a Bronx Estimate Today</h2>
     <p>Fast, clear, and honest estimates for Bronx homeowners. We treat every home with respect and leave every job spotless.</p>
 
-    <!-- ⭐ UNIVERSAL CTA BUTTON (REPLACES STICKY CALL/CHAT BUTTON) -->
     <div class="hero-actions">
       <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
       <a class="btn ghost" href="/contact.html">Request Estimate</a>
     </div>
   </section>
+
 </main>
 
 <div id="footer-include"></div>
@@ -97,7 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const yr = document.getElementById("yr");
     if (yr) yr.textContent = new Date().getFullYear();
 
-    if (typeof initHeaderInteractions === "function") initHeaderInteractions();
+    if (typeof initHeaderInteractions === "function") {
+      initHeaderInteractions();
+    }
   })
   .catch(err => console.error("Include load error", err));
 });
@@ -107,6 +143,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
-
-
