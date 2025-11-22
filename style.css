@@ -1644,3 +1644,369 @@ input.gallery-search-box,
     font-size: 14px;
   }
 }
+/* ============================================================
+   HOMEPAGE — NEW SECTIONS (SPECIAL, PROCESS, REVIEWS, RESOURCE)
+   Hammer Brick & Home LLC
+=============================================================== */
+
+/* Masonry Tune-Up Special */
+.section-special {
+  padding: 22px 18px 24px;
+  border-radius: var(--radius-xl);
+  background: rgba(6, 12, 23, 0.96);
+  border: 1px solid rgba(231,191,99,0.35);
+  box-shadow: 0 0 22px rgba(212,175,55,0.25);
+}
+
+.section-special h2 {
+  text-align: left;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.section-special .lead {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.section-special .bullets {
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.section-special .fine-print {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.85;
+  margin-top: 8px;
+}
+
+.section-special .hero-actions {
+  margin-top: 16px;
+}
+
+/* Our Process */
+.section-process {
+  margin-top: 32px;
+  padding: 22px 18px 24px;
+  border-radius: var(--radius-xl);
+  background: rgba(5, 11, 22, 0.96);
+  border: 1px solid rgba(231,191,99,0.25);
+  box-shadow: 0 0 20px rgba(0,0,0,0.75);
+}
+
+.section-process h2 {
+  text-align: left;
+  margin-bottom: 14px;
+}
+
+.process-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+  gap: 14px 20px;
+}
+
+.process-steps li {
+  padding: 12px 12px 14px;
+  border-radius: 14px;
+  background: rgba(9,16,30,0.96);
+  border: 1px solid rgba(231,191,99,0.18);
+  box-shadow: 0 0 12px rgba(0,0,0,0.85);
+}
+
+.process-steps h3 {
+  font-size: 14px;
+  color: var(--gold-soft);
+  margin-bottom: 4px;
+}
+
+.process-steps p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Review Highlight Strip */
+.section-reviews-highlight {
+  margin-top: 38px;
+  padding: 18px 20px;
+  border-radius: var(--radius-xl);
+  background: radial-gradient(circle at top, rgba(212,175,55,0.12), transparent 60%),
+              rgba(5, 11, 22, 0.96);
+  border: 1px solid rgba(231,191,99,0.3);
+  box-shadow: 0 0 18px rgba(212,175,55,0.3);
+  text-align: center;
+}
+
+.review-score {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: var(--gold-soft);
+}
+
+.review-quote {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.review-note {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.85;
+}
+
+/* Free Resource / Checklist */
+.section-resource {
+  margin-top: 32px;
+  padding: 22px 18px 24px;
+  border-radius: var(--radius-xl);
+  background: rgba(6, 12, 23, 0.96);
+  border: 1px solid rgba(231,191,99,0.25);
+  box-shadow: 0 0 18px rgba(212,175,55,0.22);
+}
+
+.section-resource h2 {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.section-resource p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.section-resource .bullets {
+  font-size: 13px;
+}
+
+.section-resource .btn {
+  margin-top: 12px;
+}
+
+.section-resource .fine-print {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.85;
+}
+
+/* CTA Band */
+.cta-band {
+  margin-top: 40px;
+  padding: 22px 18px 24px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, rgba(7,14,26,0.96), rgba(9,18,34,0.96));
+  border: 1px solid rgba(231,191,99,0.28);
+  box-shadow: 0 0 24px rgba(0,0,0,0.85);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+}
+
+.cta-text {
+  flex: 1 1 260px;
+}
+
+.cta-text h2 {
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.cta-text p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Small screens */
+@media (max-width: 720px) {
+  .section-special,
+  .section-process,
+  .section-reviews-highlight,
+  .section-resource,
+  .cta-band {
+    padding: 18px 14px 20px;
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-band {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cta-actions {
+    width: 100%;
+  }
+}
+
+/* Generic fine-print utility (if needed globally) */
+.fine-print {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.85;
+}
+
+/* ============================================================
+   CONTACT OPTIONS PANEL (Slide-Up Modal)
+   Matches dark + gold luxury theme
+=============================================================== */
+
+.contact-panel {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.78);
+  display: none; /* toggled via JS inline in index.html */
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.contact-panel-inner {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 12px 18px;
+  padding: 18px 18px 20px;
+  border-radius: 18px;
+  background: radial-gradient(circle at top, rgba(212,175,55,0.16), transparent 70%),
+              rgba(6, 12, 23, 0.98);
+  border: 1px solid rgba(231,191,99,0.55);
+  box-shadow:
+    0 0 22px rgba(212,175,55,0.45),
+    0 22px 40px rgba(0,0,0,0.95);
+  transform: translateY(40px);
+  opacity: 0;
+  animation: contactPanelIn .3s ease-out forwards;
+}
+
+/* Panel Title + Text */
+.contact-panel-inner h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  margin-bottom: 4px;
+  color: var(--gold-soft);
+  text-align: left;
+}
+
+.contact-panel-inner .muted {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* Close button (X) */
+.contact-panel-close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: var(--gold-soft);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: 0.25s ease;
+}
+
+.contact-panel-close:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Contact actions list */
+.contact-panel-actions {
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.contact-panel-actions li a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--gold-soft);
+  border: 1px solid rgba(231,191,99,0.75);
+  background: rgba(10,20,35,0.95);
+  text-shadow: 0 0 6px rgba(212,175,55,0.55);
+  box-shadow:
+    0 0 12px rgba(212,175,55,0.25),
+    inset 0 0 8px rgba(212,175,55,0.15);
+  letter-spacing: 0.3px;
+  font-weight: 800;
+  transition: 0.25s ease-out;
+}
+
+/* Hover: brighter gold */
+.contact-panel-actions li a:hover {
+  color: #fff;
+  border-color: var(--gold);
+  background: rgba(15,30,50,0.98);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 20px rgba(245,196,0,0.95),
+    inset 0 0 14px rgba(245,196,0,0.65);
+}
+
+/* Service Area links inside panel */
+.contact-panel-service-links {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.contact-panel-service-links a {
+  color: var(--gold-soft);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-panel-service-links a:hover {
+  text-decoration: underline;
+}
+
+/* Disabled item (Leave a Review coming soon) */
+.contact-panel-disabled {
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.8;
+  padding: 4px 2px 2px;
+}
+
+/* Mobile / small screens: panel more full-screen */
+@media (max-width: 600px) {
+  .contact-panel-inner {
+    margin: 0 8px 16px;
+    border-radius: 18px 18px 0 0;
+  }
+}
+
+/* Slide-Up Animation */
+@keyframes contactPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
