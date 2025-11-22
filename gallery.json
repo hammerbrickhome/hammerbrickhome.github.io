@@ -1,0 +1,156 @@
+{
+  "homePairs": [
+    {
+      "before": "Livingroom-before33.jpeg",
+      "after": "Livingroom-after33.jpeg",
+      "label": "Living-room-full-remodel"
+    },
+    {
+      "before": "diningroom-full-gut-before.jpeg",
+      "after": "diningroom-full-gut-after.jpeg",
+      "label": "Dinning-room-full-remodel"
+    },
+    {
+      "before": "diningroom-full-gut-before2.jpeg",
+      "after": "diningroom-full-gut-after2.jpeg",
+      "label": "Diningroom Recessed light"
+    },
+    {
+      "before": "front-walk-way-wood-gut-before.jpeg",
+      "after": "front-walk-way-wood-gut-after.jpeg",
+      "label": "Front Walkway Tiles"
+    },
+    {
+      "before": "front-walkway-before.jpeg",
+      "after": "front-walkway-after.jpeg",
+      "label": "Full Front Remodel "
+    },
+    {
+      "before": "Full-front-remodel-before.jpeg",
+      "after": "full-front-remodel-after.jpeg",
+      "label": "Full front House Rebuild"
+    },
+    {
+      "before": "Full-gut-deck-before.jpeg",
+      "after": "Full-gut-deck-after.jpeg",
+      "label": "Full Deck Rebuild"
+    },
+    {
+      "before": "Full-gut-deck-before-1.jpeg",
+      "after": "Full-gut-deck-after-1.jpeg",
+      "label": "Full Deck Rebuild"
+    },
+    {
+      "before": "Full-gut-driveway-before.jpeg",
+      "after": "Full-gut-driveway-after.jpeg",
+      "label": "Driveway Rebuild Process "
+    },
+    {
+      "before": "Full-stairs-remodel-before.jpeg",
+      "after": "Full-stairs-remodel-after.jpeg",
+      "label": "Full Front House Rebuild"
+    },
+    {
+      "before": "diningroom-full-gut-before2.jpeg",
+      "after": "diningroom-full-gut-after2.jpeg",
+      "label": "Full Dinning Room Rebuild"
+    }
+  ],
+
+  "galleryPairs": [
+    {
+      "before": "Full-stairs-remodel-before.jpeg",
+      "after": "Full-stairs-remodel-after.jpeg",
+      "label": "Full Front Home Remodel"
+    },
+    {
+      "before": "Full-stairs-remodel-before.jpeg",
+      "after": "Full-stairs-remodel-after.jpeg",
+      "label": "Full Granite Stairs"
+    },
+    {
+      "before": "stone2-after.png",
+      "after": "stone2-before.png",
+      "label": "Stone Project 2"
+    },
+    {
+      "before": "stone3-after.png",
+      "after": "stone3-before.png",
+      "label": "Stone Project 3"
+    },
+    {
+      "before": "job_after.jpg",
+      "after": "job_before.jpg",
+      "label": "Full Job"
+    },
+    {
+      "before": "after5.png",
+      "after": "before5.png",
+      "label": "Entry Steps Rebuild"
+    },
+
+    {
+      "before": "stone2-after.png",
+      "after": "stone2-before.png",
+      "label": "Stone Project 2"
+    },
+    {
+      "before": "stone3-after.png",
+      "after": "stone3-before.png",
+      "label": "Stone Project 3"
+    },
+    {
+      "before": "job_after.jpg",
+      "after": "job_before.jpg",
+      "label": "Full Job"
+    },
+    {
+      "before": "after5.png",
+      "after": "before5.png",
+      "label": "Entry Steps Rebuild"
+    },
+    {
+      "before": "stone2-after.png",
+      "after": "stone2-before.png",
+      "label": "Stone Project 2"
+    },
+    {
+      "before": "stone3-after.png",
+      "after": "stone3-before.png",
+      "label": "Stone Project 3"
+    },
+    {
+      "before": "job_after.jpg",
+      "after": "job_before.jpg",
+      "label": "Full Job"
+    },
+    {
+      "before": "after5.png",
+      "after": "before5.png",
+      "label": "Entry Steps Rebuild"
+    },
+    {
+      "before": "after6.png",
+      "after": "before6.png",
+      "label": "Sidewalk Refresh"
+    }
+  ],
+
+  "galleryGrid": [
+    "Livingroom-after33.jpeg",
+    "Full-stairs-remodel-after.jpeg",
+    "Livingroom-fullgut-after1.jpeg",
+    "Full-gut-driveway-after.jpeg",
+    "full-gut-deck-remodel-after.jpeg",
+    "full-front-remodel-after.jpeg",
+    "front-walkway-after.jpeg",
+    "front-walk-way-wood-gut-after.jpeg",
+    "diningroom-full-gut-after.jpeg",
+    "diningroom-full-gut-after2.jpeg",
+    "front-walk-way-wood-gut-after.jpeg",
+    "front-walkway-after.jpeg",
+    "after2.jpg",
+    "hero.jpg",
+    "qr-hammerbrick-membership.png"
+  ]
+}
