@@ -13,117 +13,198 @@
 </head>
 <body>
 
-  <!-- Shared Header -->
-  <div id="header-include"></div>
+<!-- ======================================================
+     HEADER (FULL STATIC VERSION)
+====================================================== -->
+<header class="topbar" role="banner">
+  <div class="topbar-inner">
 
-  <main class="page" id="main">
-
-    <!-- HERO -->
-    <section class="hero hero-home fade-up">
-      <div class="hero-content">
-        <h1>Home Care Library</h1>
-        <p>Free downloadable checklists, prep guides, and homeowner resources created by Hammer Brick & Home LLC.  
-        Designed to help NYC homeowners stay prepared with clear, simple, step-by-step tools.</p>
-
-        <ul class="trust-pills" role="list">
-          <li class="gold-pill">NYC Licensed &amp; Insured · HIC #21311291</li>
-          <li class="gold-pill">EPA Lead-Safe Certified Firm</li>
-          <li class="gold-pill">Staten Island • Brooklyn • Queens • Manhattan • Bronx</li>
-        </ul>
-      </div>
-
-      <div class="hero-badge">
-        <img src="/images/hero.PNG" alt="Hammer Brick & Home hero badge">
-      </div>
-    </section>
-
-    <!-- INTRO SECTION -->
-    <section class="section fade-up">
-      <div class="note-box">
-        <h2>Free Homeowner Guides & Checklists</h2>
-        <p class="muted">
-          These PDFs are created for customers and homeowners. They include real preparation steps,
-          safety notes, and professional insights from Hammer Brick & Home LLC.
-          You may download, print, or share them anytime.
-        </p>
-      </div>
-    </section>
-
-    <!-- DOWNLOAD GRID -->
-    <section class="section fade-up">
-      <div class="card-grid">
-
-        <!-- 1 -->
-        <article class="pkg-card">
-          <h3>Home Improvement Pre-Checklist</h3>
-          <p class="muted">A full step-by-step list of what to prepare before any home improvement project begins.</p>
-          <a class="btn" href="/downloads/home-improvement-pre-checklist.pdf" download>📥 Download PDF</a>
-        </article>
-
-        <!-- 2 -->
-        <article class="pkg-card">
-          <h3>Before We Start — Prep Your Home Checklist</h3>
-          <p class="muted">Room-by-room prep guide to help projects go smoother and cleaner.</p>
-          <a class="btn" href="/downloads/before-we-start-prep-your-home.pdf" download>📥 Download PDF</a>
-        </article>
-
-        <!-- 3 -->
-        <article class="pkg-card">
-          <h3>Winter Home Maintenance Checklist</h3>
-          <p class="muted">Cold-weather preparation checklist for NYC homes.</p>
-          <a class="btn" href="/downloads/winter-home-maintenance-checklist.pdf" download>📥 Download PDF</a>
-        </article>
-
-        <!-- 4 -->
-        <article class="pkg-card">
-          <h3>Masonry & Concrete Care Guide</h3>
-          <p class="muted">How to protect pavers, concrete, brick, and steps year-round.</p>
-          <a class="btn" href="/downloads/masonry-and-concrete-care-guide.pdf" download>📥 Download PDF</a>
-        </article>
-
-        <!-- 5 -->
-        <article class="pkg-card">
-          <h3>Kitchen Remodeling — What to Know First</h3>
-          <p class="muted">Detailed planning guide before starting a kitchen remodel.</p>
-          <a class="btn" href="/downloads/kitchen-remodel-what-to-know.pdf" download>📥 Download PDF</a>
-        </article>
-
-        <!-- 6 -->
-        <article class="pkg-card">
-          <h3>Lead-Safe Renovation Guide (Pre-1978 Homes)</h3>
-          <p class="muted">EPA-style safety guide for NYC homes built before 1978.</p>
-          <a class="btn" href="/downloads/lead-safe-renovation-guide-pre-1978.pdf" download>📥 Download PDF</a>
-        </article>
-
-        <!-- 7 -->
-        <article class="pkg-card">
-          <h3>Membership Welcome Packet</h3>
-          <p class="muted">Benefits, rules, and perks for VIP & membership clients.</p>
-          <a class="btn" href="/downloads/membership-welcome-packet.pdf" download>📥 Download PDF</a>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section fade-up">
-      <div class="contact-box">
-        <h3>Need a Custom Checklist for Your Project?</h3>
-        <p>We can generate custom preparation guides based on your scope.</p>
-
-        <div class="contact-pills">
-          <a class="pill-btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
-          <a class="pill-btn" href="/contact.html">📝 Contact Form</a>
-          <a class="pill-btn" href="/project-estimator.html">🧮 Fast Estimate</a>
+    <a class="brand-lockup" href="/index.html">
+      <img class="brand-logo" src="/images/hero.PNG" alt="Hammer Brick & Home LLC Logo">
+      <div class="brand-text">
+        <div class="brand-name">Hammer Brick & Home LLC</div>
+        <div class="brand-sub">
+          Luxury Remodeling & Masonry · HIC #21311291 · Licensed & Insured · EPA Lead-Safe Certified Firm
         </div>
       </div>
-    </section>
+    </a>
 
-  </main>
+    <button class="nav-toggle" aria-label="Open menu">☰</button>
 
-  <!-- Shared Footer -->
-  <div id="footer-include"></div>
+    <nav class="main-nav" aria-label="Primary Navigation">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/services.html">Services</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/reviews.html">Reviews</a>
 
-  <script src="/script.js"></script>
+      <div class="dropdown">
+        <a href="#" class="nav-link dropbtn">Pricing ▾</a>
+        <div class="dropdown-content">
+          <a href="/pricing.html">Pricing & Packages</a>
+          <a href="/project-estimator.html">Project Estimator</a>
+        </div>
+      </div>
+
+      <a href="/membership.html">Perks & Rules</a>
+      <a href="/faq.html">FAQ</a>
+
+      <div class="dropdown">
+        <a href="#" class="nav-link dropbtn">Service Areas ▾</a>
+        <div class="dropdown-content">
+          <a href="/staten-island.html">Staten Island</a>
+          <a href="/brooklyn.html">Brooklyn</a>
+          <a href="/manhattan.html">Manhattan</a>
+          <a href="/queens.html">Queens</a>
+          <a href="/bronx.html">Bronx</a>
+          <a href="/new-jersey.html">New Jersey</a>
+        </div>
+      </div>
+
+      <a href="/contact.html">Contact</a>
+
+      <a class="nav-call" href="tel:+19295955300">📞 929-595-5300</a>
+    </nav>
+
+  </div>
+</header>
+
+<a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
+
+<!-- ======================================================
+     PAGE CONTENT
+====================================================== -->
+
+<main class="page" id="main">
+
+  <!-- HERO -->
+  <section class="hero hero-home fade-up">
+    <div class="hero-content">
+      <h1>Home Care Library</h1>
+      <p>
+        Free downloadable checklists, prep guides, and homeowner resources created by Hammer Brick & Home LLC.  
+        Designed to help NYC homeowners stay prepared with clear, step-by-step tools.
+      </p>
+
+      <ul class="trust-pills">
+        <li class="gold-pill">NYC Licensed &amp; Insured · HIC #21311291</li>
+        <li class="gold-pill">EPA Lead-Safe Certified Firm</li>
+        <li class="gold-pill">Staten Island • Brooklyn • Queens • Manhattan • Bronx</li>
+      </ul>
+    </div>
+
+    <div class="hero-badge">
+      <img src="/images/hero.PNG" alt="Hammer Brick & Home hero badge">
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section fade-up">
+    <div class="note-box">
+      <h2>Free Homeowner Guides & Checklists</h2>
+      <p class="muted">
+        These PDFs are created for customers and homeowners. They include real preparation steps,
+        safety notes, and professional insights from Hammer Brick & Home LLC.  
+        You may download, print, or share them anytime.
+      </p>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD GRID -->
+  <section class="section fade-up">
+    <div class="card-grid">
+
+      <article class="pkg-card">
+        <h3>Home Improvement Pre-Checklist</h3>
+        <p class="muted">Step-by-step preparation before any home improvement project.</p>
+        <a class="btn" href="/pdfs/home-improvement-pre-checklist.pdf" download>📥 Download PDF</a>
+      </article>
+
+      <article class="pkg-card">
+        <h3>Before We Start — Prep Your Home</h3>
+        <p class="muted">Prep guide to help projects go smoother and cleaner.</p>
+        <a class="btn" href="/pdfs/before-we-start-prep-your-home.pdf" download>📥 Download PDF</a>
+      </article>
+
+      <article class="pkg-card">
+        <h3>Winter Home Maintenance Checklist</h3>
+        <p class="muted">Cold-weather preparation checklist for NYC homes.</p>
+        <a class="btn" href="/pdfs/winter-home-maintenance-checklist.pdf" download>📥 Download PDF</a>
+      </article>
+
+      <article class="pkg-card">
+        <h3>Masonry & Concrete Care Guide</h3>
+        <p class="muted">Protect pavers, concrete, brick, and steps year-round.</p>
+        <a class="btn" href="/pdfs/masonry-and-concrete-care-guide.pdf" download>📥 Download PDF</a>
+      </article>
+
+      <article class="pkg-card">
+        <h3>Kitchen Remodeling — What to Know First</h3>
+        <p class="muted">Detailed planning guide before remodeling a kitchen.</p>
+        <a class="btn" href="/pdfs/kitchen-remodel-what-to-know.pdf" download>📥 Download PDF</a>
+      </article>
+
+      <article class="pkg-card">
+        <h3>Lead-Safe Renovation Guide (Pre-1978)</h3>
+        <p class="muted">EPA-style safety guide for older NYC homes.</p>
+        <a class="btn" href="/pdfs/lead-safe-renovation-guide-pre-1978.pdf" download>📥 Download PDF</a>
+      </article>
+
+      <article class="pkg-card">
+        <h3>Membership Welcome Packet</h3>
+        <p class="muted">Benefits and perks for VIP & membership clients.</p>
+        <a class="btn" href="/pdfs/membership-welcome-packet.pdf" download>📥 Download PDF</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="section fade-up">
+    <div class="note-box" style="border:1px solid rgba(231,191,99,0.45); padding:18px 20px; background:rgba(10,20,35,0.75); border-radius:16px; box-shadow:0 0 14px rgba(212,175,55,0.25);">
+
+      <h3 style="color:#f5d89b; margin-bottom:8px; font-size:18px; font-weight:800;">
+        Disclaimer
+      </h3>
+
+      <p class="muted" style="font-size:13px; line-height:1.55;">
+        The checklists and guides provided are general resources and not a substitute for
+        professional evaluation, building code requirements, or job-specific instructions.
+        Conditions vary by home, age, structure, and materials.
+      </p>
+
+      <p class="muted" style="font-size:13px; line-height:1.55; margin-top:10px;">
+        Hammer Brick & Home LLC is not liable for any damage or issues arising from the use
+        or misuse of these documents. Always follow NYC/NYS regulations, manufacturer instructions,
+        and EPA Lead-Safe rules.
+      </p>
+
+      <p class="muted" style="font-size:13px; margin-top:10px; opacity:0.8;">
+        © <span id="yr2"></span> Hammer Brick & Home LLC — All rights reserved.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer class="site-footer" style="text-align:center; padding:16px; background:#071426; color:#f5d89b; font-size:14px; line-height:1.5;">
+  <div>© <span id="yr"></span> Hammer Brick & Home LLC · NYC HIC #21311291</div>
+  <div>Staten Island · NYC · Licensed & Insured · EPA Lead-Safe Certified Firm · Serving NYC & (NJ Coming Soon)</div>
+</footer>
+
+<script>
+  const y = document.getElementById('yr');
+  if (y) y.textContent = new Date().getFullYear();
+
+  const y2 = document.getElementById('yr2');
+  if (y2) y2.textContent = new Date().getFullYear();
+</script>
+
+<script src="/script.js"></script>
+
 </body>
 </html>
+
