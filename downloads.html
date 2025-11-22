@@ -1,232 +1,215 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Home Care Library | Hammer Brick & Home LLC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Home Care Library | Hammer Brick & Home LLC</title>
 
-  <meta name="description"
-    content="Download checklists, guides, and homeowner resources created by Hammer Brick & Home LLC. Free PDFs for maintenance, remodeling prep, safety, and masonry care.">
+  <meta name="description"
+        content="Download checklists, guides, and homeowner resources created by Hammer Brick & Home LLC. Free PDFs for maintenance, remodeling prep, safety, and masonry care.">
 
-  <link rel="icon" href="/images/hero.PNG">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/images/hero.PNG">
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    /* ====== PAGE CONTAINER FIX ====== */
+    main.page {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ====== HERO FIX ====== */
+    .hero.hero-home {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 45px 30px;
+      background: rgba(10,15,25,0.85);
+      border-radius: 22px;
+      box-shadow: 0 0 22px rgba(231,191,99,0.25);
+      border: 1px solid rgba(231,191,99,0.45);
+    }
+
+    .hero-content h1 {
+      color: #e7bf63;
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px rgba(231,191,99,0.6);
+    }
+
+    .hero-content p {
+      color: #ffffff;
+      font-size: 17px;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .hero-badge img {
+      width: 160px;
+      filter: drop-shadow(0 0 14px rgba(231,191,99,0.55));
+      border-radius: 14px;
+    }
+
+    /* ====== CARD GRID FIX ====== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .pkg-card {
+      background: rgba(10,20,35,0.75);
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid rgba(231,191,99,0.45);
+      box-shadow: 0 0 16px rgba(231,191,99,0.20);
+      transition: 0.25s ease;
+    }
+
+    .pkg-card h3 {
+      color: #e7bf63;
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .pkg-card p {
+      color: #dcdcdc;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .pkg-card .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: #e7bf63;
+      color: #071426;
+      font-weight: 700;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    .pkg-card:hover {
+      box-shadow: 0 0 25px rgba(231,191,99,0.35);
+      transform: translateY(-4px);
+    }
+
+    /* ====== NOTE BOX FIX ====== */
+    .note-box {
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(10,20,35,0.82);
+      border: 1px solid rgba(231,191,99,0.45);
+      box-shadow: 0 0 14px rgba(231,191,99,0.25);
+    }
+
+    .note-box h2 {
+      color: #e7bf63;
+      margin-bottom: 10px;
+    }
+
+    .note-box p {
+      color: #dcdcdc;
+      font-size: 15px;
+    }
+
+    /* ====== CONTACT BOX FIX ====== */
+    .contact-box {
+      background: rgba(10,20,35,0.82);
+      border-radius: 18px;
+      padding: 22px;
+      border:1px solid rgba(231,191,99,0.45);
+      box-shadow:0 0 18px rgba(231,191,99,0.20);
+    }
+
+    .contact-box h3 {
+      color:#e7bf63;
+      font-size:22px;
+      margin-bottom:6px;
+    }
+
+    .contact-pills {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .pill-btn {
+      padding:10px 18px;
+      background:#e7bf63;
+      color:#071426;
+      font-weight:800;
+      border-radius:12px;
+      text-decoration:none;
+      display:inline-block;
+    }
+
+    /* ====== RESPONSIVE FIX ====== */
+    @media(max-width:850px){
+      .hero.hero-home {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-badge img {
+        margin-top: 20px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
+<!-- YOUR HEADER REMAINS THE SAME -->
 <header class="topbar" role="banner">
-  <div class="topbar-inner">
+  <div class="topbar-inner">
+    <a class="brand-lockup" href="/index.html">
+      <img class="brand-logo" src="/images/hero.PNG">
+      <div class="brand-text">
+        <div class="brand-name">Hammer Brick & Home LLC</div>
+        <div class="brand-sub">Luxury Remodeling & Masonry · HIC #21311291 · Licensed & Insured</div>
+      </div>
+    </a>
 
-    <a class="brand-lockup" href="/index.html">
-      <img class="brand-logo" src="/images/hero.PNG" alt="Hammer Brick & Home LLC Logo">
-      <div class="brand-text">
-        <div class="brand-name">Hammer Brick & Home LLC</div>
-        <div class="brand-sub">
-          Luxury Remodeling & Masonry · HIC #21311291 · Licensed & Insured · EPA Lead-Safe Certified Firm
-        </div>
-      </div>
-    </a>
+    <button class="nav-toggle" aria-label="Open menu">☰</button>
 
-    <button class="nav-toggle" aria-label="Open menu">☰</button>
-
-    <nav class="main-nav" aria-label="Primary Navigation">
-      <a href="/index.html">Home</a>
-      <a href="/about.html">About</a>
-      <a href="/services.html">Services</a>
-      <a href="/gallery.html">Gallery</a>
-      <a href="/reviews.html">Reviews</a>
-
-      <div class="dropdown">
-        <a href="#" class="nav-link dropbtn">Pricing ▾</a>
-        <div class="dropdown-content">
-          <a href="/pricing.html">Pricing & Packages</a>
-          <a href="/project-estimator.html">Project Estimator</a>
-        </div>
-      </div>
-        
-            <a href="/monthly-specials.html">Monthly Specials</a>
-      <a href="/downloads.html">Home Care Library</a>
-
-      <a href="/membership.html">Perks & Rules</a>
-      <a href="/faq.html">FAQ</a>
-
-      <div class="dropdown">
-        <a href="#" class="nav-link dropbtn">Service Areas ▾</a>
-        <div class="dropdown-content">
-          <a href="/staten-island.html">Staten Island</a>
-          <a href="/brooklyn.html">Brooklyn</a>
-          <a href="/manhattan.html">Manhattan</a>
-          <a href="/queens.html">Queens</a>
-          <a href="/bronx.html">Bronx</a>
-          <a href="/new-jersey.html">New Jersey</a>
-        </div>
-      </div>
-
-      <a href="/contact.html">Contact</a>
-      <a class="nav-call" href="tel:+19295955300">📞 929-595-5300</a>
-    </nav>
-
-  </div>
+    <nav class="main-nav">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/services.html">Services</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/reviews.html">Reviews</a>
+      <div class="dropdown"><a href="#">Pricing ▾</a>
+        <div class="dropdown-content">
+          <a href="/pricing.html">Pricing & Packages</a>
+          <a href="/project-estimator.html">Project Estimator</a>
+        </div>
+      </div>
+      <a href="/monthly-specials.html">Monthly Specials</a>
+      <a href="/downloads.html">Home Care Library</a>
+      <a href="/membership.html">Perks & Rules</a>
+      <a href="/faq.html">FAQ</a>
+      <div class="dropdown"><a href="#">Service Areas ▾</a>
+        <div class="dropdown-content">
+          <a href="/staten-island.html">Staten Island</a>
+          <a href="/brooklyn.html">Brooklyn</a>
+          <a href="/manhattan.html">Manhattan</a>
+          <a href="/queens.html">Queens</a>
+          <a href="/bronx.html">Bronx</a>
+          <a href="/new-jersey.html">New Jersey</a>
+        </div>
+      </div>
+      <a class="nav-call" href="tel:+19295955300">📞 929-595-5300</a>
+    </nav>
+  </div>
 </header>
 
 <a class="sticky-call" href="tel:+19295955300">📞 Call 929-595-5300</a>
 
+<!-- PAGE CONTENT -->
+<main class="page">
 
-<main class="page" id="main">
-
-    <section class="hero hero-home fade-up">
-    <div class="hero-content">
-      <h1>Home Care Library</h1>
-      <p>
-        Free downloadable checklists, prep guides, and homeowner resources created by Hammer Brick & Home LLC.  
-        Designed to help NYC homeowners stay prepared with clear, step-by-step tools.
-      </p>
-
-      <ul class="trust-pills">
-        <li class="gold-pill">NYC Licensed & Insured · HIC #21311291</li>
-        <li class="gold-pill">EPA Lead-Safe Certified Firm</li>
-        <li class="gold-pill">Staten Island • Brooklyn • Queens • Manhattan • Bronx</li>
-      </ul>
-      
-    </div>
-
-    <div class="hero-badge">
-      <img src="/images/hero.PNG" alt="Hammer Brick & Home hero badge">
-    </div>
-  </section>
-
-    <section class="section fade-up">
-    <div class="note-box">
-      <h2>Free Homeowner Guides & Checklists </h2>
-      <p class="muted">
-        These PDFs include practical preparation steps, safety notes, maintenance reminders, 
-        and professional insights from Hammer Brick & Home LLC.  
-        You may download, print, or share them anytime.
-      </p>
-    </div>
-  </section>
-
-    <section class="section fade-up">
-    <div class="card-grid">
-
-      <article class="pkg-card">
-        <h3>Home Improvement Pre-Checklist</h3>
-        <p class="muted">Prep steps before any home improvement project.</p>
-        <a class="btn" href="/pdfs/home-improvement-pre-checklist.pdf" download>📥 Download PDF</a>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Before We Start — Prep Your Home</h3>
-        <p class="muted">Room-by-room prep list for cleaner, smoother projects.</p>
-        <a class="btn" href="/pdfs/before-we-start-prep-your-home.pdf" download>📥 Download PDF</a>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Winter Home Maintenance Checklist</h3>
-        <p class="muted">NYC cold-weather maintenance guide.</p>
-        <a class="btn" href="/pdfs/winter-home-maintenance-checklist.pdf" download>📥 Download PDF</a>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Masonry & Concrete Care Guide</h3>
-        <p class="muted">Protect pavers, brick, and concrete year-round.</p>
-        <a class="btn" href="/pdfs/masonry-and-concrete-care-guide.pdf" download>📥 Download PDF</a>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Kitchen Remodeling — What to Know First</h3>
-        <p class="muted">What to prepare before any kitchen remodel.</p>
-        <a class="btn" href="/pdfs/kitchen-remodel-what-to-know.pdf" download>📥 Download PDF</a>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Lead-Safe Renovation Guide (Pre-1978)</h3>
-        <p class="muted">EPA-style guide for older NYC homes.</p>
-        <a class="btn" href="/pdfs/lead-safe-renovation-guide-pre-1978.pdf" download>📥 Download PDF</a>
-      </article>
-
-      <article class="pkg-card">
-        <h3>Membership Welcome Packet</h3>
-        <p class="muted">Perks, rules & VIP benefits.</p>
-        <a class="btn" href="/pdfs/membership-welcome-packet.pdf" download>📥 Download PDF</a>
-      </article>
-
-    </div>
-  </section>
-
-    <section class="section fade-up">
-    <div class="contact-box">
-      <h3>Need a Custom Checklist for Your Project?</h3>
-      <p>
-        We can generate custom preparation sheets for your specific masonry or remodeling project.
-      </p>
-
-      <div class="contact-pills">
-        <a class="pill-btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
-        <a class="pill-btn" href="/contact.html">📝 Contact Form</a>
-        <a class="pill-btn" href="/project-estimator.html">🧮 Fast Estimate</a>
-      </div>
-    </div>
-  </section>
-
-    <section class="section fade-up">
-    <div class="note-box" style="
-      border:1px solid rgba(231,191,99,0.45);
-      padding:18px 20px;
-      background:rgba(10,20,35,0.75);
-      border-radius:16px;
-      box-shadow:0 0 14px rgba(212,175,55,0.25);
-    ">
-
-      <h3 style="color:#f5d89b; margin-bottom:8px; font-size:18px; font-weight:800;">
-        Important Legal Disclaimer & Limitation of Liability
-      </h3>
-
-      <p class="muted" style="font-size:13px; line-height:1.55;">
-        The checklists and guides provided are for general educational and informational purposes only.
-        They do <strong>not</strong> constitute professional engineering, architectural, legal, or 
-        structural advice. Every home and building system is unique; general guidelines cannot account 
-        for specific site conditions, age, or construction type.
-      </p>
-
-      <p class="muted" style="font-size:13px; line-height:1.55; margin-top:10px;">
-        Hammer Brick & Home LLC makes no representations or warranties—express or implied—regarding 
-        the accuracy or completeness of this information. Always follow NYC/NYS codes and EPA Lead-Safe rules.
-      </p>
-
-      <p class="muted" style="font-size:13px; line-height:1.55; margin-top:10px;">
-        For structural, electrical, plumbing, or safety-critical concerns, consult a licensed engineer, 
-        master plumber, or licensed electrician. Do not rely solely on these documents for high-risk repairs.
-      </p>
-
-      <p class="muted" style="font-size:13px; line-height:1.55; margin-top:10px;">
-        Hammer Brick & Home LLC is not liable for any direct, indirect, incidental, consequential, or 
-        special damages resulting from the use or misuse of these materials. All DIY work is done at your own risk.
-      </p>
-
-      <p class="muted" style="font-size:13px; margin-top:10px; opacity:0.8;">
-        © <span id="yr2"></span> Hammer Brick & Home LLC — All rights reserved.
-      </p>
-
-    </div>
-  </section>
-
-</main>
-
-
-<footer class="site-footer" style="text-align:center; padding:16px; background:#071426; color:#f5d89b; font-size:14px;">
-  <div>© <span id="yr"></span> Hammer Brick & Home LLC · NYC HIC #21311291</div>
-  <div>Staten Island · NYC · Licensed & Insured · EPA Lead-Safe Certified Firm · Serving NYC & (NJ Coming Soon)</div>
-</footer>
-
-<script>
-  const y = document.getElementById('yr');
-  if (y) y.textContent = new Date().getFullYear();
-
-  const y2 = document.getElementById('yr2');
-  if (y2) y2.textContent = new Date().getFullYear();
-</script>
-
-<script src="/script.js"></script>
-
-</body>
-</html>
