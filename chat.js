@@ -1,8 +1,9 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v6.1
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v6.2
    Multi-Project • Rush • Promo Codes • SMS & Email • Photos
    + Fixed Units, Advanced Add-ons, MINIMUM PROJECT FLOOR (Hidden Overhead)
    + RESTORED: Initial Disclaimer Check (Step Zero)
+   + RESTORED: VIP10 PROMO CODE CHIP AND FINAL CONTACT BUTTONS
 =============================================================== */
 
 (function() {
@@ -276,7 +277,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v6.1 (Disclaimer Restored)..."); // VERSION BUMP
+    console.log("HB Chat: Initializing v6.2 (VIP10 Chip & Buttons Restored)..."); // VERSION BUMP
     createInterface();
 
     if (sessionStorage.getItem("hb_chat_active") === "true") {
@@ -434,9 +435,9 @@
     }, 500);
   }
 
-  // --- FLOW CONTROL (v6.1: Initial Disclaimer) -------------------------
+  // --- FLOW CONTROL (v6.2) -------------------------
 
-  // NEW STEP: Initial Disclaimer Check (Step 0)
+  // STEP 0: Initial Disclaimer Check
   function stepZero_Disclaimer() {
     updateProgress(5);
     const disclaimerHtml = `
@@ -533,7 +534,7 @@
     });
   }
 
-  // FIXED STEP: Fixed-Unit Quantity Check (Step 4)
+  // STEP 4: Fixed-Unit Quantity Check
   function stepFour_Quantity() {
     updateProgress(45);
     const svc = SERVICES[state.serviceKey];
@@ -570,7 +571,7 @@
     askQuantityManual();
   }
 
-  // MODIFIED STEP: Size Input (Step 5)
+  // STEP 5: Size Input
   function stepFive_Size() {
     updateProgress(50);
     const svc = SERVICES[state.serviceKey];
@@ -616,7 +617,7 @@
     setTimeout(askSize, 1000);
   }
 
-  // MODIFIED STEP: Location (Step 6)
+  // STEP 6: Location
   function stepSix_Location() {
     updateProgress(65);
     addBotMessage("Which borough/area is this in?");
@@ -629,7 +630,7 @@
     });
   }
 
-  // NEW STEP: Add-ons Selection (Step 7)
+  // STEP 7: Add-ons Selection
   function stepSeven_Addons() {
     updateProgress(70);
     const svc = SERVICES[state.serviceKey];
@@ -667,7 +668,7 @@
   }
 
 
-  // MODIFIED STEP: Pricing Mode (Step 8)
+  // STEP 8: Pricing Mode
   function stepEight_PricingMode() {
     updateProgress(75);
 
@@ -688,7 +689,7 @@
     });
   }
 
-  // MODIFIED STEP: Rush (Step 9)
+  // STEP 9: Rush
   function stepNine_Rush() {
     updateProgress(80);
     addBotMessage("Do you require **Rush Scheduling** (within the next 2-4 weeks)?");
@@ -704,21 +705,30 @@
     });
   }
 
-  // MODIFIED STEP: Promo Code (Step 10)
+  // STEP 10: Promo Code (RESTORED VIP10 CHIP)
   function stepTen_Promo() {
     updateProgress(85);
     addBotMessage("Do you have a **Promo Code**?");
 
-    addChoices(["Enter Code", "No Code / Skip"], function(choice) {
+    addChoices([
+      { label: "Use VIP10 (10% Off)", key: "VIP10" }, // RESTORED CHIP
+      "Enter Code", 
+      "No Code / Skip"
+    ], function(choice) {
       const val = (typeof choice === "string") ? choice : choice.label;
+      const key = (typeof choice === "object" && choice.key) ? choice.key : val; // Get key if it exists
 
-      if (val === "Enter Code") {
+      if (key === "VIP10") {
+          state.promoCode = "VIP10";
+          addBotMessage("Code: **VIP10** applied.");
+          stepEleven_Summary();
+      } else if (val === "Enter Code") {
         addBotMessage("Please enter your promo code now:");
         enableInput(function(code) {
           state.promoCode = code.toUpperCase();
           addBotMessage(`Code: **${state.promoCode}** applied.`);
           stepEleven_Summary();
-        }, "Enter promo code..."); // Added placeholder
+        }, "Enter promo code...");
       } else {
         state.promoCode = "";
         stepEleven_Summary();
@@ -726,7 +736,7 @@
     });
   }
 
-  // MODIFIED STEP: Summary (Step 11)
+  // STEP 11: Summary
   function stepEleven_Summary() {
     updateProgress(90);
 
@@ -761,7 +771,7 @@
   }
 
 
-  // MODIFIED STEP: Contact Info (Step 12)
+  // STEP 12: Contact Info
   function stepTwelve_ContactInfo() {
     updateProgress(95);
 
@@ -788,38 +798,68 @@
     }, "Enter full name..."); // Added placeholder
   }
 
-  // MODIFIED STEP: Final Links (Step 13)
+  // STEP 13: Final Links (RESTORED PHOTO BUTTON/CHIP)
   function stepThirteen_FinalLinks() {
     updateProgress(100);
 
     addBotMessage(`Thank you, **${state.name}**. We have texted the estimate details to **${state.phone}**.`);
+    
+    // SMS/Email Links (hb-link-btn is styled like a button)
     addBotMessage(generateFinalLinks(), true);
 
-    // Final message and reset
+    // NEW: Add the photo button/chip and Walkthrough/CRM button
     setTimeout(function() {
-        addBotMessage("Feel free to add photos (📷 button below) or schedule a direct consultation.");
-        addBotMessage("If you have any questions, just reach out! We look forward to working with you.");
-    }, 1500);
+      // 1. Photo button (triggers hidden input)
+      var photoBtn = document.createElement("button");
+      photoBtn.className = "hb-chip"; // Use the hb-chip style
+      photoBtn.style.display = "block";
+      photoBtn.style.marginTop = "15px";
+      photoBtn.textContent = "📷 Add Photos for Review";
+      photoBtn.onclick = function() {
+        if (els.photoInput) els.photoInput.click();
+      };
+      els.body.appendChild(photoBtn);
 
-    // Final reset of state (can be changed to a full page reload if preferred)
-    Object.assign(state, {
-      step: 0,
-      serviceKey: null,
-      subOption: null,
-      size: 0,
-      quantity: 1,
-      selectedAddons: [],
-      borough: null,
-      isLeadHome: false,
-      pricingMode: "full",
-      isRush: false,
-      promoCode: "",
-      name: "",
-      phone: "",
-      projects: []
-    });
-    // The next time the user clicks "Get Quote", they will start over with the disclaimer.
-    // We stop the explicit conversational flow here.
+      // 2. Walkthrough / CRM button
+      if (WALKTHROUGH_URL || CRM_FORM_URL) {
+          var actionBtn = document.createElement("a");
+          actionBtn.className = "hb-link-btn";
+          actionBtn.target = "_blank";
+          actionBtn.style.marginTop = "10px";
+          actionBtn.style.display = "block";
+          if (WALKTHROUGH_URL) {
+              actionBtn.href = WALKTHROUGH_URL;
+              actionBtn.textContent = "📅 Book a Free Walkthrough";
+          } else {
+              actionBtn.href = CRM_FORM_URL;
+              actionBtn.textContent = "📝 Submit Full Inquiry Form";
+          }
+          els.body.appendChild(actionBtn);
+      }
+      
+      // Final message and reset
+      addBotMessage("If you have any questions, just reach out! We look forward to working with you.");
+
+      // Final reset of state
+      Object.assign(state, {
+        step: 0,
+        serviceKey: null,
+        subOption: null,
+        size: 0,
+        quantity: 1,
+        selectedAddons: [],
+        borough: null,
+        isLeadHome: false,
+        pricingMode: "full",
+        isRush: false,
+        promoCode: "",
+        name: "",
+        phone: "",
+        projects: []
+      });
+      
+      els.body.scrollTop = els.body.scrollHeight;
+    }, 1000);
   }
 
   // --- CALCULATIONS ------------------------------------------
@@ -1051,7 +1091,7 @@
     const smsBody = encodeURIComponent(`Estimate for ${state.name} (${state.phone}):\n\n${estimateText}\n\n${disclaimerText}`);
     const emailBody = encodeURIComponent(`Hello Team,\n\nI have generated the following ballpark estimate:\n\n---\n${estimateText}\n---\n\n${disclaimerText}\n\nPlease contact me at ${state.phone} or reply to this email.\n\nThank you,\n${state.name}`);
 
-    // Generate Buttons
+    // Generate Buttons (hb-link-btn is styled to look like a button)
     const html = `
       <div class="hb-final-links">
         <a class="hb-link-btn" href="sms:${state.phone}?body=${smsBody}">📥 Text Estimate to Me</a>
