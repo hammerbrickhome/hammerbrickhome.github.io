@@ -134,18 +134,21 @@
     },
 
     "deck": {
-      label: "Deck / Porch Build",
-      emoji: "🪵",
-      unit: "sq ft",
-      baseLow: 35, baseHigh: 65, min: 5000,
-      subQuestion: "Deck material?",
-      context: "Deck building costs vary significantly based on material. Expect **$35–$65 per sq ft** for labor and materials, with Composite and PVC being the most expensive.",
-      options: [
-        { label: "Pressure Treated", factor: 1.0 },
-        { label: "Composite (Trex)", factor: 1.9 },
-        { label: "PVC Luxury", factor: 2.4 }
-      ]
-    },
+  label: "Deck / Porch Build",
+  emoji: "🪵",
+  unit: "sq ft",
+  baseLow: 35, 
+  baseHigh: 65, 
+  min: 5000,
+  subQuestion: "Deck material?",
+  context: "Deck building costs vary significantly based on material. Expect **$35–$65 per sq ft** for labor and materials, with Composite and PVC being the most expensive.",
+  options: [
+    { label: "Pressure Treated", factor: 1.0 },
+    { label: "Composite (Trex)", factor: 1.9 },
+    { label: "PVC Luxury", factor: 2.4 }
+  ]
+},
+
 
     "drywall": {
       label: "Drywall Install / Repair",
