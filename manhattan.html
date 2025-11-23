@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Manhattan Home Improvement — Co-op & Condo Remodeling, Masonry & Repairs | Hammer Brick & Home LLC</title>
+
+<meta name="description" content="Licensed Manhattan remodeling & masonry for co-ops, condos, and townhouses. We handle board approvals, protection, elevator bookings, and DOB compliance. Licensed & Insured (NYC HIC #21311291). EPA Lead-Safe Certified Firm.">
+
+<link rel="icon" href="/images/hero.PNG">
+<link rel="preload" as="image" href="/images/hero.PNG">
+<link rel="stylesheet" href="/style.css">
+
+<meta property="og:title" content="Manhattan Co-op & Condo Remodeling — Licensed & Insured | Hammer Brick & Home LLC">
+<meta property="og:description" content="Precision remodeling for Manhattan apartments, co-ops, condos, and townhouses. We coordinate building rules, protection, elevator schedules, and DOB requirements.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.hammerbrickhome.com/manhattan.html">
+<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Manhattan Remodeling & Masonry — Co-op & Condo Approved">
+<meta name="twitter:description" content="Licensed & insured Manhattan contractor specializing in co-op/condo renovations, masonry, interiors, and DOB compliance.">
+<meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Hammer Brick & Home LLC",
+  "url": "https://www.hammerbrickhome.com/",
+  "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "telephone": "+1-929-595-5300",
+  "priceRange": "$$",
+  "areaServed": ["Manhattan"],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Staten Island",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  },
+  "identifier": [
+    { "@type": "PropertyValue", "name": "NYC HIC", "value": "21311291" },
+    { "@type": "PropertyValue", "name": "EPA Lead-Safe Certified Firm", "value": "Yes" }
+  ]
+}
+</script>
+</head>
+
+<body>
+
+<div id="header-include"></div>
+
+<main class="page">
+
+  <section class="hero hero-inner fade-up">
+    <div class="hero-content">
+      <h1>Manhattan — Remodeling & Masonry</h1>
+
+      <p>
+        Co-ops, condos & townhouses welcome.<br>
+        We coordinate with boards, supers & management, including:<br>
+        elevator bookings, protection requirements, insurance paperwork,<br>
+        noise windows, work hours, asbestos/lead rules, and DOB compliance.
+      </p>
+
+      <ul class="trust-pills" role="list" style="margin-top:10px">
+        <li>Licensed & Insured · NYC HIC #21311291</li>
+        <li>EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
+        <li>Daily communication · Clean, respectful crew</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section split fade-up">
+    <div>
+      <h2>Popular Services in Manhattan</h2>
+      <ul class="bullets">
+        <li><strong>Interior Remodeling:</strong> kitchens, baths, flooring, built-ins, layout reconfiguration (as allowed by your building)</li>
+        <li><strong>Co-op/Condo Compliance:</strong> board packages, insurance COIs, license verification, protection plans</li>
+        <li><strong>Masonry & Repairs:</strong> steps, stoops, pointing, pavers, entryways, small façade repairs</li>
+        <li><strong>Painting & Finishes:</strong> high-end interior paint, skim coating, plaster repair, trim enamel</li>
+        <li><strong>Exterior Care (townhouses & brownstones):</strong> washing, waterproofing, gutter service</li>
+      </ul>
+    </div>
+
+    <div class="accent-card">
+      <h3>Why Manhattan Chooses Us</h3>
+      <ul class="bullets">
+        <li>Experience with strict co-op/condo rules</li>
+        <li>Board-ready proposals & paperwork</li>
+        <li>Daily protection (flooring, elevators, common areas)</li>
+        <li>Noise-window scheduling & courteous communication</li>
+        <li>White-glove cleanup every day</li>
+        <li>Background-checked crew, uniformed & respectful</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section note-box fade-up">
+    <h2>Ready to Start?</h2>
+    <p>
+      Text photos, email plans, or request a walkthrough.<br>
+      We’ll prepare a board-ready proposal and coordinate your building rules.
+    </p>
+
+    <div class="cta-actions">
+      <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
+      <a class="btn ghost" href="/contact.html">Request a Quote</a>
+    </div>
+  </section>
+
+</main>
+
+<div id="cta-include"></div>
+<div id="footer-include"></div>
+
+<script src="/script.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  Promise.all([
+    fetch("/header.html").then(r=>r.text()),
+    fetch("/contact-cta.html").then(r=>r.text()),
+    fetch("/footer.html").then(r=>r.text())
+  ])
+  .then(([h,c,f])=>{
+    document.getElementById("header-include").innerHTML = h;
+    document.getElementById("cta-include").innerHTML = c;
+    document.getElementById("footer-include").innerHTML = f;
+
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+
+    if (typeof initHeaderInteractions === "function") {
+      initHeaderInteractions();
+    }
+  })
+  .catch(console.error);
+});
+</script>
+<link rel="stylesheet" href="/chat.css">
+<script src="/chat.js" defer></script>
+
+<script src="/script.js" defer></script>
+
+</body>
+</html>
+</body>
+</html>
