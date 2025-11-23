@@ -761,8 +761,14 @@
         leadRow +
         discountLine +
         priceRow +
-        '<div class="hb-receipt-footer">Ballpark estimate based on local NYC-area data. Final price after walkthrough.</div>' +
-      '</div>';
+       <div class="hb-receipt-footer">
+  Disclaimer: This tool provides an automated ballpark range only. 
+  It is not a formal estimate, contract, or offer for services. 
+  Final pricing may change based on site conditions, labor requirements, 
+  structural issues, materials selected, permits, access limitations, 
+  and code compliance. A legally binding estimate is issued only after 
+  an in-person walkthrough and a written agreement signed by both parties.
+</div>
   }
 
   function showEstimateAndAskAnother(est) {
