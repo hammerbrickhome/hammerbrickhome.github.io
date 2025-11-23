@@ -1,7 +1,7 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v4.0
-   INCLUDES: Webhook Capture, Lead Scoring, State Persistence,
-   Size Wizard, Input Sanitation, and Dynamic Upselling
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v5.0 (CONSOLIDATED)
+   INCLUDES: Webhook Capture, Lead Scoring (Safe), State Persistence (Secure),
+   Size Wizard, Input Sanitation, Dynamic Upselling, Faster UX, Master Reset
 =============================================================== */
 
 (function() {
@@ -38,7 +38,7 @@
   const CRM_FORM_URL = "";      // e.g. "https://forms.gle/your-form-id"
   const WALKTHROUGH_URL = "";   // e.g. "https://calendly.com/your-link"
 
-  // Pricing Logic / Services (REMAINS UNCHANGED)
+  // Pricing Logic / Services
   const SERVICES = {
     "masonry": {
       label: "Masonry & Concrete",
@@ -306,12 +306,13 @@
     pricingMode: "full",   // full | labor | materials
     isRush: false,
     promoCode: "",
-    name: "",
+    // name/phone are stored in sessionStorage for security
+    name: "",              
     phone: "",
     projects: [],          // list of estimate objects
     sizeStep: 0,           // 0: ask method, 1: ask length, 2: ask width, 3: direct input
     tempLength: null,      // Used for L x W calculation
-    photos: []             // Array to hold file objects for reference (not the binary data)
+    photos: []             // Array to hold Base64 photo data
   };
 
   let els = {};
@@ -327,10 +328,10 @@
     return div.textContent;
   }
   
-  // 2. State Persistence (Save)
+  // 2. State Persistence (Save - NOW SPLIT)
   function saveState() {
     try {
-      // Only save key chat flow state
+      // Data saved to LocalStorage (long-term persistence for project progress)
       const stateToSave = {
         step: state.step,
         serviceKey: state.serviceKey,
@@ -341,25 +342,33 @@
         pricingMode: state.pricingMode,
         isRush: state.isRush,
         promoCode: state.promoCode,
-        name: state.name,
-        phone: state.phone,
         sizeStep: state.sizeStep,
         tempLength: state.tempLength,
-        // WARNING: File objects cannot be saved in localStorage, only metadata/count
-        photoCount: state.photos.length 
+        // Photos are persisted here as base64 is not sensitive
+        photos: state.photos 
       };
       localStorage.setItem("hb_chat_state", JSON.stringify(stateToSave));
       localStorage.setItem("hb_chat_projects", JSON.stringify(state.projects));
+
+      // Fix 1: Sensitive Data saved to SessionStorage (cleared on tab close)
+      const sessionState = {
+          name: state.name,
+          phone: state.phone,
+      };
+      sessionStorage.setItem("hb_chat_session", JSON.stringify(sessionState));
+
     } catch (e) {
       console.error("Could not save state:", e);
     }
   }
 
-  // 3. State Persistence (Load)
+  // 3. State Persistence (Load - NOW SPLIT)
   function loadState() {
     try {
       const storedState = localStorage.getItem("hb_chat_state");
       const storedProjects = localStorage.getItem("hb_chat_projects");
+      // Fix 1: Load sensitive data from sessionStorage
+      const storedSession = sessionStorage.getItem("hb_chat_session");
 
       if (storedState) {
         Object.assign(state, JSON.parse(storedState));
@@ -367,6 +376,12 @@
       if (storedProjects) {
         state.projects = JSON.parse(storedProjects);
       }
+      if (storedSession) {
+          const sessionData = JSON.parse(storedSession);
+          state.name = sessionData.name || state.name;
+          state.phone = sessionData.phone || state.phone;
+      }
+
 
       // If a name/phone exists, we assume they reached the end and don't need to restart
       if (state.name && state.phone) {
@@ -377,11 +392,20 @@
     }
     return "fresh";
   }
+  
+  // Fix 6: Master Reset Function
+  function resetEstimator() {
+    if (confirm("Are you sure you want to reset the estimator? All progress will be lost.")) {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.reload(); 
+    }
+  }
 
   // --- INIT (REVISED) -----------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v4.0...");
+    console.log("HB Chat: Initializing v5.0...");
     createInterface();
 
     const loadStatus = loadState();
@@ -391,7 +415,7 @@
       toggleChat(true); 
       if (loadStatus === "completed") {
         // If loaded a completed state, skip to final links
-        addBotMessage("Welcome back, " + state.name + "! Here is your estimate summary.");
+        addBotMessage("Welcome back, " + sanitizeInput(state.name) + "! Here is your estimate summary.");
         showCombinedReceiptAndLeadCapture(); 
       } else if (state.projects.length > 0) {
         // If loaded an incomplete state with projects, ask to continue
@@ -425,8 +449,6 @@
   }
 
   function createInterface() {
-    // ... (Interface creation logic remains mostly the same)
-    
     // FAB
     const fab = document.createElement("div");
     fab.className = "hb-chat-fab";
@@ -444,7 +466,10 @@
           <h3>Hammer Brick & Home</h3>
           <span>AI Estimator</span>
         </div>
-        <button class="hb-chat-close">×</button>
+        <div>
+            <button class="hb-chat-close" id="hb-reset" title="Reset Estimator" style="font-size: 18px; margin-right: 10px;">🔄</button>
+            <button class="hb-chat-close">×</button>
+        </div>
       </div>
       <div class="hb-progress-container">
         <div class="hb-progress-bar" id="hb-prog"></div>
@@ -474,29 +499,45 @@
       input: document.getElementById("hb-input"),
       send: document.getElementById("hb-send"),
       prog: document.getElementById("hb-prog"),
-      close: wrapper.querySelector(".hb-chat-close"),
+      close: wrapper.querySelector(".hb-chat-close:last-child"),
+      reset: document.getElementById("hb-reset"), // NEW
       photoInput
     };
 
     // Events
     els.close.onclick = () => toggleChat(false);
+    els.reset.onclick = resetEstimator; // NEW
     els.send.onclick = handleManualInput;
     els.input.addEventListener("keypress", function(e) {
       if (e.key === "Enter") handleManualInput();
     });
 
-    // Image Preview Injection
+    // Fix 3: Image Preview and Base64 Conversion
     els.photoInput.addEventListener("change", function(e) {
       if (!e.target.files || !e.target.files.length) return;
       
       let files = Array.from(e.target.files);
-      state.photos = state.photos.concat(files); 
+      const MAX_BASE64_SIZE = 100 * 1024; // 100 KB limit for Base64
+      const MAX_FILES = 5; // Limit to 5 files
 
-      files.forEach(file => {
+      files.slice(0, MAX_FILES).forEach(file => { 
           if (!file.type.startsWith('image/')) return;
+          
+          if (file.size > MAX_BASE64_SIZE) {
+              addBotMessage(`⚠️ Skipping file: **${file.name}**. Too large (${(file.size / 1024).toFixed(1)}KB). Please upload smaller photos or attach them later.`);
+              return;
+          }
 
           const reader = new FileReader();
           reader.onload = function(e) {
+              // Store the Base64 Data URL (e.g., data:image/jpeg;base64,...)
+              state.photos.push({
+                  name: file.name,
+                  type: file.type,
+                  data: e.target.result
+              });
+
+              // UI preview injection
               const img = document.createElement('img');
               img.src = e.target.result;
               img.alt = 'Uploaded image preview';
@@ -511,11 +552,13 @@
               userMsgDiv.appendChild(img);
               els.body.appendChild(userMsgDiv);
               els.body.scrollTop = els.body.scrollHeight;
+              saveState(); // Save state after each successful Base64 conversion
           };
           reader.readAsDataURL(file);
       });
-      addBotMessage(`📷 You selected ${e.target.files.length} photo(s). Please attach these when you text or email us, or bring them to the walkthrough.`);
-      saveState();
+      addBotMessage(`📷 You selected ${Math.min(files.length, MAX_FILES)} photo(s) for the lead submission.`);
+      // Clear file input to allow re-uploading the same file if needed
+      e.target.value = null; 
     });
   }
 
@@ -538,7 +581,7 @@
     if (els.prog) els.prog.style.width = pct + "%";
   }
 
-  // --- MESSAGING (UNCANGED) ---------------------------------------------
+  // --- MESSAGING (REVISED DELAY) --------------------------------
   
   function addBotMessage(text, isHtml) {
     const typingId = "typing-" + Date.now();
@@ -554,7 +597,8 @@
     els.body.appendChild(typingDiv);
     els.body.scrollTop = els.body.scrollHeight;
 
-    const delay = Math.min(1500, text.length * 20 + 500);
+    // Fix 2: Faster, Snappier Typing Delay
+    const delay = Math.min(1000, text.length * 10 + 300);
 
     setTimeout(function() {
       const msgBubble = document.getElementById(typingId);
@@ -600,7 +644,7 @@
     }, 1600);
   }
 
-  // --- FLOW: SERVICE -> SUB OPTIONS (MODIFIED) --------------------------
+  // --- FLOW: SERVICE -> SUB OPTIONS --------------------------
 
   function presentServiceOptions() {
     updateProgress(10);
@@ -746,7 +790,7 @@
     }
   }
 
-  // --- LOCATION (MODIFIED) ----------------------------------------------
+  // --- LOCATION ----------------------------------------------
 
   function stepFive_Location() {
     updateProgress(70);
@@ -761,7 +805,7 @@
     });
   }
 
-  // --- PRICING MODE (MODIFIED) -------------------------------
+  // --- PRICING MODE -------------------------------
 
   function stepSix_PricingMode() {
     updateProgress(78);
@@ -780,7 +824,7 @@
     });
   }
 
-  // --- RUSH (MODIFIED) --------------------------------------------------
+  // --- RUSH --------------------------------------------------
 
   function stepSeven_Rush() {
     updateProgress(82);
@@ -794,7 +838,7 @@
     });
   }
 
-  // --- PROMO CODE (MODIFIED) --------------------------------------------
+  // --- PROMO CODE --------------------------------------------
 
   function stepEight_Promo() {
     updateProgress(86);
@@ -814,8 +858,7 @@
     });
   }
 
-  // --- CALCULATION ENGINE (UNCHANGED) ------------------------------------
-  // ... (computeEstimateForCurrent and buildEstimateHtml logic remain the same)
+  // --- CALCULATION ENGINE ------------------------------------
 
   function applyPriceModifiers(low, high) {
     // Pricing mode
@@ -1006,7 +1049,7 @@
   }
 
 
-  // --- LEAD SCORING --------------------------------------------
+  // --- LEAD SCORING (FIXED) --------------------------------------------
 
   function computeLeadScore() {
       let score = 0;
@@ -1027,8 +1070,11 @@
               else if (p.size > 2000) score += 8;
           }
 
-          // Score for high-end sub-options (e.g., Luxury, Specialty)
-          if (p.sub.label && p.sub.label.toLowerCase().includes('luxury') || p.sub.label.toLowerCase().includes('full gut')) {
+          // Fix 5: Use optional chaining for safe access to p.sub.label
+          if (p.sub?.label && (
+              p.sub.label.toLowerCase().includes('luxury') ||
+              p.sub.label.toLowerCase().includes('full gut')
+          )) {
               score += 15;
           }
       });
@@ -1227,8 +1273,9 @@
     });
   }
 
-  // New function for silent lead capture
+  // New function for silent lead capture (with Base64 photos)
   function submitLeadData() {
+      // NOTE: For live use, make sure WEBHOOK_URL is set and CORS is configured for 'no-cors' mode
       if (!WEBHOOK_URL) return;
 
       const score = computeLeadScore();
@@ -1247,7 +1294,9 @@
               mode: p.pricingMode,
               rush: p.isRush,
               promo: p.promoCode,
-          }))
+          })),
+          // Fix 3: Include Base64 photos in the payload
+          photos: state.photos 
       };
 
       fetch(WEBHOOK_URL, {
@@ -1325,6 +1374,10 @@
       "It is not a formal estimate, contract, or offer for services. " +
       "Final pricing may change after an in-person walkthrough and a written agreement."
     );
+    // Added a note about photos for the manual email/sms link
+    if (state.photos.length > 0) {
+        lines.push(`(Note: ${state.photos.length} photo(s) were submitted via our secure webhook. Please attach them again if you use this email/text link.)`);
+    }
 
     var body = encodeURIComponent(lines.join("\n"));
     
@@ -1340,7 +1393,7 @@
 
     addBotMessage(
       "Thanks, " +
-        state.name +
+        sanitizeInput(state.name) +
         "! Choose how you’d like to contact us and feel free to attach your photos.",
       false
     );
@@ -1414,7 +1467,7 @@
     }, 500);
   }
 
-  // --- UTILS (REVISED) -------------------------------------------------
+  // --- UTILS -------------------------------------------------
 
   function enableInput(callback) {
     els.input.disabled = false;
@@ -1447,4 +1500,3 @@
   document.addEventListener("DOMContentLoaded", init);
 
 })();
-
