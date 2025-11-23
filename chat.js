@@ -1,18 +1,18 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v3.0
-   Features: Branching Logic, Region Modifiers, Receipt Gen
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v3.1
+   (Fixed: Button Visibility & Session Restore)
 =============================================================== */
 
 (function() {
-  // --- CONFIGURATION & DATA (Derived from provided files) ---
+  // --- CONFIGURATION & DATA ---
   
-  // Modifiers from estimator-advanced.js
+  // Modifiers (Matches your estimator-advanced.js)
   const BOROUGH_MODS = {
     "Manhattan": 1.18, "Brooklyn": 1.08, "Queens": 1.05, 
     "Bronx": 1.03, "Staten Island": 1.0, "New Jersey": 0.96
   };
 
-  // Pricing Logic from price-ranges.txt
+  // Pricing Logic
   const SERVICES = {
     "masonry": {
       label: "Masonry & Concrete",
@@ -22,7 +22,7 @@
       subQuestion: "What type of finish?",
       options: [
         { label: "Standard Concrete ($)", factor: 1.0 },
-        { label: "Pavers ($$)", factor: 1.6 }, // Higher per sq ft 
+        { label: "Pavers ($$)", factor: 1.6 },
         { label: "Natural Stone ($$$)", factor: 2.2 }
       ]
     },
@@ -34,7 +34,7 @@
       subQuestion: "Current surface condition?",
       options: [
         { label: "Dirt/Gravel (New)", factor: 1.0 },
-        { label: "Existing Asphalt (Removal)", factor: 1.25 }, // +Demo cost [cite: 3]
+        { label: "Existing Asphalt (Removal)", factor: 1.25 },
         { label: "Existing Concrete (Hard Demo)", factor: 1.4 }
       ]
     },
@@ -46,7 +46,7 @@
       subQuestion: "Roof type & style?",
       options: [
         { label: "Shingle (Standard)", factor: 1.0 },
-        { label: "Flat Roof (NYC Spec)", factor: 1.5 }, // Flat is higher 
+        { label: "Flat Roof (NYC Spec)", factor: 1.5 },
         { label: "Slate/Specialty", factor: 2.5 }
       ]
     },
@@ -54,14 +54,13 @@
       label: "Kitchen Remodel",
       emoji: "🍳",
       unit: "fixed",
-      baseLow: 0, baseHigh: 0, // Calculated via options
       subQuestion: "What is the scope?",
       options: [
-        { label: "Refresh (Cosmetic)", fixedLow: 18000, fixedHigh: 30000 }, [cite: 4]
+        { label: "Refresh (Cosmetic)", fixedLow: 18000, fixedHigh: 30000 },
         { label: "Mid-Range (Cabinets+)", fixedLow: 30000, fixedHigh: 55000 },
         { label: "Full Gut / Luxury", fixedLow: 55000, fixedHigh: 110000 }
       ],
-      leadSensitive: true // Triggers pre-1978 check 
+      leadSensitive: true
     },
     "bathroom": {
       label: "Bathroom Remodel",
@@ -69,7 +68,7 @@
       unit: "fixed",
       subQuestion: "What is the scope?",
       options: [
-        { label: "Update (Fixtures/Tile)", fixedLow: 14000, fixedHigh: 24000 }, [cite: 4]
+        { label: "Update (Fixtures/Tile)", fixedLow: 14000, fixedHigh: 24000 },
         { label: "Full Gut / Redo", fixedLow: 24000, fixedHigh: 45000 }
       ],
       leadSensitive: true
@@ -85,10 +84,10 @@
   const state = {
     step: 0,
     serviceKey: null,
-    subOption: null, // The object selected in sub-question
+    subOption: null,
     size: 0,
     borough: null,
-    isLeadHome: false, // Pre-1978 check
+    isLeadHome: false,
     name: "",
     phone: ""
   };
@@ -98,18 +97,23 @@
 
   // --- INIT ---
   function init() {
+    console.log("HB Chat: Initializing...");
     createInterface();
+    
     // Check for previous session (Persistence)
-    if(sessionStorage.getItem("hb_chat_active")) {
-      openChat();
+    // FIX: Changed 'openChat' to 'toggleChat' to prevent crash
+    if(sessionStorage.getItem("hb_chat_active") === "true") {
+      toggleChat();
     }
   }
 
   function createInterface() {
-    // 1. FAB
+    // 1. FAB (Floating Button)
     const fab = document.createElement('div');
     fab.className = 'hb-chat-fab';
     fab.innerHTML = `<span class="hb-fab-icon">📷</span><span class="hb-fab-text">Get Quote</span>`;
+    // FIX: Force flex display
+    fab.style.display = 'flex'; 
     fab.onclick = toggleChat;
     document.body.appendChild(fab);
 
@@ -157,18 +161,18 @@
   }
 
   function toggleChat() {
-    els.wrapper.classList.toggle('hb-open');
-    if(els.wrapper.classList.contains('hb-open')) {
-      els.fab.style.display = 'none';
+    const isOpen = els.wrapper.classList.toggle('hb-open');
+    if(isOpen) {
+      els.fab.style.display = 'none'; // Hide button when chat is open
       sessionStorage.setItem("hb_chat_active", "true");
     } else {
-      els.fab.style.display = 'flex';
+      els.fab.style.display = 'flex'; // Show button when chat is closed
       sessionStorage.removeItem("hb_chat_active");
     }
   }
 
   function updateProgress(pct) {
-    els.prog.style.width = pct + "%";
+    if(els.prog) els.prog.style.width = pct + "%";
   }
 
   // --- MESSAGING SYSTEM ---
@@ -184,15 +188,17 @@
     els.body.scrollTop = els.body.scrollHeight;
 
     // 2. Delay transform to text
-    const delay = Math.min(1500, text.length * 20 + 500); // Dynamic reading speed
+    const delay = Math.min(1500, text.length * 20 + 500); 
     setTimeout(() => {
       const msgBubble = document.getElementById(typingId);
-      if(isHtml) {
-        msgBubble.innerHTML = text;
-      } else {
-        msgBubble.textContent = text;
+      if(msgBubble) {
+        if(isHtml) {
+          msgBubble.innerHTML = text;
+        } else {
+          msgBubble.textContent = text;
+        }
+        els.body.scrollTop = els.body.scrollHeight;
       }
-      els.body.scrollTop = els.body.scrollHeight;
     }, delay);
   }
 
@@ -211,11 +217,10 @@
       options.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'hb-chip';
-        // Handle complex object options or simple strings
         const label = typeof opt === 'object' ? opt.label : opt;
         btn.textContent = label;
         btn.onclick = () => {
-          chipContainer.remove(); // Clean up buttons
+          chipContainer.remove(); 
           addUserMessage(label);
           callback(opt);
         };
@@ -223,10 +228,10 @@
       });
       els.body.appendChild(chipContainer);
       els.body.scrollTop = els.body.scrollHeight;
-    }, 1600); // Appear after bot finishes typing
+    }, 1600); 
   }
 
-  // --- CONVERSATION FLOW (THE BRAIN) ---
+  // --- CONVERSATION FLOW ---
 
   function presentServiceOptions() {
     updateProgress(10);
@@ -241,7 +246,6 @@
     updateProgress(30);
     const svc = SERVICES[state.serviceKey];
     
-    // Branch: If it's a fixed service (Kitchen/Bath) or has options (Roofing types)
     if (svc.subQuestion && svc.options) {
       addBotMessage(svc.subQuestion);
       addChoices(svc.options, (choice) => {
@@ -249,9 +253,8 @@
         stepThree_LeadCheck();
       });
     } else if (state.serviceKey === 'other') {
-      stepFive_Location(); // Skip to location
+      stepFive_Location(); 
     } else {
-      // Simple service (e.g. Paint)
       state.subOption = { factor: 1.0, label: "Standard" };
       stepThree_LeadCheck();
     }
@@ -259,7 +262,6 @@
 
   function stepThree_LeadCheck() {
     const svc = SERVICES[state.serviceKey];
-    // Check if service is lead sensitive 
     if (svc.leadSensitive) {
       addBotMessage("Is your property built before 1978? (Required for lead safety laws).");
       addChoices(["Yes (Pre-1978)", "No / Not Sure"], (ans) => {
@@ -318,17 +320,13 @@
       return;
     }
 
-    // Logic Tree
     if (svc.unit === 'fixed') {
-      // Fixed Price (Kitchen/Bath)
       low = sub.fixedLow * mod;
       high = sub.fixedHigh * mod;
     } else {
-      // Area Price
       let rateLow = svc.baseLow;
       let rateHigh = svc.baseHigh;
 
-      // Apply sub-option factor (e.g. Pavers vs Concrete)
       if (sub.factor) {
         rateLow *= sub.factor;
         rateHigh *= sub.factor;
@@ -337,22 +335,18 @@
       low = rateLow * state.size * mod;
       high = rateHigh * state.size * mod;
       
-      // Enforce Minimums [cite: 1]
       if (svc.min && low < svc.min) low = svc.min;
       if (svc.min && high < svc.min * 1.2) high = svc.min * 1.25;
     }
 
-    // Lead Paint Surcharge 
     if (state.isLeadHome) {
       low *= 1.10;
       high *= 1.10;
     }
 
-    // Format
     const fLow = Math.round(low).toLocaleString();
     const fHigh = Math.round(high).toLocaleString();
 
-    // Generate Receipt HTML
     const receiptHtml = `
       <div class="hb-receipt">
         <h4>Estimator Summary</h4>
@@ -390,8 +384,6 @@
 
   function generateFinalLink() {
     updateProgress(100);
-    
-    // Construct SMS Body
     const lines = [
       `Hello, I'm ${state.name}.`,
       `Project: ${SERVICES[state.serviceKey].label} (${state.subOption?.label || ''})`,
@@ -404,7 +396,7 @@
     const body = encodeURIComponent(lines.join('\n'));
     const link = `sms:19295955300?&body=${body}`;
 
-    addBotMessage(`Thanks, ${state.name}! Click below to text us. You can attach photos to the text for a faster response.`);
+    addBotMessage(`Thanks, ${state.name}! Click below to text us.`);
     
     setTimeout(() => {
       const btn = document.createElement('a');
@@ -429,6 +421,11 @@
     els.input.placeholder = "Type your answer...";
     els.input.focus();
     
+    // Clear old listeners by cloning
+    const newSend = els.send.cloneNode(true);
+    els.send.parentNode.replaceChild(newSend, els.send);
+    els.send = newSend;
+
     els.send.onclick = () => {
       const val = els.input.value.trim();
       if(!val) return;
@@ -441,8 +438,7 @@
   }
 
   function handleManualInput() {
-    // Only used if triggered by Enter key
-    if(!els.input.disabled) els.send.click();
+    if(!els.input.disabled && els.send) els.send.click();
   }
 
   // Run
