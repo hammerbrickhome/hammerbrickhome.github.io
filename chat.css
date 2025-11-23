@@ -198,4 +198,7 @@
 
 /* Typing Animation */
 .hb-typing-dots { display: inline-flex; gap: 4px; padding: 4px 8px; }
-.hb-dot { width: 6px; height: 6px; background: #888; border-radius: 50%; animation: hbBounce 1.4s infinite ease-in-out
+.hb-dot { width: 6px; height: 6px; background: #888; border-radius: 50%; animation: hbBounce 1.4s infinite ease-in-out both; }
+.hb-dot:nth-child(1) { animation-delay: -0.32s; }
+.hb-dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes hbBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
