@@ -1,7 +1,6 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v3.3
-   Multi-Project • Rush • Promo Codes • SMS & Email • Photos
-   + In-card Disclaimer + Disclaimer in SMS/Email
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v4.2
+   (Mandatory Disclaimer Fixed, Services/Add-ons Integrated, Total/Promo Display Fixed)
 =============================================================== */
 
 (function() {
@@ -21,6 +20,11 @@
   const DISCOUNTS = {
     "VIP10": 0.10,       // 10% off
     "REFERRAL5": 0.05    // 5% off
+  };
+
+  // Fixed Add-On Prices (NEW)
+  const ADD_ON_PRICES = {
+    "debrisRemoval": { low: 800, high: 1500 } // Cost of a dumpster and haul-away
   };
 
   // Optional external URLs (leave empty if not used)
@@ -68,7 +72,6 @@
       ]
     },
 
-    // --- PAINTING ---------------------------------------------
     "painting": {
       label: "Interior Painting",
       emoji: "🎨",
@@ -96,7 +99,6 @@
       ]
     },
 
-    // --- BASEMENT FLOOR ---------------------------------------
     "basement_floor": {
       label: "Basement Floor Paint / Epoxy",
       emoji: "🧼",
@@ -110,7 +112,6 @@
       ]
     },
 
-    // --- FENCING ----------------------------------------------
     "fence": {
       label: "Fence Install",
       emoji: "🚧",
@@ -125,7 +126,6 @@
       ]
     },
 
-    // --- DECK / PORCH -----------------------------------------
     "deck": {
       label: "Deck / Porch Build",
       emoji: "🪵",
@@ -139,7 +139,6 @@
       ]
     },
 
-    // --- DRYWALL ----------------------------------------------
     "drywall": {
       label: "Drywall Install / Repair",
       emoji: "📐",
@@ -153,7 +152,6 @@
       ]
     },
 
-    // --- FLOORING ---------------------------------------------
     "flooring": {
       label: "Flooring Installation",
       emoji: "🪚",
@@ -168,7 +166,6 @@
       ]
     },
 
-    // --- POWER WASHING ----------------------------------------
     "powerwash": {
       label: "Power Washing",
       emoji: "💦",
@@ -176,7 +173,6 @@
       baseLow: 0.35, baseHigh: 0.85, min: 250
     },
 
-    // --- GUTTERS ----------------------------------------------
     "gutter": {
       label: "Gutter Install",
       emoji: "🩸",
@@ -190,7 +186,6 @@
       ]
     },
 
-    // --- WINDOWS & DOORS --------------------------------------
     "windows": {
       label: "Windows Install",
       emoji: "🪟",
@@ -215,7 +210,6 @@
       ]
     },
 
-    // --- DEMOLITION -------------------------------------------
     "demo": {
       label: "Demolition",
       emoji: "💥",
@@ -230,7 +224,6 @@
       ]
     },
 
-    // --- RETAINING WALL ---------------------------------------
     "retaining": {
       label: "Retaining Wall",
       emoji: "🧱",
@@ -244,14 +237,12 @@
       ]
     },
 
-    // --- HANDYMAN ---------------------------------------------
     "handyman": {
       label: "Small Repairs / Handyman",
       emoji: "🛠",
       unit: "consult"
     },
 
-    // --- KITCHEN / BATH (FIXED) -------------------------------
     "kitchen": {
       label: "Kitchen Remodel",
       emoji: "🍳",
@@ -276,8 +267,8 @@
       ],
       leadSensitive: true
     },
-    
-    // --- NEW SERVICE: SIDING ----------------------------------
+
+    // NEW SERVICES (v4.0 & v4.1)
     "siding": {
       label: "Siding Installation",
       emoji: "🏡",
@@ -291,7 +282,6 @@
       ]
     },
 
-    // --- NEW SERVICE: CHIMNEY ---------------------------------
     "chimney": {
       label: "Chimney Repair / Rebuild",
       emoji: "🔥",
@@ -304,7 +294,6 @@
       ]
     },
 
-    // --- NEW SERVICE: INSULATION ------------------------------
     "insulation": {
       label: "Insulation Install",
       emoji: "🌡️",
@@ -315,6 +304,44 @@
         { label: "Fiberglass Batts", factor: 1.0 },
         { label: "Blown-in Cellulose", factor: 1.2 },
         { label: "Spray Foam (Closed-Cell)", factor: 2.5 }
+      ]
+    },
+
+    "sidewalk": {
+      label: "Sidewalk, Steps, & Stoops",
+      emoji: "🚶",
+      unit: "fixed",
+      subQuestion: "Scope of work?",
+      // NOTE: This option uses the isPerSqFt flag, requiring a size input for a 'fixed' unit service
+      options: [
+        { label: "Sidewalk Violation Repair", fixedLow: 3500, fixedHigh: 7500 },
+        { label: "Front Steps / Stoop Rebuild", fixedLow: 6000, fixedHigh: 15000 },
+        { label: "New Paver Walkway", fixedLow: 45, fixedHigh: 85, isPerSqFt: true }
+      ]
+    },
+
+    "electrical": {
+      label: "Electrical / Wiring",
+      emoji: "⚡",
+      unit: "fixed",
+      subQuestion: "What is needed?",
+      options: [
+        { label: "Panel Upgrade (200A)", fixedLow: 3000, fixedHigh: 5500 },
+        { label: "New Outlet/Switch Run (per unit)", fixedLow: 250, fixedHigh: 450 },
+        { label: "Recessed Lighting Install (per unit)", fixedLow: 180, fixedHigh: 300 }
+      ]
+    },
+
+    "waterproofing": {
+      label: "Waterproofing / Leak Repair",
+      emoji: "💧",
+      unit: "linear ft",
+      baseLow: 40, baseHigh: 90, min: 2500,
+      subQuestion: "Location of leak?",
+      options: [
+        { label: "Exterior Foundation", factor: 1.0 },
+        { label: "Basement Interior", factor: 1.5 },
+        { label: "Roof/Flashing (Requires inspection)", factor: 1.8 }
       ]
     },
 
@@ -336,6 +363,8 @@
     pricingMode: "full",   // full | labor | materials
     isRush: false,
     promoCode: "",
+    debrisRemoval: false,   // NEW: Debris removal add-on
+    financingNeeded: false, // NEW: Financing flag
     name: "",
     phone: "",
     projects: []           // list of estimate objects
@@ -346,12 +375,15 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v3.3...");
+    console.log("HB Chat: Initializing v4.2...");
     createInterface();
 
     if (sessionStorage.getItem("hb_chat_active") === "true") {
       toggleChat();
     }
+
+    // Kick off conversation with the mandatory disclaimer step (FIXED)
+    setTimeout(stepOne_Disclaimer, 800);
   }
 
   function createInterface() {
@@ -417,13 +449,6 @@
       if (!photoInput.files || !photoInput.files.length) return;
       addBotMessage(`📷 You selected ${photoInput.files.length} photo(s). Please attach these when you text or email us.`);
     });
-
-    // Kick off conversation
-    addBotMessage("👋 Hi! I can generate a ballpark estimate for your project instantly.");
-    setTimeout(function() {
-      addBotMessage("What type of project are you planning?");
-      presentServiceOptions();
-    }, 800);
   }
 
   function toggleChat() {
@@ -462,8 +487,6 @@
     setTimeout(function() {
       const msgBubble = document.getElementById(typingId);
       if (msgBubble) {
-        // FIX 2: Ensure text bolding is applied if not raw HTML. This also prevents 
-        // the innerHTML from being stripped or mis-formatted when rendering the receipt.
         msgBubble.innerHTML = isHtml ? text : text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         els.body.scrollTop = els.body.scrollHeight;
       }
@@ -501,7 +524,34 @@
     }, 1600);
   }
 
-  // --- FLOW: SERVICE -> SUB OPTIONS --------------------------
+  // --- FLOW: DISCLAIMER -> SERVICE -> SUB OPTIONS --------------------------
+
+  function stepOne_Disclaimer() {
+    updateProgress(5); // New starting progress
+
+    const welcomeMessage = "👋 Hi! I can generate a ballpark estimate for your project instantly.";
+    addBotMessage(welcomeMessage);
+
+    const disclaimerText = `
+        Before we begin, please review our **Disclaimer of Service**:
+        This tool provides an **automated ballpark range only**. It is not a formal quote, contract, or offer for services. Final pricing may change based on in-person inspection, material costs, permits, and specific site conditions. **By continuing, you acknowledge and agree to this.**
+    `;
+    setTimeout(() => {
+        addBotMessage(disclaimerText, true); // Use true for HTML/markdown formatting
+
+        addChoices([
+            { label: "✅ I Agree to the Disclaimer", key: "agree" },
+            { label: "❌ Close Chat", key: "exit" }
+        ], function(choice) {
+            if (choice.key === "agree") {
+                addBotMessage("Great! What type of project are you planning?");
+                presentServiceOptions();
+            } else {
+                toggleChat(); // Close the chat
+            }
+        });
+    }, 1200);
+  }
 
   function presentServiceOptions() {
     updateProgress(10);
@@ -549,35 +599,43 @@
     }
   }
 
-  // --- SIZE STEP (SKIPS FIXED / CONSULT) ---------------------
+  // --- SIZE STEP (SKIPS FIXED / CONSULT, HANDLES isPerSqFt) ---------------------
 
   function stepFour_Size() {
     updateProgress(50);
     const svc = SERVICES[state.serviceKey];
+    const sub = state.subOption || {};
     if (!svc) return;
 
-    // Skip size step for fixed-price or consultation services
-    if (svc.unit === "fixed" || svc.unit === "consult" || state.serviceKey === "other") {
+    // Skip size step for consultation services
+    if (svc.unit === "consult" || state.serviceKey === "other") {
       stepFive_Location();
       return;
     }
 
-    addBotMessage("Approximate size in " + svc.unit + "?");
+    // Check if size is needed (for unit-based, or for fixed services with isPerSqFt flag)
+    if (svc.unit !== "fixed" || sub.isPerSqFt) {
+      // Use "sq ft" for isPerSqFt fixed services, otherwise use the service's unit
+      const unitLabel = sub.isPerSqFt ? "sq ft" : svc.unit;
+      addBotMessage("Approximate size in " + unitLabel + "?");
 
-    function askSize() {
-      enableInput(function(val) {
-        const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
-        if (!num || num < 10) {
-          addBotMessage("That number seems low. Please enter a valid number (e.g. 500).");
-          askSize();
-        } else {
-          state.size = num;
-          stepFive_Location();
-        }
-      });
+      function askSize() {
+        enableInput(function(val) {
+          const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
+          if (!num || num < 10) {
+            addBotMessage("That number seems low. Please enter a valid number (e.g. 500).");
+            askSize();
+          } else {
+            state.size = num;
+            stepFive_Location();
+          }
+        });
+      }
+      askSize();
+    } else {
+      // Fixed price services without size needed (e.g. Kitchen, Windows)
+      stepFive_Location();
     }
-
-    askSize();
   }
 
   // --- LOCATION ----------------------------------------------
@@ -639,10 +697,46 @@
 
     addChoices(opts, function(choice) {
       state.promoCode = choice.code || "";
-      const est = computeEstimateForCurrent();
-      showEstimateAndAskAnother(est);
+      stepNine_DebrisRemoval(); // NEW STEP
     });
   }
+
+  // --- NEW STEP: DEBRIS REMOVAL ADD-ON -----------------------
+
+  function stepNine_DebrisRemoval() {
+    updateProgress(88);
+    // Only ask if a price can be computed for this project
+    const svc = SERVICES[state.serviceKey];
+    const hasPrice = svc && svc.unit !== "consult" && state.serviceKey !== "other";
+
+    if (hasPrice) {
+        addBotMessage("Should we include debris removal, haul-away, and dumpster costs in your estimate? (Typically an extra $800–$1,500)");
+        addChoices(["Yes, include debris removal", "No, I'll handle debris"], function(ans) {
+            const val = (typeof ans === "string") ? ans : ans.label;
+            state.debrisRemoval = !!(val && val.indexOf("Yes") !== -1);
+            stepTen_Financing(); // NEW STEP
+        });
+    } else {
+        // Skip for consultation or custom jobs
+        state.debrisRemoval = false;
+        stepTen_Financing();
+    }
+  }
+
+  // --- NEW STEP: FINANCING -----------------------------------
+
+  function stepTen_Financing() {
+    updateProgress(90);
+    addBotMessage("Do you require financing options for this project?");
+    addChoices(["Yes, please show options", "No, I am paying cash/check"], function(ans) {
+        const val = (typeof ans === "string") ? ans : ans.label;
+        state.financingNeeded = !!(val && val.indexOf("Yes") !== -1);
+
+        const est = computeEstimateForCurrent();
+        showEstimateAndAskAnother(est);
+    });
+  }
+
 
   // --- CALCULATION ENGINE ------------------------------------
 
@@ -689,24 +783,24 @@
     // Custom/consult jobs: no auto price
     if (state.serviceKey === "other" || svc.unit === "consult") {
       return {
-        svc: svc,
-        sub: sub,
-        borough: state.borough,
-        size: null,
-        isLeadHome: state.isLeadHome,
-        pricingMode: state.pricingMode,
-        isRush: state.isRush,
-        promoCode: state.promoCode,
-        low: 0,
-        high: 0,
-        discountRate: 0,
-        isCustom: true
+        svc: svc, sub: sub, borough: state.borough, size: null, isLeadHome: state.isLeadHome,
+        pricingMode: state.pricingMode, isRush: state.isRush, promoCode: state.promoCode,
+        low: 0, high: 0, discountRate: 0, isCustom: true,
+        debrisRemoval: state.debrisRemoval, financingNeeded: state.financingNeeded
       };
     }
 
     if (svc.unit === "fixed") {
-      low = (sub.fixedLow || 0) * mod;
-      high = (sub.fixedHigh || 0) * mod;
+      // Handles fixed price service AND fixed price services that use the new isPerSqFt flag
+      if (sub.isPerSqFt) {
+          // Logic for 'fixed' services that require size (like paver walkways)
+          low = (sub.fixedLow || 0) * state.size * mod;
+          high = (sub.fixedHigh || 0) * state.size * mod;
+      } else {
+          // Standard fixed price services (like windows, kitchen, etc.)
+          low = (sub.fixedLow || 0) * mod;
+          high = (sub.fixedHigh || 0) * mod;
+      }
     } else {
       var rateLow = svc.baseLow;
       var rateHigh = svc.baseHigh;
@@ -732,19 +826,32 @@
     var adjusted = applyPriceModifiers(low, high);
 
     return {
-      svc: svc,
-      sub: sub,
-      borough: state.borough,
-      size: (svc.unit === "fixed" || svc.unit === "consult") ? null : state.size,
-      isLeadHome: state.isLeadHome,
-      pricingMode: state.pricingMode,
-      isRush: state.isRush,
-      promoCode: state.promoCode,
-      low: adjusted.low,
-      high: adjusted.high,
-      discountRate: adjusted.discountRate,
-      isCustom: false
+      svc: svc, sub: sub, borough: state.borough,
+      size: (svc.unit === "fixed" && !sub.isPerSqFt || svc.unit === "consult") ? null : state.size,
+      isLeadHome: state.isLeadHome, pricingMode: state.pricingMode, isRush: state.isRush,
+      promoCode: state.promoCode, low: adjusted.low, high: adjusted.high,
+      discountRate: adjusted.discountRate, isCustom: false,
+      debrisRemoval: state.debrisRemoval, financingNeeded: state.financingNeeded
     };
+  }
+
+  function computeGrandTotal() {
+    var totalLow = 0;
+    var totalHigh = 0;
+
+    state.projects.forEach(function(p) {
+        if (p.low) totalLow += p.low;
+        if (p.high) totalHigh += p.high;
+    });
+
+    // ADD-ON: DEBRIS REMOVAL (only applied once to the grand total if any project requested it)
+    var projectRequiresDebris = state.projects.some(p => p.debrisRemoval === true);
+    if (projectRequiresDebris) {
+        totalLow += ADD_ON_PRICES.debrisRemoval.low;
+        totalHigh += ADD_ON_PRICES.debrisRemoval.high;
+    }
+
+    return { totalLow, totalHigh, projectRequiresDebris };
   }
 
   function buildEstimateHtml(est) {
@@ -768,17 +875,27 @@
         '<div class="hb-receipt-row"><span>Rush:</span><span>Priority scheduling included</span></div>';
     }
 
+    // NEW ADD-ON LINE
+    var debrisLine = "";
+    if (est.debrisRemoval) {
+        debrisLine =
+          '<div class="hb-receipt-row" style="color:#0a9"><span>Debris:</span><span>Haul-away **included**</span></div>';
+    }
+
     var modeLabel = "Full (Labor + Materials)";
     if (est.pricingMode === "labor") modeLabel = "Labor Only";
     if (est.pricingMode === "materials") modeLabel = "Materials + Light Help";
 
     var sizeRow = "";
     if (est.size) {
+      // Determine unit label for custom fixed price items
+      const unitLabel = sub.isPerSqFt ? "sq ft" : svc.unit;
+
       sizeRow =
         '<div class="hb-receipt-row"><span>Size:</span><span>' +
         est.size +
         " " +
-        svc.unit +
+        unitLabel +
         "</span></div>";
     }
 
@@ -819,6 +936,7 @@
         "</span></div>" +
         rushLine +
         leadRow +
+        debrisLine + // ADDED DEBRIS LINE
         discountLine +
         priceRow +
         '<div class="hb-receipt-footer hb-disclaimer">' +
@@ -834,9 +952,9 @@
 
   function showEstimateAndAskAnother(est) {
     if (!est) return;
-    updateProgress(90);
+    updateProgress(92); // Adjusted progress
 
-    // FIX 3a: Prepend the visible header for the single project estimate
+    // Prepend the visible header for the single project estimate
     var html = '--- **Project Estimate** ---<br>' + buildEstimateHtml(est);
     addBotMessage(html, true);
 
@@ -847,7 +965,7 @@
 
   function askAddAnother(est) {
     state.projects.push(est);
-    updateProgress(92);
+    updateProgress(94); // Adjusted progress
 
     addBotMessage("Would you like to add another project to this estimate?");
     addChoices(
@@ -875,20 +993,21 @@
     var projects = state.projects;
     if (!projects || !projects.length) return;
 
-    var totalLow = 0;
-    var totalHigh = 0;
+    var totals = computeGrandTotal(); // FIXED: Use combined total function
+    var totalLow = totals.totalLow;
+    var totalHigh = totals.totalHigh;
 
     var rowsHtml = projects
       .map(function(p, idx) {
         var hasPrice = !!(p.low && p.high);
-        if (hasPrice) {
-          totalLow += p.low;
-          totalHigh += p.high;
-        }
 
         var fLow = hasPrice ? Math.round(p.low).toLocaleString() : "Custom";
         var fHigh = hasPrice ? Math.round(p.high).toLocaleString() : "Quote";
-        var sizePart = p.size ? " — " + p.size + " " + p.svc.unit : "";
+
+        // Handle unit label for custom fixed price items
+        const unitLabel = p.sub.isPerSqFt ? "sq ft" : p.svc.unit;
+
+        var sizePart = p.size ? " — " + p.size + " " + unitLabel : "";
         var areaPart = p.borough ? " (" + p.borough + ")" : "";
 
         return (
@@ -902,11 +1021,23 @@
       })
       .join("");
 
+    // ADDED DEBRIS ROW TO COMBINED RECEIPT
+    var debrisRow = "";
+    if (totals.projectRequiresDebris) {
+        debrisRow =
+            '<div class="hb-receipt-row" style="color:#0a9; font-weight:700;"><span>Debris Removal/Haul-Away:</span><span>$' +
+            Math.round(ADD_ON_PRICES.debrisRemoval.low).toLocaleString() +
+            " – $" +
+            Math.round(ADD_ON_PRICES.debrisRemoval.high).toLocaleString() +
+            "</span></div>";
+    }
+
     var totalRow = "";
+    // FIXED: Total Row only shows if calculation produced numbers (i.e., not a custom consult only)
     if (totalLow && totalHigh) {
       totalRow =
         '<div class="hb-receipt-total">' +
-          "<span>Combined Range:</span>" +
+          "<span>Combined Total Range:</span>" +
           "<span>$" +
           Math.round(totalLow).toLocaleString() +
           " – $" +
@@ -915,17 +1046,25 @@
         "</div>";
     }
 
+    // NEW FINANCING FOOTER
+    var financingFooter = "";
+    if (state.projects.some(p => p.financingNeeded)) {
+        financingFooter = " We will include financing options in your custom quote package.";
+    }
+
     var html =
       '<div class="hb-receipt">' +
         "<h4>Combined Estimate Summary</h4>" +
         rowsHtml +
+        debrisRow +
         totalRow +
         '<div class="hb-receipt-footer">' +
           "Ask about VIP Home Care memberships & referral rewards for extra savings." +
+          financingFooter +
         "</div>" +
       "</div>";
 
-    // FIX 3b: Prepend the visible header for the combined estimate
+    // Prepend the visible header for the combined estimate (v4.1 style)
     var messageText = '--- **Combined Estimate** ---<br>' + html;
     addBotMessage(messageText, true);
 
@@ -945,6 +1084,8 @@
     state.pricingMode = "full";
     state.isRush = false;
     state.promoCode = "";
+    state.debrisRemoval = false; // Reset add-ons for new project
+    state.financingNeeded = false;
   }
 
   // --- LEAD CAPTURE & LINKS ----------------------------------
@@ -971,7 +1112,10 @@
 
     if (state.projects && state.projects.length) {
       state.projects.forEach(function(p, idx) {
-        var sizePart = p.size ? (" — " + p.size + " " + p.svc.unit) : "";
+        // Handle unit label for custom fixed price items
+        const unitLabel = p.sub.isPerSqFt ? "sq ft" : p.svc.unit;
+
+        var sizePart = p.size ? (" — " + p.size + " " + unitLabel) : "";
         var areaPart = p.borough ? (" (" + p.borough + ")") : "";
 
         var line = (idx + 1) + ". " + p.svc.label + sizePart + areaPart;
@@ -986,24 +1130,52 @@
 
         lines.push(line);
 
-        // Add extra detail line (mode, rush, promo, lead)
-        var modeLabel = "Full (Labor + Materials)";
+        // Add extra detail line (mode, rush, promo, lead, debris)
+        var modeLabel = "Full (L+M)";
         if (p.pricingMode === "labor") modeLabel = "Labor Only";
-        if (p.pricingMode === "materials") modeLabel = "Materials + Light Help";
+        if (p.pricingMode === "materials") modeLabel = "Materials+Help";
 
         var extras = [modeLabel];
-        if (p.isRush) extras.push("Rush scheduling");
-        if (p.promoCode) extras.push("Promo: " + p.promoCode.toUpperCase());
-        if (p.isLeadHome) extras.push("Lead-safe methods");
+        if (p.isRush) extras.push("Rush");
+
+        // FIX: Promo code display
+        if (p.promoCode) {
+            var dc_rate = DISCOUNTS[p.promoCode.toUpperCase()];
+            // Correctly format promo code as VIP10 (10% off)
+            var dc_text = dc_rate ? " (" + Math.round(dc_rate * 100) + "% off)" : "";
+            extras.push("Promo: " + p.promoCode.toUpperCase() + dc_text);
+        }
+
+        if (p.isLeadHome) extras.push("Lead-safe");
+        if (p.debrisRemoval) extras.push("Debris: Included"); // NEW
 
         if (extras.length) {
           lines.push("   [" + extras.join(" | ") + "]");
         }
       });
+
+      // Add combined add-ons and totals
+      var totals = computeGrandTotal();
+
+      // Add financing detail
+      if (state.projects.some(p => p.financingNeeded)) {
+          lines.push("\nFinancing: Customer requested options.");
+      }
+
+      // Add debris add-on if applicable
+      if (totals.projectRequiresDebris) {
+          lines.push("Add-on: Debris Removal (~$" + Math.round(ADD_ON_PRICES.debrisRemoval.low).toLocaleString() + "–$" + Math.round(ADD_ON_PRICES.debrisRemoval.high).toLocaleString() + ")");
+      }
+
+      // Add Combined Total
+      if (totals.totalLow) {
+          lines.push("\nCOMBINED RANGE: $" + Math.round(totals.totalLow).toLocaleString() + " – $" + Math.round(totals.totalHigh).toLocaleString());
+      }
     } else if (state.serviceKey && SERVICES[state.serviceKey]) {
       lines.push(SERVICES[state.serviceKey].label);
     }
 
+    lines.push("Customer Name: " + state.name);
     lines.push("Phone: " + state.phone);
     lines.push("Please reply to schedule a walkthrough.");
     lines.push("");
@@ -1015,8 +1187,8 @@
 
     var body = encodeURIComponent(lines.join("\n"));
 
-    // FIX 4: Update Phone Number and Email Address
-    var smsLink = "sms:9295955300?&body=" + body; 
+    // Phone and Email Fixes (using the v4.1 links for better styling/text)
+    var smsLink = "sms:9295955300?&body=" + body;
     var emailLink =
       "mailto:hammerbrickhome@gmail.com?subject=" +
       encodeURIComponent("Estimate Request - Hammer Brick & Home") +
@@ -1031,26 +1203,26 @@
     );
 
     setTimeout(function() {
-      // SMS button (FIX 1 & 5: Golden Button class and requested text)
+      // SMS button
       var smsBtn = document.createElement("a");
-      smsBtn.className = "hb-chip hb-primary-btn"; // Use new golden class
-      // Removed inline styles for color/background/font-weight since the class handles it
+      // Styles are now managed better in the new logic
+      smsBtn.className = "hb-chip hb-primary-btn";
       smsBtn.style.display = "block";
       smsBtn.style.textAlign = "center";
       smsBtn.style.textDecoration = "none";
       smsBtn.style.marginTop = "10px";
-      smsBtn.textContent = "📲 Text Estimate to My Phone"; // Requested text
+      smsBtn.textContent = "📲 Text Estimate to My Phone";
       smsBtn.href = smsLink;
       els.body.appendChild(smsBtn);
 
-      // Email button (FIX 1 & 5: Golden Button class and requested text)
+      // Email button
       var emailBtn = document.createElement("a");
-      emailBtn.className = "hb-chip hb-primary-btn"; // Use new golden class
+      emailBtn.className = "hb-chip hb-primary-btn";
       emailBtn.style.display = "block";
       emailBtn.style.textAlign = "center";
       emailBtn.style.textDecoration = "none";
       emailBtn.style.marginTop = "8px";
-      emailBtn.textContent = "✉️ Email Estimate to Hammer Brick & Home"; // Requested text
+      emailBtn.textContent = "✉️ Email Estimate to Hammer Brick & Home";
       emailBtn.href = emailLink;
       els.body.appendChild(emailBtn);
 
