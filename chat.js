@@ -1,15 +1,13 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v6.2
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v6.4
    Multi-Project • Rush • Promo Codes • SMS & Email • Photos
-   + Fixed Units, Advanced Add-ons, MINIMUM PROJECT FLOOR (Hidden Overhead)
-   + RESTORED: Initial Disclaimer Check (Step Zero)
-   + RESTORED: VIP10 PROMO CODE CHIP AND FINAL CONTACT BUTTONS
+   + Added Grand Total Calculation
+   + Added CRM Webhook for Server-Side Notification/Tracking
+   + Fixed Name Duplication Bug
 =============================================================== */
 
 (function() {
   // --- CONFIGURATION & DATA -----------------------------------
-
-  // Removed explicit MOBILIZATION_FEE. Cost is now absorbed into 'min' price floor for each service.
 
   // Borough modifiers
   const BOROUGH_MODS = {
@@ -30,6 +28,7 @@
   // Optional external URLs (leave empty if not used)
   const CRM_FORM_URL = "";      // e.g. "https://forms.gle/your-form-id"
   const WALKTHROUGH_URL = "";   // e.g. "https://calendly.com/your-link"
+  const CRM_WEBHOOK_URL = "";   // NEW: Webhook endpoint for server-side notification/tracking
 
   // Pricing Logic / Services (v6.1)
   const SERVICES = {
@@ -277,7 +276,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v6.2 (VIP10 Chip & Buttons Restored)..."); // VERSION BUMP
+    console.log("HB Chat: Initializing v6.4 (Total Estimate & Webhook Added)..."); // VERSION BUMP
     createInterface();
 
     if (sessionStorage.getItem("hb_chat_active") === "true") {
@@ -435,7 +434,7 @@
     }, 500);
   }
 
-  // --- FLOW CONTROL (v6.2) -------------------------
+  // --- FLOW CONTROL (v6.4: Total Estimate, Webhook, Name Fix) -------------------------
 
   // STEP 0: Initial Disclaimer Check
   function stepZero_Disclaimer() {
@@ -705,13 +704,13 @@
     });
   }
 
-  // STEP 10: Promo Code (RESTORED VIP10 CHIP)
+  // STEP 10: Promo Code
   function stepTen_Promo() {
     updateProgress(85);
     addBotMessage("Do you have a **Promo Code**?");
 
     addChoices([
-      { label: "Use VIP10 (10% Off)", key: "VIP10" }, // RESTORED CHIP
+      { label: "Use VIP10 (10% Off)", key: "VIP10" }, // VIP10 CHIP
       "Enter Code", 
       "No Code / Skip"
     ], function(choice) {
@@ -785,10 +784,10 @@
     addBotMessage("1. What is your full name?");
     enableInput(function(name) {
       state.name = name.trim();
-      addUserMessage(state.name);
-
+      // REMOVED: addUserMessage(state.name); -> Fixes name duplication
+      
       // Step 2: Phone
-      addBotMessage("2. What is your best phone number for a text message (SMS)?");
+      addBotMessage(`2. Thank you, **${state.name}**. What is your best phone number for a text message (SMS)?`);
       enableInput(function(phone) {
         // Simple regex to clean phone number (allows formatting)
         state.phone = phone.trim().replace(/[^\d\+\- ]/g, '');
@@ -798,71 +797,119 @@
     }, "Enter full name..."); // Added placeholder
   }
 
-  // STEP 13: Final Links (RESTORED PHOTO BUTTON/CHIP)
+  // STEP 13: Final Links (FIXED FLOW & BUTTONS)
   function stepThirteen_FinalLinks() {
     updateProgress(100);
 
-    addBotMessage(`Thank you, **${state.name}**. We have texted the estimate details to **${state.phone}**.`);
+    // 1. CRM Webhook Notification (Fire and forget)
+    sendEstimateToCRM();
+
+    // 2. Display Grand Total if multi-project
+    if (state.projects.length > 1) {
+      const total = computeGrandTotal();
+      const totalHtml = `<div class="hb-grand-total" style="
+        border: 2px solid var(--hb-chat-gold-dim); 
+        border-radius: 8px; 
+        padding: 12px; 
+        margin-top: 15px;
+        background: rgba(231,191,99,0.1);
+      ">
+        <div class="hb-receipt-title" style="margin-top: 0; font-size: 1.1em;">
+            **Combined Project Total Estimate:**
+        </div>
+        <div class="hb-receipt-row hb-price-row">
+            <span style="color: #ccc;">Low End:</span><span style="font-size: 1.1em; color: var(--hb-chat-gold);"><strong>$${total.low.toLocaleString()}</strong></span>
+        </div>
+        <div class="hb-receipt-row hb-price-row">
+            <span style="color: #ccc;">High End:</span><span style="font-size: 1.1em; color: var(--hb-chat-gold);"><strong>$${total.high.toLocaleString()}</strong></span>
+        </div>
+      </div>`;
+      addBotMessage(totalHtml, true);
+    }
     
-    // SMS/Email Links (hb-link-btn is styled like a button)
+    // 3. Updated message to clarify SMS action
+    addBotMessage(`Your full estimate package is ready. Please click the buttons below to **send the details to yourself** and contact our team for the next steps.`);
+    
+    // 4. Insert all action buttons/links at once
     addBotMessage(generateFinalLinks(), true);
 
-    // NEW: Add the photo button/chip and Walkthrough/CRM button
+    // 5. Final message and reset
     setTimeout(function() {
-      // 1. Photo button (triggers hidden input)
-      var photoBtn = document.createElement("button");
-      photoBtn.className = "hb-chip"; // Use the hb-chip style
-      photoBtn.style.display = "block";
-      photoBtn.style.marginTop = "15px";
-      photoBtn.textContent = "📷 Add Photos for Review";
-      photoBtn.onclick = function() {
-        if (els.photoInput) els.photoInput.click();
-      };
-      els.body.appendChild(photoBtn);
-
-      // 2. Walkthrough / CRM button
-      if (WALKTHROUGH_URL || CRM_FORM_URL) {
-          var actionBtn = document.createElement("a");
-          actionBtn.className = "hb-link-btn";
-          actionBtn.target = "_blank";
-          actionBtn.style.marginTop = "10px";
-          actionBtn.style.display = "block";
-          if (WALKTHROUGH_URL) {
-              actionBtn.href = WALKTHROUGH_URL;
-              actionBtn.textContent = "📅 Book a Free Walkthrough";
-          } else {
-              actionBtn.href = CRM_FORM_URL;
-              actionBtn.textContent = "📝 Submit Full Inquiry Form";
-          }
-          els.body.appendChild(actionBtn);
-      }
-      
-      // Final message and reset
-      addBotMessage("If you have any questions, just reach out! We look forward to working with you.");
-
-      // Final reset of state
-      Object.assign(state, {
-        step: 0,
-        serviceKey: null,
-        subOption: null,
-        size: 0,
-        quantity: 1,
-        selectedAddons: [],
-        borough: null,
-        isLeadHome: false,
-        pricingMode: "full",
-        isRush: false,
-        promoCode: "",
-        name: "",
-        phone: "",
-        projects: []
-      });
-      
-      els.body.scrollTop = els.body.scrollHeight;
+        addBotMessage("We look forward to reviewing your project details!");
     }, 1000);
+
+    // Final reset of state (deferred reset)
+    setTimeout(function() {
+        Object.assign(state, {
+          step: 0,
+          serviceKey: null,
+          subOption: null,
+          size: 0,
+          quantity: 1,
+          selectedAddons: [],
+          borough: null,
+          isLeadHome: false,
+          pricingMode: "full",
+          isRush: false,
+          promoCode: "",
+          name: "",
+          phone: "",
+          projects: []
+        });
+    }, 2000);
   }
 
   // --- CALCULATIONS ------------------------------------------
+
+  // NEW: Computes the sum of all project estimates
+  function computeGrandTotal() {
+    let totalLow = 0;
+    let totalHigh = 0;
+
+    state.projects.forEach(p => {
+        // Only sum projects that aren't pure consultations (which often have minimal fixed prices)
+        if (p.svc.unit !== "consult") {
+            totalLow += p.low;
+            totalHigh += p.high;
+        }
+    });
+
+    return {
+        low: Math.round(totalLow / 100) * 100, // Round to nearest 100
+        high: Math.round(totalHigh / 100) * 100
+    };
+  }
+
+  function applyPriceModifiers(low, high) {
+    // 1. Rush Surcharge (8% for rush jobs)
+    if (state.isRush) {
+      low *= 1.08;
+      high *= 1.08;
+    }
+
+    // 2. Promo Discount
+    let discount = 0;
+    if (state.promoCode && DISCOUNTS[state.promoCode]) {
+      discount = DISCOUNTS[state.promoCode];
+      low *= (1 - discount);
+      high *= (1 - discount);
+    }
+
+    // 3. Pricing Mode Adjustment
+    if (state.pricingMode === "labor") {
+      low *= 0.70; // 30% reduction for customer supplying materials
+      high *= 0.85; // 15% reduction for labor-only high end (allows for unexpected labor/material conflict)
+    } else if (state.pricingMode === "materials") {
+      low *= 0.30; // 70% reduction, showing lowest materials cost estimate
+      high = low * 1.5; // High end materials mark up is tighter
+    }
+
+    return {
+      low: Math.round(low / 100) * 100,
+      high: Math.round(high / 100) * 100,
+      discount: discount
+    };
+  }
 
   function computeEstimateForCurrent() {
     const svc = SERVICES[state.serviceKey];
@@ -939,36 +986,50 @@
       discount: adjusted.discount
     };
   }
-
-  function applyPriceModifiers(low, high) {
-    // 1. Rush Surcharge (8% for rush jobs)
-    if (state.isRush) {
-      low *= 1.08;
-      high *= 1.08;
+  
+  // NEW: Sends estimate data to a configured CRM webhook
+  function sendEstimateToCRM() {
+    if (!CRM_WEBHOOK_URL) {
+      console.log("CRM Webhook URL not configured. Skipping server notification.");
+      return;
     }
 
-    // 2. Promo Discount
-    let discount = 0;
-    if (state.promoCode && DISCOUNTS[state.promoCode]) {
-      discount = DISCOUNTS[state.promoCode];
-      low *= (1 - discount);
-      high *= (1 - discount);
-    }
-
-    // 3. Pricing Mode Adjustment
-    if (state.pricingMode === "labor") {
-      low *= 0.70; // 30% reduction for customer supplying materials
-      high *= 0.85; // 15% reduction for labor-only high end (allows for unexpected labor/material conflict)
-    } else if (state.pricingMode === "materials") {
-      low *= 0.30; // 70% reduction, showing lowest materials cost estimate
-      high = low * 1.5; // High end materials mark up is tighter
-    }
-
-    return {
-      low: Math.round(low / 100) * 100,
-      high: Math.round(high / 100) * 100,
-      discount: discount
+    const payload = {
+      timestamp: new Date().toISOString(),
+      customer: {
+        name: state.name,
+        phone: state.phone,
+        // Using the borough of the FIRST project, assuming consistency
+        borough: state.projects.length > 0 ? state.projects[0].borough : state.borough, 
+      },
+      projects: state.projects.map(p => ({
+        service: p.svc.label,
+        mode: p.pricingMode,
+        range: `$${p.low.toLocaleString()} - $${p.high.toLocaleString()}`,
+        details: {
+            size: p.size,
+            quantity: p.quantity,
+            addons: p.selectedAddons.map(a => a.label),
+            rush: p.isRush,
+            promo: p.promoCode,
+            leadSensitive: p.isLeadHome
+        }
+      })),
+      grandTotal: state.projects.length > 1 ? computeGrandTotal() : null
     };
+
+    // Use a simple fetch API (or XMLHttpRequest for better compatibility)
+    fetch(CRM_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        console.log("CRM Webhook sent successfully. Status:", response.status);
+    })
+    .catch(error => {
+        console.error("Error sending CRM Webhook:", error);
+    });
   }
 
 
@@ -1052,13 +1113,13 @@
     `;
   }
 
+  // MODIFIED: This function now outputs ALL final buttons/links
   function generateFinalLinks() {
     var lines = [];
 
-    // Project List
+    // Project List for SMS/Email body
     if (state.projects && state.projects.length) {
       state.projects.forEach(function(p, idx) {
-        // MODIFIED: Use quantity if fixed unit, else use size
         var unitDetail = p.svc.unit === "fixed" ? (p.quantity ? (" — " + p.quantity + " units") : "") : (p.size ? (" — " + p.size + " " + p.svc.unit) : "");
         var areaPart = p.borough ? (" (" + p.borough + ")") : "";
 
@@ -1066,14 +1127,11 @@
         var priceStr = p.svc.unit === "consult" ? "Consultation" : `$${p.low.toLocaleString()} - $${p.high.toLocaleString()}`;
         lines.push(line);
 
-        // Extra detail line
         var modeLabel = p.pricingMode.charAt(0).toUpperCase() + p.pricingMode.slice(1);
         var extras = [modeLabel];
         if (p.isRush) extras.push("Rush scheduling");
         if (p.promoCode) extras.push("Promo: " + p.promoCode.toUpperCase());
         if (p.isLeadHome) extras.push("Lead-safe methods");
-
-        // ADDED: Add-ons
         if (p.selectedAddons && p.selectedAddons.length > 0) {
             extras.push("Add-ons: " + p.selectedAddons.map(a => a.label.split('(')[0].trim()).join(', '));
         }
@@ -1084,6 +1142,14 @@
         lines.push(`   Price Range: ${priceStr}`);
       });
     }
+    
+    // Add Grand Total to text if multi-project
+    if (state.projects.length > 1) {
+        const total = computeGrandTotal();
+        lines.push("\n--- GRAND TOTAL ---");
+        lines.push(`Combined Range: $${total.low.toLocaleString()} - $${total.high.toLocaleString()}`);
+        lines.push("-------------------");
+    }
 
     const estimateText = lines.join("\n");
     const disclaimerText = "Note: This is a preliminary ballpark estimate. The price range is designed to include general overhead and logistical costs (hidden mobilization fee concept). Final pricing requires an on-site walkthrough.";
@@ -1091,16 +1157,36 @@
     const smsBody = encodeURIComponent(`Estimate for ${state.name} (${state.phone}):\n\n${estimateText}\n\n${disclaimerText}`);
     const emailBody = encodeURIComponent(`Hello Team,\n\nI have generated the following ballpark estimate:\n\n---\n${estimateText}\n---\n\n${disclaimerText}\n\nPlease contact me at ${state.phone} or reply to this email.\n\nThank you,\n${state.name}`);
 
-    // Generate Buttons (hb-link-btn is styled to look like a button)
-    const html = `
+    // --- BUTTONS ---
+    let buttonsHtml = `
       <div class="hb-final-links">
-        <a class="hb-link-btn" href="sms:${state.phone}?body=${smsBody}">📥 Text Estimate to Me</a>
-        <a class="hb-link-btn" href="mailto:estimates@hammerbrickhome.com?subject=${subject}&body=${emailBody}">📧 Email to Hammer Brick & Home</a>
-      </div>
-      <p class="hb-disclaimer-small">${disclaimerText}</p>
+        <a class="hb-link-btn" href="sms:${state.phone}?body=${smsBody}">📥 Text Estimate to My Phone</a>
+        <a class="hb-link-btn" href="mailto:estimates@hammerbrickhome.com?subject=${subject}&body=${emailBody}">📧 Email Estimate to Hammer Brick & Home</a>
     `;
+    
+    // Add Photo Button (will use a click handler outside this static HTML)
+    buttonsHtml += `<button class="hb-link-btn hb-photo-trigger">📷 Add Photos for Review</button>`;
 
-    return html;
+    // Add Walkthrough/CRM Button if URL is configured
+    if (WALKTHROUGH_URL || CRM_FORM_URL) {
+        const url = WALKTHROUGH_URL || CRM_FORM_URL;
+        const text = WALKTHROUGH_URL ? "📅 Book a Free Walkthrough" : "📝 Submit Full Inquiry Form";
+        buttonsHtml += `<a class="hb-link-btn" target="_blank" href="${url}">${text}</a>`;
+    }
+
+    buttonsHtml += `</div>`; // Close hb-final-links
+
+    // Add the photo button click handler setup separately
+    setTimeout(function() {
+        const photoTrigger = document.querySelector(".hb-photo-trigger");
+        if (photoTrigger) {
+            photoTrigger.onclick = function() {
+                if (els.photoInput) els.photoInput.click();
+            };
+        }
+    }, 10); // Small delay to ensure DOM is ready
+
+    return buttonsHtml + `<p class="hb-disclaimer-small" style="margin-top: 20px;">${disclaimerText}</p>`;
   }
 
   // --- UTILS -------------------------------------------------
