@@ -1,6 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="canonical" id="hb-canonical">
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const c = document.querySelector("#hb-canonical");
+  if (!c) return;
+
+  // Always output canonical using your REAL domain, not GitHub
+  const cleanURL = "https://www.hammerbrickhome.com" + window.location.pathname;
+  c.setAttribute("href", cleanURL);
+});
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
