@@ -1,8 +1,8 @@
 /* ============================================================
    HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v4.3
-   (Final Production Build)
+   (Final Production Build with CRITICAL BUTTON FIX)
    
-   FIXED: Chat now opens correctly (conversation start restored).
+   FIXED: Button opens chat correctly (DOM timing fix applied).
    FIXED: All financing steps and logic removed.
    NEW: Smart Add-Ons logic fully integrated and confirmed working.
 =============================================================== */
@@ -483,6 +483,8 @@
 
 
   function toggleChat() {
+    if (!els.wrapper) return; // Safety check
+
     if (!state.flowInitialized) {
       state.flowInitialized = true;
     }
@@ -1009,13 +1011,15 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v4.3 — Final Production Build");
+    console.log("HB Chat: Initializing v4.3 — Final Fix: DOM Ready Check");
     createInterface();
+
+    // Now that the interface is created and 'els' is populated, we can proceed.
 
     if (sessionStorage.getItem("hb_chat_active") === "true") {
       toggleChat();
     }
-
+    
     // 1. Setup the Smart Add-on event listeners.
     initializeAddonListeners();
     
@@ -1031,7 +1035,7 @@
     fab.className = "hb-chat-fab";
     fab.innerHTML = `<span class="hb-fab-icon">📷</span><span class="hb-fab-text">Get Quote</span>`;
     fab.style.display = "flex";
-    fab.onclick = toggleChat;
+    fab.onclick = toggleChat; // CLICK HANDLER ATTACHED HERE
     document.body.appendChild(fab);
 
     // Chat wrapper
@@ -1788,26 +1792,19 @@ function initializeAddonListeners() {
       return;
   }
 
-  // When service changes (in Step 2/3), render matching add-ons
-  // Note: The service selection chips call handleServiceSelection which eventually leads to the form creation.
-  // The serviceSelect element is part of a dynamic step output, so we check for it here.
-  
   serviceSelect.addEventListener("change", () => {
     renderSmartAddons(serviceSelect.value);
   });
 
   // Render for initial selected service (if already on step 8/9 when this runs)
   renderSmartAddons(serviceSelect.value);
-
-  // When the estimate summary is submitted (by clicking the promo code buttons), 
-  // the main script should call stepNine_FinalSummary, which will execute 
-  // applySmartAddonBreakdown(). No separate form listener is strictly needed here.
 }
 
 
   // --- END OF INTEGRATED SMART ADD-ONS LOGIC ---
   
-  // Call init at the end to start the script
-  init();
+  // CRITICAL FIX: We must wait for the entire document to load before creating the UI 
+  // and attaching the click listener to the Floating Action Button (FAB).
+  window.addEventListener('DOMContentLoaded', init); 
 
 })();
