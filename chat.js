@@ -1,9 +1,7 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v6.4
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v3.3
    Multi-Project • Rush • Promo Codes • SMS & Email • Photos
-   + Added Grand Total Calculation
-   + Added CRM Webhook for Server-Side Notification/Tracking
-   + Fixed Name Duplication Bug
+   + In-card Disclaimer + Disclaimer in SMS/Email
 =============================================================== */
 
 (function() {
@@ -28,230 +26,304 @@
   // Optional external URLs (leave empty if not used)
   const CRM_FORM_URL = "";      // e.g. "https://forms.gle/your-form-id"
   const WALKTHROUGH_URL = "";   // e.g. "https://calendly.com/your-link"
-  const CRM_WEBHOOK_URL = "";   // NEW: Webhook endpoint for server-side notification/tracking
 
-  // Pricing Logic / Services (v6.1)
+  // Pricing Logic / Services
   const SERVICES = {
-    // 1. Masonry & Concrete (Square Footage Unit)
     "masonry": {
-      label: "Masonry, Concrete & Brickwork", emoji: "🧱", unit: "sq ft", baseLow: 28, baseHigh: 42, minSize: 100, min: 4500, // Enforced price floor
-      subQuestion: "What material or scope?",
+      label: "Masonry & Concrete",
+      emoji: "🧱",
+      unit: "sq ft",
+      baseLow: 16, baseHigh: 28, min: 2500,
+      subQuestion: "What type of finish?",
       options: [
-        { label: "Standard Concrete Slab ($)", factor: 1.0 },
-        { label: "Brick Repair / Repointing ($$$)", factor: 2.2 }
-      ],
-      addons: [
-          { label: "Power Wash & Sealant Application", key: "sealant", fixedCost: 750, percentFactor: 0.04 },
-          { label: "Historical Brick Matching/Review", key: "hist_match", fixedCost: 1500 },
-          { label: "NYC Permit Filing (Standard)", key: "permit", fixedCost: 600, percentFactor: 0 }
+        { label: "Standard Concrete ($)", factor: 1.0 },
+        { label: "Pavers ($$)", factor: 1.6 },
+        { label: "Natural Stone ($$$)", factor: 2.2 }
       ]
     },
 
-    // 2. Roofing (Square Footage Unit)
+    "driveway": {
+      label: "Driveway",
+      emoji: "🚗",
+      unit: "sq ft",
+      baseLow: 10, baseHigh: 20, min: 3500,
+      subQuestion: "Current surface condition?",
+      options: [
+        { label: "Dirt/Gravel (New)", factor: 1.0 },
+        { label: "Existing Asphalt (Removal)", factor: 1.25 },
+        { label: "Existing Concrete (Hard Demo)", factor: 1.4 }
+      ]
+    },
+
     "roofing": {
-      label: "Roofing", emoji: "🏠", unit: "sq ft", baseLow: 8, baseHigh: 16, minSize: 500, min: 6000,
+      label: "Roofing",
+      emoji: "🏠",
+      unit: "sq ft",
+      baseLow: 4.5, baseHigh: 9.5, min: 6500,
       subQuestion: "Roof type?",
       options: [
-        { label: "Shingle (Standard)", factor: 1.0 }, { label: "Flat Roof (NYC Spec)", factor: 1.5 }
-      ],
-      addons: [
-          { label: "Gutter/Flashing Replacement", key: "flashing", percentFactor: 0.08 },
-          { label: "Skylight/Vent Replacement (Per Unit)", key: "skylight_rep", fixedCost: 800 }
+        { label: "Shingle (Standard)", factor: 1.0 },
+        { label: "Flat Roof (NYC Spec)", factor: 1.5 },
+        { label: "Slate/Specialty", factor: 2.5 }
       ]
     },
 
-    // 3. Siding Installation (Square Footage Unit)
-    "siding": {
-        label: "Siding Installation", emoji: "🏡", unit: "sq ft", baseLow: 8.5, baseHigh: 16.5, minSize: 800, min: 7500,
-        subQuestion: "Siding material?",
-        options: [
-            { label: "Vinyl Siding (Standard)", factor: 1.0 }, { label: "Fiber Cement (e.g., HardiePlank)", factor: 1.5 }
-        ],
-        addons: [
-            { label: "Water Barrier/House Wrap Upgrade", key: "wrap", percentFactor: 0.05 },
-            { label: "Window/Door Casing Wrap", key: "casing_wrap", percentFactor: 0.04 }
-        ]
-    },
-
-    // 4. Interior Painting (Square Footage Unit)
+    // --- PAINTING ---------------------------------------------
     "painting": {
-      label: "Interior Painting", emoji: "🎨", unit: "sq ft", baseLow: 3.5, baseHigh: 6.5, minSize: 400, min: 3000,
-      subQuestion: "Paint quality & wall condition?", leadSensitive: true,
+      label: "Interior Painting",
+      emoji: "🎨",
+      unit: "sq ft",
+      baseLow: 1.8, baseHigh: 3.8, min: 1800,
+      subQuestion: "Paint quality?",
+      leadSensitive: true,
       options: [
-        { label: "Luxury Paint, Heavy Skim Coating", factor: 1.8 }
-      ],
-      addons: [
-          { label: "Ceiling Repair/Recessed Light Prep", key: "ceiling_prep", percentFactor: 0.07 },
-          { label: "Trim/Door Painting Package", key: "trim_paint", fixedCost: 500 }
-      ]
-    },
-
-    // 5. Kitchen Remodel (Fixed Unit)
-    "kitchen": {
-      label: "Kitchen Remodel", emoji: "🍳", unit: "fixed", quantityMin: 1, // Requires quantity
-      subQuestion: "Cabinetry and scope?",
-      options: [
-        { label: "Refresh (Cosmetic)", fixedLow: 35000, fixedHigh: 55000 },
-        { label: "Full Gut / Luxury (Custom Cabinetry)", fixedLow: 65000, fixedHigh: 120000 }
-      ],
-      addons: [
-          { label: "Asbestos/Lead Testing (Mandatory in NYC)", key: "asbestos_test", fixedCost: 1500 },
-          { label: "Temporary Kitchen/Utility Setup", key: "temp_kitchen", fixedCost: 1800 },
-          { label: "Custom Tiling / Complex Patterning", key: "custom_tile", percentFactor: 0.03 }
-      ],
-      leadSensitive: true
-    },
-
-    // 6. Bathroom Remodel (Fixed Unit)
-    "bathroom": {
-      label: "Bathroom Remodel", emoji: "🚿", unit: "fixed", quantityMin: 1, // Requires quantity
-      subQuestion: "Fixture level and scope?",
-      options: [
-        { label: "Luxury Wet Room / High-End Tile", fixedLow: 45000, fixedHigh: 80000 }
-      ],
-      addons: [
-          { label: "Custom Niche/Bench Construction", key: "niche", fixedCost: 700 },
-          { label: "Heated Flooring System", key: "heated_floor", fixedCost: 2500 },
-          { label: "Steam Shower System Install", key: "steam_shower", fixedCost: 4000 }
-      ],
-      leadSensitive: true
-    },
-
-    // 7. Windows Install (Fixed Unit)
-    "windows": {
-      label: "Windows Install (Per Unit)", emoji: "🪟", unit: "fixed", quantityMin: 2, // Requires quantity
-      subQuestion: "Window type?",
-      options: [
-        { label: "Standard Vinyl", fixedLow: 750, fixedHigh: 1100 },
-        { label: "Double Hung Premium", fixedLow: 1100, fixedHigh: 1800 }
-      ],
-      addons: [
-          { label: "Interior Trim Replacement (Per Window)", key: "trim", fixedCost: 150 },
-          { label: "Exterior Casing Repair/Painting", key: "casing", fixedCost: 250 },
-          { label: "Energy Star Filing/Incentive Prep", key: "energy_star", fixedCost: 300 }
-      ],
-      leadSensitive: true
-    },
-
-    // 8. Door Installation (Fixed Unit)
-    "doors": {
-      label: "Door Installation (Per Unit)", emoji: "🚪", unit: "fixed", quantityMin: 1, // Requires quantity
-      subQuestion: "Door type?",
-      options: [
-        { label: "Interior Prehung", fixedLow: 350, fixedHigh: 650 },
-        { label: "Exterior Steel / Fiberglass", fixedLow: 1200, fixedHigh: 2200 }
-      ],
-      addons: [
-          { label: "Casing/Trim Replacement", key: "trim_replace", fixedCost: 200 }
-      ],
-      leadSensitive: true
-    },
-
-    // 9. System Upgrades (Fixed Unit)
-    "system_upgrade": {
-        label: "System Upgrades (Electrical/HVAC)", emoji: "⚡️", unit: "fixed", quantityMin: 1,
-        subQuestion: "What requires upgrading?",
-        options: [
-            { label: "Electrical Panel Upgrade (100A/200A)", fixedLow: 3500, fixedHigh: 6500 },
-            { label: "HVAC Mini-Split Installation (Per Zone)", fixedLow: 4000, fixedHigh: 7000 }
-        ],
-        addons: [
-            { label: "New dedicated line/circuit", key: "new_circuit", fixedCost: 400 },
-            { label: "NYC Permit Filing (Electrical/HVC)", key: "permit", fixedCost: 600 }
-        ]
-    },
-
-    // 10. Flooring Installation (Square Footage Unit)
-    "flooring": {
-      label: "Flooring Installation", emoji: "🪚", unit: "sq ft", baseLow: 5.5, baseHigh: 12.5, minSize: 200, min: 3500,
-      subQuestion: "Flooring type and prep required?",
-      options: [
-        { label: "Vinyl Plank / Floating Install", factor: 1.0 },
-        { label: "Hardwood Refinishing (Sanding)", factor: 1.6 }
-      ],
-      addons: [
-          { label: "Baseboard/Trim Replacement", key: "trim_replace", percentFactor: 0.05 },
-          { label: "Leveling/Subfloor Repair (High Cost)", key: "leveling", percentFactor: 0.12 }
-      ]
-    },
-
-    // 11. Waterproofing (Linear Footage Unit)
-    "waterproofing": {
-        label: "Waterproofing & Drainage", emoji: "💧", unit: "linear ft", baseLow: 75, baseHigh: 150, minSize: 40, min: 4000,
-        subQuestion: "Scope of work?",
-        options: [
-            { label: "Exterior French Drain", factor: 1.0 },
-            { label: "Interior Basement Drain Tile", factor: 1.6 }
-        ],
-        addons: [
-            { label: "Sump Pump Installation", key: "sump_pump", fixedCost: 2500 }
-        ]
-    },
-
-    // 12. Deck / Patio Install
-    "deck": {
-        label: "Deck / Patio Install", emoji: "⛱️", unit: "sq ft", baseLow: 35, baseHigh: 65, minSize: 100, min: 5000,
-        subQuestion: "Deck material?",
-        options: [
-            { label: "Pressure-Treated Wood", factor: 1.0 },
-            { label: "Composite Decking (Trex, AZEK)", factor: 1.5 }
-        ]
-    },
-
-    // 13. Fence Installation
-    "fence": {
-        label: "Fence Installation", emoji: "🚧", unit: "linear ft", baseLow: 35, baseHigh: 75, minSize: 50, min: 2500,
-        subQuestion: "Fence material?",
-        options: [
-            { label: "Wood", factor: 1.0 },
-            { label: "Vinyl / Composite", factor: 1.4 },
-            { label: "Aluminum / Steel", factor: 1.6 }
-        ]
-    },
-
-    // 14. Sidewalk / DOT Concrete
-    "sidewalk_dot": {
-        label: "Sidewalk / DOT Concrete", emoji: "🪨", unit: "sq ft", baseLow: 15, baseHigh: 22, minSize: 100, min: 2000,
-        subQuestion: "Scope of work?",
-        options: [
-            { label: "Standard Sidewalk Replacement", factor: 1.0 },
-            { label: "DOT Violation Repair (Expedited)", factor: 1.4 }
-        ]
-    },
-
-    // 15. Epoxy Garage Floor
-    "epoxy_floor": {
-        label: "Epoxy Garage Floor", emoji: "✨", unit: "sq ft", baseLow: 7, baseHigh: 12, minSize: 200, min: 1500,
-        subQuestion: "Floor size and finish type?",
-        options: [
-            { label: "Standard Flake / Single Color", factor: 1.0 },
-            { label: "Metallic / High-End Finish", factor: 1.5 }
-        ]
-    },
-
-    // --- Other Services (Simplified & Updated Pricing)
-    "driveway": {
-      label: "Driveway", emoji: "🚗", unit: "sq ft", baseLow: 18, baseHigh: 35, minSize: 150, min: 5000,
-      subQuestion: "Condition?",
-      options: [
-        { label: "New Install", factor: 1.0 },
-        { label: "Removal Required", factor: 1.25 }
+        { label: "Standard Paint", factor: 1.0 },
+        { label: "Premium Paint", factor: 1.3 },
+        { label: "Luxury Benjamin Moore", factor: 1.55 }
       ]
     },
 
     "exterior_paint": {
-      label: "Exterior Painting", emoji: "🖌", unit: "sq ft", baseLow: 5.5, baseHigh: 10.5, minSize: 800, min: 7500,
-      subQuestion: "Condition?",
+      label: "Exterior Painting",
+      emoji: "🖌",
+      unit: "sq ft",
+      baseLow: 2.5, baseHigh: 5.5, min: 3500,
+      subQuestion: "Surface condition?",
       options: [
-        { label: "Good", factor: 1.0 },
-        { label: "Heavy Prep", factor: 1.8 }
+        { label: "Good Condition", factor: 1.0 },
+        { label: "Peeling / Prep Needed", factor: 1.4 },
+        { label: "Heavy Prep / Repairs", factor: 1.8 }
       ]
     },
 
-    "handyman": { label: "Small Repairs / Handyman", emoji: "🛠", unit: "consult" },
-    "other": { label: "Other / Custom", emoji: "📋", unit: "consult" }
-  };
+    // --- BASEMENT FLOOR ---------------------------------------
+    "basement_floor": {
+      label: "Basement Floor Paint / Epoxy",
+      emoji: "🧼",
+      unit: "sq ft",
+      baseLow: 2.8, baseHigh: 5.5, min: 1200,
+      subQuestion: "Floor type?",
+      options: [
+        { label: "1-Part Epoxy Paint", factor: 1.0 },
+        { label: "2-Part Epoxy (Thick Coat)", factor: 1.6 },
+        { label: "Flake System", factor: 2.1 }
+      ]
+    },
 
+    // --- FENCING ----------------------------------------------
+    "fence": {
+      label: "Fence Install",
+      emoji: "🚧",
+      unit: "linear ft",
+      baseLow: 30, baseHigh: 75, min: 1800,
+      subQuestion: "Fence type?",
+      options: [
+        { label: "Wood", factor: 1.0 },
+        { label: "PVC", factor: 1.6 },
+        { label: "Chain-Link", factor: 0.9 },
+        { label: "Aluminum", factor: 2.0 }
+      ]
+    },
+
+    // --- DECK / PORCH -----------------------------------------
+    "deck": {
+      label: "Deck / Porch Build",
+      emoji: "🪵",
+      unit: "sq ft",
+      baseLow: 35, baseHigh: 65, min: 5000,
+      subQuestion: "Deck material?",
+      options: [
+        { label: "Pressure Treated", factor: 1.0 },
+        { label: "Composite (Trex)", factor: 1.9 },
+        { label: "PVC Luxury", factor: 2.4 }
+      ]
+    },
+
+    // --- DRYWALL ----------------------------------------------
+    "drywall": {
+      label: "Drywall Install / Repair",
+      emoji: "📐",
+      unit: "sq ft",
+      baseLow: 3.2, baseHigh: 6.5, min: 750,
+      subQuestion: "Scope?",
+      options: [
+        { label: "Minor Repairs", factor: 1.0 },
+        { label: "Full Install", factor: 1.6 },
+        { label: "Level 5 Finish", factor: 2.1 }
+      ]
+    },
+
+    // --- FLOORING ---------------------------------------------
+    "flooring": {
+      label: "Flooring Installation",
+      emoji: "🪚",
+      unit: "sq ft",
+      baseLow: 3.5, baseHigh: 9.5, min: 2500,
+      subQuestion: "Flooring type?",
+      options: [
+        { label: "Vinyl Plank", factor: 1.0 },
+        { label: "Tile", factor: 1.8 },
+        { label: "Hardwood", factor: 2.4 },
+        { label: "Laminate", factor: 1.2 }
+      ]
+    },
+
+    // --- POWER WASHING ----------------------------------------
+    "powerwash": {
+      label: "Power Washing",
+      emoji: "💦",
+      unit: "sq ft",
+      baseLow: 0.35, baseHigh: 0.85, min: 250
+    },
+
+    // --- GUTTERS ----------------------------------------------
+    "gutter": {
+      label: "Gutter Install",
+      emoji: "🩸",
+      unit: "linear ft",
+      baseLow: 15, baseHigh: 35, min: 1200,
+      subQuestion: "Type?",
+      options: [
+        { label: "Aluminum", factor: 1.0 },
+        { label: "Seamless", factor: 1.4 },
+        { label: "Copper", factor: 3.5 }
+      ]
+    },
+
+    // --- WINDOWS & DOORS --------------------------------------
+    "windows": {
+      label: "Windows Install",
+      emoji: "🪟",
+      unit: "fixed",
+      subQuestion: "Window type?",
+      options: [
+        { label: "Standard Vinyl", fixedLow: 550, fixedHigh: 850 },
+        { label: "Double Hung Premium", fixedLow: 850, fixedHigh: 1400 },
+        { label: "Bay/Bow Window", fixedLow: 3500, fixedHigh: 6500 }
+      ]
+    },
+
+    "doors": {
+      label: "Door Installation",
+      emoji: "🚪",
+      unit: "fixed",
+      subQuestion: "Door type?",
+      options: [
+        { label: "Interior", fixedLow: 250, fixedHigh: 550 },
+        { label: "Exterior Steel / Fiberglass", fixedLow: 950, fixedHigh: 1800 },
+        { label: "Sliding Patio", fixedLow: 2200, fixedHigh: 4200 }
+      ]
+    },
+
+    // --- DEMOLITION -------------------------------------------
+    "demo": {
+      label: "Demolition",
+      emoji: "💥",
+      unit: "sq ft",
+      baseLow: 3.0, baseHigh: 7.5, min: 900,
+      subQuestion: "Material?",
+      leadSensitive: true,
+      options: [
+        { label: "Drywall", factor: 1.0 },
+        { label: "Tile / Bathroom Demo", factor: 1.8 },
+        { label: "Concrete Demo", factor: 2.4 }
+      ]
+    },
+
+    // --- RETAINING WALL ---------------------------------------
+    "retaining": {
+      label: "Retaining Wall",
+      emoji: "🧱",
+      unit: "linear ft",
+      baseLow: 60, baseHigh: 140, min: 5500,
+      subQuestion: "Material?",
+      options: [
+        { label: "CMU Block", factor: 1.0 },
+        { label: "Poured Concrete", factor: 1.7 },
+        { label: "Stone Veneer", factor: 2.3 }
+      ]
+    },
+
+    // --- HANDYMAN ---------------------------------------------
+    "handyman": {
+      label: "Small Repairs / Handyman",
+      emoji: "🛠",
+      unit: "consult"
+    },
+
+    // --- KITCHEN / BATH (FIXED) -------------------------------
+    "kitchen": {
+      label: "Kitchen Remodel",
+      emoji: "🍳",
+      unit: "fixed",
+      subQuestion: "What is the scope?",
+      options: [
+        { label: "Refresh (Cosmetic)", fixedLow: 18000, fixedHigh: 30000 },
+        { label: "Mid-Range (Cabinets+)", fixedLow: 30000, fixedHigh: 55000 },
+        { label: "Full Gut / Luxury", fixedLow: 55000, fixedHigh: 110000 }
+      ],
+      leadSensitive: true
+    },
+
+    "bathroom": {
+      label: "Bathroom Remodel",
+      emoji: "🚿",
+      unit: "fixed",
+      subQuestion: "What is the scope?",
+      options: [
+        { label: "Update (Fixtures/Tile)", fixedLow: 14000, fixedHigh: 24000 },
+        { label: "Full Gut / Redo", fixedLow: 24000, fixedHigh: 45000 }
+      ],
+      leadSensitive: true
+    },
+    
+    // --- NEW SERVICE: SIDING ----------------------------------
+    "siding": {
+      label: "Siding Installation",
+      emoji: "🏡",
+      unit: "sq ft",
+      baseLow: 8.5, baseHigh: 18.5, min: 4000,
+      subQuestion: "Siding Material?",
+      options: [
+        { label: "Vinyl", factor: 1.0 },
+        { label: "Wood/Cedar Shake", factor: 1.8 },
+        { label: "Fiber Cement (Hardie)", factor: 1.5 }
+      ]
+    },
+
+    // --- NEW SERVICE: CHIMNEY ---------------------------------
+    "chimney": {
+      label: "Chimney Repair / Rebuild",
+      emoji: "🔥",
+      unit: "fixed",
+      subQuestion: "Scope of work?",
+      options: [
+        { label: "Cap / Flashing Repair", fixedLow: 800, fixedHigh: 1800 },
+        { label: "Partial Rebuild (Above roofline)", fixedLow: 3000, fixedHigh: 6500 },
+        { label: "Full Masonry Rebuild", fixedLow: 6500, fixedHigh: 12000 }
+      ]
+    },
+
+    // --- NEW SERVICE: INSULATION ------------------------------
+    "insulation": {
+      label: "Insulation Install",
+      emoji: "🌡️",
+      unit: "sq ft",
+      baseLow: 1.2, baseHigh: 3.5, min: 1000,
+      subQuestion: "Insulation type?",
+      options: [
+        { label: "Fiberglass Batts", factor: 1.0 },
+        { label: "Blown-in Cellulose", factor: 1.2 },
+        { label: "Spray Foam (Closed-Cell)", factor: 2.5 }
+      ]
+    },
+
+    "other": {
+      label: "Other / Custom",
+      emoji: "📋",
+      unit: "consult"
+    }
+  };
 
   // --- STATE --------------------------------------------------
   const state = {
@@ -259,8 +331,6 @@
     serviceKey: null,
     subOption: null,
     size: 0,
-    quantity: 1,           // NEW: For fixed-unit services (e.g., number of windows)
-    selectedAddons: [],    // NEW: List of selected addon objects
     borough: null,
     isLeadHome: false,
     pricingMode: "full",   // full | labor | materials
@@ -276,7 +346,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v6.4 (Total Estimate & Webhook Added)..."); // VERSION BUMP
+    console.log("HB Chat: Initializing v3.3...");
     createInterface();
 
     if (sessionStorage.getItem("hb_chat_active") === "true") {
@@ -351,7 +421,8 @@
     // Kick off conversation
     addBotMessage("👋 Hi! I can generate a ballpark estimate for your project instantly.");
     setTimeout(function() {
-      stepZero_Disclaimer(); // NEW: Start with the disclaimer check
+      addBotMessage("What type of project are you planning?");
+      presentServiceOptions();
     }, 800);
   }
 
@@ -391,11 +462,11 @@
     setTimeout(function() {
       const msgBubble = document.getElementById(typingId);
       if (msgBubble) {
-        msgBubble.classList.remove("hb-msg-bot");
-        msgBubble.style.minHeight = "auto";
+        // FIX 2: Ensure text bolding is applied if not raw HTML. This also prevents 
+        // the innerHTML from being stripped or mis-formatted when rendering the receipt.
         msgBubble.innerHTML = isHtml ? text : text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        els.body.scrollTop = els.body.scrollHeight;
       }
-      els.body.scrollTop = els.body.scrollHeight;
     }, delay);
   }
 
@@ -407,567 +478,257 @@
     els.body.scrollTop = els.body.scrollHeight;
   }
 
-  function addChoices(choices, callback) {
-    disableInput();
+  function addChoices(options, callback) {
     setTimeout(function() {
       const chipContainer = document.createElement("div");
       chipContainer.className = "hb-chips";
 
-      choices.forEach(function(choice) {
+      options.forEach(function(opt) {
         const btn = document.createElement("button");
-        const label = (typeof choice === "string") ? choice : choice.label;
         btn.className = "hb-chip";
+        const label = (typeof opt === "object") ? opt.label : opt;
         btn.textContent = label;
-
         btn.onclick = function() {
-          // Send user message
-          addUserMessage(label);
-          // Remove all chips
           chipContainer.remove();
-          // Execute callback
-          callback(choice);
+          addUserMessage(label);
+          callback(opt);
         };
         chipContainer.appendChild(btn);
       });
+
       els.body.appendChild(chipContainer);
       els.body.scrollTop = els.body.scrollHeight;
-    }, 500);
+    }, 1600);
   }
 
-  // --- FLOW CONTROL (v6.4: Total Estimate, Webhook, Name Fix) -------------------------
-
-  // STEP 0: Initial Disclaimer Check
-  function stepZero_Disclaimer() {
-    updateProgress(5);
-    const disclaimerHtml = `
-      <p>⚠️ **IMPORTANT DISCLAIMER**</p>
-      <p>This tool provides a **ballpark cost range** based on average NYC market data and the details you provide. It is **not** a fixed quote.</p>
-      <p>The final price depends on:</p>
-      <ul>
-        <li>A required **on-site inspection**.</li>
-        <li>Existing conditions, access, and material selections.</li>
-      </ul>
-      <p>By proceeding, you acknowledge and agree that this is a **preliminary estimate range** only.</p>
-    `;
-
-    addBotMessage(disclaimerHtml, true);
-
-    addChoices(["Yes, I understand and agree", "No, close chat"], function(choice) {
-      const val = (typeof choice === "string") ? choice : choice.label;
-      if (val.includes("Yes")) {
-        presentServiceOptions(); // Proceed to service selection
-      } else {
-        addBotMessage("Understood. Thank you for visiting.");
-        setTimeout(toggleChat, 1000); // Close the chat window
-      }
-    });
-  }
+  // --- FLOW: SERVICE -> SUB OPTIONS --------------------------
 
   function presentServiceOptions() {
     updateProgress(10);
-    const keys = Object.keys(SERVICES).filter(key => SERVICES[key].unit !== "consult");
-    const consultKeys = Object.keys(SERVICES).filter(key => SERVICES[key].unit === "consult");
-
-    const options = keys.map(key => ({
-      label: `${SERVICES[key].emoji} ${SERVICES[key].label}`,
-      key: key
-    }));
-
-    options.push({
-      label: `📝 ${SERVICES[consultKeys[0]].label} / Consult`,
-      key: consultKeys[0]
+    const opts = Object.keys(SERVICES).map(function(k) {
+      return { label: SERVICES[k].emoji + " " + SERVICES[k].label, key: k };
     });
 
-    addBotMessage("What type of project are you planning?");
-    addChoices(options, function(choice) {
-      state.serviceKey = choice.key;
-      if (SERVICES[state.serviceKey].unit === "consult") {
-        stepEight_PricingMode(); // Skip straight to final contact for consults
-      } else {
-        stepTwo_SubQuestion();
-      }
+    addChoices(opts, function(selection) {
+      state.serviceKey = selection.key;
+      state.subOption = null;
+      stepTwo_SubQuestions();
     });
   }
 
-  function stepTwo_SubQuestion() {
-    updateProgress(20);
+  function stepTwo_SubQuestions() {
+    updateProgress(30);
     const svc = SERVICES[state.serviceKey];
+    if (!svc) return;
 
-    if (!svc.subQuestion || !svc.options) {
-      stepThree_LeadCheck(); // Skip if no sub-options
-      return;
-    }
-
-    addBotMessage(svc.subQuestion);
-    const options = svc.options.map((opt, index) => ({
-      label: opt.label,
-      index: index,
-      data: opt
-    }));
-
-    addChoices(options, function(choice) {
-      state.subOption = choice.data;
+    if (svc.subQuestion && svc.options) {
+      addBotMessage(svc.subQuestion);
+      addChoices(svc.options, function(choice) {
+        state.subOption = choice;
+        stepThree_LeadCheck();
+      });
+    } else if (state.serviceKey === "other") {
+      stepFive_Location();
+    } else {
+      state.subOption = { factor: 1.0, label: "Standard" };
       stepThree_LeadCheck();
-    });
+    }
   }
 
   function stepThree_LeadCheck() {
-    updateProgress(35);
     const svc = SERVICES[state.serviceKey];
-    if (!svc.leadSensitive) {
-      state.isLeadHome = false;
-      stepFour_Quantity(); // New next step
-      return;
+    if (svc && svc.leadSensitive) {
+      addBotMessage("Is your property built before 1978? (Required for lead safety laws).");
+      addChoices(["Yes (Pre-1978)", "No / Not Sure"], function(ans) {
+        const val = (typeof ans === "string") ? ans : ans.label;
+        state.isLeadHome = !!(val && val.indexOf("Yes") !== -1);
+        stepFour_Size();
+      });
+    } else {
+      stepFour_Size();
     }
-
-    addBotMessage("Since this is a common lead-sensitive project (e.g., painting, remodeling, windows), is the structure older than 1978?");
-
-    addChoices(["Yes, Pre-1978", "No, Built 1978+"], function(choice) {
-      const val = (typeof choice === "string") ? choice : choice.label;
-      state.isLeadHome = val.includes("Yes");
-
-      if (state.isLeadHome) {
-        addBotMessage("Acknowledged. We factor in EPA Lead-Safe Certified procedures (containment, special prep, HEPA vacuums, etc.), which slightly increases the estimate range.");
-      }
-      stepFour_Quantity(); // New next step
-    });
   }
 
-  // STEP 4: Fixed-Unit Quantity Check
-  function stepFour_Quantity() {
-    updateProgress(45);
-    const svc = SERVICES[state.serviceKey];
+  // --- SIZE STEP (SKIPS FIXED / CONSULT) ---------------------
 
-    // Only proceed if it's a fixed unit service (Windows, Doors, Kitchen, Bath, Systems)
-    if (svc.unit !== "fixed") {
-      state.quantity = 1; // Default to 1 unit for all other services
-      stepFive_Size(); // If not fixed, go to the size (sq ft/linear ft) step
-      return;
-    }
-
-    const unitLabel = svc.label.includes('(Per Unit)') ? 'units' : 'units (e.g., kitchens)';
-    const minQty = svc.quantityMin || 1;
-
-    addBotMessage(`How many ${unitLabel} are you looking to install or remodel?`);
-    addBotMessage(`(Enter the number, minimum: ${minQty})`);
-
-    function askQuantityManual() {
-        enableInput(function(val) {
-            const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
-
-            if (!num || num < minQty) {
-                const errorMsg = `Please enter at least ${minQty} ${unitLabel}.`;
-                addBotMessage(errorMsg);
-                askQuantityManual(); // Restart
-            } else {
-                state.quantity = num;
-                addBotMessage(`**Confirmed:** Quantity set to ${num}.`);
-                stepSix_Location(); // Skip size, go to location
-            }
-        }, `Enter number (Min: ${minQty})...`);
-    }
-
-    askQuantityManual();
-  }
-
-  // STEP 5: Size Input
-  function stepFive_Size() {
+  function stepFour_Size() {
     updateProgress(50);
     const svc = SERVICES[state.serviceKey];
+    if (!svc) return;
 
-    // Already handled in stepFour_Quantity or is consult, skip
+    // Skip size step for fixed-price or consultation services
     if (svc.unit === "fixed" || svc.unit === "consult" || state.serviceKey === "other") {
-        stepSix_Location();
-        return;
+      stepFive_Location();
+      return;
     }
 
-    addBotMessage(`What is the approximate size of your project in **${svc.unit}**?`);
-    addBotMessage(`(Minimum size for a typical project is ${svc.minSize} ${svc.unit})`);
+    addBotMessage("Approximate size in " + svc.unit + "?");
 
     function askSize() {
       enableInput(function(val) {
         const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
-        if (!num || num < svc.minSize) {
-          addBotMessage(`That number seems low. Please enter a number greater than ${svc.minSize} (e.g., 500).`);
+        if (!num || num < 10) {
+          addBotMessage("That number seems low. Please enter a valid number (e.g. 500).");
           askSize();
         } else {
           state.size = num;
-          addBotMessage(`**Confirmed:** ${num} ${svc.unit}.`);
-          stepSix_Location(); // Next step is Location
+          stepFive_Location();
         }
-      }, `Enter size in ${svc.unit}...`);
+      });
     }
 
-    // Optional: Add chips for common sizes
-    const commonSizes = [
-        { label: "500 sq ft", key: 500 },
-        { label: "1,000 sq ft", key: 1000 },
-        { label: "150 linear ft", key: 150 }
-    ];
-    addChoices(commonSizes.filter(s => s.label.includes(svc.unit.split(' ')[0])), function(choice) {
-        if (typeof choice === 'object' && choice.key) {
-             state.size = choice.key;
-             addUserMessage(choice.label);
-             stepSix_Location();
-        }
-    });
-
-    // Fallback to manual input after chips are presented
-    setTimeout(askSize, 1000);
+    askSize();
   }
 
-  // STEP 6: Location
-  function stepSix_Location() {
-    updateProgress(65);
+  // --- LOCATION ----------------------------------------------
+
+  function stepFive_Location() {
+    updateProgress(70);
     addBotMessage("Which borough/area is this in?");
     const locs = Object.keys(BOROUGH_MODS);
 
     addChoices(locs, function(loc) {
       const val = (typeof loc === "string") ? loc : loc.label;
       state.borough = val;
-      stepSeven_Addons(); // New next step
+      stepSix_PricingMode();
     });
   }
 
-  // STEP 7: Add-ons Selection
-  function stepSeven_Addons() {
-    updateProgress(70);
-    const svc = SERVICES[state.serviceKey];
-    if (!svc || !svc.addons || svc.addons.length === 0) {
-      state.selectedAddons = [];
-      stepEight_PricingMode(); // Skip to next step
-      return;
-    }
+  // --- PRICING MODE (FULL / LABOR / MATERIALS) ---------------
 
-    state.selectedAddons = [];
-    const addonsToAsk = [...svc.addons];
-    askNextAddon(addonsToAsk);
+  function stepSix_PricingMode() {
+    updateProgress(78);
+    addBotMessage("How should we price this?");
+
+    const opts = [
+      { label: "Full Project (Labor + Materials)", key: "full" },
+      { label: "Labor Only", key: "labor" },
+      { label: "Materials + Light Help", key: "materials" }
+    ];
+
+    addChoices(opts, function(choice) {
+      state.pricingMode = choice.key || "full";
+      stepSeven_Rush();
+    });
   }
 
-  function askNextAddon(addonsList) {
-    if (addonsList.length === 0) {
-      // All done, move to the next step
-      stepEight_PricingMode();
-      return;
-    }
+  // --- RUSH --------------------------------------------------
 
-    const currentAddon = addonsList.shift();
-    const costEstimate = currentAddon.fixedCost ? ` (~$${currentAddon.fixedCost.toLocaleString()})` : (currentAddon.percentFactor ? ` (~${Math.round(currentAddon.percentFactor * 100)}% extra)` : '');
+  function stepSeven_Rush() {
+    updateProgress(82);
+    addBotMessage("Is this a rush project (starting within 72 hours)?");
 
-    addBotMessage(`Do you require the specialized add-on: **${currentAddon.label}**${costEstimate}?`);
-
-    addChoices(["Yes", "No"], function(ans) {
+    addChoices(["Yes, rush", "No"], function(ans) {
       const val = (typeof ans === "string") ? ans : ans.label;
-      if (val === "Yes") {
-        state.selectedAddons.push(currentAddon);
-      }
-      // Continue to the next add-on
-      askNextAddon(addonsList);
+      state.isRush = !!(val && val.indexOf("Yes") !== -1);
+      stepEight_Promo();
     });
   }
 
+  // --- PROMO CODE --------------------------------------------
 
-  // STEP 8: Pricing Mode
-  function stepEight_PricingMode() {
-    updateProgress(75);
+  function stepEight_Promo() {
+    updateProgress(86);
+    addBotMessage("Any promo code today? If not, tap 'No Code'.");
 
-    addBotMessage("How would you like the estimate structured?");
+    const opts = [
+      { label: "No Code", code: "" },
+      { label: "VIP10", code: "VIP10" },
+      { label: "REFERRAL5", code: "REFERRAL5" }
+    ];
 
-    addChoices([
-      { label: "Full Service (Labor + Materials)", key: "full" },
-      { label: "Labor Only (I supply materials)", key: "labor" },
-      { label: "Materials Only (Just supply cost)", key: "materials" }
-    ], function(choice) {
-      const val = (typeof choice === "string") ? choice : choice.key;
-      state.pricingMode = val;
-
-      if (val === "materials") {
-        addBotMessage("This will provide a materials-only cost range (Lowest cost only).");
-      }
-      stepNine_Rush(); // Next step is Rush
+    addChoices(opts, function(choice) {
+      state.promoCode = choice.code || "";
+      const est = computeEstimateForCurrent();
+      showEstimateAndAskAnother(est);
     });
   }
 
-  // STEP 9: Rush
-  function stepNine_Rush() {
-    updateProgress(80);
-    addBotMessage("Do you require **Rush Scheduling** (within the next 2-4 weeks)?");
-
-    addChoices(["Yes, Expedited Service", "No, Standard Scheduling"], function(choice) {
-      const val = (typeof choice === "string") ? choice : choice.label;
-      state.isRush = val.includes("Yes");
-
-      if (state.isRush) {
-        addBotMessage("Rush scheduling adds a small surcharge to secure crew availability.");
-      }
-      stepTen_Promo(); // Next step is Promo
-    });
-  }
-
-  // STEP 10: Promo Code
-  function stepTen_Promo() {
-    updateProgress(85);
-    addBotMessage("Do you have a **Promo Code**?");
-
-    addChoices([
-      { label: "Use VIP10 (10% Off)", key: "VIP10" }, // VIP10 CHIP
-      "Enter Code", 
-      "No Code / Skip"
-    ], function(choice) {
-      const val = (typeof choice === "string") ? choice : choice.label;
-      const key = (typeof choice === "object" && choice.key) ? choice.key : val; // Get key if it exists
-
-      if (key === "VIP10") {
-          state.promoCode = "VIP10";
-          addBotMessage("Code: **VIP10** applied.");
-          stepEleven_Summary();
-      } else if (val === "Enter Code") {
-        addBotMessage("Please enter your promo code now:");
-        enableInput(function(code) {
-          state.promoCode = code.toUpperCase();
-          addBotMessage(`Code: **${state.promoCode}** applied.`);
-          stepEleven_Summary();
-        }, "Enter promo code...");
-      } else {
-        state.promoCode = "";
-        stepEleven_Summary();
-      }
-    });
-  }
-
-  // STEP 11: Summary
-  function stepEleven_Summary() {
-    updateProgress(90);
-
-    // Compute and display the current estimate first
-    const estimate = computeEstimateForCurrent();
-    state.projects.push(estimate);
-
-    addBotMessage("--- **Project Estimate** ---", true);
-    addBotMessage(buildEstimateHtml(estimate), true);
-    addBotMessage("---------------------------", true);
-
-    addBotMessage("Do you have **another project** to add to this quote, or should we finish up?");
-
-    addChoices(["Add Another Project", "Finish and Get Contact Links"], function(choice) {
-      const val = (typeof choice === "string") ? choice : choice.label;
-      if (val.includes("Add Another")) {
-        // Reset state for the next project
-        state.serviceKey = null;
-        state.subOption = null;
-        state.size = 0;
-        state.quantity = 1;
-        state.selectedAddons = [];
-        state.isLeadHome = false;
-        state.step = 0; // Reset flow back to step 1
-        updateProgress(10);
-        addBotMessage("Ok, what is the next project type?");
-        presentServiceOptions(); // Go back to start
-      } else {
-        stepTwelve_ContactInfo();
-      }
-    });
-  }
-
-
-  // STEP 12: Contact Info
-  function stepTwelve_ContactInfo() {
-    updateProgress(95);
-
-    if (state.projects.length > 1) {
-      addBotMessage(`You have **${state.projects.length} estimates** compiled. We need your contact details to deliver the full estimate package.`);
-    } else {
-      addBotMessage("The estimate is ready. We need your contact details to deliver the full estimate package.");
-    }
-
-    // Step 1: Name
-    addBotMessage("1. What is your full name?");
-    enableInput(function(name) {
-      state.name = name.trim();
-      // REMOVED: addUserMessage(state.name); -> Fixes name duplication
-      
-      // Step 2: Phone
-      addBotMessage(`2. Thank you, **${state.name}**. What is your best phone number for a text message (SMS)?`);
-      enableInput(function(phone) {
-        // Simple regex to clean phone number (allows formatting)
-        state.phone = phone.trim().replace(/[^\d\+\- ]/g, '');
-        addUserMessage(state.phone);
-        stepThirteen_FinalLinks();
-      }, "Enter phone number..."); // Added placeholder
-    }, "Enter full name..."); // Added placeholder
-  }
-
-  // STEP 13: Final Links (FIXED FLOW & BUTTONS)
-  function stepThirteen_FinalLinks() {
-    updateProgress(100);
-
-    // 1. CRM Webhook Notification (Fire and forget)
-    sendEstimateToCRM();
-
-    // 2. Display Grand Total if multi-project
-    if (state.projects.length > 1) {
-      const total = computeGrandTotal();
-      const totalHtml = `<div class="hb-grand-total" style="
-        border: 2px solid var(--hb-chat-gold-dim); 
-        border-radius: 8px; 
-        padding: 12px; 
-        margin-top: 15px;
-        background: rgba(231,191,99,0.1);
-      ">
-        <div class="hb-receipt-title" style="margin-top: 0; font-size: 1.1em;">
-            **Combined Project Total Estimate:**
-        </div>
-        <div class="hb-receipt-row hb-price-row">
-            <span style="color: #ccc;">Low End:</span><span style="font-size: 1.1em; color: var(--hb-chat-gold);"><strong>$${total.low.toLocaleString()}</strong></span>
-        </div>
-        <div class="hb-receipt-row hb-price-row">
-            <span style="color: #ccc;">High End:</span><span style="font-size: 1.1em; color: var(--hb-chat-gold);"><strong>$${total.high.toLocaleString()}</strong></span>
-        </div>
-      </div>`;
-      addBotMessage(totalHtml, true);
-    }
-    
-    // 3. Updated message to clarify SMS action
-    addBotMessage(`Your full estimate package is ready. Please click the buttons below to **send the details to yourself** and contact our team for the next steps.`);
-    
-    // 4. Insert all action buttons/links at once
-    addBotMessage(generateFinalLinks(), true);
-
-    // 5. Final message and reset
-    setTimeout(function() {
-        addBotMessage("We look forward to reviewing your project details!");
-    }, 1000);
-
-    // Final reset of state (deferred reset)
-    setTimeout(function() {
-        Object.assign(state, {
-          step: 0,
-          serviceKey: null,
-          subOption: null,
-          size: 0,
-          quantity: 1,
-          selectedAddons: [],
-          borough: null,
-          isLeadHome: false,
-          pricingMode: "full",
-          isRush: false,
-          promoCode: "",
-          name: "",
-          phone: "",
-          projects: []
-        });
-    }, 2000);
-  }
-
-  // --- CALCULATIONS ------------------------------------------
-
-  // NEW: Computes the sum of all project estimates
-  function computeGrandTotal() {
-    let totalLow = 0;
-    let totalHigh = 0;
-
-    state.projects.forEach(p => {
-        // Only sum projects that aren't pure consultations (which often have minimal fixed prices)
-        if (p.svc.unit !== "consult") {
-            totalLow += p.low;
-            totalHigh += p.high;
-        }
-    });
-
-    return {
-        low: Math.round(totalLow / 100) * 100, // Round to nearest 100
-        high: Math.round(totalHigh / 100) * 100
-    };
-  }
+  // --- CALCULATION ENGINE ------------------------------------
 
   function applyPriceModifiers(low, high) {
-    // 1. Rush Surcharge (8% for rush jobs)
-    if (state.isRush) {
-      low *= 1.08;
-      high *= 1.08;
-    }
-
-    // 2. Promo Discount
-    let discount = 0;
-    if (state.promoCode && DISCOUNTS[state.promoCode]) {
-      discount = DISCOUNTS[state.promoCode];
-      low *= (1 - discount);
-      high *= (1 - discount);
-    }
-
-    // 3. Pricing Mode Adjustment
+    // Pricing mode
+    var factor = 1;
     if (state.pricingMode === "labor") {
-      low *= 0.70; // 30% reduction for customer supplying materials
-      high *= 0.85; // 15% reduction for labor-only high end (allows for unexpected labor/material conflict)
+      factor = 0.7;
     } else if (state.pricingMode === "materials") {
-      low *= 0.30; // 70% reduction, showing lowest materials cost estimate
-      high = low * 1.5; // High end materials mark up is tighter
+      factor = 0.5;
+    }
+    low *= factor;
+    high *= factor;
+
+    // Rush surcharge
+    if (state.isRush) {
+      low *= 1.12;
+      high *= 1.18;
     }
 
-    return {
-      low: Math.round(low / 100) * 100,
-      high: Math.round(high / 100) * 100,
-      discount: discount
-    };
+    // Promo discount
+    var dc = 0;
+    if (state.promoCode) {
+      var rate = DISCOUNTS[state.promoCode.toUpperCase()];
+      if (rate) dc = rate;
+    }
+    if (dc > 0) {
+      low *= (1 - dc);
+      high *= (1 - dc);
+    }
+
+    return { low: low, high: high, discountRate: dc };
   }
 
   function computeEstimateForCurrent() {
-    const svc = SERVICES[state.serviceKey];
-    const sub = state.subOption;
-    let low = 0;
-    let high = 0;
+    var svc = SERVICES[state.serviceKey];
+    if (!svc) return null;
 
-    // 1. Calculate Base Range
-    if (svc.unit === "fixed") {
-      const numUnits = state.quantity || 1;
-      // Fixed units use their base low/high from the sub-option
-      low = (sub.fixedLow || 0) * numUnits;
-      high = (sub.fixedHigh || 0) * numUnits;
-    } else if (svc.unit === "consult") {
-      low = svc.min || 0;
-      high = svc.min * 1.5 || 0; // Set a small placeholder range for consults
-    } else {
-      // Calculate unit cost
-      const factor = sub.factor || 1.0;
-      low = svc.baseLow * state.size * factor;
-      high = svc.baseHigh * state.size * factor;
+    var sub = state.subOption || {};
+    var mod = BOROUGH_MODS[state.borough] || 1.0;
+    var low = 0;
+    var high = 0;
+
+    // Custom/consult jobs: no auto price
+    if (state.serviceKey === "other" || svc.unit === "consult") {
+      return {
+        svc: svc,
+        sub: sub,
+        borough: state.borough,
+        size: null,
+        isLeadHome: state.isLeadHome,
+        pricingMode: state.pricingMode,
+        isRush: state.isRush,
+        promoCode: state.promoCode,
+        low: 0,
+        high: 0,
+        discountRate: 0,
+        isCustom: true
+      };
     }
 
-    // 2. Apply Borough Mod
-    const mod = BOROUGH_MODS[state.borough] || 1.0;
-    low *= mod;
-    high *= mod;
+    if (svc.unit === "fixed") {
+      low = (sub.fixedLow || 0) * mod;
+      high = (sub.fixedHigh || 0) * mod;
+    } else {
+      var rateLow = svc.baseLow;
+      var rateHigh = svc.baseHigh;
 
-    // 3. Apply Lead Safety Bump (10%)
-    if (state.isLeadHome && svc.leadSensitive) {
+      if (sub.factor) {
+        rateLow *= sub.factor;
+        rateHigh *= sub.factor;
+      }
+
+      low = rateLow * state.size * mod;
+      high = rateHigh * state.size * mod;
+
+      if (svc.min && low < svc.min) low = svc.min;
+      if (svc.min && high < svc.min * 1.2) high = svc.min * 1.25;
+    }
+
+    // Lead safety bump
+    if (state.isLeadHome) {
       low *= 1.10;
       high *= 1.10;
     }
 
-    // 4. Enforce Minimum Project Price (Hidden Overhead Cost)
-    const minPrice = svc.min || 0;
-    if (svc.unit !== "consult") {
-      low = Math.max(low, minPrice);
-      // Ensure high end maintains a reasonable margin over the minimum low
-      high = Math.max(high, minPrice * 1.35);
-    }
-
-
-    // 5. Apply Add-ons
-    if (state.selectedAddons && state.selectedAddons.length > 0) {
-      state.selectedAddons.forEach(addon => {
-          if (addon.fixedCost) {
-            low += addon.fixedCost;
-            high += addon.fixedCost * 1.15; // 15% margin on fixed cost item
-          } else if (addon.percentFactor) {
-            // Apply percentage factor to the current running cost
-            low *= (1 + addon.percentFactor);
-            high *= (1 + addon.percentFactor);
-          }
-      });
-    }
-
-    // 6. Apply Final Modifiers (Rush, Promo, Pricing Mode)
     var adjusted = applyPriceModifiers(low, high);
 
     return {
@@ -975,225 +736,372 @@
       sub: sub,
       borough: state.borough,
       size: (svc.unit === "fixed" || svc.unit === "consult") ? null : state.size,
-      quantity: state.quantity,
-      selectedAddons: state.selectedAddons,
       isLeadHome: state.isLeadHome,
       pricingMode: state.pricingMode,
       isRush: state.isRush,
       promoCode: state.promoCode,
       low: adjusted.low,
       high: adjusted.high,
-      discount: adjusted.discount
+      discountRate: adjusted.discountRate,
+      isCustom: false
     };
   }
-  
-  // NEW: Sends estimate data to a configured CRM webhook
-  function sendEstimateToCRM() {
-    if (!CRM_WEBHOOK_URL) {
-      console.log("CRM Webhook URL not configured. Skipping server notification.");
-      return;
+
+  function buildEstimateHtml(est) {
+    var svc = est.svc;
+    var sub = est.sub || {};
+    var hasPrice = !!(est.low && est.high);
+    var fLow = hasPrice ? Math.round(est.low).toLocaleString() : null;
+    var fHigh = hasPrice ? Math.round(est.high).toLocaleString() : null;
+
+    var discountLine = "";
+    if (est.discountRate && est.discountRate > 0) {
+      discountLine =
+        '<div class="hb-receipt-row"><span>Promo:</span><span>-' +
+        Math.round(est.discountRate * 100) +
+        '% applied</span></div>';
     }
 
-    const payload = {
-      timestamp: new Date().toISOString(),
-      customer: {
-        name: state.name,
-        phone: state.phone,
-        // Using the borough of the FIRST project, assuming consistency
-        borough: state.projects.length > 0 ? state.projects[0].borough : state.borough, 
-      },
-      projects: state.projects.map(p => ({
-        service: p.svc.label,
-        mode: p.pricingMode,
-        range: `$${p.low.toLocaleString()} - $${p.high.toLocaleString()}`,
-        details: {
-            size: p.size,
-            quantity: p.quantity,
-            addons: p.selectedAddons.map(a => a.label),
-            rush: p.isRush,
-            promo: p.promoCode,
-            leadSensitive: p.isLeadHome
-        }
-      })),
-      grandTotal: state.projects.length > 1 ? computeGrandTotal() : null
-    };
+    var rushLine = "";
+    if (est.isRush) {
+      rushLine =
+        '<div class="hb-receipt-row"><span>Rush:</span><span>Priority scheduling included</span></div>';
+    }
 
-    // Use a simple fetch API (or XMLHttpRequest for better compatibility)
-    fetch(CRM_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    })
-    .then(response => {
-        console.log("CRM Webhook sent successfully. Status:", response.status);
-    })
-    .catch(error => {
-        console.error("Error sending CRM Webhook:", error);
+    var modeLabel = "Full (Labor + Materials)";
+    if (est.pricingMode === "labor") modeLabel = "Labor Only";
+    if (est.pricingMode === "materials") modeLabel = "Materials + Light Help";
+
+    var sizeRow = "";
+    if (est.size) {
+      sizeRow =
+        '<div class="hb-receipt-row"><span>Size:</span><span>' +
+        est.size +
+        " " +
+        svc.unit +
+        "</span></div>";
+    }
+
+    var leadRow = "";
+    if (est.isLeadHome) {
+      leadRow =
+        '<div class="hb-receipt-row" style="color:#d55"><span>Lead Safety:</span><span>Included</span></div>';
+    }
+
+    var priceRow = "";
+    if (hasPrice) {
+      priceRow =
+        '<div class="hb-receipt-total"><span>ESTIMATE:</span><span>$' +
+        fLow +
+        " – $" +
+        fHigh +
+        "</span></div>";
+    } else {
+      priceRow =
+        '<div class="hb-receipt-total"><span>ESTIMATE:</span><span>Requires on-site walkthrough</span></div>';
+    }
+
+    return (
+      '<div class="hb-receipt">' +
+        '<h4>Estimator Summary</h4>' +
+        '<div class="hb-receipt-row"><span>Service:</span><span>' +
+        svc.label +
+        "</span></div>" +
+        '<div class="hb-receipt-row"><span>Type:</span><span>' +
+        (sub.label || "Standard") +
+        "</span></div>" +
+        '<div class="hb-receipt-row"><span>Area:</span><span>' +
+        (est.borough || "N/A") +
+        "</span></div>" +
+        sizeRow +
+        '<div class="hb-receipt-row"><span>Pricing Mode:</span><span>' +
+        modeLabel +
+        "</span></div>" +
+        rushLine +
+        leadRow +
+        discountLine +
+        priceRow +
+        '<div class="hb-receipt-footer hb-disclaimer">' +
+          '<strong>Disclaimer:</strong> This tool provides an automated ballpark range only. ' +
+          'It is not a formal estimate, contract, or offer for services. Final pricing may change ' +
+          'based on site conditions, labor requirements, structural issues, materials selected, ' +
+          'permits, access limitations, and code compliance. A legally binding estimate is issued ' +
+          'only after an in-person walkthrough and a written agreement signed by both parties.' +
+        "</div>" +
+      "</div>"
+    );
+  }
+
+  function showEstimateAndAskAnother(est) {
+    if (!est) return;
+    updateProgress(90);
+
+    // FIX 3a: Prepend the visible header for the single project estimate
+    var html = '--- **Project Estimate** ---<br>' + buildEstimateHtml(est);
+    addBotMessage(html, true);
+
+    setTimeout(function() {
+      askAddAnother(est);
+    }, 1200);
+  }
+
+  function askAddAnother(est) {
+    state.projects.push(est);
+    updateProgress(92);
+
+    addBotMessage("Would you like to add another project to this estimate?");
+    addChoices(
+      [
+        { label: "➕ Add Another Project", key: "yes" },
+        { label: "No, continue", key: "no" }
+      ],
+      function(choice) {
+        var key =
+          choice.key ||
+          (choice.label && choice.label.indexOf("No") !== -1 ? "no" : "yes");
+        if (key === "yes") {
+          resetProjectState();
+          addBotMessage("Great! What type of project is the next one?");
+          presentServiceOptions();
+        } else {
+          showCombinedReceiptAndLeadCapture();
+        }
+      }
+    );
+  }
+
+  function showCombinedReceiptAndLeadCapture() {
+    updateProgress(96);
+    var projects = state.projects;
+    if (!projects || !projects.length) return;
+
+    var totalLow = 0;
+    var totalHigh = 0;
+
+    var rowsHtml = projects
+      .map(function(p, idx) {
+        var hasPrice = !!(p.low && p.high);
+        if (hasPrice) {
+          totalLow += p.low;
+          totalHigh += p.high;
+        }
+
+        var fLow = hasPrice ? Math.round(p.low).toLocaleString() : "Custom";
+        var fHigh = hasPrice ? Math.round(p.high).toLocaleString() : "Quote";
+        var sizePart = p.size ? " — " + p.size + " " + p.svc.unit : "";
+        var areaPart = p.borough ? " (" + p.borough + ")" : "";
+
+        return (
+          '<div class="hb-receipt-row">' +
+            "<span>#"+ (idx + 1) + " " + p.svc.label + sizePart + areaPart + "</span>" +
+            "<span>" +
+              (hasPrice ? "$" + fLow + " – $" + fHigh : "Walkthrough needed") +
+            "</span>" +
+          "</div>"
+        );
+      })
+      .join("");
+
+    var totalRow = "";
+    if (totalLow && totalHigh) {
+      totalRow =
+        '<div class="hb-receipt-total">' +
+          "<span>Combined Range:</span>" +
+          "<span>$" +
+          Math.round(totalLow).toLocaleString() +
+          " – $" +
+          Math.round(totalHigh).toLocaleString() +
+          "</span>" +
+        "</div>";
+    }
+
+    var html =
+      '<div class="hb-receipt">' +
+        "<h4>Combined Estimate Summary</h4>" +
+        rowsHtml +
+        totalRow +
+        '<div class="hb-receipt-footer">' +
+          "Ask about VIP Home Care memberships & referral rewards for extra savings." +
+        "</div>" +
+      "</div>";
+
+    // FIX 3b: Prepend the visible header for the combined estimate
+    var messageText = '--- **Combined Estimate** ---<br>' + html;
+    addBotMessage(messageText, true);
+
+    setTimeout(function() {
+      showLeadCapture(
+        "To lock in this combined estimate, I can text or email you everything we just went over."
+      );
+    }, 1200);
+  }
+
+  function resetProjectState() {
+    state.serviceKey = null;
+    state.subOption = null;
+    state.size = 0;
+    state.borough = null;
+    state.isLeadHome = false;
+    state.pricingMode = "full";
+    state.isRush = false;
+    state.promoCode = "";
+  }
+
+  // --- LEAD CAPTURE & LINKS ----------------------------------
+
+  function showLeadCapture(introText) {
+    addBotMessage(introText);
+    addBotMessage("What is your name?");
+    enableInput(function(name) {
+      state.name = name;
+      addBotMessage("And your mobile number?");
+      enableInput(function(phone) {
+        state.phone = phone;
+        generateFinalLinks();
+      });
     });
   }
 
-
-  // --- OUTPUT FORMATTING -------------------------------------
-
-  function buildEstimateHtml(est) {
-    const svc = est.svc;
-    const isFixed = svc.unit === "fixed";
-    const isConsult = svc.unit === "consult";
-
-    // PROJECT DETAILS
-    let detailRow = "";
-    if (est.sub) {
-      detailRow = `<div class="hb-receipt-row"><span>Scope:</span><span>${est.sub.label}</span></div>`;
-    }
-
-    // SIZE/QUANTITY
-    var sizeRow = "";
-    if (isFixed && est.quantity) {
-      sizeRow = `<div class="hb-receipt-row"><span>Units:</span><span>${est.quantity}</span></div>`;
-    } else if (est.size) {
-      sizeRow = `<div class="hb-receipt-row"><span>Size:</span><span>${est.size} ${svc.unit}</span></div>`;
-    }
-
-    // LEAD SAFE
-    const leadRow = est.isLeadHome ?
-      '<div class="hb-receipt-row"><span class="hb-accent-text">Lead Safety Prep:</span><span>Included</span></div>' : '';
-
-    // ADD-ONS
-    var addonRows = "";
-    if (est.selectedAddons && est.selectedAddons.length > 0) {
-        addonRows = est.selectedAddons.map(a =>
-            '<div class="hb-receipt-row"><span>+ Add-on: ' + a.label.split('(')[0].trim() + ':</span><span>Included</span></div>'
-        ).join('');
-    }
-
-    // RUSH
-    const rushLine = est.isRush ?
-      '<div class="hb-receipt-row hb-alert-text"><span>Rush Scheduling:</span><span>+8% Est.</span></div>' : '';
-
-    // DISCOUNT
-    let discountLine = "";
-    if (est.discount > 0) {
-      discountLine = `<div class="hb-receipt-row hb-promo-text"><span>Promo Discount:</span><span>-${Math.round(est.discount * 100)}%</span></div>`;
-    }
-
-    // PRICE
-    const priceStr = isConsult ?
-      "Request Consult" :
-      `$${est.low.toLocaleString()} - $${est.high.toLocaleString()}`;
-
-    const modeLabel = est.pricingMode.charAt(0).toUpperCase() + est.pricingMode.slice(1);
-    const priceRow = `<div class="hb-receipt-row hb-price-row"><span>**${modeLabel} Estimate:**</span><span>**${priceStr}**</span></div>`;
-
-    // CONSULT DISCLAIMER
-    const consultDisclaimer = isConsult ?
-      '<p class="hb-disclaimer-small">This is a consultation service. Price shown is the typical retainer/small job minimum.</p>' : '';
-
-    // MAIN DISCLAIMER
-    const mainDisclaimer = isConsult ? '' :
-      `<p class="hb-disclaimer-small">**Range Disclaimer:** This is a ballpark range based on the NYC market and your input. The final price depends on an on-site inspection of existing conditions, access, and material selections. Projects that fall under the minimum size may be subject to a higher per-unit cost.</p>`;
-
-
-    return `
-      <div class="hb-receipt-card">
-        <div class="hb-receipt-title">
-          ${svc.emoji} **${svc.label}** ${est.borough ? '(' + est.borough + ')' : ''}
-        </div>
-        <div class="hb-receipt-details">
-          ${detailRow}
-          ${sizeRow}
-          ${leadRow}
-          ${rushLine}
-          ${addonRows}
-          ${discountLine}
-          ${priceRow}
-        </div>
-        ${consultDisclaimer}
-      </div>
-      ${mainDisclaimer}
-    `;
-  }
-
-  // MODIFIED: This function now outputs ALL final buttons/links
   function generateFinalLinks() {
-    var lines = [];
+    updateProgress(100);
 
-    // Project List for SMS/Email body
+    var lines = [];
+    lines.push("Hello, I'm " + state.name + ".");
+    lines.push("Projects:");
+
     if (state.projects && state.projects.length) {
       state.projects.forEach(function(p, idx) {
-        var unitDetail = p.svc.unit === "fixed" ? (p.quantity ? (" — " + p.quantity + " units") : "") : (p.size ? (" — " + p.size + " " + p.svc.unit) : "");
+        var sizePart = p.size ? (" — " + p.size + " " + p.svc.unit) : "";
         var areaPart = p.borough ? (" (" + p.borough + ")") : "";
 
-        var line = (idx + 1) + ". " + p.svc.label + unitDetail + areaPart;
-        var priceStr = p.svc.unit === "consult" ? "Consultation" : `$${p.low.toLocaleString()} - $${p.high.toLocaleString()}`;
+        var line = (idx + 1) + ". " + p.svc.label + sizePart + areaPart;
+
+        if (p.low && p.high) {
+          var fLow = Math.round(p.low).toLocaleString();
+          var fHigh = Math.round(p.high).toLocaleString();
+          line += " — ~$" + fLow + "–$" + fHigh;
+        } else {
+          line += " (walkthrough needed)";
+        }
+
         lines.push(line);
 
-        var modeLabel = p.pricingMode.charAt(0).toUpperCase() + p.pricingMode.slice(1);
+        // Add extra detail line (mode, rush, promo, lead)
+        var modeLabel = "Full (Labor + Materials)";
+        if (p.pricingMode === "labor") modeLabel = "Labor Only";
+        if (p.pricingMode === "materials") modeLabel = "Materials + Light Help";
+
         var extras = [modeLabel];
         if (p.isRush) extras.push("Rush scheduling");
         if (p.promoCode) extras.push("Promo: " + p.promoCode.toUpperCase());
         if (p.isLeadHome) extras.push("Lead-safe methods");
-        if (p.selectedAddons && p.selectedAddons.length > 0) {
-            extras.push("Add-ons: " + p.selectedAddons.map(a => a.label.split('(')[0].trim()).join(', '));
-        }
 
         if (extras.length) {
           lines.push("   [" + extras.join(" | ") + "]");
         }
-        lines.push(`   Price Range: ${priceStr}`);
       });
-    }
-    
-    // Add Grand Total to text if multi-project
-    if (state.projects.length > 1) {
-        const total = computeGrandTotal();
-        lines.push("\n--- GRAND TOTAL ---");
-        lines.push(`Combined Range: $${total.low.toLocaleString()} - $${total.high.toLocaleString()}`);
-        lines.push("-------------------");
+    } else if (state.serviceKey && SERVICES[state.serviceKey]) {
+      lines.push(SERVICES[state.serviceKey].label);
     }
 
-    const estimateText = lines.join("\n");
-    const disclaimerText = "Note: This is a preliminary ballpark estimate. The price range is designed to include general overhead and logistical costs (hidden mobilization fee concept). Final pricing requires an on-site walkthrough.";
-    const subject = `Estimate Request from ${state.name}`;
-    const smsBody = encodeURIComponent(`Estimate for ${state.name} (${state.phone}):\n\n${estimateText}\n\n${disclaimerText}`);
-    const emailBody = encodeURIComponent(`Hello Team,\n\nI have generated the following ballpark estimate:\n\n---\n${estimateText}\n---\n\n${disclaimerText}\n\nPlease contact me at ${state.phone} or reply to this email.\n\nThank you,\n${state.name}`);
+    lines.push("Phone: " + state.phone);
+    lines.push("Please reply to schedule a walkthrough.");
+    lines.push("");
+    lines.push(
+      "Disclaimer: This is an automated ballpark estimate only. " +
+      "It is not a formal estimate, contract, or offer for services. " +
+      "Final pricing may change after an in-person walkthrough and a written agreement."
+    );
 
-    // --- BUTTONS ---
-    let buttonsHtml = `
-      <div class="hb-final-links">
-        <a class="hb-link-btn" href="sms:${state.phone}?body=${smsBody}">📥 Text Estimate to My Phone</a>
-        <a class="hb-link-btn" href="mailto:estimates@hammerbrickhome.com?subject=${subject}&body=${emailBody}">📧 Email Estimate to Hammer Brick & Home</a>
-    `;
-    
-    // Add Photo Button (will use a click handler outside this static HTML)
-    buttonsHtml += `<button class="hb-link-btn hb-photo-trigger">📷 Add Photos for Review</button>`;
+    var body = encodeURIComponent(lines.join("\n"));
 
-    // Add Walkthrough/CRM Button if URL is configured
-    if (WALKTHROUGH_URL || CRM_FORM_URL) {
-        const url = WALKTHROUGH_URL || CRM_FORM_URL;
-        const text = WALKTHROUGH_URL ? "📅 Book a Free Walkthrough" : "📝 Submit Full Inquiry Form";
-        buttonsHtml += `<a class="hb-link-btn" target="_blank" href="${url}">${text}</a>`;
-    }
+    // FIX 4: Update Phone Number and Email Address
+    var smsLink = "sms:9295955300?&body=" + body; 
+    var emailLink =
+      "mailto:hammerbrickhome@gmail.com?subject=" +
+      encodeURIComponent("Estimate Request - Hammer Brick & Home") +
+      "&body=" +
+      body;
 
-    buttonsHtml += `</div>`; // Close hb-final-links
+    addBotMessage(
+      "Thanks, " +
+        state.name +
+        "! Choose how you’d like to contact us and feel free to attach your photos.",
+      false
+    );
 
-    // Add the photo button click handler setup separately
     setTimeout(function() {
-        const photoTrigger = document.querySelector(".hb-photo-trigger");
-        if (photoTrigger) {
-            photoTrigger.onclick = function() {
-                if (els.photoInput) els.photoInput.click();
-            };
-        }
-    }, 10); // Small delay to ensure DOM is ready
+      // SMS button (FIX 1 & 5: Golden Button class and requested text)
+      var smsBtn = document.createElement("a");
+      smsBtn.className = "hb-chip hb-primary-btn"; // Use new golden class
+      // Removed inline styles for color/background/font-weight since the class handles it
+      smsBtn.style.display = "block";
+      smsBtn.style.textAlign = "center";
+      smsBtn.style.textDecoration = "none";
+      smsBtn.style.marginTop = "10px";
+      smsBtn.textContent = "📲 Text Estimate to My Phone"; // Requested text
+      smsBtn.href = smsLink;
+      els.body.appendChild(smsBtn);
 
-    return buttonsHtml + `<p class="hb-disclaimer-small" style="margin-top: 20px;">${disclaimerText}</p>`;
+      // Email button (FIX 1 & 5: Golden Button class and requested text)
+      var emailBtn = document.createElement("a");
+      emailBtn.className = "hb-chip hb-primary-btn"; // Use new golden class
+      emailBtn.style.display = "block";
+      emailBtn.style.textAlign = "center";
+      emailBtn.style.textDecoration = "none";
+      emailBtn.style.marginTop = "8px";
+      emailBtn.textContent = "✉️ Email Estimate to Hammer Brick & Home"; // Requested text
+      emailBtn.href = emailLink;
+      els.body.appendChild(emailBtn);
+
+      // Optional CRM / form
+      if (CRM_FORM_URL) {
+        var formBtn = document.createElement("a");
+        formBtn.className = "hb-chip";
+        formBtn.style.display = "block";
+        formBtn.style.textAlign = "center";
+        formBtn.style.textDecoration = "none";
+        formBtn.style.marginTop = "8px";
+        formBtn.textContent = "📝 Complete Full Intake Form";
+        formBtn.href = CRM_FORM_URL;
+        formBtn.target = "_blank";
+        els.body.appendChild(formBtn);
+      }
+
+      // Optional walkthrough booking
+      if (WALKTHROUGH_URL) {
+        var walkBtn = document.createElement("a");
+        walkBtn.className = "hb-chip";
+        walkBtn.style.display = "block";
+        walkBtn.style.textAlign = "center";
+        walkBtn.style.textDecoration = "none";
+        walkBtn.style.marginTop = "8px";
+        walkBtn.textContent = "📅 Book a Walkthrough";
+        walkBtn.href = WALKTHROUGH_URL;
+        walkBtn.target = "_blank";
+        els.body.appendChild(walkBtn);
+      }
+
+      // Photo button (triggers hidden input)
+      var photoBtn = document.createElement("button");
+      photoBtn.className = "hb-chip";
+      photoBtn.style.display = "block";
+      photoBtn.style.marginTop = "8px";
+      photoBtn.textContent = "📷 Add Photos";
+      photoBtn.onclick = function() {
+        if (els.photoInput) els.photoInput.click();
+      };
+      els.body.appendChild(photoBtn);
+
+      els.body.scrollTop = els.body.scrollHeight;
+    }, 500);
   }
 
   // --- UTILS -------------------------------------------------
 
-  function enableInput(callback, placeholderText) {
+  function enableInput(callback) {
     els.input.disabled = false;
-    els.input.placeholder = placeholderText || "Type your answer...";
+    els.input.placeholder = "Type your answer...";
     els.input.focus();
 
     // Reset send button listener
@@ -1212,17 +1120,12 @@
     };
   }
 
-  function disableInput() {
-    els.input.disabled = true;
-    els.input.placeholder = "Select an option above...";
-  }
-
   function handleManualInput() {
-    // This function is only used when the input is specifically enabled
-    // The actual logic is handled by the dynamic els.send.onclick in enableInput()
+    if (!els.input.disabled && els.send) els.send.click();
   }
 
-  // --- KICKOFF ---
+  // --- RUN ---------------------------------------------------
+
   document.addEventListener("DOMContentLoaded", init);
 
 })();
