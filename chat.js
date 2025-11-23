@@ -436,7 +436,7 @@
 
   // --- FLOW CONTROL (v6.1: Initial Disclaimer) -------------------------
 
-  // NEW STEP: Initial Disclaimer Check
+  // NEW STEP: Initial Disclaimer Check (Step 0)
   function stepZero_Disclaimer() {
     updateProgress(5);
     const disclaimerHtml = `
@@ -533,7 +533,7 @@
     });
   }
 
-  // FIXED STEP: Fixed-Unit Quantity Check (Handles Windows, Doors, Kitchens, etc.)
+  // FIXED STEP: Fixed-Unit Quantity Check (Step 4)
   function stepFour_Quantity() {
     updateProgress(45);
     const svc = SERVICES[state.serviceKey];
@@ -570,7 +570,7 @@
     askQuantityManual();
   }
 
-  // MODIFIED STEP: Size Input (Now step 5)
+  // MODIFIED STEP: Size Input (Step 5)
   function stepFive_Size() {
     updateProgress(50);
     const svc = SERVICES[state.serviceKey];
@@ -616,7 +616,7 @@
     setTimeout(askSize, 1000);
   }
 
-  // MODIFIED STEP: Location (Now step 6)
+  // MODIFIED STEP: Location (Step 6)
   function stepSix_Location() {
     updateProgress(65);
     addBotMessage("Which borough/area is this in?");
@@ -629,7 +629,7 @@
     });
   }
 
-  // NEW STEP: Add-ons Selection (Now step 7)
+  // NEW STEP: Add-ons Selection (Step 7)
   function stepSeven_Addons() {
     updateProgress(70);
     const svc = SERVICES[state.serviceKey];
@@ -667,7 +667,7 @@
   }
 
 
-  // MODIFIED STEP: Pricing Mode (Now step 8)
+  // MODIFIED STEP: Pricing Mode (Step 8)
   function stepEight_PricingMode() {
     updateProgress(75);
 
@@ -688,7 +688,7 @@
     });
   }
 
-  // MODIFIED STEP: Rush (Now step 9)
+  // MODIFIED STEP: Rush (Step 9)
   function stepNine_Rush() {
     updateProgress(80);
     addBotMessage("Do you require **Rush Scheduling** (within the next 2-4 weeks)?");
@@ -704,7 +704,7 @@
     });
   }
 
-  // MODIFIED STEP: Promo Code (Now step 10)
+  // MODIFIED STEP: Promo Code (Step 10)
   function stepTen_Promo() {
     updateProgress(85);
     addBotMessage("Do you have a **Promo Code**?");
@@ -718,7 +718,7 @@
           state.promoCode = code.toUpperCase();
           addBotMessage(`Code: **${state.promoCode}** applied.`);
           stepEleven_Summary();
-        });
+        }, "Enter promo code..."); // Added placeholder
       } else {
         state.promoCode = "";
         stepEleven_Summary();
@@ -726,7 +726,7 @@
     });
   }
 
-  // MODIFIED STEP: Summary (Now step 11)
+  // MODIFIED STEP: Summary (Step 11)
   function stepEleven_Summary() {
     updateProgress(90);
 
@@ -761,7 +761,7 @@
   }
 
 
-  // MODIFIED STEP: Contact Info (Now step 12)
+  // MODIFIED STEP: Contact Info (Step 12)
   function stepTwelve_ContactInfo() {
     updateProgress(95);
 
@@ -784,11 +784,11 @@
         state.phone = phone.trim().replace(/[^\d\+\- ]/g, '');
         addUserMessage(state.phone);
         stepThirteen_FinalLinks();
-      });
-    });
+      }, "Enter phone number..."); // Added placeholder
+    }, "Enter full name..."); // Added placeholder
   }
 
-  // MODIFIED STEP: Final Links (Now step 13)
+  // MODIFIED STEP: Final Links (Step 13)
   function stepThirteen_FinalLinks() {
     updateProgress(100);
 
@@ -818,12 +818,8 @@
       phone: "",
       projects: []
     });
-    // This will implicitly call the disclaimer again upon the next chat open, 
-    // but the actual bot flow starts over here
-    setTimeout(function() {
-        addBotMessage("What type of project are you planning?");
-        presentServiceOptions();
-    }, 2000);
+    // The next time the user clicks "Get Quote", they will start over with the disclaimer.
+    // We stop the explicit conversational flow here.
   }
 
   // --- CALCULATIONS ------------------------------------------
