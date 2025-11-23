@@ -1,7 +1,8 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v6.0
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v6.1
    Multi-Project • Rush • Promo Codes • SMS & Email • Photos
    + Fixed Units, Advanced Add-ons, MINIMUM PROJECT FLOOR (Hidden Overhead)
+   + RESTORED: Initial Disclaimer Check (Step Zero)
 =============================================================== */
 
 (function() {
@@ -29,7 +30,7 @@
   const CRM_FORM_URL = "";      // e.g. "https://forms.gle/your-form-id"
   const WALKTHROUGH_URL = "";   // e.g. "https://calendly.com/your-link"
 
-  // Pricing Logic / Services (v6.0)
+  // Pricing Logic / Services (v6.1)
   const SERVICES = {
     // 1. Masonry & Concrete (Square Footage Unit)
     "masonry": {
@@ -41,7 +42,7 @@
       ],
       addons: [
           { label: "Power Wash & Sealant Application", key: "sealant", fixedCost: 750, percentFactor: 0.04 },
-          { label: "Historical Brick Matching/Review", key: "hist_match", fixedCost: 1500 }, // NEW
+          { label: "Historical Brick Matching/Review", key: "hist_match", fixedCost: 1500 },
           { label: "NYC Permit Filing (Standard)", key: "permit", fixedCost: 600, percentFactor: 0 }
       ]
     },
@@ -96,7 +97,7 @@
       addons: [
           { label: "Asbestos/Lead Testing (Mandatory in NYC)", key: "asbestos_test", fixedCost: 1500 },
           { label: "Temporary Kitchen/Utility Setup", key: "temp_kitchen", fixedCost: 1800 },
-          { label: "Custom Tiling / Complex Patterning", key: "custom_tile", percentFactor: 0.03 } // NEW
+          { label: "Custom Tiling / Complex Patterning", key: "custom_tile", percentFactor: 0.03 }
       ],
       leadSensitive: true
     },
@@ -111,7 +112,7 @@
       addons: [
           { label: "Custom Niche/Bench Construction", key: "niche", fixedCost: 700 },
           { label: "Heated Flooring System", key: "heated_floor", fixedCost: 2500 },
-          { label: "Steam Shower System Install", key: "steam_shower", fixedCost: 4000 } // NEW
+          { label: "Steam Shower System Install", key: "steam_shower", fixedCost: 4000 }
       ],
       leadSensitive: true
     },
@@ -127,7 +128,7 @@
       addons: [
           { label: "Interior Trim Replacement (Per Window)", key: "trim", fixedCost: 150 },
           { label: "Exterior Casing Repair/Painting", key: "casing", fixedCost: 250 },
-          { label: "Energy Star Filing/Incentive Prep", key: "energy_star", fixedCost: 300 } // NEW
+          { label: "Energy Star Filing/Incentive Prep", key: "energy_star", fixedCost: 300 }
       ],
       leadSensitive: true
     },
@@ -187,7 +188,7 @@
         ]
     },
 
-    // 12. Deck / Patio Install (NEW SERVICE)
+    // 12. Deck / Patio Install
     "deck": {
         label: "Deck / Patio Install", emoji: "⛱️", unit: "sq ft", baseLow: 35, baseHigh: 65, minSize: 100, min: 5000,
         subQuestion: "Deck material?",
@@ -197,7 +198,7 @@
         ]
     },
 
-    // 13. Fence Installation (NEW SERVICE)
+    // 13. Fence Installation
     "fence": {
         label: "Fence Installation", emoji: "🚧", unit: "linear ft", baseLow: 35, baseHigh: 75, minSize: 50, min: 2500,
         subQuestion: "Fence material?",
@@ -208,7 +209,7 @@
         ]
     },
 
-    // 14. Sidewalk / DOT Concrete (NEW SERVICE)
+    // 14. Sidewalk / DOT Concrete
     "sidewalk_dot": {
         label: "Sidewalk / DOT Concrete", emoji: "🪨", unit: "sq ft", baseLow: 15, baseHigh: 22, minSize: 100, min: 2000,
         subQuestion: "Scope of work?",
@@ -218,7 +219,7 @@
         ]
     },
 
-    // 15. Epoxy Garage Floor (NEW SERVICE)
+    // 15. Epoxy Garage Floor
     "epoxy_floor": {
         label: "Epoxy Garage Floor", emoji: "✨", unit: "sq ft", baseLow: 7, baseHigh: 12, minSize: 200, min: 1500,
         subQuestion: "Floor size and finish type?",
@@ -275,7 +276,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v6.0 (Hidden Overhead)..."); // VERSION BUMP
+    console.log("HB Chat: Initializing v6.1 (Disclaimer Restored)..."); // VERSION BUMP
     createInterface();
 
     if (sessionStorage.getItem("hb_chat_active") === "true") {
@@ -350,8 +351,7 @@
     // Kick off conversation
     addBotMessage("👋 Hi! I can generate a ballpark estimate for your project instantly.");
     setTimeout(function() {
-      addBotMessage("What type of project are you planning?");
-      presentServiceOptions();
+      stepZero_Disclaimer(); // NEW: Start with the disclaimer check
     }, 800);
   }
 
@@ -434,7 +434,34 @@
     }, 500);
   }
 
-  // --- FLOW CONTROL (v6.0: Quantity, Addons, Hidden Floor) -------------------------
+  // --- FLOW CONTROL (v6.1: Initial Disclaimer) -------------------------
+
+  // NEW STEP: Initial Disclaimer Check
+  function stepZero_Disclaimer() {
+    updateProgress(5);
+    const disclaimerHtml = `
+      <p>⚠️ **IMPORTANT DISCLAIMER**</p>
+      <p>This tool provides a **ballpark cost range** based on average NYC market data and the details you provide. It is **not** a fixed quote.</p>
+      <p>The final price depends on:</p>
+      <ul>
+        <li>A required **on-site inspection**.</li>
+        <li>Existing conditions, access, and material selections.</li>
+      </ul>
+      <p>By proceeding, you acknowledge and agree that this is a **preliminary estimate range** only.</p>
+    `;
+
+    addBotMessage(disclaimerHtml, true);
+
+    addChoices(["Yes, I understand and agree", "No, close chat"], function(choice) {
+      const val = (typeof choice === "string") ? choice : choice.label;
+      if (val.includes("Yes")) {
+        presentServiceOptions(); // Proceed to service selection
+      } else {
+        addBotMessage("Understood. Thank you for visiting.");
+        setTimeout(toggleChat, 1000); // Close the chat window
+      }
+    });
+  }
 
   function presentServiceOptions() {
     updateProgress(10);
@@ -451,6 +478,7 @@
       key: consultKeys[0]
     });
 
+    addBotMessage("What type of project are you planning?");
     addChoices(options, function(choice) {
       state.serviceKey = choice.key;
       if (SERVICES[state.serviceKey].unit === "consult") {
@@ -505,28 +533,28 @@
     });
   }
 
-  // NEW STEP: Fixed-Unit Quantity Check
+  // FIXED STEP: Fixed-Unit Quantity Check (Handles Windows, Doors, Kitchens, etc.)
   function stepFour_Quantity() {
     updateProgress(45);
     const svc = SERVICES[state.serviceKey];
-    
+
     // Only proceed if it's a fixed unit service (Windows, Doors, Kitchen, Bath, Systems)
     if (svc.unit !== "fixed") {
       state.quantity = 1; // Default to 1 unit for all other services
       stepFive_Size(); // If not fixed, go to the size (sq ft/linear ft) step
       return;
     }
-    
+
     const unitLabel = svc.label.includes('(Per Unit)') ? 'units' : 'units (e.g., kitchens)';
     const minQty = svc.quantityMin || 1;
-    
+
     addBotMessage(`How many ${unitLabel} are you looking to install or remodel?`);
     addBotMessage(`(Enter the number, minimum: ${minQty})`);
 
     function askQuantityManual() {
         enableInput(function(val) {
             const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
-            
+
             if (!num || num < minQty) {
                 const errorMsg = `Please enter at least ${minQty} ${unitLabel}.`;
                 addBotMessage(errorMsg);
@@ -790,7 +818,12 @@
       phone: "",
       projects: []
     });
-    presentServiceOptions(); // Start over
+    // This will implicitly call the disclaimer again upon the next chat open, 
+    // but the actual bot flow starts over here
+    setTimeout(function() {
+        addBotMessage("What type of project are you planning?");
+        presentServiceOptions();
+    }, 2000);
   }
 
   // --- CALCULATIONS ------------------------------------------
@@ -1003,7 +1036,7 @@
         if (p.isRush) extras.push("Rush scheduling");
         if (p.promoCode) extras.push("Promo: " + p.promoCode.toUpperCase());
         if (p.isLeadHome) extras.push("Lead-safe methods");
-        
+
         // ADDED: Add-ons
         if (p.selectedAddons && p.selectedAddons.length > 0) {
             extras.push("Add-ons: " + p.selectedAddons.map(a => a.label.split('(')[0].trim()).join(', '));
