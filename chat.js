@@ -1,6 +1,6 @@
 /* ============================================================
    HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v4.3
-   (Smart Add-ons v1 Fully Integrated & Flow Updated)
+   (Chatbot Disappearing Bug Fixed)
 =============================================================== */
 
 (function() {
@@ -665,33 +665,257 @@
 
   let els = {};
 
+  // --- INTERFACE AND EVENT HANDLERS -----------------------------
+
+  function createInterface() {
+    // Check if the interface already exists (prevents duplicate creation on re-run)
+    if (document.getElementById("hb-chat-wrapper")) return;
+
+    // Create main wrapper
+    const wrapper = document.createElement("div");
+    wrapper.id = "hb-chat-wrapper";
+    wrapper.className = "hb-chat-wrapper hb-chat-closed";
+    document.body.appendChild(wrapper);
+
+    // Create FAB button
+    const fab = document.createElement("button");
+    fab.id = "hb-chat-fab";
+    fab.className = "hb-chat-fab";
+    fab.innerHTML = '<span class="fab-icon">💬</span> Get Quote';
+    document.body.appendChild(fab);
+
+    // Header
+    const header = document.createElement("div");
+    header.className = "hb-chat-header";
+    header.innerHTML = '<div class="hb-chat-title">Hammer Estimator</div><button id="hb-chat-close" class="hb-chat-close">✕</button>';
+    wrapper.appendChild(header);
+
+    // Body (message container)
+    const body = document.createElement("div");
+    body.className = "hb-chat-body";
+    wrapper.appendChild(body);
+
+    // Footer (input/send)
+    const footer = document.createElement("div");
+    footer.className = "hb-chat-footer";
+    footer.innerHTML = `
+      <input type="text" id="hb-chat-input" class="hb-chat-input" placeholder="Type your answer..." disabled>
+      <button id="hb-chat-send" class="hb-chat-send">➤</button>
+      <input type="file" id="hb-photo-input" style="display:none;" accept="image/*,application/pdf">
+      <div id="hb-chat-status" class="hb-chat-status"></div>
+    `;
+    wrapper.appendChild(footer);
+
+    // Store elements for global access
+    els = {
+      wrapper: wrapper,
+      fab: fab,
+      body: body,
+      input: document.getElementById("hb-chat-input"),
+      send: document.getElementById("hb-chat-send"),
+      close: document.getElementById("hb-chat-close"),
+      status: document.getElementById("hb-chat-status"),
+      photoInput: document.getElementById("hb-photo-input")
+    };
+
+    // Events
+    els.fab.onclick = toggleChat;
+    els.close.onclick = toggleChat;
+    els.input.onkeypress = handleManualInput;
+    // els.photoInput.onchange = handlePhotoUpload; // Placeholder if needed later
+
+    // Update initial UI state
+    updateInterface();
+  }
+
+  function toggleChat() {
+    const isOpen = els.wrapper.classList.toggle("hb-chat-closed");
+
+    if (isOpen) {
+      els.fab.style.display = "block"; // Show the FAB when chat closes
+      sessionStorage.setItem("hb_chat_active", "false");
+    } else {
+      els.fab.style.display = "none"; // Hide the FAB when chat opens
+      sessionStorage.setItem("hb_chat_active", "true");
+      els.body.scrollTop = els.body.scrollHeight; // Scroll to bottom when opening
+    }
+  }
+
+  function updateInterface() {
+    // This function can handle updating the overall look/feel based on state
+    // For now, it's just a placeholder.
+    // E.g., els.wrapper.style.backgroundColor = state.step > 5 ? 'red' : 'default';
+  }
+
+  function updateProgress(percent) {
+    if (els.status) {
+      els.status.style.width = percent + "%";
+    }
+  }
+
+  // --- MESSAGING FUNCTIONS ----------------------------------
+
+  function addBotMessage(text, isWaitingForInput = false) {
+    const msg = document.createElement("div");
+    msg.className = "hb-msg hb-msg-bot";
+    // Sanitize input slightly to prevent accidental HTML injection from config data
+    msg.innerHTML = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+
+    els.body.appendChild(msg);
+    els.body.scrollTop = els.body.scrollHeight;
+
+    if (isWaitingForInput) {
+      els.input.focus();
+    }
+  }
+
+  function addUserMessage(text) {
+    const msg = document.createElement("div");
+    msg.className = "hb-msg hb-msg-user";
+    msg.textContent = text;
+    els.body.appendChild(msg);
+    els.body.scrollTop = els.body.scrollHeight;
+  }
+
+  function addChoices(choices, callback) {
+    disableInput();
+    const choicesContainer = document.createElement("div");
+    choicesContainer.className = "hb-choices-container";
+
+    choices.forEach(choiceData => {
+      const btn = document.createElement("button");
+      btn.className = "hb-chip";
+      btn.textContent = choiceData.label;
+
+      btn.onclick = function() {
+        // Disable all chips after selection
+        choicesContainer.querySelectorAll(".hb-chip").forEach(chip => {
+          chip.disabled = true;
+        });
+
+        // Add user response
+        addUserMessage(choiceData.label);
+
+        // Execute the next step in the flow
+        callback(choiceData);
+      };
+      choicesContainer.appendChild(btn);
+    });
+
+    els.body.appendChild(choicesContainer);
+    els.body.scrollTop = els.body.scrollHeight;
+  }
+
+  function disableInput() {
+    els.input.disabled = true;
+    els.input.placeholder = "Please choose an option above...";
+    // Reset send button listener to prevent accidental clicks
+    var newSend = els.send.cloneNode(true);
+    els.send.parentNode.replaceChild(newSend, els.send);
+    els.send = newSend;
+    els.send.onclick = function() {};
+  }
+
+
   // --- INIT ---------------------------------------------------
 
   function init() {
     console.log("HB Chat: Initializing v4.3...");
     createInterface();
 
-    if (sessionStorage.getItem("hb_chat_active") === "true") {
-      toggleChat();
-    }
+    /* FIX START: The chatbot was disappearing on reload because 
+      sessionStorage kept it in an 'open' state, which hid the FAB 
+      button before the wrapper was visible. We comment this out to 
+      always start closed and show the FAB. 
+    */
+    // if (sessionStorage.getItem("hb_chat_active") === "true") {
+    //   toggleChat();
+    // }
+    /* FIX END */
 
     // Kick off conversation with the mandatory disclaimer step (FIXED)
     setTimeout(stepOne_Disclaimer, 800);
   }
 
-  // (createInterface, toggleChat, updateProgress, addBotMessage, addUserMessage, addChoices, handleManualInput,
-  // handleYesNo, stepOne_Disclaimer, presentServiceOptions, stepTwo_SubQuestions, stepThree_LeadCheck remain the same)
-
   // --- STEPS (Flow changes here) --------------------------------
   
-  // stepThree_LeadCheck -> calls stepFour_SizeInput or stepFive_Location (now stepFour_Addons)
-  function stepThree_LeadCheck() {
+  function stepOne_Disclaimer() {
+    updateProgress(10);
+    addBotMessage("Hi there! I'm the Hammer Brick & Home estimator. I can give you an instant cost range for your project.");
+    addBotMessage("<strong>Disclaimer:</strong> This is a preliminary estimate based on average costs. The final price requires an on-site walkthrough. Prices are for NYC (Staten Island base) and nearby areas.");
+
+    addChoices(["I understand, let's proceed"], presentServiceOptions);
+  }
+
+  function presentServiceOptions(data) {
+    updateProgress(20);
+    addBotMessage("Great! What type of work are you looking to get an estimate for today? You can choose one or multiple projects.");
+
+    const servicesList = Object.keys(SERVICES).map(key => ({
+      label: `${SERVICES[key].emoji} ${SERVICES[key].label}`,
+      key: key
+    }));
+
+    addChoices(servicesList, function(selection) {
+      state.serviceKey = selection.key;
+      // Reset state for the new project
+      resetProjectState();
+      state.serviceKey = selection.key; // Set it again after reset
+      state.step = 2;
+      stepTwo_SubQuestions();
+    });
+  }
+
+  function stepTwo_SubQuestions() {
+    const svc = SERVICES[state.serviceKey];
+    updateProgress(30);
+
+    // Skip to next step if no sub-options or if it's a 'consult' job
+    if (!svc.options || svc.unit === "consult") {
+      state.subOption = { label: "Standard Scope", factor: 1.0, fixedLow: svc.baseLow, fixedHigh: svc.baseHigh };
+      return stepThree_Location();
+    }
+
+    addBotMessage(`You chose **${svc.label}**. Now, please tell us: **${svc.subQuestion}**`);
+
+    const subOptionsList = svc.options.map((opt, index) => ({
+      label: opt.label,
+      key: index,
+      optionData: opt
+    }));
+
+    addChoices(subOptionsList, function(selection) {
+      state.subOption = selection.optionData;
+      state.step = 3;
+      stepThree_Location();
+    });
+  }
+
+  function stepThree_Location() {
+    updateProgress(40);
+    addBotMessage("Which borough/area is the project located in?");
+
+    const locations = Object.keys(BOROUGH_MODS).map(borough => ({
+      label: `${borough} (Modifier: ${Math.round((BOROUGH_MODS[borough] - 1) * 100)}%)`,
+      key: borough
+    }));
+
+    addChoices(locations, function(selection) {
+      state.borough = selection.key;
+      state.step = 4;
+      stepFour_LeadCheck();
+    });
+  }
+
+  function stepFour_LeadCheck() {
     const svc = SERVICES[state.serviceKey];
     updateProgress(50);
 
     // If it's a consult job, skip size input and go straight to Add-ons (the next step)
     if (svc.unit === "consult") {
-      return stepFour_Addons();
+      return stepFive_SizeInput();
     }
 
     if (svc.leadSensitive && state.borough === "Manhattan") {
@@ -699,15 +923,14 @@
       addChoices(["Yes, Pre-1978", "No, Built Post-1978"], function(choice) {
         const val = (typeof choice === "string") ? choice : choice.label;
         state.isLeadHome = val.indexOf("Yes") !== -1;
-        stepFour_SizeInput();
+        stepFive_SizeInput();
       });
     } else {
-      stepFour_SizeInput();
+      stepFive_SizeInput();
     }
   }
 
-  // stepFour_SizeInput -> calls stepFour_Addons (NEW)
-  function stepFour_SizeInput() {
+  function stepFive_SizeInput() {
     updateProgress(60);
     const svc = SERVICES[state.serviceKey];
     let unit = svc.unit;
@@ -722,7 +945,7 @@
 
     if (unit === "fixed") {
       // Fixed price jobs (kitchen/bath/windows/doors) skip size/unit questions
-      return stepFour_Addons(); // GO TO NEW ADD-ONS STEP
+      return stepSix_Addons(); // GO TO NEW ADD-ONS STEP
     } else {
       prompt = `About how many **${unit}** is the project area? (e.g., 500)`;
       if (min) prompt += `<br><span style="font-size:12px;color:#aaa;">*Minimum project size is typically around ${min} ${unit} for this type of work.</span>`;
@@ -732,10 +955,10 @@
         const size = parseFloat(answer.replace(/[^\d.]/g, ''));
         if (isNaN(size) || size <= 0) {
           addBotMessage("That doesn't look like a valid size. Please enter a number for the size in " + unit + ".");
-          stepFour_SizeInput(); // Loop back
+          stepFive_SizeInput(); // Loop back
         } else {
           state.size = size;
-          stepFour_Addons(); // GO TO NEW ADD-ONS STEP
+          stepSix_Addons(); // GO TO NEW ADD-ONS STEP
         }
       });
     }
@@ -743,7 +966,7 @@
 
 
   // --- NEW STEP: SMART ADD-ONS -----------------------------
-  function stepFour_Addons() {
+  function stepSix_Addons() {
     updateProgress(70);
     const svcKey = state.serviceKey;
     const addonConfig = SMART_ADDONS_CONFIG[svcKey];
@@ -751,15 +974,14 @@
     if (!addonConfig) {
       // If no add-ons are configured for this service, skip this step
       addBotMessage("Understood. We'll stick to the base scope for this project.");
-      return stepFive_Location();
+      return stepSeven_PricingMode();
     }
 
     addBotMessage(`We can now add some **Smart Add-ons** for your ${addonConfig.title} project. Are you interested in any upgrades?`);
 
     const choices = [];
     const groups = addonConfig.groups;
-    let count = 0;
-
+    
     // Pull 2 choices from Luxury and 2 from Protection for simple chip selection
     if (groups.luxury) {
       groups.luxury.slice(0, 2).forEach((item, index) => {
@@ -792,8 +1014,7 @@
       });
     }
 
-
-    choices.push({ label: "None, continue to final estimate", key: "none" });
+    choices.push({ label: "None, continue to next step", key: "none" });
 
 
     addChoices(choices, function(selection) {
@@ -803,44 +1024,79 @@
         // Store the full add-on object in the state
         const item = selection.fullItem;
         item.key = selection.key; // Store the unique key for lookup later
-        state.selectedAddons = [item]; // Only supporting one selection for chat simplicity
+        // Note: For simplicity in the chat flow, we only allow one add-on selection here.
+        state.selectedAddons = [item]; 
         addBotMessage(`✅ Adding **${item.label}** to your project estimate.`);
       }
 
-      // Proceed to the next step (Location)
-      stepFive_Location();
+      // Proceed to the next step (Pricing Mode)
+      stepSeven_PricingMode();
+    });
+  }
+  
+  // --- END NEW STEP --------------------------------------------
+
+
+  function stepSeven_PricingMode() {
+    updateProgress(80);
+    addBotMessage("How would you like the price estimated?");
+
+    const choices = [
+      { label: "Full Service (Labor + Materials)", key: "full" },
+      { label: "Labor Only (I supply materials)", key: "labor" },
+      { label: "Materials Only (I supply labor)", key: "materials" }
+    ];
+
+    addChoices(choices, function(selection) {
+      state.pricingMode = selection.key;
+      state.step = 8;
+      stepEight_Rush();
+    });
+  }
+
+  function stepEight_Rush() {
+    addBotMessage("Is this a rush job requiring immediate start or guaranteed fast completion?");
+
+    addChoices(["Yes, Rush Job", "No, Standard Scheduling"], function(selection) {
+      state.isRush = selection.label.includes("Yes");
+      state.step = 9;
+      stepNine_Promo();
+    });
+  }
+
+  function stepNine_Promo() {
+    updateProgress(90);
+    addBotMessage("Do you have a special promo code? (e.g., VIP10) If not, click 'No Promo'.");
+
+    addChoices(["Enter Promo Code", "No Promo"], function(selection) {
+      if (selection.label.includes("No Promo")) {
+        state.promoCode = "";
+        state.step = 10;
+        showEstimateAndAskAnother();
+      } else {
+        addBotMessage("Please enter your promo code:", true);
+        enableInput(function(code) {
+          state.promoCode = code.toUpperCase();
+          state.step = 10;
+          showEstimateAndAskAnother();
+        });
+      }
     });
   }
 
 
-  // stepFive_Location -> stepSix_PricingMode (no change)
-  // stepSix_PricingMode -> stepSeven_Rush (no change)
-  // stepSeven_Rush -> stepEight_Promo (no change)
-  // stepEight_Promo -> stepNine_Estimate (no change)
-
-  // --- ESTIMATE COMPUTATION (UPDATED) ----------------------
+  // --- ESTIMATE COMPUTATION ----------------------
 
   /* Helper to compute add-on total from the state */
   function computeSelectedAddonsTotal(addons, serviceKey) {
     let low = 0;
     let high = 0;
 
-    // Check if the service exists in the config to correctly look up costs
-    const cfg = SMART_ADDONS_CONFIG[serviceKey];
-
     addons.forEach(addon => {
-      // For fixed items added in stepFour_Addons (like the debris removal fallback)
+      // Since we stored the fullItem, we just use its low/high.
       if (addon.low && addon.high) {
         low += addon.low;
         high += addon.high;
-        return;
-      }
-
-      // Logic to find the addon price if selected from the config (unlikely in this simple flow)
-      // Since we stored the fullItem, we just use its low/high.
-      if (addon.fullItem && addon.fullItem.low && addon.fullItem.high) {
-        low += addon.fullItem.low;
-        high += addon.fullItem.high;
       }
     });
 
@@ -964,13 +1220,11 @@
       if (p.high) totalHigh += p.high;
     });
 
-    // NOTE: The previous debrisRemoval add-on logic is now handled per-project
-    // via the new state.selectedAddons array, so this grand total logic is clean.
-
     return { totalLow, totalHigh };
   }
 
-  // --- ESTIMATE DISPLAY (UPDATED) --------------------------
+
+  // --- ESTIMATE DISPLAY --------------------------
 
   function buildEstimateHtml(est) {
     var svc = est.svc;
@@ -1035,8 +1289,171 @@
     return html;
   }
 
-  // (The rest of the display functions (showEstimateAndAskAnother, askAddAnother,
-  // showCombinedReceiptAndLeadCapture) remain the same except for the summary text update.)
+  function showEstimateAndAskAnother() {
+    const est = computeEstimateForCurrent();
+    if (est) {
+      state.projects.push(est);
+      const estimateHtml = buildEstimateHtml(est);
+      
+      updateProgress(100);
+      addBotMessage("Here is your estimated cost range for Project #" + state.projects.length + ":<br>" + estimateHtml);
+
+      // Reset state for a new potential project
+      resetProjectState();
+
+      // Ask for another project
+      setTimeout(askAddAnother, 1500);
+    } else {
+      addBotMessage("I encountered an error calculating the estimate. Let's try to add the final project details.");
+      setTimeout(askAddAnother, 1500);
+    }
+  }
+
+  function askAddAnother() {
+    if (state.projects.length >= 3) {
+      addBotMessage("You've reached the limit of 3 projects for a single session. Let's wrap up.");
+      showCombinedReceiptAndLeadCapture();
+      return;
+    }
+    
+    addBotMessage("Would you like to get an estimate for another project now, or are you ready to finalize your request?");
+    
+    addChoices(["Add Another Project", "Finalize Request"], function(selection) {
+      if (selection.label.includes("Add Another")) {
+        // Restart the flow for a new project
+        presentServiceOptions(null);
+      } else {
+        // Proceed to lead capture
+        showCombinedReceiptAndLeadCapture();
+      }
+    });
+  }
+
+  function showCombinedReceiptAndLeadCapture() {
+    updateProgress(100);
+    const totals = computeGrandTotal();
+    const summaryText = buildSummaryText(state.projects, totals);
+
+    let html = '<div class="hb-receipt-summary">';
+    html += '<h4>✨ Grand Total Estimate ✨</h4>';
+    if (totals.totalLow && totals.totalHigh) {
+      html += '<div class="hb-receipt-grand-total">' + formatMoney(totals.totalLow) + ' – ' + formatMoney(totals.totalHigh) + '</div>';
+    } else {
+      html += '<div class="hb-receipt-grand-total">Consultation Required</div>';
+    }
+    html += '<p style="font-size:12px;color:#ccc;margin-top:10px;">This combines all ' + state.projects.length + ' projects you configured.</p>';
+    html += '</div>';
+    
+    addBotMessage(html);
+
+    addBotMessage("To receive your detailed, official quote and to schedule a free walkthrough, please provide your contact info. We will not share your data.");
+    
+    // Final Input for Name
+    addBotMessage("What is your full name?", true);
+    enableInput(function(name) {
+      state.name = name;
+      addUserMessage(name);
+      
+      // Input for Phone
+      addBotMessage("What is your best phone number?", true);
+      enableInput(function(phone) {
+        state.phone = phone;
+        addUserMessage(phone);
+        
+        // Input for Email
+        addBotMessage("What is your email address?", true);
+        enableInput(function(email) {
+          state.email = email;
+          addUserMessage(email);
+
+          // Final question: Financing
+          setTimeout(function() {
+            addBotMessage("Are you interested in hearing about our **Financing Options** for your project?");
+            addChoices(["Yes, I'd like financing info", "No, I'm paying cash"], function(selection) {
+              state.financingNeeded = selection.label.includes("Yes");
+              
+              // Finalize and post data
+              addBotMessage("Thank you! Your request is being submitted. We will contact you at " + state.phone + " or " + state.email + " shortly.");
+              finalizeSubmission(summaryText);
+            });
+          }, 500);
+        });
+      });
+    });
+  }
+
+  function finalizeSubmission(summaryText) {
+    // Collect all data
+    const finalData = {
+      timestamp: new Date().toISOString(),
+      name: state.name,
+      phone: state.phone,
+      email: state.email,
+      financingNeeded: state.financingNeeded,
+      borough: state.projects[0].borough, // Use the first project's borough for simplicity
+      projects: state.projects,
+      summary: summaryText
+    };
+
+    console.log("FINAL SUBMISSION DATA:", finalData);
+
+    // If a CRM URL exists, this is where you would post the data via AJAX.
+    if (CRM_FORM_URL) {
+      // Example AJAX POST (requires jQuery or modern fetch)
+      // fetch(CRM_FORM_URL, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(finalData)
+      // }).then(response => {
+      //   addBotMessage("✅ Your request has been successfully submitted to the team!");
+      // }).catch(error => {
+      //   console.error("Submission failed:", error);
+      //   addBotMessage("❌ Submission failed. Please call us directly or use the contact form.");
+      // });
+    } else {
+      // Fallback for non-live demo or missing CRM integration
+      addBotMessage("✅ Submission complete (Data logged to console).");
+    }
+
+    // Add call-to-action buttons
+    setTimeout(function() {
+      addBotMessage("What happens next? We'll review your project details and confirm your free on-site walkthrough appointment.");
+
+      // Contact button
+      var contactBtn = document.createElement("a");
+      contactBtn.className = "hb-chip";
+      contactBtn.style.display = "block";
+      contactBtn.style.marginTop = "8px";
+      contactBtn.textContent = "📞 Call Hammer Brick & Home Now";
+      contactBtn.href = "tel:718-555-HAMR"; // Replace with real number
+      els.body.appendChild(contactBtn);
+
+      // Walkthrough button
+      if (WALKTHROUGH_URL) {
+        var walkBtn = document.createElement("a");
+        walkBtn.className = "hb-chip";
+        walkBtn.style.display = "block";
+        walkBtn.style.marginTop = "8px";
+        walkBtn.textContent = "📅 Book a Walkthrough";
+        walkBtn.href = WALKTHROUGH_URL;
+        walkBtn.target = "_blank";
+        els.body.appendChild(walkBtn);
+      }
+
+      // Photo button (triggers hidden input)
+      var photoBtn = document.createElement("button");
+      photoBtn.className = "hb-chip";
+      photoBtn.style.display = "block";
+      photoBtn.style.marginTop = "8px";
+      photoBtn.textContent = "📷 Add Photos";
+      photoBtn.onclick = function() {
+        if (els.photoInput) els.photoInput.click();
+      };
+      els.body.appendChild(photoBtn);
+
+      els.body.scrollTop = els.body.scrollHeight;
+    }, 500);
+  }
 
   function buildSummaryText(projects, totals) {
     var lines = [];
@@ -1082,11 +1499,12 @@
     return lines.join("\n");
   }
 
+
   function resetProjectState() {
     state.serviceKey = null;
     state.subOption = null;
     state.size = 0;
-    state.borough = null;
+    state.borough = null; // Important: Do NOT reset borough if you want multi-project to use the same location
     state.isLeadHome = false;
     state.pricingMode = "full";
     state.isRush = false;
@@ -1095,19 +1513,44 @@
     state.financingNeeded = false;
   }
 
-  // --- UTILS (Added SMART ADD-ON Helpers) --------------------
+  // --- UTILS -------------------------------------------------
 
   function formatMoney(num) {
     return "$" + Math.round(num).toLocaleString("en-US");
   }
 
-  // (The rest of the utility functions (enableInput, handleManualInput,
-  // addUserMessage, updateInterface) remain the same)
+  function enableInput(callback) {
+    els.input.disabled = false;
+    els.input.placeholder = "Type your answer...";
+    els.input.focus();
+
+    // Reset send button listener
+    var newSend = els.send.cloneNode(true);
+    els.send.parentNode.replaceChild(newSend, els.send);
+    els.send = newSend;
+
+    els.send.onclick = function() {
+      var val = els.input.value.trim();
+      if (!val) return;
+      addUserMessage(val);
+      els.input.value = "";
+      els.input.disabled = true;
+      els.input.placeholder = "Please wait...";
+      callback(val);
+    };
+  }
+
+  function handleManualInput(e) {
+    // Listen for 'Enter' key press
+    if (e.key === "Enter" && !els.input.disabled) {
+      els.send.click();
+    }
+  }
 
 
   // --- STARTUP -----------------------------------------------
 
   // Run init once the entire page is loaded
-  init();
+  document.addEventListener("DOMContentLoaded", init);
 
 })();
