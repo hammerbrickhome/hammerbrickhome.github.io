@@ -1,6 +1,6 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v4.2
-   (Mandatory Disclaimer Fixed, Services/Add-ons Integrated, Total/Promo Display Fixed)
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v4.3
+   (FIXED: Promo Display, New Button Added, Financing Removed, All Features Restored)
 =============================================================== */
 
 (function() {
@@ -39,6 +39,7 @@
       unit: "sq ft",
       baseLow: 16, baseHigh: 28, min: 2500,
       subQuestion: "What type of finish?",
+      context: "Masonry is typically priced by the square foot, often running **$16–$28 per sq ft** depending on the complexity and finish you choose.",
       options: [
         { label: "Standard Concrete ($)", factor: 1.0 },
         { label: "Pavers ($$)", factor: 1.6 },
@@ -52,6 +53,7 @@
       unit: "sq ft",
       baseLow: 10, baseHigh: 20, min: 3500,
       subQuestion: "Current surface condition?",
+      context: "Driveways are priced by the square foot. Factors like existing asphalt removal can add to the cost, which ranges from **$10–$20 per sq ft**.",
       options: [
         { label: "Dirt/Gravel (New)", factor: 1.0 },
         { label: "Existing Asphalt (Removal)", factor: 1.25 },
@@ -65,6 +67,7 @@
       unit: "sq ft",
       baseLow: 4.5, baseHigh: 9.5, min: 6500,
       subQuestion: "Roof type?",
+      context: "Roofing costs vary widely by material and accessibility. Typical pricing is **$4.50–$9.50 per sq ft**, with a minimum project size of around $6,500.",
       options: [
         { label: "Shingle (Standard)", factor: 1.0 },
         { label: "Flat Roof (NYC Spec)", factor: 1.5 },
@@ -78,6 +81,7 @@
       unit: "sq ft",
       baseLow: 1.8, baseHigh: 3.8, min: 1800,
       subQuestion: "Paint quality?",
+      context: "A standard interior paint job (walls/ceiling) runs about **$1.80–$3.80 per sq ft** of floor space, depending on the quality of paint selected.",
       leadSensitive: true,
       options: [
         { label: "Standard Paint", factor: 1.0 },
@@ -92,6 +96,7 @@
       unit: "sq ft",
       baseLow: 2.5, baseHigh: 5.5, min: 3500,
       subQuestion: "Surface condition?",
+      context: "Exterior painting, including surface prep, typically ranges from **$2.50–$5.50 per sq ft** of surface area. Extensive prep work will increase the price.",
       options: [
         { label: "Good Condition", factor: 1.0 },
         { label: "Peeling / Prep Needed", factor: 1.4 },
@@ -105,6 +110,7 @@
       unit: "sq ft",
       baseLow: 2.8, baseHigh: 5.5, min: 1200,
       subQuestion: "Floor type?",
+      context: "Epoxy flooring ranges widely based on the system chosen, from a simple 1-part coat to a full flake system, usually **$2.80–$5.50 per sq ft**.",
       options: [
         { label: "1-Part Epoxy Paint", factor: 1.0 },
         { label: "2-Part Epoxy (Thick Coat)", factor: 1.6 },
@@ -118,6 +124,7 @@
       unit: "linear ft",
       baseLow: 30, baseHigh: 75, min: 1800,
       subQuestion: "Fence type?",
+      context: "Fence installation is priced by the linear foot, ranging from **$30–$75 per linear foot** based on material (Wood is cheaper than Aluminum).",
       options: [
         { label: "Wood", factor: 1.0 },
         { label: "PVC", factor: 1.6 },
@@ -132,6 +139,7 @@
       unit: "sq ft",
       baseLow: 35, baseHigh: 65, min: 5000,
       subQuestion: "Deck material?",
+      context: "Deck building costs vary significantly based on material. Expect **$35–$65 per sq ft** for labor and materials, with Composite and PVC being the most expensive.",
       options: [
         { label: "Pressure Treated", factor: 1.0 },
         { label: "Composite (Trex)", factor: 1.9 },
@@ -145,6 +153,7 @@
       unit: "sq ft",
       baseLow: 3.2, baseHigh: 6.5, min: 750,
       subQuestion: "Scope?",
+      context: "Drywall projects often require a minimum size due to labor mobilization costs. We typically price **$3.20–$6.50 per sq ft** for install and finishing.",
       options: [
         { label: "Minor Repairs", factor: 1.0 },
         { label: "Full Install", factor: 1.6 },
@@ -158,6 +167,7 @@
       unit: "sq ft",
       baseLow: 3.5, baseHigh: 9.5, min: 2500,
       subQuestion: "Flooring type?",
+      context: "Flooring installation runs **$3.50–$9.50 per sq ft** for labor, with Tile and Hardwood being the highest due to complexity.",
       options: [
         { label: "Vinyl Plank", factor: 1.0 },
         { label: "Tile", factor: 1.8 },
@@ -179,6 +189,7 @@
       unit: "linear ft",
       baseLow: 15, baseHigh: 35, min: 1200,
       subQuestion: "Type?",
+      context: "Gutter installation is priced by the linear foot, from **$15–$35 per linear foot**. Copper gutters are significantly more expensive than Aluminum.",
       options: [
         { label: "Aluminum", factor: 1.0 },
         { label: "Seamless", factor: 1.4 },
@@ -191,6 +202,7 @@
       emoji: "🪟",
       unit: "fixed",
       subQuestion: "Window type?",
+      context: "Window replacements are fixed-price per unit, ranging from **$550–$1,400 per window** for standard sizes, not including Bay or specialty windows.",
       options: [
         { label: "Standard Vinyl", fixedLow: 550, fixedHigh: 850 },
         { label: "Double Hung Premium", fixedLow: 850, fixedHigh: 1400 },
@@ -203,6 +215,7 @@
       emoji: "🚪",
       unit: "fixed",
       subQuestion: "Door type?",
+      context: "Door installation is fixed-price per unit. Interior doors are **$250–$550**, while high-end exterior doors can exceed $1,800.",
       options: [
         { label: "Interior", fixedLow: 250, fixedHigh: 550 },
         { label: "Exterior Steel / Fiberglass", fixedLow: 950, fixedHigh: 1800 },
@@ -216,6 +229,7 @@
       unit: "sq ft",
       baseLow: 3.0, baseHigh: 7.5, min: 900,
       subQuestion: "Material?",
+      context: "Demolition costs **$3.00–$7.50 per sq ft** based on material. Concrete demo is the most labor-intensive and expensive.",
       leadSensitive: true,
       options: [
         { label: "Drywall", factor: 1.0 },
@@ -230,6 +244,7 @@
       unit: "linear ft",
       baseLow: 60, baseHigh: 140, min: 5500,
       subQuestion: "Material?",
+      context: "Retaining walls are priced by the linear foot, from **$60–$140 per linear foot**. Poured concrete and stone veneer are the highest-cost materials.",
       options: [
         { label: "CMU Block", factor: 1.0 },
         { label: "Poured Concrete", factor: 1.7 },
@@ -248,6 +263,7 @@
       emoji: "🍳",
       unit: "fixed",
       subQuestion: "What is the scope?",
+      context: "A full kitchen gut and remodel typically falls between **$30,000 and $55,000** for mid-range finishes. What scope fits your budget?",
       options: [
         { label: "Refresh (Cosmetic)", fixedLow: 18000, fixedHigh: 30000 },
         { label: "Mid-Range (Cabinets+)", fixedLow: 30000, fixedHigh: 55000 },
@@ -261,6 +277,7 @@
       emoji: "🚿",
       unit: "fixed",
       subQuestion: "What is the scope?",
+      context: "A standard bathroom gut and remodel runs from **$24,000–$45,000**. Updates that don't change the layout are cheaper.",
       options: [
         { label: "Update (Fixtures/Tile)", fixedLow: 14000, fixedHigh: 24000 },
         { label: "Full Gut / Redo", fixedLow: 24000, fixedHigh: 45000 }
@@ -268,13 +285,13 @@
       leadSensitive: true
     },
 
-    // NEW SERVICES (v4.0 & v4.1)
     "siding": {
       label: "Siding Installation",
       emoji: "🏡",
       unit: "sq ft",
       baseLow: 8.5, baseHigh: 18.5, min: 4000,
       subQuestion: "Siding Material?",
+      context: "Siding installation is priced by the square foot of surface area, ranging from **$8.50–$18.50 per sq ft**. Wood and Fiber Cement are higher cost than standard Vinyl.",
       options: [
         { label: "Vinyl", factor: 1.0 },
         { label: "Wood/Cedar Shake", factor: 1.8 },
@@ -287,6 +304,7 @@
       emoji: "🔥",
       unit: "fixed",
       subQuestion: "Scope of work?",
+      context: "Chimney repair is a fixed-price service. A full masonry rebuild can cost **$6,500–$12,000**, while minor cap/flashing work is $800–$1,800.",
       options: [
         { label: "Cap / Flashing Repair", fixedLow: 800, fixedHigh: 1800 },
         { label: "Partial Rebuild (Above roofline)", fixedLow: 3000, fixedHigh: 6500 },
@@ -300,6 +318,7 @@
       unit: "sq ft",
       baseLow: 1.2, baseHigh: 3.5, min: 1000,
       subQuestion: "Insulation type?",
+      context: "Insulation costs **$1.20–$3.50 per sq ft**. Spray Foam is the highest-priced but most efficient option.",
       options: [
         { label: "Fiberglass Batts", factor: 1.0 },
         { label: "Blown-in Cellulose", factor: 1.2 },
@@ -312,7 +331,7 @@
       emoji: "🚶",
       unit: "fixed",
       subQuestion: "Scope of work?",
-      // NOTE: This option uses the isPerSqFt flag, requiring a size input for a 'fixed' unit service
+      context: "Sidewalk and stoop work is highly variable. A concrete sidewalk violation repair is typically **$3,500–$7,500**. Walkways priced per sq ft are cheaper.",
       options: [
         { label: "Sidewalk Violation Repair", fixedLow: 3500, fixedHigh: 7500 },
         { label: "Front Steps / Stoop Rebuild", fixedLow: 6000, fixedHigh: 15000 },
@@ -325,6 +344,7 @@
       emoji: "⚡",
       unit: "fixed",
       subQuestion: "What is needed?",
+      context: "Electrical projects are priced by the unit or scope. A panel upgrade typically runs **$3,000–$5,500**, while new outlets are $250–$450 each.",
       options: [
         { label: "Panel Upgrade (200A)", fixedLow: 3000, fixedHigh: 5500 },
         { label: "New Outlet/Switch Run (per unit)", fixedLow: 250, fixedHigh: 450 },
@@ -338,6 +358,7 @@
       unit: "linear ft",
       baseLow: 40, baseHigh: 90, min: 2500,
       subQuestion: "Location of leak?",
+      context: "Waterproofing is priced by the linear foot, from **$40–$90 per linear foot**. Basement interior work is usually more invasive and costly.",
       options: [
         { label: "Exterior Foundation", factor: 1.0 },
         { label: "Basement Interior", factor: 1.5 },
@@ -363,8 +384,7 @@
     pricingMode: "full",   // full | labor | materials
     isRush: false,
     promoCode: "",
-    debrisRemoval: false,   // NEW: Debris removal add-on
-    financingNeeded: false, // NEW: Financing flag
+    debrisRemoval: false,
     name: "",
     phone: "",
     projects: []           // list of estimate objects
@@ -375,14 +395,14 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v4.2...");
+    console.log("HB Chat: Initializing v4.3...");
     createInterface();
 
     if (sessionStorage.getItem("hb_chat_active") === "true") {
       toggleChat();
     }
 
-    // Kick off conversation with the mandatory disclaimer step (FIXED)
+    // Kick off conversation with the mandatory disclaimer step
     setTimeout(stepOne_Disclaimer, 800);
   }
 
@@ -571,6 +591,11 @@
     const svc = SERVICES[state.serviceKey];
     if (!svc) return;
 
+    // RESTORED HELPFUL CONTEXT MESSAGE
+    if (svc.context) {
+        addBotMessage(svc.context);
+    }
+
     if (svc.subQuestion && svc.options) {
       addBotMessage(svc.subQuestion);
       addChoices(svc.options, function(choice) {
@@ -617,7 +642,21 @@
     if (svc.unit !== "fixed" || sub.isPerSqFt) {
       // Use "sq ft" for isPerSqFt fixed services, otherwise use the service's unit
       const unitLabel = sub.isPerSqFt ? "sq ft" : svc.unit;
-      addBotMessage("Approximate size in " + unitLabel + "?");
+
+      // RESTORED HELPFUL CONTEXT MESSAGE
+      let sizeContext = "Please provide the approximate size in **" + unitLabel + "**.";
+      if (svc.unit === 'sq ft') {
+          if (state.serviceKey === 'roofing') {
+              sizeContext = "How big is your roof in **square feet**? (A typical 2-story NYC brownstone roof is around 800–1,200 sq ft).";
+          } else if (state.serviceKey === 'painting') {
+              sizeContext = "What is the **total square footage** of the area you want painted? (Not surface area, just floor space).";
+          }
+      } else if (svc.unit === 'linear ft') {
+          sizeContext = "Please provide the total length in **linear feet**. (E.g., for gutters, a typical home needs about 150–200 linear feet).";
+      }
+
+      addBotMessage(sizeContext, true);
+
 
       function askSize() {
         enableInput(function(val) {
@@ -697,11 +736,11 @@
 
     addChoices(opts, function(choice) {
       state.promoCode = choice.code || "";
-      stepNine_DebrisRemoval(); // NEW STEP
+      stepNine_DebrisRemoval(); // Proceeds to debris removal
     });
   }
 
-  // --- NEW STEP: DEBRIS REMOVAL ADD-ON -----------------------
+  // --- STEP: DEBRIS REMOVAL ADD-ON -----------------------
 
   function stepNine_DebrisRemoval() {
     updateProgress(88);
@@ -714,29 +753,18 @@
         addChoices(["Yes, include debris removal", "No, I'll handle debris"], function(ans) {
             const val = (typeof ans === "string") ? ans : ans.label;
             state.debrisRemoval = !!(val && val.indexOf("Yes") !== -1);
-            stepTen_Financing(); // NEW STEP
+            // DIRECTLY proceed to show estimate (Financing removed)
+            const est = computeEstimateForCurrent();
+            showEstimateAndAskAnother(est);
         });
     } else {
         // Skip for consultation or custom jobs
         state.debrisRemoval = false;
-        stepTen_Financing();
-    }
-  }
-
-  // --- NEW STEP: FINANCING -----------------------------------
-
-  function stepTen_Financing() {
-    updateProgress(90);
-    addBotMessage("Do you require financing options for this project?");
-    addChoices(["Yes, please show options", "No, I am paying cash/check"], function(ans) {
-        const val = (typeof ans === "string") ? ans : ans.label;
-        state.financingNeeded = !!(val && val.indexOf("Yes") !== -1);
-
+        // DIRECTLY proceed to show estimate (Financing removed)
         const est = computeEstimateForCurrent();
         showEstimateAndAskAnother(est);
-    });
+    }
   }
-
 
   // --- CALCULATION ENGINE ------------------------------------
 
@@ -786,7 +814,8 @@
         svc: svc, sub: sub, borough: state.borough, size: null, isLeadHome: state.isLeadHome,
         pricingMode: state.pricingMode, isRush: state.isRush, promoCode: state.promoCode,
         low: 0, high: 0, discountRate: 0, isCustom: true,
-        debrisRemoval: state.debrisRemoval, financingNeeded: state.financingNeeded
+        debrisRemoval: state.debrisRemoval
+        // financingNeeded REMOVED
       };
     }
 
@@ -831,7 +860,8 @@
       isLeadHome: state.isLeadHome, pricingMode: state.pricingMode, isRush: state.isRush,
       promoCode: state.promoCode, low: adjusted.low, high: adjusted.high,
       discountRate: adjusted.discountRate, isCustom: false,
-      debrisRemoval: state.debrisRemoval, financingNeeded: state.financingNeeded
+      debrisRemoval: state.debrisRemoval
+      // financingNeeded REMOVED
     };
   }
 
@@ -866,7 +896,7 @@
       discountLine =
         '<div class="hb-receipt-row"><span>Promo:</span><span>-' +
         Math.round(est.discountRate * 100) +
-        '% applied</span></div>';
+        '% applied (' + est.promoCode.toUpperCase() + ')</span></div>';
     }
 
     var rushLine = "";
@@ -875,7 +905,7 @@
         '<div class="hb-receipt-row"><span>Rush:</span><span>Priority scheduling included</span></div>';
     }
 
-    // NEW ADD-ON LINE
+    // ADD-ON LINE
     var debrisLine = "";
     if (est.debrisRemoval) {
         debrisLine =
@@ -952,7 +982,7 @@
 
   function showEstimateAndAskAnother(est) {
     if (!est) return;
-    updateProgress(92); // Adjusted progress
+    updateProgress(92);
 
     // Prepend the visible header for the single project estimate
     var html = '--- **Project Estimate** ---<br>' + buildEstimateHtml(est);
@@ -965,7 +995,7 @@
 
   function askAddAnother(est) {
     state.projects.push(est);
-    updateProgress(94); // Adjusted progress
+    updateProgress(94);
 
     addBotMessage("Would you like to add another project to this estimate?");
     addChoices(
@@ -993,7 +1023,7 @@
     var projects = state.projects;
     if (!projects || !projects.length) return;
 
-    var totals = computeGrandTotal(); // FIXED: Use combined total function
+    var totals = computeGrandTotal();
     var totalLow = totals.totalLow;
     var totalHigh = totals.totalHigh;
 
@@ -1033,7 +1063,7 @@
     }
 
     var totalRow = "";
-    // FIXED: Total Row only shows if calculation produced numbers (i.e., not a custom consult only)
+    // FIXED: Total Row only shows if calculation produced numbers
     if (totalLow && totalHigh) {
       totalRow =
         '<div class="hb-receipt-total">' +
@@ -1046,11 +1076,7 @@
         "</div>";
     }
 
-    // NEW FINANCING FOOTER
-    var financingFooter = "";
-    if (state.projects.some(p => p.financingNeeded)) {
-        financingFooter = " We will include financing options in your custom quote package.";
-    }
+    // financingFooter REMOVED
 
     var html =
       '<div class="hb-receipt">' +
@@ -1060,11 +1086,10 @@
         totalRow +
         '<div class="hb-receipt-footer">' +
           "Ask about VIP Home Care memberships & referral rewards for extra savings." +
-          financingFooter +
         "</div>" +
       "</div>";
 
-    // Prepend the visible header for the combined estimate (v4.1 style)
+    // Prepend the visible header for the combined estimate
     var messageText = '--- **Combined Estimate** ---<br>' + html;
     addBotMessage(messageText, true);
 
@@ -1085,7 +1110,7 @@
     state.isRush = false;
     state.promoCode = "";
     state.debrisRemoval = false; // Reset add-ons for new project
-    state.financingNeeded = false;
+    // state.financingNeeded REMOVED
   }
 
   // --- LEAD CAPTURE & LINKS ----------------------------------
@@ -1138,16 +1163,15 @@
         var extras = [modeLabel];
         if (p.isRush) extras.push("Rush");
 
-        // FIX: Promo code display
+        // FIX: Promo code display (changed to OFF)
         if (p.promoCode) {
             var dc_rate = DISCOUNTS[p.promoCode.toUpperCase()];
-            // Correctly format promo code as VIP10 (10% off)
-            var dc_text = dc_rate ? " (" + Math.round(dc_rate * 100) + "% off)" : "";
+            var dc_text = dc_rate ? " (" + Math.round(dc_rate * 100) + "% OFF)" : ""; // Changed 'off' to 'OFF'
             extras.push("Promo: " + p.promoCode.toUpperCase() + dc_text);
         }
 
         if (p.isLeadHome) extras.push("Lead-safe");
-        if (p.debrisRemoval) extras.push("Debris: Included"); // NEW
+        if (p.debrisRemoval) extras.push("Debris: Included");
 
         if (extras.length) {
           lines.push("   [" + extras.join(" | ") + "]");
@@ -1157,10 +1181,7 @@
       // Add combined add-ons and totals
       var totals = computeGrandTotal();
 
-      // Add financing detail
-      if (state.projects.some(p => p.financingNeeded)) {
-          lines.push("\nFinancing: Customer requested options.");
-      }
+      // Financing detail REMOVED
 
       // Add debris add-on if applicable
       if (totals.projectRequiresDebris) {
@@ -1187,7 +1208,7 @@
 
     var body = encodeURIComponent(lines.join("\n"));
 
-    // Phone and Email Fixes (using the v4.1 links for better styling/text)
+    // Phone and Email Fixes
     var smsLink = "sms:9295955300?&body=" + body;
     var emailLink =
       "mailto:hammerbrickhome@gmail.com?subject=" +
@@ -1203,19 +1224,30 @@
     );
 
     setTimeout(function() {
-      // SMS button
-      var smsBtn = document.createElement("a");
-      // Styles are now managed better in the new logic
-      smsBtn.className = "hb-chip hb-primary-btn";
-      smsBtn.style.display = "block";
-      smsBtn.style.textAlign = "center";
-      smsBtn.style.textDecoration = "none";
-      smsBtn.style.marginTop = "10px";
-      smsBtn.textContent = "📲 Text Estimate to My Phone";
-      smsBtn.href = smsLink;
-      els.body.appendChild(smsBtn);
 
-      // Email button
+      // 1. Text to My Phone (user's preferred self-save)
+      var smsUserBtn = document.createElement("a");
+      smsUserBtn.className = "hb-chip hb-primary-btn";
+      smsUserBtn.style.display = "block";
+      smsUserBtn.style.textAlign = "center";
+      smsUserBtn.style.textDecoration = "none";
+      smsUserBtn.style.marginTop = "10px";
+      smsUserBtn.textContent = "📲 Text Estimate to My Phone";
+      smsUserBtn.href = smsLink;
+      els.body.appendChild(smsUserBtn);
+
+      // 2. Text to Hammer Brick (NEW BUTTON REQUESTED)
+      var smsHBBtn = document.createElement("a");
+      smsHBBtn.className = "hb-chip hb-primary-btn";
+      smsHBBtn.style.display = "block";
+      smsHBBtn.style.textAlign = "center";
+      smsHBBtn.style.textDecoration = "none";
+      smsHBBtn.style.marginTop = "8px";
+      smsHBBtn.textContent = "📲 Text Estimate to Hammer Brick";
+      smsHBBtn.href = smsLink;
+      els.body.appendChild(smsHBBtn);
+
+      // 3. Email button
       var emailBtn = document.createElement("a");
       emailBtn.className = "hb-chip hb-primary-btn";
       emailBtn.style.display = "block";
