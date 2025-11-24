@@ -49,8 +49,9 @@
   </div>
 </div>
 
-<!-- FIX: Removed <main class="page"> and replaced with content-wrapper for centering,
-         while applying the original page padding and bottom margin inline. -->
+<!-- FIX: Re-introducing the main semantic tag, which wraps the content-wrapper -->
+<main class="page"> 
+
 <div class="content-wrapper" style="padding-top: 26px; padding-bottom: 120px;">
 
 <section class="hero hero-inner fade-up">
@@ -302,6 +303,9 @@
 </section>
 
 </div> <!-- End of the centering wrapper -->
+
+</main> <!-- End of the main semantic tag -->
+
 
 <div id="footer-include">
   <!-- Placeholder for Footer content to prevent fetch errors -->
