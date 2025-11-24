@@ -116,10 +116,26 @@
   align-items: center;
   padding: 16px 20px;
   text-align: center;
+  /* Added standard button styles back in to ensure visual consistency */
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(245,216,155,0.16), rgba(10,15,25,0.96));
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: var(--gold-soft);
+  text-shadow: 0 2px 6px rgba(0,0,0,.6);
+  cursor: pointer;
+  transition: .25s;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+}
+.service-button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  color: #151515;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.75);
 }
 .service-button a { 
-    /* The core layout fix: ensure anchor does not interfere with flexbox/grid */
-    display: block;
     text-decoration: none;
     color: inherit;
     font-weight: inherit;
@@ -135,7 +151,9 @@
     margin-top: 5px;
     font-weight: 400;
 }
-/* No other custom styles are needed. We rely on style.css */
+.tier-card h3, .seo-block h3, .faq-section h2, .breadcrumbs a {
+    color: var(--gold-soft) !important;
+}
 </style>
 </head>
 
@@ -143,7 +161,9 @@
 
 <div id="header-include"></div>
 
-<main class="page content-wrapper"> <nav class="breadcrumbs">
+<main class="page content-wrapper">
+
+<nav class="breadcrumbs">
  <a href="/">Home</a> &raquo; Services
 </nav>
 
@@ -167,17 +187,17 @@
     <a href="/contact.html?type=visit"><span>📅</span> Book a Site Visit</a>
 </section>
 
-<section class="section fade-up">
+<section class="section fade-up" style="text-align: center;">
   <label class="search-label" for="serviceSearch">Search Services</label>
   <input id="serviceSearch" class="search-input"
     placeholder="Type to filter (e.g., pavers, kitchen, sidewalk)..."
-    aria-label="Search available services" style="margin-left: auto; margin-right: auto;">
+    aria-label="Search available services" style="max-width: 420px; margin-left: auto; margin-right: auto;">
   <p id="noResults">No matching services found.</p>
 </section>
 
 <section class="cta-band fade-up" id="pricing-tiers">
   <div class="cta-text">
-    <h2>Transparent Tiers: Foundation, Premium, Signature</h2>
+    <h2 class="shimmer-title" style="text-align: left;">Transparent Tiers: Foundation, Premium, Signature</h2>
     <p>Every service below can be customized into three clear tiers, defining the scope, material quality, and **warranty** (1-5 Years). Choose the perfect fit for your budget and project vision.</p>
   </div>
   <div class="cta-actions">
@@ -187,7 +207,7 @@
 </section>
 
 <section class="section fade-up">
-    <h2 style="text-align: center;">How Our Tiers Differ</h2>
+    <h2 class="shimmer-title">How Our Tiers Differ</h2>
     <p class="section-note" style="text-align: center;">The level of assurance, materials, and process management scales with your investment.</p>
     <div class="tier-grid">
 
@@ -224,7 +244,7 @@
     </div>
 </section>
 <section class="section fade-up" id="lead-safe-section">
-  <h2 style="text-align: center;">Lead-Safe Renovation (Pre-1978 Homes)</h2>
+  <h2 class="shimmer-title">Lead-Safe Renovation (Pre-1978 Homes)</h2>
   <p class="section-note" style="text-align: center;">EPA RRP Lead-Safe Certified Firm — strict dust control, protection, and compliance for older buildings.</p>
   <div class="service-grid">
     <div class="service-button"><a href="/lead-safe.html">Lead-Safe Kitchen & Bath Renovations</a></div>
@@ -243,7 +263,7 @@
 </section>
 
 <section class="section fade-up" id="masonry-section">
-  <h2 style="text-align: center;">Masonry, Concrete & Hardscape Design</h2>
+  <h2 class="shimmer-title">Masonry, Concrete & Hardscape Design</h2>
   <p class="section-note" style="text-align: center;">Structural integrity meets aesthetic design. Includes DOT compliance and **Outdoor Living** services.</p>
   <div class="service-grid">
     <div class="service-button"><a href="/masonry-brickwork.html">Brickwork & Repointing</a><span class="price-span">Quote by Project</span></div>
@@ -266,7 +286,7 @@
 </section>
 
 <section class="section fade-up" id="remodeling-section">
-  <h2>Carpentry & Structural Remodeling</h2>
+  <h2 class="shimmer-title">Carpentry & Structural Remodeling</h2>
   <p class="section-note" style="text-align: center;">High-end finishing for interiors and critical structural modifications.</p>
   <div class="service-grid">
     <div class="service-button"><a href="/kitchen-remodeling.html">Kitchen Remodels (NYC)</a></div>
@@ -288,7 +308,7 @@
 </section>
 
 <section class="section fade-up" id="painting-section">
-  <h2>Painting & Finishes</h2>
+  <h2 class="shimmer-title">Painting & Finishes</h2>
   <div class="service-grid">
     <div class="service-button"><a href="/painting.html">Interior Painting</a></div>
     <div class="service-button"><a href="/painting.html">Exterior Painting</a></div>
@@ -304,7 +324,7 @@
 </section>
 
 <section class="section fade-up" id="exterior-section">
-  <h2>Exterior Care & Seasonal Maintenance</h2>
+  <h2 class="shimmer-title">Exterior Care & Seasonal Maintenance</h2>
   <p class="section-note" style="text-align: center;">Protecting your investment with white-glove cleaning and seasonal preparation.</p>
   <div class="service-grid">
     <div class="service-button"><a href="/exterior-care.html">Soft-Wash Cleaning</a></div>
@@ -359,7 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const match = textContent.includes(query);
         
         // Final Fix: Corrected logic to hide the service-button container
-        // We set display to 'none' or 'flex' as defined in the style block/style.css
         btn.style.display = match ? "flex" : "none"; 
         
         if(match) visible++;
