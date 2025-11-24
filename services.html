@@ -42,39 +42,9 @@
     "@type": "OfferCatalog",
     "name": "Full Range of Masonry, Hardscape, Remodeling, and Exterior Services",
     "itemListElement": [
-      // CATEGORY 1: Masonry & Hardscape Services
-      {
-        "@type": "OfferCatalog",
-        "name": "Masonry & Hardscape Services",
-        "itemListElement": [
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Brickwork & Repointing"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Concrete Sidewalks & DOT Violation Repairs"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pavers, Hardscape & Outdoor Living"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Steps, Stoops & Retaining Walls"}}
-        ]
-      },
-      // CATEGORY 2: Carpentry & Remodeling
-      {
-        "@type": "OfferCatalog",
-        "name": "Carpentry & Remodeling Services",
-        "itemListElement": [
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Kitchen Remodels"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Bathroom Remodels"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Basement Finishing & Waterproofing"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Open Concept Structural Framing"}}
-        ]
-      },
-      // CATEGORY 3: Painting & Exterior Care
-      {
-        "@type": "OfferCatalog",
-        "name": "Painting, Finishes & Exterior Care",
-        "itemListElement": [
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Interior & Exterior Painting"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Lead-Safe Renovation"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Soft-Wash Cleaning & Exterior Detailing"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Landscape Touch-Ups & Seasonal Clean-Up"}}
-        ]
-      }
+      { "@type": "OfferCatalog", "name": "Masonry & Hardscape Services" },
+      { "@type": "OfferCatalog", "name": "Carpentry & Remodeling Services" },
+      { "@type": "OfferCatalog", "name": "Painting, Finishes & Exterior Care" }
     ]
   }
 }
@@ -156,6 +126,38 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
+/* NEW TIER EXPLANATION SECTION STYLING */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.tier-card {
+  background: var(--bg-alt);
+  border: 1px solid rgba(231,191,99,0.35);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+}
+
+.tier-card h3 {
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.tier-card .tier-highlight {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+/* END NEW TIER EXPLANATION STYLING */
 </style>
 </head>
 
@@ -189,6 +191,43 @@
     <a href="/pricing.html" class="btn breathing-gold">See Tiered Pricing & Details</a>
     <a href="/project-estimator.html" class="btn ghost">Use AI Project Estimator</a>
   </div>
+</section>
+<section class="section fade-up">
+    <h2>How Our Tiers Differ</h2>
+    <p class="section-note">The level of assurance, materials, and process management scales with your investment.</p>
+    <div class="tier-grid">
+
+        <div class="tier-card">
+            <h3 class="breathing-gold">Foundation Tier</h3>
+            <p class="tier-highlight">Essential Quality & Code Compliance</p>
+            <ul class="bullets" style="font-size: 13px;">
+                <li>**Process:** Licensed Crew & Basic Site Protection.</li>
+                <li>**Materials:** Durable, Code-Compliant standard materials.</li>
+                <li>**Warranty:** 1-Year Comprehensive Warranty.</li>
+            </ul>
+        </div>
+
+        <div class="tier-card">
+            <h3 class="breathing-gold">Premium Tier</h3>
+            <p class="tier-highlight">Enhanced Management & Extended Warranty</p>
+            <ul class="bullets" style="font-size: 13px;">
+                <li>**Process:** Dedicated Project Manager & Enhanced Dust Control.</li>
+                <li>**Materials:** Mid-to-High Grade Finishes & Superior Materials.</li>
+                <li>**Warranty:** 3-Year Extended Warranty.</li>
+            </ul>
+        </div>
+
+        <div class="tier-card">
+            <h3 class="breathing-gold">Signature Tier</h3>
+            <p class="tier-highlight">White-Glove Design-Build & VIP Perks</p>
+            <ul class="bullets" style="font-size: 13px;">
+                <li>**Process:** Full Design/Board Approval Mgmt & White-Glove Clean.</li>
+                <li>**Materials:** Custom, Bespoke, & Imported Finishes.</li>
+                <li>**Warranty:** 5-Year Unmatched Warranty + VIP Perks.</li>
+            </ul>
+        </div>
+
+    </div>
 </section>
 <section class="section fade-up">
   <h2>Lead-Safe Renovation (Pre-1978 Homes)</h2>
