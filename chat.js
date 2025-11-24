@@ -1,13 +1,436 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v4.2
-   (Mandatory Disclaimer Fixed, Services/Add-ons Integrated, Total/Promo Display Fixed)
-   *** MODIFIED: Integrated Finish Level Selection (Advanced Cal) ***
+   HAMMER BRICK & HOME — ULTRA ADVANCED ESTIMATOR BOT v5.0
+   (Smart Add-ons Integrated, Financing Removed)
 =============================================================== */
 
 (function() {
   // --- CONFIGURATION & DATA -----------------------------------
 
-  // Borough modifiers
+  // 1. SMART ADD-ONS CONFIGURATION (Imported from Hammer Guide)
+  const SMART_ADDON_GROUP_LABELS = {
+    luxury: "Luxury Upgrades",
+    protection: "Protection & Safety",
+    design: "Design Enhancements",
+    speed: "Speed / Convenience",
+    maintenance: "Maintenance Items"
+  };
+
+  const SMART_ADDONS_CONFIG = {
+    masonry: {
+      title: "Masonry · Pavers · Concrete",
+      groups: {
+        luxury: [
+          { label: "Premium border band with contrasting pavers", low: 900, high: 2200 },
+          { label: "Decorative inlays or medallion pattern", low: 850, high: 2600 },
+          { label: "Raised seating wall or planter", low: 1800, high: 4800 },
+          { label: "Outdoor kitchen prep pad (gas/electric ready)", low: 2200, high: 6800 }
+        ],
+        protection: [
+          { label: "Full base compaction upgrade", low: 850, high: 2200 },
+          { label: "Perimeter drain or channel drain", low: 950, high: 2600 },
+          { label: "Concrete edge restraint / curb", low: 650, high: 1600 }
+        ],
+        design: [
+          { label: "Color upgrade / multi-blend pavers", low: 650, high: 1900 },
+          { label: "Large-format or European-style pavers", low: 1500, high: 5200 },
+          { label: "Step face stone veneer upgrade", low: 1100, high: 3600 }
+        ],
+        speed: [
+          { label: "Weekend or off-hours install", low: 850, high: 2600 },
+          { label: "Phased work scheduling", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Polymeric sand refill & joint tightening", low: 250, high: 650 },
+          { label: "Clean & seal package", low: 450, high: 1800 },
+          { label: "Annual inspection & touch-up visit", low: 350, high: 900 }
+        ]
+      }
+    },
+    driveway: {
+      title: "Driveway / Parking Area",
+      groups: {
+        luxury: [
+          { label: "Decorative apron or entry pattern", low: 900, high: 2800 },
+          { label: "Heated driveway rough-in", low: 2800, high: 7800 },
+          { label: "Integrated lighting at edges", low: 950, high: 2600 }
+        ],
+        protection: [
+          { label: "Thicker base / driveway reinforcement", low: 1200, high: 3500 },
+          { label: "Drain basin or trench drain at garage", low: 950, high: 2600 }
+        ],
+        design: [
+          { label: "Two-tone driveway with borders", low: 1500, high: 4200 },
+          { label: "Stamped concrete pattern upgrade", low: 1800, high: 5200 }
+        ],
+        speed: [
+          { label: "Temporary parking pad during work", low: 650, high: 1600 }
+        ],
+        maintenance: [
+          { label: "Sealcoat package (asphalt)", low: 450, high: 900 },
+          { label: "First-year checkup & joint touch-up", low: 350, high: 900 }
+        ]
+      }
+    },
+    roofing: {
+      title: "Roofing – Shingle / Flat",
+      groups: {
+        luxury: [
+          { label: "Architectural or designer shingle upgrade", low: 1800, high: 5200 },
+          { label: "Decorative metal accent roofing", low: 2200, high: 7800 }
+        ],
+        protection: [
+          { label: "Full ice & water shield upgrade", low: 1500, high: 4200 },
+          { label: "High-performance synthetic underlayment", low: 650, high: 1900 },
+          { label: "Premium flashing & chimney reflashing", low: 900, high: 2600 }
+        ],
+        design: [
+          { label: "Color-matched drip edge & accessories", low: 450, high: 1200 },
+          { label: "Decorative ridge cap upgrade", low: 650, high: 1600 }
+        ],
+        speed: [
+          { label: "One-day tear-off & install", low: 1500, high: 4500 }
+        ],
+        maintenance: [
+          { label: "Annual roof inspection & tune-up", low: 350, high: 900 },
+          { label: "Gutter cleaning added to roof project", low: 250, high: 650 }
+        ]
+      }
+    },
+    siding: {
+      title: "Siding – Exterior",
+      groups: {
+        luxury: [
+          { label: "Stone or brick accent wall", low: 3500, high: 9800 },
+          { label: "Board-and-batten or mixed cladding look", low: 2200, high: 6800 }
+        ],
+        protection: [
+          { label: "Full house wrap / moisture barrier upgrade", low: 950, high: 2800 },
+          { label: "Flashing and sill pan upgrade at windows", low: 900, high: 2600 }
+        ],
+        design: [
+          { label: "Premium color or insulated siding line", low: 2600, high: 7800 },
+          { label: "Decorative trim and crown details", low: 1500, high: 4200 }
+        ],
+        speed: [
+          { label: "Staged / phased install by elevation", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Annual siding wash & inspection", low: 350, high: 900 }
+        ]
+      }
+    },
+    windows: {
+      title: "Windows & Exterior Doors",
+      groups: {
+        luxury: [
+          { label: "Black or color-exterior window upgrade", low: 2200, high: 6800 },
+          { label: "Sliding or French patio door upgrade", low: 2800, high: 7800 }
+        ],
+        protection: [
+          { label: "Impact-resistant / laminated glass", low: 2600, high: 7800 },
+          { label: "Storm door package", low: 650, high: 1800 }
+        ],
+        design: [
+          { label: "Grids / divided lite pattern upgrade", low: 450, high: 1600 },
+          { label: "Interior casing & stool upgrade", low: 750, high: 2600 }
+        ],
+        speed: [
+          { label: "Same-day glass removal & board-up", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Hardware adjustment & weather-strip tune-up", low: 250, high: 650 }
+        ]
+      }
+    },
+    exterior_paint: {
+      title: "Exterior Facade / Painting",
+      groups: {
+        luxury: [
+          { label: "Multi-color accent scheme", low: 950, high: 2600 },
+          { label: "Premium elastomeric or masonry coating", low: 1800, high: 5200 }
+        ],
+        protection: [
+          { label: "Full scrape & prime upgrade", low: 1200, high: 3800 },
+          { label: "Lead-safe exterior paint protocol", low: 1500, high: 4500 }
+        ],
+        design: [
+          { label: "Color consult with sample boards", low: 450, high: 950 }
+        ],
+        speed: [
+          { label: "Lift / boom access where allowed", low: 1800, high: 5200 }
+        ],
+        maintenance: [
+          { label: "Touch-up visit within 12 months", low: 350, high: 900 }
+        ]
+      }
+    },
+    deck: {
+      title: "Deck / Patio Build or Rebuild",
+      groups: {
+        luxury: [
+          { label: "Composite decking upgrade", low: 2800, high: 9800 },
+          { label: "Cable or glass railing system", low: 2600, high: 8800 },
+          { label: "Built-in benches or storage boxes", low: 1500, high: 4200 }
+        ],
+        protection: [
+          { label: "Hidden fastener upgrade", low: 950, high: 2600 },
+          { label: "Joist and post protection tape", low: 450, high: 1200 }
+        ],
+        design: [
+          { label: "Picture-frame decking border", low: 900, high: 2600 },
+          { label: "Pergola or shade structure", low: 2800, high: 9800 }
+        ],
+        speed: [
+          { label: "Temporary steps or access during build", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Clean & seal package (wood decks)", low: 550, high: 1600 }
+        ]
+      }
+    },
+    fence: {
+      title: "Fence Install / Replacement",
+      groups: {
+        luxury: [
+          { label: "Decorative aluminum or steel upgrade", low: 2200, high: 7800 },
+          { label: "Automatic driveway gate prep", low: 2600, high: 8800 }
+        ],
+        protection: [
+          { label: "Privacy height upgrade", low: 900, high: 2600 },
+          { label: "Child / pet safety latch package", low: 350, high: 900 }
+        ],
+        design: [
+          { label: "Decorative caps and trim boards", low: 450, high: 1200 },
+          { label: "Lattice or horizontal style upgrade", low: 1200, high: 3500 }
+        ],
+        speed: [
+          { label: "Temporary safety fence during project", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Stain / paint coat for wood fence", low: 650, high: 1800 }
+        ]
+      }
+    },
+    waterproofing: {
+      title: "Waterproofing & Foundation Sealing",
+      groups: {
+        luxury: [
+          { label: "Battery backup sump system", low: 1800, high: 5200 }
+        ],
+        protection: [
+          { label: "Interior drain tile system", low: 4800, high: 14800 },
+          { label: "Full wall membrane upgrade", low: 2800, high: 9800 }
+        ],
+        design: [
+          { label: "Finished wall panel system", low: 2600, high: 7800 }
+        ],
+        speed: [
+          { label: "After-hours pump monitoring start-up", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Annual sump service & test", low: 350, high: 900 }
+        ]
+      }
+    },
+    powerwash: {
+      title: "Power Washing / Soft Washing",
+      groups: {
+        luxury: [
+          { label: "House + driveway + patio bundle", low: 450, high: 1600 }
+        ],
+        protection: [
+          { label: "Soft-wash roof treatment", low: 650, high: 1900 }
+        ],
+        design: [
+          { label: "Fence & rail cleaning upgrade", low: 250, high: 650 }
+        ],
+        speed: [
+          { label: "Evening or weekend wash window", low: 250, high: 650 }
+        ],
+        maintenance: [
+          { label: "Seasonal wash contract (2x per year)", low: 650, high: 1900 }
+        ]
+      }
+    },
+    sidewalk: {
+      title: "Sidewalk / DOT Concrete Repair",
+      groups: {
+        luxury: [
+          { label: "Decorative broom or border finish", low: 650, high: 1900 }
+        ],
+        protection: [
+          { label: "Extra thickness at tree or driveway areas", low: 900, high: 2600 },
+          { label: "Root barrier installation", low: 1200, high: 3800 }
+        ],
+        design: [
+          { label: "Scored control joint pattern", low: 450, high: 1200 }
+        ],
+        speed: [
+          { label: "Phased pour scheduling", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Seal & cure control package", low: 350, high: 900 }
+        ]
+      }
+    },
+    gutters: {
+      title: "Gutter Install / Repair",
+      groups: {
+        luxury: [
+          { label: "Seamless half-round or decorative profile", low: 1200, high: 3500 }
+        ],
+        protection: [
+          { label: "Premium gutter guard system", low: 1500, high: 3800 },
+          { label: "Additional downspouts & splash pads", low: 450, high: 1200 }
+        ],
+        design: [
+          { label: "Color-matched gutter & trim package", low: 450, high: 1200 }
+        ],
+        speed: [
+          { label: "Same-day gutter cleaning add-on", low: 250, high: 650 }
+        ],
+        maintenance: [
+          { label: "Bi-annual gutter clean plan", low: 450, high: 1600 }
+        ]
+      }
+    },
+    painting: {
+      title: "Interior Painting",
+      groups: {
+        luxury: [
+          { label: "Accent wall feature paint or wallpaper", low: 450, high: 1600 },
+          { label: "Fine finish trim & door spray", low: 900, high: 2600 }
+        ],
+        protection: [
+          { label: "Full skim coat upgrade on rough walls", low: 1800, high: 5800 },
+          { label: "Zero-VOC or allergy-friendly paint line", low: 650, high: 1900 }
+        ],
+        design: [
+          { label: "Color consult with samples", low: 350, high: 900 }
+        ],
+        speed: [
+          { label: "Night or weekend painting", low: 650, high: 1900 }
+        ],
+        maintenance: [
+          { label: "Touch-up kit labeled by room", low: 250, high: 650 }
+        ]
+      }
+    },
+    flooring: {
+      title: "Flooring (LVP / Tile / Hardwood)",
+      groups: {
+        luxury: [
+          { label: "Wide-plank or herringbone layout", low: 2200, high: 7800 },
+          { label: "Heated floor rough-in", low: 1800, high: 5200 }
+        ],
+        protection: [
+          { label: "Moisture barrier or underlayment upgrade", low: 650, high: 1900 },
+          { label: "Subfloor repair / leveling allowance", low: 900, high: 2600 }
+        ],
+        design: [
+          { label: "Stair treads & nosing upgrade", low: 1200, high: 3800 }
+        ],
+        speed: [
+          { label: "Room-by-room phased install", low: 450, high: 1200 }
+        ],
+        maintenance: [
+          { label: "Starter care kit (cleaner & pads)", low: 250, high: 650 }
+        ]
+      }
+    },
+    drywall: {
+      title: "Drywall / Plaster / Skim Coat",
+      groups: {
+        luxury: [
+          { label: "Level 5 finish on key walls", low: 1800, high: 5200 }
+        ],
+        protection: [
+          { label: "Sound-damping board upgrade", low: 1500, high: 4800 },
+          { label: "Mold-resistant board in wet-prone areas", low: 900, high: 2600 }
+        ],
+        design: [
+          { label: "Simple ceiling design (tray / beams)", low: 2200, high: 7800 }
+        ],
+        speed: [
+          { label: "Dust-reduced sanding upgrade", low: 650, high: 1900 }
+        ],
+        maintenance: [
+          { label: "Small patch & crack service visit", low: 350, high: 900 }
+        ]
+      }
+    },
+    bathroom: {
+      title: "Bathroom Remodel",
+      groups: {
+        luxury: [
+          { label: "Full glass shower enclosure upgrade", low: 1800, high: 4200 },
+          { label: "Heated floor system", low: 1800, high: 3200 },
+          { label: "Rain head + handheld shower combo", low: 950, high: 2600 },
+          { label: "Floating vanity or custom vanity build", low: 1500, high: 3800 }
+        ],
+        protection: [
+          { label: "Waterproofing membrane upgrade", low: 1200, high: 3800 },
+          { label: "Linear drain or upgraded shower drain", low: 900, high: 2600 }
+        ],
+        design: [
+          { label: "Large-format or Italian-style tile upgrade", low: 1800, high: 5200 },
+          { label: "LED niche and under-vanity lighting", low: 650, high: 1900 }
+        ],
+        speed: [
+          { label: "Fast-track bathroom", low: 1500, high: 4500 }
+        ],
+        maintenance: [
+          { label: "Seal grout and stone package", low: 450, high: 1200 }
+        ]
+      }
+    },
+    kitchen: {
+      title: "Kitchen Remodel",
+      groups: {
+        luxury: [
+          { label: "Full height backsplash & niche details", low: 1800, high: 5200 },
+          { label: "Island enlargement or waterfall edge", low: 2800, high: 9800 },
+          { label: "Panel-ready or pro-style appliance prep", low: 2200, high: 7800 }
+        ],
+        protection: [
+          { label: "Under-cabinet lighting & receptacle upgrade", low: 900, high: 2600 },
+          { label: "Water leak sensor kit", low: 450, high: 1200 }
+        ],
+        design: [
+          { label: "Glass or accent cabinet doors", low: 950, high: 2600 },
+          { label: "Custom hood / feature wall treatment", low: 2200, high: 6800 }
+        ],
+        speed: [
+          { label: "Temporary sink / counter setup", low: 650, high: 1900 }
+        ],
+        maintenance: [
+          { label: "Cabinet care & touch-up kit", low: 250, high: 650 }
+        ]
+      }
+    },
+    handyman: {
+      title: "Small Repairs / Handyman Visit",
+      groups: {
+        luxury: [
+          { label: "Priority same-week booking", low: 150, high: 450 }
+        ],
+        protection: [
+          { label: "Safety package (grab bars, rails)", low: 250, high: 750 }
+        ],
+        design: [
+          { label: "Decor hardware refresh", low: 350, high: 900 }
+        ],
+        speed: [
+          { label: "Evening or weekend time window", low: 250, high: 650 }
+        ],
+        maintenance: [
+          { label: "Quarterly “punch list” mini-visit plan", low: 450, high: 1600 }
+        ]
+      }
+    }
+  };
+
+  // 2. BOROUGH / DISCOUNT CONFIG
   const BOROUGH_MODS = {
     "Manhattan": 1.18,
     "Brooklyn": 1.08,
@@ -17,27 +440,23 @@
     "New Jersey": 0.96
   };
 
-  // Recognized promo codes (optional)
   const DISCOUNTS = {
-    "VIP10": 0.10,       // 10% off
-    "REFERRAL5": 0.05    // 5% off
+    "VIP10": 0.10,
+    "REFERRAL5": 0.05
   };
 
-  // Fixed Add-On Prices (NEW)
   const ADD_ON_PRICES = {
-    "debrisRemoval": { low: 800, high: 1500 } // Cost of a dumpster and haul-away
+    "debrisRemoval": { low: 800, high: 1500 }
   };
 
-  // Optional external URLs (leave empty if not used)
-  const CRM_FORM_URL = "";      // e.g. "https://forms.gle/your-form-id"
-  const WALKTHROUGH_URL = "";   // e.g. "https://calendly.com/your-link"
+  // 3. EXTERNAL LINKS
+  const CRM_FORM_URL = "";
+  const WALKTHROUGH_URL = "";
 
-  // Pricing Logic / Services
+  // 4. SERVICE DEFINITIONS
   const SERVICES = {
     "masonry": {
-      label: "Masonry & Concrete",
-      emoji: "🧱",
-      unit: "sq ft",
+      label: "Masonry & Concrete", emoji: "🧱", unit: "sq ft",
       baseLow: 16, baseHigh: 28, min: 2500,
       subQuestion: "What type of finish?",
       options: [
@@ -46,11 +465,8 @@
         { label: "Natural Stone ($$$)", factor: 2.2 }
       ]
     },
-
     "driveway": {
-      label: "Driveway",
-      emoji: "🚗",
-      unit: "sq ft",
+      label: "Driveway", emoji: "🚗", unit: "sq ft",
       baseLow: 10, baseHigh: 20, min: 3500,
       subQuestion: "Current surface condition?",
       options: [
@@ -59,11 +475,8 @@
         { label: "Existing Concrete (Hard Demo)", factor: 1.4 }
       ]
     },
-
     "roofing": {
-      label: "Roofing",
-      emoji: "🏠",
-      unit: "sq ft",
+      label: "Roofing", emoji: "🏠", unit: "sq ft",
       baseLow: 4.5, baseHigh: 9.5, min: 6500,
       subQuestion: "Roof type?",
       options: [
@@ -72,25 +485,18 @@
         { label: "Slate/Specialty", factor: 2.5 }
       ]
     },
-
     "painting": {
-      label: "Interior Painting",
-      emoji: "🎨",
-      unit: "sq ft",
+      label: "Interior Painting", emoji: "🎨", unit: "sq ft",
       baseLow: 1.8, baseHigh: 3.8, min: 1800,
-      subQuestion: "Paint quality?",
-      leadSensitive: true,
+      subQuestion: "Paint quality?", leadSensitive: true,
       options: [
         { label: "Standard Paint", factor: 1.0 },
         { label: "Premium Paint", factor: 1.3 },
         { label: "Luxury Benjamin Moore", factor: 1.55 }
       ]
     },
-
     "exterior_paint": {
-      label: "Exterior Painting",
-      emoji: "🖌",
-      unit: "sq ft",
+      label: "Exterior Painting", emoji: "🖌", unit: "sq ft",
       baseLow: 2.5, baseHigh: 5.5, min: 3500,
       subQuestion: "Surface condition?",
       options: [
@@ -99,11 +505,8 @@
         { label: "Heavy Prep / Repairs", factor: 1.8 }
       ]
     },
-
     "basement_floor": {
-      label: "Basement Floor Paint / Epoxy",
-      emoji: "🧼",
-      unit: "sq ft",
+      label: "Basement Floor Paint / Epoxy", emoji: "🧼", unit: "sq ft",
       baseLow: 2.8, baseHigh: 5.5, min: 1200,
       subQuestion: "Floor type?",
       options: [
@@ -112,11 +515,8 @@
         { label: "Flake System", factor: 2.1 }
       ]
     },
-
     "fence": {
-      label: "Fence Install",
-      emoji: "🚧",
-      unit: "linear ft",
+      label: "Fence Install", emoji: "🚧", unit: "linear ft",
       baseLow: 30, baseHigh: 75, min: 1800,
       subQuestion: "Fence type?",
       options: [
@@ -126,11 +526,8 @@
         { label: "Aluminum", factor: 2.0 }
       ]
     },
-
     "deck": {
-      label: "Deck / Porch Build",
-      emoji: "🪵",
-      unit: "sq ft",
+      label: "Deck / Porch Build", emoji: "🪵", unit: "sq ft",
       baseLow: 35, baseHigh: 65, min: 5000,
       subQuestion: "Deck material?",
       options: [
@@ -139,11 +536,8 @@
         { label: "PVC Luxury", factor: 2.4 }
       ]
     },
-
     "drywall": {
-      label: "Drywall Install / Repair",
-      emoji: "📐",
-      unit: "sq ft",
+      label: "Drywall Install / Repair", emoji: "📐", unit: "sq ft",
       baseLow: 3.2, baseHigh: 6.5, min: 750,
       subQuestion: "Scope?",
       options: [
@@ -152,11 +546,8 @@
         { label: "Level 5 Finish", factor: 2.1 }
       ]
     },
-
     "flooring": {
-      label: "Flooring Installation",
-      emoji: "🪚",
-      unit: "sq ft",
+      label: "Flooring Installation", emoji: "🪚", unit: "sq ft",
       baseLow: 3.5, baseHigh: 9.5, min: 2500,
       subQuestion: "Flooring type?",
       options: [
@@ -166,18 +557,12 @@
         { label: "Laminate", factor: 1.2 }
       ]
     },
-
     "powerwash": {
-      label: "Power Washing",
-      emoji: "💦",
-      unit: "sq ft",
+      label: "Power Washing", emoji: "💦", unit: "sq ft",
       baseLow: 0.35, baseHigh: 0.85, min: 250
     },
-
     "gutter": {
-      label: "Gutter Install",
-      emoji: "🩸",
-      unit: "linear ft",
+      label: "Gutter Install", emoji: "🩸", unit: "linear ft",
       baseLow: 15, baseHigh: 35, min: 1200,
       subQuestion: "Type?",
       options: [
@@ -186,11 +571,8 @@
         { label: "Copper", factor: 3.5 }
       ]
     },
-
     "windows": {
-      label: "Windows Install",
-      emoji: "🪟",
-      unit: "fixed",
+      label: "Windows Install", emoji: "🪟", unit: "fixed",
       subQuestion: "Window type?",
       options: [
         { label: "Standard Vinyl", fixedLow: 550, fixedHigh: 850 },
@@ -198,11 +580,8 @@
         { label: "Bay/Bow Window", fixedLow: 3500, fixedHigh: 6500 }
       ]
     },
-
     "doors": {
-      label: "Door Installation",
-      emoji: "🚪",
-      unit: "fixed",
+      label: "Door Installation", emoji: "🚪", unit: "fixed",
       subQuestion: "Door type?",
       options: [
         { label: "Interior", fixedLow: 250, fixedHigh: 550 },
@@ -210,25 +589,18 @@
         { label: "Sliding Patio", fixedLow: 2200, fixedHigh: 4200 }
       ]
     },
-
     "demo": {
-      label: "Demolition",
-      emoji: "💥",
-      unit: "sq ft",
+      label: "Demolition", emoji: "💥", unit: "sq ft",
       baseLow: 3.0, baseHigh: 7.5, min: 900,
-      subQuestion: "Material?",
-      leadSensitive: true,
+      subQuestion: "Material?", leadSensitive: true,
       options: [
         { label: "Drywall", factor: 1.0 },
         { label: "Tile / Bathroom Demo", factor: 1.8 },
         { label: "Concrete Demo", factor: 2.4 }
       ]
     },
-
     "retaining": {
-      label: "Retaining Wall",
-      emoji: "🧱",
-      unit: "linear ft",
+      label: "Retaining Wall", emoji: "🧱", unit: "linear ft",
       baseLow: 60, baseHigh: 140, min: 5500,
       subQuestion: "Material?",
       options: [
@@ -237,17 +609,11 @@
         { label: "Stone Veneer", factor: 2.3 }
       ]
     },
-
     "handyman": {
-      label: "Small Repairs / Handyman",
-      emoji: "🛠",
-      unit: "consult"
+      label: "Small Repairs / Handyman", emoji: "🛠", unit: "consult"
     },
-
     "kitchen": {
-      label: "Kitchen Remodel",
-      emoji: "🍳",
-      unit: "fixed",
+      label: "Kitchen Remodel", emoji: "🍳", unit: "fixed",
       subQuestion: "What is the scope?",
       options: [
         { label: "Refresh (Cosmetic)", fixedLow: 18000, fixedHigh: 30000 },
@@ -256,11 +622,8 @@
       ],
       leadSensitive: true
     },
-
     "bathroom": {
-      label: "Bathroom Remodel",
-      emoji: "🚿",
-      unit: "fixed",
+      label: "Bathroom Remodel", emoji: "🚿", unit: "fixed",
       subQuestion: "What is the scope?",
       options: [
         { label: "Update (Fixtures/Tile)", fixedLow: 14000, fixedHigh: 24000 },
@@ -268,12 +631,8 @@
       ],
       leadSensitive: true
     },
-
-    // NEW SERVICES (v4.0 & v4.1)
     "siding": {
-      label: "Siding Installation",
-      emoji: "🏡",
-      unit: "sq ft",
+      label: "Siding Installation", emoji: "🏡", unit: "sq ft",
       baseLow: 8.5, baseHigh: 18.5, min: 4000,
       subQuestion: "Siding Material?",
       options: [
@@ -282,11 +641,8 @@
         { label: "Fiber Cement (Hardie)", factor: 1.5 }
       ]
     },
-
     "chimney": {
-      label: "Chimney Repair / Rebuild",
-      emoji: "🔥",
-      unit: "fixed",
+      label: "Chimney Repair / Rebuild", emoji: "🔥", unit: "fixed",
       subQuestion: "Scope of work?",
       options: [
         { label: "Cap / Flashing Repair", fixedLow: 800, fixedHigh: 1800 },
@@ -294,11 +650,8 @@
         { label: "Full Masonry Rebuild", fixedLow: 6500, fixedHigh: 12000 }
       ]
     },
-
     "insulation": {
-      label: "Insulation Install",
-      emoji: "🌡️",
-      unit: "sq ft",
+      label: "Insulation Install", emoji: "🌡️", unit: "sq ft",
       baseLow: 1.2, baseHigh: 3.5, min: 1000,
       subQuestion: "Insulation type?",
       options: [
@@ -307,24 +660,17 @@
         { label: "Spray Foam (Closed-Cell)", factor: 2.5 }
       ]
     },
-
     "sidewalk": {
-      label: "Sidewalk, Steps, & Stoops",
-      emoji: "🚶",
-      unit: "fixed",
+      label: "Sidewalk, Steps, & Stoops", emoji: "🚶", unit: "fixed",
       subQuestion: "Scope of work?",
-      // NOTE: This option uses the isPerSqFt flag, requiring a size input for a 'fixed' unit service
       options: [
         { label: "Sidewalk Violation Repair", fixedLow: 3500, fixedHigh: 7500 },
         { label: "Front Steps / Stoop Rebuild", fixedLow: 6000, fixedHigh: 15000 },
         { label: "New Paver Walkway", fixedLow: 45, fixedHigh: 85, isPerSqFt: true }
       ]
     },
-
     "electrical": {
-      label: "Electrical / Wiring",
-      emoji: "⚡",
-      unit: "fixed",
+      label: "Electrical / Wiring", emoji: "⚡", unit: "fixed",
       subQuestion: "What is needed?",
       options: [
         { label: "Panel Upgrade (200A)", fixedLow: 3000, fixedHigh: 5500 },
@@ -332,11 +678,8 @@
         { label: "Recessed Lighting Install (per unit)", fixedLow: 180, fixedHigh: 300 }
       ]
     },
-
     "waterproofing": {
-      label: "Waterproofing / Leak Repair",
-      emoji: "💧",
-      unit: "linear ft",
+      label: "Waterproofing / Leak Repair", emoji: "💧", unit: "linear ft",
       baseLow: 40, baseHigh: 90, min: 2500,
       subQuestion: "Location of leak?",
       options: [
@@ -345,24 +688,10 @@
         { label: "Roof/Flashing (Requires inspection)", factor: 1.8 }
       ]
     },
-
     "other": {
-      label: "Other / Custom",
-      emoji: "📋",
-      unit: "consult"
+      label: "Other / Custom", emoji: "📋", unit: "consult"
     }
   };
-
-
-  // === ADVANCED ESTIMATOR CONFIG INTEGRATION (New Feature) ===
-  // Scenario bands: Basic / Premium / Luxury (Adds the finish level dimension to pricing)
-  const SCENARIO_CONFIG = {
-    basic: { label: "Basic", factor: 0.90, desc: "Tighter budget, more standard selections (lowers cost)." },
-    premium:{ label: "Premium", factor: 1.00, desc: "Balanced mix of quality and value (baseline cost)." },
-    luxury: { label: "Luxury", factor: 1.25, desc: "Higher-end finishes and options (increases cost)." }
-  };
-  // ===========================================================
-
 
   // --- STATE --------------------------------------------------
   const state = {
@@ -372,16 +701,14 @@
     size: 0,
     borough: null,
     isLeadHome: false,
-    pricingMode: "full",   // full | labor | materials
+    pricingMode: "full",
     isRush: false,
     promoCode: "",
-    debrisRemoval: false,   // NEW: Debris removal add-on
-    financingNeeded: false, // NEW: Financing flag
+    debrisRemoval: false,
+    selectedAddons: [], // Stores selected smart add-on objects
     name: "",
     phone: "",
-    // NEW: Advanced Cal Integration
-    finishLevel: "premium", // Default finish level
-    projects: []           // list of estimate objects
+    projects: []
   };
 
   let els = {};
@@ -389,15 +716,82 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    // ... (unchanged)
+    console.log("HB Chat: Initializing v5.0...");
+    createInterface();
+
+    if (sessionStorage.getItem("hb_chat_active") === "true") {
+      toggleChat();
+    }
+    setTimeout(stepOne_Disclaimer, 800);
   }
 
   function createInterface() {
-    // ... (unchanged)
+    const fab = document.createElement("div");
+    fab.className = "hb-chat-fab";
+    fab.innerHTML = `<span class="hb-fab-icon">📷</span><span class="hb-fab-text">Get Quote</span>`;
+    fab.style.display = "flex";
+    fab.onclick = toggleChat;
+    document.body.appendChild(fab);
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "hb-chat-wrapper";
+    wrapper.innerHTML = `
+      <div class="hb-chat-header">
+        <div class="hb-chat-title">
+          <h3>Hammer Brick & Home</h3>
+          <span>AI Estimator</span>
+        </div>
+        <button class="hb-chat-close">×</button>
+      </div>
+      <div class="hb-progress-container">
+        <div class="hb-progress-bar" id="hb-prog"></div>
+      </div>
+      <div class="hb-chat-body" id="hb-body"></div>
+      <div class="hb-chat-footer">
+        <input type="text" class="hb-chat-input" id="hb-input" placeholder="Select an option above..." disabled>
+        <button class="hb-chat-send" id="hb-send">➤</button>
+      </div>
+    `;
+    document.body.appendChild(wrapper);
+
+    const photoInput = document.createElement("input");
+    photoInput.type = "file";
+    photoInput.accept = "image/*";
+    photoInput.multiple = true;
+    photoInput.style.display = "none";
+    photoInput.id = "hb-photo-input";
+    document.body.appendChild(photoInput);
+
+    els = {
+      wrapper, fab, body: document.getElementById("hb-body"),
+      input: document.getElementById("hb-input"),
+      send: document.getElementById("hb-send"),
+      prog: document.getElementById("hb-prog"),
+      close: wrapper.querySelector(".hb-chat-close"),
+      photoInput
+    };
+
+    els.close.onclick = toggleChat;
+    els.send.onclick = handleManualInput;
+    els.input.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") handleManualInput();
+    });
+
+    photoInput.addEventListener("change", function() {
+      if (!photoInput.files || !photoInput.files.length) return;
+      addBotMessage(`📷 You selected ${photoInput.files.length} photo(s). Please attach these when you text or email us.`);
+    });
   }
 
   function toggleChat() {
-    // ... (unchanged)
+    const isOpen = els.wrapper.classList.toggle("hb-open");
+    if (isOpen) {
+      els.fab.style.display = "none";
+      sessionStorage.setItem("hb_chat_active", "true");
+    } else {
+      els.fab.style.display = "flex";
+      sessionStorage.removeItem("hb_chat_active");
+    }
   }
 
   function updateProgress(pct) {
@@ -405,280 +799,679 @@
   }
 
   // --- MESSAGING ---------------------------------------------
-  // ... (unchanged)
+
+  function addBotMessage(text, isHtml) {
+    const typingId = "typing-" + Date.now();
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "hb-msg hb-msg-bot";
+    typingDiv.id = typingId;
+    typingDiv.innerHTML = `
+      <div class="hb-typing-dots">
+        <div class="hb-dot"></div>
+        <div class="hb-dot"></div>
+        <div class="hb-dot"></div>
+      </div>`;
+    els.body.appendChild(typingDiv);
+    els.body.scrollTop = els.body.scrollHeight;
+
+    const delay = Math.min(1500, text.length * 20 + 500);
+
+    setTimeout(function() {
+      const msgBubble = document.getElementById(typingId);
+      if (msgBubble) {
+        msgBubble.innerHTML = isHtml ? text : text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        els.body.scrollTop = els.body.scrollHeight;
+      }
+    }, delay);
+  }
+
+  function addUserMessage(text) {
+    const div = document.createElement("div");
+    div.className = "hb-msg hb-msg-user";
+    div.textContent = text;
+    els.body.appendChild(div);
+    els.body.scrollTop = els.body.scrollHeight;
+  }
+
+  function addChoices(options, callback) {
+    setTimeout(function() {
+      const chipContainer = document.createElement("div");
+      chipContainer.className = "hb-chips";
+
+      options.forEach(function(opt) {
+        const btn = document.createElement("button");
+        btn.className = "hb-chip";
+        const label = (typeof opt === "object") ? opt.label : opt;
+        btn.textContent = label;
+        btn.onclick = function() {
+          chipContainer.remove();
+          addUserMessage(label);
+          callback(opt);
+        };
+        chipContainer.appendChild(btn);
+      });
+
+      els.body.appendChild(chipContainer);
+      els.body.scrollTop = els.body.scrollHeight;
+    }, 1600);
+  }
 
   // --- FLOW: DISCLAIMER -> SERVICE -> SUB OPTIONS --------------------------
-  // ... (stepOne_Disclaimer, presentServiceOptions, stepTwo_SubQuestions, stepThree_LeadCheck)
 
-  // --- SIZE STEP (SKIPS FIXED / CONSULT, HANDLES isPerSqFt) ---------------------
-  // ... (stepFour_Size)
+  function stepOne_Disclaimer() {
+    updateProgress(5);
+    addBotMessage("👋 Hi! I can generate a ballpark estimate for your project instantly.");
 
-  // --- LOCATION ----------------------------------------------
-  // ... (stepFive_Location)
+    const disclaimerText = `
+        Before we begin, please review our **Disclaimer of Service**:
+        This tool provides an **automated ballpark range only**. It is not a formal quote or contract. Final pricing may change based on in-person inspection and site conditions. **By continuing, you acknowledge this.**
+    `;
+    setTimeout(() => {
+        addBotMessage(disclaimerText, true);
+        addChoices([
+            { label: "✅ I Agree to the Disclaimer", key: "agree" },
+            { label: "❌ Close Chat", key: "exit" }
+        ], function(choice) {
+            if (choice.key === "agree") {
+                addBotMessage("Great! What type of project are you planning?");
+                presentServiceOptions();
+            } else {
+                toggleChat();
+            }
+        });
+    }, 1200);
+  }
 
-  // --- PRICING MODE (FULL / LABOR / MATERIALS) ---------------
+  function presentServiceOptions() {
+    updateProgress(10);
+    const opts = Object.keys(SERVICES).map(function(k) {
+      return { label: SERVICES[k].emoji + " " + SERVICES[k].label, key: k };
+    });
+
+    addChoices(opts, function(selection) {
+      state.serviceKey = selection.key;
+      state.subOption = null;
+      stepTwo_SubQuestions();
+    });
+  }
+
+  function stepTwo_SubQuestions() {
+    updateProgress(30);
+    const svc = SERVICES[state.serviceKey];
+    if (!svc) return;
+
+    if (svc.subQuestion && svc.options) {
+      addBotMessage(svc.subQuestion);
+      addChoices(svc.options, function(choice) {
+        state.subOption = choice;
+        stepThree_LeadCheck();
+      });
+    } else if (state.serviceKey === "other") {
+      stepFive_Location();
+    } else {
+      state.subOption = { factor: 1.0, label: "Standard" };
+      stepThree_LeadCheck();
+    }
+  }
+
+  function stepThree_LeadCheck() {
+    const svc = SERVICES[state.serviceKey];
+    if (svc && svc.leadSensitive) {
+      addBotMessage("Is your property built before 1978? (Required for lead safety laws).");
+      addChoices(["Yes (Pre-1978)", "No / Not Sure"], function(ans) {
+        state.isLeadHome = !!(ans && ans.indexOf("Yes") !== -1);
+        stepFour_Size();
+      });
+    } else {
+      stepFour_Size();
+    }
+  }
+
+  function stepFour_Size() {
+    updateProgress(50);
+    const svc = SERVICES[state.serviceKey];
+    const sub = state.subOption || {};
+    if (!svc) return;
+
+    if (svc.unit === "consult" || state.serviceKey === "other") {
+      stepFive_Location();
+      return;
+    }
+
+    if (svc.unit !== "fixed" || sub.isPerSqFt) {
+      const unitLabel = sub.isPerSqFt ? "sq ft" : svc.unit;
+      addBotMessage("Approximate size in " + unitLabel + "?");
+      function askSize() {
+        enableInput(function(val) {
+          const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
+          if (!num || num < 10) {
+            addBotMessage("That number seems low. Please enter a valid number (e.g. 500).");
+            askSize();
+          } else {
+            state.size = num;
+            stepFive_Location();
+          }
+        });
+      }
+      askSize();
+    } else {
+      stepFive_Location();
+    }
+  }
+
+  function stepFive_Location() {
+    updateProgress(70);
+    addBotMessage("Which borough/area is this in?");
+    const locs = Object.keys(BOROUGH_MODS);
+    addChoices(locs, function(loc) {
+      state.borough = (typeof loc === "string") ? loc : loc.label;
+      stepSix_PricingMode();
+    });
+  }
 
   function stepSix_PricingMode() {
     updateProgress(78);
     addBotMessage("How should we price this?");
-
-    const opts = [
+    addChoices([
       { label: "Full Project (Labor + Materials)", key: "full" },
       { label: "Labor Only", key: "labor" },
       { label: "Materials + Light Help", key: "materials" }
-    ];
-
-    addChoices(opts, function(choice) {
+    ], function(choice) {
       state.pricingMode = choice.key || "full";
-      // OLD: stepSeven_Rush();
-      // MODIFIED: Jump to the finish level step
-      stepSixA_FinishLevel();
+      stepSeven_Rush();
     });
   }
-
-
-  // --- FINISH LEVEL (NEW STEP) -------------------------------
-  function stepSixA_FinishLevel() {
-    updateProgress(80);
-    addBotMessage("What **finish level** are you targeting for this project? This affects material quality and detailed labor.");
-    const opts = Object.keys(SCENARIO_CONFIG).map(function(k) {
-      const cfg = SCENARIO_CONFIG[k];
-      return { label: `[${cfg.label}] - ${cfg.desc}`, key: k };
-    });
-    addChoices(opts, function(choice) {
-      state.finishLevel = choice.key || "premium";
-      stepSeven_Rush(); // Continue to the next existing step
-    });
-  }
-  // -----------------------------------------------------------
-
-
-  // --- RUSH --------------------------------------------------
 
   function stepSeven_Rush() {
     updateProgress(82);
-    // ... (unchanged)
+    addBotMessage("Is this a rush project (starting within 72 hours)?");
+    addChoices(["Yes, rush", "No"], function(ans) {
+      state.isRush = !!(ans && ans.indexOf("Yes") !== -1);
+      stepEight_Promo();
+    });
   }
 
-  // --- PROMO CODE --------------------------------------------
-  // ... (stepEight_Promo)
+  function stepEight_Promo() {
+    updateProgress(86);
+    addBotMessage("Any promo code today? If not, tap 'No Code'.");
+    addChoices([
+      { label: "No Code", code: "" },
+      { label: "VIP10", code: "VIP10" },
+      { label: "REFERRAL5", code: "REFERRAL5" }
+    ], function(choice) {
+      state.promoCode = choice.code || "";
+      stepNine_DebrisRemoval();
+    });
+  }
 
-  // --- NEW STEP: DEBRIS REMOVAL ADD-ON -----------------------
-  // ... (stepNine_DebrisRemoval)
+  function stepNine_DebrisRemoval() {
+    updateProgress(88);
+    const svc = SERVICES[state.serviceKey];
+    const hasPrice = svc && svc.unit !== "consult" && state.serviceKey !== "other";
 
-  // --- NEW STEP: FINANCING -----------------------------------
-  // ... (stepTen_Financing)
+    if (hasPrice) {
+        addBotMessage("Should we include debris removal & dumpster costs? (Typically +$800–$1,500)");
+        addChoices(["Yes, include debris removal", "No, I'll handle debris"], function(ans) {
+            state.debrisRemoval = !!(ans && ans.indexOf("Yes") !== -1);
+            stepTen_SmartAddonsIntro();
+        });
+    } else {
+        state.debrisRemoval = false;
+        stepTen_SmartAddonsIntro();
+    }
+  }
 
+  // --- NEW STEP: SMART ADD-ONS (Replacing Financing) ----------------
+
+  function stepTen_SmartAddonsIntro() {
+    updateProgress(90);
+    const config = SMART_ADDONS_CONFIG[state.serviceKey];
+    
+    // Only proceed if there are configured add-ons for this service
+    if (config && config.groups) {
+      addBotMessage(`I found optional **Smart Add-ons** for ${config.title}. Would you like to view categories like Luxury Upgrades or Protection?`);
+      addChoices([
+        { label: "✨ View Add-ons", key: "yes" },
+        { label: "Skip", key: "no" }
+      ], function(choice) {
+        if (choice.key === "yes") {
+          showAddonCategories(config);
+        } else {
+          finishCalculation();
+        }
+      });
+    } else {
+      finishCalculation();
+    }
+  }
+
+  function showAddonCategories(config) {
+    // List available groups
+    const groups = Object.keys(config.groups).map(key => ({
+      label: `📂 ${SMART_ADDON_GROUP_LABELS[key] || key}`,
+      key: key
+    }));
+
+    // Add a Done button
+    groups.push({ label: "✅ Done Selecting", key: "done" });
+
+    addBotMessage("Select a category to view upgrades:", false);
+    addChoices(groups, function(choice) {
+      if (choice.key === "done") {
+        finishCalculation();
+      } else {
+        showAddonItems(config, choice.key);
+      }
+    });
+  }
+
+  function showAddonItems(config, groupKey) {
+    const items = config.groups[groupKey] || [];
+    const groupLabel = SMART_ADDON_GROUP_LABELS[groupKey] || groupKey;
+
+    // Filter out already selected items to prevent duplicates
+    const availableItems = items.filter(item => 
+      !state.selectedAddons.some(sel => sel.label === item.label)
+    ).map(item => ({
+      label: `${item.label} (+$${item.low})`,
+      itemData: item,
+      group: groupKey
+    }));
+
+    if (availableItems.length === 0) {
+      addBotMessage(`You've added all items from ${groupLabel}.`);
+      showAddonCategories(config);
+      return;
+    }
+
+    // Add back button
+    availableItems.push({ label: "🔙 Back to Categories", isBack: true });
+
+    addBotMessage(`**${groupLabel} Options:** Tap to add.`);
+    addChoices(availableItems, function(choice) {
+      if (choice.isBack) {
+        showAddonCategories(config);
+      } else {
+        // Add item
+        state.selectedAddons.push({
+          ...choice.itemData,
+          group: choice.group
+        });
+        addBotMessage(`✅ Added: **${choice.itemData.label}**`);
+        // Return to categories to allow jumping around
+        setTimeout(() => showAddonCategories(config), 600);
+      }
+    });
+  }
+
+  function finishCalculation() {
+    const est = computeEstimateForCurrent();
+    showEstimateAndAskAnother(est);
+  }
 
   // --- CALCULATION ENGINE ------------------------------------
 
-  // NEW: Advanced Helper for Finish Level
-  function getScenarioFactors(finishLevel) {
-    // This helper ensures we default to premium if an invalid level is passed
-    return SCENARIO_CONFIG[finishLevel] || SCENARIO_CONFIG.premium;
-  }
-  // -----------------------------------------------------------
-
   function applyPriceModifiers(low, high) {
-    // Pricing mode
-    var factor = 1;
-    // ... (unchanged)
-    // ... (unchanged)
-    return { low: low, high: high, discountRate: dc };
+    let factor = 1;
+    if (state.pricingMode === "labor") factor = 0.7;
+    else if (state.pricingMode === "materials") factor = 0.5;
+
+    low *= factor;
+    high *= factor;
+
+    if (state.isRush) {
+      low *= 1.12;
+      high *= 1.18;
+    }
+
+    let dc = 0;
+    if (state.promoCode) {
+      const rate = DISCOUNTS[state.promoCode.toUpperCase()];
+      if (rate) dc = rate;
+    }
+    if (dc > 0) {
+      low *= (1 - dc);
+      high *= (1 - dc);
+    }
+
+    return { low, high, discountRate: dc };
   }
 
   function computeEstimateForCurrent() {
-    var svc = SERVICES[state.serviceKey];
+    const svc = SERVICES[state.serviceKey];
     if (!svc) return null;
 
-    var sub = state.subOption || {};
-    var mod = BOROUGH_MODS[state.borough] || 1.0;
-    var low = 0;
-    var high = 0;
+    const sub = state.subOption || {};
+    const mod = BOROUGH_MODS[state.borough] || 1.0;
+    let low = 0, high = 0;
 
-    // Custom/consult jobs: no auto price
+    // Base Calculation
     if (state.serviceKey === "other" || svc.unit === "consult") {
-      return {
-        svc: svc, sub: sub, borough: state.borough, size: null, isLeadHome: state.isLeadHome,
-        pricingMode: state.pricingMode, isRush: state.isRush, promoCode: state.promoCode,
-        low: 0, high: 0, discountRate: 0, isCustom: true,
-        debrisRemoval: state.debrisRemoval, financingNeeded: state.financingNeeded,
-        // NEW: Include finish level in the project output
-        finishLevel: state.finishLevel
-      };
-    }
-
-    if (svc.unit === "fixed") {
-      // Handles fixed price service AND fixed price services that use the new isPerSqFt flag
-      // ... (unchanged)
-    } else {
-      var rateLow = svc.baseLow;
-      var rateHigh = svc.baseHigh;
-
-      if (sub.factor) {
-        rateLow *= sub.factor;
-        rateHigh *= sub.factor;
+      // Consult
+    } else if (svc.unit === "fixed") {
+      if (sub.isPerSqFt) {
+          low = (sub.fixedLow || 0) * state.size * mod;
+          high = (sub.fixedHigh || 0) * state.size * mod;
+      } else {
+          low = (sub.fixedLow || 0) * mod;
+          high = (sub.fixedHigh || 0) * mod;
       }
-      
-      // ... (unchanged)
+    } else {
+      let rateLow = svc.baseLow;
+      let rateHigh = svc.baseHigh;
+      if (sub.factor) { rateLow *= sub.factor; rateHigh *= sub.factor; }
+      low = rateLow * state.size * mod;
+      high = rateHigh * state.size * mod;
+      if (svc.min && low < svc.min) low = svc.min;
+      if (svc.min && high < svc.min * 1.2) high = svc.min * 1.25;
     }
 
-    // Lead safety bump
-    if (state.isLeadHome) {
-      low *= 1.10;
-      high *= 1.10;
-    }
+    if (state.isLeadHome) { low *= 1.10; high *= 1.10; }
+
+    const adjusted = applyPriceModifiers(low, high);
     
-    // NEW: Apply Finish Level Factor from advanced config
-    var scenario = getScenarioFactors(state.finishLevel);
-    low *= scenario.factor; // e.g., 0.90, 1.00, 1.25
-    high *= scenario.factor; // e.g., 0.90, 1.00, 1.25
+    // Add Smart Add-ons totals
+    let addonLow = 0, addonHigh = 0;
+    state.selectedAddons.forEach(addon => {
+        addonLow += addon.low;
+        addonHigh += addon.high;
+    });
 
-    var adjusted = applyPriceModifiers(low, high);
+    // Final sums
+    const finalLow = adjusted.low + addonLow;
+    const finalHigh = adjusted.high + addonHigh;
 
     return {
-      svc: svc, sub: sub, borough: state.borough,
+      svc, sub, borough: state.borough,
       size: (svc.unit === "fixed" && !sub.isPerSqFt || svc.unit === "consult") ? null : state.size,
       isLeadHome: state.isLeadHome, pricingMode: state.pricingMode, isRush: state.isRush,
-      promoCode: state.promoCode, low: adjusted.low, high: adjusted.high,
-      discountRate: adjusted.discountRate, isCustom: false,
-      debrisRemoval: state.debrisRemoval, financingNeeded: state.financingNeeded,
-      // NEW: Include finish level in the project output
-      finishLevel: state.finishLevel
+      promoCode: state.promoCode, 
+      low: finalLow, high: finalHigh,
+      discountRate: adjusted.discountRate, 
+      isCustom: (low === 0 && high === 0),
+      debrisRemoval: state.debrisRemoval,
+      selectedAddons: [...state.selectedAddons] // Copy
     };
   }
 
   function computeGrandTotal() {
-    // ... (unchanged)
+    let totalLow = 0, totalHigh = 0;
+
+    state.projects.forEach(p => {
+        if (p.low) totalLow += p.low;
+        if (p.high) totalHigh += p.high;
+    });
+
+    const projectRequiresDebris = state.projects.some(p => p.debrisRemoval === true);
+    if (projectRequiresDebris) {
+        totalLow += ADD_ON_PRICES.debrisRemoval.low;
+        totalHigh += ADD_ON_PRICES.debrisRemoval.high;
+    }
+
+    return { totalLow, totalHigh, projectRequiresDebris };
   }
 
   function buildEstimateHtml(est) {
-    var svc = est.svc;
-    // ... (unchanged)
+    const svc = est.svc;
+    const sub = est.sub || {};
+    const hasPrice = !!(est.low && est.high);
+    const fLow = hasPrice ? Math.round(est.low).toLocaleString() : null;
+    const fHigh = hasPrice ? Math.round(est.high).toLocaleString() : null;
 
-    var modeLabel = "Full (Labor + Materials)";
+    let discountLine = "";
+    if (est.discountRate > 0) {
+      discountLine = `<div class="hb-receipt-row"><span>Promo:</span><span>-${Math.round(est.discountRate * 100)}% applied</span></div>`;
+    }
+
+    let rushLine = est.isRush ? `<div class="hb-receipt-row"><span>Rush:</span><span>Priority scheduling included</span></div>` : "";
+    let debrisLine = est.debrisRemoval ? `<div class="hb-receipt-row" style="color:#0a9"><span>Debris:</span><span>Haul-away **included**</span></div>` : "";
+
+    let modeLabel = "Full (Labor + Materials)";
     if (est.pricingMode === "labor") modeLabel = "Labor Only";
     if (est.pricingMode === "materials") modeLabel = "Materials + Light Help";
 
-    // NEW: Finish Level Line
-    var scenarioLabel = SCENARIO_CONFIG[est.finishLevel] ? SCENARIO_CONFIG[est.finishLevel].label : "Premium";
-    var finishLine =
-        '<div class="hb-receipt-row"><span>Finish Level:</span><span>' +
-        scenarioLabel +
-        "</span></div>";
-    
-    var sizeRow = "";
-    // ... (unchanged sizeRow logic)
+    let sizeRow = "";
+    if (est.size) {
+      const unitLabel = sub.isPerSqFt ? "sq ft" : svc.unit;
+      sizeRow = `<div class="hb-receipt-row"><span>Size:</span><span>${est.size} ${unitLabel}</span></div>`;
+    }
 
-    var leadRow = "";
-    // ... (unchanged leadRow logic)
+    // Build Add-on List
+    let addonsHtml = "";
+    if (est.selectedAddons && est.selectedAddons.length > 0) {
+        addonsHtml += `<div class="hb-receipt-row" style="margin-top:8px; border-bottom:1px solid #eee; padding-bottom:4px; font-weight:600;"><span>Selected Add-ons:</span></div>`;
+        est.selectedAddons.forEach(addon => {
+             addonsHtml += `<div class="hb-receipt-row" style="color:#666; padding-left:8px; font-size:11px;"><span>• ${addon.label}</span><span>+$${Math.round(addon.low).toLocaleString()}</span></div>`;
+        });
+    }
 
-    var priceRow = "";
-    // ... (unchanged priceRow logic)
+    let priceRow = hasPrice 
+      ? `<div class="hb-receipt-total"><span>ESTIMATE:</span><span>$${fLow} – $${fHigh}</span></div>`
+      : `<div class="hb-receipt-total"><span>ESTIMATE:</span><span>Requires on-site walkthrough</span></div>`;
 
-    return (
-      '<div class="hb-receipt">' +
-        '<h4>Estimator Summary</h4>' +
-        '<div class="hb-receipt-row"><span>Service:</span><span>' +
-        svc.label +
-        "</span></div>" +
-        '<div class="hb-receipt-row"><span>Type:</span><span>' +
-        (sub.label || "Standard") +
-        "</span></div>" +
-        '<div class="hb-receipt-row"><span>Area:</span><span>' +
-        (est.borough || "N/A") +
-        "</span></div>" +
-        sizeRow +
-        '<div class="hb-receipt-row"><span>Pricing Mode:</span><span>' +
-        modeLabel +
-        "</span></div>" +
-        finishLine + // NEW: Finish Level Line
-        rushLine +
-        leadRow +
-        debrisLine + // ADDED DEBRIS LINE
-        discountLine +
-        priceRow +
-        '<div class="hb-receipt-footer hb-disclaimer">' +
-          '<strong>Disclaimer:</strong> This tool provides an automated ballpark range only. ' +
-          'It is not a formal estimate, contract, or offer for services. Final pricing may change ' +
-          'based on site conditions, labor requirements, structural issues, materials selected, ' +
-          'permits, access limitations, and code compliance. A legally binding estimate is issued ' +
-          'only after an in-person walkthrough and a written agreement signed by both parties.' +
-        "</div>" +
-      "</div>"
-    );
+    return `
+      <div class="hb-receipt">
+        <h4>Estimator Summary</h4>
+        <div class="hb-receipt-row"><span>Service:</span><span>${svc.label}</span></div>
+        <div class="hb-receipt-row"><span>Type:</span><span>${sub.label || "Standard"}</span></div>
+        <div class="hb-receipt-row"><span>Area:</span><span>${est.borough || "N/A"}</span></div>
+        ${sizeRow}
+        <div class="hb-receipt-row"><span>Pricing Mode:</span><span>${modeLabel}</span></div>
+        ${rushLine}
+        ${debrisLine}
+        ${addonsHtml}
+        ${discountLine}
+        ${priceRow}
+        <div class="hb-receipt-footer hb-disclaimer">
+          <strong>Disclaimer:</strong> This tool provides an automated ballpark range only. Final pricing may change based on site conditions.
+        </div>
+      </div>
+    `;
   }
 
   function showEstimateAndAskAnother(est) {
-    // ... (unchanged)
+    if (!est) return;
+    updateProgress(92);
+    const html = '--- **Project Estimate** ---<br>' + buildEstimateHtml(est);
+    addBotMessage(html, true);
+    setTimeout(() => askAddAnother(est), 1200);
   }
 
   function askAddAnother(est) {
-    // ... (unchanged)
+    state.projects.push(est);
+    updateProgress(94);
+    addBotMessage("Would you like to add another project to this estimate?");
+    addChoices([
+        { label: "➕ Add Another Project", key: "yes" },
+        { label: "No, continue", key: "no" }
+      ], function(choice) {
+        if (choice.key === "yes") {
+          resetProjectState();
+          addBotMessage("Great! What type of project is the next one?");
+          presentServiceOptions();
+        } else {
+          showCombinedReceiptAndLeadCapture();
+        }
+      });
   }
 
   function showCombinedReceiptAndLeadCapture() {
-    // ... (unchanged)
+    updateProgress(96);
+    const projects = state.projects;
+    if (!projects || !projects.length) return;
+
+    const totals = computeGrandTotal();
+    const rowsHtml = projects.map((p, idx) => {
+        const hasPrice = !!(p.low && p.high);
+        const unitLabel = p.sub.isPerSqFt ? "sq ft" : p.svc.unit;
+        const sizePart = p.size ? ` — ${p.size} ${unitLabel}` : "";
+        
+        let addonNote = "";
+        if (p.selectedAddons && p.selectedAddons.length > 0) {
+            addonNote = `<br><span style="font-size:10px; color:#888; margin-left:14px;">+ ${p.selectedAddons.length} upgrades selected</span>`;
+        }
+
+        return `<div class="hb-receipt-row">
+            <span>#${idx + 1} ${p.svc.label}${sizePart}${addonNote}</span>
+            <span>${hasPrice ? "$" + Math.round(p.low).toLocaleString() + " – $" + Math.round(p.high).toLocaleString() : "Walkthrough needed"}</span>
+          </div>`;
+    }).join("");
+
+    let debrisRow = "";
+    if (totals.projectRequiresDebris) {
+        debrisRow = `<div class="hb-receipt-row" style="color:#0a9; font-weight:700;"><span>Debris Removal:</span><span>$${Math.round(ADD_ON_PRICES.debrisRemoval.low).toLocaleString()} – $${Math.round(ADD_ON_PRICES.debrisRemoval.high).toLocaleString()}</span></div>`;
+    }
+
+    let totalRow = (totals.totalLow && totals.totalHigh) 
+      ? `<div class="hb-receipt-total"><span>Combined Total Range:</span><span>$${Math.round(totals.totalLow).toLocaleString()} – $${Math.round(totals.totalHigh).toLocaleString()}</span></div>`
+      : "";
+
+    const html = `
+      <div class="hb-receipt">
+        <h4>Combined Estimate Summary</h4>
+        ${rowsHtml}
+        ${debrisRow}
+        ${totalRow}
+        <div class="hb-receipt-footer">Ask about VIP Home Care memberships & referral rewards.</div>
+      </div>`;
+
+    addBotMessage('--- **Combined Estimate** ---<br>' + html, true);
+    setTimeout(() => showLeadCapture("To lock in this estimate, I can text or email you the details."), 1200);
   }
 
   function resetProjectState() {
     state.serviceKey = null;
-    // ... (rest of reset is unchanged)
-    state.debrisRemoval = false; // Reset add-ons for new project
-    state.financingNeeded = false;
-    // NEW: Advanced Cal Integration
-    state.finishLevel = "premium"; // Reset finish level for new project
+    state.subOption = null;
+    state.size = 0;
+    state.borough = null;
+    state.isLeadHome = false;
+    state.pricingMode = "full";
+    state.isRush = false;
+    state.promoCode = "";
+    state.debrisRemoval = false;
+    state.selectedAddons = []; // Reset selected add-ons
   }
 
   // --- LEAD CAPTURE & LINKS ----------------------------------
 
   function showLeadCapture(introText) {
-    // ... (unchanged)
+    addBotMessage(introText);
+    addBotMessage("What is your name?");
+    enableInput(function(name) {
+      state.name = name;
+      addBotMessage("And your mobile number?");
+      enableInput(function(phone) {
+        state.phone = phone;
+        generateFinalLinks();
+      });
+    });
   }
 
   function generateFinalLinks() {
     updateProgress(100);
-    // ... (unchanged lines array setup)
 
+    let lines = [`Hello, I'm ${state.name}.`, "Projects:"];
     if (state.projects && state.projects.length) {
-      state.projects.forEach(function(p, idx) {
-        // ... (existing code for project line)
-
-        // Add extra detail line (mode, rush, promo, lead, debris)
-        var modeLabel = "Full (L+M)";
-        if (p.pricingMode === "labor") modeLabel = "Labor Only";
-        if (p.pricingMode === "materials") modeLabel = "Materials+Help";
-
-        var extras = [modeLabel];
+      state.projects.forEach((p, idx) => {
+        const unitLabel = p.sub.isPerSqFt ? "sq ft" : p.svc.unit;
+        let line = `${idx + 1}. ${p.svc.label}` + (p.size ? ` — ${p.size} ${unitLabel}` : "") + (p.borough ? ` (${p.borough})` : "");
         
-        // NEW: Add Finish Level to SMS/Email body
-        var scenarioLabel = SCENARIO_CONFIG[p.finishLevel] ? SCENARIO_CONFIG[p.finishLevel].label : "Premium";
-        extras.push("Finish: " + scenarioLabel);
-
-        if (p.isRush) extras.push("Rush");
-
-        // FIX: Promo code display
-        if (p.promoCode) {
-            var dc_rate = DISCOUNTS[p.promoCode.toUpperCase()];
-            // Correctly format promo code as VIP10 (10% off)
-            var dc_text = dc_rate ? " (" + Math.round(dc_rate * 100) + "% off)" : "";
-            extras.push("Promo: " + p.promoCode.toUpperCase() + dc_text);
+        if (p.low && p.high) {
+          line += ` — ~$${Math.round(p.low).toLocaleString()}–$${Math.round(p.high).toLocaleString()}`;
+        } else {
+          line += " (walkthrough needed)";
         }
+        lines.push(line);
 
-        if (p.isLeadHome) extras.push("Lead-safe");
-        if (p.debrisRemoval) extras.push("Debris: Included"); // NEW
+        // Add detailed breakdown line
+        let extras = [];
+        if (p.pricingMode !== "full") extras.push(p.pricingMode);
+        if (p.isRush) extras.push("Rush");
+        if (p.promoCode) extras.push(`Promo: ${p.promoCode}`);
+        if (p.debrisRemoval) extras.push("Debris: Included");
+        
+        if (extras.length) lines.push("   [" + extras.join(" | ") + "]");
 
-        if (extras.length) {
-          lines.push("   [" + extras.join(" | ") + "]");
+        // List smart add-ons
+        if (p.selectedAddons && p.selectedAddons.length) {
+             p.selectedAddons.forEach(addon => {
+                 lines.push(`   + Add-on: ${addon.label}`);
+             });
         }
       });
-      
-      // ... (rest of generateFinalLinks is unchanged)
+
+      const totals = computeGrandTotal();
+      if (totals.projectRequiresDebris) {
+          lines.push(`Add-on: Debris Removal (~$${Math.round(ADD_ON_PRICES.debrisRemoval.low).toLocaleString()})`);
+      }
+      if (totals.totalLow) {
+          lines.push(`\nCOMBINED RANGE: $${Math.round(totals.totalLow).toLocaleString()} – $${Math.round(totals.totalHigh).toLocaleString()}`);
+      }
+    }
+
+    lines.push(`Customer Name: ${state.name}`);
+    lines.push(`Phone: ${state.phone}`);
+    lines.push("Please reply to schedule a walkthrough.");
+
+    const body = encodeURIComponent(lines.join("\n"));
+    const smsLink = "sms:9295955300?&body=" + body;
+    const emailLink = "mailto:hammerbrickhome@gmail.com?subject=" + encodeURIComponent("Estimate Request") + "&body=" + body;
+
+    addBotMessage(`Thanks, ${state.name}! Choose how you’d like to contact us.`, false);
+    
+    setTimeout(function() {
+      const createBtn = (text, href, isPrimary) => {
+          const btn = document.createElement("a");
+          btn.className = isPrimary ? "hb-chip hb-primary-btn" : "hb-chip";
+          btn.style.display = "block";
+          btn.style.textAlign = "center";
+          btn.style.textDecoration = "none";
+          btn.style.marginTop = "8px";
+          btn.textContent = text;
+          btn.href = href;
+          if(!href.startsWith("sms:") && !href.startsWith("mailto:")) btn.target = "_blank";
+          els.body.appendChild(btn);
+      };
+
+      createBtn("📲 Text Estimate to My Phone", smsLink, true);
+      createBtn("✉️ Email Estimate to Hammer Brick & Home", emailLink, true);
+      if (CRM_FORM_URL) createBtn("📝 Complete Full Intake Form", CRM_FORM_URL, false);
+      if (WALKTHROUGH_URL) createBtn("📅 Book a Walkthrough", WALKTHROUGH_URL, false);
+
+      const photoBtn = document.createElement("button");
+      photoBtn.className = "hb-chip";
+      photoBtn.style.display = "block";
+      photoBtn.style.marginTop = "8px";
+      photoBtn.textContent = "📷 Add Photos";
+      photoBtn.onclick = () => { if (els.photoInput) els.photoInput.click(); };
+      els.body.appendChild(photoBtn);
+
+      els.body.scrollTop = els.body.scrollHeight;
+    }, 500);
   }
 
-  // --- UTILS -------------------------------------------------
-  // ... (unchanged)
+  function enableInput(callback) {
+    els.input.disabled = false;
+    els.input.placeholder = "Type your answer...";
+    els.input.focus();
+    const newSend = els.send.cloneNode(true);
+    els.send.parentNode.replaceChild(newSend, els.send);
+    els.send = newSend;
+    els.send.onclick = function() {
+      const val = els.input.value.trim();
+      if (!val) return;
+      addUserMessage(val);
+      els.input.value = "";
+      els.input.disabled = true;
+      els.input.placeholder = "Please wait...";
+      callback(val);
+    };
+  }
 
-  // --- RUN ---------------------------------------------------
-  // ... (unchanged)
+  function handleManualInput() {
+    if (!els.input.disabled && els.send) els.send.click();
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+
 })();
