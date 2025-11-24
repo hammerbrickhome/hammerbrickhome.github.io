@@ -1,9 +1,7 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v8.0 (ULTIMATE FULL)
-   - ALL 26+ Services (Restored from v4.2)
-   - ALL Smart Add-ons (Restored from Add-ons v1)
-   - ALL New Features (Webhook, Lead Score, Validation, Quick Mode, Size Buttons)
-   - NO functionality removed.
+   HAMMER BRICK & HOME — ESTIMATOR BOT v9.0 (ULTIMATE + UX POLISH)
+   - Integrated Contextual "Edit Project" Button for better UX.
+   - All previous functionality (Webhooks, Lead Scoring, Full Services) maintained.
 =============================================================== */
 
 (function() {
@@ -176,11 +174,11 @@
         luxury: [
           { label: "Composite decking upgrade", low: 2800, high: 9800 },
           { label: "Cable or glass railing system", low: 2600, high: 8800 },
-          { label: "Built-in benches or storage boxes", low: 1500, high: 4200 }
+          { label: "Built-in benches", low: 1500, high: 4200 }
         ],
         protection: [
           { label: "Hidden fastener upgrade", low: 950, high: 2600 },
-          { label: "Joist and post protection tape", low: 450, high: 1200 }
+          { label: "Joist protection tape", low: 450, high: 1200 }
         ],
         design: [
           { label: "Picture-frame decking border", low: 900, high: 2600 },
@@ -204,10 +202,10 @@
         ],
         design: [
           { label: "Decorative caps and trim boards", low: 450, high: 1200 },
-          { label: "Lattice or horizontal style upgrade", low: 1200, high: 3500 }
+          { label: "Lattice style upgrade", low: 1200, high: 3500 }
         ],
         speed: [
-          { label: "Temporary safety fence during project", low: 450, high: 1200 }
+          { label: "Temporary safety fence", low: 450, high: 1200 }
         ]
       }
     },
@@ -250,7 +248,7 @@
           { label: "Decorative broom or border finish", low: 650, high: 1900 }
         ],
         protection: [
-          { label: "Extra thickness at tree or driveway areas", low: 900, high: 2600 },
+          { label: "Extra thickness at tree/driveway", low: 900, high: 2600 },
           { label: "Root barrier installation", low: 1200, high: 3800 }
         ],
         design: [
@@ -269,7 +267,7 @@
         ],
         protection: [
           { label: "Premium gutter guard system", low: 1500, high: 3800 },
-          { label: "Additional downspouts & splash pads", low: 450, high: 1200 }
+          { label: "Additional downspouts", low: 450, high: 1200 }
         ],
         design: [
           { label: "Color-matched gutter & trim package", low: 450, high: 1200 }
@@ -339,18 +337,18 @@
       title: "Bathroom Remodel",
       groups: {
         luxury: [
-          { label: "Full glass shower enclosure upgrade", low: 1800, high: 4200 },
+          { label: "Full glass shower enclosure", low: 1800, high: 4200 },
           { label: "Heated floor system", low: 1800, high: 3200 },
-          { label: "Rain head + handheld shower combo", low: 950, high: 2600 },
-          { label: "Floating vanity or custom vanity build", low: 1500, high: 3800 }
+          { label: "Rain head + handheld combo", low: 950, high: 2600 },
+          { label: "Floating vanity build", low: 1500, high: 3800 }
         ],
         protection: [
           { label: "Waterproofing membrane upgrade", low: 1200, high: 3800 },
-          { label: "Linear drain or upgraded shower drain", low: 900, high: 2600 }
+          { label: "Linear drain upgrade", low: 900, high: 2600 }
         ],
         design: [
-          { label: "Large-format or Italian-style tile upgrade", low: 1800, high: 5200 },
-          { label: "LED niche and under-vanity lighting", low: 650, high: 1900 }
+          { label: "Large-format / Italian tile", low: 1800, high: 5200 },
+          { label: "LED niche lighting", low: 650, high: 1900 }
         ],
         speed: [
           { label: "Fast-track bathroom", low: 1500, high: 4500 }
@@ -361,37 +359,37 @@
       title: "Kitchen Remodel",
       groups: {
         luxury: [
-          { label: "Full height backsplash & niche details", low: 1800, high: 5200 },
-          { label: "Island enlargement or waterfall edge", low: 2800, high: 9800 },
-          { label: "Panel-ready or pro-style appliance prep", low: 2200, high: 7800 }
+          { label: "Full height backsplash", low: 1800, high: 5200 },
+          { label: "Waterfall island edge", low: 2800, high: 9800 },
+          { label: "Pro-style appliance prep", low: 2200, high: 7800 }
         ],
         protection: [
-          { label: "Under-cabinet lighting & receptacle upgrade", low: 900, high: 2600 },
+          { label: "Under-cabinet lighting upgrade", low: 900, high: 2600 },
           { label: "Water leak sensor kit", low: 450, high: 1200 }
         ],
         design: [
           { label: "Glass or accent cabinet doors", low: 950, high: 2600 },
-          { label: "Custom hood / feature wall treatment", low: 2200, high: 6800 }
+          { label: "Custom hood treatment", low: 2200, high: 6800 }
         ],
         speed: [
-          { label: "Temporary sink / counter setup", low: 650, high: 1900 }
+          { label: "Temporary sink setup", low: 650, high: 1900 }
         ]
       }
     },
     handyman: {
-      title: "Small Repairs / Handyman Visit",
+      title: "Handyman",
       groups: {
         luxury: [
           { label: "Priority same-week booking", low: 150, high: 450 }
         ],
         protection: [
-          { label: "Safety package (grab bars, rails)", low: 250, high: 750 }
+          { label: "Safety package (grab bars)", low: 250, high: 750 }
         ],
         design: [
           { label: "Decor hardware refresh", low: 350, high: 900 }
         ],
         speed: [
-          { label: "Evening or weekend time window", low: 250, high: 650 }
+          { label: "Evening/weekend window", low: 250, high: 650 }
         ]
       }
     },
@@ -737,7 +735,7 @@
     selectedAddons: [], 
     name: "",
     phone: "",
-    bestTime: "",
+    projectTiming: "",
     leadSource: "",
     projects: []
   };
@@ -747,7 +745,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v8.0 Ultimate...");
+    console.log("HB Chat: Initializing v9.0...");
     createInterface();
     
     // Auto-open check
@@ -1368,31 +1366,61 @@
     `;
   }
 
+  // Helper to re-run the calculation without losing other projects
+  function editCurrentProject(projectIndex) {
+      if (projectIndex >= 0 && projectIndex < state.projects.length) {
+          // 1. Restore state from the project being edited
+          const p = state.projects[projectIndex];
+          state.serviceKey = p.svc.key;
+          state.subOption = p.sub;
+          state.size = p.size || 0;
+          state.borough = p.borough;
+          state.isLeadHome = p.isLeadHome;
+          state.pricingMode = p.pricingMode;
+          state.isRush = p.isRush;
+          state.promoCode = p.promoCode;
+          state.debrisRemoval = p.debrisRemoval;
+          state.selectedAddons = p.selectedAddons;
+          
+          // 2. Remove the project being edited from the permanent list
+          state.projects.splice(projectIndex, 1);
+          
+          addBotMessage(`✏️ Editing **${p.svc.label}**. Starting from step 2 (Sub-Questions).`);
+          
+          // 3. Jump back to step 2 to re-run the flow
+          stepTwo_SubQuestions();
+      }
+  }
+
   function showEstimateAndAskAnother(est) {
     if (!est) return;
     updateProgress(92);
     const html = '--- **Project Estimate** ---<br>' + buildEstimateHtml(est);
     addBotMessage(html, true);
-    setTimeout(() => askAddAnother(est), 1200);
-  }
+    
+    // Add Edit/Add/Continue options immediately
+    setTimeout(() => {
+        // Find the index of the project just added (it's the last one)
+        const currentProjectIndex = state.projects.length - 1;
+        
+        const choices = [
+            { label: "➕ Add Another Project", key: "add" },
+            { label: "✏️ Edit This Project", key: "edit" },
+            { label: "No, Continue to Finish", key: "finish" }
+        ];
 
-  function askAddAnother(est) {
-    state.projects.push(est);
-    updateProgress(94);
-    addBotMessage("Would you like to add another project to this estimate?");
-    addChoices([
-        { label: "➕ Add Another Project", key: "yes" },
-        { label: "No, continue", key: "no" }
-      ], function(choice) {
-        if (choice.key === "yes") {
-          resetProjectState();
-          addBotMessage("Great! What type of project is the next one?");
-          presentServiceOptions();
-        } else {
-          // Updated: Show Membership Upsell Step instead of straight to lead capture
-          stepMembershipUpsell();
-        }
-      });
+        addChoices(choices, function(choice) {
+            if (choice.key === "add") {
+                resetProjectState();
+                addBotMessage("Great! What type of project is the next one?");
+                presentServiceOptions();
+            } else if (choice.key === "edit") {
+                editCurrentProject(currentProjectIndex);
+            } else {
+                stepMembershipUpsell();
+            }
+        });
+    }, 1200);
   }
 
   // --- NEW STEP: MEMBERSHIP UPSELL ---
@@ -1404,7 +1432,7 @@
     ], function(choice) {
         if (choice.key === "yes") {
             addBotMessage("🏆 **VIP Members** get 15% off all labor, priority emergency booking, and annual maintenance checks. We'll include the brochure in your text/email.");
-            // Add a flag to the text message
+            // Add a flag to the state
             state.interestedInMembership = true;
         }
         showCombinedReceiptAndLeadCapture();
@@ -1473,8 +1501,9 @@
     state.promoCode = "";
     state.debrisRemoval = false;
     state.selectedAddons = []; // Reset selected add-ons
+    state.interestedInMembership = false;
   }
-
+  
   // --- LEAD CAPTURE & LINKS ----------------------------------
 
   function showLeadCapture(introText) {
@@ -1516,6 +1545,12 @@
       });
   }
 
+  function getLeadScore(totalHigh) {
+    if (totalHigh > 25000) return "VIP / High-Value";
+    if (totalHigh < 5000) return "Small / Quick";
+    return "Standard";
+  }
+
   function generateFinalLinks() {
     updateProgress(100);
 
@@ -1555,9 +1590,7 @@
       }
       
       // LEAD SCORING LOGIC (New Feature)
-      let leadTier = "Standard";
-      if (totals.totalHigh < 5000) leadTier = "Small / Quick";
-      if (totals.totalHigh > 25000) leadTier = "VIP / High-Value";
+      let leadTier = getLeadScore(totals.totalHigh);
 
       if (totals.totalLow) {
           lines.push(`\nCOMBINED RANGE: $${Math.round(totals.totalLow).toLocaleString()} – $${Math.round(totals.totalHigh).toLocaleString()}`);
