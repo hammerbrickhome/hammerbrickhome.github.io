@@ -117,17 +117,17 @@
 </script>
 
 <style>
-/* --- LAYOUT FIXES APPLIED TO CSS --- */
-/* The service-grid property is fine */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 16px;
-  margin-top: 12px;
+/* --- NEW CENTERING UTILITY CLASS --- */
+.center-content {
+    /* Centers block-level items inside the container */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    /* Centers text content */
+    text-align: center !important;
 }
-/* This is the key fix: setting service-button to use Flexbox to align content */
+/* LAYOUT FIXES APPLIED TO CSS (Retained) */
 .service-button {
-  display: flex; /* Use flex to align link and span correctly */
+  display: flex; 
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -152,16 +152,11 @@
   box-shadow: 0 10px 28px rgba(0,0,0,0.75);
 }
 .service-button a { 
-    /* The anchor only needs to style the text, not control the block size */
     text-decoration: none;
     color: inherit;
     font-weight: inherit;
-    /* Ensure the anchor is contained by the button */
     padding: 0;
     margin: 0;
-}
-.service-button a:hover {
-    color: inherit;
 }
 .price-span { 
     display: block;
@@ -192,33 +187,33 @@
   </div>
 </section>
 
-<section class="section fade-up" style="margin-top: -20px; text-align: center;">
+<section class="section fade-up center-content" style="margin-top: -20px;">
     <p class="section-note" style="font-size: 12px; font-weight: 700; color: var(--gold-soft);">
         NYC DCWP HIC License **#21311291** &bull; EPA Lead-Safe Certified Firm &bull; General Liability + Workers Comp
     </p>
 </section>
 
-<section class="quick-action-row fade-up">
+<section class="quick-action-row fade-up center-content">
     <a href="/contact.html?type=photo"><span>📸</span> Text Photos for Estimate</a>
     <a href="tel:+19295955300"><span>📞</span> Call 929-595-5300 Now</a>
     <a href="/project-estimator.html"><span>🧮</span> Use Instant Estimator</a>
     <a href="/contact.html?type=visit"><span>📅</span> Book a Site Visit</a>
 </section>
 
-<section class="section fade-up">
+<section class="section fade-up center-content">
   <label class="search-label" for="serviceSearch">Search Services</label>
-  <input id="serviceSearch" class="search-input"
+  <input id="serviceSearch" class="search-input center-content"
     placeholder="Type to filter (e.g., pavers, kitchen, sidewalk)..."
-    aria-label="Search available services">
+    aria-label="Search available services" style="max-width: 420px;">
   <p id="noResults">No matching services found.</p>
 </section>
 
-<section class="cta-band fade-up" id="pricing-tiers">
+<section class="cta-band fade-up center-content" id="pricing-tiers" style="max-width: 900px;">
   <div class="cta-text">
     <h2>Transparent Tiers: Foundation, Premium, Signature</h2>
     <p>Every service below can be customized into three clear tiers, defining the scope, material quality, and **warranty** (1-5 Years). Choose the perfect fit for your budget and project vision.</p>
   </div>
-  <div class="cta-actions">
+  <div class="cta-actions center-content" style="margin-top: 15px;">
     <a href="/pricing-packages.html" class="btn breathing-gold">See Tiered Pricing & Details</a>
     <a href="/project-estimator.html" class="btn ghost">Use AI Project Estimator</a>
   </div>
@@ -226,8 +221,8 @@
 
 <section class="section fade-up">
     <h2>How Our Tiers Differ</h2>
-    <p class="section-note">The level of assurance, materials, and process management scales with your investment.</p>
-    <div class="tier-grid">
+    <p class="section-note center-content">The level of assurance, materials, and process management scales with your investment.</p>
+    <div class="tier-grid center-content" style="max-width: 960px;">
 
         <div class="tier-card">
             <h3 class="breathing-gold">Foundation Tier</h3>
@@ -262,9 +257,9 @@
     </div>
 </section>
 <section class="section fade-up" id="lead-safe-section">
-  <h2>Lead-Safe Renovation (Pre-1978 Homes)</h2>
-  <p class="section-note">EPA RRP Lead-Safe Certified Firm — strict dust control, protection, and compliance for older buildings.</p>
-  <div class="service-grid">
+  <h2 class="center-content">Lead-Safe Renovation (Pre-1978 Homes)</h2>
+  <p class="section-note center-content">EPA RRP Lead-Safe Certified Firm — strict dust control, protection, and compliance for older buildings.</p>
+  <div class="service-grid center-content" style="max-width: 960px;">
     <div class="service-button"><a href="/lead-safe.html">Lead-Safe Kitchen & Bath Renovations</a></div>
     <div class="service-button"><a href="/lead-safe.html">Lead-Safe Window & Door Work</a></div>
     <div class="service-button"><a href="/lead-safe.html">Paint Stabilization & Encapsulation</a></div>
@@ -273,17 +268,17 @@
     <div class="service-button"><a href="/lead-safe.html">Cleaning Verification</a></div>
     <div class="service-button"><a href="/lead-safe.html">RRP Compliance Pack</a></div>
   </div>
-    <div class="seo-block" id="lead-safe-details">
+    <div class="seo-block center-content" id="lead-safe-details" style="max-width: 960px;">
         <h3>Certified Lead-Safe Compliance for NYC</h3>
         <p>In New York City, working on any structure built before 1978 requires strict adherence to EPA Renovation, Repair, and Painting (RRP) standards. We specialize in comprehensive containment, using air scrubbers and negative air pressure to eliminate the risk of lead dust. This is non-negotiable for safety and compliance in the **5 Boroughs**. We provide full documentation for your records.</p>
     </div>
-    <div class="mini-cta"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
+    <div class="mini-cta center-content"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
 </section>
 
 <section class="section fade-up" id="masonry-section">
-  <h2>Masonry, Concrete & Hardscape Design</h2>
-  <p class="section-note">Structural integrity meets aesthetic design. Includes DOT compliance and **Outdoor Living** services.</p>
-  <div class="service-grid">
+  <h2 class="center-content">Masonry, Concrete & Hardscape Design</h2>
+  <p class="section-note center-content">Structural integrity meets aesthetic design. Includes DOT compliance and **Outdoor Living** services.</p>
+  <div class="service-grid center-content" style="max-width: 960px;">
     <div class="service-button"><a href="/masonry-brickwork.html">Brickwork & Repointing</a><span class="price-span">(Quote by Project)</span></div>
     <div class="service-button"><a href="/sidewalk-repair.html">Concrete Sidewalks (NYC)</a><span class="price-span">(Quote by Square Footage)</span></div>
     <div class="service-button"><a href="/dot-violation-repair.html">DOT Violation Repairs</a><span class="price-span">(Priority Service)</span></div>
@@ -296,17 +291,17 @@
     <div class="service-button"><a href="/masonry-walls.html">Parapet Wall Rebuilds</a></div>
     <div class="service-button"><a href="/dot-violation-repair.html">Sidewalk Permits</a></div>
   </div>
-    <div class="seo-block" id="masonry-details">
+    <div class="seo-block center-content" id="masonry-details" style="max-width: 960px;">
         <h3>NYC Masonry, Concrete & Sidewalk Repair (Staten Island, Brooklyn, Queens)</h3>
         <p>As true masonry experts, we handle both structural repair and luxury hardscape installations. This includes specialized work like full sidewalk replacements, clearing NYC Department of Transportation violations, and detailed brick repointing to restore the integrity and beauty of your facade. We offer custom hardscape solutions like bluestone patios and outdoor kitchen foundations for your New Jersey or New York home.</p>
     </div>
-    <div class="mini-cta"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
+    <div class="mini-cta center-content"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
 </section>
 
 <section class="section fade-up" id="remodeling-section">
-  <h2>Carpentry & Structural Remodeling</h2>
-  <p class="section-note">High-end finishing for interiors and critical structural modifications.</p>
-  <div class="service-grid">
+  <h2 class="center-content">Carpentry & Structural Remodeling</h2>
+  <p class="section-note center-content">High-end finishing for interiors and critical structural modifications.</p>
+  <div class="service-grid center-content" style="max-width: 960px;">
     <div class="service-button"><a href="/kitchen-remodeling.html">Kitchen Remodels (NYC)</a></div>
     <div class="service-button"><a href="/bathroom-remodeling.html">Bathroom Remodels (NYC & NJ)</a></div>
     <div class="service-button"><a href="/basement-finishing.html">Basement Finishing & Waterproofing</a></div>
@@ -318,33 +313,33 @@
     <div class="service-button"><a href="/carpentry-sheetrock.html">Sheetrock & Spackle</a></div> 
     <div class="service-button"><a href="/window-replacement.html">Window Replacement</a></div>
   </div>
-    <div class="seo-block" id="remodeling-details">
+    <div class="seo-block center-content" id="remodeling-details" style="max-width: 960px;">
         <h3>Interior & Structural Renovations</h3>
         <p>Our interior remodeling expertise focuses on creating open, functional, and beautiful spaces. This includes structural carpentry, such as securing permits and executing load-bearing wall removals to achieve modern open-concept layouts. From high-end bathroom remodels to full basement finishing projects, we ensure meticulous execution and coordination with all licensed trades (plumbing, electrical).</p>
     </div>
-    <div class="mini-cta"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
+    <div class="mini-cta center-content"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
 </section>
 
 <section class="section fade-up" id="painting-section">
-  <h2>Painting & Finishes</h2>
-  <div class="service-grid">
+  <h2 class="center-content">Painting & Finishes</h2>
+  <div class="service-grid center-content" style="max-width: 960px;">
     <div class="service-button"><a href="/painting.html">Interior Painting</a></div>
     <div class="service-button"><a href="/painting.html">Exterior Painting</a></div>
     <div class="service-button"><a href="/painting-plaster.html">Plaster & Patch</a></div>
     <div class="service-button"><a href="/painting-stucco.html">Stucco Repair</a></div>
     <div class="service-button"><a href="/painting-epoxy.html">Epoxy Floors</a></div>
   </div>
-    <div class="seo-block" id="painting-details">
+    <div class="seo-block center-content" id="painting-details" style="max-width: 960px;">
         <h3>Professional Painting and Specialty Finishes</h3>
         <p>We provide professional painting services using premium, low-VOC paints for interior and exterior applications. Our finish work includes specialty services like stucco repair and durable epoxy coatings for basement and garage floors. We ensure proper surface preparation, including plaster and sheetrock repair, for a flawless, long-lasting result.</p>
     </div>
-    <div class="mini-cta"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
+    <div class="mini-cta center-content"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
 </section>
 
 <section class="section fade-up" id="exterior-section">
-  <h2>Exterior Care & Seasonal Maintenance</h2>
-  <p class="section-note">Protecting your investment with white-glove cleaning and seasonal preparation.</p>
-  <div class="service-grid">
+  <h2 class="center-content">Exterior Care & Seasonal Maintenance</h2>
+  <p class="section-note center-content">Protecting your investment with white-glove cleaning and seasonal preparation.</p>
+  <div class="service-grid center-content" style="max-width: 960px;">
     <div class="service-button"><a href="/exterior-care.html">Soft-Wash Cleaning</a></div>
     <div class="service-button"><a href="/exterior-care.html">Paver Wash</a></div>
     <div class="service-button"><a href="/exterior-care.html">Deck Stain</a></div>
@@ -353,14 +348,14 @@
     <div class="service-button"><a href="/exterior-care.html">Safety Checklists</a></div>
     <div class="service-button"><a href="/exterior-care.html">Emergency Masonry Patches</a></div>
   </div>
-    <div class="seo-block" id="exterior-details">
+    <div class="seo-block center-content" id="exterior-details" style="max-width: 960px;">
         <h3>Comprehensive Seasonal Home Protection</h3>
         <p>Our exterior care packages are designed to protect and maintain your property year-round. Services include low-pressure soft-wash cleaning for delicate surfaces, seasonal gutter clearing, and professional paver/deck staining to prevent weather damage. We also include light landscaping touch-ups and pruning, ensuring maximum curb appeal and longevity of your home.</p>
     </div>
-    <div class="mini-cta"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
+    <div class="mini-cta center-content"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
 </section>
 
-<section class="section note-box fade-up">
+<section class="section note-box fade-up center-content" style="max-width: 960px;">
   <h2>Roofing Policy</h2>
   <p>We perform **small roof repairs only**: shingle fixes, flashing adjustments, and leak tracing. Full replacements are referred to trusted partners.</p>
 </section>
