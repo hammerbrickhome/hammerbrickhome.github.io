@@ -13,77 +13,49 @@
   <link rel="icon" href="/images/hero.PNG">
   <link rel="stylesheet" href="/style.css">
 
-  <!-- FIX: Embedding the layout styles directly here to prevent conflicts in style.css -->
+  <!-- FIX: Embedding the style.css structure from downloads.html here for card layout stability -->
   <style>
-    .specials-grid {
+    /* Card Grid (Taken from working downloads.html concept) */
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-      margin-top: 1.75rem;
-      /* Enforcing equal height and alignment for stability */
-      align-items: stretch; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      align-items: stretch; /* Ensures all cards have equal height */
     }
 
-    .special-card {
-      background: rgba(5, 12, 25, .96);
-      border-radius: 18px;
-      border: 1px solid rgba(231, 191, 99, .35);
-      padding: 18px 18px 20px;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, .45);
-      /* Make card a flex container to align contents vertically (push button to bottom) */
+    /* Package Card (Adapted from working downloads.html concept) */
+    .pkg-card {
+      /* Re-applying standard card styles from your CSS but making it a flex container */
+      background: rgba(9,16,30,.96);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      
+      /* Flex properties for content and button alignment */
+      height: 100%; 
       display: flex;
       flex-direction: column;
     }
 
-    .special-card h3 {
-      margin-top: 0;
-      margin-bottom: .5rem;
-      font-size: 1.1rem;
+    .pkg-card .btn {
+      margin-top: auto; /* Pushes the button to the bottom */
     }
 
-    .special-card p {
-      margin: .35rem 0;
+    .pkg-card .price-note {
+        margin-bottom: 10px; /* Space between note and button */
     }
 
-    .special-card ul {
-      margin: .5rem 0 .75rem;
-      padding-left: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .special-price {
-      font-weight: 600;
-      color: var(--gold, #e7bf63);
-      margin-top: .4rem;
-      flex-shrink: 0;
-    }
-
-    .special-note {
-      font-size: .85rem;
-      opacity: .8;
-      flex-shrink: 0;
-    }
-
+    /* Bonus Badge Styling */
     .special-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: .25rem;
-      font-size: .8rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(231, 191, 99, .55);
-      margin-left: .5rem;
-    }
-
-    .special-cta {
-      margin-top: auto; /* Pushes element to the bottom */
-      padding-top: 10px;
-      flex-shrink: 0;
-    }
-
-    .special-card:hover {
-      box-shadow: 0 0 25px rgba(231,191,99,0.35);
-      transform: translateY(-4px);
+      display: inline-block;
+      background:#e7bf63;
+      color:#071426;
+      padding:4px 12px;
+      border-radius:12px;
+      font-weight:800;
+      font-size: 11px;
+      margin-bottom: 12px;
     }
   </style>
 
@@ -169,7 +141,6 @@
 
 <div id="header-include"></div>
 
-<!-- FIX: Wrap all main content inside the centralized wrapper for stability -->
 <main class="page">
     <div class="content-wrapper" style="padding-top: 26px; padding-bottom: 120px;"> 
 
@@ -201,12 +172,12 @@
         <section class="section fade-up">
             <h2 class="gold-text">Current Home Improvement Specials</h2>
 
-            <!-- START NEW CARD LAYOUT: Using .specials-grid class (styles embedded in <style> tag above) -->
-            <section class="specials-grid">
+            <!-- FIX: Using the working card-grid class defined in the inline <style> above -->
+            <div class="card-grid">
 
                 <!-- 1. Front Steps & Entry Refresh -->
-                <article class="special-card">
-                    <h3>Front Steps &amp; Entry Refresh</h3>
+                <article class="pkg-card gold-glow">
+                    <h3 class="gold-text">Front Steps &amp; Entry Refresh</h3>
                     <p class="muted">A clean, fast, curb-appeal upgrade.</p>
                     <ul class="bullets">
                       <li>Pressure wash (safe areas).</li>
@@ -214,18 +185,14 @@
                       <li>Fresh caulking at joints.</li>
                       <li>Full cleaning &amp; debris removal.</li>
                     </ul>
-                    <p class="special-price">From: $1,250 – $2,400</p>
-                    <p class="special-note">
-                      *Final pricing depends on on-site conditions, access, and materials selected.*
-                    </p>
-                    <p class="special-cta">
-                      <a href="/contact.html" class="btn pill-btn" style="width: 100%;">📝 Ask About Entry Special</a>
-                    </p>
+                    <p class="price"><strong>From: $1,250 – $2,400</strong></p>
+                    <p class="price-note muted">*Final pricing depends on on-site conditions, access, and materials selected.*</p>
+                    <a class="btn" href="/contact.html">📝 Ask About Entry Special</a>
                 </article>
 
                 <!-- 2. Driveway & Walkway Tune-Up -->
-                <article class="special-card">
-                    <h3>Driveway &amp; Walkway Tune-Up</h3>
+                <article class="pkg-card gold-glow">
+                    <h3 class="gold-text">Driveway &amp; Walkway Tune-Up</h3>
                     <p class="muted">Extend life + prevent bigger repairs.</p>
                     <ul class="bullets">
                       <li>Inspection &amp; assessment.</li>
@@ -233,18 +200,14 @@
                       <li>Drainage recommendations.</li>
                       <li>Written condition report.</li>
                     </ul>
-                    <p class="special-price">From: $850 – $1,800</p>
-                    <p class="special-note">
-                      *Final pricing depends on on-site conditions, access, and materials selected.*
-                    </p>
-                    <p class="special-cta">
-                      <a href="/project-estimator.html" class="btn pill-btn" style="width: 100%;">🧮 Quick Estimate</a>
-                    </p>
+                    <p class="price"><strong>From: $850 – $1,800</strong></p>
+                    <p class="price-note muted">*Final pricing depends on on-site conditions, access, and materials selected.*</p>
+                    <a class="btn" href="/project-estimator.html">🧮 Quick Estimate</a>
                 </article>
 
                 <!-- 3. Interior Paint & Patch Refresh -->
-                <article class="special-card">
-                    <h3>Interior Paint &amp; Patch Refresh</h3>
+                <article class="pkg-card gold-glow">
+                    <h3 class="gold-text">Interior Paint &amp; Patch Refresh</h3>
                     <p class="muted">Perfect before guests or listing photos.</p>
                     <ul class="bullets">
                       <li>Light drywall patching.</li>
@@ -252,19 +215,19 @@
                       <li>Protection + cleanup included.</li>
                       <li>Final walkthrough.</li>
                     </ul>
-                    <p class="special-price">From: $650 – $1,200 per room</p>
-                    <p class="special-note">
-                      *Final pricing depends on on-site conditions, access, and materials selected.*
-                    </p>
-                    <p class="special-cta" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-                      <a href="/contact.html" class="btn pill-btn" style="flex-grow: 1; min-width: 150px; text-align: center;">Ask If Your Room Qualifies</a>
-                      <span class="special-badge">⭐ BONUS SPECIAL</span>
-                    </p>
+                    <p class="price"><strong>From: $650 – $1,200 per room</strong></p>
+                    <p class="price-note muted">*Final pricing depends on on-site conditions, access, and materials selected.*</p>
+                    <!-- FIX: Bonus badge moved to the top of the card's content -->
+                    <a class="btn" href="/contact.html">💬 Ask If Your Room Qualifies</a>
+                    <span class="special-badge">⭐ BONUS SPECIAL</span>
                 </article>
 
                 <!-- 4. Seasonal Power-Wash Special -->
-                <article class="special-card">
-                    <h3>Seasonal Power-Wash Special</h3>
+                <article class="pkg-card gold-glow">
+                    <!-- FIX: Bonus badge moved to the top of the card's content -->
+                    <span class="special-badge">⭐ BONUS SPECIAL</span>
+
+                    <h3 class="gold-text">Seasonal Power-Wash Special</h3>
                     <p class="muted">Fast, bright, eco-safe cleaning.</p>
                     <ul class="bullets">
                       <li>Pick 1: walkway, driveway, patio, steps, or entry.</li>
@@ -272,17 +235,13 @@
                       <li>Removes dirt, stains, algae.</li>
                       <li>Quick scheduling.</li>
                     </ul>
-                    <p class="special-price">From: $199 – $399</p>
-                    <p class="special-note">
-                      *Final pricing depends on on-site conditions, access, and materials selected.*
-                    </p>
-                    <p class="special-cta">
-                      <a href="tel:+19295955300" class="btn pill-btn" style="width: 100%;">📞 Claim Special</a>
-                    </p>
+                    <p class="price"><strong>From: $199 – $399</strong></p>
+                    <p class="price-note muted">*Final pricing depends on on-site conditions, access, and materials selected.*</p>
+                    <a class="btn" href="tel:+19295955300">📞 Claim Special</a>
                 </article>
 
-            </section>
-            <!-- END NEW CARD LAYOUT -->
+            </div>
+            <!-- END CARD LAYOUT -->
 
         </section>
 
