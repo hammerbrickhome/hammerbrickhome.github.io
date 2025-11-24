@@ -1,8 +1,8 @@
 /* ============================================================
    HAMMER BRICK & HOME — ESTIMATOR BOT v8.0 (ULTIMATE FULL)
-   - ALL 25+ Services included
-   - ALL Smart Add-ons included
-   - ALL New Features (Webhook, Lead Score, Validation, Quick Mode)
+   - ALL 26+ Services (Restored from v4.2)
+   - ALL Smart Add-ons (Restored from Add-ons v1)
+   - ALL New Features (Webhook, Lead Score, Validation, Quick Mode, Size Buttons)
    - NO functionality removed.
 =============================================================== */
 
