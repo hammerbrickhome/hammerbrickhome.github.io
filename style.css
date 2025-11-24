@@ -30,6 +30,8 @@ body{
     var(--bg); /* Using the restored dark blue background variable */
   color:var(--ink);
   -webkit-font-smoothing:antialiased;
+  /* FIX: Prevents horizontal scroll/shift caused by off-screen elements */
+  overflow-x: hidden; 
 }
 
 /* ============================================================
@@ -270,13 +272,14 @@ body::before {
   max-width: 1000px; /* Set max width for readability */
   margin: 0 auto;    /* Center the block horizontally */
   padding: 0 18px;   /* Add horizontal padding for mobile safety */
+  width: 100%;       /* Ensure it occupies full width of its container before max-width hits */
 }
 
 
 .page{
   /* REMOVED: max-width:1240px; which can conflict with content-wrapper */
   margin:0 auto;
-  padding:26px 18px 120px;
+  /* Removed redundant padding, relying on inline style on content-wrapper for vertical spacing */
 }
 
 .section{margin-bottom:40px;}
@@ -1534,7 +1537,7 @@ input.gallery-search-box,
 }
 
 /* ============================================================
-   MOBILE MENU + Z-INDEX FIX (Replace existing media query)
+   MOBILE MENU PLUS Z-INDEX FIX (Replace existing media query)
 =============================================================== */
 
 /* Ensure Header Bar is always on top */
