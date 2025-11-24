@@ -512,6 +512,8 @@ body::before {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:16px;
+  /* FIX 1: Ensure columns stretch to the height of the tallest card */
+  align-items: stretch; 
 }
 
 .pkg-card{
@@ -520,6 +522,10 @@ body::before {
   border-radius:var(--radius-xl);
   padding:16px;
   box-shadow:var(--shadow-soft);
+  /* FIX 2: Make card a flex container to push buttons to the bottom */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .pkg-card h3{
@@ -530,6 +536,10 @@ body::before {
 .pkg-card .price{
   margin-top:8px;
   font-weight:800;
+}
+/* FIX 3: Push the button wrapper down using auto margin */
+.pkg-card a.btn {
+  margin-top: auto;
 }
 
 /* ============================================================
@@ -1110,7 +1120,7 @@ input.gallery-search-box,
 
 /* ============================================================
    FAQ — LUXURY DARK + GOLD UI (FINAL VERSION)
-   Hammer Brick & Home LLC
+   HAMMER BRICK & HOME LLC
 =============================================================== */
 
 .faq-section {
@@ -1407,7 +1417,7 @@ input.gallery-search-box,
     0 0 12px rgba(245,196,0,0.95),
     0 0 24px rgba(245,196,0,0.75);
   transform: scale(1.02);
-  transition: 0.25s ease-out;
+  transition: .25s ease-out;
 }
 
 /* Shimmer animation */
