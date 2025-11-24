@@ -274,7 +274,7 @@ body::before {
 
 
 .page{
-  /* Removed max-width:1240px; as it conflicts with content-wrapper */
+  /* REMOVED: max-width:1240px; which can conflict with content-wrapper */
   margin:0 auto;
   padding:26px 18px 120px;
 }
@@ -789,10 +789,14 @@ body::before {
    RULES / MEMBERSHIP / CONTACT
 =============================================================== */
 
+/* FIX: Target the rules grid to ensure it centers itself inside the .content-wrapper */
 .rules-join-grid{
   display:grid;
   grid-template-columns:minmax(0,3fr) minmax(200px,1.5fr);
   gap:22px;
+  /* Added centering fix for the grid itself */
+  max-width: 964px; /* Slightly less than the wrapper to allow inner padding */
+  margin: 0 auto;
 }
 
 .qr-block img{
