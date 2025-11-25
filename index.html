@@ -10,20 +10,21 @@
 
   <meta name="description" content="Hammer Brick & Home LLC provides luxury remodeling and true masonry in NYC. EPA Lead-Safe Certified Firm, licensed & insured HIC #21311291. Staten Island based. Clean, precise, and respectful crew.">
 
-  <link rel="icon" href="/images/hero.PNG">
+  <link rel="preload" href="/style.css" as="style">
   <link rel="preload" as="image" href="/images/hero.PNG">
+  <link rel="icon" href="/images/hero.PNG">
 
   <link rel="stylesheet" href="/style.css">
 
   <meta property="og:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
-  <meta property="og:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #21311291. Staten Island based. Clean, precise, and respectful crew.">
+  <meta property="og:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm. Licensed & insured HIC #21311291.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.hammerbrickhome.com/">
   <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
-  <meta name="twitter:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #21311291. Staten Island based. Clean, precise, and respectful crew.">
+  <meta name="twitter:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm. Licensed & insured HIC #21311291.">
   <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
   <script type="application/ld+json">
@@ -36,7 +37,7 @@
     "logo": "https://www.hammerbrickhome.com/images/hero.PNG",
     "telephone": "+1-929-595-5300",
     "priceRange": "$$",
-    "description": "Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #21311291. Staten Island based. Clean, precise, and respectful crew.",
+    "description": "Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #21311291.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Staten Island",
@@ -45,30 +46,26 @@
       "addressCountry": "US"
     },
     "areaServed": [
-      "Staten Island",
-      "Brooklyn",
-      "Queens",
-      "Manhattan",
-      "Bronx",
-      "New Jersey"
+      { "@type": "City", "name": "Staten Island" },
+      { "@type": "City", "name": "Brooklyn" },
+      { "@type": "City", "name": "Queens" },
+      { "@type": "City", "name": "Manhattan" },
+      { "@type": "City", "name": "Bronx" },
+      { "@type": "State", "name": "New Jersey" }
     ],
     "identifier": [
       { "@type": "PropertyValue", "name": "NYC HIC", "value": "21311291" },
       { "@type": "PropertyValue", "name": "EPA Lead-Safe Certified Firm", "value": "Yes" }
-    ]
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Hammer Brick & Home LLC",
-    "url": "https://www.hammerbrickhome.com/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.hammerbrickhome.com/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Construction Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Masonry & Concrete" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pavers & Patios" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kitchens & Baths" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "General Remodeling" } }
+      ]
     }
   }
   </script>
@@ -98,7 +95,7 @@
         </ul>
       </div>
       <div class="hero-badge">
-        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC American flag hero badge">
+        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC American flag hero badge" width="170" height="170">
       </div>
     </section>
 
@@ -122,6 +119,8 @@
         <a class="btn ghost" href="/project-estimator.html">Open Project Estimator</a>
       </div>
     </section>
+
+    <div class="gold-divider"></div>
 
     <section class="section tier-section fade-up">
       <div class="tier-header">
@@ -182,6 +181,8 @@
       </div>
     </section>
 
+    <div class="gold-divider"></div>
+
     <section class="section split fade-up" style="align-items: center;">
       
       <div class="trust-content">
@@ -207,35 +208,31 @@
             <span class="glow-icon">🧱</span>
             <span>Masonry &amp; Concrete</span>
           </a>
-
           <a href="/services.html" class="glow-card style-gold">
             <span class="glow-icon">☀️</span>
             <span>Pavers &amp; Patios</span>
           </a>
-
           <a href="/services.html" class="glow-card style-blue">
             <span class="glow-icon">💧</span>
             <span>Kitchens &amp; Baths</span>
           </a>
-
           <a href="/services.html" class="glow-card style-red">
             <span class="glow-icon">🏗️</span>
             <span>Basements &amp; Framing</span>
           </a>
-
           <a href="/services.html" class="glow-card style-green">
             <span class="glow-icon">🎨</span>
             <span>Painting &amp; Finishes</span>
           </a>
-
           <a href="/services.html" class="glow-card style-cyan">
             <span class="glow-icon">🚿</span>
             <span>Ext. Power-Washing</span>
           </a>
         </div>
       </div>
-
     </section>
+
+    <div class="gold-divider"></div>
 
     <section class="section section-process fade-up">
       <h2>How We Work on Your Home</h2>
@@ -263,6 +260,8 @@
       </ol>
     </section>
 
+    <div class="gold-divider"></div>
+
     <section id="before-after" class="section fade-up">
       <div class="ba-head">
         <h2>Before &amp; After</h2>
@@ -287,6 +286,8 @@
         </article>
       </template>
     </section>
+
+    <div class="gold-divider"></div>
 
     <section class="section split fade-up" style="align-items: center;">
       <div class="accent-card" style="text-align: center;">
@@ -315,6 +316,8 @@
       </p>
     </section>
 
+    <div class="gold-divider"></div>
+
     <section class="section faq-section fade-up">
       <h2 class="faq-title shimmer-gold">Common Questions</h2>
       
@@ -340,6 +343,10 @@
     </section>
 
   </main>
+
+  <a href="sms:+19295955300" class="floating-sms-btn">
+    💬 Text Us Photos
+  </a>
 
   <div id="contact-panel" class="contact-panel" aria-hidden="true" style="display:none;">
     <div class="contact-panel-inner">
@@ -479,9 +486,8 @@
   </script>
   
   <link rel="stylesheet" href="/chat.css">
-  <script src="/chat.js" defer></script>
-
-  <script src="/script.js" defer></script>
+  <script src="/chat.js?v=2" defer></script>
+  <script src="/script.js?v=2" defer></script>
 
 </body>
 </html>
