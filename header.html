@@ -1,119 +1,338 @@
 <style>
-  /* Gold Glow */
+  /* --- CORE LUXURY STYLES (Preserved) --- */
+  :root {
+    --gold: #e7bf63;
+    --gold-dim: rgba(231,191,99,0.55);
+    --dark-bg: #0a0f19;
+    --overlay-bg: rgba(7, 20, 38, 0.98);
+  }
+
+  /* Gold Glow Utilities */
   .gold-glow {
-    border:1px solid rgba(231,191,99,0.55);
-    box-shadow:0 0 18px rgba(231,191,99,0.25), inset 0 0 8px rgba(231,191,99,0.15);
-    border-radius:18px;
+    border-bottom: 1px solid var(--gold-dim);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   }
-
-  /* Gold text glow */
+  
   .gold-text {
-    color:#e7bf63;
-    text-shadow:0 0 6px rgba(231,191,99,0.7);
+    color: var(--gold);
+    text-shadow: 0 0 6px rgba(231,191,99,0.4);
   }
 
-  /* Hover */
-  .pkg-card:hover {
-    box-shadow:0 0 20px rgba(231,191,99,0.35);
-    transform:translateY(-3px);
-    transition:0.25s ease;
+  /* --- 1A. STICKY HEADER CONFIG --- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background: rgba(10, 15, 25, 0.95); /* Dark semi-transparent */
+    backdrop-filter: blur(12px); /* Glass effect */
+    width: 100%;
+    transition: all 0.3s ease;
   }
 
-  /* Luxury button shine */
-  .btn, .pill-btn {
-    position:relative;
-    overflow:hidden;
-  }
-  .btn::after, .pill-btn::after {
-    content:"";
-    position:absolute;
-    top:0; left:-120%;
-    width:120%; height:100%;
-    background:linear-gradient(120deg, transparent, rgba(231,191,99,0.35), transparent);
-    transform:skewX(-20deg);
-    transition:0.45s;
-  }
-  .btn:hover::after, .pill-btn:hover::after {
-    left:120%;
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  /* Hero badge glow */
-  .hero-badge img {
-    filter:drop-shadow(0 0 12px rgba(231,191,99,0.45));
+  /* Brand Lockup */
+  .brand-lockup {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+  }
+  .brand-logo {
+    height: 50px;
+    width: auto;
+    filter: drop-shadow(0 0 5px var(--gold-dim));
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .brand-name {
+    font-family: serif; /* Luxury font hint */
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .brand-sub {
+    font-size: 0.7rem;
+    color: #ccc;
+    opacity: 0.8;
+    max-width: 300px;
+    display: none; /* Hidden on super small mobile, shown on desktop */
+  }
+  @media(min-width: 768px) { .brand-sub { display: block; } }
+
+  /* --- NAV STYLING & 1E. MICRO-INTERACTIONS --- */
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
-  /* Lux note box */
-  .note-box.lux {
-    border:1px solid rgba(231,191,99,0.55);
-    background:rgba(10,15,25,0.82);
-    box-shadow:0 0 18px rgba(231,191,99,0.25);
-    border-radius:18px;
+  .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
   }
+
+  /* Hover & Active States */
+  .nav-link:hover, .nav-link.active {
+    color: var(--gold);
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--gold);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px var(--gold);
+  }
+  
+  .nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* Dropdown Styling */
+  .dropdown { position: relative; display: inline-block; }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dark-bg);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    border: 1px solid var(--gold-dim);
+    z-index: 1;
+    border-radius: 8px;
+    top: 100%;
+    padding: 10px 0;
+  }
+  .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s; }
+  .dropdown-content a {
+    color: #fff;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+  }
+  .dropdown-content a:hover { background-color: rgba(231,191,99,0.1); color: var(--gold); }
+
+  /* --- 1F. DESKTOP CTA BUTTON --- */
+  .cta-btn-header {
+    background: linear-gradient(135deg, #b88a34 0%, #e7bf63 100%);
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(231,191,99,0.3);
+    transition: transform 0.2s ease;
+    display: none; /* Hidden on mobile */
+  }
+  @media(min-width: 992px) { .cta-btn-header { display: inline-block; } }
+  .cta-btn-header:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(231,191,99,0.6); }
+
+  /* --- 1C. MOBILE CALL BUTTON --- */
+  .mobile-call-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--gold);
+    border-radius: 50%;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--gold-dim);
+  }
+  @media(min-width: 992px) { .mobile-call-btn { display: none; } }
+
+  /* --- 1B. MOBILE MENU (SLIDE-IN) --- */
+  .nav-toggle {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+  }
+
+  @media (max-width: 991px) {
+    .nav-toggle { display: block; }
+    
+    .main-nav {
+      position: fixed;
+      top: 0;
+      right: -100%; /* Start off-screen */
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: var(--overlay-bg);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 80px 20px 20px;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-left: 1px solid var(--gold-dim);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+      overflow-y: auto;
+    }
+
+    .main-nav.is-open {
+      right: 0; /* Slide in */
+    }
+    
+    .nav-link {
+      font-size: 1.1rem;
+      width: 100%;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .dropdown-content {
+      position: static;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding-left: 20px;
+    }
+    
+    /* Overlay when menu is open */
+    .menu-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+    .menu-overlay.is-active { opacity: 1; visibility: visible; }
+    
+    /* Close Button */
+    .nav-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 </style>
+
+<div class="menu-overlay" id="menuOverlay"></div>
 
 <header class="topbar gold-glow" role="banner">
   <div class="topbar-inner">
 
-    <!-- BRAND -->
     <a class="brand-lockup" href="/index.html">
       <img class="brand-logo" src="/images/hero.PNG" alt="Hammer Brick & Home LLC Logo">
       <div class="brand-text">
         <div class="brand-name gold-text">Hammer Brick & Home LLC</div>
         <div class="brand-sub">
-          Luxury Remodeling & Masonry · HIC #21311291 · Licensed & Insured · EPA Lead-Safe Certified Firm
+          Luxury Remodeling & Masonry · HIC #21311291
         </div>
       </div>
     </a>
 
-    <!-- MOBILE MENU BUTTON -->
-    <button class="nav-toggle" aria-label="Open menu">☰</button>
+    <div style="display:flex; align-items:center;">
+      
+      <a href="tel:5551234567" class="mobile-call-btn" aria-label="Call Now">
+        📞
+      </a>
 
-    <!-- PRIMARY NAV -->
-    <nav class="main-nav" aria-label="Primary Navigation">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+      
+      <nav class="main-nav" id="mainNav" aria-label="Primary Navigation">
+        
+        <button class="nav-close" id="navClose" style="display:none;">&times;</button>
 
-      <a href="/index.html">Home</a>
-      <a href="/about.html">Our Story</a>
-      <a href="/services.html">What We Do</a>
+        <a href="/index.html" class="nav-link">Home</a>
+        <a href="/about.html" class="nav-link">Our Story</a>
+        <a href="/services.html" class="nav-link">What We Do</a>
 
-      <!-- PORTFOLIO -->
-      <a href="/gallery.html">Portfolio</a>
+        <a href="/gallery.html" class="nav-link">Portfolio</a>
+        <a href="/reviews.html" class="nav-link">Reviews</a>
 
-      <a href="/reviews.html">Client Reviews</a>
-
-      <!-- Pricing Dropdown -->
-      <div class="dropdown">
-        <a href="#" class="nav-link dropbtn">Pricing & Estimates ▾</a>
-        <div class="dropdown-content">
-          <a href="/pricing.html">Pricing & Packages</a>
-          <a href="/project-estimator.html">Project Estimator</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link dropbtn">Pricing ▾</a>
+          <div class="dropdown-content">
+            <a href="/pricing.html">Packages</a>
+            <a href="/project-estimator.html">Estimator</a>
+            <a href="/monthly-specials.html">Specials</a>
+          </div>
         </div>
-      </div>
 
-      <a href="/monthly-specials.html">Seasonal Offers</a>
-      <a href="/downloads.html">Home Care Library</a>
-
-      <a href="/membership.html">Signature Membership (Free)</a>
-
-      <a href="/faq.html">Help Center</a>
-
-      <!-- LOCATIONS -->
-      <div class="dropdown">
-        <a href="#" class="nav-link dropbtn">Areas We Serve ▾</a>
-        <div class="dropdown-content">
-          <a href="/staten-island.html">Staten Island</a>
-          <a href="/brooklyn.html">Brooklyn</a>
-          <a href="/manhattan.html">Manhattan</a>
-          <a href="/queens.html">Queens</a>
-          <a href="/bronx.html">Bronx</a>
-          <a href="/new-jersey.html">New Jersey</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link dropbtn">Resources ▾</a>
+          <div class="dropdown-content">
+             <a href="/downloads.html">Library</a>
+             <a href="/membership.html">Membership</a>
+             <a href="/faq.html">FAQ</a>
+          </div>
         </div>
-      </div>
 
-      <a href="/contact.html">Get in Touch</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
 
-    </nav>
+        <a href="/project-estimator.html" class="cta-btn-header">GET ESTIMATE</a>
+
+      </nav>
+    </div>
   </div>
 </header>
+
+<script>
+  // --- MOBILE MENU LOGIC ---
+  const navToggle = document.getElementById('navToggle');
+  const navClose = document.getElementById('navClose');
+  const mainNav = document.getElementById('mainNav');
+  const overlay = document.getElementById('menuOverlay');
+
+  function toggleMenu() {
+    mainNav.classList.toggle('is-open');
+    overlay.classList.toggle('is-active');
+    // Show/Hide close button based on state
+    navClose.style.display = mainNav.classList.contains('is-open') ? 'block' : 'none';
+  }
+
+  navToggle.addEventListener('click', toggleMenu);
+  navClose.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  // --- 1D. ACTIVE LINK HIGHLIGHTER ---
+  // This checks the current URL and adds the 'active' class to the matching link
+  document.addEventListener("DOMContentLoaded", function() {
+    const currentLocation = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+      if(link.getAttribute('href') === currentLocation) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
 
 
 
