@@ -71,7 +71,8 @@ body::before {
 
 /* Pushes page content down so it doesn't hide behind the fixed header */
 body {
-  padding-top: 80px; 
+  padding-top: 100px; /* Increased from 80px for better clearance */
+
 }
 
 .topbar-inner{
