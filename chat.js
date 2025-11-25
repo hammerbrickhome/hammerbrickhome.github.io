@@ -1,9 +1,9 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v14.1 (FINAL POLISH)
-   - FIXED: NJ/Location logic now applies to Add-ons too.
-   - FIXED: "Freezing" bug with unique message IDs.
+   HAMMER BRICK & HOME — ESTIMATOR BOT v14.2 (FINAL DEBRIS FIX)
+   - FIXED: Debris cost is now calculated INSIDE the project.
+   - FIXED: Manhattan modifier (1.18x) now applies to Dumpsters.
    - UPDATED: 2025 NYC Pricing for all services.
-   - INCLUDES: Instant Estimate, 5-Star Header, Auto-Open.
+   - INCLUDES: Anti-Freeze ID System, Instant Estimate, Ticker.
 =============================================================== */
 
 (function() {
@@ -14,13 +14,15 @@
   const CRM_FORM_URL = ""; 
   const WALKTHROUGH_URL = "";
 
-  // Modifiers apply to BASE PRICE + ADD-ONS now
+  // Modifiers apply to BASE PRICE + ADD-ONS + DEBRIS now
   const BOROUGH_MODS = {
     "Manhattan": 1.18, "Brooklyn": 1.08, "Queens": 1.05,
     "Bronx": 1.03, "Staten Island": 1.0, "New Jersey": 0.96
   };
 
   const DISCOUNTS = { "VIP10": 0.10, "REFERRAL5": 0.05, "WEBSAVER": 0.05 };
+  
+  // Base Debris Price (Will be multiplied by Borough Modifier)
   const ADD_ON_PRICES = { "debrisRemoval": { low: 1200, high: 2800 } }; 
 
   const SMART_ADDON_GROUP_LABELS = {
@@ -748,7 +750,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v14.1...");
+    console.log("HB Chat: Initializing v14.2...");
     createInterface();
     startTicker();
     
@@ -867,7 +869,6 @@
   // --- MESSAGING (FIXED FREEZING BUG) ---
 
   function addBotMessage(text, isHtml) {
-    // FIX: Added Random number to prevent ID collisions when messages fire too fast
     const typingId = "typing-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
     
     const typingDiv = document.createElement("div");
@@ -882,7 +883,6 @@
     els.body.appendChild(typingDiv);
     els.body.scrollTop = els.body.scrollHeight;
 
-    // Dynamic delay based on text length (min 500ms, max 1.5s)
     const delay = Math.min(1500, text.length * 20 + 500);
 
     setTimeout(function() {
@@ -1260,7 +1260,7 @@
     showEstimateAndAskAnother(est);
   }
 
-  // --- CALCULATION ENGINE ---
+  // --- CALCULATION ENGINE (UPDATED LOGIC) ---
 
   function applyPriceModifiers(low, high) {
     let factor = 1;
@@ -1293,10 +1293,10 @@
     if (!svc) return null;
 
     const sub = state.subOption || {};
-    // --- NEW: Get the modifier here (e.g. NJ = 0.96) ---
     const mod = BOROUGH_MODS[state.borough] || 1.0;
     let low = 0, high = 0;
 
+    // 1. Calculate Base Price
     if (state.serviceKey === "other" || svc.unit === "consult") {
       // Consult
     } else if (svc.unit === "fixed") {
@@ -1321,12 +1321,18 @@
 
     const adjusted = applyPriceModifiers(low, high);
     
-    // --- NEW: Apply Location Modifiers to Add-ons too ---
+    // 2. Calculate Add-ons (With Location Modifiers)
     let addonLow = 0, addonHigh = 0;
     state.selectedAddons.forEach(addon => {
         addonLow += (addon.low * mod);
         addonHigh += (addon.high * mod);
     });
+
+    // 3. Debris Removal (With Location Modifier)
+    if (state.debrisRemoval) {
+        addonLow += (ADD_ON_PRICES.debrisRemoval.low * mod);
+        addonHigh += (ADD_ON_PRICES.debrisRemoval.high * mod);
+    }
 
     const finalLow = adjusted.low + addonLow;
     const finalHigh = adjusted.high + addonHigh;
@@ -1352,11 +1358,8 @@
         if (p.high) totalHigh += p.high;
     });
 
+    // Debris is now handled inside each project to show accurate unit prices
     const projectRequiresDebris = state.projects.some(p => p.debrisRemoval === true);
-    if (projectRequiresDebris) {
-        totalLow += ADD_ON_PRICES.debrisRemoval.low;
-        totalHigh += ADD_ON_PRICES.debrisRemoval.high;
-    }
 
     return { totalLow, totalHigh, projectRequiresDebris };
   }
@@ -1503,8 +1506,10 @@
     }).join("");
 
     let debrisRow = "";
+    // Debris is now hidden from this specific line because it's inside the projects,
+    // but we still show the checkmark if applicable.
     if (totals.projectRequiresDebris) {
-        debrisRow = `<div class="hb-receipt-row" style="color:#0a9; font-weight:700;"><span>Debris Removal:</span><span>$${Math.round(ADD_ON_PRICES.debrisRemoval.low).toLocaleString()} – $${Math.round(ADD_ON_PRICES.debrisRemoval.high).toLocaleString()}</span></div>`;
+        debrisRow = `<div class="hb-receipt-row" style="color:#0a9; font-weight:700;"><span>Debris Removal:</span><span>Included in estimates above</span></div>`;
     }
 
     let totalRow = (totals.totalLow && totals.totalHigh) 
@@ -1613,7 +1618,7 @@
         if (p.pricingMode !== "full") extras.push(p.pricingMode);
         if (p.isRush) extras.push("Rush");
         if (p.promoCode) extras.push(`Promo: ${p.promoCode}`);
-        if (p.debrisRemoval) extras.push("Debris: Included");
+        if (p.debrisRemoval) extras.push("Debris: Included in total");
         
         if (extras.length) lines.push("   [" + extras.join(" | ") + "]");
 
@@ -1625,9 +1630,6 @@
       });
 
       const totals = computeGrandTotal();
-      if (totals.projectRequiresDebris) {
-          lines.push(`Add-on: Debris Removal (~$${Math.round(ADD_ON_PRICES.debrisRemoval.low).toLocaleString()})`);
-      }
       
       let leadTier = getLeadScore(totals.totalHigh);
 
