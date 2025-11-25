@@ -2713,3 +2713,23 @@ input.gallery-search-box,
     font-size: 13px;
   }
 }
+
+/* Luxury Text Gradient for H1 */
+.hero-content h1 {
+  /* 1. The Gradient: Starts White, fades to Soft Gold */
+  background: linear-gradient(135deg, #ffffff 45%, #f5d89b 100%);
+  
+  /* 2. Clip the background to the text shape */
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  /* 3. Make the text transparent so the background shows through */
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  
+  /* 4. Add a slight drop shadow to lift it off the dark background */
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
+  
+  /* Optional: Tighten letter spacing slightly for a more modern look */
+  letter-spacing: -0.5px;
+}
