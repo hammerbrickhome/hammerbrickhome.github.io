@@ -1,8 +1,9 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v14.0 (NYC MARKET RATES)
-   - FIXED: "Freezing" bug (Added random IDs to prevent collision).
-   - UPDATED: 2025 NYC Pricing for Add-ons (based on market research).
-   - INCLUDES: Instant Estimate, 5-Star Header, Auto-Open, Ticker.
+   HAMMER BRICK & HOME — ESTIMATOR BOT v14.1 (FINAL POLISH)
+   - FIXED: NJ/Location logic now applies to Add-ons too.
+   - FIXED: "Freezing" bug with unique message IDs.
+   - UPDATED: 2025 NYC Pricing for all services.
+   - INCLUDES: Instant Estimate, 5-Star Header, Auto-Open.
 =============================================================== */
 
 (function() {
@@ -13,13 +14,14 @@
   const CRM_FORM_URL = ""; 
   const WALKTHROUGH_URL = "";
 
+  // Modifiers apply to BASE PRICE + ADD-ONS now
   const BOROUGH_MODS = {
     "Manhattan": 1.18, "Brooklyn": 1.08, "Queens": 1.05,
     "Bronx": 1.03, "Staten Island": 1.0, "New Jersey": 0.96
   };
 
   const DISCOUNTS = { "VIP10": 0.10, "REFERRAL5": 0.05, "WEBSAVER": 0.05 };
-  const ADD_ON_PRICES = { "debrisRemoval": { low: 1200, high: 2800 } }; // Updated for NYC Dump Fees
+  const ADD_ON_PRICES = { "debrisRemoval": { low: 1200, high: 2800 } }; 
 
   const SMART_ADDON_GROUP_LABELS = {
     luxury: "Luxury Upgrades", protection: "Protection & Safety",
@@ -27,8 +29,7 @@
     maintenance: "Maintenance Items"
   };
 
-  // --- SMART ADD-ONS CONFIG (UPDATED 2025 NYC PRICING) ---
-  // Prices reflect high-cost labor markets (NYC/NJ) & logistics
+  // --- SMART ADD-ONS CONFIG (2025 NYC MARKET RATES) ---
   const SMART_ADDONS_CONFIG = {
     masonry: {
       title: "Masonry · Pavers · Concrete",
@@ -63,13 +64,13 @@
       title: "Driveway / Parking Area",
       groups: {
         luxury: [
-          { label: "Decorative apron (Belgium Block)", low: 2200, high: 5500 }, //
-          { label: "Heated driveway system (Electric/Hydronic)", low: 12000, high: 28000 }, // Major Correction
+          { label: "Decorative apron (Belgium Block)", low: 2200, high: 5500 }, 
+          { label: "Heated driveway system (Electric/Hydronic)", low: 12000, high: 28000 }, 
           { label: "Integrated lighting at edges", low: 1500, high: 3200 }
         ],
         protection: [
           { label: "Commercial grade base (6-inch concrete)", low: 2800, high: 5500 },
-          { label: "Heavy-duty trench drain at garage", low: 2200, high: 4500 }
+          { label: "Heavy-duty trench drain at garage", low: 2200, high: 4500 } 
         ],
         design: [
           { label: "Two-tone driveway with borders", low: 1800, high: 4800 },
@@ -88,10 +89,10 @@
       groups: {
         luxury: [
           { label: "Architectural designer shingle upgrade", low: 2500, high: 6500 },
-          { label: "Copper flashing & accents", low: 3500, high: 8500 } // Copper is premium in NYC
+          { label: "Copper flashing & accents", low: 3500, high: 8500 } 
         ],
         protection: [
-          { label: "Full ice & water shield (Entire Roof)", low: 2200, high: 5500 },
+          { label: "Full ice & water shield (Entire Roof)", low: 2200, high: 5500 }, 
           { label: "High-performance synthetic underlayment", low: 850, high: 2200 },
           { label: "Chimney repointing & new flashing", low: 1800, high: 4200 }
         ],
@@ -111,7 +112,7 @@
       title: "Siding – Exterior",
       groups: {
         luxury: [
-          { label: "Stone or brick accent wall", low: 5500, high: 14000 },
+          { label: "Stone or brick accent wall", low: 5500, high: 14000 }, 
           { label: "Board-and-batten composite look", low: 4500, high: 11000 }
         ],
         protection: [
@@ -135,7 +136,7 @@
           { label: "Sliding patio door (8ft upgrade)", low: 3800, high: 9200 }
         ],
         protection: [
-          { label: "Triple-pane noise reduction glass", low: 3200, high: 8800 }, // NYC Noise control
+          { label: "Triple-pane noise reduction glass", low: 3200, high: 8800 }, 
           { label: "Security storm door package", low: 950, high: 2200 }
         ],
         design: [
@@ -152,11 +153,11 @@
       groups: {
         luxury: [
           { label: "Multi-color Victorian accent scheme", low: 2200, high: 5500 },
-          { label: "Premium elastomeric coating (Waterproof)", low: 3500, high: 7500 }
+          { label: "Premium elastomeric coating (Waterproof)", low: 3500, high: 7500 } 
         ],
         protection: [
           { label: "Full scrape & oil-based prime", low: 2500, high: 5500 },
-          { label: "Lead-safe containment protocol", low: 1800, high: 4800 } // EPA RRP compliance
+          { label: "Lead-safe containment protocol", low: 1800, high: 4800 }
         ],
         design: [
           { label: "Color consult with sample boards", low: 550, high: 1200 }
@@ -180,7 +181,7 @@
         ],
         design: [
           { label: "Picture-frame border & inlay", low: 1500, high: 3500 },
-          { label: "Custom Pergola / Shade Structure", low: 7500, high: 18000 } // Corrected for custom NYC builds
+          { label: "Custom Pergola / Shade Structure", low: 7500, high: 18000 } 
         ],
         maintenance: [
           { label: "Clean & seal package (wood decks)", low: 650, high: 1800 }
@@ -192,7 +193,7 @@
       groups: {
         luxury: [
           { label: "Decorative aluminum / steel upgrade", low: 2800, high: 8500 },
-          { label: "Horizontal cedar slat (Modern)", low: 3200, high: 9200 }
+          { label: "Horizontal cedar slat (Modern)", low: 3200, high: 9200 } 
         ],
         protection: [
           { label: "8ft Privacy height upgrade", low: 1500, high: 3500 },
@@ -214,8 +215,8 @@
           { label: "Dual Battery backup sump system", low: 2200, high: 5800 }
         ],
         protection: [
-          { label: "Interior French drain (Jackhammer)", low: 5800, high: 16000 }, //
-          { label: "Full exterior excavation membrane", low: 12000, high: 35000 }
+          { label: "Interior French drain (Jackhammer)", low: 5800, high: 16000 }, 
+          { label: "Full exterior excavation membrane", low: 12000, high: 35000 } 
         ],
         design: [
           { label: "Finished waterproof wall panels", low: 3500, high: 8500 }
@@ -226,7 +227,7 @@
       title: "Power Washing",
       groups: {
         luxury: [
-          { label: "House + driveway + patio bundle", low: 650, high: 1800 }
+          { label: "House + driveway + patio bundle", low: 650, high: 1800 } 
         ],
         protection: [
           { label: "Soft-wash roof treatment", low: 850, high: 2200 }
@@ -253,7 +254,7 @@
           { label: "Scored control joint pattern", low: 550, high: 1400 }
         ],
         speed: [
-          { label: "Expedited DOT violation removal", low: 850, high: 2500 }
+          { label: "Expedited DOT violation removal", low: 850, high: 2500 } 
         ]
       }
     },
@@ -261,7 +262,7 @@
       title: "Gutters",
       groups: {
         luxury: [
-          { label: "Copper or Galvalume gutters", low: 2500, high: 6500 } //
+          { label: "Copper or Galvalume gutters", low: 2500, high: 6500 } 
         ],
         protection: [
           { label: "Micro-mesh gutter guards", low: 1200, high: 3200 },
@@ -279,11 +280,11 @@
       title: "Interior Painting",
       groups: {
         luxury: [
-          { label: "Wallpaper installation (per room)", low: 850, high: 2200 },
+          { label: "Wallpaper installation (per room)", low: 850, high: 2200 }, 
           { label: "Fine finish cabinet spray", low: 2500, high: 6500 }
         ],
         protection: [
-          { label: "Full Level-5 skim coat", low: 2800, high: 7500 },
+          { label: "Full Level-5 skim coat", low: 2800, high: 7500 }, 
           { label: "Zero-VOC / Eco paint", low: 850, high: 2200 }
         ],
         design: [
@@ -298,8 +299,8 @@
       title: "Flooring",
       groups: {
         luxury: [
-          { label: "Wide-plank / Herringbone install", low: 3500, high: 9500 },
-          { label: "Radiant floor heating mats", low: 2500, high: 6500 } //
+          { label: "Wide-plank / Herringbone install", low: 3500, high: 9500 }, 
+          { label: "Radiant floor heating mats", low: 2500, high: 6500 } 
         ],
         protection: [
           { label: "Sound-proof cork underlayment", low: 1200, high: 3200 },
@@ -317,7 +318,7 @@
       title: "Drywall",
       groups: {
         luxury: [
-          { label: "Level 5 smooth finish (per room)", low: 2500, high: 6500 } //
+          { label: "Level 5 smooth finish (per room)", low: 2500, high: 6500 } 
         ],
         protection: [
           { label: "QuietRock / Sound-damping board", low: 1800, high: 5200 },
@@ -348,7 +349,7 @@
           { label: "LED niche & accent lighting", low: 850, high: 2200 }
         ],
         speed: [
-          { label: "Expedited plumbing rough-in", low: 1500, high: 3500 }
+          { label: "Expedited plumbing rough-in", low: 1500, high: 3500 } 
         ]
       }
     },
@@ -357,7 +358,7 @@
       groups: {
         luxury: [
           { label: "Full height stone backsplash", low: 2500, high: 6500 },
-          { label: "Waterfall island edge (Stone)", low: 3500, high: 8500 }, //
+          { label: "Waterfall island edge (Stone)", low: 3500, high: 8500 }, 
           { label: "Pot filler plumbing & install", low: 1200, high: 2800 }
         ],
         protection: [
@@ -747,7 +748,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v14.0...");
+    console.log("HB Chat: Initializing v14.1...");
     createInterface();
     startTicker();
     
@@ -1292,6 +1293,7 @@
     if (!svc) return null;
 
     const sub = state.subOption || {};
+    // --- NEW: Get the modifier here (e.g. NJ = 0.96) ---
     const mod = BOROUGH_MODS[state.borough] || 1.0;
     let low = 0, high = 0;
 
@@ -1319,10 +1321,11 @@
 
     const adjusted = applyPriceModifiers(low, high);
     
+    // --- NEW: Apply Location Modifiers to Add-ons too ---
     let addonLow = 0, addonHigh = 0;
     state.selectedAddons.forEach(addon => {
-        addonLow += addon.low;
-        addonHigh += addon.high;
+        addonLow += (addon.low * mod);
+        addonHigh += (addon.high * mod);
     });
 
     const finalLow = adjusted.low + addonLow;
