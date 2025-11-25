@@ -1,6 +1,6 @@
 <style>
   /* =========================================
-     FIX: STICKY "GLASS" HEADER
+     FIX: STICKY "GLASS" HEADER (Final Robust Code)
      ========================================= */
   .topbar {
     position: fixed !important; /* Locks to top */
@@ -13,6 +13,9 @@
     background: rgba(3, 8, 16, 0.85); /* More transparent so blur is visible */
     backdrop-filter: blur(20px);      /* Strong blur */
     -webkit-backdrop-filter: blur(20px); /* Safari/iPhone support */
+    
+    /* HARDWARE ACCELERATION TRICK: FORCES GPU RENDERING */
+    transform: translateZ(0); 
     
     border-bottom: 1px solid rgba(231,191,99,0.2);
     transition: all 0.3s ease;
