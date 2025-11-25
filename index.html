@@ -454,58 +454,7 @@
       const closeBtn = panel ? panel.querySelector(".contact-panel-close") : null;
       const toggles = document.querySelectorAll(".contact-panel-toggle");
 
-      function openPanel() {
-        if (!panel) return;
-        panel.style.display = "flex"; /* Changed to flex for centering */
-        panel.setAttribute("aria-hidden", "false");
-      }
-
-      function closePanel() {
-        if (!panel) return;
-        panel.style.display = "none";
-        panel.setAttribute("aria-hidden", "true");
-      }
-
-      toggles.forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openPanel();
-        });
-      });
-
-      if (closeBtn) {
-        closeBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          closePanel();
-        });
-      }
-
-      if (panel) {
-        panel.addEventListener("click", (e) => {
-          if (e.target === panel) {
-            closePanel();
-          }
-        });
-      }
-      
-      // Include Loader
-      Promise.all([
-        fetch("/header.html").then(r => r.text()),
-        fetch("/footer.html").then(r => r.text())
-      ]).then(([header, footer]) => {
-        document.getElementById("header-include").innerHTML = header;
-        document.getElementById("footer-include").innerHTML = footer;
-        if (typeof initHeaderInteractions === "function") initHeaderInteractions();
-      });
-    });
-  </script>
-
-  <link rel="stylesheet" href="/chat.css">
-  <script src="/chat.js" defer></script>
-  <script src="/script.js" defer></script>
-
-</body>
-</html>
+      function openPanel
 
 
 
