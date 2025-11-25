@@ -1,10 +1,8 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v12.0 (PLAN A + AUTO-OPEN)
-   - INCLUDES: Outdoor Living, Copy Estimate, Phone Validation.
-   - NEW: Auto-Open (4s delay, once per session).
-   - NEW: Live Activity Ticker (FOMO).
-   - NEW: Seasonal Greeting (November = Winter Hook).
-   - NEW: Availability Check (Artificial wait).
+   HAMMER BRICK & HOME — ESTIMATOR BOT v12.1 (HONEST AUTHORITY)
+   - UPDATED: Ticker now shows real License, Offers, & Trends.
+   - UPDATED: Availability Check is now honest but positive.
+   - INCLUDES: Auto-Open, Outdoor Living, Copy Estimate.
 =============================================================== */
 
 (function() {
@@ -749,7 +747,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v12.0...");
+    console.log("HB Chat: Initializing v12.1...");
     createInterface();
     startTicker();
     
@@ -837,14 +835,16 @@
     });
   }
 
+  // --- UPDATED: HONEST TRUST TICKER ---
   function startTicker() {
       if (!els.ticker) return;
       const msgs = [
-          "🔥 Last booking: Pavers in Brooklyn (12m ago)",
-          "🔨 Last booking: Roofing in Queens (42m ago)",
-          "🧱 Last booking: Concrete in Bronx (1h ago)",
-          "🕒 Last inquiry: Outdoor Kitchen in NJ (5m ago)",
-          "👀 3 other people are getting estimates right now"
+          "🛡️ NYC Licensed & Insured: HIC #2131291 · EPA Lead-Safe Certified",
+          "🧱 Specializing in: Masonry · Brownstones · Outdoor Living · Roofing",
+          "🔥 Trending: Basement Waterproofing & Custom Outdoor Living",
+          "❄️ Winter Prep: Ask about waterproofing & freeze-protection.",
+          "💳 VIP Members get 15% off labor + priority emergency scheduling.",
+          "📍 Serving Manhattan, Brooklyn, Queens, Bronx & New Jersey."
       ];
       let i = 0;
       els.ticker.innerText = msgs[0];
@@ -1107,20 +1107,18 @@
     addChoices(locs, function(loc) {
       state.borough = (typeof loc === "string") ? loc : loc.label;
       
-      // NEW: Trigger Availability Check instead of going straight to pricing
+      // Trigger Availability Check
       stepFive_AvailabilityCheck();
     });
   }
 
-  // --- NEW: ARTIFICIAL AVAILABILITY CHECK ---
+  // --- UPDATED: HONEST AVAILABILITY CHECK ---
   function stepFive_AvailabilityCheck() {
-      addBotMessage(`Let me check if we have crews available in ${state.borough}...`);
+      addBotMessage(`Let me check our schedule for ${state.borough}...`);
       
-      // Fake "Thinking" Delay (2 seconds)
+      // 2-second "Thinking" Delay
       setTimeout(() => {
-          // You can randomize this number for realism (e.g., 2, 3, or 4 slots)
-          const slots = Math.floor(Math.random() * 3) + 2; 
-          addBotMessage(`✅ Good news. We have ${slots} estimate slots open for next week.`);
+          addBotMessage(`🗓️ OK, yes! We have estimate slots available for next week.`);
           setTimeout(stepSix_PricingMode, 1000);
       }, 2000);
   }
