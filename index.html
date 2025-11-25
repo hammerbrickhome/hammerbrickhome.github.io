@@ -37,6 +37,11 @@
         "image": "https://www.hammerbrickhome.com/images/hero.PNG",
         "logo": "https://www.hammerbrickhome.com/images/hero.PNG",
         "telephone": "+1-929-595-5300",
+        "openingHours": "Mo-Sa 08:00-18:00",
+        "sameAs": [
+          "https://www.facebook.com/", 
+          "https://www.instagram.com/"
+        ],
         "priceRange": "$$",
         "description": "Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #21311291.",
         "address": {
@@ -125,40 +130,31 @@
     /* 5. Fix Services Glow Icons (SVG Sizing) */
     .glow-icon svg { width: 28px; height: 28px; fill: currentColor; }
 
-    /* 6. ✅ MOBILE LAYOUT FIX: Un-squeezes the services box */
+    /* 6. MOBILE LAYOUT FIX: Un-squeezes the services box */
     @media (max-width: 1000px) {
-      /* Force the split section to stack vertically */
       .split { 
         display: flex !important; 
         flex-direction: column-reverse !important; 
         gap: 35px !important;
         align-items: center !important;
       }
-      
       .trust-content { 
         width: 100% !important; 
         text-align: center !important; 
         padding-right: 0 !important;
       }
-      
-      /* Make the services box full width so buttons have room */
       .services-glow-container { 
         width: 100% !important; 
-        max-width: 500px !important; /* Prevents it from getting too wide on tablets */
+        max-width: 500px !important; 
         margin: 0 auto !important;
       }
-      
-      /* Ensure the grid is always 2 columns on mobile */
       .glow-grid { 
         grid-template-columns: repeat(2, 1fr) !important; 
         gap: 15px !important; 
       }
-      
-      /* Adjust padding inside cards so text fits */
       .glow-card {
         padding: 15px 5px !important;
       }
-
       .mini-brand-strip { 
         justify-content: center; 
         margin-top: 20px;
@@ -191,7 +187,7 @@
         </ul>
       </div>
       <div class="hero-badge">
-        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC American flag hero badge" width="170" height="170">
+        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC American flag hero badge" width="170" height="170" loading="lazy">
       </div>
     </section>
 
@@ -317,11 +313,26 @@
     <section class="section section-process fade-up">
       <h2>How We Work on Your Home</h2>
       <ol class="process-steps">
-        <li><h3>1. Quick Call, Text, or Photos</h3><p>Share a few photos or schedule a walk-through.</p></li>
-        <li><h3>2. Clear, Written Estimate</h3><p>Itemized proposal. No vague “ballpark” numbers.</p></li>
-        <li><h3>3. Protection &amp; Prep</h3><p>Floors covered, dust controlled. We respect your home.</p></li>
-        <li><h3>4. Build, Inspect, Communicate</h3><p>Licensed crew, NYC-ready code awareness.</p></li>
-        <li><h3>5. Final Walk-Through</h3><p>We handle touch-ups and leave you with after photos.</p></li>
+        <li>
+          <h3>1. Quick Call, Text, or Photos</h3>
+          <p>You reach out however is easiest — call, text, or send a few photos of the area. We ask simple questions about your home, timeline, and budget so we know if you need a small repair, a safety fix, or a full remodel.</p>
+        </li>
+        <li>
+          <h3>2. Clear, Written Estimate</h3>
+          <p>If needed, we schedule a walk-through to measure, check conditions, and spot any hidden issues before they become surprises. You receive a written, itemized estimate with Foundation, Premium, and Signature options so you can see what each tier includes and exactly what it costs.</p>
+        </li>
+        <li>
+          <h3>3. Protection &amp; Prep</h3>
+          <p>Before tools come out, floors, railings, and walkways are covered with paper, plastic, and drop cloths. We set up dust control, safe walking paths, and protect nearby finishes so the rest of your home stays clean and livable while we work.</p>
+        </li>
+        <li>
+          <h3>4. Build, Inspect, Communicate</h3>
+          <p>Our licensed crew performs the work according to manufacturer specs and NYC-ready code awareness. You get updates during the project — what we did today, what’s happening next — and we do internal checks to make sure everything is straight, level, and properly tied into the existing structure.</p>
+        </li>
+        <li>
+          <h3>5. Final Walk-Through &amp; After Photos</h3>
+          <p>We walk the project with you, note any touch-ups, and handle them before we call the job finished. The area is swept, wiped, and ready for photos. You leave with before/after documentation and simple care tips so your new work stays looking sharp for years.</p>
+        </li>
       </ol>
     </section>
 
