@@ -70,11 +70,6 @@
           "@type": "Question",
           "name": "Are you licensed and insured?",
           "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We hold NYC HIC License #21311291, are EPA Lead-Safe Certified, and carry full General Liability and Workers Compensation insurance." }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you work in New Jersey?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, we actively serve North Jersey, including Jersey City, Bayonne, and Newark, in addition to all 5 NYC boroughs." }
         }
       ]
     }
@@ -82,69 +77,82 @@
   </script>
 
   <style>
-    /* INLINE STYLES FOR NEW ELEMENTS ONLY - SAFE TO ADD */
+    /* --- EMERGENCY FIXES INJECTED HERE TO GUARANTEE LAYOUT --- */
     
-    /* Luxury Tagline Animation */
+    /* 1. Fix Overlapping Services Pills */
+    .pill-row {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 12px !important;
+      margin-top: 15px !important;
+      margin-bottom: 15px !important;
+    }
+    .gold-pill, .pill-row span, .pill-row a {
+      display: inline-block !important;
+      margin-bottom: 8px !important;
+    }
+
+    /* 2. Fix "Huge" Images (Masonry Special & Featured Project) */
+    .about-image-frame img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+    /* Restrict the container width on desktop so it's not huge */
+    @media (min-width: 860px) {
+      .about-image-frame {
+        max-width: 450px !important;
+        max-height: 350px !important;
+        margin: 0 auto !important;
+      }
+    }
+
+    /* 3. Fix Sticky Button (Make sure it's visible and above Quote button) */
+    .contact-float-btn {
+      position: fixed !important;
+      right: 20px !important;
+      bottom: 90px !important; /* Moved UP to avoid Quote widget */
+      width: 60px !important;
+      height: 60px !important;
+      border-radius: 50% !important;
+      border: 1px solid rgba(231,191,99,0.85) !important;
+      background: rgba(7,14,26,0.92) !important;
+      color: #e7bf63 !important;
+      font-size: 26px !important;
+      font-weight: 900 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 2147483647 !important; /* Max Z-Index */
+      box-shadow: 0 0 18px rgba(212,175,55,0.45) !important;
+      cursor: pointer !important;
+    }
+
+    /* 4. Luxury Tagline Style */
     .luxury-tagline {
       display: block;
-      font-family: var(--font-sans);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 13px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 3px;
-      color: var(--gold);
+      color: #e7bf63;
       margin-bottom: 12px;
       background: linear-gradient(90deg, #e7bf63, #f5d89b, #e7bf63);
-      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 5px rgba(231, 191, 99, 0.3));
       animation: shineTagline 4s linear infinite;
     }
     @keyframes shineTagline { to { background-position: 200% center; } }
 
-    /* Badge Grid Override for Hero */
-    .hero-badges {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;
-    }
+    /* 5. Fix Trust Badges Sizing */
+    .h-badge svg { width: 14px !important; height: 14px !important; fill: #e7bf63 !important; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
     .h-badge {
       display: flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 700; color: var(--gold-soft);
+      font-size: 11px; font-weight: 700; color: #f5d89b;
       background: rgba(255,255,255,0.05); padding: 6px 12px;
       border-radius: 20px; border: 1px solid rgba(231,191,99,0.2);
-    }
-    .h-badge svg { width: 14px; height: 14px; fill: var(--gold); }
-
-    /* Neighborhood SEO Block */
-    .hoods-block {
-      text-align: center; font-size: 11px; color: var(--muted); 
-      margin: 40px auto 20px; max-width: 800px; line-height: 1.6; opacity: 0.7;
-    }
-    
-    /* RESTORED FLOATING BUTTON STYLES */
-    .contact-float-btn {
-      position: fixed;
-      right: 20px;
-      bottom: 90px; /* Pushed up to avoid AI Quote button overlap */
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 1px solid rgba(231,191,99,0.85);
-      background: rgba(7,14,26,0.92);
-      color: #e7bf63;
-      font-size: 26px;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 18px rgba(212,175,55,0.45);
-      z-index: 99999; /* Max Z-Index to float on top */
-      transition: 0.28s ease;
-    }
-    .contact-float-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 24px rgba(212,175,55,0.8);
     }
   </style>
 </head>
@@ -175,7 +183,7 @@
       </div>
       
       <div class="hero-badge">
-        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC Team on Site" loading="eager">
+        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC Team on Site">
       </div>
     </section>
 
@@ -196,15 +204,15 @@
           <a class="btn ghost" href="/project-estimator.html">Open Project Estimator</a>
         </div>
       </div>
-      <div class="about-image-frame" style="height: 100%; min-height: 250px;">
-         <img src="/images/hero.PNG" alt="Masonry repair example" style="height: 100%; object-fit: cover;">
+      <div class="about-image-frame">
+         <img src="/images/hero.PNG" alt="Masonry repair example">
       </div>
     </section>
 
     <section class="section split fade-up">
       <div>
         <h2>Trust • Credentials • Local Expertise</h2>
-        <p>Staten Island–based contractor serving NYC with verified credentials. Floors protected, surfaces masked, dust controlled, property left photo-ready. Written, itemized estimates ensure clarity.</p>
+        <p>Staten Island–based contractor serving NYC with verified credentials. Floors protected, surfaces masked, dust controlled, property left photo-ready.</p>
         <ul class="bullets">
           <li><strong>Licensing:</strong> NYC Home Improvement Contractor — HIC #21311291</li>
           <li><strong>Insurance:</strong> Proof available; project-specific COIs issued</li>
@@ -256,8 +264,8 @@
         <div class="split fp-content">
             <div>
                 <span class="fp-label">Featured Project</span>
-                <h3 style="margin-top:10px; color:var(--gold-soft);">Historic Brownstone Stoop Restoration</h3>
-                <p style="font-size:14px; color:var(--muted);">Brooklyn, NY</p>
+                <h3 style="margin-top:10px; color:#f5d89b;">Historic Brownstone Stoop Restoration</h3>
+                <p style="font-size:14px; color:rgba(255,255,255,0.7);">Brooklyn, NY</p>
                 <p>We restored this crumbling entryway using historic-match mortar and bluestone treads. The result is a safe, beautiful entrance that respects the building's 1920s character.</p>
                 <ul class="bullets">
                     <li>Complete strip & repoint</li>
@@ -267,7 +275,7 @@
                 <a href="/gallery.html" class="btn ghost" style="margin-top:10px;">See More Projects</a>
             </div>
             <div class="about-image-frame">
-                <img src="/images/hero.PNG" alt="Featured Brownstone Project" style="height:100%; object-fit:cover;">
+                <img src="/images/hero.PNG" alt="Featured Brownstone Project">
             </div>
         </div>
     </section>
