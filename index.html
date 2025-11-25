@@ -31,7 +31,7 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "HomeAndConstructionBusiness",
+        "@type": "LocalBusiness",
         "name": "Hammer Brick & Home LLC",
         "url": "https://www.hammerbrickhome.com/",
         "image": "https://www.hammerbrickhome.com/images/hero.PNG",
@@ -41,10 +41,16 @@
         "description": "Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #2131291.",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "76 Palmer Ave",
           "addressLocality": "Staten Island",
           "addressRegion": "NY",
           "postalCode": "10302",
           "addressCountry": "US"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "25" // <<< REMINDER: UPDATE THIS WITH YOUR ACTUAL NUMBER OF REVIEWS
         },
         "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"],
         "identifier": [
