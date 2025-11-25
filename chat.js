@@ -769,7 +769,7 @@
     // 1. FAB (Sticky Button)
     const fab = document.createElement("div");
     fab.className = "hb-chat-fab";
-    fab.setAttribute("aria-label", "Get Quote");
+    fab.setAttribute("aria-label", "Instant Estimate");
     fab.innerHTML = `<span class="hb-fab-icon">📷</span><span class="hb-fab-text">Get Quote</span>`;
     
     // Force visibility to fix any glitches
