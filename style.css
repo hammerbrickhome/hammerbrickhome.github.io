@@ -576,3 +576,49 @@ body::before {
 @media (min-width:900px){
   .hero-badge img{ width:170px; height:170px; }
 }
+
+/* --- EMERGENCY IMAGE SIZING FIXES --- */
+
+/* 1. FORCE LOGO TO BE SMALL (Hero Badge) */
+.hero-badge img {
+  width: 170px !important;
+  height: 170px !important;
+  max-width: 170px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  box-shadow: 0 0 20px rgba(231,191,99,0.4) !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+/* 2. FORCE BROWNSTONE/FEATURED PHOTOS TO BE CONTAINED */
+/* This ensures the project photos don't stretch across the whole screen */
+.about-image-frame {
+  max-width: 100% !important; 
+  max-height: 400px !important; /* Limits vertical height */
+  width: 100% !important;
+  margin: 20px auto !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+/* On desktop, limit the width so it sits nicely next to text */
+@media (min-width: 860px) {
+  .about-image-frame {
+    max-width: 450px !important; /* Prevents huge width on desktop */
+  }
+}
+
+/* Ensure the image inside fits perfectly */
+.about-image-frame img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* Crops nicely instead of stretching */
+}
+
+/* 3. ENSURE STICKY BUTTON IS VISIBLE & ABOVE EVERYTHING */
+.contact-float-btn {
+  z-index: 2147483647 !important; /* Maximum Z-Index to stay on top */
+  bottom: 90px !important; /* Clear of bottom bars */
+  display: flex !important;
+}
