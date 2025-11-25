@@ -2312,3 +2312,60 @@ input.gallery-search-box,
   padding-top: 10px;
   flex-shrink: 0;
 }
+
+/* --- FIX: OVERLAPPING SERVICES & SPACING --- */
+
+/* 1. Give the pills breathing room */
+.pill-row {
+  gap: 12px !important; /* More space between buttons */
+  margin-top: 15px;
+  margin-bottom: 25px; /* Push the next section down */
+  line-height: 2.5; /* Force lines apart */
+}
+
+/* 2. Ensure pills don't crash into lines above/below */
+.gold-pill {
+  display: inline-block;
+  margin-bottom: 8px; /* Spacing when they wrap to next line */
+}
+
+/* 3. Fix the Mobile Layout Overlap */
+@media (max-width: 860px) {
+  /* Push the Services card away from the Trust section below it */
+  .split > .accent-card {
+    margin-bottom: 40px !important; 
+    padding-bottom: 30px !important;
+  }
+  
+  /* Ensure container height adapts to content */
+  .accent-card {
+    height: auto !important;
+    min-height: auto !important;
+  }
+}
+
+/* 4. Style the Restored Floating Button */
+.contact-float-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 22px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(231,191,99,0.85);
+  background: rgba(7,14,26,0.92);
+  color: #e7bf63;
+  font-size: 26px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 0 18px rgba(212,175,55,0.45);
+  z-index: 9999;
+  transition: 0.28s ease;
+}
+.contact-float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(212,175,55,0.8);
+}
