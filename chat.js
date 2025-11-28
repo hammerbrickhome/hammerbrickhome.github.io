@@ -1653,8 +1653,10 @@
     const smsLink = "sms:" + PHONE_NUMBER + "?&body=" + body;
     const emailLink = "mailto:hammerbrickhome@gmail.com?subject=" + encodeURIComponent("Estimate Request") + "&body=" + body;
 
-    addBotMessage(`Thanks, ${state.name}! Choose how you’d like to contact us.`, false);
-    addBotMessage(`📅 We usually reply same day during business hours.`, false); 
+  addBotMessage(`Thanks, ${state.name}! Choose how you’d like to contact us.`, false);
+addBotMessage(`📅 We usually reply same day during business hours.`, false);
+addBotMessage(`⚠️ Note: This is not a final estimate — our actual prices are often LOWER after an in-person inspection.`, false);
+
     
     setTimeout(function() {
       const createBtn = (text, href, isPrimary, isCall) => {
