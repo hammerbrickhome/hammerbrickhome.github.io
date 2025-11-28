@@ -1,0 +1,37 @@
+<footer class="site-footer" style="text-align:center; padding:16px; background:#071426; color:#f5d89b; font-size:14px; line-height:1.5;">
+
+  <nav aria-label="Quick Links" style="margin-bottom: 22px;">
+    <a href="/services" style="color:#f5d89b; margin:0 10px; text-decoration:none; font-weight:600;">All Services</a>
+    <span style="color:rgba(255,255,255,.3);">|</span>
+    <a href="/gallery" style="color:#f5d89b; margin:0 10px; text-decoration:none; font-weight:600;">Project Gallery</a>
+    <span style="color:rgba(255,255,255,.3);">|</span>
+    <a href="/contact" style="color:#f5d89b; margin:0 10px; text-decoration:none; font-weight:600;">Contact Us</a>
+    <span style="color:rgba(255,255,255,.3);">|</span>
+    <a href="/faq" style="color:#f5d89b; margin:0 10px; text-decoration:none; font-weight:600;">FAQ</a>
+  </nav>
+
+  <div>
+    © <span id="yr"></span> <strong>Hammer Brick & Home LLC</strong> ·
+    <span style="font-size: 12px;">NYC HIC #2131291</span>
+  </div>
+
+  <div style="margin-top: 6px;">
+    Serving: <strong>Staten Island</strong> · <strong>New York City</strong> · <span style="opacity: 0.6;">(NJ Comming Soon)</span>
+  </div>
+  <div style="font-size: 11px; margin-top: 4px; opacity: 0.85;">
+    Licensed & Insured · EPA Lead-Safe Certified Firm
+  </div>
+</footer>
+
+<script>
+  // Auto-updates year in the footer
+  (function () {
+    const y = document.getElementById('yr');
+    if (y) {
+      y.textContent = new Date().getFullYear();
+    }
+  })();
+</script>
+
+
+
