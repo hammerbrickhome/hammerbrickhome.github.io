@@ -1,0 +1,139 @@
+<style>
+  /* =========================================
+     FIX: STICKY "GLASS" HEADER (Final Robust Code)
+     ========================================= */
+  .topbar {
+    position: fixed !important; /* Locks to top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999; /* Stays on top of everything */
+    
+    /* THE GLASS EFFECT FIX */
+    background: rgba(3, 8, 16, 0.85); /* More transparent so blur is visible */
+    backdrop-filter: blur(20px);      /* Strong blur */
+    -webkit-backdrop-filter: blur(20px); /* Safari/iPhone support */
+    
+    /* HARDWARE ACCELERATION TRICK: FORCES GPU RENDERING */
+    transform: translateZ(0); 
+    
+    border-bottom: 1px solid rgba(231,191,99,0.2);
+    transition: all 0.3s ease;
+  }
+
+  /* Push content down so it doesn't hide behind the fixed header */
+  body {
+    padding-top: 80px; 
+  }
+
+  /* =========================================
+     EXISTING STYLES
+     ========================================= */
+
+  .gold-glow {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  }
+
+  .gold-text {
+    color: #e7bf63;
+    text-shadow: 0 0 6px rgba(231,191,99,0.7);
+  }
+
+  .pkg-card:hover {
+    box-shadow: 0 0 20px rgba(231,191,99,0.35);
+    transform: translateY(-3px);
+    transition: 0.25s ease;
+  }
+
+  .btn, .pill-btn {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::after, .pill-btn::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -120%;
+    width: 120%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(231,191,99,0.35), transparent);
+    transform: skewX(-20deg);
+    transition: 0.45s;
+  }
+  .btn:hover::after, .pill-btn:hover::after {
+    left: 120%;
+  }
+
+  .hero-badge img {
+    filter: drop-shadow(0 0 12px rgba(231,191,99,0.45));
+  }
+
+  .note-box.lux {
+    border: 1px solid rgba(231,191,99,0.55);
+    background: rgba(10,15,25,0.82);
+    box-shadow: 0 0 18px rgba(231,191,99,0.25);
+    border-radius: 18px;
+  }
+</style>
+
+<header class="topbar gold-glow" role="banner">
+  <div class="topbar-inner">
+
+    <a class="brand-lockup" href="/index.html">
+      <img class="brand-logo" src="/images/hero.PNG" alt="Hammer Brick & Home LLC Logo">
+      <div class="brand-text">
+        <div class="brand-name gold-text">Hammer Brick & Home LLC</div>
+        <div class="brand-sub">
+          Luxury Remodeling & Masonry · HIC #2131291 · Licensed & Insured · EPA Lead-Safe Certified Firm
+        </div>
+      </div>
+    </a>
+
+    <button class="nav-toggle" aria-label="Open menu">☰</button>
+
+    <nav class="main-nav" aria-label="Primary Navigation">
+
+      <a href="/index.html">Home</a>
+      <a href="/about.html">Our Story</a>
+      <a href="/services.html">What We Do</a>
+
+      <a href="/gallery.html">Portfolio</a>
+
+      <a href="/reviews.html">Client Reviews</a>
+
+      <div class="dropdown">
+        <a href="#" class="nav-link dropbtn">Pricing & Estimates ▾</a>
+        <div class="dropdown-content">
+          <a href="/pricing.html">Pricing & Packages</a>
+          <a href="/project-estimator.html">Project Estimator</a>
+        </div>
+      </div>
+
+      <a href="/monthly-specials.html">Seasonal Offers</a>
+      <a href="/downloads.html">Home Care Library</a>
+
+      <a href="/membership.html">Signature Membership (Free)</a>
+
+      <a href="/faq.html">Help Center</a>
+
+      <div class="dropdown">
+        <a href="#" class="nav-link dropbtn">Areas We Serve ▾</a>
+        <div class="dropdown-content">
+          <a href="/staten-island.html">Staten Island</a>
+          <a href="/brooklyn.html">Brooklyn</a>
+          <a href="/manhattan.html">Manhattan</a>
+          <a href="/queens.html">Queens</a>
+          <a href="/bronx.html">Bronx</a>
+          <a href="/new-jersey.html">New Jersey</a>
+        </div>
+      </div>
+
+      <a href="/contact.html">Get in Touch</a>
+
+    </nav>
+  </div>
+</header>
+
+
+
+
+
+
