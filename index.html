@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Hammer Brick & Home LLC | Luxury Remodeling & Masonry in NYC</title>
+
+  <link rel="canonical" href="https://www.hammerbrickhome.com/">
+
+  <meta name="description" content="Hammer Brick & Home LLC provides luxury remodeling and true masonry in NYC. EPA Lead-Safe Certified Firm, licensed & insured HIC #2131291. Staten Island based. Clean, precise, and respectful crew.">
+
+  <link rel="preload" href="/style.css?v=3" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css?v=3"></noscript>
+  <link rel="preload" as="image" href="/images/hero.PNG">
+  <link rel="icon" href="/images/hero.PNG">
+
+  <meta property="og:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
+  <meta property="og:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm. Licensed & insured HIC #2131291.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.hammerbrickhome.com/">
+  <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
+  <meta name="twitter:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm. Licensed & insured HIC #2131291.">
+  <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "name": "Hammer Brick & Home LLC",
+        "url": "https://www.hammerbrickhome.com/",
+        "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+        "logo": "https://www.hammerbrickhome.com/images/hero.PNG",
+        "telephone": "+1-929-595-5300",
+        "priceRange": "$$",
+        "description": "Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm for homes built before 1978. Licensed & insured HIC #2131291.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "76 Palmer Ave",
+          "addressLocality": "Staten Island",
+          "addressRegion": "NY",
+          "postalCode": "10302",
+          "addressCountry": "US"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "25" // <<< REMINDER: UPDATE THIS WITH YOUR ACTUAL NUMBER OF REVIEWS
+        },
+        "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"],
+        "identifier": [
+          { "@type": "PropertyValue", "name": "NYC HIC", "value": "2131291" },
+          { "@type": "PropertyValue", "name": "EPA Lead-Safe Certified Firm", "value": "Yes" }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Construction Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Masonry & Concrete" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pavers & Patios" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kitchens & Baths" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "General Remodeling" } }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "name": "Hammer Brick & Home LLC",
+        "url": "https://www.hammerbrickhome.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.hammerbrickhome.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* 1. Hero Gradient Overlay */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(7,20,38,0.4) 0%, rgba(5,12,25,0.85) 90%);
+      z-index: 1;
+      border-radius: var(--radius-xl, 22px);
+    }
+    .hero-content, .hero-badge { z-index: 2; position: relative; }
+
+    /* 2. Gold Divider Shimmer */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(231,191,99,0.5), transparent);
+      margin: 60px auto;
+      width: 80%;
+      position: relative;
+      opacity: 0.6;
+      overflow: hidden;
+    }
+    .gold-divider::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+      animation: shimmerDivider 3s infinite;
+    }
+    @keyframes shimmerDivider { 100% { left: 200%; } }
+
+    /* 3. Review Carousel */
+    .review-carousel-container { position: relative; overflow: hidden; padding: 20px 0; }
+    .review-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .review-slide { min-width: 100%; padding: 0 20px; box-sizing: border-box; text-align: center; }
+    .review-nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+    .review-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; cursor: pointer; }
+    .review-dot.active { background: #e7bf63; }
+
+    /* 4. Background Noise */
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz4KPC9zdmc+');
+      opacity: 0.4;
+    }
+
+    /* 5. Fix Services Glow Icons (SVG Sizing) */
+    .glow-icon svg { width: 28px; height: 28px; fill: currentColor; }
+
+    /* 6. MOBILE LAYOUT FIX: Un-squeezes the services box */
+    @media (max-width: 1000px) {
+      .split { 
+        display: flex !important; 
+        flex-direction: column-reverse !important; 
+        gap: 35px !important;
+        align-items: center !important;
+      }
+      .trust-content { 
+        width: 100% !important; 
+        text-align: center !important; 
+        padding-right: 0 !important;
+      }
+      .services-glow-container { 
+        width: 100% !important; 
+        max-width: 500px !important; 
+        margin: 0 auto !important;
+      }
+      .glow-grid { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 15px !important; 
+      }
+      .glow-card {
+        padding: 15px 5px !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header-include"></div>
+
+  <main class="page content-wrapper" id="main">
+
+   <section class="hero hero-home fade-up" style="margin-top: 60px;">
+      <div class="hero-overlay"></div>
+      
+      <div class="hero-content">
+        <h1>Luxury Remodeling &amp; True Masonry for NYC Homes</h1>
+        <p>White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.</p>
+        
+        <div class="hero-actions">
+          <a class="btn" href="tel:+19295955300">📞 Fast Estimate</a>
+          <button type="button" class="btn ghost contact-panel-toggle">Contact &amp; Options</button>
+        </div>
+        <ul class="trust-pills" role="list">
+          <li class="gold-pill breathing-gold">NYC Licensed &amp; Insured · HIC #2131291</li>
+          <li class="gold-pill breathing-gold">EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
+          <li class="gold-pill breathing-gold">Before/After Documentation</li>
+          <li class="gold-pill breathing-gold">Clean, Respectful Crew</li>
+        </ul>
+      </div>
+      <div class="hero-badge">
+        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC American flag hero badge" width="170" height="170" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section section-special fade-up">
+      <h2>Masonry Tune-Up Special – $349</h2>
+      <p class="lead">A focused masonry service for NYC homeowners who want safer, better-looking steps and walkways without a full rebuild.</p>
+      <ul class="bullets">
+        <li>Repoint 6–8 bricks or joints in a problem area</li>
+        <li>Fill and seal small cracks in front steps or walkway</li>
+        <li>Blend mortar for a clean, uniform look</li>
+        <li>Quick safety check for trip hazards at entries</li>
+      </ul>
+      <p class="fine-print">Residential projects only. Final pricing may vary for larger repairs. Ask about full masonry options during your visit.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn contact-panel-toggle">Book This Special</button>
+        <a class="btn ghost" href="/project-estimator.html">Open Project Estimator</a>
+      </div>
+    </section>
+
+    <div class="gold-divider"></div>
+
+    <section class="section tier-section fade-up">
+      <div class="tier-header">
+        <h2>Your Budget, Your Choice</h2>
+        <p>We don't guess your budget—we work with it. We provide <strong>Transparent Tiered Estimates</strong> so you can decide the level of finish that fits your financial comfort zone.</p>
+      </div>
+
+      <div class="tier-grid">
+        <div class="tier-card foundation">
+          <div class="tier-top"><h3>Foundation</h3><span class="tier-badge">Essential</span></div>
+          <p class="tier-desc">A solid, reliable option when you want clean, professional results without unnecessary extras.</p>
+          <ul class="bullets">
+            <li>Standard materials (NYC-approved)</li>
+            <li>Clean workmanship & Basic prep</li>
+            <li>Clear, itemized estimate</li>
+            <li>Before/after photos</li>
+          </ul>
+          <p class="tier-best"><strong>Best for:</strong> Sidewalk repairs, patchwork, painting, routine maintenance, small remodel fixes.</p>
+        </div>
+
+        <div class="tier-card premium">
+          <div class="tier-top"><h3>Premium</h3><span class="tier-badge">Most Popular</span></div>
+          <p class="tier-desc">Our most popular tier — a balance of luxury and value.</p>
+          <ul class="bullets">
+            <li>Higher-grade materials (better longevity)</li>
+            <li>Enhanced dust protection</li>
+            <li>Smoother finishes & extra detail</li>
+            <li>Extended warranty options</li>
+          </ul>
+          <p class="tier-best"><strong>Best for:</strong> Stoops, pavers, bathroom refresh, higher-end masonry, flooring, kitchen upgrades.</p>
+        </div>
+
+        <div class="tier-card signature">
+          <div class="tier-top"><h3>Signature</h3><span class="tier-badge">Luxury</span></div>
+          <p class="tier-desc">Made for homeowners who want the highest-end finish with a designer-level look.</p>
+          <ul class="bullets">
+            <li>Luxury materials (premium pavers, tiles)</li>
+            <li>Custom designs & layouts</li>
+            <li>Advanced HEPA dust control</li>
+            <li>Signature “White-Glove” finishing</li>
+          </ul>
+          <p class="tier-best"><strong>Best for:</strong> Full remodels, luxury bathrooms/kitchens, high-end masonry, custom outdoor spaces.</p>
+        </div>
+      </div>
+
+      <div class="tier-hook">
+        <p><strong>How it works:</strong> You give us a ballpark budget, and we show you exactly what we can build at each tier. No hidden fees, no surprises.</p>
+        <a href="/project-estimator.html" class="btn">Get a Tiered Estimate</a>
+      </div>
+    </section>
+
+    <div class="gold-divider"></div>
+
+    <section class="section split fade-up" style="align-items: center;">
+      
+      <div class="trust-content">
+        <h2>Licensed • Insured • Giving Back</h2>
+        <p>Staten Island–based contractor serving NYC with white-glove care. We mask floors, control dust, and leave your home photo-ready. Plus, we’re the only local contractor with a <strong>Signature Membership</strong> that gives back to neighbors.</p>
+        
+        <ul class="bullets" style="margin-top:15px; margin-bottom:20px;">
+          <li><strong>Licensed:</strong> NYC Home Improvement Contractor — HIC #2131291</li>
+          <li><strong>Fully Insured:</strong> Liability & Workers’ Comp. COIs issued within 24 hours.</li>
+          <li><strong>Lead Safety:</strong> EPA RRP Lead-Safe Certified for pre-1978 homes.</li>
+        </ul>
+
+        <div style="background:rgba(231,191,99,0.1); border:1px solid rgba(231,191,99,0.3); border-radius:12px; padding:15px;">
+          <h3 style="font-size:16px; color:var(--gold-soft); margin-bottom:5px;">🎁 Signature Membership (Free)</h3>
+          <p style="font-size:13px; color:var(--muted); margin-bottom:10px;">
+            Local homeowners can join our <strong>Community Giveback</strong>. Members are entered for a chance to receive <strong>complimentary home-care perks</strong> (from 50+ services) as we work in your area.
+          </p>
+          <a href="/membership.html" style="font-size:12px; color:#fff; font-weight:bold; text-decoration:underline;">See Perks & How to Join &rarr;</a>
+        </div>
+      </div>
+
+      <div class="services-glow-container">
+        <h3 style="text-align:center; color:var(--gold-soft); margin-bottom:15px;">Signature Services</h3>
+        
+        <div class="glow-grid">
+          <a href="/services.html" class="glow-card style-white">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></span>
+            <span>Masonry</span>
+          </a>
+          <a href="/services.html" class="glow-card style-gold">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></span>
+            <span>Pavers</span>
+          </a>
+          <a href="/services.html" class="glow-card style-blue">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M21.9 21.9l-2.9-2.9c.4-.9.6-1.9.6-2.9 0-4.4-3.6-8-8-8s-8 3.6-8 8c0 1 .2 2 .6 2.9l-2.9 2.9L2.8 20.5l2.9 2.9C6.6 23.8 7.3 24 8 24c4.4 0 8-3.6 8-8 0-1-.2-2-.6-2.9l2.9-2.9 1.4 1.4zM4 12c0-4.4 3.6-8 8-8s8 3.6 8 8h-2c0-3.3-2.7-6-6-6s-6 2.7-6 6H4z"/></svg></span>
+            <span>Kitchens</span>
+          </a>
+          <a href="/services.html" class="glow-card style-red">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M22 11V5h-5V3H7v2H2v6h2v10h16V11h2zm-8 8h-4v-4h4v4zm0-6h-4v-4h4v4z"/></svg></span>
+            <span>Basements</span>
+          </a>
+          <a href="/services.html" class="glow-card style-green">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M17.5 12c-2.5 0-4.5-2-4.5-4.5S15 3 17.5 3 22 5 22 7.5 20 12 17.5 12zM4 21h16v-2H4v2zm0-4h10v-2H4v2z"/></svg></span>
+            <span>Painting</span>
+          </a>
+          <a href="/services.html" class="glow-card style-cyan">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span>
+            <span>Cleaning</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="gold-divider"></div>
+
+    <section class="section section-process fade-up">
+      <h2>How We Work on Your Home</h2>
+      <ol class="process-steps">
+        <li>
+          <h3>1. Quick Call, Text, or Photos</h3>
+          <p>You reach out however is easiest — call, text, or send a few photos of the area. We ask simple questions about your home, timeline, and budget so we know if you need a small repair, a safety fix, or a full remodel.</p>
+        </li>
+        <li>
+          <h3>2. Clear, Written Estimate</h3>
+          <p>If needed, we schedule a walk-through to measure, check conditions, and spot any hidden issues before they become surprises. You receive a written, itemized estimate with Foundation, Premium, and Signature options so you can see what each tier includes and exactly what it costs.</p>
+        </li>
+        <li>
+          <h3>3. Protection &amp; Prep</h3>
+          <p>Before tools come out, floors, railings, and walkways are covered with paper, plastic, and drop cloths. We set up dust control, safe walking paths, and protect nearby finishes so the rest of your home stays clean and livable while we work.</p>
+        </li>
+        <li>
+          <h3>4. Build, Inspect, Communicate</h3>
+          <p>Our licensed crew performs the work according to manufacturer specs and NYC-ready code awareness. You get updates during the project — what we did today, what’s happening next — and we do internal checks to make sure everything is straight, level, and properly tied into the existing structure.</p>
+        </li>
+        <li>
+          <h3>5. Final Walk-Through &amp; After Photos</h3>
+          <p>We walk the project with you, note any touch-ups, and handle them before we call the job finished. The area is swept, wiped, and ready for photos. You leave with before/after documentation and simple care tips so your new work stays looking sharp for years.</p>
+        </li>
+      </ol>
+    </section>
+
+    <div class="gold-divider"></div>
+
+    <section id="before-after" class="section fade-up">
+      <div class="ba-head">
+        <h2>Before &amp; After</h2>
+        <p class="ba-note">Real customer projects — auto-loaded from our gallery.</p>
+      </div>
+      <div id="ba-grid" class="ba-grid"></div>
+      <div class="ba-actions"><button id="ba-loadmore" class="btn">Load 6 More</button></div>
+      <template id="ba-card">
+        <article class="ba-card">
+          <div class="ba-frame">
+            <img class="ba-img ba-before" alt="Before image">
+            <div class="ba-after-wrap"><img class="ba-img ba-after" alt="After image"></div>
+            <input class="ba-slider" type="range" min="0" max="100" value="50">
+            <div class="ba-label ba-label-left">Before</div><div class="ba-label ba-label-right">After</div>
+          </div>
+          <div class="ba-caption"></div>
+        </article>
+      </template>
+    </section>
+
+    <div class="gold-divider"></div>
+
+    <section class="section split fade-up" style="align-items: center;">
+      <div class="accent-card" style="text-align: center;">
+        <div style="width: 80px; height: 80px; background: var(--bg); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--gold);">
+          <span style="font-size: 24px;">👷‍♂️</span>
+        </div>
+        <h3 style="color: var(--gold);">The Hammer Guarantee</h3>
+        <p style="color: var(--muted);">"I don't just send a crew; I’m there to lead them. I personally guarantee detailed craftsmanship, total site protection, and a spotless finish on every project."</p>
+        <p style="margin-top: 10px; font-weight: bold; color: #fff;">— Noman, Owner</p>
+      </div>
+      <div>
+        <h2>Why Neighbors Choose Us</h2>
+        <p>We aren't a generic franchise. We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.</p>
+      </div>
+    </section>
+
+    <section class="section section-reviews-highlight fade-up">
+      <div class="review-carousel-container">
+        <div class="review-track" id="reviewTrack">
+          <div class="review-slide">
+            <p class="review-score">⭐⭐⭐⭐⭐</p>
+            <p class="review-quote">“Respectful crew, clean job site, and beautiful work. Our front steps look like a brand-new house.”</p>
+            <p class="review-note">- Sarah J., Staten Island</p>
+          </div>
+          <div class="review-slide">
+            <p class="review-score">⭐⭐⭐⭐⭐</p>
+            <p class="review-quote">“Noman was honest about the pricing and the tiers made it easy to choose.”</p>
+            <p class="review-note">- Mike T., Brooklyn</p>
+          </div>
+          <div class="review-slide">
+            <p class="review-score">⭐⭐⭐⭐⭐</p>
+            <p class="review-quote">“Best experience I've had with a contractor in 20 years.”</p>
+            <p class="review-note">- David R., New Jersey</p>
+          </div>
+        </div>
+        <div class="review-nav" id="reviewNav">
+          <div class="review-dot active" data-index="0"></div>
+          <div class="review-dot" data-index="1"></div>
+          <div class="review-dot" data-index="2"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gold-divider"></div>
+
+    <section class="section faq-section fade-up">
+      <h2 class="faq-title shimmer-gold">Common Questions</h2>
+      <details><summary>Do you provide free estimates?</summary><p>Yes. We provide clear, itemized written estimates.</p></details>
+      <details><summary>Are you licensed and insured in NYC?</summary><p>Absolutely. HIC #2131291. COIs available.</p></details>
+      <details><summary>Do you handle permits?</summary><p>Yes, we work with licensed architects for DOB filings.</p></details>
+      <details><summary>What areas do you serve?</summary><p>Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ.</p></details>
+    </section>
+
+  </main>
+
+  <div id="contact-panel" class="contact-panel" aria-hidden="true" style="display:none;">
+    <div class="contact-panel-inner">
+      <button class="contact-panel-close">×</button>
+      <h2>Contact Us</h2>
+      <ul class="contact-panel-actions">
+        <li><a href="tel:+19295955300">📞 Call Now</a></li>
+        <li><a href="sms:+19295955300">💬 Text Us</a></li>
+        <li><a href="/project-estimator.html">🧮 Free Estimate</a></li>
+        <li><a href="/contact.html">📝 Contact Form</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="footer-include"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Animations
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+      // Review Carousel
+      const track = document.getElementById('reviewTrack');
+      const dots = document.querySelectorAll('.review-dot');
+      let currentSlide = 0;
+      function updateSlide(index) {
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach(d => d.classList.remove('active'));
+        dots[index].classList.add('active');
+        currentSlide = index;
+      }
+      dots.forEach((dot, index) => dot.addEventListener('click', () => updateSlide(index)));
+      setInterval(() => updateSlide((currentSlide + 1) % dots.length), 5000);
+
+      // Contact Panel
+      const panel = document.getElementById("contact-panel");
+      document.querySelectorAll(".contact-panel-toggle").forEach(b => b.addEventListener("click", () => panel.style.display="flex"));
+      panel.querySelector(".contact-panel-close").addEventListener("click", () => panel.style.display="none");
+      panel.addEventListener("click", (e) => { if(e.target===panel) panel.style.display="none"; });
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/gallery.json").then(r=>r.json()).then(data => {
+        const grid=document.getElementById("ba-grid"), tmpl=document.getElementById("ba-card");
+        (data.homePairs||[]).slice(0,6).forEach(item => {
+          const card=tmpl.content.cloneNode(true);
+          card.querySelector(".ba-before").src="/images/"+item.before;
+          card.querySelector(".ba-after").src="/images/"+item.after;
+          card.querySelector(".ba-caption").textContent=item.label||"";
+          const wrap=card.querySelector(".ba-after-wrap");
+          card.querySelector(".ba-slider").addEventListener("input",e=>wrap.style.width=e.target.value+"%");
+          grid.appendChild(card);
+        });
+      }).catch(e=>console.log("No gallery items"));
+    });
+  </script>
+  
+  <link rel="stylesheet" href="/chat.css">
+  <script src="/chat.js?v=2" defer></script>
+  <script src="/script.js?v=2" defer></script>
+
+</body>
+</html>

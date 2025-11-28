@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<title>Staten Island Home Improvement | Luxury Remodeling & Masonry | Hammer Brick & Home LLC</title>
+<meta name="description" content="Trusted Staten Island home improvement contractor specializing in masonry, pavers, kitchens, bathrooms, painting, and exterior care. Licensed & Insured (NYC HIC #21311291). EPA Lead-Safe Certified Firm. Free estimates." />
+
+<link rel="icon" href="/images/hero.PNG" />
+<link rel="preload" as="image" href="/images/hero.PNG" />
+<link rel="stylesheet" href="/style.css" />
+
+<meta property="og:title" content="Staten Island Home Improvement | Luxury Remodeling & Masonry" />
+<meta property="og:description" content="Premium remodeling, masonry, pavers, kitchens, baths, and exterior care for Staten Island homes. Licensed & Insured. EPA Lead-Safe Certified Firm." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.hammerbrickhome.com/staten-island.html" />
+<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Staten Island Home Improvement | Luxury Remodeling & Masonry" />
+<meta name="twitter:description" content="Serving Staten Island homeowners with precision craftsmanship and clean, respectful work." />
+<meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Hammer Brick & Home LLC — Staten Island Division",
+  "url": "https://www.hammerbrickhome.com/staten-island.html",
+  "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "description": "Premium remodeling, masonry, pavers, concrete work, and home improvement services for Staten Island homeowners.",
+  "areaServed": ["Staten Island"],
+  "telephone": "+1-929-595-5300",
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "NYC HIC",
+    "value": "21311291"
+  },
+  "hasCredential": [{
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "EPA Lead-Safe Certified Firm"
+  }],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Staten Island",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<div id="header-include"></div>
+
+<main class="page">
+
+<section class="hero hero-inner fade-up">
+  <div class="hero-content">
+    <h1>Staten Island Remodeling &amp; Masonry</h1>
+    <p>Dedicated to Staten Island homeowners — clean, careful work on kitchens, baths, pavers, sidewalks, concrete, decks, basements, and more.</p>
+
+    <ul class="trust-pills" role="list" style="margin-top:12px">
+      <li>NYC Licensed & Insured · HIC #21311291</li>
+      <li>EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
+      <li>Itemized Estimates · Clean, Respectful Crew</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section split fade-up">
+  <div>
+    <h2>Most Requested Work in Staten Island</h2>
+    <p class="section-note">Neighborhoods served: Tottenville, Huguenot, Eltingville, Great Kills, Annadale, New Dorp, Oakwood, Willowbrook, Westerleigh, Richmondtown, and more.</p>
+
+    <ul class="bullets">
+      <li><strong>Masonry &amp; Concrete:</strong> sidewalks, DOT repairs, pavers, retaining walls, stoops, brick/stone</li>
+      <li><strong>Remodeling:</strong> kitchens, baths, basements, framing, flooring, tile</li>
+      <li><strong>Painting &amp; Finishes:</strong> interior/exterior, plaster, stucco patching, trim enamel</li>
+      <li><strong>Exterior Maintenance:</strong> power washing, gutters, deck staining, seasonal safety checks</li>
+    </ul>
+  </div>
+
+  <div class="accent-card">
+    <h3>Why Staten Island Chooses Us</h3>
+    <ul class="bullets">
+      <li>Clean prep, drop cloths & dust control</li>
+      <li>Precise lines, finishes & premium materials</li>
+      <li>White-glove cleanup after every project</li>
+      <li>Help with DOB rules, HOA guidelines & permits</li>
+      <li>Before/After project documentation</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section fade-up">
+  <h2>Specialty: Pre-1978 Homes</h2>
+  <p class="section-note">
+    Staten Island has many older homes — we are <strong>EPA RRP Lead-Safe Certified</strong> for compliant renovation, dust control, and friction-surface fixes.
+  </p>
+</section>
+
+<section class="section note-box fade-up">
+  <h2>Ready to Begin?</h2>
+  <p>Send photos, call for a walkthrough, or request an in-person estimate. We respond quickly and professionally.</p>
+  <div class="cta-actions">
+    <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
+    <a class="btn ghost" href="/contact.html">Request a Quote</a>
+  </div>
+</section>
+
+</main>
+
+<div id="cta-include"></div>
+<div id="footer-include"></div>
+
+<script src="/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([
+    fetch("/header.html").then(r => r.text()),
+    fetch("/contact-cta.html").then(r => r.text()),
+    fetch("/footer.html").then(r => r.text())
+  ])
+  .then(([header, cta, footer]) => {
+    document.getElementById("header-include").innerHTML = header;
+    document.getElementById("cta-include").innerHTML = cta;
+    document.getElementById("footer-include").innerHTML = footer;
+
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+
+    if (typeof initHeaderInteractions === "function") {
+      initHeaderInteractions();
+    }
+  })
+  .catch(console.error);
+});
+</script>
+<link rel="stylesheet" href="/chat.css">
+<script src="/chat.js" defer></script>
+
+<script src="/script.js" defer></script>
+
+</body>
+</html>
+</body>
+</html>
+
+
+

@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Pricing & Packages — Hammer Brick & Home LLC</title>
+<meta name="description" content="Transparent one-time project packages and monthly home care plans. Final quotes follow a site visit and written estimate.">
+
+<!-- Root paths -->
+<link rel="icon" href="/images/hero.PNG">
+<link rel="preload" as="image" href="/images/hero.PNG">
+<link rel="stylesheet" href="/style.css">
+
+<!-- Extra styles for cards + accordions -->
+<style>
+/* Card grid */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+.pkg-card{
+  border:1px solid rgba(231,191,99,.35);
+  border-radius:var(--radius,16px);
+  padding:18px;
+  background:rgba(5,12,25,.96);
+  box-shadow:0 14px 36px rgba(0,0,0,.45);
+}
+.pkg-card h3{
+  margin-top:0;
+  font-size:18px;
+}
+.pkg-card h4{
+  margin:4px 0 0;
+  font-size:13px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--gold-soft,#f5d89b);
+}
+.pkg-card ul{
+  padding-left:18px;
+  margin:8px 0;
+}
+.price{
+  color:var(--gold,#e7bf63);
+  font-weight:700;
+  margin-top:8px;
+}
+.muted{
+  color:var(--muted,rgba(255,255,255,.78));
+  font-size:13px;
+}
+
+/* Monthly plan accordion */
+.plan-accordion{
+  max-width:980px;
+  margin:0 auto;
+}
+.plan-details{
+  margin-bottom:16px;
+  border:1px solid rgba(231,191,99,.45);
+  border-radius:18px;
+  padding:12px 14px;
+  background:rgba(4,10,22,.97);
+  box-shadow:0 12px 30px rgba(0,0,0,.55);
+}
+.plan-details summary{
+  list-style:none;
+  cursor:pointer;
+}
+.plan-details summary::-webkit-details-marker{display:none;}
+
+.plan-summary-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+.plan-title{
+  font-size:18px;
+  font-weight:800;
+  color:var(--gold-soft,#f5d89b);
+}
+.plan-tagline{
+  font-size:13px;
+  color:var(--muted,rgba(255,255,255,.78));
+}
+.plan-price-line{
+  font-size:13px;
+  text-align:right;
+  color:var(--gold-soft,#f5d89b);
+}
+.plan-price-line strong{
+  color:var(--gold,#e7bf63);
+}
+.plan-body{
+  margin-top:12px;
+  border-top:1px solid rgba(231,191,99,.26);
+  padding-top:10px;
+}
+
+/* Category-level details (Masonry / Carpentry etc) */
+.category-details{
+  margin-bottom:10px;
+  border:1px solid rgba(231,191,99,.3);
+  border-radius:14px;
+  background:rgba(5,12,25,.98);
+  padding:8px 10px;
+}
+.category-details summary{
+  list-style:none;
+  font-size:14px;
+  font-weight:600;
+  color:var(--gold-soft,#f5d89b);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+.category-details summary::-webkit-details-marker{display:none;}
+.category-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.category-pill{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:2px 7px;
+  border-radius:999px;
+  border:1px solid rgba(231,191,99,.5);
+}
+.category-body{
+  margin-top:8px;
+  padding-top:6px;
+  border-top:1px dashed rgba(231,191,99,.25);
+}
+
+/* Service-level details */
+.service-details{
+  margin:6px 0;
+  border-radius:10px;
+  border:1px solid rgba(231,191,99,.28);
+  background:rgba(6,12,24,.99);
+  padding:6px 8px;
+}
+.service-details summary{
+  list-style:none;
+  font-size:13px;
+  font-weight:600;
+  color:var(--ink,#ffffff);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+.service-details summary::-webkit-details-marker{display:none;}
+.service-name{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.service-chip{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:1px 6px;
+  border-radius:999px;
+  border:1px solid rgba(231,191,99,.4);
+  color:var(--gold-soft,#f5d89b);
+}
+.service-body{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted,rgba(255,255,255,.78));
+  line-height:1.5;
+}
+.service-body p{
+  margin:0 0 6px;
+}
+.service-prices{
+  font-size:12px;
+  color:var(--gold-soft,#f5d89b);
+}
+.service-prices strong{
+  color:var(--gold,#e7bf63);
+}
+
+/* Small arrow indicator */
+.summary-arrow{
+  font-size:12px;
+  opacity:.9;
+}
+
+/* Note box / bullets (fallbacks if not in main CSS) */
+.note-box{
+  border-radius:16px;
+  border:1px solid rgba(231,191,99,.35);
+  background:rgba(5,12,25,.96);
+  padding:16px 18px;
+  box-shadow:0 14px 36px rgba(0,0,0,.45);
+}
+.bullets{
+  padding-left:18px;
+  margin:8px 0 10px;
+}
+.bullets li{
+  margin-bottom:4px;
+}
+
+/* Spacing tweaks */
+.section h2 + p.muted{
+  margin-top:6px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER INCLUDE -->
+<div id="header-include"></div>
+
+<main class="page">
+
+<!-- HERO -->
+<section class="hero hero-inner fade-up">
+  <div class="hero-content">
+    <h1>Pricing &amp; Packages</h1>
+    <p>Clear structures, no surprises. Final pricing is always confirmed after an on-site visit and written proposal.</p>
+  </div>
+</section>
+
+<!-- POPULAR PROJECT PACKAGES (20 ONE-TIME SERVICES) -->
+<section class="section fade-up">
+  <h2>Popular Project Packages (One-Time Pricing)</h2>
+  <p class="muted">
+    These are typical starting points for common projects in NYC/NJ.  
+    All prices assume <strong>standard sizes</strong> and <strong>typical conditions</strong>. Larger spaces, extra repairs,
+    premium materials, difficult access, or permit requirements will change the final quote.
+  </p>
+
+  <div class="card-grid">
+
+    <!-- 1 -->
+    <article class="pkg-card">
+      <h3>Front Curb Appeal Refresh</h3>
+      <h4>Front of House – Cosmetic Boost</h4>
+      <ul>
+        <li>Power-wash front steps &amp; main walkway (up to ~150 sq ft)</li>
+        <li>Front rail &amp; trim touch-up painting (one entry area)</li>
+        <li>Light gutter clean over front entry (where safely accessible)</li>
+        <li>Quick front bed clean-up &amp; edging (small area)</li>
+      </ul>
+      <p class="price">From <strong>$650+</strong> (standard 1–2 family home front)</p>
+      <p class="muted">Designed for real estate photos, appraisals, or getting the house ready for guests. Larger fronts or heavy repairs are quoted separately.</p>
+    </article>
+
+    <!-- 2 -->
+    <article class="pkg-card">
+      <h3>Patio Glow-Up (Deep Clean &amp; Seal)</h3>
+      <h4>Paver or Concrete Patio – Maintenance</h4>
+      <ul>
+        <li>Power-wash patio surface (up to ~250 sq ft)</li>
+        <li>Light joint re-sanding for pavers (maintenance level)</li>
+        <li>Compatible sealer application (paver or concrete)</li>
+        <li>Edge and border clean-up, debris removed</li>
+      </ul>
+      <p class="price">From <strong>$1,450+</strong> for up to ~250 sq ft</p>
+      <p class="muted">Pricing assumes an existing, structurally sound patio. Full rebuilds, major resets, or large crack repairs are quoted as separate projects.</p>
+    </article>
+
+    <!-- 3 -->
+    <article class="pkg-card">
+      <h3>Paver Walkway Install</h3>
+      <h4>New Walkway – Standard Size</h4>
+      <ul>
+        <li>Up to ~120 sq ft straight or gently curved walkway</li>
+        <li>Excavation, compacted base &amp; bedding layer</li>
+        <li>Standard concrete pavers (customer-chosen style/colour)</li>
+        <li>Edge restraints &amp; joint sand</li>
+      </ul>
+      <p class="price">From <strong>$3,200+</strong> for up to ~120 sq ft</p>
+      <p class="muted">Steps, curves, retaining edges, premium stone, or difficult access (tight yards, many stairs) will increase pricing.</p>
+    </article>
+
+    <!-- 4 -->
+    <article class="pkg-card">
+      <h3>Driveway Renewal</h3>
+      <h4>Cleaning &amp; Non-Structural Crack Care</h4>
+      <ul>
+        <li>Power-wash &amp; clean driveway (up to ~600 sq ft)</li>
+        <li>Non-structural crack filling where appropriate</li>
+        <li>Seal coat application for asphalt or compatible surfaces</li>
+        <li>Edge clean-up &amp; debris removal</li>
+      </ul>
+      <p class="price"><strong>$1,200–$2,900</strong> typical range</p>
+      <p class="muted">Not for structural concrete failure, sinking, or full replacement. Those are quoted as separate projects and may require permits.</p>
+    </article>
+
+    <!-- 5 -->
+    <article class="pkg-card">
+      <h3>Small Bathroom Refresh</h3>
+      <h4>Standard Hall Bath – Cosmetic</h4>
+      <ul>
+        <li>Regrout &amp; recaulk tub or shower area</li>
+        <li>Paint walls &amp; trim (up to ~40 sq ft bathroom)</li>
+        <li>Replace basic hardware (towel bars, TP holder, etc.)</li>
+        <li>Minor tile or drywall touch-ups (non-structural)</li>
+      </ul>
+      <p class="price">From <strong>$2,850+</strong> for a typical small bath</p>
+      <p class="muted">Does not include full gut, layout changes, or major plumbing/electrical work. Those are scoped separately.</p>
+    </article>
+
+    <!-- 6 -->
+    <article class="pkg-card">
+      <h3>Bathroom Cosmetic Makeover</h3>
+      <h4>Primary or Larger Bath – No Gut</h4>
+      <ul>
+        <li>Regrout/caulk tub or shower plus floor touch-ups</li>
+        <li>Full repaint of walls &amp; ceiling (up to ~60 sq ft room)</li>
+        <li>New vanity or top (standard sizes), mirror &amp; hardware swap</li>
+        <li>Basic lighting or fixture replacement (same locations)</li>
+      </ul>
+      <p class="price">From <strong>$5,500+</strong></p>
+      <p class="muted">Layout changes, soaking tubs, custom glass, or tile re-lays are upgraded projects and quoted separately.</p>
+    </article>
+
+    <!-- 7 -->
+    <article class="pkg-card">
+      <h3>Kitchen Mini-Remodel</h3>
+      <h4>Existing Kitchen – Light Facelift</h4>
+      <ul>
+        <li>Cabinet repaint or light refinish (existing boxes, up to ~12' x 12' kitchen)</li>
+        <li>New backsplash installation on one main wall/area</li>
+        <li>New cabinet hardware &amp; small fixture updates</li>
+        <li>Wall &amp; ceiling paint touch-up where needed</li>
+      </ul>
+      <p class="price">From <strong>$4,500+</strong> for a typical small/medium kitchen</p>
+      <p class="muted">No cabinet re-layout, wall removals, or full electrical/plumbing rework in this package. Larger or custom kitchens are priced after a visit.</p>
+    </article>
+
+    <!-- 8 -->
+    <article class="pkg-card">
+      <h3>Living Room Feature Wall &amp; Refresh</h3>
+      <h4>One Main Room – Visual Upgrade</h4>
+      <ul>
+        <li>One designer feature/accent wall (paint or simple trim design)</li>
+        <li>Repaint remaining walls in same room (up to ~250 sq ft walls)</li>
+        <li>Minor drywall repairs &amp; caulking before paint</li>
+        <li>Outlet &amp; switch plate swaps (same locations)</li>
+      </ul>
+      <p class="price">From <strong>$2,100+</strong></p>
+      <p class="muted">Elaborate trim designs, wallpaper, or specialty finishes will be priced as upgrades after design selection.</p>
+    </article>
+
+    <!-- 9 -->
+    <article class="pkg-card">
+      <h3>Bedroom Repaint Package</h3>
+      <h4>Standard Bedroom – Clean &amp; Calm</h4>
+      <ul>
+        <li>Walls painted in one selected color (up to ~12' x 14' room)</li>
+        <li>Ceiling &amp; trim touch-up or repaint (standard height)</li>
+        <li>Minor nail hole &amp; small crack patching</li>
+      </ul>
+      <p class="price">From <strong>$1,150+</strong> per standard bedroom</p>
+      <p class="muted">Larger rooms, very dark colors, heavy repairs, or high ceilings will affect pricing.</p>
+    </article>
+
+    <!-- 10 -->
+    <article class="pkg-card">
+      <h3>Whole-Home Touch-Up Day</h3>
+      <h4>Multi-Room Paint &amp; Small Repairs</h4>
+      <ul>
+        <li>One technician (or small crew) on-site for a full day</li>
+        <li>Wall scuff touch-ups in key rooms (using existing paint)</li>
+        <li>Small drywall patches, caulking, and trim nicks fixed</li>
+        <li>Minor hardware swaps (handles, knobs, small fixtures)</li>
+      </ul>
+      <p class="price">From <strong>$1,250+</strong> per day</p>
+      <p class="muted">Ideal for punch lists before listing or after a move. Does not include full-room repaints or major structural repairs.</p>
+    </article>
+
+    <!-- 11 -->
+    <article class="pkg-card">
+      <h3>Fence &amp; Gate Install Starter</h3>
+      <h4>New Fence – Standard Run</h4>
+      <ul>
+        <li>Up to ~60 linear feet of wood or vinyl fence</li>
+        <li>Posts set in concrete where accessible</li>
+        <li>One standard gate installed &amp; aligned</li>
+        <li>Jobsite clean-up &amp; debris haul-away</li>
+      </ul>
+      <p class="price">From <strong>$3,200+</strong> for up to ~60 linear ft</p>
+      <p class="muted">Extra gates, height over 6', difficult access, or heavily sloped yards will change the price and may require additional approvals.</p>
+    </article>
+
+    <!-- 12 -->
+    <article class="pkg-card">
+      <h3>Fence Tune-Up &amp; Stain</h3>
+      <h4>Existing Fence – Maintenance</h4>
+      <ul>
+        <li>Tighten or replace loose fasteners (accessible sections)</li>
+        <li>Basic alignment adjustments for sagging gates</li>
+        <li>Wash &amp; stain/seal up to ~80 linear ft of fence</li>
+      </ul>
+      <p class="price">From <strong>$1,450+</strong> for up to ~80 linear ft</p>
+      <p class="muted">Rotten posts, structural post replacement, or major rebuilds are quoted as separate projects.</p>
+    </article>
+
+    <!-- 13 -->
+    <article class="pkg-card">
+      <h3>Deck Wash &amp; Seal</h3>
+      <h4>Wood or Composite Deck – Standard Size</h4>
+      <ul>
+        <li>Clean &amp; power-wash deck surface (up to ~250 sq ft)</li>
+        <li>Light sanding on rough spots (where accessible)</li>
+        <li>Stain or clear sealer application (customer-chosen product)</li>
+      </ul>
+      <p class="price">From <strong>$1,750+</strong> for up to ~250 sq ft</p>
+      <p class="muted">Structural repairs, rotten framing, or railing rebuilds are additional and inspected first.</p>
+    </article>
+
+    <!-- 14 -->
+    <article class="pkg-card">
+      <h3>Basement Freshen-Up</h3>
+      <h4>Dry Basement – Cosmetic Only</h4>
+      <ul>
+        <li>Paint walls &amp; ceiling in basic finish (up to ~300 sq ft)</li>
+        <li>Patch small holes &amp; cosmetic cracks (non-structural)</li>
+        <li>Simple floor paint or sealer (where suitable)</li>
+      </ul>
+      <p class="price">From <strong>$3,000+</strong></p>
+      <p class="muted">Not a waterproofing or structural package. Moisture, mold, foundation issues, or leaks must be handled separately.</p>
+    </article>
+
+    <!-- 15 -->
+    <article class="pkg-card">
+      <h3>Garage Clean &amp; Organize Starter</h3>
+      <h4>One-Car Garage – Light Makeover</h4>
+      <ul>
+        <li>Basic clean-out &amp; sorting of contents (owner present)</li>
+        <li>Install simple shelving or wall hooks (material extra)</li>
+        <li>Floor cleaning &amp; optional basic floor coating (where suitable)</li>
+      </ul>
+      <p class="price">From <strong>$1,350+</strong> for a typical one-car garage</p>
+      <p class="muted">Heavy junk removal, specialty coatings, or structural work are priced separately.</p>
+    </article>
+
+    <!-- 16 -->
+    <article class="pkg-card">
+      <h3>Seasonal Yard Clean-Up</h3>
+      <h4>Spring or Fall – Standard Lot</h4>
+      <ul>
+        <li>Leaf &amp; debris clean-up (up to ~3,000 sq ft area)</li>
+        <li>Basic bed edging &amp; light shrub trimming</li>
+        <li>Bagging or hauling of green waste (limits apply)</li>
+      </ul>
+      <p class="price">From <strong>$650+</strong> per visit</p>
+      <p class="muted">Very large lots, overgrown properties, or heavy tree work require a custom estimate.</p>
+    </article>
+
+    <!-- 17 -->
+    <article class="pkg-card">
+      <h3>Gutter Clean &amp; Roofline Check</h3>
+      <h4>1–2 Family Home – Safe Access Only</h4>
+      <ul>
+        <li>Clean accessible gutters &amp; downspouts</li>
+        <li>Basic roofline visual check from ladder (no roof walking where unsafe)</li>
+        <li>Photos of problem areas provided</li>
+      </ul>
+      <p class="price">From <strong>$375+</strong></p>
+      <p class="muted">Very high roofs, complex townhouses, or unsafe ladder setups may require specialty equipment and pricing.</p>
+    </article>
+
+    <!-- 18 -->
+    <article class="pkg-card">
+      <h3>Sidewalk &amp; Front Concrete Clean-Up</h3>
+      <h4>Cosmetic Cleaning – Not Replacement</h4>
+      <ul>
+        <li>Power-wash front sidewalk panels (up to ~300 sq ft)</li>
+        <li>Clean front steps and stoop face</li>
+        <li>Minor joint/edge clean-up where feasible</li>
+      </ul>
+      <p class="price">From <strong>$750+</strong></p>
+      <p class="muted">Does <strong>not</strong> include full sidewalk replacement or DOB violation removals. Those require separate permitting and structural work.</p>
+    </article>
+
+    <!-- 19 -->
+    <article class="pkg-card">
+      <h3>Snow &amp; Ice Walkway Package</h3>
+      <h4>Per Storm – Standard Front Walk</h4>
+      <ul>
+        <li>Clear front steps and main walkway (up to ~50 ft)</li>
+        <li>Apply ice melt in treated areas</li>
+        <li>Service scheduled within agreed weather window</li>
+      </ul>
+      <p class="price">From <strong>$149+ per storm</strong></p>
+      <p class="muted">Seasonal contracts and priority routes are available; pricing depends on frequency and property layout.</p>
+    </article>
+
+    <!-- 20 -->
+    <article class="pkg-card">
+      <h3>Premium Entry Door Upgrade</h3>
+      <h4>Front Door – Replace &amp; Finish</h4>
+      <ul>
+        <li>Remove old entry door &amp; basic frame</li>
+        <li>Install new pre-hung door (owner-selected model)</li>
+        <li>Adjust, weather-strip &amp; caulk perimeter</li>
+        <li>Paint or stain new door &amp; trim (standard colors)</li>
+      </ul>
+      <p class="price">From <strong>$2,250+</strong> plus door cost</p>
+      <p class="muted">Custom doors, sidelights, structural changes, or masonry resizing are quoted after inspection.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- MONTHLY HOME CARE PLANS -->
+<section class="section fade-up">
+  <h2>Monthly Home Care Plans</h2>
+  <p class="muted">
+    For clients who want ongoing help instead of one big project.  
+    Plans focus on <strong>maintenance-sized tasks</strong>, not full renovations.
+    Large rebuilds, full sand &amp; seal, or full room repaints stay in the one-time packages above.
+    <br><strong>6-Month Prepay: Save about 5% &nbsp;&bull;&nbsp; 12-Month Prepay: Save about 10%</strong>
+  </p>
+
+  <div class="plan-accordion">
+
+    <!-- BASIC PLAN -->
+    <details class="plan-details" open>
+      <summary>
+        <div class="plan-summary-header">
+          <div>
+            <div class="plan-title">Basic Plan</div>
+            <div class="plan-tagline">Essential touch-ups and safety items for busy homeowners.</div>
+          </div>
+          <div class="plan-price-line">
+            <div><strong>Typical from $79–$149/mo</strong></div>
+            <div>6-Month Prepay: Save ~5% • 12-Month: Save ~10%</div>
+          </div>
+        </div>
+      </summary>
+
+      <div class="plan-body">
+
+        <!-- Masonry BASIC -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Masonry &amp; Pavers</span>
+              <span>Small-area maintenance &amp; safety checks.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Paver Inspection &amp; Spot Reset</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>Each visit, we walk your main walkway or patio, flag trip hazards, and include limited reset work (typically up to a small patch area per visit, not a full rebuild).</p>
+                <p class="service-prices">
+                  <strong>Example:</strong> From $119/mo &mdash; 6-month and 12-month prepay options available.<br>
+                  Includes <strong>small patch areas only</strong>. Larger sections are quoted as one-time projects.
+                </p>
+              </div>
+            </details>
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Minor Crack Sealing</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We seal small, non-structural cracks in steps and walkways to slow water damage and freeze–thaw wear.</p>
+                <p class="service-prices">
+                  Typically bundled into Basic masonry visits; <strong>size limits apply</strong> and structural cracks are excluded.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <!-- Carpentry BASIC -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Carpentry &amp; Interior</span>
+              <span>Doors, cabinets, trim &amp; small patches.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Door &amp; Cabinet Tune-Up</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We adjust sticking doors, tighten hinges, fix basic cabinet alignment, and handle small hardware swaps within the scheduled visit time.</p>
+                <p class="service-prices">
+                  Plans generally start from <strong>$99–$129/mo</strong> depending on home size and priorities.
+                </p>
+              </div>
+            </details>
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Small Drywall Patches</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We repair a limited number of nail pops, small dents, and tiny holes each visit, then leave walls paint-ready or touch up if paint is provided.</p>
+                <p class="service-prices">
+                  Included within visit time; large areas or skim coats require a separate project estimate.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <!-- Painting BASIC -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Painting &amp; Finishes</span>
+              <span>Touch-ups, caulking &amp; small trim.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Scuff &amp; Mark Touch-Ups</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We hit the worst marks in high-traffic areas using homeowner-provided paint or closely matched colors, so everything looks cleaner between full repaints.</p>
+                <p class="service-prices">
+                  Typical Basic finishes care starts at <strong>$79/mo</strong> with prepay savings.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <!-- Exterior BASIC -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Exterior &amp; Entry</span>
+              <span>Fence/gate tune-ups &amp; small wash zones.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Fence &amp; Gate Check</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We tighten basic hardware, adjust sagging gates where possible, and flag any sections that will eventually need full repair or replacement.</p>
+                <p class="service-prices">
+                  Often part of a Basic exterior plan starting around <strong>$99/mo</strong>.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <!-- Landscaping BASIC -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Landscaping</span>
+              <span>Lawn mowing, edging &amp; light bed care.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Basic</span>
+                  <span>Lawn Mowing &amp; Edging</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+
+              <div class="service-body">
+                <p>Scheduled cuts for small/medium yards, including trimming along walkways and fences and blowing clippings off hard surfaces.</p>
+                <p class="service-prices">
+                  <strong>Example:</strong> From <strong>$89/mo</strong> for standard NYC yards; larger or corner lots priced after a visit.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+      </div>
+    </details><!-- END BASIC PLAN -->
+
+    <!-- PREMIUM PLAN -->
+    <details class="plan-details">
+      <summary>
+        <div class="plan-summary-header">
+          <div>
+            <div class="plan-title">Premium Plan</div>
+            <div class="plan-tagline">More noticeable upgrades and deeper maintenance across the year.</div>
+          </div>
+          <div class="plan-price-line">
+            <div><strong>Typical from $149–$249/mo</strong></div>
+            <div>6-Month Prepay: Save ~5% • 12-Month: Save ~10%</div>
+          </div>
+        </div>
+      </summary>
+
+      <div class="plan-body">
+
+        <!-- Masonry PREMIUM -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Masonry &amp; Pavers</span>
+              <span>Medium-sized resets &amp; annual wash cycles.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Medium Area Paver Reset (Maintenance Size)</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We correct medium sections that have started to wave or settle. Each visit focuses on a limited square footage so the work stays in “maintenance” range, not full reconstruction.</p>
+                <p class="service-prices">
+                  Typical Premium masonry plans start around <strong>$169/mo</strong> and up, depending on property size and frequency.
+                </p>
+              </div>
+            </details>
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Annual Wash &amp; Joint Care</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We schedule a deeper clean once a year on key paver or concrete areas, plus ongoing joint touch-ups to extend the life of your hardscape.</p>
+                <p class="service-prices">
+                  Included in many Premium plans; <strong>full sand &amp; seal for entire patios/driveways remains a one-time package above.</strong>
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <!-- Interior PREMIUM -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Interior &amp; Carpentry</span>
+              <span>Accent work &amp; small upgrades.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Accent Wall or Small Room Per Cycle</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>On a set schedule, we repaint one small room or accent wall at a time, keeping the house cycling through fresh spaces without doing everything at once.</p>
+                <p class="service-prices">
+                  Often in the <strong>$179–$229/mo</strong> range depending on scope and frequency.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <!-- Exterior PREMIUM -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Exterior &amp; Landscaping</span>
+              <span>Soft-wash zones, gutters &amp; bed refreshes.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Soft-Wash Zone + Gutter Cycle</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We pair a soft-wash area (like one siding wall or fence line) with scheduled gutter cleaning across the year, so exterior surfaces don’t get out of hand.</p>
+                <p class="service-prices">
+                  Typical combined exterior care starts around <strong>$149–$199/mo</strong>.
+                </p>
+              </div>
+            </details>
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Premium</span>
+                  <span>Mulch &amp; Planting Refresh</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>Twice a year, we edge beds, top up mulch, and add a small number of seasonal plants so the home looks cared for from the street.</p>
+                <p class="service-prices">
+                  Pricing depends on bed size and plant choices; discussed during the estimate.
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+      </div>
+    </details><!-- END PREMIUM -->
+
+    <!-- LUXURY PLAN -->
+    <details class="plan-details">
+      <summary>
+        <div class="plan-summary-header">
+          <div>
+            <div class="plan-title">Luxury Plan</div>
+            <div class="plan-tagline">Concierge-style home care with coordinated interior, exterior, and landscaping priorities.</div>
+          </div>
+          <div class="plan-price-line">
+            <div><strong>Custom plans often from $249+/mo</strong></div>
+            <div>Includes pre-scheduled seasonal visits &amp; priority scheduling.</div>
+          </div>
+        </div>
+      </summary>
+
+      <div class="plan-body">
+
+        <!-- Overview only – bigger upgrades -->
+        <details class="category-details">
+          <summary>
+            <span class="category-label">
+              <span class="category-pill">Whole-Home Strategy</span>
+              <span>Interior, exterior &amp; outdoor combined.</span>
+            </span>
+            <span class="summary-arrow">▼</span>
+          </summary>
+          <div class="category-body">
+
+            <details class="service-details">
+              <summary>
+                <span class="service-name">
+                  <span class="service-chip">Luxury</span>
+                  <span>Custom Maintenance Plan</span>
+                </span>
+                <span class="summary-arrow">+</span>
+              </summary>
+              <div class="service-body">
+                <p>We walk the entire property and build a yearly plan that blends tasks from masonry, carpentry, painting, exterior wash, and landscaping, so you always know what’s coming next.</p>
+                <p class="service-prices">
+                  Pricing is based on property size, complexity, and how much work you want completed each month.  
+                  <strong>Large one-time projects still use a separate written proposal and are not “unlimited” under any monthly plan.</strong>
+                </p>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+      </div>
+    </details><!-- END LUXURY -->
+
+  </div>
+</section>
+
+<!-- HOW WE FINALIZE PRICE -->
+<section class="section note-box fade-up">
+  <h2>How We Finalize Your Price</h2>
+  <ul class="bullets">
+    <li>All prices assume typical 1–2 family homes with normal access and standard ceiling heights.</li>
+    <li>Final pricing depends on access, parking, material choices, existing conditions, and any hidden damage.</li>
+    <li>Permits, DOB filings, engineering, and inspections (when required) are reviewed and priced separately.</li>
+    <li>Structural issues, active leaks, mold, asbestos, and unsafe conditions are not included in base packages.</li>
+  </ul>
+  <p class="muted">
+    Every job receives a written, line-item proposal for your approval before work starts.  
+    Nothing is “unlimited” and scope is clearly defined so there are no surprises later.
+  </p>
+</section>
+
+<!-- FINE PRINT / DISCLAIMERS -->
+<section class="section note-box fade-up">
+  <h2>Important Notes &amp; Conditions</h2>
+  <ul class="bullets">
+    <li><strong>“From” prices</strong> are for typical sizes listed in each package (sq ft, linear ft, or room size). Larger or more complex spaces will be re-priced after a site visit.</li>
+    <li><strong>Deposit:</strong> For projects over $1,000, a deposit of up to <strong>25%</strong> is typically required in line with NYC home improvement regulations. Larger deposits may be requested only for special-order materials.</li>
+    <li><strong>Materials:</strong> Standard materials are included where noted. Premium or custom selections are available at additional cost.</li>
+    <li><strong>Monthly plans:</strong> Focus on maintenance-sized tasks within the scheduled visit time. Big restoration work (full sand &amp; seal, full room repaints, large rebuilds) is always quoted as a separate one-time project.</li>
+    <li><strong>Cancellation:</strong> Monthly plans can be canceled with notice as stated in your agreement. Work already completed and special-order materials are still billable.</li>
+    <li><strong>Licensing &amp; Insurance:</strong> Hammer Brick &amp; Home LLC operates as a licensed and insured home improvement contractor. Permit requirements are reviewed before we start work that needs them.</li>
+  </ul>
+  <p class="muted">
+    Have questions about a specific project or size? We’ll walk the site, answer everything in plain language, and give you a clear, written estimate before you sign anything.
+  </p>
+</section>
+
+</main>
+
+<!-- Footer include -->
+<div id="footer-include"></div>
+
+<!-- Header/Footer Loader -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([
+    fetch("/header.html").then(r => r.text()),
+    fetch("/footer.html").then(r => r.text())
+  ])
+  .then(([header, footer]) => {
+    document.getElementById("header-include").innerHTML = header;
+    document.getElementById("footer-include").innerHTML = footer;
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+    if (typeof initHeaderInteractions === "function") initHeaderInteractions();
+  }).catch(console.error);
+});
+</script>
+
+<link rel="stylesheet" href="/chat.css">
+<script src="/chat.js" defer></script>
+
+<script src="/script.js" defer></script>
+
+</body>
+</html>
+
+
+
+
