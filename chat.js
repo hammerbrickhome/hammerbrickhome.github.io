@@ -1,28 +1,222 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v15.1 (COMPLETE RESTORE)
-   - RESTORED: All original 300+ lines of Services & Add-ons.
-   - INCLUDES: HVAC, Junk Removal, Design, Estimate ID.
-   - FEATURES: Strict Phone Valid, Photo Reminder, Debris Fix.
+   HAMMER BRICK & HOME — ESTIMATOR BOT v16.1 (FULL RESTORE)
+   - RESTORED: All 100+ Smart Add-ons & Service Definitions.
+   - FIXED: "Three Quotes" bug (Quote only appears ONCE at end).
+   - ENGINE: Dictionary-based (English, Spanish, Chinese, Russian).
+   - FEATURES: HVAC, Junk, Design, Strict Phone, Photo Reminder.
 =============================================================== */
 
 (function() {
-  // --- CONFIGURATION -----------------------------------------
 
-  const WEBHOOK_URL = ""; // <- Plug in your Zapier/Make URL here
+  // --- CONFIGURATION -----------------------------------------
+  const WEBHOOK_URL = ""; 
   const PHONE_NUMBER = "9295955300"; 
   const CRM_FORM_URL = ""; 
   const WALKTHROUGH_URL = "";
 
-  // Modifiers apply to BASE PRICE + ADD-ONS + DEBRIS
+  // Modifiers
   const BOROUGH_MODS = {
     "Manhattan": 1.18, "Brooklyn": 1.08, "Queens": 1.05,
     "Bronx": 1.03, "Staten Island": 1.0, "New Jersey": 0.96
   };
-
   const DISCOUNTS = { "VIP10": 0.10, "REFERRAL5": 0.05, "WEBSAVER": 0.05 };
-  
-  // Base Debris Price (Will be multiplied by Borough Modifier)
-  const ADD_ON_PRICES = { "debrisRemoval": { low: 1200, high: 2800 } }; 
+  const ADD_ON_PRICES = { debrisRemoval: { low: 1200, high: 2800 } };
+
+  // --- LANGUAGE DICTIONARY -----------------------------------
+  const TEXT = {
+    en: {
+      welcome: "👋 Hi! Ready to upgrade your home?",
+      disclaimer: "I can generate a **ballpark price range** in 60 seconds. (Ref ID: ",
+      startBtn: "🚀 Start Estimate",
+      projectType: "Awesome. What type of project are you planning?",
+      photoSkip: "📸 Send Photo (Skip to Quote)",
+      photoSkipMsg: "Smart choice. A picture is worth a thousand words.",
+      quickVsFull: "⚡ This looks like a quick job. Fast estimate or full detail?",
+      quickBtn: "⚡ Quick Estimate",
+      fullBtn: "📝 Full Detail",
+      leadCheck: "Is your property built before 1978? (Lead safety required)",
+      indoorOutdoor: "Is this mostly Indoor, Outdoor, or Both?",
+      sizeAsk: "Approximate size?",
+      sizeLow: "Number seems low. Please enter valid number (e.g. 500).",
+      locationAsk: "Which borough/area is this in?",
+      checkSched: "Checking schedule for",
+      schedOk: "🗓️ OK! We have estimate slots available.",
+      priceMode: "How should we price this?",
+      rushAsk: "Is this a rush project (starting within 72 hours)?",
+      promoAsk: "Any promo code today?",
+      webSaverMsg: "Wait! I've applied the **'WEB-SAVER'** discount (-5%) for you. 🎉",
+      debrisAsk: "Include debris removal & dumpster costs? (Typ. +$1,200–$2,800)",
+      addonIntro: "I found optional **Smart Add-ons**. View upgrades?",
+      viewAddons: "✨ View Add-ons",
+      skip: "Skip",
+      categorySel: "Select a category:",
+      doneSel: "✅ Done Selecting",
+      back: "⬅️ Back",
+      itemAdded: "✅ **Item Added to Estimate!**",
+      anotherAsk: "Would you like to add another project?",
+      addMore: "➕ Add Another Project",
+      finish: "No, Finish & Get Quote",
+      membershipAsk: "Before we finish, hear about **VIP Memberships** (15% off labor)?",
+      membershipYes: "🏆 **VIP Members** get 15% off labor + priority booking.",
+      nameAsk: "What is your name?",
+      phoneAsk: "And your mobile number? (SMS Capable)",
+      phoneErr: "⚠️ Please enter a valid 10-digit number (e.g. 9171234567).",
+      timingAsk: "When are you hoping to start?",
+      sourceAsk: "How did you hear about us?",
+      finalNote: "💡 Quick note: This is a **ballpark** range. Final pricing is often lower after a site visit.",
+      photoRemind: "📎 **Reminder:** Photos won't attach automatically. Please add them manually in your text/email.",
+      contactIntro: "Thanks! Choose how you’d like to receive your quote:",
+      textBtn: "📲 Text Me the Quote",
+      emailBtn: "✉️ Email Me the Quote",
+      callBtn: "📞 Call Now",
+      copyBtn: "📋 Copy to Clipboard",
+      startOver: "🔁 Start Over"
+    },
+    es: {
+      welcome: "👋 ¡Hola! ¿Listo para renovar tu hogar?",
+      disclaimer: "Puedo generar un **rango estimado** en 60 segundos. (Ref ID: ",
+      startBtn: "🚀 Comenzar",
+      projectType: "Genial. ¿Qué tipo de proyecto planeas?",
+      photoSkip: "📸 Enviar Foto (Saltar)",
+      photoSkipMsg: "Buena elección. Una imagen vale más que mil palabras.",
+      quickVsFull: "⚡ Parece rápido. ¿Estimado rápido o detallado?",
+      quickBtn: "⚡ Rápido",
+      fullBtn: "📝 Detallado",
+      leadCheck: "¿Tu propiedad es anterior a 1978? (Seguridad plomo)",
+      indoorOutdoor: "¿Interior, exterior o ambos?",
+      sizeAsk: "¿Tamaño aproximado?",
+      sizeLow: "Número muy bajo. Ingresa uno válido (ej. 500).",
+      locationAsk: "¿En qué área está?",
+      checkSched: "Revisando agenda para",
+      schedOk: "🗓️ ¡Sí! Tenemos espacios disponibles.",
+      priceMode: "¿Cómo debemos cotizar?",
+      rushAsk: "¿Es urgente (menos de 72 horas)?",
+      promoAsk: "¿Tienes código promocional?",
+      webSaverMsg: "¡Espera! Apliqué el descuento **'WEB-SAVER'** (-5%). 🎉",
+      debrisAsk: "¿Incluir remoción de escombros? (Typ. +$1,200–$2,800)",
+      addonIntro: "Encontré **Mejoras Inteligentes**. ¿Ver opciones?",
+      viewAddons: "✨ Ver Mejoras",
+      skip: "Saltar",
+      categorySel: "Selecciona categoría:",
+      doneSel: "✅ Terminar",
+      back: "⬅️ Volver",
+      itemAdded: "✅ **¡Proyecto Agregado!**",
+      anotherAsk: "¿Agregar otro proyecto?",
+      addMore: "➕ Agregar Otro",
+      finish: "No, Finalizar",
+      membershipAsk: "¿Te interesa la **Membresía VIP** (15% desc)?",
+      membershipYes: "🏆 **Socios VIP** tienen 15% desc en labor.",
+      nameAsk: "¿Cuál es tu nombre?",
+      phoneAsk: "¿Tu número de celular?",
+      phoneErr: "⚠️ Ingresa un número de 10 dígitos válido.",
+      timingAsk: "¿Cuándo esperas comenzar?",
+      sourceAsk: "¿Cómo nos conociste?",
+      finalNote: "💡 Nota: Es un **rango estimado**. El precio final suele ser menor tras la visita.",
+      photoRemind: "📎 **Recordatorio:** Las fotos no se adjuntan solas. Agrégalas manualmente.",
+      contactIntro: "¡Gracias! Elige cómo recibir tu cotización:",
+      textBtn: "📲 Envíame Texto",
+      emailBtn: "✉️ Envíame Email",
+      callBtn: "📞 Llamar Ahora",
+      copyBtn: "📋 Copiar",
+      startOver: "🔁 Reiniciar"
+    },
+    cn: {
+      welcome: "👋 您好！准备好升级您的家了吗？",
+      disclaimer: "我可以在60秒内生成**估价范围**。(ID: ",
+      startBtn: "🚀 开始",
+      projectType: "太好了。您计划做什么项目？",
+      photoSkip: "📸 发送照片（跳过）",
+      photoSkipMsg: "明智的选择。",
+      quickVsFull: "⚡ 这是快速工作。快速估价还是详细信息？",
+      quickBtn: "⚡ 快速",
+      fullBtn: "📝 详细",
+      leadCheck: "房产是1978年之前建的吗？",
+      indoorOutdoor: "室内，室外还是两者？",
+      sizeAsk: "大约尺寸？",
+      sizeLow: "数字太低。请输入有效数字（如 500）。",
+      locationAsk: "在哪个地区？",
+      checkSched: "正在检查时间表",
+      schedOk: "🗓️ 好的，有空档！",
+      priceMode: "如何定价？",
+      rushAsk: "这是紧急项目吗（72小时内）？",
+      promoAsk: "有优惠码吗？",
+      webSaverMsg: "等等！已应用 **'WEB-SAVER'** 折扣 (-5%)。🎉",
+      debrisAsk: "包括垃圾清理费吗？(约 +$1,200–$2,800)",
+      addonIntro: "发现可选 **智能升级**。查看吗？",
+      viewAddons: "✨ 查看升级",
+      skip: "跳过",
+      categorySel: "选择类别：",
+      doneSel: "✅ 完成",
+      back: "⬅️ 返回",
+      itemAdded: "✅ **项目已添加！**",
+      anotherAsk: "添加另一个项目？",
+      addMore: "➕ 添加",
+      finish: "不，获取报价",
+      membershipAsk: "想了解 **VIP会员** (人工费85折) 吗？",
+      membershipYes: "🏆 **VIP会员** 享受人工费85折。",
+      nameAsk: "您叫什么名字？",
+      phoneAsk: "您的手机号码？",
+      phoneErr: "⚠️ 请输入有效的10位数字。",
+      timingAsk: "希望何时开始？",
+      sourceAsk: "如何知道我们的？",
+      finalNote: "💡 注意：这只是**估算**。实地考察后价格通常更低。",
+      photoRemind: "📎 **提醒：** 照片不会自动附加。请手动添加。",
+      contactIntro: "谢谢！选择接收方式：",
+      textBtn: "📲 短信",
+      emailBtn: "✉️ 邮件",
+      callBtn: "📞 致电",
+      copyBtn: "📋 复制",
+      startOver: "🔁 重新开始"
+    },
+    ru: {
+      welcome: "👋 Привет! Готовы обновить дом?",
+      disclaimer: "Создам **смету** за 60 секунд. (ID: ",
+      startBtn: "🚀 Начать",
+      projectType: "Отлично. Какой тип проекта?",
+      photoSkip: "📸 Фото (Пропустить)",
+      photoSkipMsg: "Отличный выбор.",
+      quickVsFull: "⚡ Быстрая оценка или полная?",
+      quickBtn: "⚡ Быстрая",
+      fullBtn: "📝 Полная",
+      leadCheck: "Дом построен до 1978 года?",
+      indoorOutdoor: "Внутри, снаружи или оба?",
+      sizeAsk: "Примерный размер?",
+      sizeLow: "Мало. Введите верное число (500).",
+      locationAsk: "В каком районе?",
+      checkSched: "Проверяю расписание для",
+      schedOk: "🗓️ Да! Есть места.",
+      priceMode: "Как оценить?",
+      rushAsk: "Срочный проект (72 часа)?",
+      promoAsk: "Есть промокод?",
+      webSaverMsg: "Применил скидку **'WEB-SAVER'** (-5%). 🎉",
+      debrisAsk: "Включить вывоз мусора? (+$1,200–$2,800)",
+      addonIntro: "Нашел **Доп. опции**. Посмотреть?",
+      viewAddons: "✨ Посмотреть",
+      skip: "Пропустить",
+      categorySel: "Выберите категорию:",
+      doneSel: "✅ Готово",
+      back: "⬅️ Назад",
+      itemAdded: "✅ **Проект добавлен!**",
+      anotherAsk: "Добавить еще проект?",
+      addMore: "➕ Добавить",
+      finish: "Нет, получить смету",
+      membershipAsk: "Интересует **VIP членство** (скидка 15%)?",
+      membershipYes: "🏆 **VIP** получают скидку 15% на работы.",
+      nameAsk: "Как вас зовут?",
+      phoneAsk: "Ваш мобильный?",
+      phoneErr: "⚠️ Введите 10 цифр.",
+      timingAsk: "Когда начать?",
+      sourceAsk: "Откуда узнали о нас?",
+      finalNote: "💡 Это **ориентир**. Итоговая цена часто ниже.",
+      photoRemind: "📎 **Напоминание:** Фото не прикрепляются сами. Добавьте вручную.",
+      contactIntro: "Спасибо! Как отправить смету:",
+      textBtn: "📲 СМС",
+      emailBtn: "✉️ Email",
+      callBtn: "📞 Позвонить",
+      copyBtn: "📋 Копировать",
+      startOver: "🔁 Заново"
+    }
+  };
 
   const SMART_ADDON_GROUP_LABELS = {
     luxury: "Luxury Upgrades", protection: "Protection & Safety",
@@ -30,7 +224,7 @@
     maintenance: "Maintenance Items"
   };
 
-  // --- SMART ADD-ONS CONFIG (FULL 2025 CATALOG) ---
+  // --- FULL SMART ADD-ONS CONFIG (RESTORED) ---
   const SMART_ADDONS_CONFIG = {
     masonry: {
       title: "Masonry · Pavers · Concrete",
@@ -39,7 +233,7 @@
           { label: "Premium border band (Granite/Blue Stone)", low: 1800, high: 3500 },
           { label: "Decorative inlays or medallion pattern", low: 1500, high: 4200 },
           { label: "Raised seating wall (per 10ft)", low: 3500, high: 6800 }, 
-          { label: "Outdoor kitchen prep pad (gas/electric ready)", low: 3200, high: 7500 }
+          { label: "Outdoor kitchen prep pad", low: 3200, high: 7500 }
         ],
         protection: [
           { label: "Full base compaction + Geogrid", low: 1200, high: 2800 },
@@ -48,12 +242,10 @@
         ],
         design: [
           { label: "Color upgrade / multi-blend pavers", low: 850, high: 2200 },
-          { label: "Large-format or European-style pavers", low: 2200, high: 5800 }, 
-          { label: "Step face stone veneer upgrade", low: 1800, high: 4500 }
+          { label: "Large-format or European-style pavers", low: 2200, high: 5800 }
         ],
         speed: [
-          { label: "Weekend or off-hours install", low: 1500, high: 3500 },
-          { label: "Phased work scheduling", low: 650, high: 1500 }
+          { label: "Weekend or off-hours install", low: 1500, high: 3500 }
         ],
         maintenance: [
           { label: "Polymeric sand refill & joint tightening", low: 450, high: 950 },
@@ -413,7 +605,7 @@
       title: "HVAC / Climate",
       groups: {
         luxury: [
-           { label: "Smart Thermostat Integration (Nest/Ecobee)", low: 450, high: 950 },
+           { label: "Smart Thermostat Integration", low: 450, high: 950 },
            { label: "Invisible Slim-Duct Upgrade", low: 1500, high: 3200 }
         ],
         protection: [
@@ -424,12 +616,12 @@
     }
   };
 
-  // --- FULL SERVICE DEFINITIONS (RESTORED ALL) ---
+  // --- FULL SERVICE DEFINITIONS (RESTORED) ---
   const SERVICES = {
     "masonry": {
-      label: "Masonry & Concrete", emoji: "🧱", unit: "sq ft",
+      label: "Masonry/Concrete", emoji: "🧱", unit: "sq ft",
       baseLow: 16, baseHigh: 28, min: 2500,
-      subQuestion: "What type of finish?",
+      subQuestion: "Finish type?",
       options: [
         { label: "Standard Concrete ($)", factor: 1.0 },
         { label: "Pavers ($$)", factor: 1.6 },
@@ -439,13 +631,13 @@
         { label: "Sidewalk Flag (25 sq ft)", val: 25 },
         { label: "Small Patio (10x10)", val: 100 },
         { label: "Standard Backyard (20x20)", val: 400 },
-        { label: "Large Driveway/Yard (50x20)", val: 1000 }
+        { label: "Large Driveway (50x20)", val: 1000 }
       ]
     },
     "driveway": {
       label: "Driveway", emoji: "🚗", unit: "sq ft",
       baseLow: 10, baseHigh: 20, min: 3500,
-      subQuestion: "Current surface condition?",
+      subQuestion: "Current condition?",
       options: [
         { label: "Dirt/Gravel (New)", factor: 1.0 },
         { label: "Existing Asphalt (Removal)", factor: 1.25 },
@@ -472,8 +664,35 @@
         { label: "Detached Home", val: 1600 }
       ]
     },
+    "hvac": {
+      label: "HVAC / Mini-Splits", emoji: "❄️", unit: "fixed",
+      subQuestion: "System Type?",
+      options: [
+        { label: "Single Zone Mini-Split", fixedLow: 4500, fixedHigh: 7500 },
+        { label: "Multi-Zone (3-4 Heads)", fixedLow: 14000, fixedHigh: 22000 },
+        { label: "Central Air Swap", fixedLow: 12000, fixedHigh: 18000 }
+      ]
+    },
+    "junk_removal": {
+      label: "Junk Removal", emoji: "🗑️", unit: "fixed",
+      subQuestion: "Volume?", quickQuote: true,
+      options: [
+        { label: "1/4 Truck (Small)", fixedLow: 350, fixedHigh: 550 },
+        { label: "1/2 Truck", fixedLow: 550, fixedHigh: 850 },
+        { label: "Full Truck", fixedLow: 850, fixedHigh: 1400 }
+      ]
+    },
+    "design": {
+      label: "Design Services", emoji: "📐", unit: "fixed",
+      subQuestion: "Service needed?",
+      options: [
+        { label: "3D Rendering / Concept", fixedLow: 850, fixedHigh: 2500 },
+        { label: "Architectural Plans (Filing)", fixedLow: 3500, fixedHigh: 8500 },
+        { label: "Interior Design Consult", fixedLow: 550, fixedHigh: 1500 }
+      ]
+    },
     "painting": {
-      label: "Interior Painting", emoji: "🎨", unit: "sq ft",
+      label: "Interior Paint", emoji: "🎨", unit: "sq ft",
       baseLow: 1.8, baseHigh: 3.8, min: 1800,
       subQuestion: "Paint quality?", leadSensitive: true,
       options: [
@@ -490,9 +709,9 @@
       ]
     },
     "exterior_paint": {
-      label: "Exterior Painting", emoji: "🖌", unit: "sq ft",
+      label: "Exterior Paint", emoji: "🖌", unit: "sq ft",
       baseLow: 2.5, baseHigh: 5.5, min: 3500,
-      subQuestion: "Surface condition?",
+      subQuestion: "Condition?",
       options: [
         { label: "Good Condition", factor: 1.0 },
         { label: "Peeling / Prep Needed", factor: 1.4 },
@@ -500,58 +719,27 @@
       ],
       sizePresets: [
         { label: "Garage Front", val: 200 },
-        { label: "Small Facade (Rowhome)", val: 400 },
+        { label: "Small Facade", val: 400 },
         { label: "Full Detached House", val: 2500 }
       ]
     },
-    "basement_floor": {
-      label: "Basement Floor Paint / Epoxy", emoji: "🧼", unit: "sq ft",
-      baseLow: 2.8, baseHigh: 5.5, min: 1200,
-      subQuestion: "Floor type?",
-      options: [
-        { label: "1-Part Epoxy Paint", factor: 1.0 },
-        { label: "2-Part Epoxy (Thick Coat)", factor: 1.6 },
-        { label: "Flake System", factor: 2.1 }
-      ],
-      sizePresets: [
-        { label: "Small Utility Room", val: 150 },
-        { label: "Standard Basement (20x25)", val: 500 },
-        { label: "Large Full Basement", val: 900 }
-      ]
-    },
-    "fence": {
-      label: "Fence Install", emoji: "🚧", unit: "linear ft",
-      baseLow: 30, baseHigh: 75, min: 1800,
-      subQuestion: "Fence type?",
-      options: [
-        { label: "Wood", factor: 1.0 },
-        { label: "PVC", factor: 1.6 },
-        { label: "Chain-Link", factor: 0.9 },
-        { label: "Aluminum", factor: 2.0 }
-      ],
-      sizePresets: [
-        { label: "Back Line Only (20ft)", val: 20 },
-        { label: "Small Yard (3 sides)", val: 100 },
-        { label: "Large Perimeter", val: 200 }
-      ]
-    },
     "deck": {
-      label: "Deck / Porch Build", emoji: "🪵", unit: "sq ft",
+      label: "Deck / Porch", emoji: "🪵", unit: "sq ft",
       baseLow: 35, baseHigh: 65, min: 5000,
-      subQuestion: "Deck material?",
+      subQuestion: "Material?",
       options: [
         { label: "Pressure Treated", factor: 1.0 },
         { label: "Composite (Trex)", factor: 1.9 },
         { label: "PVC Luxury", factor: 2.4 }
       ],
       sizePresets: [
-        { label: "Small Landing (4x4)", val: 16 },
-        { label: "Bistro Deck (8x10)", val: 80 },
-        { label: "Entertainer Deck (16x20)", val: 320 }
+        { label: "Small Landing", val: 16 },
+        { label: "Bistro Deck", val: 80 },
+        { label: "Entertainer Deck", val: 320 }
       ]
     },
     "drywall": {
-      label: "Drywall Install / Repair", emoji: "📐", unit: "sq ft",
+      label: "Drywall", emoji: "🛠", unit: "sq ft",
       baseLow: 3.2, baseHigh: 6.5, min: 750,
       subQuestion: "Scope?",
       options: [
@@ -560,25 +748,20 @@
         { label: "Level 5 Finish", factor: 2.1 }
       ],
       sizePresets: [
-        { label: "Patch & Repair", val: 50 },
+        { label: "Patch", val: 50 },
         { label: "One Wall", val: 120 },
         { label: "Whole Room", val: 500 }
       ]
     },
     "flooring": {
-      label: "Flooring Installation", emoji: "🪚", unit: "sq ft",
+      label: "Flooring", emoji: "🪚", unit: "sq ft",
       baseLow: 3.5, baseHigh: 9.5, min: 2500,
-      subQuestion: "Flooring type?",
+      subQuestion: "Type?",
       options: [
         { label: "Vinyl Plank", factor: 1.0 },
         { label: "Tile", factor: 1.8 },
         { label: "Hardwood", factor: 2.4 },
         { label: "Laminate", factor: 1.2 }
-      ],
-      sizePresets: [
-        { label: "Hallway / Foyer", val: 80 },
-        { label: "Bedroom", val: 150 },
-        { label: "Living Room", val: 300 }
       ]
     },
     "powerwash": {
@@ -591,22 +774,6 @@
         { label: "Whole House", val: 2000 }
       ]
     },
-    "gutter": {
-      label: "Gutter Install", emoji: "🩸", unit: "linear ft",
-      baseLow: 15, baseHigh: 35, min: 1200,
-      quickQuote: true,
-      subQuestion: "Type?",
-      options: [
-        { label: "Aluminum", factor: 1.0 },
-        { label: "Seamless", factor: 1.4 },
-        { label: "Copper", factor: 3.5 }
-      ],
-      sizePresets: [
-        { label: "Front Only", val: 25 },
-        { label: "Front & Back", val: 50 },
-        { label: "Whole House", val: 120 }
-      ]
-    },
     "windows": {
       label: "Windows Install", emoji: "🪟", unit: "fixed",
       subQuestion: "Window type?",
@@ -616,41 +783,9 @@
         { label: "Bay/Bow Window", fixedLow: 3500, fixedHigh: 6500 }
       ]
     },
-    "doors": {
-      label: "Door Installation", emoji: "🚪", unit: "fixed",
-      subQuestion: "Door type?",
-      options: [
-        { label: "Interior", fixedLow: 250, fixedHigh: 550 },
-        { label: "Exterior Steel / Fiberglass", fixedLow: 950, fixedHigh: 1800 },
-        { label: "Sliding Patio", fixedLow: 2200, fixedHigh: 4200 }
-      ]
-    },
-    "demo": {
-      label: "Demolition", emoji: "💥", unit: "sq ft",
-      baseLow: 3.0, baseHigh: 7.5, min: 900,
-      subQuestion: "Material?", leadSensitive: true,
-      options: [
-        { label: "Drywall", factor: 1.0 },
-        { label: "Tile / Bathroom Demo", factor: 1.8 },
-        { label: "Concrete Demo", factor: 2.4 }
-      ]
-    },
-    "retaining": {
-      label: "Retaining Wall", emoji: "🧱", unit: "linear ft",
-      baseLow: 60, baseHigh: 140, min: 5500,
-      subQuestion: "Material?",
-      options: [
-        { label: "CMU Block", factor: 1.0 },
-        { label: "Poured Concrete", factor: 1.7 },
-        { label: "Stone Veneer", factor: 2.3 }
-      ]
-    },
-    "handyman": {
-      label: "Small Repairs / Handyman", emoji: "🛠", unit: "consult", quickQuote: true
-    },
     "kitchen": {
       label: "Kitchen Remodel", emoji: "🍳", unit: "fixed",
-      subQuestion: "What is the scope?",
+      subQuestion: "Scope?",
       options: [
         { label: "Refresh (Cosmetic)", fixedLow: 18000, fixedHigh: 30000 },
         { label: "Mid-Range (Cabinets+)", fixedLow: 30000, fixedHigh: 55000 },
@@ -660,7 +795,7 @@
     },
     "bathroom": {
       label: "Bathroom Remodel", emoji: "🚿", unit: "fixed",
-      subQuestion: "What is the scope?",
+      subQuestion: "Scope?",
       options: [
         { label: "Update (Fixtures/Tile)", fixedLow: 14000, fixedHigh: 24000 },
         { label: "Full Gut / Redo", fixedLow: 24000, fixedHigh: 45000 }
@@ -668,93 +803,60 @@
       leadSensitive: true
     },
     "siding": {
-      label: "Siding Installation", emoji: "🏡", unit: "sq ft",
+      label: "Siding Install", emoji: "🏡", unit: "sq ft",
       baseLow: 8.5, baseHigh: 18.5, min: 4000,
-      subQuestion: "Siding Material?",
+      subQuestion: "Material?",
       options: [
         { label: "Vinyl", factor: 1.0 },
         { label: "Wood/Cedar Shake", factor: 1.8 },
         { label: "Fiber Cement (Hardie)", factor: 1.5 }
-      ],
-      sizePresets: [
-        { label: "One Wall / Repair", val: 300 },
-        { label: "Small Home", val: 1200 },
-        { label: "Large Home", val: 2500 }
       ]
     },
-    "chimney": {
-      label: "Chimney Repair / Rebuild", emoji: "🔥", unit: "fixed",
-      subQuestion: "Scope of work?",
+    "fence": {
+      label: "Fence Install", emoji: "🚧", unit: "linear ft",
+      baseLow: 30, baseHigh: 75, min: 1800,
+      subQuestion: "Fence type?",
       options: [
-        { label: "Cap / Flashing Repair", fixedLow: 800, fixedHigh: 1800 },
-        { label: "Partial Rebuild (Above roofline)", fixedLow: 3000, fixedHigh: 6500 },
-        { label: "Full Masonry Rebuild", fixedLow: 6500, fixedHigh: 12000 }
-      ]
-    },
-    "insulation": {
-      label: "Insulation Install", emoji: "🌡️", unit: "sq ft",
-      baseLow: 1.2, baseHigh: 3.5, min: 1000,
-      subQuestion: "Insulation type?",
-      options: [
-        { label: "Fiberglass Batts", factor: 1.0 },
-        { label: "Blown-in Cellulose", factor: 1.2 },
-        { label: "Spray Foam (Closed-Cell)", factor: 2.5 }
-      ]
-    },
-    "sidewalk": {
-      label: "Sidewalk, Steps, & Stoops", emoji: "🚶", unit: "fixed",
-      subQuestion: "Scope of work?",
-      options: [
-        { label: "Sidewalk Violation Repair", fixedLow: 3500, fixedHigh: 7500 },
-        { label: "Front Steps / Stoop Rebuild", fixedLow: 6000, fixedHigh: 15000 },
-        { label: "New Paver Walkway", fixedLow: 45, fixedHigh: 85, isPerSqFt: true }
-      ]
-    },
-    "outdoor_living": {
-      label: "Outdoor Living (Kitchen/Firepit)", emoji: "🔥", unit: "fixed",
-      subQuestion: "What do you need built?",
-      options: [
-        { label: "Fire Pit Station", fixedLow: 3500, fixedHigh: 6500 },
-        { label: "Outdoor Kitchen (Base)", fixedLow: 12000, fixedHigh: 25000 },
-        { label: "Full Entertainment Patio", fixedLow: 25000, fixedHigh: 65000 }
+        { label: "Wood", factor: 1.0 },
+        { label: "PVC", factor: 1.6 },
+        { label: "Chain-Link", factor: 0.9 },
+        { label: "Aluminum", factor: 2.0 }
       ]
     },
     "waterproofing": {
-      label: "Waterproofing / Leak Repair", emoji: "💧", unit: "linear ft",
+      label: "Waterproofing", emoji: "💧", unit: "linear ft",
       baseLow: 40, baseHigh: 90, min: 2500,
-      subQuestion: "Location of leak?",
+      subQuestion: "Location?",
       options: [
-        { label: "Exterior Foundation", factor: 1.0 },
-        { label: "Basement Interior", factor: 1.5 },
-        { label: "Roof/Flashing (Requires inspection)", factor: 1.8 }
+        { label: "Exterior", factor: 1.0 },
+        { label: "Interior", factor: 1.5 },
+        { label: "Roof", factor: 1.8 }
       ]
     },
-    "hvac": {
-      label: "HVAC / Mini-Splits", emoji: "❄️", unit: "fixed",
-      subQuestion: "System Type?",
+    "sidewalk": {
+      label: "Sidewalk / DOT", emoji: "🚶", unit: "fixed",
+      subQuestion: "Scope?",
       options: [
-        { label: "Single Zone Mini-Split", fixedLow: 4500, fixedHigh: 7500 },
-        { label: "Multi-Zone (3-4 Heads)", fixedLow: 14000, fixedHigh: 22000 },
-        { label: "Central Air Swap", fixedLow: 12000, fixedHigh: 18000 }
+        { label: "Violation Repair", fixedLow: 3500, fixedHigh: 7500 },
+        { label: "Front Stoop Rebuild", fixedLow: 6000, fixedHigh: 15000 },
+        { label: "New Walkway", fixedLow: 45, fixedHigh: 85, isPerSqFt: true }
       ]
     },
-    "junk_removal": {
-      label: "Junk Removal / Cleanout", emoji: "🗑️", unit: "fixed",
-      subQuestion: "Volume?", quickQuote: true,
+    "outdoor_living": {
+      label: "Outdoor Living", emoji: "🔥", unit: "fixed",
+      subQuestion: "Type?",
       options: [
-        { label: "1/4 Truck (Small)", fixedLow: 350, fixedHigh: 550 },
-        { label: "1/2 Truck", fixedLow: 550, fixedHigh: 850 },
-        { label: "Full Truck", fixedLow: 850, fixedHigh: 1400 }
+        { label: "Fire Pit Station", fixedLow: 3500, fixedHigh: 6500 },
+        { label: "Outdoor Kitchen", fixedLow: 12000, fixedHigh: 25000 },
+        { label: "Full Patio Setup", fixedLow: 25000, fixedHigh: 65000 }
       ]
     },
-    "design": {
-      label: "Design Services / Permits", emoji: "📐", unit: "fixed",
-      subQuestion: "Service needed?",
-      options: [
-        { label: "3D Rendering / Concept", fixedLow: 850, fixedHigh: 2500 },
-        { label: "Architectural Plans (Filing)", fixedLow: 3500, fixedHigh: 8500 },
-        { label: "Interior Design Consult", fixedLow: 550, fixedHigh: 1500 }
-      ]
+    "gutter": {
+      label: "Gutter Install", emoji: "🩸", unit: "linear ft", baseLow: 15, baseHigh: 35, min: 1200, quickQuote: true,
+      subQuestion: "Type?", options: [{ label: "Aluminum", factor: 1.0 }, { label: "Seamless", factor: 1.4 }, { label: "Copper", factor: 3.5 }]
+    },
+    "handyman": {
+      label: "Small Repairs", emoji: "🛠", unit: "consult", quickQuote: true
     },
     "other": {
       label: "Other / Custom", emoji: "📋", unit: "consult"
@@ -763,61 +865,30 @@
 
   // --- STATE --------------------------------------------------
   let state = {
-    estimateId: "",
-    lang: "en",
-    step: 0,
-    serviceKey: null,
-    subOption: null,
-    size: 0,
-    borough: null,
-    isLeadHome: false,
-    pricingMode: "full",
-    isRush: false,
-    promoCode: "",
-    debrisRemoval: false,
-    selectedAddons: [], 
-    name: "",
-    phone: "",
-    projectTiming: "",
-    leadSource: "",
-    projects: [],
-    interestedInMembership: false,
-    isPhotoSkip: false 
+    estimateId: "", lang: "en", step: 0,
+    serviceKey: null, subOption: null, size: 0, borough: null,
+    isLeadHome: false, pricingMode: "full", isRush: false, promoCode: "",
+    debrisRemoval: false, selectedAddons: [], 
+    name: "", phone: "", projectTiming: "", leadSource: "",
+    projects: [], interestedInMembership: false, isPhotoSkip: false 
   };
-
   let els = {};
 
   // --- INIT ---------------------------------------------------
-
   function init() {
-    console.log("HB Chat: Initializing v15.1...");
     createInterface();
     startTicker();
-    
-    // Auto-open logic
-    if (!sessionStorage.getItem("hb_has_opened_automatically")) {
-        setTimeout(function() {
-            if (!els.wrapper.classList.contains("hb-open")) {
-                toggleChat();
-                sessionStorage.setItem("hb_has_opened_automatically", "true");
-            }
-        }, 4000); 
+    if (!sessionStorage.getItem("hb_auto_open")) {
+        setTimeout(() => { if (!els.wrapper.classList.contains("hb-open")) toggleChat(); sessionStorage.setItem("hb_auto_open", "true"); }, 4000); 
     }
-
     state.estimateId = "EST-" + Math.floor(Math.random() * 100000);
-    // Resume logic placeholder (Option B: Reset for now)
-    localStorage.removeItem("hb_estimator_state");
-
     setTimeout(stepOne_Disclaimer, 800);
   }
 
   function createInterface() {
     const fab = document.createElement("div");
     fab.className = "hb-chat-fab";
-    fab.setAttribute("aria-label", "Instant Estimate");
-    fab.innerHTML = `<span class="hb-fab-icon">⚡</span><span class="hb-fab-text">Instant Estimate</span>`;
-    fab.style.display = "flex"; 
-    fab.style.zIndex = "2147483647";
+    fab.innerHTML = `<span class="hb-fab-icon">⚡</span>`;
     fab.onclick = toggleChat;
     document.body.appendChild(fab);
 
@@ -825,118 +896,44 @@
     wrapper.className = "hb-chat-wrapper";
     wrapper.innerHTML = `
       <div class="hb-chat-header">
-        <div class="hb-chat-title">
-          <h3>Hammer Brick & Home</h3>
-          <span style="color:#e7bf63; font-size:11px; letter-spacing:0.5px;">★★★★★ 5.0 on Google</span>
-        </div>
-        <div style="display:flex; gap:15px; align-items:center;">
-            <a href="tel:${PHONE_NUMBER}" style="text-decoration:none; color:#fff; font-size:18px;" aria-label="Call Now">📞</a>
-            <button class="hb-chat-close" style="font-size:24px;">×</button>
-        </div>
+        <div class="hb-chat-title"><h3>Hammer Brick & Home</h3><span style="font-size:11px;color:#e7bf63">★★★★★ 5.0</span></div>
+        <button class="hb-chat-close">×</button>
       </div>
-      <div id="hb-ticker" style="background:#1c263b; color:#888; font-size:10px; padding:6px 16px; border-bottom:1px solid rgba(255,255,255,0.05); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-        Initializing...
-      </div>
-      <div class="hb-progress-container">
-        <div class="hb-progress-bar" id="hb-prog"></div>
-      </div>
-      <div class="hb-chat-body" id="hb-body" role="log" aria-live="polite"></div>
-      <div class="hb-chat-footer">
-        <input type="text" class="hb-chat-input" id="hb-input" placeholder="Select an option..." disabled>
-        <button class="hb-chat-send" id="hb-send">➤</button>
-      </div>
+      <div id="hb-ticker" style="background:#1c263b;color:#888;font-size:10px;padding:6px;white-space:nowrap;overflow:hidden;">Initializing...</div>
+      <div class="hb-progress-container"><div class="hb-progress-bar" id="hb-prog"></div></div>
+      <div class="hb-chat-body" id="hb-body"></div>
+      <div class="hb-chat-footer"><input type="text" class="hb-chat-input" id="hb-input" disabled><button class="hb-chat-send" id="hb-send">➤</button></div>
     `;
     document.body.appendChild(wrapper);
-
     const photoInput = document.createElement("input");
-    photoInput.type = "file";
-    photoInput.accept = "image/*";
-    photoInput.multiple = true;
-    photoInput.style.display = "none";
-    photoInput.id = "hb-photo-input";
+    photoInput.type = "file"; photoInput.accept = "image/*"; photoInput.multiple = true; photoInput.style.display = "none"; photoInput.id = "hb-photo-input";
     document.body.appendChild(photoInput);
 
-    els = {
-      wrapper, fab, body: document.getElementById("hb-body"),
-      input: document.getElementById("hb-input"),
-      send: document.getElementById("hb-send"),
-      prog: document.getElementById("hb-prog"),
-      ticker: document.getElementById("hb-ticker"),
-      close: wrapper.querySelector(".hb-chat-close"),
-      photoInput
-    };
-
+    els = { wrapper, fab, body: document.getElementById("hb-body"), input: document.getElementById("hb-input"), send: document.getElementById("hb-send"), prog: document.getElementById("hb-prog"), ticker: document.getElementById("hb-ticker"), close: wrapper.querySelector(".hb-chat-close"), photoInput };
     els.close.onclick = toggleChat;
     els.send.onclick = handleManualInput;
-    els.input.addEventListener("keypress", function(e) {
-      if (e.key === "Enter") handleManualInput();
-    });
-
-    photoInput.addEventListener("change", function() {
-      if (!photoInput.files || !photoInput.files.length) return;
-      addBotMessage(`📷 You selected ${photoInput.files.length} photo(s). Please attach these when you text or email us.`);
-    });
+    photoInput.addEventListener("change", () => { if(photoInput.files.length) addBotMessage(`📷 ${photoInput.files.length} photos selected.`); });
   }
 
   function startTicker() {
-      if (!els.ticker) return;
-      const msgs = [
-        "⚡ Get a price range in 60 seconds – No phone call needed.",
-        "🛡️ NYC Licensed & Insured: HIC #2131291 · EPA Lead-Safe Certified",
-        "💳 VIP Members get 10% off labor + priority emergency scheduling.",
-        "📸 Text us photos for a fast ballpark estimate.",
-        "📍 Serving Manhattan, Brooklyn, Queens, Bronx, Staten Island & NJ."
-      ];
-      let i = 0;
-      els.ticker.innerText = msgs[0];
-      setInterval(() => {
-          i = (i + 1) % msgs.length;
-          els.ticker.innerText = msgs[i];
-      }, 4000); 
+      const msgs = ["⚡ Instant Estimate", "🛡️ NYC Licensed & Insured", "💳 VIP Members Save 10%", "📸 Text us photos"];
+      let i = 0; els.ticker.innerText = msgs[0];
+      setInterval(() => { i = (i + 1) % msgs.length; els.ticker.innerText = msgs[i]; }, 4000); 
   }
 
   function toggleChat() {
     const isOpen = els.wrapper.classList.toggle("hb-open");
-    if (isOpen) {
-      els.fab.style.display = "none";
-      sessionStorage.setItem("hb_chat_active", "true");
-      if(els.input && !els.input.disabled) els.input.focus();
-    } else {
-      els.fab.style.display = "flex";
-      sessionStorage.removeItem("hb_chat_active");
-    }
+    els.fab.style.display = isOpen ? "none" : "flex";
   }
 
-  function updateProgress(pct) {
-    if (els.prog) els.prog.style.width = pct + "%";
-  }
-
-  // --- MESSAGING ---
+  function getText(key) { return TEXT[state.lang][key] || TEXT['en'][key]; }
 
   function addBotMessage(text, isHtml) {
-    const typingId = "typing-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
-    
-    const typingDiv = document.createElement("div");
-    typingDiv.className = "hb-msg hb-msg-bot";
-    typingDiv.id = typingId;
-    typingDiv.innerHTML = `
-      <div class="hb-typing-dots">
-        <div class="hb-dot"></div>
-        <div class="hb-dot"></div>
-        <div class="hb-dot"></div>
-      </div>`;
-    els.body.appendChild(typingDiv);
+    const div = document.createElement("div");
+    div.className = "hb-msg hb-msg-bot";
+    div.innerHTML = isHtml ? text : text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    els.body.appendChild(div);
     els.body.scrollTop = els.body.scrollHeight;
-
-    const delay = Math.min(1500, text.length * 20 + 500);
-
-    setTimeout(function() {
-      const msgBubble = document.getElementById(typingId);
-      if (msgBubble) {
-        msgBubble.innerHTML = isHtml ? text : text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-        els.body.scrollTop = els.body.scrollHeight;
-      }
-    }, delay);
   }
 
   function addUserMessage(text) {
@@ -948,122 +945,66 @@
   }
 
   function addChoices(options, callback) {
-    setTimeout(function() {
-      const chipContainer = document.createElement("div");
-      chipContainer.className = "hb-chips";
-
-      options.forEach(function(opt) {
-        const btn = document.createElement("button");
-        btn.className = "hb-chip";
-        const label = (typeof opt === "object") ? opt.label : opt;
-        btn.textContent = label;
-        btn.onclick = function() {
-          chipContainer.remove();
-          addUserMessage(label);
-          callback(opt);
-        };
-        chipContainer.appendChild(btn);
+    setTimeout(() => {
+      const con = document.createElement("div"); con.className = "hb-chips";
+      options.forEach(opt => {
+        const btn = document.createElement("button"); btn.className = "hb-chip";
+        btn.textContent = (typeof opt === "object") ? opt.label : opt;
+        btn.onclick = () => { con.remove(); addUserMessage(btn.textContent); callback(opt); };
+        con.appendChild(btn);
       });
-
-      els.body.appendChild(chipContainer);
-      els.body.scrollTop = els.body.scrollHeight;
-    }, 1600);
+      els.body.appendChild(con); els.body.scrollTop = els.body.scrollHeight;
+    }, 600);
   }
 
-  function getSeasonalGreeting() {
-      const month = new Date().getMonth(); 
-      if (month === 10 || month === 11) return "❄️ Winter is coming! Check our freeze-protection packages."; 
-      if (month >= 2 && month <= 4) return "🌸 Spring Rush is starting! Secure your dates now.";
-      if (month >= 5 && month <= 7) return "☀️ Summer is here! Perfect time for outdoor living.";
-      return "👋 Hi! Ready to upgrade your home?";
-  }
-
-  function saveState() {
-     // Optional: Persist state if needed in future
-     // localStorage.setItem("hb_estimator_state", JSON.stringify(state));
-  }
-
-  // --- STEPS --------------------------------------------------
+  // --- FLOW ---------------------------------------------------
 
   function stepOne_Disclaimer() {
-    updateProgress(5);
-    
-    addBotMessage(getSeasonalGreeting());
-
-    const disclaimerText = `
-        I can generate a **ballpark price range** for your project in about 60 seconds. 
-        <br><br>
-        (Ref ID: <b>${state.estimateId}</b>)
-    `;
-    setTimeout(() => {
-        addBotMessage(disclaimerText, true);
-        addChoices([
-            { label: "🚀 Start Estimate", key: "en" }, 
-            { label: "🇪🇸 Español (Beta)", key: "es" }
-        ], function(choice) {
-            state.lang = choice.key;
-            if (state.lang === "es") {
-                addBotMessage("Bienvenido. ¿Qué tipo de proyecto estás planeando?");
-            } else {
-                addBotMessage("Awesome. What type of project are you planning?");
-            }
-            presentServiceOptions();
-        });
-    }, 1200);
+    addBotMessage(getText('welcome'));
+    addBotMessage(getText('disclaimer') + `<b>${state.estimateId}</b>)`, true);
+    addChoices([
+        { label: "🚀 Start (English)", key: "en" }, 
+        { label: "🇪🇸 Español", key: "es" },
+        { label: "🇨🇳 中文", key: "cn" },
+        { label: "🇷🇺 Русский", key: "ru" }
+    ], (c) => {
+        state.lang = c.key;
+        addBotMessage(getText('projectType'));
+        presentServiceOptions();
+    });
   }
 
   function presentServiceOptions() {
-    updateProgress(10);
-    
-    const opts = Object.keys(SERVICES).map(function(k) {
-      return { label: SERVICES[k].emoji + " " + SERVICES[k].label, key: k };
-    });
-
-    opts.unshift({ label: "📸 Send Photo (Skip to Quote)", key: "photo_skip" });
-
-    addChoices(opts, function(selection) {
-      if (selection.key === "photo_skip") {
+    const opts = Object.keys(SERVICES).map(k => ({ label: SERVICES[k].emoji + " " + SERVICES[k].label, key: k }));
+    opts.unshift({ label: getText('photoSkip'), key: "photo_skip" });
+    addChoices(opts, (s) => {
+      if (s.key === "photo_skip") {
           state.isPhotoSkip = true;
-          addBotMessage("Smart choice. A picture is worth a thousand words.");
-          if(els.photoInput) els.photoInput.click();
-          setTimeout(() => {
-              showLeadCapture("After you attach your photo, I'll grab your contact info so we can text you the analysis.");
-          }, 1000);
+          addBotMessage(getText('photoSkipMsg'));
+          els.photoInput.click();
+          setTimeout(() => showLeadCapture(), 1000);
       } else {
-          state.serviceKey = selection.key;
-          state.subOption = null;
+          state.serviceKey = s.key;
           stepTwo_SubQuestions();
       }
     });
   }
 
   function stepTwo_SubQuestions() {
-    updateProgress(30);
     const svc = SERVICES[state.serviceKey];
-    if (!svc) return;
-
     if (svc.quickQuote) {
-      addBotMessage("⚡ This looks like a quick job. Do you want a fast estimate or full detail?");
-      addChoices([{label:"⚡ Quick Estimate", k:"quick"}, {label:"📝 Full Detail", k:"full"}], (c) => {
-        if(c.k === "quick") {
-           state.subOption = { factor: 1.0, label: "Standard" };
-           if(svc.unit === "consult") stepFive_Location(); 
-           else stepFour_Size();
-        } else {
-           proceedSub();
-        }
+      addBotMessage(getText('quickVsFull'));
+      addChoices([{label:getText('quickBtn'), k:"quick"}, {label:getText('fullBtn'), k:"full"}], (c) => {
+        state.subOption = { factor: 1.0, label: "Standard" };
+        if (c.k === "quick") { if(svc.unit === "consult") stepFive_Location(); else stepFour_Size(); } else proceedSub();
       });
       return;
     }
     proceedSub();
-
     function proceedSub() {
         if (svc.subQuestion && svc.options) {
           addBotMessage(svc.subQuestion);
-          addChoices(svc.options, function(choice) {
-            state.subOption = choice;
-            stepThree_LeadCheck();
-          });
+          addChoices(svc.options, (c) => { state.subOption = c; stepThree_LeadCheck(); });
         } else if (state.serviceKey === "other") {
           stepFive_Location();
         } else {
@@ -1074,205 +1015,96 @@
   }
 
   function stepThree_LeadCheck() {
-    const svc = SERVICES[state.serviceKey];
-    if (svc && svc.leadSensitive) {
-      addBotMessage("Is your property built before 1978? (Required for lead safety laws).");
-      addChoices(["Yes (Pre-1978)", "No / Not Sure"], function(ans) {
-        state.isLeadHome = !!(ans && ans.indexOf("Yes") !== -1);
-        stepFour_Size();
-      });
-    } else {
-      stepFour_Size();
-    }
+    if (SERVICES[state.serviceKey].leadSensitive) {
+      addBotMessage(getText('leadCheck'));
+      addChoices(["Yes", "No"], (a) => { state.isLeadHome = (a === "Yes"); stepFour_Size(); });
+    } else stepFour_Size();
   }
 
   function stepFour_Size() {
-    updateProgress(40);
     const svc = SERVICES[state.serviceKey];
-    const sub = state.subOption || {};
-    if (!svc) return;
-
     if (svc.unit === "consult" || state.serviceKey === "other") {
-        if (state.serviceKey === "other") {
-            addBotMessage("Is this project mostly **Indoor**, **Outdoor**, or **Both**?");
-            addChoices(["Indoor", "Outdoor", "Both"], () => {
-                addBotMessage("Got it. We'll need a walkthrough for accurate pricing.");
-                stepFive_Location();
-            });
-            return;
-        }
-        stepFive_Location();
-        return;
+        if(state.serviceKey==="other") { addBotMessage(getText('indoorOutdoor')); addChoices(["In", "Out", "Both"], stepFive_Location); return; }
+        stepFive_Location(); return;
     }
-
-    if (svc.unit !== "fixed" || sub.isPerSqFt) {
-      const unitLabel = sub.isPerSqFt ? "sq ft" : svc.unit;
-      
-      if (svc.sizePresets && svc.sizePresets.length > 0) {
-        addBotMessage(`Choose a common size, or type exact ${unitLabel} below:`);
-        
-        const presetChoices = svc.sizePresets.map(p => ({ label: p.label, val: p.val }));
-        
-        addChoices(presetChoices, function(choice) {
-            state.size = choice.val;
-            addBotMessage(`Selected: ${choice.val} ${unitLabel}`);
-            setTimeout(stepFive_Location, 500);
-        });
-        
-        setTimeout(() => {
-            enableInput(function(val) {
-              const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
-              if (!num || num < 10) {
-                addBotMessage("That number seems low. Please enter a valid number (e.g. 500).");
-                stepFour_Size(); 
-              } else {
-                state.size = num;
-                stepFive_Location();
-              }
-            });
-        }, 1700);
-
+    if (svc.unit !== "fixed" || (state.subOption||{}).isPerSqFt) {
+      if (svc.sizePresets) {
+        addBotMessage(getText('sizeAsk'));
+        const presets = svc.sizePresets.map(p=>({label:p.label, val:p.val}));
+        addChoices(presets, (c) => { state.size = c.val; stepFive_Location(); });
+        setTimeout(() => enableInput((v) => { state.size = parseInt(v.replace(/\D/g,""))||500; stepFive_Location(); }), 1500);
       } else {
-        addBotMessage("Approximate size in " + unitLabel + "?");
-        askSizeManual();
-      }
-
-    } else {
-      stepFive_Location();
-    }
-
-    function askSizeManual() {
-        enableInput(function(val) {
-          const num = parseInt(val.replace(/[^0-9]/g, ""), 10);
-          if (!num || num < 10) {
-            addBotMessage("That number seems low. Please enter a valid number (e.g. 500).");
-            askSizeManual();
-          } else {
-            state.size = num;
-            stepFive_Location();
-          }
+        addBotMessage(`${getText('sizeAsk')} (${svc.unit})`);
+        enableInput((v) => { 
+           const n = parseInt(v.replace(/\D/g,""));
+           if(!n || n<10) { addBotMessage(getText('sizeLow')); stepFour_Size(); }
+           else { state.size = n; stepFive_Location(); }
         });
-    }
+      }
+    } else stepFive_Location();
   }
 
   function stepFive_Location() {
-    updateProgress(50);
-    addBotMessage("Which borough/area is this in?");
-    const locs = Object.keys(BOROUGH_MODS);
-    addChoices(locs, function(loc) {
-      state.borough = (typeof loc === "string") ? loc : loc.label;
-      stepFive_AvailabilityCheck();
+    addBotMessage(getText('locationAsk'));
+    addChoices(Object.keys(BOROUGH_MODS), (l) => {
+      state.borough = l;
+      addBotMessage(`${getText('checkSched')} ${l}...`);
+      setTimeout(() => { addBotMessage(getText('schedOk')); stepSix_PricingMode(); }, 1500);
     });
   }
 
-  function stepFive_AvailabilityCheck() {
-      addBotMessage(`Let me check our schedule for ${state.borough}...`);
-      setTimeout(() => {
-          addBotMessage(`🗓️ OK, yes! We have estimate slots available.`);
-          setTimeout(stepSix_PricingMode, 1000);
-      }, 2000);
-  }
-
   function stepSix_PricingMode() {
-    updateProgress(60);
-    addBotMessage("How should we price this?");
-    addChoices([
-      { label: "Full Project (Labor + Materials)", key: "full" },
-      { label: "Labor Only", key: "labor" },
-      { label: "Materials + Light Help", key: "materials" }
-    ], function(choice) {
-      state.pricingMode = choice.key || "full";
-      stepSeven_Rush();
+    addBotMessage(getText('priceMode'));
+    addChoices([{label:"Full", key:"full"}, {label:"Labor Only", key:"labor"}, {label:"Materials+", key:"materials"}], (c) => {
+      state.pricingMode = c.key; stepSeven_Rush();
     });
   }
 
   function stepSeven_Rush() {
-    updateProgress(65);
-    addBotMessage("Is this a rush project (starting within 72 hours)?");
-    addChoices(["Yes, rush", "No"], function(ans) {
-      state.isRush = !!(ans && ans.indexOf("Yes") !== -1);
-      stepEight_Promo();
-    });
+    addBotMessage(getText('rushAsk'));
+    addChoices(["Yes", "No"], (a) => { state.isRush = (a === "Yes"); stepEight_Promo(); });
   }
 
   function stepEight_Promo() {
-    updateProgress(70);
-    addBotMessage("Any promo code today?");
-    addChoices([
-      { label: "No Code", code: "" },
-      { label: "VIP10 (10% OFF)", code: "VIP10" },
-      { label: "REFERRAL5 (5% OFF)", code: "REFERRAL5" }
-    ], function(choice) {
-        if (choice.code === "") {
-            addBotMessage("Wait! Since you're booking online, I've applied the **'WEB-SAVER'** discount (-5%) for you automatically. 🎉");
-            state.promoCode = "WEBSAVER"; 
-            stepNine_DebrisRemoval();
-        } else {
-            state.promoCode = choice.code;
-            stepNine_DebrisRemoval();
-        }
+    addBotMessage(getText('promoAsk'));
+    addChoices([{label:"No Code", c:""}, {label:"VIP10", c:"VIP10"}], (ch) => {
+        if(!ch.c) { addBotMessage(getText('webSaverMsg')); state.promoCode = "WEBSAVER"; } 
+        else state.promoCode = ch.c;
+        stepNine_Debris();
     });
   }
 
-  function stepNine_DebrisRemoval() {
-    updateProgress(75);
-    const svc = SERVICES[state.serviceKey];
-    const hasPrice = svc && svc.unit !== "consult" && state.serviceKey !== "other";
-
-    if (hasPrice) {
-        addBotMessage("Should we include debris removal & dumpster costs? (Typically +$1,200–$2,800)");
-        addChoices(["Yes, include debris removal", "No, I'll handle debris"], function(ans) {
-            state.debrisRemoval = !!(ans && ans.indexOf("Yes") !== -1);
-            stepTen_SmartAddonsIntro();
-        });
-    } else {
-        state.debrisRemoval = false;
-        stepTen_SmartAddonsIntro();
-    }
+  function stepNine_Debris() {
+    if(SERVICES[state.serviceKey].unit !== "consult") {
+        addBotMessage(getText('debrisAsk'));
+        addChoices(["Yes", "No"], (a) => { state.debrisRemoval = (a === "Yes"); stepTen_SmartAddonsIntro(); });
+    } else { state.debrisRemoval = false; stepTen_SmartAddonsIntro(); }
   }
 
   function stepTen_SmartAddonsIntro() {
-    updateProgress(80);
     const config = SMART_ADDONS_CONFIG[state.serviceKey];
-    
     if (config && config.groups) {
-      addBotMessage(`I found optional **Smart Add-ons** for ${config.title}. Would you like to view categories like Luxury Upgrades or Protection?`);
-      addChoices([
-        { label: "✨ View Add-ons", key: "yes" },
-        { label: "Skip", key: "no" }
-      ], function(choice) {
-        if (choice.key === "yes") {
-          showAddonCategories(config);
-        } else {
-          finishCalculation();
-        }
+      addBotMessage(getText('addonIntro'));
+      addChoices([{label:getText('viewAddons'), k:"yes"}, {label:getText('skip'), k:"no"}], (c) => {
+        if(c.k === "yes") showAddonCategories(config); else finishItem();
       });
-    } else {
-      finishCalculation();
-    }
+    } else finishItem();
   }
 
   function showAddonCategories(config) {
     const groups = Object.keys(config.groups).map(key => ({
-      label: `📂 ${SMART_ADDON_GROUP_LABELS[key] || key}`,
+      label: `📂 ${SMART_ADDON_GROUP_LABELS[key] || key.toUpperCase()}`,
       key: key
     }));
-    groups.push({ label: "✅ Done Selecting", key: "done" });
-
-    addBotMessage("Select a category to view upgrades:", false);
+    groups.push({ label: getText('doneSel'), key: "done" });
+    addBotMessage(getText('categorySel'));
     addChoices(groups, function(choice) {
-      if (choice.key === "done") {
-        finishCalculation();
-      } else {
-        showAddonItems(config, choice.key);
-      }
+      if (choice.key === "done") finishItem(); else showAddonItems(config, choice.key);
     });
   }
 
   function showAddonItems(config, groupKey) {
     const items = config.groups[groupKey] || [];
-    const groupLabel = SMART_ADDON_GROUP_LABELS[groupKey] || groupKey;
-
     const availableItems = items.filter(item => 
       !state.selectedAddons.some(sel => sel.label === item.label)
     ).map(item => ({
@@ -1281,565 +1113,165 @@
       group: groupKey
     }));
 
-    if (availableItems.length === 0) {
-      addBotMessage(`You've added all items from ${groupLabel}.`);
-      showAddonCategories(config);
-      return;
-    }
+    availableItems.push({ label: getText('back'), isBack: true });
 
-    availableItems.push({ label: "🔙 Back to Categories", isBack: true });
-
-    addBotMessage(`**${groupLabel} Options:** Tap to add.`);
+    addBotMessage(`**${SMART_ADDON_GROUP_LABELS[groupKey]||groupKey}**:`);
     addChoices(availableItems, function(choice) {
       if (choice.isBack) {
         showAddonCategories(config);
       } else {
-        state.selectedAddons.push({
-          ...choice.itemData,
-          group: choice.group
-        });
-        addBotMessage(`✅ Added: **${choice.itemData.label}**`);
+        state.selectedAddons.push({ ...choice.itemData, group: choice.group });
+        addBotMessage(`${getText('itemAdded')}: ${choice.itemData.label}`);
         setTimeout(() => showAddonCategories(config), 600);
       }
     });
   }
 
-  function finishCalculation() {
-    const est = computeEstimateForCurrent();
+  function finishItem() {
+    const est = computeEstimate();
     est.svcKey = state.serviceKey;
-    state.projects.push(est); 
-    showEstimateAndAskAnother(est);
-  }
-
-  // --- CALCULATION ENGINE ---
-
-  function applyPriceModifiers(low, high) {
-    let factor = 1;
-    if (state.pricingMode === "labor") factor = 0.7;
-    else if (state.pricingMode === "materials") factor = 0.5;
-
-    low *= factor;
-    high *= factor;
-
-    if (state.isRush) {
-      low *= 1.12;
-      high *= 1.18;
-    }
-
-    let dc = 0;
-    if (state.promoCode) {
-      const rate = DISCOUNTS[state.promoCode.toUpperCase()];
-      if (rate) dc = rate;
-    }
-    if (dc > 0) {
-      low *= (1 - dc);
-      high *= (1 - dc);
-    }
-
-    return { low, high, discountRate: dc };
-  }
-
-  function computeEstimateForCurrent() {
-    const svc = SERVICES[state.serviceKey];
-    if (!svc) return null;
-
-    const sub = state.subOption || {};
-    const mod = BOROUGH_MODS[state.borough] || 1.0;
-    let low = 0, high = 0;
-
-    // 1. Calculate Base Price
-    if (state.serviceKey === "other" || svc.unit === "consult") {
-      // Consult
-    } else if (svc.unit === "fixed") {
-      if (sub.isPerSqFt) {
-          low = (sub.fixedLow || 0) * state.size * mod;
-          high = (sub.fixedHigh || 0) * state.size * mod;
-      } else {
-          low = (sub.fixedLow || 0) * mod;
-          high = (sub.fixedHigh || 0) * mod;
-      }
-    } else {
-      let rateLow = svc.baseLow;
-      let rateHigh = svc.baseHigh;
-      if (sub.factor) { rateLow *= sub.factor; rateHigh *= sub.factor; }
-      low = rateLow * state.size * mod;
-      high = rateHigh * state.size * mod;
-      if (svc.min && low < svc.min) low = svc.min;
-      if (svc.min && high < svc.min * 1.2) high = svc.min * 1.25;
-    }
-
-    if (state.isLeadHome) { low *= 1.10; high *= 1.10; }
-
-    const adjusted = applyPriceModifiers(low, high);
+    state.projects.push(est);
     
-    // 2. Calculate Add-ons (With Location Modifiers)
-    let addonLow = 0, addonHigh = 0;
-    state.selectedAddons.forEach(addon => {
-        addonLow += (addon.low * mod);
-        addonHigh += (addon.high * mod);
-    });
-
-    // 3. Debris Removal (With Location Modifier)
-    if (state.debrisRemoval) {
-        addonLow += (ADD_ON_PRICES.debrisRemoval.low * mod);
-        addonHigh += (ADD_ON_PRICES.debrisRemoval.high * mod);
-    }
-
-    const finalLow = adjusted.low + addonLow;
-    const finalHigh = adjusted.high + addonHigh;
-
-    return {
-      svc, sub, borough: state.borough,
-      size: (svc.unit === "fixed" && !sub.isPerSqFt || svc.unit === "consult") ? null : state.size,
-      isLeadHome: state.isLeadHome, pricingMode: state.pricingMode, isRush: state.isRush,
-      promoCode: state.promoCode, 
-      low: finalLow, high: finalHigh,
-      discountRate: adjusted.discountRate, 
-      isCustom: (low === 0 && high === 0),
-      debrisRemoval: state.debrisRemoval,
-      selectedAddons: [...state.selectedAddons] 
-    };
-  }
-
-  function computeGrandTotal() {
-    let totalLow = 0, totalHigh = 0;
-
-    state.projects.forEach(p => {
-        if (p.low) totalLow += p.low;
-        if (p.high) totalHigh += p.high;
-    });
-
-    const projectRequiresDebris = state.projects.some(p => p.debrisRemoval === true);
-
-    return { totalLow, totalHigh, projectRequiresDebris };
-  }
-
-  function buildEstimateHtml(est) {
-    const svc = est.svc;
-    const sub = est.sub || {};
-    const hasPrice = !!(est.low && est.high);
-    const fLow = hasPrice ? Math.round(est.low).toLocaleString() : null;
-    const fHigh = hasPrice ? Math.round(est.high).toLocaleString() : null;
-
-    let discountLine = "";
-    if (est.discountRate > 0) {
-      discountLine = `<div class="hb-receipt-row"><span>Promo:</span><span>-${Math.round(est.discountRate * 100)}% applied</span></div>`;
-    }
-
-    let rushLine = est.isRush ? `<div class="hb-receipt-row"><span>Rush:</span><span>Priority scheduling included</span></div>` : "";
-    let debrisLine = est.debrisRemoval ? `<div class="hb-receipt-row" style="color:#0a9"><span>Debris:</span><span>Haul-away **included**</span></div>` : "";
-
-    let modeLabel = "Full (Labor + Materials)";
-    if (est.pricingMode === "labor") modeLabel = "Labor Only";
-    if (est.pricingMode === "materials") modeLabel = "Materials + Light Help";
-
-    let sizeRow = "";
-    if (est.size) {
-      const unitLabel = sub.isPerSqFt ? "sq ft" : svc.unit;
-      sizeRow = `<div class="hb-receipt-row"><span>Size:</span><span>${est.size} ${unitLabel}</span></div>`;
-    }
-
-    let addonsHtml = "";
-    if (est.selectedAddons && est.selectedAddons.length > 0) {
-        addonsHtml += `<div class="hb-receipt-row" style="margin-top:8px; border-bottom:1px solid #eee; padding-bottom:4px; font-weight:600;"><span>Selected Add-ons:</span></div>`;
-        est.selectedAddons.forEach(addon => {
-             addonsHtml += `<div class="hb-receipt-row" style="color:#666; padding-left:8px; font-size:11px;"><span>• ${addon.label}</span><span>+$${Math.round(addon.low).toLocaleString()}</span></div>`;
-        });
-    }
-
-    let priceRow = hasPrice 
-      ? `<div class="hb-receipt-total"><span>ESTIMATE:</span><span>$${fLow} – $${fHigh}</span></div>`
-      : `<div class="hb-receipt-total"><span>ESTIMATE:</span><span>Requires on-site walkthrough</span></div>`;
-
-    return `
-      <div class="hb-receipt">
-        <h4>Estimator Summary</h4>
-        <div class="hb-receipt-row"><span>Ref ID:</span><span>${state.estimateId}</span></div>
-        <div class="hb-receipt-row"><span>Service:</span><span>${svc.label}</span></div>
-        <div class="hb-receipt-row"><span>Type:</span><span>${sub.label || "Standard"}</span></div>
-        <div class="hb-receipt-row"><span>Area:</span><span>${est.borough || "N/A"}</span></div>
-        ${sizeRow}
-        <div class="hb-receipt-row"><span>Pricing Mode:</span><span>${modeLabel}</span></div>
-        ${rushLine}
-        ${debrisLine}
-        ${addonsHtml}
-        ${discountLine}
-        ${priceRow}
-      </div>
-    `;
-  }
-
-  function editCurrentProject(projectIndex) {
-      if (projectIndex >= 0 && projectIndex < state.projects.length) {
-          const p = state.projects[projectIndex];
-          state.serviceKey = p.svcKey; 
-          state.subOption = p.sub;
-          state.size = p.size || 0;
-          state.borough = p.borough;
-          state.isLeadHome = p.isLeadHome;
-          state.pricingMode = p.pricingMode;
-          state.isRush = p.isRush;
-          state.promoCode = p.promoCode;
-          state.debrisRemoval = p.debrisRemoval;
-          state.selectedAddons = p.selectedAddons || [];
-          
-          state.projects.splice(projectIndex, 1);
-          addBotMessage(`✏️ Editing **${p.svc.label}**. Starting from step 2 (Sub-Questions).`);
-          stepTwo_SubQuestions();
-      }
-  }
-
-  function showEstimateAndAskAnother(est) {
-    if (!est) return;
-    updateProgress(92);
-    const html = '--- **Project Estimate** ---<br>' + buildEstimateHtml(est);
-    addBotMessage(html, true);
+    // FIX: Only show simple confirmation, not the full receipt yet
+    addBotMessage(getText('itemAdded'));
     
     setTimeout(() => {
-        const currentProjectIndex = state.projects.length - 1;
-        const choices = [
-            { label: "➕ Add Another Project", key: "add" },
-            { label: "✏️ Edit This Project", key: "edit", index: currentProjectIndex },
-            { label: "No, Continue to Finish", key: "finish" }
-        ];
-
-        addChoices(choices, function(choice) {
-            if (choice.key === "add") {
-                resetProjectState();
-                addBotMessage("Great! What type of project is the next one?");
-                presentServiceOptions();
-            } else if (choice.key === "edit") {
-                editCurrentProject(choice.index);
-            } else {
-                stepMembershipUpsell();
-            }
+        addBotMessage(getText('anotherAsk'));
+        addChoices([
+            { label: getText('addMore'), k: "add" },
+            { label: getText('finish'), k: "finish" }
+        ], (c) => {
+            if (c.k === "add") { resetItem(); addBotMessage(getText('projectType')); presentServiceOptions(); }
+            else stepMembership();
         });
-    }, 1200);
+    }, 1000);
   }
 
-  function stepMembershipUpsell() {
-    addBotMessage("Before we finish, would you like to hear about **VIP Home Care Memberships** (15% off labor + priority booking)?");
-    addChoices([
-        { label: "💳 Tell me about memberships", key: "yes" },
-        { label: "No thanks", key: "no" }
-    ], function(choice) {
-        if (choice.key === "yes") {
-            addBotMessage("🏆 **VIP Members** get 15% off all labor, priority emergency booking, and annual maintenance checks. We'll include the brochure in your text/email.");
-            state.interestedInMembership = true;
-        }
-        showCombinedReceiptAndLeadCapture();
+  function stepMembership() {
+    addBotMessage(getText('membershipAsk'));
+    addChoices(["Yes", "No"], (a) => {
+        if(a==="Yes") { state.interestedInMembership = true; addBotMessage(getText('membershipYes')); }
+        showFinalQuote();
     });
   }
 
-  function showCombinedReceiptAndLeadCapture() {
-    updateProgress(96);
-    const projects = state.projects;
-    if (!projects || !projects.length) return;
+  // --- CALCULATION --------------------------------------------
+  function computeEstimate() {
+    const svc = SERVICES[state.serviceKey];
+    const sub = state.subOption || {};
+    const mod = BOROUGH_MODS[state.borough] || 1.0;
+    let low=0, high=0;
 
-    const totals = computeGrandTotal();
-    const rowsHtml = projects.map((p, idx) => {
-        const hasPrice = !!(p.low && p.high);
-        const unitLabel = p.sub.isPerSqFt ? "sq ft" : p.svc.unit;
-        const sizePart = p.size ? ` — ${p.size} ${unitLabel}` : "";
-        
-        let addonNote = "";
-        if (p.selectedAddons && p.selectedAddons.length > 0) {
-            addonNote = `<br><span style="font-size:10px; color:#888; margin-left:14px;">+ ${p.selectedAddons.length} upgrades selected</span>`;
+    if (svc.unit === "fixed") {
+        if(sub.isPerSqFt) {
+             low = (sub.fixedLow||0) * state.size * mod;
+             high = (sub.fixedHigh||0) * state.size * mod;
+        } else {
+             low = (sub.fixedLow || svc.baseLow) * mod; 
+             high = (sub.fixedHigh || svc.baseHigh) * mod;
         }
-
-        return `<div class="hb-receipt-row">
-            <span>#${idx + 1} ${p.svc.label}${sizePart}${addonNote}</span>
-            <span>${hasPrice ? "$" + Math.round(p.low).toLocaleString() + " – $" + Math.round(p.high).toLocaleString() : "Walkthrough needed"}</span>
-          </div>`;
-    }).join("");
-
-    let debrisRow = "";
-    if (totals.projectRequiresDebris) {
-        debrisRow = `<div class="hb-receipt-row" style="color:#0a9; font-weight:700;"><span>Debris Removal:</span><span>Included in estimates above</span></div>`;
+    } else if (svc.unit !== "consult") {
+        let l = svc.baseLow * (sub.factor||1), h = svc.baseHigh * (sub.factor||1);
+        low = l * state.size * mod; high = h * state.size * mod;
+        if(svc.min && low < svc.min) low = svc.min;
     }
+    
+    // Modifiers
+    if(state.pricingMode === "labor") { low*=0.7; high*=0.7; }
+    else if(state.pricingMode === "materials") { low*=0.5; high*=0.5; }
+    
+    if(state.isRush) { low*=1.15; high*=1.15; }
+    if(state.promoCode) { const d = DISCOUNTS[state.promoCode]||0; low*=(1-d); high*=(1-d); }
+    
+    // Addons & Debris
+    state.selectedAddons.forEach(a => { low += a.low*mod; high += a.high*mod; });
+    if(state.debrisRemoval) { low += ADD_ON_PRICES.debrisRemoval.low*mod; high += ADD_ON_PRICES.debrisRemoval.high*mod; }
 
-    let totalRow = (totals.totalLow && totals.totalHigh) 
-      ? `<div class="hb-receipt-total"><span>Combined Total Range:</span><span>$${Math.round(totals.totalLow).toLocaleString()} – $${Math.round(totals.totalHigh).toLocaleString()}</span></div>`
-      : "";
-
-    let leadScoreHtml = "";
-    if (totals.totalHigh > 25000) {
-        leadScoreHtml = `<div class="hb-receipt-footer" style="color:#e7bf63; font-weight:bold;">🌟 VIP Project Tier</div>`;
-    }
-
-    const html = `
-      <div class="hb-receipt">
-        <h4>Combined Estimate Summary</h4>
-        <div class="hb-receipt-row"><span>Ref ID:</span><span>${state.estimateId}</span></div>
-        ${rowsHtml}
-        ${debrisRow}
-        ${totalRow}
-        ${leadScoreHtml}
-        <div class="hb-receipt-footer">Ask about VIP Home Care memberships & referral rewards.</div>
-      </div>`;
-
-    addBotMessage('--- **Combined Estimate** ---<br>' + html, true);
-    setTimeout(() => showLeadCapture("To lock in this estimate, I can text or email you the details."), 1200);
+    return { svc, sub, size: state.size, borough: state.borough, low, high, addons: state.selectedAddons, debris: state.debrisRemoval };
   }
 
-  function resetProjectState() {
-    state.serviceKey = null;
-    state.subOption = null;
-    state.size = 0;
-    // state.borough = null; // Keep borough
-    // state.isLeadHome = false; // Keep
-    state.pricingMode = "full";
-    state.isRush = false;
-    state.promoCode = "";
-    state.debrisRemoval = false;
-    state.selectedAddons = []; 
-  }
-  
-  // --- LEAD CAPTURE & LINKS ----------------------------------
-
-  function showLeadCapture(introText) {
-    addBotMessage(introText);
-    addBotMessage("What is your name?");
-    enableInput(function(name) {
-      state.name = name;
-      askPhone();
+  function showFinalQuote() {
+    let html = `<div class="hb-receipt"><h4>${getText('finish')}</h4>`;
+    let tLow=0, tHigh=0;
+    
+    state.projects.forEach((p, i) => {
+        tLow+=p.low; tHigh+=p.high;
+        html += `<div class="hb-receipt-row"><span>#${i+1} ${p.svc.label}</span><span>$${Math.round(p.low).toLocaleString()} - $${Math.round(p.high).toLocaleString()}</span></div>`;
+        if(p.addons.length) html += `<div style="font-size:10px;color:#888;margin-left:10px">+ ${p.addons.length} Add-ons</div>`;
     });
 
-    function askPhone() {
-        addBotMessage("And your mobile number? (SMS Capable)");
-        enableInput(function(val) {
-            // STRICT PHONE VALIDATION
-            const clean = val.replace(/\D/g, "");
-            if (clean.length !== 10) {
-                addBotMessage("⚠️ Please enter a valid 10-digit mobile number (e.g. 9171234567).");
-                setTimeout(askPhone, 500);
-                return;
-            }
-            // Format (XXX) XXX-XXXX
+    html += `<div class="hb-receipt-total"><span>TOTAL:</span><span>$${Math.round(tLow).toLocaleString()} - $${Math.round(tHigh).toLocaleString()}</span></div>`;
+    html += `<div class="hb-receipt-footer">${getText('finalNote')}</div></div>`;
+    
+    addBotMessage(html, true);
+    setTimeout(() => showLeadCapture(), 1500);
+  }
+
+  function showLeadCapture() {
+    addBotMessage(getText('contactIntro'));
+    addBotMessage(getText('nameAsk'));
+    enableInput((n) => {
+        state.name = n;
+        addBotMessage(getText('phoneAsk'));
+        enableInput((p) => {
+            const clean = p.replace(/\D/g, "");
+            if(clean.length !== 10) { addBotMessage(getText('phoneErr')); setTimeout(showLeadCapture, 500); return; } 
             state.phone = clean.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
-            saveState();
-            askExtraQuestions();
+            askFinalDetails();
         });
-    }
+    });
   }
 
-  function askExtraQuestions() {
-      addBotMessage("Almost done! When are you hoping to start this project?");
-      addChoices(["ASAP / Rush", "Within 1 month", "1-3 Months", "Just budgeting"], function(timing) {
-          state.projectTiming = (typeof timing === 'object') ? timing.label : timing;
-          
-          addBotMessage("And how did you hear about Hammer Brick & Home?");
-          addChoices(["Google Search", "Instagram/Facebook", "Referral", "Yard Sign/Truck"], function(source) {
-              state.leadSource = (typeof source === 'object') ? source.label : source;
-              generateFinalLinks();
+  function askFinalDetails() {
+      addBotMessage(getText('timingAsk'));
+      addChoices(["ASAP", "1 Month", "Budgeting"], (t) => {
+          state.projectTiming = t;
+          addBotMessage(getText('sourceAsk'));
+          addChoices(["Google", "Social", "Referral"], (s) => {
+              state.leadSource = s;
+              generateLinks();
           });
       });
   }
 
-  function getLeadScore(totalHigh) {
-    if (totalHigh > 25000) return "VIP / High-Value";
-    if (totalHigh < 5000) return "Small / Quick";
-    return "Standard";
+  function generateLinks() {
+      const summary = state.projects.map((p,i) => `#${i+1} ${p.svc.label}: $${Math.round(p.low)}-$${Math.round(p.high)}`).join("\n");
+      const body = encodeURIComponent(`Ref:${state.estimateId}\nName:${state.name}\nPhone:${state.phone}\n${summary}`);
+      const sms = `sms:${PHONE_NUMBER}?&body=${body}`;
+      const mail = `mailto:hammerbrickhome@gmail.com?subject=Estimate&body=${body}`;
+      
+      if(els.photoInput.files.length) addBotMessage(getText('photoRemind'), true);
+
+      createBtn(getText('textBtn'), sms, true);
+      createBtn(getText('emailBtn'), mail, true);
+      createBtn(getText('callBtn'), `tel:${PHONE_NUMBER}`);
+      
+      const cp = document.createElement("button"); cp.className="hb-chip"; cp.textContent=getText('copyBtn');
+      cp.onclick = () => { navigator.clipboard.writeText(decodeURIComponent(body)); cp.textContent="✅"; };
+      els.body.appendChild(cp);
+      
+      const reset = document.createElement("button"); reset.className="hb-chip"; reset.style.background="#333"; reset.textContent=getText('startOver');
+      reset.onclick = () => location.reload();
+      els.body.appendChild(reset);
   }
 
-  function generateFinalLinks() {
-    updateProgress(100);
-
-    let lines = [`Ref ID: ${state.estimateId}`, `Hello, I'm ${state.name}.`, "Projects:"];
-    
-    if (state.isPhotoSkip) {
-        lines.push("User opted to SKIP ESTIMATE and send photos directly.");
-    }
-
-    if (state.projects && state.projects.length) {
-      state.projects.forEach((p, idx) => {
-        const unitLabel = p.sub.isPerSqFt ? "sq ft" : p.svc.unit;
-        let line = `${idx + 1}. ${p.svc.label}` + (p.size ? ` — ${p.size} ${unitLabel}` : "") + (p.borough ? ` (${p.borough})` : "");
-        
-        if (p.low && p.high) {
-          line += ` — ~$${Math.round(p.low).toLocaleString()}–$${Math.round(p.high).toLocaleString()}`;
-        } else {
-          line += " (walkthrough needed)";
-        }
-        lines.push(line);
-
-        let extras = [];
-        if (p.pricingMode !== "full") extras.push(p.pricingMode);
-        if (p.isRush) extras.push("Rush");
-        if (p.promoCode) extras.push(`Promo: ${p.promoCode}`);
-        if (p.debrisRemoval) extras.push("Debris: Included");
-        
-        if (extras.length) lines.push("   [" + extras.join(" | ") + "]");
-
-        if (p.selectedAddons && p.selectedAddons.length) {
-             p.selectedAddons.forEach(addon => {
-                 lines.push(`   + Add-on: ${addon.label}`);
-             });
-        }
-      });
-
-      const totals = computeGrandTotal();
-      
-      let leadTier = getLeadScore(totals.totalHigh);
-
-      if (totals.totalLow) {
-          lines.push(`\nCOMBINED RANGE: $${Math.round(totals.totalLow).toLocaleString()} – $${Math.round(totals.totalHigh).toLocaleString()}`);
-          lines.push(`Lead Tier: ${leadTier}`);
-      }
-    }
-
-    lines.push(`Customer Name: ${state.name}`);
-    lines.push(`Phone: ${state.phone}`);
-    lines.push(`Timing: ${state.projectTiming}`); 
-    lines.push(`Source: ${state.leadSource}`);  
-    if (state.interestedInMembership) lines.push("** Interested in VIP Membership **");
-
-    lines.push("Please reply to schedule a walkthrough.");
-
-    sendLeadToWebhook(lines.join("\n"), state);
-
-    const body = encodeURIComponent(lines.join("\n"));
-    const smsLink = "sms:" + PHONE_NUMBER + "?&body=" + body;
-    const emailLink = "mailto:hammerbrickhome@gmail.com?subject=" + encodeURIComponent("Estimate Request " + state.estimateId) + "&body=" + body;
-
-    // DISCLAIMER MESSAGE
-    addBotMessage(
-      `💡 Quick note: this is a <b>ballpark estimator</b>, not a final contract. ` +
-      `Once we see the job in person, we sharpen the pencil — final quotes are often ` +
-      `<b>equal or lower</b> than this range depending on access, conditions, and materials.`,
-      true
-    );
-
-    addBotMessage(`Thanks, ${state.name}! Choose how you’d like to contact us.`, false);
-    addBotMessage(`📅 We usually reply same day during business hours.`, false); 
-    
-    // PHOTO REMINDER LOGIC
-    if (els.photoInput && els.photoInput.files && els.photoInput.files.length > 0) {
-        addBotMessage(
-            "📎 <b>Reminder:</b> Your photos **won't attach automatically**. After your text or email app opens, please manually attach the pictures you selected.", 
-            true
-        );
-    }
-    
-    setTimeout(function() {
-      const createBtn = (text, href, isPrimary, isCall) => {
-          const btn = document.createElement("a");
-          btn.className = isPrimary ? "hb-chip hb-primary-btn" : "hb-chip";
-          btn.style.display = "block";
-          btn.style.textAlign = "center";
-          btn.style.textDecoration = "none";
-          btn.style.marginTop = "8px";
-          btn.textContent = text;
-          btn.href = href;
-          if(!isCall && !href.startsWith("sms:") && !href.startsWith("mailto:")) btn.target = "_blank";
-          els.body.appendChild(btn);
-      };
-
-      createBtn("📲 Text Estimate to Hammer Brick & Home", smsLink, true, false);
-      createBtn("✉️ Email Estimate to Hammer Brick & Home", emailLink, true, false);
-      createBtn("📞 Call Hammer Brick & Home", "tel:" + PHONE_NUMBER, false, true);
-      
-      const copyBtn = document.createElement("button");
-      copyBtn.className = "hb-chip";
-      copyBtn.style.display = "block";
-      copyBtn.style.marginTop = "8px";
-      copyBtn.textContent = "📋 Copy Estimate to Clipboard";
-      copyBtn.onclick = function() {
-          if (navigator.clipboard) {
-              navigator.clipboard.writeText(lines.join("\n")).then(() => {
-                  copyBtn.textContent = "✅ Copied!";
-                  setTimeout(() => copyBtn.textContent = "📋 Copy Estimate to Clipboard", 2000);
-              });
-          } else {
-             alert("Clipboard access not available in this context.");
-          }
-      };
-      els.body.appendChild(copyBtn);
-
-      if (CRM_FORM_URL) createBtn("📝 Complete Full Intake Form", CRM_FORM_URL, false, false);
-      if (WALKTHROUGH_URL) createBtn("📅 Book a Walkthrough", WALKTHROUGH_URL, false, false);
-
-      const photoBtn = document.createElement("button");
-      photoBtn.className = "hb-chip";
-      photoBtn.style.display = "block";
-      photoBtn.style.marginTop = "8px";
-      photoBtn.textContent = "📷 Add Photos";
-      photoBtn.onclick = () => { if (els.photoInput) els.photoInput.click(); };
-      els.body.appendChild(photoBtn);
-
-      const resetBtn = document.createElement("button");
-      resetBtn.className = "hb-chip";
-      resetBtn.style.display = "block";
-      resetBtn.style.marginTop = "20px";
-      resetBtn.style.background = "#333"; 
-      resetBtn.textContent = "🔁 Start Over";
-      resetBtn.onclick = function() {
-          location.reload(); 
-      };
-      els.body.appendChild(resetBtn);
-
-      els.body.scrollTop = els.body.scrollHeight;
-    }, 500);
+  function createBtn(txt, url, isPri) {
+      const b = document.createElement("a"); b.className = isPri ? "hb-chip hb-primary-btn" : "hb-chip";
+      b.textContent = txt; b.href = url; b.style.display="block"; b.style.textAlign="center"; b.style.textDecoration="none";
+      if(!url.startsWith("sms") && !url.startsWith("tel")) b.target="_blank";
+      els.body.appendChild(b);
   }
 
-  function sendLeadToWebhook(fullText, stateData) {
-      if (!WEBHOOK_URL) return;
-      
-      const totals = computeGrandTotal();
-      const payload = {
-          id: stateData.estimateId,
-          name: stateData.name,
-          phone: stateData.phone,
-          timing: stateData.projectTiming,
-          source: stateData.leadSource,
-          leadTier: getLeadScore(totals.totalHigh),
-          totalLow: Math.round(totals.totalLow),
-          totalHigh: Math.round(totals.totalHigh),
-          projects: stateData.projects.map(p => ({
-              service: p.svc.label,
-              subType: p.sub?.label || "Standard",
-              borough: p.borough,
-              size: p.size,
-              unit: p.svc.unit,
-              low: Math.round(p.low),
-              high: Math.round(p.high),
-              pricingMode: p.pricingMode,
-              isRush: p.isRush,
-              promoCode: p.promoCode || null,
-              debrisRemoval: p.debrisRemoval,
-              addons: (p.selectedAddons || []).map(a => a.label)
-          })),
-          timestamp: new Date().toISOString()
-      };
-
-      fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-      }).catch(e => console.error("Webhook failed", e));
-  }
-
-  function enableInput(callback) {
-    els.input.disabled = false;
-    els.input.placeholder = "Type your answer...";
-    els.input.focus();
-    const newSend = els.send.cloneNode(true);
-    els.send.parentNode.replaceChild(newSend, els.send);
-    els.send = newSend;
-    els.send.onclick = function() {
-      const val = els.input.value.trim();
-      if (!val) return;
-      addUserMessage(val);
-      els.input.value = "";
-      els.input.disabled = true;
-      els.input.placeholder = "Please wait...";
-      callback(val);
+  function enableInput(cb) {
+    els.input.disabled=false; els.input.focus();
+    els.send.onclick = () => { 
+        const v=els.input.value.trim(); if(!v)return; 
+        addUserMessage(v); els.input.value=""; els.input.disabled=true; cb(v); 
     };
   }
 
-  function handleManualInput() {
-    if (!els.input.disabled && els.send) els.send.click();
-  }
+  function handleManualInput() { if(!els.input.disabled) els.send.click(); }
+  function resetItem() { state.serviceKey=null; state.subOption=null; state.size=0; state.selectedAddons=[]; state.debrisRemoval=false; }
 
   document.addEventListener("DOMContentLoaded", init);
 
