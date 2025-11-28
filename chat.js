@@ -1,15 +1,15 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v16.1 (FULL RESTORE)
-   - RESTORED: All 100+ Smart Add-ons & Service Definitions.
-   - FIXED: "Three Quotes" bug (Quote only appears ONCE at end).
-   - ENGINE: Dictionary-based (English, Spanish, Chinese, Russian).
-   - FEATURES: HVAC, Junk, Design, Strict Phone, Photo Reminder.
+   HAMMER BRICK & HOME — ESTIMATOR BOT v17.0 (MASTER MERGE)
+   - RESTORED: Full 1,300-line logic from v14.2 (All Services/Addons).
+   - ENGINE: Multi-Language (EN, ES, CN, RU) + Cart System.
+   - FIXED: "Three Quotes" bug (Shows 1 final receipt).
+   - FIXED: Strict Phone Validation + Photo Reminder.
 =============================================================== */
 
 (function() {
 
   // --- CONFIGURATION -----------------------------------------
-  const WEBHOOK_URL = ""; 
+  const WEBHOOK_URL = ""; // <- Plug in Zapier/Make URL
   const PHONE_NUMBER = "9295955300"; 
   const CRM_FORM_URL = ""; 
   const WALKTHROUGH_URL = "";
@@ -22,7 +22,7 @@
   const DISCOUNTS = { "VIP10": 0.10, "REFERRAL5": 0.05, "WEBSAVER": 0.05 };
   const ADD_ON_PRICES = { debrisRemoval: { low: 1200, high: 2800 } };
 
-  // --- LANGUAGE DICTIONARY -----------------------------------
+  // --- TEXT DICTIONARY (MULTI-LANG) -------------------------
   const TEXT = {
     en: {
       welcome: "👋 Hi! Ready to upgrade your home?",
@@ -219,12 +219,11 @@
   };
 
   const SMART_ADDON_GROUP_LABELS = {
-    luxury: "Luxury Upgrades", protection: "Protection & Safety",
-    design: "Design Enhancements", speed: "Speed / Convenience",
-    maintenance: "Maintenance Items"
+    luxury: "Luxury", protection: "Protection",
+    design: "Design", speed: "Speed", maintenance: "Maintenance"
   };
 
-  // --- FULL SMART ADD-ONS CONFIG (RESTORED) ---
+  // --- FULL ADD-ONS CONFIG (FROM v14.2) ----------------------
   const SMART_ADDONS_CONFIG = {
     masonry: {
       title: "Masonry · Pavers · Concrete",
@@ -616,7 +615,7 @@
     }
   };
 
-  // --- FULL SERVICE DEFINITIONS (RESTORED) ---
+  // --- FULL SERVICE DEFINITIONS (FROM v14.2) -----------------
   const SERVICES = {
     "masonry": {
       label: "Masonry/Concrete", emoji: "🧱", unit: "sq ft",
