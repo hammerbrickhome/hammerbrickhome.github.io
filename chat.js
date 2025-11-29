@@ -1,9 +1,10 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v14.2 (FINAL DEBRIS FIX)
-   - FIXED: Debris cost is now calculated INSIDE the project.
-   - FIXED: Manhattan modifier (1.18x) now applies to Dumpsters.
-   - UPDATED: 2025 NYC Pricing for all services.
-   - INCLUDES: Anti-Freeze ID System, Instant Estimate, Ticker.
+   HAMMER BRICK & HOME — ESTIMATOR BOT v15.0 (VOICE & UI UPGRADE)
+   - UPDATED: Added Voice-to-Text capability.
+   - UPDATED: Added Message Timestamps.
+   - UPDATED: Added Email Capture field.
+   - UPDATED: Enhanced Dark/Gold CSS Theme.
+   - PRESERVED: All Pricing Logic & Debris Calculations.
 =============================================================== */
 
 (function() {
@@ -737,6 +738,7 @@
     debrisRemoval: false,
     selectedAddons: [], 
     name: "",
+    email: "", // Added email state
     phone: "",
     projectTiming: "",
     leadSource: "",
@@ -750,7 +752,8 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v14.2...");
+    console.log("HB Chat: Initializing v15.0...");
+    injectCustomStyles();
     createInterface();
     startTicker();
     
@@ -764,6 +767,27 @@
     }
 
     setTimeout(stepOne_Disclaimer, 800);
+  }
+
+  function injectCustomStyles() {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .hb-chat-wrapper { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important; border-radius: 12px; overflow: hidden; }
+      .hb-chat-header { background: #111 !important; color: #e7bf63 !important; }
+      .hb-msg-bot { background: #f0f0f0; color: #333; border-left: 3px solid #e7bf63; }
+      .hb-msg-user { background: #1c263b; color: #fff; }
+      .hb-chip { background: #fff; border: 1px solid #e7bf63; color: #333; transition: all 0.2s; }
+      .hb-chip:hover { background: #e7bf63; color: #000; }
+      .hb-primary-btn { background: #e7bf63 !important; color: #000 !important; font-weight: bold; }
+      .hb-timestamp { font-size: 9px; opacity: 0.6; display: block; margin-top: 4px; text-align: right; }
+      .hb-mic-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 0 10px; transition: transform 0.2s; }
+      .hb-mic-btn:hover { transform: scale(1.1); }
+      .hb-mic-active { color: #e74c3c; animation: pulse 1s infinite; }
+      .hb-refresh-btn { background: none; border: none; color: #e7bf63; font-size: 18px; cursor: pointer; padding: 0 10px; }
+      .hb-footer-license { font-size: 9px; color: #666; text-align: center; padding: 5px; background: #f9f9f9; border-top: 1px solid #eee; }
+      @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    `;
+    document.head.appendChild(style);
   }
 
   function createInterface() {
@@ -784,7 +808,8 @@
           <h3>Hammer Brick & Home</h3>
           <span style="color:#e7bf63; font-size:11px; letter-spacing:0.5px;">★★★★★ 5.0 on Google</span>
         </div>
-        <div style="display:flex; gap:15px; align-items:center;">
+        <div style="display:flex; gap:10px; align-items:center;">
+            <button class="hb-refresh-btn" title="Restart Chat" id="hb-refresh">↻</button>
             <a href="tel:${PHONE_NUMBER}" style="text-decoration:none; color:#fff; font-size:18px;" aria-label="Call Now">📞</a>
             <button class="hb-chat-close" style="font-size:24px;">×</button>
         </div>
@@ -798,8 +823,10 @@
       <div class="hb-chat-body" id="hb-body" role="log" aria-live="polite"></div>
       <div class="hb-chat-footer">
         <input type="text" class="hb-chat-input" id="hb-input" placeholder="Select an option..." disabled>
+        <button class="hb-mic-btn" id="hb-mic" title="Voice Input">🎤</button>
         <button class="hb-chat-send" id="hb-send">➤</button>
       </div>
+      <div class="hb-footer-license">NYC Licensed Contractor: HIC #2131291 · Insured</div>
     `;
     document.body.appendChild(wrapper);
 
@@ -818,19 +845,65 @@
       prog: document.getElementById("hb-prog"),
       ticker: document.getElementById("hb-ticker"),
       close: wrapper.querySelector(".hb-chat-close"),
+      refresh: document.getElementById("hb-refresh"),
+      mic: document.getElementById("hb-mic"),
       photoInput
     };
 
     els.close.onclick = toggleChat;
+    els.refresh.onclick = function() {
+       if(confirm("Restart the estimate?")) location.reload();
+    };
     els.send.onclick = handleManualInput;
     els.input.addEventListener("keypress", function(e) {
       if (e.key === "Enter") handleManualInput();
     });
 
+    setupVoiceInput();
+
     photoInput.addEventListener("change", function() {
       if (!photoInput.files || !photoInput.files.length) return;
       addBotMessage(`📷 You selected ${photoInput.files.length} photo(s). Please attach these when you text or email us.`);
     });
+  }
+
+  function setupVoiceInput() {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+
+      els.mic.onclick = function() {
+        if (els.mic.classList.contains('hb-mic-active')) {
+          recognition.stop();
+        } else {
+          recognition.start();
+        }
+      };
+
+      recognition.onstart = function() {
+        els.mic.classList.add('hb-mic-active');
+        els.input.placeholder = "Listening...";
+      };
+
+      recognition.onend = function() {
+        els.mic.classList.remove('hb-mic-active');
+        if (!els.input.disabled) els.input.placeholder = "Type your answer...";
+      };
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        if (!els.input.disabled) {
+          els.input.value = transcript;
+          els.input.focus();
+          // Optional: Auto-send if high confidence
+          // handleManualInput(); 
+        }
+      };
+    } else {
+      els.mic.style.display = "none";
+    }
   }
 
   function startTicker() {
@@ -866,7 +939,11 @@
     if (els.prog) els.prog.style.width = pct + "%";
   }
 
-  // --- MESSAGING (FIXED FREEZING BUG) ---
+  // --- MESSAGING (UPDATED WITH TIMESTAMPS) ---
+
+  function getTimeStr() {
+    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
 
   function addBotMessage(text, isHtml) {
     const typingId = "typing-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
@@ -888,7 +965,9 @@
     setTimeout(function() {
       const msgBubble = document.getElementById(typingId);
       if (msgBubble) {
-        msgBubble.innerHTML = isHtml ? text : text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        let content = isHtml ? text : text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        content += `<span class="hb-timestamp">${getTimeStr()}</span>`;
+        msgBubble.innerHTML = content;
         els.body.scrollTop = els.body.scrollHeight;
       }
     }, delay);
@@ -897,7 +976,7 @@
   function addUserMessage(text) {
     const div = document.createElement("div");
     div.className = "hb-msg hb-msg-user";
-    div.textContent = text;
+    div.innerHTML = text + `<span class="hb-timestamp" style="color:#ccc">${getTimeStr()}</span>`;
     els.body.appendChild(div);
     els.body.scrollTop = els.body.scrollHeight;
   }
@@ -1556,8 +1635,16 @@
     addBotMessage("What is your name?");
     enableInput(function(name) {
       state.name = name;
-      askPhone();
+      askEmail();
     });
+
+    function askEmail() {
+        addBotMessage("What is your email address?");
+        enableInput(function(email) {
+            state.email = email;
+            askPhone();
+        });
+    }
 
     function askPhone() {
         addBotMessage("And your mobile number?");
@@ -1640,6 +1727,7 @@
     }
 
     lines.push(`Customer Name: ${state.name}`);
+    lines.push(`Email: ${state.email}`);
     lines.push(`Phone: ${state.phone}`);
     lines.push(`Timing: ${state.projectTiming}`); 
     lines.push(`Source: ${state.leadSource}`);  
@@ -1723,6 +1811,7 @@
       const totals = computeGrandTotal();
       const payload = {
           name: stateData.name,
+          email: stateData.email,
           phone: stateData.phone,
           timing: stateData.projectTiming,
           source: stateData.leadSource,
