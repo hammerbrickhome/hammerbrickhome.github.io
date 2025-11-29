@@ -1,8 +1,8 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v16.2 (CLEAN & SUMMARY)
-   - REMOVED: Voice Input (Microphone) function.
-   - ADDED: Displays full text summary in chat before sending.
-   - INCLUDES: Save/Load state, Image Previews, Mobile Fixes.
+   HAMMER BRICK & HOME — ESTIMATOR BOT v17.0 (SMART INTENT)
+   - NEW: "Smart Brain" detects services from user typing.
+   - Example: User types "I need a new driveway" -> Bot starts Driveway flow.
+   - INCLUDES: All v16.2 features (Summary, Mobile Fix, Save).
 =============================================================== */
 
 (function() {
@@ -21,6 +21,27 @@
   const DISCOUNTS = { "VIP10": 0.10, "REFERRAL5": 0.05, "WEBSAVER": 0.05 };
   
   const ADD_ON_PRICES = { "debrisRemoval": { low: 1200, high: 2800 } }; 
+
+  // --- 🧠 SMART BRAIN: KEYWORD MAPPING ---
+  // These keywords trigger the specific service flow automatically.
+  const KEYWORD_MAPPING = {
+      "masonry": ["masonry", "brick", "stone", "paver", "concrete", "stoop", "cement", "block", "pointing", "sidewalk"],
+      "driveway": ["driveway", "asphalt", "parking", "blacktop", "drive", "pave"],
+      "roofing": ["roof", "shingle", "leak", "flat roof", "rubber", "flashing"],
+      "siding": ["siding", "vinyl", "cedar", "shake", "cladding", "exterior wall"],
+      "windows": ["window", "glass", "pane", "glazing"],
+      "deck": ["deck", "porch", "trex", "composite", "wood floor", "outdoor floor"],
+      "fence": ["fence", "fencing", "gate", "pvc", "chain"],
+      "waterproofing": ["water", "leak", "basement leak", "french drain", "sump", "wet"],
+      "powerwash": ["wash", "clean", "scrub", "pressure"],
+      "painting": ["paint", "interior", "wall color", "painting"],
+      "exterior_paint": ["exterior paint", "facade", "house paint"],
+      "flooring": ["floor", "hardwood", "laminate", "tile", "carpet"],
+      "kitchen": ["kitchen", "cabinet", "counter", "island", "cooking"],
+      "bathroom": ["bath", "shower", "toilet", "tub", "vanity", "restroom"],
+      "handyman": ["repair", "fix", "small job", "handyman", "broken"],
+      "gutter": ["gutter", "leader", "downspout"]
+  };
 
   const SMART_ADDON_GROUP_LABELS = {
     luxury: "Luxury Upgrades", protection: "Protection & Safety",
@@ -748,7 +769,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v16.2...");
+    console.log("HB Chat: Initializing v17.0 Smart...");
     injectCustomStyles();
     createInterface();
     startTicker();
@@ -1032,6 +1053,7 @@
 
   function stepOne_Disclaimer() {
     updateProgress(5, "Step 1 of 8: Start");
+    state.step = 1; // Mark step 1
     
     addBotMessage(getSeasonalGreeting());
 
@@ -1056,22 +1078,45 @@
     }, 1200);
   }
 
+  // --- SMART INTENT DETECTION ---
+
+  function detectIntent(text) {
+      const lower = text.toLowerCase();
+      let bestMatch = null;
+
+      // Check keywords
+      for (const [key, keywords] of Object.entries(KEYWORD_MAPPING)) {
+          if (keywords.some(k => lower.includes(k))) {
+              bestMatch = key;
+              break; 
+          }
+      }
+      return bestMatch;
+  }
+
   function presentServiceOptions() {
     updateProgress(10, "Step 2 of 8: Service Selection");
+    state.step = 2; // Mark that we are in selection mode
     
+    // Enable input so user can type!
+    enableInput(function(val) {
+        handleServiceInput(val);
+    });
+
     const opts = Object.keys(SERVICES).map(function(k) {
       return { label: SERVICES[k].emoji + " " + SERVICES[k].label, key: k };
     });
 
     opts.unshift({ label: "📸 Send Photo (Skip to Quote)", key: "photo_skip" });
 
+    // Inform user they can type
+    addBotMessage("👇 Select an option below OR **type what you need** (e.g., 'Bathroom remodel').", true);
+
     addChoices(opts, function(selection) {
       if (selection.key === "photo_skip") {
           state.isPhotoSkip = true;
           addBotMessage("Smart choice. A picture is worth a thousand words.");
-          
           if(els.photoInput) els.photoInput.click();
-          
           setTimeout(() => {
               showLeadCapture("After you attach your photo, I'll grab your contact info so we can text you the analysis.");
           }, 1000);
@@ -1083,8 +1128,36 @@
     });
   }
 
+  function handleServiceInput(text) {
+      // 1. Detect Intent
+      const match = detectIntent(text);
+
+      if (match && SERVICES[match]) {
+          state.serviceKey = match;
+          state.subOption = null;
+          
+          // Clear any existing chips to avoid confusion
+          const chips = els.body.querySelector(".hb-chips");
+          if(chips) chips.remove();
+
+          addBotMessage(`💡 I see you're interested in **${SERVICES[match].label}**. Let's get started on that.`);
+          setTimeout(stepTwo_SubQuestions, 800);
+      } else {
+          addBotMessage("🤔 I'm not 100% sure which category that fits. Please select the closest option from the buttons below.");
+          // Re-present options
+          const opts = Object.keys(SERVICES).map(k => ({ label: SERVICES[k].emoji + " " + SERVICES[k].label, key: k }));
+          addChoices(opts, function(selection) {
+              state.serviceKey = selection.key;
+              state.subOption = null;
+              stepTwo_SubQuestions();
+          });
+      }
+  }
+
   function stepTwo_SubQuestions() {
     updateProgress(30, "Step 3 of 8: Project Details");
+    state.step = 3; 
+
     const svc = SERVICES[state.serviceKey];
     if (!svc) return;
 
