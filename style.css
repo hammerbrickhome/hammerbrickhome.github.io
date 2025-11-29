@@ -2777,3 +2777,105 @@ input.gallery-search-box,
     }
 
 }
+/* =========================================
+   MODERN GRID UPGRADES
+   Paste this into your <style> block
+========================================= */
+
+/* 1. THE CARD: Soft Corners & Hover Lift */
+.ba-card {
+  border-radius: 16px;          /* Softer, modern corners */
+  overflow: hidden;             /* Keeps images inside the curves */
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05); /* Very subtle border */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Soft start shadow */
+  transition: all 0.4s ease;    /* Smooth animation */
+}
+
+.ba-card:hover {
+  transform: translateY(-5px);  /* Lifts up when hovered */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Deeper shadow on hover */
+}
+
+/* 2. THE IMAGES: High Contrast */
+/* Makes the 'After' image pop more */
+.ba-after {
+  filter: contrast(1.05) saturate(1.05); 
+}
+
+/* 3. THE SLIDER HANDLE: Custom "Scanner" Look */
+.ba-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  z-index: 10;
+}
+
+/* Chrome/Safari Handle */
+.ba-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12zM8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z'/%3E%3C/svg%3E");
+  background-size: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  border: 2px solid #e7bf63; /* Your Gold Brand Color */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  cursor: ew-resize;
+  position: relative;
+  margin-top: -20px; /* Centers it vertically if needed */
+}
+
+/* Firefox Handle */
+.ba-slider::-moz-range-thumb {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid #e7bf63;
+  cursor: ew-resize;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* 4. THE SPLIT LINE: White line following the slider */
+/* This requires a tiny pseudo-element trick on the thumb, 
+   but since we can't easily add that to input range, 
+   we simulate it with a border on the 'after-wrap' */
+.ba-after-wrap {
+  border-right: 3px solid #fff; /* The white scanning line */
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* Shadow behind the line */
+}
+
+/* 5. FLOATING LABELS: Glassmorphism Pills */
+.ba-label {
+  position: absolute;
+  top: 15px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.85); /* Semi-transparent */
+  backdrop-filter: blur(4px); /* Blur effect (Glassmorphism) */
+  color: #111;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  pointer-events: none; /* Let clicks pass through to the slider */
+}
+
+.ba-label-left { left: 15px; }
+.ba-label-right { right: 15px; }
+
+/* 6. CAPTION: Clean Typography */
+.ba-caption {
+  padding: 15px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+}
