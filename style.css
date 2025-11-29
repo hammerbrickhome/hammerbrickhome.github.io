@@ -2778,104 +2778,129 @@ input.gallery-search-box,
 
 }
 /* =========================================
-   MODERN GRID UPGRADES
-   Paste this into your <style> block
+   LUXURY GRID UPGRADES (The "Missing" Polish)
+   Add this to the very bottom of style.css
 ========================================= */
 
-/* 1. THE CARD: Soft Corners & Hover Lift */
+/* 1. THE CARD: 3D Lift & Soft Shadows */
 .ba-card {
-  border-radius: 16px;          /* Softer, modern corners */
-  overflow: hidden;             /* Keeps images inside the curves */
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.05); /* Very subtle border */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Soft start shadow */
-  transition: all 0.4s ease;    /* Smooth animation */
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff; /* Clean white frame for contrast */
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Deep shadow */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Apple-style smooth motion */
+  transform: translateZ(0); /* Hardware acceleration */
 }
 
 .ba-card:hover {
-  transform: translateY(-5px);  /* Lifts up when hovered */
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Deeper shadow on hover */
+  transform: translateY(-8px); /* Lifts up physically */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5); /* Shadow gets deeper */
+  border-color: var(--gold-soft); /* Subtle gold glow on edges */
 }
 
-/* 2. THE IMAGES: High Contrast */
-/* Makes the 'After' image pop more */
+/* 2. THE IMAGES: High Definition Pop */
 .ba-after {
-  filter: contrast(1.05) saturate(1.05); 
+  filter: contrast(1.1) saturate(1.1); /* Makes the "New" work look richer */
 }
 
-/* 3. THE SLIDER HANDLE: Custom "Scanner" Look */
+/* 3. THE SLIDER HANDLE: The "Scanner" Look */
+/* This replaces the default circle with a custom branded controller */
 .ba-slider {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
-  z-index: 10;
+  height: 100%; /* Cover full height for touch area */
+  z-index: 20;
 }
 
 /* Chrome/Safari Handle */
 .ba-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12zM8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z'/%3E%3C/svg%3E");
-  background-size: 24px;
+  /* Adds a 'Drag' icon inside the circle */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12zM8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z'/%3E%3C/svg%3E");
+  background-size: 28px;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 50%;
-  border: 2px solid #e7bf63; /* Your Gold Brand Color */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  border: 3px solid var(--gold); /* Gold Ring */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   cursor: ew-resize;
   position: relative;
-  margin-top: -20px; /* Centers it vertically if needed */
+  margin-top: -22px; /* Centers it vertically */
 }
 
 /* Firefox Handle */
 .ba-slider::-moz-range-thumb {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background-color: #fff;
   border-radius: 50%;
-  border: 2px solid #e7bf63;
+  border: 3px solid var(--gold);
   cursor: ew-resize;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-/* 4. THE SPLIT LINE: White line following the slider */
-/* This requires a tiny pseudo-element trick on the thumb, 
-   but since we can't easily add that to input range, 
-   we simulate it with a border on the 'after-wrap' */
+/* 4. THE WHITE SPLIT LINE */
+/* Creates the sharp line cutting through the image */
 .ba-after-wrap {
-  border-right: 3px solid #fff; /* The white scanning line */
-  box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* Shadow behind the line */
+  border-right: 3px solid #fff; 
+  box-shadow: 5px 0 20px rgba(0,0,0,0.3); /* Shadow BEHIND the cut line */
 }
 
-/* 5. FLOATING LABELS: Glassmorphism Pills */
+/* 5. GLASS LABELS (Glassmorphism) */
 .ba-label {
   position: absolute;
-  top: 15px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.85); /* Semi-transparent */
-  backdrop-filter: blur(4px); /* Blur effect (Glassmorphism) */
-  color: #111;
+  top: 18px;
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, 0.65); /* Dark semi-transparent */
+  backdrop-filter: blur(8px); /* The "Frosted Glass" effect */
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  pointer-events: none; /* Let clicks pass through to the slider */
+  letter-spacing: 1px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.15);
+  pointer-events: none;
+  z-index: 5;
 }
 
-.ba-label-left { left: 15px; }
-.ba-label-right { right: 15px; }
+.ba-label-left { left: 18px; }
+.ba-label-right { right: 18px; }
 
-/* 6. CAPTION: Clean Typography */
+/* 6. CAPTION TYPOGRAPHY */
 .ba-caption {
-  padding: 15px;
-  font-weight: 600;
-  color: #333;
-  font-size: 0.95rem;
-  text-align: center;
+  padding: 18px 20px;
+  background: #fff; /* Clean white bottom bar */
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: #071426; /* Dark Navy Text */
+  font-size: 14px;
+  text-align: left;
   border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Adds a small gold arrow after the text automatically */
+.ba-caption::after {
+  content: "→";
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 18px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.ba-card:hover .ba-caption::after {
+  opacity: 1;
+  transform: translateX(0);
 }
