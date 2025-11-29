@@ -3,13 +3,13 @@
     {
       "before": "Livingroom-before33.jpeg",
       "after": "Livingroom-after33.jpeg",
-      "label": "Tottenville: Luxury Living Room Remodel (Signature Tier)",
+      "label": ": Luxury Living Room Remodel (Signature Tier)",
       "tags": ["remodel", "interior", "livingroom", "flooring"]
     },
     {
       "before": "diningroom-full-gut-before.jpeg",
       "after": "diningroom-full-gut-after.jpeg",
-      "label": "West Brighton: Full Dining Room Restoration",
+      "label": ": Full Dining Room Restoration",
       "tags": ["remodel", "interior", "diningroom", "gut"]
     },
     {
@@ -21,7 +21,7 @@
     {
       "before": "front-walk-way-wood-gut-before.jpeg",
       "after": "front-walk-way-wood-gut-after.jpeg",
-      "label": "Annadale: Limestone Walkway Upgrade",
+      "label": ": Limestone Walkway Upgrade",
       "tags": ["walkway", "tiles", "pavers", "exterior", "stone"]
     },
     {
@@ -33,13 +33,13 @@
     {
       "before": "Full-front-remodel-before.jpeg",
       "after": "full-front-remodel-after.jpeg",
-      "label": "Huguenot: Full Facade Masonry Rebuild",
+      "label": ": Full Facade Masonry Rebuild",
       "tags": ["rebuild", "exterior", "front", "masonry"]
     },
     {
       "before": "Full-gut-deck-before.jpeg",
       "after": "Full-gut-deck-after.jpeg",
-      "label": "Great Kills: Pressure-Treated Deck Rebuild",
+      "label": ": Pressure-Treated Deck Rebuild",
       "tags": ["deck", "rebuild", "exterior", "wood"]
     },
     {
@@ -51,13 +51,13 @@
     {
       "before": "Full-gut-driveway-before.jpeg",
       "after": "Full-gut-driveway-after.jpeg",
-      "label": "New Dorp: Concrete & Paver Driveway System",
+      "label": ": Concrete & Paver Driveway System",
       "tags": ["driveway", "pavers", "concrete", "exterior"]
     },
     {
       "before": "Full-stairs-remodel-before.jpeg",
       "after": "Full-stairs-remodel-after.jpeg",
-      "label": "Todt Hill: Granite Staircase & Railings (Signature Tier)",
+      "label": ": Granite Staircase & Railings (Signature Tier)",
       "tags": ["stairs", "rebuild", "remodel", "exterior", "granite"]
     },
     {
