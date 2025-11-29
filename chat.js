@@ -1,11 +1,8 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v16.0 (PRO UPGRADE)
-   - NEW: Session Persistence (Remembers user data on refresh)
-   - NEW: Image Thumbnails for uploads
-   - NEW: Input Validation (Phone/Email Regex)
-   - NEW: Duration Estimates & Financing Info
-   - NEW: Mobile "Safe Area" Fixes & A11Y Improvements
-   - PRESERVED: All v15.0 Pricing & Logic
+   HAMMER BRICK & HOME — ESTIMATOR BOT v16.2 (CLEAN & SUMMARY)
+   - REMOVED: Voice Input (Microphone) function.
+   - ADDED: Displays full text summary in chat before sending.
+   - INCLUDES: Save/Load state, Image Previews, Mobile Fixes.
 =============================================================== */
 
 (function() {
@@ -751,7 +748,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v16.0 Pro...");
+    console.log("HB Chat: Initializing v16.2...");
     injectCustomStyles();
     createInterface();
     startTicker();
@@ -769,7 +766,6 @@
     }
 
     if(state.projects.length > 0) {
-        // If we have history, maybe just show a welcome back
         addBotMessage(`👋 Welcome back, ${state.name || "Customer"}. I remember your previous details.`);
         showCombinedReceiptAndLeadCapture();
     } else {
@@ -789,9 +785,6 @@
       .hb-chip:disabled { opacity: 0.6; cursor: not-allowed; filter: grayscale(100%); }
       .hb-primary-btn { background: #e7bf63 !important; color: #000 !important; font-weight: bold; }
       .hb-timestamp { font-size: 9px; opacity: 0.6; display: block; margin-top: 4px; text-align: right; }
-      .hb-mic-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 0 10px; transition: transform 0.2s; }
-      .hb-mic-btn:hover { transform: scale(1.1); }
-      .hb-mic-active { color: #e74c3c; animation: pulse 1s infinite; }
       .hb-refresh-btn { background: none; border: none; color: #e7bf63; font-size: 18px; cursor: pointer; padding: 0 10px; }
       .hb-footer-license { font-size: 9px; color: #666; text-align: center; padding: 5px; background: #f9f9f9; border-top: 1px solid #eee; }
       /* Mobile Safe Area Fix */
@@ -835,7 +828,6 @@
       <div class="hb-chat-body" id="hb-body" role="log" aria-live="polite"></div>
       <div class="hb-chat-footer">
         <input type="text" class="hb-chat-input" id="hb-input" placeholder="Select an option..." disabled aria-label="Chat Input">
-        <button class="hb-mic-btn" id="hb-mic" title="Voice Input" aria-label="Use Microphone">🎤</button>
         <button class="hb-chat-send" id="hb-send" aria-label="Send Message">➤</button>
       </div>
       <div class="hb-footer-license">NYC Licensed Contractor: HIC #2131291 · Insured</div>
@@ -858,7 +850,6 @@
       ticker: document.getElementById("hb-ticker"),
       close: wrapper.querySelector(".hb-chat-close"),
       refresh: document.getElementById("hb-refresh"),
-      mic: document.getElementById("hb-mic"),
       photoInput
     };
 
@@ -873,8 +864,6 @@
     els.input.addEventListener("keypress", function(e) {
       if (e.key === "Enter") handleManualInput();
     });
-
-    setupVoiceInput();
 
     photoInput.addEventListener("change", function() {
       if (!photoInput.files || !photoInput.files.length) return;
@@ -899,48 +888,6 @@
       
       addBotMessage(`📷 Photos received! I'll attach these to your file.`);
     });
-  }
-
-  function setupVoiceInput() {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.continuous = false;
-      recognition.lang = 'en-US';
-
-      els.mic.onclick = function() {
-        if (els.mic.classList.contains('hb-mic-active')) {
-          recognition.stop();
-        } else {
-          recognition.start();
-        }
-      };
-
-      recognition.onstart = function() {
-        els.mic.classList.add('hb-mic-active');
-        els.input.placeholder = "Listening...";
-      };
-
-      recognition.onend = function() {
-        els.mic.classList.remove('hb-mic-active');
-        if (!els.input.disabled) els.input.placeholder = "Type your answer...";
-      };
-
-      recognition.onerror = function() {
-          els.mic.classList.remove('hb-mic-active');
-          addBotMessage("🎤 I couldn't catch that. Please try typing instead.");
-      };
-
-      recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript;
-        if (!els.input.disabled) {
-          els.input.value = transcript;
-          els.input.focus();
-        }
-      };
-    } else {
-      els.mic.style.display = "none";
-    }
   }
 
   function startTicker() {
@@ -977,7 +924,6 @@
   }
 
   function saveState() {
-      // Save critical info to survive refresh
       const safeState = {
           projects: state.projects,
           name: state.name,
@@ -1063,8 +1009,8 @@
         // Anti-Duplicate Click Logic
         btn.onclick = function() {
           const allChips = chipContainer.querySelectorAll(".hb-chip");
-          allChips.forEach(c => c.disabled = true); // Disable all siblings
-          chipContainer.remove(); // Or remove immediately
+          allChips.forEach(c => c.disabled = true); 
+          chipContainer.remove(); 
           addUserMessage(label);
           callback(opt);
         };
@@ -1077,7 +1023,7 @@
   }
 
   function getSeasonalGreeting() {
-      const month = new Date().getMonth(); // 0 = Jan, 11 = Dec
+      const month = new Date().getMonth(); 
       if (month === 10 || month === 11) return "❄️ Winter is coming! Check our freeze-protection packages."; 
       if (month >= 2 && month <= 4) return "🌸 Spring Rush is starting! Secure your dates now.";
       if (month >= 5 && month <= 7) return "☀️ Summer is here! Perfect time for outdoor living.";
@@ -1376,7 +1322,7 @@
     const availableItems = items.filter(item => 
       !state.selectedAddons.some(sel => sel.label === item.label)
     ).map(item => ({
-      label: `${item.label} ($${item.low} - $${item.high})`, // Updated to show range
+      label: `${item.label} ($${item.low} - $${item.high})`, 
       itemData: item,
       group: groupKey
     }));
@@ -1410,7 +1356,7 @@
         const est = computeEstimateForCurrent();
         est.svcKey = state.serviceKey;
         state.projects.push(est); 
-        saveState(); // Save after calculation
+        saveState(); 
         showEstimateAndAskAnother(est);
     }, 1500);
   }
@@ -1419,7 +1365,6 @@
 
   function getDurationEstimate(est) {
       if(est.isCustom) return "Consultation Needed";
-      // Rough logic based on price
       if(est.high < 2500) return "1 Day";
       if(est.high < 5000) return "1 - 2 Days";
       if(est.high < 15000) return "3 - 5 Days";
@@ -1523,7 +1468,6 @@
         if (p.high) totalHigh += p.high;
     });
 
-    // Debris is now handled inside each project to show accurate unit prices
     const projectRequiresDebris = state.projects.some(p => p.debrisRemoval === true);
 
     return { totalLow, totalHigh, projectRequiresDebris };
@@ -1673,8 +1617,6 @@
     }).join("");
 
     let debrisRow = "";
-    // Debris is now hidden from this specific line because it's inside the projects,
-    // but we still show the checkmark if applicable.
     if (totals.projectRequiresDebris) {
         debrisRow = `<div class="hb-receipt-row" style="color:#0a9; font-weight:700;"><span>Debris Removal:</span><span>Included in estimates above</span></div>`;
     }
@@ -1706,7 +1648,6 @@
 
     addBotMessage('--- **Combined Estimate** ---<br>' + html, true);
     
-    // Check if we already have data
     if(state.name && state.phone) {
         setTimeout(() => generateFinalLinks(), 1200);
     } else {
@@ -1742,7 +1683,6 @@
     function askEmail() {
         addBotMessage("What is your email address?");
         enableInput(function(email) {
-            // Basic email validation
             if (!/^\S+@\S+\.\S+$/.test(email)) {
                 addBotMessage("⚠️ That doesn't look like a valid email. Please try again.");
                 setTimeout(askEmail, 500);
@@ -1758,7 +1698,6 @@
         addBotMessage("And your mobile number?");
         enableInput(function(phone) {
             const cleanPhone = phone.replace(/\D/g, "");
-            // Enhanced Validation
             if (cleanPhone.length < 10 || cleanPhone.length > 15) {
                 addBotMessage("⚠️ That number looks a bit short. Please enter a valid mobile number (10+ digits).");
                 setTimeout(askPhone, 500); 
@@ -1848,12 +1787,14 @@
 
     sendLeadToWebhook(lines.join("\n"), state);
 
+    // NEW: Show the final text summary in the chat so user sees what is being sent
+    addBotMessage("Here is the final text summary of your estimate:<br><pre style='background:#fff; padding:10px; border:1px solid #ccc; white-space:pre-wrap; font-family:monospace; font-size:11px;'>" + lines.join("\n") + "</pre>", true);
+
     const body = encodeURIComponent(lines.join("\n"));
     const smsLink = "sms:" + PHONE_NUMBER + "?&body=" + body;
     const emailLink = "mailto:hammerbrickhome@gmail.com?subject=" + encodeURIComponent("Estimate Request") + "&body=" + body;
 
     addBotMessage(`Thanks, ${state.name}! Choose how you’d like to contact us.`, false);
-    addBotMessage(`📅 We usually reply same day during business hours.`, false); 
     
     setTimeout(function() {
       const createBtn = (text, href, isPrimary, isCall) => {
