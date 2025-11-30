@@ -1,8 +1,8 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v17.0 (SMART INTENT)
-   - NEW: "Smart Brain" detects services from user typing.
-   - Example: User types "I need a new driveway" -> Bot starts Driveway flow.
-   - INCLUDES: All v16.2 features (Summary, Mobile Fix, Save).
+   HAMMER BRICK & HOME — ESTIMATOR BOT v17.1 (COMPETITIVE PRICING UPDATE)
+   - Updated: Friendly Disclaimer emphasizing "Competitive Pricing"
+   - Updated: Price presentation reminds user these are market averages
+   - INCLUDES: All Smart Brain & v17.0 logic preserved.
 =============================================================== */
 
 (function() {
@@ -23,7 +23,6 @@
   const ADD_ON_PRICES = { "debrisRemoval": { low: 1200, high: 2800 } }; 
 
   // --- 🧠 SMART BRAIN: KEYWORD MAPPING ---
-  // These keywords trigger the specific service flow automatically.
   const KEYWORD_MAPPING = {
       "masonry": ["masonry", "brick", "stone", "paver", "concrete", "stoop", "cement", "block", "pointing", "sidewalk"],
       "driveway": ["driveway", "asphalt", "parking", "blacktop", "drive", "pave"],
@@ -769,7 +768,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v17.0 Smart...");
+    console.log("HB Chat: Initializing v17.1 Smart...");
     injectCustomStyles();
     createInterface();
     startTicker();
@@ -1057,15 +1056,19 @@
     
     addBotMessage(getSeasonalGreeting());
 
+    // UPDATED DISCLAIMER (FRIENDLY & COMPETITIVE PITCH)
     const disclaimerText = `
-        I can generate a **ballpark price range** for your project in about 60 seconds. 
+        📝 **Just so you know:** This tool calculates **generic NYC/NJ market estimates** based on standard industry data.
         
-        (Note: This is an automated estimate, not a final contract. We'll confirm exact pricing with a quick visit.)
+        🚀 **Good News:** Hammer Brick & Home is often able to offer **more competitive pricing** than these averages! 
+        
+        (This is a ballpark range, not a final quote until a walkthrough.)
     `;
+    
     setTimeout(() => {
         addBotMessage(disclaimerText, true);
         addChoices([
-            { label: "🚀 Start Estimate", key: "agree" }, 
+            { label: "✅ I Understand – Start Estimate", key: "agree" }, 
             { label: "❌ Close", key: "exit" }
         ], function(choice) {
             if (choice.key === "agree") {
@@ -1584,6 +1587,13 @@
       ? `<div class="hb-receipt-total"><span>ESTIMATE:</span><span>$${fLow} – $${fHigh}</span></div>`
       : `<div class="hb-receipt-total"><span>ESTIMATE:</span><span>Requires on-site walkthrough</span></div>`;
 
+    // UPDATED: Friendly reminder about competitive pricing in the receipt itself
+    let competitiveNote = hasPrice
+      ? `<div style="background:#e6ffea; border:1px solid #b7ebc5; color:#2e7d32; font-size:10px; padding:6px; margin-top:8px; border-radius:4px; text-align:center;">
+           <strong>Good News:</strong> We often beat these market averages!
+         </div>` 
+      : "";
+
     return `
       <div class="hb-receipt">
         <h4>Estimator Summary</h4>
@@ -1598,6 +1608,7 @@
         ${addonsHtml}
         ${discountLine}
         ${priceRow}
+        ${competitiveNote}
         <div class="hb-receipt-footer hb-disclaimer">
           <strong>Disclaimer:</strong> This tool provides an automated ballpark range only. Final pricing may change based on site conditions.
         </div>
