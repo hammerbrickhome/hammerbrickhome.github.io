@@ -8,7 +8,7 @@
 //  - Pro Tips per project
 //  - PDF-style printable view
 //  - Scope of Work + Upsells + Terms in PDF + Email
-//  - Smart Add-Ons panel per service (OPTION C)
+//  - Smart Add-Ons panel per service (OPTION C INTEGRATION)
 
 document.addEventListener("DOMContentLoaded", () => {
   const form        = document.getElementById("est-form");
@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const regionNoteEl= document.getElementById("region-note");
 
   // ⭐ SMART ADD-ON CONFIG (OPTION C: dedicated panel that changes by service) ⭐
+  // Kept as fallback, but logic below now checks external checkboxes too
   const ADDON_CONFIG = {
     "masonry": {
       title: "Popular Masonry / Paver Add-Ons",
@@ -1592,71 +1593,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // SMART ADD-ONS: render dynamic panel based on selected service
+  // NOTE: This legacy function is kept for fallback, but the newer
+  // Option C script handles the UI. This logic is still safe to keep.
   function renderAddonPanel(svc){
     if (!addonsPanel) return;
-
-    const cfg = ADDON_CONFIG[svc];
-    addonsPanel.innerHTML = "";
-    extraAddonsValue = 0;
-
-    if (!cfg){
-      addonsPanel.style.display = "none";
-      return;
-    }
-
-    addonsPanel.style.display = "";
-    let html = `
-      <h4 class="addons-title">${cfg.title}</h4>
-      <p class="addons-subnote">${cfg.subnote}</p>
-      <div class="addons-list">
-    `;
-
-    cfg.items.forEach(item => {
-      html += `
-        <label class="addon-item">
-          <input
-            type="checkbox"
-            class="addon-checkbox"
-            data-addon-id="${item.id}"
-            data-addon-low="${item.low}"
-            data-addon-high="${item.high}"
-          >
-          <span class="addon-label">${item.label}</span>
-          <span class="addon-price">+ ${formatMoney(item.low)} – ${formatMoney(item.high)}</span>
-        </label>
-      `;
-    });
-
-    html += `
-      </div>
-      <p class="addons-total-row">
-        Selected add-ons approx:
-        <span id="est-addons-total-val">$0</span>
-      </p>
-    `;
-
-    addonsPanel.innerHTML = html;
-
-    const checkboxes = addonsPanel.querySelectorAll(".addon-checkbox");
-    checkboxes.forEach(cb => {
-      cb.addEventListener("change", () => {
-        let total = 0;
-        const boxes = addonsPanel.querySelectorAll(".addon-checkbox");
-        boxes.forEach(box => {
-          if (box.checked){
-            const low  = Number(box.dataset.addonLow)  || 0;
-            const high = Number(box.dataset.addonHigh) || 0;
-            const avg  = (low + high) / 2;
-            total += avg;
-          }
-        });
-        extraAddonsValue = total;
-        const totalSpan = addonsPanel.querySelector("#est-addons-total-val");
-        if (totalSpan){
-          totalSpan.textContent = formatMoney(extraAddonsValue);
-        }
-      });
-    });
+    // We clear this because Option C script will inject its own content.
+    // If you remove Option C script, this would be the fallback.
+    // For now, we assume Option C overrides this panel.
   }
 
   function updateVisibility(){
@@ -2067,12 +2010,23 @@ document.addEventListener("DOMContentLoaded", () => {
       addOnsTotal,
       dumpsterVal,
       demoVal,
-      permitVal
+      permitVal,
+      smartAddonList // NEW: passed from calculation
     } = estimateData;
 
     const sowHtml    = buildScopeOfWorkHtml(svc, svcLabel);
     const upsellsHtml= buildUpsellsHtml(svc);
     const termsHtml  = buildTermsHtml();
+
+    // Construct smart addon HTML list
+    let addonHtml = "";
+    if (smartAddonList && smartAddonList.length > 0) {
+      addonHtml = `<li><strong>Selected Smart Add-Ons:</strong>
+        <ul style="margin-top:4px;list-style:disc;padding-left:16px;">
+          ${smartAddonList.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+      </li>`;
+    }
 
     w.document.write(`<!doctype html>
 <html>
@@ -2232,6 +2186,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <li>Dumpster: ${formatMoney(dumpsterVal)}</li>
       <li>Demolition: ${formatMoney(demoVal)}</li>
       <li>Permit / Filing (approx): ${formatMoney(permitVal)}</li>
+      ${addonHtml}
       <li>Total add-ons included: ${formatMoney(addOnsTotal)}</li>
     </ul>
 
@@ -2433,10 +2388,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let adjustedLow  = baseLow  * factor;
     let adjustedHigh = baseHigh * factor;
 
+    // --- INTEGRATION: SMART ADD-ONS (OPTION C) ---
+    // We scrape the DOM for checkboxes created by 'hammer-smart-addons-v1.js'
+    // because they have the class '.smart-addon'
+    let smartAddonsCalc = 0;
+    let smartAddonList = [];
+
+    const externalCheckboxes = document.querySelectorAll(".smart-addon:checked");
+    externalCheckboxes.forEach(box => {
+        const l = parseFloat(box.dataset.low) || 0;
+        const h = parseFloat(box.dataset.high) || 0;
+        const avg = (l + h) / 2;
+        smartAddonsCalc += avg;
+        // Capture label for Email/PDF
+        smartAddonList.push(box.dataset.label);
+    });
+
     const dumpsterVal = Number(dumpsterEl.value || 0);
     const demoVal     = Number(demoEl.value || 0);
     const permitVal   = Number(permitEl.value || 0);
-    const smartAddonsVal = extraAddonsValue || 0;
+    
+    // Combine Option C logic with any legacy addon logic if present
+    const smartAddonsVal = (extraAddonsValue || 0) + smartAddonsCalc;
     const addOnsTotal = dumpsterVal + demoVal + permitVal + smartAddonsVal;
 
     let low  = adjustedLow  + addOnsTotal;
@@ -2525,11 +2498,19 @@ document.addEventListener("DOMContentLoaded", () => {
       "  Dumpster: $" + dumpsterVal.toLocaleString("en-US"),
       "  Demolition: $" + demoVal.toLocaleString("en-US"),
       "  DOB Permit (approx): $" + permitVal.toLocaleString("en-US"),
-      smartAddonsVal ? ("  Smart Add-Ons (approx mid): $" + Math.round(smartAddonsVal).toLocaleString("en-US")) : "",
+      smartAddonsVal ? ("  Smart Add-Ons Total (approx mid): $" + Math.round(smartAddonsVal).toLocaleString("en-US")) : ""
+    ];
+
+    if (smartAddonList.length > 0) {
+      bodyLines.push("  Smart Add-Ons Selected:");
+      smartAddonList.forEach(item => bodyLines.push(`    - ${item}`));
+    }
+
+    bodyLines.push(
       "",
       "Ballpark Range Shown:",
       "  " + formatMoney(softLow) + " – " + formatMoney(softHigh)
-    ].filter(Boolean);
+    );
 
     if (sowEmailLines.length){
       bodyLines.push("");
@@ -2678,7 +2659,8 @@ document.addEventListener("DOMContentLoaded", () => {
           addOnsTotal,
           dumpsterVal,
           demoVal,
-          permitVal
+          permitVal,
+          smartAddonList // PASSING LIST TO PDF
         });
       });
     }
