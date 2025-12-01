@@ -13,19 +13,27 @@
 <link rel="stylesheet" href="/style.css?v=3">
 
 <style>
-  /* --- FIX 1: GRID SPACING --- */
+  /* --- THE FIX IS HERE --- */
   .specials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 40px !important;
-    overflow: visible !important; /* Prevents clipping */
+    gap: 40px; 
+    
+    /* 1. We keep margin to push it away from the title */
+    margin-top: 20px !important; 
+    
+    /* 2. CRITICAL FIX: Padding allows the 'floating' tags to exist inside the container without being cut off */
+    padding-top: 50px !important;
+    padding-bottom: 20px;
+    
+    /* 3. Ensure nothing clips the overflow */
+    overflow: visible !important;
   }
 
   /* Section Header Spacing */
   .category-header {
     margin-top: 80px; 
-    margin-bottom: 10px;
+    margin-bottom: 0px; /* Reduced bottom margin because grid has padding now */
     border-bottom: 1px solid var(--gold);
     padding-bottom: 10px;
     color: var(--gold);
@@ -33,20 +41,21 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     clear: both;
+    position: relative;
+    z-index: 5;
   }
 
-  /* --- FIX 2: CARD MARGIN --- */
-  /* This creates a specific 'safe zone' above the card so the tag can't get cut off */
+  /* Card Styling */
   .special-card {
     background: #111;
     border: 1px solid #333;
     border-radius: 8px;
     padding: 25px;
-    position: relative;
+    position: relative; /* This is the anchor for the tag */
     display: flex;
     flex-direction: column;
     z-index: 1;
-    margin-top: 35px !important; /* THE FIX: Pushes card down so tag has room */
+    /* We don't need huge margin-top on the card anymore, the Grid Padding handles it */
   }
   
   .special-card:hover {
@@ -55,21 +64,20 @@
     transition: all 0.3s ease;
   }
   
-  /* --- FIX 3: TAG POSITION --- */
+  /* Tag Position */
   .special-tag {
     position: absolute;
-    /* We move it slightly less high so it stays safe */
-    top: -14px; 
+    top: -15px; /* Floats exactly half-way on the border */
     right: 20px;
     background: #D4AF37;
     color: #000;
-    padding: 5px 14px;
+    padding: 6px 14px;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     border-radius: 4px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6); /* Stronger shadow to separate it */
+    z-index: 20; /* Very high Z-index to ensure it sits ON TOP of everything */
     white-space: nowrap;
   }
 
