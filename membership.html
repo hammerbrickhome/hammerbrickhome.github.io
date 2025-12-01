@@ -5,11 +5,60 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Membership Perks & Monthly Draw — Hammer Brick & Home LLC</title>
-<meta name="description" content="Join our free loyalty program. Subscribe & Follow to win monthly home improvement perks.">
+<meta name="description" content="Join our free loyalty program for NYC homeowners. Subscribe & Follow to win monthly home improvement perks like power washing, repairs, and safety checks.">
 
 <link rel="canonical" href="https://www.hammerbrickhome.com/membership.html">
 <link rel="icon" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css?v=3">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Hammer Brick & Home Signature Membership",
+      "provider": {
+        "@type": "HomeAndConstructionBusiness",
+        "name": "Hammer Brick & Home LLC",
+        "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+        "priceRange": "$$-$$$$"
+      },
+      "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"],
+      "description": "A free loyalty program offering monthly home improvement perks and safety checks to local homeowners."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the 55-Minute Rule?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our technician is scheduled for a strict 1-hour window. We perform as much quality work as possible in 55 minutes. If a task requires more time due to unforeseen conditions, we stop and provide a quote or leave the area safe."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are materials included in the free perks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. We provide the labor, tools, and basic consumables (screws, glue, cleaning spray). You must provide specific hardware (light fixtures, new locks, paint, batteries, etc.) ready at the start of the appointment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is eligible for the membership?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The program is open to owner-occupied homes in our service area. Limit one perk per household per month."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 
 <style>
   /* --- 1. WINNERS TICKER --- */
@@ -24,19 +73,20 @@
     white-space: nowrap;
     border-bottom: 1px solid rgba(231,191,99,0.3);
     position: fixed;
-    top: 110px; /* Adjust based on your header height */
+    top: 110px; /* Adjust if your header height changes */
     z-index: 90;
   }
   .ticker {
     display: inline-block;
     padding-left: 100%;
-    animation: ticker 30s linear infinite;
+    animation: ticker 35s linear infinite;
   }
   @keyframes ticker {
     0% { transform: translate3d(0, 0, 0); }
     100% { transform: translate3d(-100%, 0, 0); }
   }
-  body { padding-top: 150px; } /* Push content down for header + ticker */
+  /* Push content down so header/ticker don't cover it */
+  body { padding-top: 150px; } 
 
   /* --- 2. DIGITAL MEMBERSHIP CARD --- */
   .member-card-container {
@@ -57,6 +107,8 @@
     overflow: hidden;
     transition: transform 0.3s ease;
   }
+  .member-card:hover { transform: translateY(-5px) rotateX(2deg); }
+  
   .member-card::before {
     content: "";
     position: absolute;
