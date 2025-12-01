@@ -833,7 +833,7 @@
       <div class="hb-chat-header">
         <div class="hb-chat-title">
           <h3>Hammer Brick & Home</h3>
-          <span style="color:#e7bf63; font-size:11px; letter-spacing:0.5px;">★★★★★ 5.0 on Google</span>
+          <span style="color:#e7bf63; font-size:11px; letter-spacing:0.5px;">NYC Licensed #2131291</span>
         </div>
         <div style="display:flex; gap:10px; align-items:center;">
             <button class="hb-refresh-btn" title="Restart Chat" id="hb-refresh" aria-label="Restart Chat">↻</button>
