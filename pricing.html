@@ -13,19 +13,25 @@
 <link rel="stylesheet" href="/style.css?v=3">
 
 <style>
-  /* Card Grid Layout - FIXED SPACING */
+  /* Card Grid Layout */
   .specials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px; /* Increased gap */
-    margin-top: 50px; /* INCREASED from 30px to 50px to fix cutoff tags */
-    padding-top: 15px; /* Extra safety padding for the tags */
-    overflow: visible; /* Ensures tags don't get clipped */
+    gap: 30px; 
+    
+    /* --- THE FIX FOR HEIGHT --- */
+    /* Pushes the whole grid down away from the text above it */
+    margin-top: 70px; 
+    
+    /* Creates internal room so the tag is considered "inside" the area */
+    padding-top: 30px; 
+    
+    overflow: visible; 
   }
 
   /* Section Dividers */
   .category-header {
-    margin-top: 80px; /* More space before section titles */
+    margin-top: 80px; 
     margin-bottom: 20px;
     border-bottom: 1px solid var(--gold);
     padding-bottom: 10px;
@@ -33,6 +39,8 @@
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    position: relative;
+    z-index: 5;
   }
 
   /* Card Styling */
@@ -45,7 +53,8 @@
     transition: transform 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
-    margin-top: 10px; /* Extra tiny push down */
+    /* Extra margin on the card itself to ensure tag clearance */
+    margin-top: 15px; 
   }
   .special-card:hover {
     transform: translateY(-5px);
@@ -55,22 +64,23 @@
   /* FIXED TAG POSITION */
   .special-tag {
     position: absolute;
-    top: -14px; /* Slightly higher to overlap border nicely */
+    top: -14px; 
     right: 20px;
     background: #D4AF37;
     color: #000;
     padding: 5px 14px;
     font-size: 12px;
-    font-weight: 800; /* Extra bold */
+    font-weight: 800; 
     text-transform: uppercase;
     border-radius: 4px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Adds depth so it pops */
-    z-index: 2; /* Ensures it sits on top of everything */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+    z-index: 20; /* High Z-index ensures it sits on top */
+    white-space: nowrap;
   }
 
   .special-card h3 {
     color: #fff;
-    margin-top: 10px; /* Space for the tag */
+    margin-top: 15px; /* Added space so title doesn't hit tag */
     margin-bottom: 5px;
     font-size: 1.4rem;
   }
