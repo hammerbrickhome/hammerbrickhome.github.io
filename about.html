@@ -10,7 +10,7 @@
 
 <link rel="icon" href="/images/hero.PNG">
 <link rel="preload" as="image" href="/images/hero.PNG">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v=3">
 <link rel="stylesheet" href="/chat.css">
 
 <meta property="og:title" content="About Us — Hammer Brick & Home LLC">
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   "name": "Hammer Brick & Home LLC",
-  "url": "https://www.hammerbrickhome.com/",
+  "url": "https://www.hammerbrickhome.com/about.html",
   "image": "https://www.hammerbrickhome.com/images/hero.PNG",
   "description": "Luxury NYC remodeling and true masonry, known for premium craftsmanship and white-glove clean-up. Offering Foundation, Premium, and Signature service tiers.",
   "telephone": "+1-929-595-5300",
@@ -44,7 +44,14 @@
     "@type": "Person",
     "name": "Noman"
   },
-  "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"],
+  "areaServed": [
+    { "@type": "City", "name": "Staten Island" },
+    { "@type": "City", "name": "Brooklyn" },
+    { "@type": "City", "name": "Queens" },
+    { "@type": "City", "name": "Manhattan" },
+    { "@type": "City", "name": "The Bronx" },
+    { "@type": "State", "name": "New Jersey" }
+  ],
   "sameAs": [
     "https://www.facebook.com/hammerbrickhome",
     "https://www.instagram.com/hammerbrickhome",
@@ -147,6 +154,43 @@
   height: auto;
   display: block;
 }
+
+/* --- MOBILE LAYOUT REPAIR (The Fix) --- */
+@media (max-width: 900px) {
+  /* Force Vertical Stacking */
+  .section.split {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  /* Make content full width so text isn't squished */
+  .section.split > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    order: initial !important; /* Reset any mixed up order */
+  }
+
+  /* Control Image Size */
+  .about-image-frame {
+    margin: 0 auto 20px auto !important;
+    max-width: 320px; /* Keeps image nice size on phone */
+  }
+
+  /* Adjust Mission Box Margins */
+  .mission-box {
+    margin-top: 20px !important; 
+    margin-bottom: 30px !important;
+    padding: 20px !important;
+  }
+  .mission-text {
+    font-size: 16px !important;
+  }
+}
+
+/* Process & Grid Styles */
 .process-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -275,8 +319,7 @@
 
   <section class="section split fade-up">
     <div class="about-image-frame">
-        <img src="/images/hero.PNG" alt="
-          Owner of Hammer Brick & Home LLC" loading="lazy">
+        <img src="/images/hero.PNG" alt="Owner of Hammer Brick & Home LLC" loading="lazy">
     </div>
     <div>
       <h2>Meet — Owner & Lead Contractor</h2>
@@ -293,8 +336,7 @@
   <section class="section fade-up">
     <h2>Our "White-Glove" Philosophy</h2>
     <p>Hammer Brick &amp; Home LLC was created to solve the biggest complaint homeowners have: <em>the mess</em>. We deliver the kind of craftsmanship you are proud to show off, with a process that respects your living space.</p>
-    <p>Visit our <a href="/services.html" style="color:var(--gold-soft);">Services Page</a> to see what we offer, or check out our <a href="/gallery.html" style="color:var(--gold-soft);">Gallery</a> to see real before & after transformations.</p>
-
+    
     <div class="process-grid">
       <div class="process-card">
         <h3>1. Luxury Prep</h3>
@@ -313,70 +355,39 @@
 
   <section class="section fade-up">
       <h2>Transparent Tiers: Foundation · Premium · Signature</h2>
-      <p>Every home and budget is different — so we created a simple, transparent tier system to help homeowners choose what works best for their project. You tell us your budget, and we’ll build a plan within that range using clear itemization and premium materials.</p>
+      <p>Every home and budget is different. We created a simple tier system to help you choose the level of finish that fits your project.</p>
 
       <div class="tier-grid">
         <div class="tier-card" style="border-top: 4px solid #4a90e2;">
            <h3>🟦 Foundation</h3>
            <p class="tier-sub">Essential Quality, Done Right</p>
-           <p>A solid, reliable option when you want clean, professional results without unnecessary extras.</p>
-           <ul class="bullets">
-             <li>Standard materials (NYC-approved)</li>
-             <li>Clean workmanship & Basic prep</li>
-             <li>Clear, itemized estimate</li>
-             <li>Before/after photos</li>
-           </ul>
-           <p class="tier-best-for"><strong>Best for:</strong> Sidewalk repairs, patchwork, painting, routine maintenance, small remodel fixes.</p>
+           <p class="tier-best-for"><strong>Best for:</strong> Sidewalk repairs, patchwork, painting, routine maintenance.</p>
         </div>
 
         <div class="tier-card" style="border-top: 4px solid #f5d89b;">
            <h3>🟨 Premium</h3>
            <p class="tier-sub">Upgraded Materials & Finer Details</p>
-           <p>Our most popular tier — a balance of luxury and value.</p>
-           <ul class="bullets">
-             <li>Higher-grade materials (better longevity)</li>
-             <li>Enhanced dust protection</li>
-             <li>Smoother finishes & extra detail</li>
-             <li>Extended warranty options</li>
-           </ul>
-           <p class="tier-best-for"><strong>Best for:</strong> Stoops, pavers, bathroom refresh, higher-end masonry, flooring, kitchen upgrades.</p>
+           <p class="tier-best-for"><strong>Best for:</strong> Stoops, pavers, bathroom refresh, higher-end masonry.</p>
         </div>
 
         <div class="tier-card" style="border-top: 4px solid #e67e22;">
            <h3>🟧 Signature</h3>
            <p class="tier-sub">True Luxury, Custom Craftsmanship</p>
-           <p>Made for homeowners who want the highest-end finish with a designer-level look.</p>
-           <ul class="bullets">
-             <li>Luxury materials (premium pavers, tiles)</li>
-             <li>Custom designs & layouts</li>
-             <li>Advanced HEPA dust control</li>
-             <li>Signature “White-Glove” finishing</li>
-           </ul>
-           <p class="tier-best-for"><strong>Best for:</strong> Full remodels, luxury bathrooms/kitchens, high-end masonry, custom outdoor spaces.</p>
+           <p class="tier-best-for"><strong>Best for:</strong> Full remodels, luxury bathrooms/kitchens, custom outdoor spaces.</p>
         </div>
-      </div>
-
-      <div class="how-it-works-box" style="margin-top: 30px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 14px; border: 1px solid rgba(231,191,99,0.2);">
-        <h3>How It Works</h3>
-        <ul class="bullets">
-            <li>1. You tell us your vision + budget range.</li>
-            <li>2. We prepare a tiered estimate (Foundation / Premium / Signature).</li>
-            <li>3. You choose the tier that fits best.</li>
-            <li>4. We deliver exactly what was promised — no surprises.</li>
-        </ul>
       </div>
   </section>
 
   <section class="section fade-up">
     <h2>Where We Work</h2>
-    <p class="section-note">Based in Staten Island, serving the entire NYC Metro Area & North Jersey.</p>
+    <p class="section-note">Based in Staten Island, serving the entire NYC Metro Area.</p>
     <div class="pill-row" style="justify-content: center; margin-top: 15px;">
       <span class="gold-pill">Staten Island</span>
-      <span class="gold-pill">Brooklyn (Brownstone Belt)</span>
+      <span class="gold-pill">Brooklyn</span>
       <span class="gold-pill">Manhattan</span>
       <span class="gold-pill">Queens</span>
       <span class="gold-pill">The Bronx</span>
-      <span class="gold-pill">New Jersey (Jersey City, Bayonne, Newark)</span>
+      <span class="gold-pill">New Jersey</span>
     </div>
   </section>
 
@@ -391,32 +402,19 @@
         "HBH and his team were professional from start to finish. The estimate was clear, and the work is beautiful."
         <div class="testi-author">— Anonymous, Brooklyn</div>
       </div>
-      <div class="testi-card">
-        "Finally, a contractor who shows up on time and communicates. Our bathroom remodel looks like a hotel suite."
-        <div class="testi-author">— Anonymous, Queens</div>
-      </div>
     </div>
   </section>
 
   <section class="quick-faq-box fade-up">
     <h2 style="margin-top:0;">Quick Answers</h2>
-    <p class="section-note" style="margin-bottom:20px;">Common questions we get asked. (See full FAQ for more)</p>
-    
     <div class="quick-faq-item">
       <span class="quick-faq-q">Are you licensed and insured?</span>
-      <span class="quick-faq-a">Yes. We hold NYC HIC License #2131291, are EPA Lead-Safe Certified, and carry full General Liability and Workers Comp insurance.</span>
+      <span class="quick-faq-a">Yes. We hold NYC HIC License #2131291, are EPA Lead-Safe Certified, and carry full General Liability.</span>
     </div>
-    
     <div class="quick-faq-item">
       <span class="quick-faq-q">Do you provide free estimates?</span>
       <span class="quick-faq-a">Yes. We provide free, itemized estimates. You can even text us photos for a faster ballpark quote.</span>
     </div>
-
-    <div class="quick-faq-item">
-      <span class="quick-faq-q">Do you work in New Jersey?</span>
-      <span class="quick-faq-a">Yes, we very soon we serve North Jersey, including Jersey City, Bayonne, Newark, and surrounding areas.</span>
-    </div>
-
     <div style="text-align: center; margin-top: 20px;">
         <a href="/faq.html" class="btn ghost">Read Full FAQ &rarr;</a>
     </div>
@@ -424,13 +422,7 @@
 
   <section class="section fade-up" style="text-align:center; margin-top: 60px;">
     <h2>Let’s Talk About Your Project</h2>
-    <p style="max-width: 600px; margin: 0 auto 20px;">Your home deserves high-end workmanship. Whether remodeling, masonry repair, or seasonal upkeep, we take pride in delivering clean, exceptional results.</p>
-
-    <div class="micro-summary">
-      <strong>Why Hammer Brick & Home?</strong><br>
-      • Licensed & Insured • EPA Lead-Safe Certified • White-Glove Clean-Up • Premium Materials • Daily Updates • Local NYC/NJ Contractor
-    </div>
-
+    <p style="max-width: 600px; margin: 0 auto 20px;">Your home deserves high-end workmanship.</p>
     <div class="hero-actions" style="justify-content: center; margin-top: 20px;">
       <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
       <a class="btn ghost" href="sms:+19295955300">📱 Text Us Photos</a>
