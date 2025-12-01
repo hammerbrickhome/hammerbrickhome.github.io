@@ -11,7 +11,7 @@
         content="Hammer Brick & Home LLC Monthly Specials: Masonry, Painting, Windows, Waterproofing, and Tile. Luxury service in NYC & Staten Island.">
 
   <link rel="icon" href="/images/hero.PNG">
-  
+   
   <link rel="stylesheet" href="/style.css?v=3">
 
   <script type="application/ld+json">
@@ -38,47 +38,38 @@
   }
   </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "OfferCatalog",
-    "name": "Monthly Home Improvement Specials",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Masonry Tune-Up" },
-        "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "price": "349.00" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Signature Room Painting" },
-        "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "price": "699.00" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Draft-Stop Window Swap" },
-        "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "price": "949.00" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Winter Shield Waterproofing" },
-        "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "price": "499.00" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Spa Bath Refresh" },
-        "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "price": "399.00" }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Chef's Splash Install" },
-        "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "price": "899.00" }
-      }
-    ]
-  }
-  </script>
-
+  <style>
+    .sticky-contact-wrapper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        z-index: 9999;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+    .sticky-btn {
+        flex: 1;
+        text-align: center;
+        padding: 15px;
+        font-family: sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background 0.3s ease;
+    }
+    .phone-btn { background-color: #D4AF37; color: #000; }
+    .quote-btn { background-color: #000; color: #D4AF37; }
+    @media (min-width: 768px) {
+        .sticky-contact-wrapper {
+            width: auto; bottom: 20px; right: 20px; left: auto;
+            flex-direction: column; border-radius: 8px; overflow: hidden;
+        }
+    }
+  </style>
 </head>
+
 <body>
 
 <div id="header-include"></div>
@@ -303,6 +294,15 @@
     </div>
 </main>
 
+<div class="sticky-contact-wrapper">
+    <a href="tel:+19295955300" class="sticky-btn phone-btn">
+        📞 Call Now
+    </a>
+    <a href="/project-estimator.html" class="sticky-btn quote-btn">
+        🧮 Get Quote
+    </a>
+</div>
+
 <div id="contact-panel" class="contact-panel" aria-hidden="true" style="display:none;">
     <div class="contact-panel-inner">
       <button class="contact-panel-close">×</button>
@@ -316,34 +316,51 @@
     </div>
 </div>
 
+<div id="cta-include"></div>
 <div id="footer-include"></div>
 
+<script src="/script.js"></script>
 <script>
-    // Include Header/Footer
-    fetch("/header.html").then(r=>r.text()).then(h=>document.getElementById("header-include").innerHTML=h);
-    fetch("/footer.html").then(r=>r.text()).then(f=>document.getElementById("footer-include").innerHTML=f);
+document.addEventListener("DOMContentLoaded", () => {
+  // Matching the pattern from bronx.html to ensure Header works
+  Promise.all([
+    fetch("/header.html").then(r => r.text()),
+    fetch("/contact-cta.html").then(r => r.text()),
+    fetch("/footer.html").then(r => r.text())
+  ])
+  .then(([h, c, f]) => {
+    document.getElementById("header-include").innerHTML = h;
+    const ctaContainer = document.getElementById("cta-include");
+    if(ctaContainer) ctaContainer.innerHTML = c;
+    document.getElementById("footer-include").innerHTML = f;
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
 
-    // Contact Panel Logic
-    document.addEventListener("DOMContentLoaded", () => {
-        const panel = document.getElementById("contact-panel");
-        if(panel) {
-            document.querySelectorAll(".contact-panel-toggle").forEach(b => b.addEventListener("click", () => panel.style.display="flex"));
-            panel.querySelector(".contact-panel-close").addEventListener("click", () => panel.style.display="none");
-            panel.addEventListener("click", (e) => { if(e.target===panel) panel.style.display="none"; });
+    // THIS IS THE FIX FOR THE MENU:
+    if (typeof initHeaderInteractions === "function") { initHeaderInteractions(); }
+  })
+  .catch(console.error);
+
+  // Panel Logic
+  const panel = document.getElementById("contact-panel");
+  if(panel) {
+      document.querySelectorAll(".contact-panel-toggle").forEach(b => b.addEventListener("click", () => panel.style.display="flex"));
+      panel.querySelector(".contact-panel-close").addEventListener("click", () => panel.style.display="none");
+      panel.addEventListener("click", (e) => { if(e.target===panel) panel.style.display="none"; });
+  }
+
+  // Fade Up Animation
+  const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
         }
-        
-        // Simple Fade Up Animation
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-              }
-            });
-          }, { threshold: 0.1 });
-          document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    });
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+});
 </script>
 
 <link rel="stylesheet" href="/chat.css">
