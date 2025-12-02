@@ -138,6 +138,19 @@ select.contact-input {
   background-size: 10px auto;
 }
 
+/* Success Message Styling */
+#form-message {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+.success-msg { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+.error-msg { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
+
 /* Mobile Responsive */
 @media (max-width: 800px) {
   .contact-grid {
@@ -172,10 +185,10 @@ select.contact-input {
     <div class="form-card">
       <h2 style="margin-bottom: 15px; font-size: 22px; color: #fff;">Get a Free Estimate</h2>
       <p style="margin-bottom: 25px; font-size: 13px; color: var(--muted);">
-        Please fill out the details below. If you have photos, paste a link or email them directly.
+        Please fill out the details below. We connect directly to your request.
       </p>
 
-      <form action="https://formspree.io/f/yourcode" method="POST" class="contact-form">
+      <form id="submit-to-google" class="contact-form">
         
         <input name="name" placeholder="Full Name" required class="contact-input" aria-label="Full Name">
         
@@ -184,7 +197,7 @@ select.contact-input {
           <input type="email" name="email" placeholder="Email Address" required class="contact-input" aria-label="Email Address">
         </div>
 
-        <select name="project_type" class="contact-input" aria-label="Project Type">
+        <select name="type" class="contact-input" aria-label="Project Type" required>
           <option value="" disabled selected>Select Project Type...</option>
           <option value="Masonry / Brick Work">Masonry / Brick Work</option>
           <option value="Home Renovation">Home Renovation (Interior)</option>
@@ -198,7 +211,9 @@ select.contact-input {
           aria-label="Project Details"
           required></textarea>
 
-        <button class="btn" type="submit" style="width: 100%; margin-top: 10px;">Send Message</button>
+        <button id="submit-btn" class="btn" type="submit" style="width: 100%; margin-top: 10px;">Send Message</button>
+        
+        <div id="form-message"></div>
       </form>
     </div>
 
@@ -268,6 +283,52 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   .catch(console.error);
 });
+</script>
+
+<script>
+  // 🔴 PASTE YOUR GOOGLE DEPLOYMENT URL HERE 🔴
+  const scriptURL = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE';
+  
+  const form = document.forms['submit-to-google'];
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-message');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    
+    // Change button text to indicate loading
+    btn.innerHTML = "Sending...";
+    btn.style.opacity = "0.7";
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {
+        // Success Action
+        msg.innerHTML = "Message Sent Successfully! We will contact you soon.";
+        msg.classList.remove('error-msg');
+        msg.classList.add('success-msg');
+        msg.style.display = "block";
+        
+        btn.innerHTML = "Send Message";
+        btn.style.opacity = "1";
+        form.reset(); // Clear the form
+        
+        // Hide message after 5 seconds
+        setTimeout(function(){
+            msg.style.display = "none";
+        }, 5000);
+      })
+      .catch(error => {
+        // Error Action
+        console.error('Error!', error.message);
+        msg.innerHTML = "Error sending message. Please call us directly.";
+        msg.classList.remove('success-msg');
+        msg.classList.add('error-msg');
+        msg.style.display = "block";
+        
+        btn.innerHTML = "Send Message";
+        btn.style.opacity = "1";
+      });
+  });
 </script>
 
 <link rel="stylesheet" href="/chat.css">
