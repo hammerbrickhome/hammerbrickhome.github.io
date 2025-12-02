@@ -242,63 +242,93 @@
     margin-top: 10px;
   }
 
-  /* --- NEW TERMS & CONDITIONS STYLING (STRONG) --- */
+  /* --- PREMIUM LUXURY TERMS STYLING --- */
   .terms-section {
     margin-top: 60px;
-    padding: 40px 30px;
-    background: rgba(8,16,28,0.95); /* Deep Luxury Blue/Black */
-    border: 1px solid rgba(231,191,99,0.3); /* Gold Border */
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding: 45px 35px;
+    background: rgba(5, 10, 20, 0.95); /* Deepest Luxury Dark */
+    border: 1px solid rgba(231,191,99,0.2); /* Subtle Gold Border */
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  }
+
+  .terms-header {
+    text-align: center;
+    margin-bottom: 40px;
   }
 
   .terms-section h2 {
     color: var(--gold);
-    font-size: 22px;
+    font-size: 26px;
     margin-bottom: 10px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
   }
   
   .terms-subtitle {
     color: var(--muted);
-    font-size: 13px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid rgba(231,191,99,0.2);
-    padding-bottom: 15px;
+    font-size: 14px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
 
   .terms-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
+  }
+
+  .term-block {
+    background: rgba(255,255,255,0.02);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 2px solid var(--gold-soft);
   }
 
   .term-block h3 {
     color: #fff;
-    font-size: 15px;
-    margin-bottom: 8px;
+    font-size: 16px;
+    margin-bottom: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    border-left: 3px solid var(--gold);
-    padding-left: 10px;
+    letter-spacing: 0.5px;
   }
 
-  .term-block p {
+  .term-block p, .term-block li {
     font-size: 13px;
     color: #ccc;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .term-block ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .term-block ul li {
+    padding-left: 15px;
+    position: relative;
+  }
+  
+  .term-block ul li::before {
+    content: "•";
+    color: var(--gold);
+    position: absolute;
+    left: 0;
   }
 
   .warning-box {
-    background: rgba(200, 50, 50, 0.1);
+    grid-column: 1 / -1; /* Span full width */
+    background: rgba(200, 50, 50, 0.08);
     border: 1px solid #c0392b;
-    padding: 15px;
-    margin-top: 30px;
+    padding: 20px;
+    margin-top: 10px;
     font-size: 13px;
     color: #e0e0e0;
     border-radius: 6px;
+    text-align: center;
   }
   
   .warning-box strong {
@@ -306,6 +336,7 @@
     text-transform: uppercase;
     display: block;
     margin-bottom: 5px;
+    font-size: 14px;
   }
 </style>
 </head>
@@ -886,46 +917,76 @@
         </div>
 
         <section class="section terms-section fade-up">
-          <h2>Terms, Conditions & Work Policies</h2>
-          <p class="terms-subtitle">Protecting your home and our team with clear, transparent rules.</p>
+          <div class="terms-header">
+            <h2>Terms, Conditions & Pricing Policies</h2>
+            <p class="terms-subtitle">
+              At Hammer Brick & Home, every project is planned with precision, transparency, and respect for your property. 
+              To maintain a high standard of quality and protect our clients, the following policies apply.
+            </p>
+          </div>
 
           <div class="terms-grid">
             
             <div class="term-block">
-              <h3>1. Strict Scope of Work</h3>
-              <p><strong>"If it is not written, it is not included."</strong> Our proposals are specific. We do not offer unlimited labor. Any request outside the written agreement (e.g., "While you are here can you fix this?") requires a separate Change Order and fee.</p>
+              <h3>1. Final Pricing & Site Conditions</h3>
+              <ul>
+                <li>All listed prices are <strong>baseline estimates</strong> for standard 1–2 family NYC homes.</li>
+                <li>Final pricing depends on access, existing damage, hidden defects, and DOB requirements.</li>
+                <li>If <strong>hidden conditions</strong> (rot, mold, structural cracks) are found, work pauses immediately. You receive documentation and a revised proposal before we continue.</li>
+              </ul>
             </div>
 
             <div class="term-block">
-              <h3>2. Hidden Conditions</h3>
-              <p>We cannot see inside walls or under concrete. If we discover hidden damage (rot, mold, broken pipes, structural cracks) after work begins, <strong>work will stop immediately</strong>. We will document the issue and issue a revised quote for the necessary repair.</p>
+              <h3>2. Strict Scope of Work</h3>
+              <ul>
+                <li>Only items explicitly written in your <strong>line-item Proposal</strong> are included.</li>
+                <li>Nothing is open-ended or unlimited.</li>
+                <li>Any additional labor, materials, or "while you are here" requests require a <strong>signed Change Order</strong>. This prevents surprises for both parties.</li>
+              </ul>
             </div>
 
             <div class="term-block">
-              <h3>3. Client Responsibilities</h3>
-              <p>You must provide safe access, water, and electricity. <strong>We do not move furniture or personal items.</strong> Please clear the work area before we arrive. Delays caused by lack of access will be billed at our hourly rate.</p>
+              <h3>3. Payments & Scheduling</h3>
+              <ul>
+                <li>Projects over <strong>$1,000</strong> require a deposit of up to 25% to secure scheduling and materials.</li>
+                <li>Larger projects follow a clear milestone payment schedule.</li>
+                <li>Rescheduling due to weather or unsafe conditions is sometimes necessary for quality assurance.</li>
+              </ul>
             </div>
 
             <div class="term-block">
-              <h3>4. Estimate Validity</h3>
-              <p>Due to fluctuating material costs, all estimates are valid for <strong>15 days only</strong>. After 15 days, we reserve the right to re-price the project based on current market rates.</p>
+              <h3>4. Licensing & Compliance</h3>
+              <ul>
+                <li>Hammer Brick & Home LLC is fully licensed and insured (<strong>NYC HIC #2131291</strong>).</li>
+                <li>Insurance certificates are available upon request.</li>
+                <li><strong>DOB filings, permits, and engineering fees</strong> are billed separately unless stated otherwise in your contract.</li>
+              </ul>
             </div>
 
             <div class="term-block">
-              <h3>5. Change Orders</h3>
-              <p>Verbal changes are not accepted. Any change to the project scope, materials, or timeline must be documented in a <strong>Change Order signed by both parties</strong> before that specific work proceeds.</p>
+              <h3>5. Material Standards</h3>
+              <ul>
+                <li><strong>Standard-grade materials</strong> are included where noted.</li>
+                <li>Premium, designer, or custom materials are available and priced separately.</li>
+                <li>We source all materials from reputable, professional-grade suppliers to ensure durability.</li>
+              </ul>
             </div>
 
             <div class="term-block">
-              <h3>6. Material Allowances</h3>
-              <p>Unless "Premium" is specified, pricing includes <strong>standard contractor-grade materials</strong> (e.g., standard grey mortar, white vinyl, basic trim). Upgrades to designer brands or custom colors are billed as an additional material cost.</p>
+              <h3>6. Client Responsibilities</h3>
+              <p>For safety and efficiency, clients must ensure:</p>
+              <ul>
+                <li>Clear path to the work area.</li>
+                <li>Safe access for tools and ladders.</li>
+                <li>Removal or protection of personal items/valuables.</li>
+              </ul>
             </div>
 
           </div>
 
           <div class="warning-box">
-            <strong>⚠️ High-Risk Exclusions:</strong> 
-            Our standard pricing <strong>NEVER</strong> includes: Asbestos removal, Mold remediation, Electrical violations found inside walls, Structural engineering, or DOB Expediting fees. These are always separate specialty services.
+            <strong>⚠️ Warranty & Quality Promise:</strong> 
+            All work includes a standard workmanship warranty. Warranty terms vary by service category and are explicitly detailed in your written proposal.
           </div>
         </section>
 
