@@ -242,7 +242,7 @@
     margin-top: 10px;
   }
 
-  /* --- NEW TERMS & CONDITIONS STYLING --- */
+  /* --- NEW TERMS & CONDITIONS STYLING (STRONG) --- */
   .terms-section {
     margin-top: 60px;
     padding: 40px 30px;
@@ -255,45 +255,57 @@
   .terms-section h2 {
     color: var(--gold);
     font-size: 22px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
+  }
+  
+  .terms-subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 30px;
     border-bottom: 1px solid rgba(231,191,99,0.2);
-    padding-bottom: 10px;
+    padding-bottom: 15px;
   }
 
-  .terms-section h3 {
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  .term-block h3 {
     color: #fff;
-    font-size: 16px;
-    margin-top: 25px;
+    font-size: 15px;
     margin-bottom: 8px;
     font-weight: 700;
+    text-transform: uppercase;
+    border-left: 3px solid var(--gold);
+    padding-left: 10px;
   }
 
-  .terms-section p, .terms-section li {
-    font-size: 14px;
+  .term-block p {
+    font-size: 13px;
     color: #ccc;
     line-height: 1.6;
     margin-bottom: 10px;
   }
 
-  .terms-section ul {
-    list-style: disc;
-    padding-left: 20px;
-    margin-bottom: 15px;
-  }
-
-  .terms-section strong {
-    color: var(--gold-soft);
-  }
-
   .warning-box {
     background: rgba(200, 50, 50, 0.1);
-    border-left: 4px solid #c0392b;
+    border: 1px solid #c0392b;
     padding: 15px;
     margin-top: 30px;
     font-size: 13px;
     color: #e0e0e0;
+    border-radius: 6px;
+  }
+  
+  .warning-box strong {
+    color: #e74c3c;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
   }
 </style>
 </head>
@@ -874,39 +886,46 @@
         </div>
 
         <section class="section terms-section fade-up">
-          <h2>Terms, Conditions & Pricing Policy</h2>
-          <p>At <strong>Hammer Brick & Home LLC</strong>, we believe in 100% transparency. Our pricing model is designed to be fair, competitive, and clear.</p>
+          <h2>Terms, Conditions & Work Policies</h2>
+          <p class="terms-subtitle">Protecting your home and our team with clear, transparent rules.</p>
 
-          <h3>1. "From" Pricing & Estimates</h3>
-          <p>All prices listed on this website are <strong>baseline estimates</strong> based on typical NYC/NJ 1–2 family homes with standard access and conditions. Final pricing is confirmed only after an on-site evaluation and written proposal.</p>
+          <div class="terms-grid">
+            
+            <div class="term-block">
+              <h3>1. Strict Scope of Work</h3>
+              <p><strong>"If it is not written, it is not included."</strong> Our proposals are specific. We do not offer unlimited labor. Any request outside the written agreement (e.g., "While you are here can you fix this?") requires a separate Change Order and fee.</p>
+            </div>
 
-          <h3>2. Scope of Work Protection</h3>
-          <p><strong>No service is unlimited.</strong> Each job receives a specific, line-item Scope of Work. Only items explicitly listed in your contract are included. Additional labor, materials, or unexpected requests will require a separate Change Order and approval before work continues.</p>
+            <div class="term-block">
+              <h3>2. Hidden Conditions</h3>
+              <p>We cannot see inside walls or under concrete. If we discover hidden damage (rot, mold, broken pipes, structural cracks) after work begins, <strong>work will stop immediately</strong>. We will document the issue and issue a revised quote for the necessary repair.</p>
+            </div>
 
-          <h3>3. Hidden Conditions & Change Orders</h3>
-          <p>NYC buildings often hide surprises. If we discover hidden damage (rot behind siding, structural cracks under flooring, mold, etc.) that was not visible during the initial estimate:</p>
-          <ul>
-            <li>Work will be paused immediately.</li>
-            <li>You will receive photo/video documentation of the issue.</li>
-            <li>A revised proposal will be issued for the additional repair work.</li>
-            <li>Work resumes only upon your written approval.</li>
-          </ul>
+            <div class="term-block">
+              <h3>3. Client Responsibilities</h3>
+              <p>You must provide safe access, water, and electricity. <strong>We do not move furniture or personal items.</strong> Please clear the work area before we arrive. Delays caused by lack of access will be billed at our hourly rate.</p>
+            </div>
 
-          <h3>4. Materials & Quality</h3>
-          <p>Unless "Premium" materials are specified, our packages include standard professional-grade materials (standard mortar, white vinyl windows, standard paint). Clients wishing to use designer brands, custom colors, or luxury finishes will be billed for the material cost difference.</p>
+            <div class="term-block">
+              <h3>4. Estimate Validity</h3>
+              <p>Due to fluctuating material costs, all estimates are valid for <strong>15 days only</strong>. After 15 days, we reserve the right to re-price the project based on current market rates.</p>
+            </div>
 
-          <h3>5. Deposits & Payments</h3>
-          <ul>
-            <li>Projects over <strong>$1,000</strong> require a deposit (typically 25%) to secure scheduling and materials.</li>
-            <li>Progress payments will be outlined in your contract for larger renovations.</li>
-            <li>Final payment is due upon substantial completion of the work.</li>
-          </ul>
+            <div class="term-block">
+              <h3>5. Change Orders</h3>
+              <p>Verbal changes are not accepted. Any change to the project scope, materials, or timeline must be documented in a <strong>Change Order signed by both parties</strong> before that specific work proceeds.</p>
+            </div>
 
-          <h3>6. Permits & Compliance</h3>
-          <p>Our base pricing <strong>does not</strong> include DOB filing fees, architectural drawings, or expeditor costs unless explicitly stated. We are fully licensed to pull permits, but these are billed as separate line items.</p>
+            <div class="term-block">
+              <h3>6. Material Allowances</h3>
+              <p>Unless "Premium" is specified, pricing includes <strong>standard contractor-grade materials</strong> (e.g., standard grey mortar, white vinyl, basic trim). Upgrades to designer brands or custom colors are billed as an additional material cost.</p>
+            </div>
+
+          </div>
 
           <div class="warning-box">
-            <strong>Important Safety Notice:</strong> We do not perform work in unsafe conditions. We reserve the right to decline or stop work if we encounter hazardous materials (asbestos, loose lead paint, chemical spills) or structural instability until the site is remediated by a specialist.
+            <strong>⚠️ High-Risk Exclusions:</strong> 
+            Our standard pricing <strong>NEVER</strong> includes: Asbestos removal, Mold remediation, Electrical violations found inside walls, Structural engineering, or DOB Expediting fees. These are always separate specialty services.
           </div>
         </section>
 
