@@ -4,11 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Pricing & Packages — Hammer Brick & Home LLC</title>
-<meta name="description" content="Transparent project packages for masonry, painting, and remodeling. Final quotes follow a site visit.">
+<title>Pricing & Packages — Hammer Brick & Home LLC | NYC & NJ</title>
+<meta name="description" content="Transparent pricing for masonry, painting, and remodeling. View baseline packages and learn how we finalize quotes. Licensed NYC Contractor #2131291.">
 
 <link rel="canonical" href="https://www.hammerbrickhome.com/pricing.html">
-
 <link rel="icon" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css?v=3">
 
@@ -114,7 +113,7 @@
   /* Card Styling */
   .special-card {
     background: #111;
-    border: 1px solid #333; /* Standard thin border on sides/bottom */
+    border: 1px solid #333; 
     border-radius: 8px;
     padding: 25px;
     position: relative;
@@ -128,25 +127,12 @@
     border-color: #D4AF37;
   }
 
-  /* --- TIER COLORS (TOP BORDER ONLY) --- */
-  
-  /* Foundation (Blue) - Maintenance/Repair */
-  .special-card.foundation {
-    border-top: 4px solid #4a90e2; 
-  }
+  /* --- TIER COLORS --- */
+  .special-card.foundation { border-top: 4px solid #4a90e2; }
+  .special-card.premium { border-top: 4px solid #e7bf63; }
+  .special-card.signature { border-top: 4px solid #e67e22; }
 
-  /* Premium (Gold) - Upgrades/Standard */
-  .special-card.premium {
-    border-top: 4px solid #e7bf63;
-  }
-
-  /* Signature (Orange/Bronze) - Luxury/New Build */
-  .special-card.signature {
-    border-top: 4px solid #e67e22;
-  }
-
-  
-  /* FIXED TAG POSITION */
+  /* Tag Position */
   .special-tag {
     position: absolute;
     top: -14px; 
@@ -230,13 +216,8 @@
     border-bottom: 1px dashed #333;
     padding-bottom: 4px;
   }
-  .addon-list li:last-child {
-    border-bottom: none;
-  }
-  .addon-price {
-    color: #D4AF37;
-    font-weight: bold;
-  }
+  .addon-list li:last-child { border-bottom: none; }
+  .addon-price { color: #D4AF37; font-weight: bold; }
 
   /* Protection/Warning Section */
   .special-protection {
@@ -255,20 +236,64 @@
     margin-bottom: 3px;
   }
 
-  /* Button inside card */
   .special-card .btn {
     width: 100%;
     text-align: center;
     margin-top: 10px;
   }
 
-  /* Note Box styling */
-  .note-box {
-    background: #111;
-    border: 1px solid #333;
-    padding: 30px;
+  /* --- NEW TERMS & CONDITIONS STYLING --- */
+  .terms-section {
+    margin-top: 60px;
+    padding: 40px 30px;
+    background: rgba(8,16,28,0.95); /* Deep Luxury Blue/Black */
+    border: 1px solid rgba(231,191,99,0.3); /* Gold Border */
     border-radius: 8px;
-    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .terms-section h2 {
+    color: var(--gold);
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(231,191,99,0.2);
+    padding-bottom: 10px;
+  }
+
+  .terms-section h3 {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .terms-section p, .terms-section li {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .terms-section ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .terms-section strong {
+    color: var(--gold-soft);
+  }
+
+  .warning-box {
+    background: rgba(200, 50, 50, 0.1);
+    border-left: 4px solid #c0392b;
+    padding: 15px;
+    margin-top: 30px;
+    font-size: 13px;
+    color: #e0e0e0;
   }
 </style>
 </head>
@@ -290,7 +315,6 @@
         <h2 class="category-header fade-up">Masonry, Concrete & Waterproofing</h2>
         
         <div class="specials-grid fade-up">
-
             <div class="special-card premium">
               <div class="special-tag">Best Seller</div>
               <h3>Masonry Tune-Up</h3>
@@ -361,7 +385,7 @@
               </div>
               <div class="special-protection">
                 <strong>⚠️ Requirements:</strong>
-                Foundation walls must be accessible (moved storage). Unfinished basements only. Severe flooding requires full system.
+                Foundation walls must be accessible. Unfinished basements only. Severe flooding requires full system.
               </div>
               <button type="button" class="btn contact-panel-toggle">Book Waterproofing</button>
             </div>
@@ -465,12 +489,10 @@
                 </div>
                 <button type="button" class="btn contact-panel-toggle">Book Cleaning</button>
               </div>
-
         </div>
 
         <h2 class="category-header fade-up">Interior, Bath & Kitchen</h2>
         <div class="specials-grid fade-up">
-
             <div class="special-card premium">
                 <div class="special-tag">Featured</div>
                 <h3>"Signature Room" Refresh</h3>
@@ -645,7 +667,6 @@
                 </div>
                 <button type="button" class="btn contact-panel-toggle">Get Estimate</button>
               </div>
-
         </div>
 
         <h2 class="category-header fade-up">Exterior, Yard & Windows</h2>
@@ -850,32 +871,43 @@
                 </div>
                 <button type="button" class="btn contact-panel-toggle">Book Yard Work</button>
               </div>
-
         </div>
 
+        <section class="section terms-section fade-up">
+          <h2>Terms, Conditions & Pricing Policy</h2>
+          <p>At <strong>Hammer Brick & Home LLC</strong>, we believe in 100% transparency. Our pricing model is designed to be fair, competitive, and clear.</p>
 
-        <section class="section note-box fade-up">
-          <h2>How We Finalize Your Price</h2>
-          <ul class="bullets">
-            <li>All prices assume typical 1–2 family homes with normal access and standard ceiling heights.</li>
-            <li>Final pricing depends on access, parking, material choices, existing conditions, and any hidden damage.</li>
-            <li>Permits, DOB filings, engineering, and inspections (when required) are reviewed and priced separately.</li>
-            <li>Structural issues, active leaks, mold, asbestos, and unsafe conditions are not included in base packages.</li>
-          </ul>
-          <p class="muted">
-            Every job receives a written, line-item proposal for your approval before work starts.  
-            Nothing is “unlimited” and scope is clearly defined so there are no surprises later.
-          </p>
-        </section>
+          <h3>1. "From" Pricing & Estimates</h3>
+          <p>All prices listed on this website are <strong>baseline estimates</strong> based on typical NYC/NJ 1–2 family homes with standard access and conditions. Final pricing is confirmed only after an on-site evaluation and written proposal.</p>
 
-        <section class="section note-box fade-up" style="margin-top:20px;">
-          <h2>Important Notes &amp; Conditions</h2>
-          <ul class="bullets">
-            <li><strong>“From” prices</strong> are for typical sizes listed in each package. Larger or more complex spaces will be re-priced after a site visit.</li>
-            <li><strong>Deposit:</strong> For projects over $1,000, a deposit of up to <strong>25%</strong> is typically required.</li>
-            <li><strong>Materials:</strong> Standard materials are included where noted. Premium selections are additional.</li>
-            <li><strong>Licensing &amp; Insurance:</strong> Hammer Brick &amp; Home LLC is a licensed NYC contractor. HIC #2131291.</li>
+          <h3>2. Scope of Work Protection</h3>
+          <p><strong>No service is unlimited.</strong> Each job receives a specific, line-item Scope of Work. Only items explicitly listed in your contract are included. Additional labor, materials, or unexpected requests will require a separate Change Order and approval before work continues.</p>
+
+          <h3>3. Hidden Conditions & Change Orders</h3>
+          <p>NYC buildings often hide surprises. If we discover hidden damage (rot behind siding, structural cracks under flooring, mold, etc.) that was not visible during the initial estimate:</p>
+          <ul>
+            <li>Work will be paused immediately.</li>
+            <li>You will receive photo/video documentation of the issue.</li>
+            <li>A revised proposal will be issued for the additional repair work.</li>
+            <li>Work resumes only upon your written approval.</li>
           </ul>
+
+          <h3>4. Materials & Quality</h3>
+          <p>Unless "Premium" materials are specified, our packages include standard professional-grade materials (standard mortar, white vinyl windows, standard paint). Clients wishing to use designer brands, custom colors, or luxury finishes will be billed for the material cost difference.</p>
+
+          <h3>5. Deposits & Payments</h3>
+          <ul>
+            <li>Projects over <strong>$1,000</strong> require a deposit (typically 25%) to secure scheduling and materials.</li>
+            <li>Progress payments will be outlined in your contract for larger renovations.</li>
+            <li>Final payment is due upon substantial completion of the work.</li>
+          </ul>
+
+          <h3>6. Permits & Compliance</h3>
+          <p>Our base pricing <strong>does not</strong> include DOB filing fees, architectural drawings, or expeditor costs unless explicitly stated. We are fully licensed to pull permits, but these are billed as separate line items.</p>
+
+          <div class="warning-box">
+            <strong>Important Safety Notice:</strong> We do not perform work in unsafe conditions. We reserve the right to decline or stop work if we encounter hazardous materials (asbestos, loose lead paint, chemical spills) or structural instability until the site is remediated by a specialist.
+          </div>
         </section>
 
     </div>
@@ -908,7 +940,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const yr = document.getElementById("yr");
     if (yr) yr.textContent = new Date().getFullYear();
     
-    // Initialize Header Interactions (Mobile Menu Fix)
     if (typeof initHeaderInteractions === "function") initHeaderInteractions();
   }).catch(console.error);
 
