@@ -299,24 +299,19 @@
     left: 0;
   }
 
-  .warning-box {
-    grid-column: 1 / -1; /* Span full width */
-    background: rgba(200, 50, 50, 0.08);
-    border: 1px solid #c0392b;
-    padding: 20px;
-    margin-top: 10px;
-    font-size: 13px;
-    color: #e0e0e0;
-    border-radius: 6px;
+  /* Fine Print Footer */
+  .legal-fine-print {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
     text-align: center;
-  }
-  
-  .warning-box strong {
-    color: #e74c3c;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.7;
+    line-height: 1.5;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>
 </head>
@@ -909,16 +904,16 @@
             <div class="term-block">
               <h3>1. Pricing Assumptions</h3>
               <ul>
-                <li>Prices based on <strong>typical 1–2 family NYC homes</strong> with standard access.</li>
-                <li>Pricing is for <strong>labor only</strong> unless explicitly stated.</li>
-                <li>Premium or custom materials are always billed separately.</li>
+                <li>Prices based on <strong>typical 1–2 family NYC homes</strong> with standard ceiling heights and access.</li>
+                <li>Pricing is for <strong>labor only</strong> unless a package specifically lists included materials.</li>
+                <li>Premium, custom, or specialty materials are billed separately.</li>
               </ul>
             </div>
 
             <div class="term-block">
               <h3>2. Written Proposals</h3>
               <ul>
-                <li>Every project receives a detailed, <strong>line-item written proposal</strong>.</li>
+                <li>Every project receives a detailed, <strong>line-item written proposal</strong> before work begins.</li>
                 <li>No verbal pricing is binding.</li>
                 <li>Work begins only after signed approval and deposit.</li>
               </ul>
@@ -927,7 +922,7 @@
             <div class="term-block">
               <h3>3. Unforeseen Conditions</h3>
               <ul>
-                <li>If hidden damage (rot, mold, leaks, asbestos) is found, <strong>work stops immediately</strong>.</li>
+                <li>If hidden damage (rot, mold, leaks, asbestos, illegal plumbing/electrical) is found, <strong>work will stop immediately</strong>.</li>
                 <li>We are not responsible for pre-existing defects or code violations.</li>
                 <li>A revised estimate will be issued for approval.</li>
               </ul>
@@ -936,9 +931,9 @@
             <div class="term-block">
               <h3>4. Change Orders</h3>
               <ul>
-                <li>Any work outside the original scope requires a <strong>written Change Order</strong>.</li>
-                <li>Includes updated pricing and client signature.</li>
-                <li>No "assumed" extra work is included.</li>
+                <li>Any work requested outside the original scope requires a <strong>written change order</strong> and updated price.</li>
+                <li>Client must approve in writing before additional work proceeds.</li>
+                <li>No "assumed" work is included.</li>
               </ul>
             </div>
 
@@ -946,17 +941,18 @@
               <h3>5. Access & Responsibilities</h3>
               <p>Homeowner must provide:</p>
               <ul>
-                <li>Safe access, water, and electricity.</li>
-                <li>Clear pathways (no furniture blocking).</li>
-                <li><strong>$95 fee</strong> may apply if access is blocked upon arrival.</li>
+                <li>Safe access to work areas and clear pathways.</li>
+                <li>Legal parking, water, and electricity.</li>
+                <li>Removal of personal belongings.</li>
+                <li><strong>$95 rescheduling fee</strong> may apply if access is blocked.</li>
               </ul>
             </div>
 
             <div class="term-block">
               <h3>6. Safety & Compliance</h3>
               <ul>
-                <li>We follow NYC DOB, HRA, and OSHA safety standards.</li>
-                <li>We do <strong>not</strong> perform work involving asbestos, lead removal, or live gas lines without proper specialty containment or subcontracting.</li>
+                <li>We follow NYC DOB, HIC Licensing Law, and OSHA safety standards.</li>
+                <li>We do <strong>not</strong> perform work on roofs over 8ft without scaffolding, live electrical work behind walls, or asbestos removal unless properly subcontracted.</li>
               </ul>
             </div>
 
@@ -964,29 +960,29 @@
               <h3>7. Deposits & Stop-Work</h3>
               <ul>
                 <li>Projects over $1,000 require up to a <strong>25% deposit</strong>.</li>
-                <li>We reserve the right to <strong>pause work</strong> if payments are not made on schedule.</li>
-                <li>No payments = No warranty.</li>
+                <li>Balance due upon completion of milestones.</li>
+                <li>We reserve the right to <strong>pause work</strong> if payments are not made. No payments = No warranty.</li>
               </ul>
             </div>
 
             <div class="term-block">
               <h3>8. Permits & Filings</h3>
               <ul>
-                <li>DOB permits, inspections, and architectural filings are <strong>not included</strong> unless listed.</li>
-                <li>These are priced separately based on project scope.</li>
+                <li>DOB permits, inspections, TR1 sign-offs, and engineers are <strong>not included</strong> unless explicitly listed.</li>
+                <li>These are priced separately after review.</li>
               </ul>
             </div>
 
             <div class="term-block">
               <h3>9. Photo Documentation</h3>
-              <p>We may take photos of before/after work for records and marketing unless the client opts out in writing prior to the appointment.</p>
+              <p>We may take photos of before/after work for records unless the client opts out in writing before the appointment.</p>
             </div>
 
             <div class="term-block">
               <h3>10. Warranty</h3>
               <ul>
                 <li>Standard <strong>90-day workmanship warranty</strong> on labor-only tasks.</li>
-                <li>No warranty on owner-supplied materials or pre-existing structural issues.</li>
+                <li>No warranty applies to owner-supplied materials, pre-existing issues, or temporary repairs.</li>
               </ul>
             </div>
 
@@ -997,9 +993,13 @@
 
             <div class="term-block">
               <h3>12. Final Authority</h3>
-              <p>The most recent version of terms published on this page overrides all earlier versions or verbal discussions.</p>
+              <p>The most recent version of terms published on this page overrides all earlier versions.</p>
             </div>
 
+          </div>
+          
+          <div class="legal-fine-print">
+            All pricing listed is for reference only and does not constitute a contract or binding agreement. Final pricing, scope, materials, and terms will be provided in a written Home Improvement Contract in compliance with NYC/NJ consumer protection laws. Work begins only after both parties sign the contract and any change orders.
           </div>
         </section>
 
