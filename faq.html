@@ -4,240 +4,284 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>FAQ — Hammer Brick & Home LLC | NYC & NJ Licensed Remodeling & Masonry | HIC #2131291</title>
-<meta name="description" content="Answers for NYC & NJ homeowners: estimates, permits, EPA Lead-Safe certified work, insurance, timelines, warranties, cleanup, materials and more. Hammer Brick & Home LLC — HIC #2131291.">
+<title>Common Questions — Hammer Brick & Home LLC | NYC & NJ Contractor</title>
+<meta name="description" content="Answers to your questions about home renovation, masonry, permits, lead safety, and pricing. Licensed NYC contractor serving Staten Island, Brooklyn, and NJ.">
 
-<link rel="canonical" href="https://www.hammerbrickhome.com/faq.html">
-<link rel="icon" href="/images/hero.webp">
-
-<link rel="preload" href="/style.css" as="style">
+<link rel="icon" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css">
-
-<link rel="preload" as="image" href="/images/hero.webp">
+<link rel="canonical" href="https://www.hammerbrickhome.com/faq.html">
 
 <meta property="og:title" content="FAQ — Hammer Brick & Home LLC">
-<meta property="og:description" content="NYC & NJ homeowner questions answered: estimates, permits, EPA Lead-Safe, insurance, timelines, warranties, and more.">
+<meta property="og:description" content="Clear answers about your next home project. Licensed, Insured, and EPA Lead-Safe.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.hammerbrickhome.com/faq">
-<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.webp">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FAQ — Hammer Brick & Home LLC">
-<meta name="twitter:description" content="Clear answers for NYC & NJ homeowners about remodeling, masonry, and safety.">
-<meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.webp">
+<meta property="og:url" content="https://www.hammerbrickhome.com/faq.html">
+<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": []
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you provide free estimates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We offer free estimates for homeowners in NYC and NJ. You can text us photos for a quick quote or schedule an in-person site visit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are you licensed and insured?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. We hold an NYC Home Improvement Contractor License (#21311291) and are fully insured. We carry General Liability and Workers Compensation coverage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle permits for renovations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We handle all necessary Department of Buildings (DOB) permits, sidewalk violation removals, and landmark approvals required for your project."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My home was built before 1978. Are you Lead-Safe Certified?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We are an EPA Lead-Safe Certified Firm. We follow strict safety protocols to contain dust and protect your family during renovations in older homes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What areas do you serve?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We are based in Staten Island and serve all five boroughs of NYC (Brooklyn, Queens, Manhattan, Bronx) as well as select areas in New Jersey."
+      }
+    }
+  ]
 }
 </script>
 
 <style>
-.faq-accordion{max-width:900px;margin:20px auto;border:1px solid var(--gold-soft);border-radius:var(--radius);background:rgba(7,14,28,.8);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.faq-item{border-bottom:1px solid rgba(231,191,99,.28)}
-.faq-q{width:100%;padding:16px 18px;font-size:15px;font-weight:800;color:var(--gold-soft);background:transparent;border:none;text-align:left;cursor:pointer;position:relative;letter-spacing:.3px}
-.faq-q::after{content:"+";position:absolute;right:18px;font-size:20px;color:var(--gold)}
-.faq-q.active::after{content:"-"}
-.faq-a{max-height:0;overflow:hidden;padding:0 18px;background:rgba(5,12,25,.85);border-top:1px solid rgba(231,191,99,.18);transition:max-height .32s ease}
-.faq-a p{margin:0;padding:12px 0 16px;font-size:14px;color:var(--muted);line-height:1.6}
-.cta-box{max-width:900px;margin:28px auto 0;padding:18px;border:1px dashed rgba(231,191,99,.5);border-radius:var(--radius);background:rgba(8,14,26,.6);text-align:center}
+/* --- FAQ SPECIFIC STYLES --- */
+
+/* Page Header Spacing */
+.faq-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* Accordion Container */
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto 60px;
+}
+
+/* Individual Item Styling */
+.faq-item {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: rgba(8, 16, 28, 0.95); /* Dark Luxury BG */
+  border: 1px solid rgba(231, 191, 99, 0.2); /* Subtle Gold Border */
+  overflow: hidden;
+  transition: .3s ease;
+}
+
+.faq-item:hover {
+  border-color: var(--gold);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Question Button */
+.faq-question {
+  width: 100%;
+  padding: 20px 24px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold-soft);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: .2s;
+}
+
+.faq-question:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.03);
+}
+
+/* Icon Rotation */
+.faq-icon {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+  color: var(--gold);
+}
+
+.faq-question.active .faq-icon {
+  transform: rotate(45deg); /* Turns (+) into (x) */
+}
+
+/* Answer Content (Hidden by default) */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  background: rgba(0,0,0,0.2);
+}
+
+.faq-answer p {
+  padding: 0 24px 24px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Call to Action Box at Bottom */
+.faq-cta {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-xl);
+  border-top: 1px solid rgba(231,191,99,0.3);
+  margin-top: 60px;
+}
 </style>
+
 </head>
 
 <body>
 
-<!-- HEADER AUTO-LOADED -->
 <div id="header-include"></div>
 
-<main class="page">
+<main class="page content-wrapper" style="padding-bottom: 120px;">
 
-<section class="hero hero-inner fade-up">
-  <div class="hero-content">
-    <h1>Frequently Asked Questions</h1>
-    <p>Clear answers for NYC & NJ homeowners about estimates, permits, lead safety, insurance, timelines, warranties, and more.</p>
+  <section class="hero hero-inner fade-up" style="flex-direction: column; text-align: center; margin-top: 30px;">
+    <div class="hero-content">
+      <h1 style="margin-bottom: 10px; color: var(--gold-soft);">Frequently Asked Questions</h1>
+      <p style="max-width: 650px; margin: 0 auto; font-size: 15px;">
+        Clear answers about our process, pricing, and safety standards. 
+        If you don't see your question here, simply text or email us.
+      </p>
 
-    <ul class="trust-pills">
-      <li>NYC Licensed & Insured · HIC #2131291</li>
-      <li>EPA Lead-Safe Certified Renovation Firm</li>
-      <li>Serving All 5 Boroughs + NJ</li>
-    </ul>
-  </div>
-</section>
+      <div class="pill-row" style="justify-content: center; margin-top: 20px;">
+        <span class="gold-pill">Licensed & Insured</span>
+        <span class="gold-pill">Permit Handling</span>
+        <span class="gold-pill">Warranty Included</span>
+      </div>
+    </div>
+  </section>
 
-<h2 style="text-align:center;margin-top:25px;color:var(--gold-soft);">
-Contractor FAQ for NYC & NJ Remodeling, Masonry & Home Improvement
-</h2>
+  <section class="section fade-up">
+    <div class="faq-container">
 
-<section class="section fade-up">
-  <div class="faq-accordion" id="faqList">
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you provide free estimates?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. We provide free, detailed estimates for homeowners in our service area. For the fastest response, you can text us photos of your project, and we can often provide a ballpark range immediately.</p>
+        </div>
+      </div>
 
-<!-- =========================================================== -->
-<!-- ======================== ALL FAQ ============================ -->
-<!-- =========================================================== -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Are you licensed and insured?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely. We hold a valid NYC Home Improvement Contractor License (#21311291) and carry full General Liability and Workers' Compensation insurance to protect your home and our crew.</p>
+        </div>
+      </div>
 
-<div class="faq-item">
-  <button class="faq-q">Do you serve all five NYC boroughs and New Jersey?</button>
-  <div class="faq-a"><p>Yes. We’re based in Staten Island and serve all five NYC boroughs plus select New Jersey towns including Bayonne, Jersey City, Newark, and Elizabeth.</p></div>
-</div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you handle permits and violations?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. We manage the entire paperwork process, including Department of Buildings (DOB) permits, Landmark approvals, and removing DOT sidewalk violations.</p>
+        </div>
+      </div>
 
-<div class="faq-item">
-  <button class="faq-q">Are you licensed, insured, and EPA Lead-Safe Certified?</button>
-  <div class="faq-a"><p>Yes. We are fully insured, NYC licensed (HIC #2131291), and an EPA Lead-Safe Certified Renovation Firm authorized to work safely in pre-1978 homes.</p></div>
-</div>
+      <div class="faq-item">
+        <button class="faq-question">
+          My home is old (Pre-1978). Is it safe to renovate?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, because we are an EPA Lead-Safe Certified Firm. We use specialized equipment and containment barriers to ensure dust and lead paint chips are safely removed, keeping your family safe.</p>
+        </div>
+      </div>
 
-<div class="faq-item">
-  <button class="faq-q">Do you provide free estimates?</button>
-  <div class="faq-a"><p>Yes — we offer free estimates for NYC & NJ customers. You may text photos for an instant quote or schedule an in-person visit.</p></div>
-</div>
+      <div class="faq-item">
+        <button class="faq-question">
+          What is your payment schedule?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>We typically require a deposit to schedule materials and crew, progress payments during key milestones (like passing inspection), and a final payment only when the work is completed to your satisfaction.</p>
+        </div>
+      </div>
 
-<div class="faq-item">
-  <button class="faq-q">What services do you specialize in?</button>
-  <div class="faq-a"><p>We specialize in remodeling, masonry, pavers, concrete sidewalks, steps, tile installation, kitchens, bathrooms, painting, landscaping, power washing, and general home improvement.</p></div>
-</div>
+      <div class="faq-item">
+        <button class="faq-question">
+          What areas do you serve?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Our headquarters is in Staten Island, NY. We proudly serve clients across Brooklyn, Queens, Manhattan, and select areas of New Jersey.</p>
+        </div>
+      </div>
 
-<div class="faq-item">
-  <button class="faq-q">What is the difference between your Basic, Premium, and Luxury service tiers?</button>
-  <div class="faq-a">
-    <p><strong>Basic:</strong> Standard materials, essential installation, basic cleanup.</p>
-    <p><strong>Premium:</strong> Upgraded materials, enhanced protection, extended warranty, cleaner finishing.</p>
-    <p><strong>Luxury:</strong> Highest-grade materials, custom design, longest warranty, priority scheduling, white-glove cleanup.</p>
-  </div>
-</div>
+    </div>
 
-<div class="faq-item">
-  <button class="faq-q">How long does a typical project take?</button>
-  <div class="faq-a"><p>Small jobs take 1–3 days, medium projects 3–10 days, and full remodels or masonry builds take 2–6 weeks depending on materials and permits.</p></div>
-</div>
+    <div class="faq-cta">
+      <h3 style="color: #fff; margin-bottom: 10px;">Have a different question?</h3>
+      <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">
+        We are happy to explain any part of the construction process.
+      </p>
+      <a class="btn" href="/contact.html">Contact Us</a>
+      <a class="btn ghost" href="sms:+19295955300">Text Your Question</a>
+    </div>
 
-<div class="faq-item">
-  <button class="faq-q">Do you pull permits for sidewalk, concrete, or remodeling work?</button>
-  <div class="faq-a"><p>Yes. We handle all NYC DOB permits, inspections, and required paperwork for sidewalks, concrete, additions, and remodeling work.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you work on homes built before 1978?</button>
-  <div class="faq-a"><p>Yes. As an EPA Lead-Safe Certified Firm, we follow all required safety practices, dust containment, and cleanup procedures for older homes.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">How do payments work?</button>
-  <div class="faq-a"><p>We take a small deposit to schedule the project, followed by progress payments, and a final payment at completion.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you offer warranties?</button>
-  <div class="faq-a"><p><strong>Basic:</strong> 1-year workmanship warranty.<br><strong>Premium:</strong> 2–3 years.<br><strong>Luxury:</strong> 3–5 years depending on materials and scope.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Will you help me choose materials?</button>
-  <div class="faq-a"><p>Yes. We help you select tile, brick, stone, pavers, fixtures, cabinets, and finishes. Premium and luxury tiers include design support.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">What happens if you discover hidden problems?</button>
-  <div class="faq-a"><p>We document everything with photos and videos, explain your repair options, and only continue with your approval.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">How do you protect my home during the project?</button>
-  <div class="faq-a"><p>We use floor coverings, dust barriers, plastic protection, and HEPA vacuuming. Cleanliness and safety are part of every job we do.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">How do you handle cleanup and debris removal?</button>
-  <div class="faq-a"><p>All debris is removed, swept, and cleaned. Luxury packages include deep cleaning and polishing once the project is complete.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you offer emergency or same-day repairs?</button>
-  <div class="faq-a"><p>Yes. We prioritize urgent issues like leaks, broken steps, loose brick, damaged pavers, trip hazards, and safety concerns.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you work with landlords, property managers, and investors?</button>
-  <div class="faq-a"><p>Yes — we handle renovations, repairs, turnovers, and masonry services for multi-unit and investment properties.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Can I live in my home during a remodel?</button>
-  <div class="faq-a"><p>Usually yes. We keep pathways clean and limit dust. Large remodels may require temporary relocation for comfort and safety.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Who performs the work?</button>
-  <div class="faq-a"><p>We use our own trained team and licensed specialists when required for electrical, plumbing, or structural work.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">What makes Hammer Brick & Home LLC different?</button>
-  <div class="faq-a"><p>Licensed, insured, EPA-certified, fast communication, clean professional work, and expertise in both masonry & remodeling.</p></div>
-</div>
-
-<!-- NEW 2025 ADDITIONS -->
-
-<div class="faq-item">
-  <button class="faq-q">Do you repair DOT sidewalk violations?</button>
-  <div class="faq-a"><p>Yes. We handle demolition, permits, forming, pouring, and preparing for re-inspection to clear violations.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do I need a permit for sidewalk replacement?</button>
-  <div class="faq-a"><p>Yes. A NYC DOT permit is required for most sidewalk work. We pull all permits for you.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you install pavers, steps, and retaining walls?</button>
-  <div class="faq-a"><p>Yes — pavers, driveways, patios, steps, stoops, retaining walls, and outdoor masonry.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you offer virtual estimates?</button>
-  <div class="faq-a"><p>Yes. You can text or email photos/videos for fast quotes.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you remove old concrete or pavers?</button>
-  <div class="faq-a"><p>Yes. Cleanup and disposal are included unless otherwise stated.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you help with design ideas?</button>
-  <div class="faq-a"><p>Yes — layouts, colors, patterns, tile, stone, and material suggestions.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">Do you work with insurance claims?</button>
-  <div class="faq-a"><p>Yes. We provide photos, written estimates, and documentation if needed.</p></div>
-</div>
-
-<div class="faq-item">
-  <button class="faq-q">What is your daily cleanup process?</button>
-  <div class="faq-a"><p>We clean tools, sweep areas, remove debris, and ensure safety daily.</p></div>
-</div>
-
-<!-- END FAQ -->
-  </div>
-
-  <div class="cta-box">
-    <h3>Still have a question?</h3>
-    <p class="muted">Send photos and your borough — we reply fast.</p>
-    <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
-    <a class="btn ghost" href="sms:+19295955300">Text Us</a>
-    <a class="btn ghost" href="mailto:Hammerbrickhome@gmail.com">Email</a>
-    <a class="btn ghost" href="/contact.html">Contact Form</a>
-  </div>
-
-</section>
+  </section>
 
 </main>
 
-<!-- FOOTER AUTO-LOADED -->
 <div id="footer-include"></div>
 
-<!-- AUTO LOAD HEADER & FOOTER -->
+<a href="sms:+13473233632" class="contact-float-btn" aria-label="Text Us">💬</a>
+
+<script>
+  // Simple Accordion Logic
+  const acc = document.getElementsByClassName("faq-question");
+  for (let i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      // Toggle active class for icon rotation
+      this.classList.toggle("active");
+      
+      // Toggle panel visibility
+      var panel = this.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      } 
+    });
+  }
+</script>
+
+<script src="/script.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
@@ -251,41 +295,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof initHeaderInteractions === "function") {
       initHeaderInteractions();
     }
-  });
-
-  /* Accordion */
-  const items = document.querySelectorAll(".faq-item");
-  items.forEach(it => {
-    const q = it.querySelector(".faq-q");
-    const a = it.querySelector(".faq-a");
-    q.addEventListener("click", () => {
-      q.classList.toggle("active");
-      a.style.maxHeight = a.style.maxHeight ? null : a.scrollHeight + "px";
-    });
-  });
-
-  /* Schema */
-  const entities = [];
-  items.forEach(it => {
-    const q = it.querySelector(".faq-q").textContent.trim();
-    const a = it.querySelector(".faq-a").innerText.trim();
-    entities.push({
-      "@type": "Question",
-      "name": q,
-      "acceptedAnswer": { "@type": "Answer", "text": a }
-    });
-  });
-  const schemaNode = document.querySelector('script[type="application/ld+json"]');
-  const base = JSON.parse(schemaNode.textContent || "{}");
-  base.mainEntity = entities;
-  schemaNode.textContent = JSON.stringify(base);
+  })
+  .catch(console.error);
 });
 </script>
-
 <link rel="stylesheet" href="/chat.css">
 <script src="/chat.js" defer></script>
-
-<script src="/script.js" defer></script>
 
 </body>
 </html>
