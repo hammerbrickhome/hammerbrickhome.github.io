@@ -1,5 +1,4 @@
 
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -242,11 +241,11 @@
       padding: 3px 8px;
       border-radius: 4px;
       font-weight: 800;
-      font-size: 0.9em;
+      font-size: 0.9em; /* relative to parent */
       border: 1px solid #27ae60;
       box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
       display: inline-block;
-      margin-right: 5px;
+      margin: 0 5px;
       vertical-align: middle;
   }
 </style>
@@ -270,7 +269,10 @@
             Services: NYC/NJ Metro • <span class="location-highlight">National Winners: Gift Prizes</span>
         </div>
         
-        <h1 style="margin-bottom: 10px;">Signature Membership</h1>
+        <h1 style="margin-bottom: 10px;">
+            Signature Membership <span class="free-badge" style="font-size: 0.5em; vertical-align: middle;">100% FREE</span>
+        </h1>
+        
         <p style="max-width: 600px; margin: 0 auto; color: var(--muted);">Join the only contractor loyalty program in NYC that gives back. Service perks for locals, gift cards for everyone else.</p>
 
         <div class="member-card-container">
