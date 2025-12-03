@@ -7,16 +7,63 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
-    <loc>https://www.hammerbrickhome.com/project-estimator</loc>
+    <loc>https://www.hammerbrickhome.com/about</loc>
     <lastmod>2025-02-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/our-process</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/contact</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
   </url>
 
   <url>
     <loc>https://www.hammerbrickhome.com/services</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/masonry</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/kitchens</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/bathrooms</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/painting</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/waterproofing</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/windows-doors</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -28,14 +75,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
   <url>
-    <loc>https://www.hammerbrickhome.com/contact</loc>
+    <loc>https://www.hammerbrickhome.com/project-estimator</loc>
+    <lastmod>2025-02-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/financing</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.88</priority>
+    <priority>0.90</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/monthly-specials</loc>
     <lastmod>2025-02-15</lastmod>
@@ -49,35 +100,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
-
-  <url>
-    <loc>https://www.hammerbrickhome.com/about</loc>
-    <lastmod>2025-02-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/gallery</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/reviews</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/membership</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/faq</loc>
     <lastmod>2025-02-15</lastmod>
@@ -91,35 +131,30 @@
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/brooklyn</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/manhattan</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/queens</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/bronx</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
-
   <url>
     <loc>https://www.hammerbrickhome.com/new-jersey</loc>
     <lastmod>2025-02-15</lastmod>
