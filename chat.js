@@ -1,17 +1,17 @@
 /* ============================================================
-   HAMMER BRICK & HOME — ESTIMATOR BOT v17.7 (Connected to Google Sheets)
+   HAMMER BRICK & HOME — ESTIMATOR BOT v17.10 (CORS FIX)
    - FEATURES: Smart Brain, Full Service List, Viral Loop, Value Stacking.
-   - UPDATED: Connected to Google Web App URL.
+   - UPDATED: Added 'no-cors' mode to force data to Google Sheets.
    - STATUS: 100% Complete.
 =============================================================== */
 
 (function() {
   // --- CONFIGURATION -----------------------------------------
 
-  // Updated with your Google Web App URL + the source tag
-   const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycby5B6HHpX5u4WzWOBaYXpqKcGOvszmdVezPXIijEgCeysA130AzqcJgAPNFrr1a5zh4/exec?source=chatbot"; 
+  // ✅ UPDATED: Your specific working Google Web App URL
+  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycby5B6HHpX5u4WzWOBaYXpqKcGOvszmdVezPXIijEgCeysA130AzqcJgAPNFrr1a5zh4/exec?source=chatbot"; 
   
-   const PHONE_NUMBER = "9295955300"; 
+  const PHONE_NUMBER = "9295955300"; 
   const CRM_FORM_URL = ""; 
   const WALKTHROUGH_URL = "";
 
@@ -314,7 +314,8 @@
         speed: [
           { label: "Night or weekend painting", low: 1200, high: 3500 }
         ]
-      }
+      },
+      leadSensitive: true // Ensure leadSensitive is true for interior painting if needed
     },
     flooring: {
       title: "Flooring",
@@ -372,7 +373,8 @@
         speed: [
           { label: "Expedited plumbing rough-in", low: 1500, high: 3500 } 
         ]
-      }
+      },
+      leadSensitive: true
     },
     kitchen: {
       title: "Kitchen Remodel",
@@ -393,7 +395,8 @@
         speed: [
           { label: "Temporary sink setup", low: 850, high: 2200 }
         ]
-      }
+      },
+      leadSensitive: true
     },
     handyman: {
       title: "Handyman",
@@ -770,7 +773,7 @@
   // --- INIT ---------------------------------------------------
 
   function init() {
-    console.log("HB Chat: Initializing v17.7 Smart...");
+    console.log("HB Chat: Initializing v17.10 Smart...");
     injectCustomStyles();
     createInterface();
     startTicker();
@@ -2016,7 +2019,8 @@
 
       fetch(WEBHOOK_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          mode: "no-cors", 
+          headers: { "Content-Type": "text/plain" },
           body: JSON.stringify(payload)
       }).then(() => {
           console.log("Webhook sent.");
