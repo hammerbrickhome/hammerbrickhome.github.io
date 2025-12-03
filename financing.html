@@ -50,14 +50,6 @@
             "@type": "Answer",
             "text": "Yes! For 'Signature' tier projects, many clients prefer to buy their own tiles, vanities, or fixtures directly to control the budget. We simply charge for the labor to install them."
           }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens if the project is delayed?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "You don't pay. Our payment schedule is based on work completed, not dates on a calendar. If we haven't reached the milestone, you don't write the check. This protects you completely."
-          }
         }
       ]
     }
@@ -66,7 +58,7 @@
 </script>
 
 <style>
-  /* STYLES FOR PAYMENT STEPS */
+  /* PAYMENT STEPS */
   .pay-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -128,6 +120,50 @@
     margin: 40px auto;
     box-shadow: 0 0 25px rgba(212,175,55,0.15);
   }
+
+  /* COMPARISON TABLE */
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin-top: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+  }
+  .compare-table th, .compare-table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+  }
+  .compare-table th {
+    background: rgba(255,255,255,0.05);
+    color: var(--gold-soft);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .col-us { background: rgba(231,191,99,0.05); border-left: 1px solid rgba(231,191,99,0.2); border-right: 1px solid rgba(231,191,99,0.2); }
+  .check { color: #2ecc71; font-weight: bold; }
+  .cross { color: #e74c3c; font-weight: bold; }
+
+  /* CASH SAVINGS BOX */
+  .cash-save-box {
+    background: rgba(46, 204, 113, 0.05);
+    border: 1px solid #2ecc71;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 25px;
+    text-align: center;
+  }
+  .cash-save-title { color: #2ecc71; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; font-size: 14px; }
+  .cash-math { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .math-item { background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: 8px; font-size: 13px; }
+  .math-item span { display: block; font-size: 16px; font-weight: 800; color: #fff; margin-top: 4px; }
 </style>
 </head>
 
@@ -152,17 +188,46 @@
 
         <section class="section fade-up">
             <div class="ethical-box">
-                <h2 style="font-size:22px; color:var(--gold-soft); margin-bottom:15px;">Our "Zero-Interest" Promise</h2>
+                <h2 style="font-size:22px; color:var(--gold-soft); margin-bottom:15px;">The "Neighbor Standard"</h2>
                 <p style="font-size:15px; color:#fff; line-height:1.7;">
                     At Hammer Brick & Home LLC, we operate on honest financial principles. 
                     We believe you should pay for <strong>value and craftsmanship</strong>, not for time.
                 </p>
-                <div style="margin-top:20px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-                    <span class="gold-pill">🚫 No Hidden Fees</span>
-                    <span class="gold-pill">🚫 No Bank Loans</span>
-                    <span class="gold-pill">✅ Pay for Progress</span>
-                    <span class="gold-pill">✅ 5% Cash Discount</span>
+                
+                <div class="compare-table-wrap">
+                  <table class="compare-table">
+                    <thead>
+                      <tr>
+                        <th>Feature</th>
+                        <th class="col-us" style="color:#fff;">Hammer Brick & Home</th>
+                        <th>Bank Financing</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Interest Rate</td>
+                        <td class="col-us check">0% Interest</td>
+                        <td class="cross">9% - 29% APR</td>
+                      </tr>
+                      <tr>
+                        <td>Credit Check</td>
+                        <td class="col-us check">None Required</td>
+                        <td class="cross">Hard Inquiry</td>
+                      </tr>
+                      <tr>
+                        <td>Hidden Fees</td>
+                        <td class="col-us check">$0 Fees</td>
+                        <td class="cross">Origination Fees</td>
+                      </tr>
+                      <tr>
+                        <td>Payment Basis</td>
+                        <td class="col-us" style="color:var(--gold);">Work Milestones</td>
+                        <td>Monthly Debt</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+
             </div>
         </section>
 
@@ -217,10 +282,20 @@
                 
                 <ul class="bullets">
                     <li><strong>Zelle / Bank Transfer:</strong> Preferred method. Instant and secure.</li>
-                    <li><strong>Cash:</strong> Accepted with a written receipt. <span style="color:var(--gold); font-weight:bold; background:rgba(231,191,99,0.15); padding:2px 6px; border-radius:4px;">5% Discount Applied</span></li>
+                    <li><strong>Cash:</strong> Accepted with a written receipt.</li>
                     <li><strong>Credit Cards:</strong> We accept Visa, MasterCard, Amex (Processing fees may apply).</li>
                     <li><strong>Checks:</strong> Certified checks accepted for deposits.</li>
                 </ul>
+
+                <div class="cash-save-box">
+                  <div class="cash-save-title">💸 Power of the 5% Cash Discount</div>
+                  <div class="cash-math">
+                    <div class="math-item">Small Job ($2k) <span style="color:#2ecc71;">Save $100</span></div>
+                    <div class="math-item">Med Job ($10k) <span style="color:#2ecc71;">Save $500</span></div>
+                    <div class="math-item">Big Job ($50k) <span style="color:#2ecc71;">Save $2,500</span></div>
+                  </div>
+                </div>
+
             </div>
             
             <div class="accent-card" style="text-align:center;">
@@ -232,6 +307,9 @@
                 <p style="font-size:12px; color:var(--muted);">
                     Since we don't offer interest-loans, using your own rewards card is a smart way to manage cash flow while we work.
                 </p>
+                <div style="margin-top:15px; font-size:10px; opacity:0.6;">
+                    NYC Licensed Contractor<br>HIC #2131291
+                </div>
             </div>
         </section>
 
