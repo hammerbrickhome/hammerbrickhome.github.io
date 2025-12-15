@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Client Testimonials — Hammer Brick & Home LLC | NYC & NJ</title>
-<meta name="description" content="Read what local homeowners say about our masonry and remodeling work. Verified feedback from clients in Staten Island, Brooklyn, and New Jersey.">
+<meta name="description" content="Read what local homeowners say about our masonry and remodeling work. Honest feedback from clients in Staten Island, Brooklyn, and New Jersey.">
 
 <link rel="icon" href="/images/hero.PNG">
 <link rel="preload" as="image" href="/images/hero.PNG">
@@ -25,213 +25,103 @@
   "name": "Hammer Brick & Home LLC",
   "image": "https://www.hammerbrickhome.com/images/hero.PNG",
   "url": "https://www.hammerbrickhome.com",
-  "telephone": "+19295955300",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "6"
-  },
+  "telephone": "+13473233632",
+  "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Staten Island",
     "addressRegion": "NY",
     "addressCountry": "US"
   },
-  "priceRange": "$$"
+  "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "New Jersey"],
+  "description": "Licensed masonry and home remodeling contractor serving NYC and New Jersey."
 }
 </script>
 
 <style>
-/* =========================================
-   REVIEWS PAGE SPECIFIC STYLES
-   (Matches Luxury Dark Theme)
-========================================= */
+/* Page Specific Styles */
+.reviews-intro { max-width: 800px; margin: 0 auto; color: var(--muted); font-size: 15px; }
 
-/* The Intro Text */
-.reviews-intro { 
-    max-width: 800px; 
-    margin: 0 auto 30px; 
-    color: var(--muted); 
-    font-size: 16px; 
-    line-height: 1.6;
+/* Quote Icon Style */
+.quote-icon { 
+    font-size: 40px; 
+    line-height: 1; 
+    color: var(--gold); 
+    opacity: 0.5; 
+    margin-bottom: -10px;
+    font-family: serif; 
 }
 
-/* 1. TRUST DASHBOARD (New High-End Feature) */
-.trust-dashboard {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin: 30px auto 50px;
-    padding: 20px;
-    background: rgba(8, 16, 28, 0.6);
-    border: 1px solid rgba(231,191,99,0.15);
-    border-radius: var(--radius-xl);
-    max-width: 600px;
-}
+.review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 30px; }
 
-.trust-score {
-    text-align: center;
-}
-
-.trust-score .big-num {
-    font-family: var(--font-serif);
-    font-size: 48px;
-    font-weight: 700;
-    color: var(--gold-soft);
-    line-height: 1;
-    text-shadow: 0 0 20px rgba(212,175,55,0.4);
-}
-
-.trust-score .label {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 5px;
-}
-
-/* 2. LUXURY REVIEW CARD */
-.review-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
-    gap: 24px; 
-    margin-top: 30px; 
-}
-
+/* Luxury Testimonial Card */
 .review-card { 
-    position: relative;
+    border: 1px solid rgba(231,191,99,0.2); 
     background: rgba(8,16,28,0.95); 
-    border: 1px solid rgba(255,255,255,0.08); /* Subtle default border */
     border-radius: var(--radius-xl); 
-    padding: 30px; 
+    padding: 28px; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
 }
 
-/* Hover Effect: Lift + Gold Glow */
 .review-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(231,191,99,0.6);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 20px rgba(231,191,99,0.1);
+    transform: translateY(-5px);
+    border-color: var(--gold);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }
 
-/* Featured Card (The Google Review) */
-.review-card.featured {
-    border: 1px solid rgba(231,191,99,0.4);
-    background: linear-gradient(145deg, rgba(8,16,28,0.98), rgba(231,191,99,0.05));
-}
-
-/* 3. TAGS & BADGES */
+/* Service Tag Style */
 .service-tag {
     display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 11px;
     text-transform: uppercase;
     color: var(--gold-soft);
     border: 1px solid rgba(231,191,99,0.3);
-    padding: 5px 10px;
-    border-radius: 6px;
-    margin-bottom: 12px;
-    background: rgba(231,191,99,0.05);
-    letter-spacing: 0.5px;
-}
-
-/* Google Badge - Integrated Look */
-.google-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #fff;
-    background: rgba(66, 133, 244, 0.2); /* Low opacity blue */
-    border: 1px solid #4285F4;
     padding: 4px 10px;
-    border-radius: 50px;
-    margin-left: auto; /* Pushes to right */
+    border-radius: 4px;
+    margin-bottom: 12px;
+    align-self: flex-start;
+    background: rgba(231,191,99,0.05);
 }
 
-/* Stars */
-.stars {
-    color: #E7BF63;
-    letter-spacing: 3px;
-    margin-bottom: 14px;
-    font-size: 16px;
-    text-shadow: 0 0 10px rgba(231,191,99,0.3);
-}
-
-/* Quote Text */
-.quote { 
-    font-size: 15px; 
-    color: #d0d0d0; 
-    line-height: 1.7; 
+.review-card .quote { 
+    font-size: 16px; 
+    color: #e0e0e0; 
+    line-height: 1.6; 
     margin-bottom: 20px; 
     font-style: italic; 
     flex-grow: 1; 
 }
 
-/* 4. PHOTOS IN REVIEWS */
-.review-photos {
-    display: flex;
-    gap: 12px;
-    margin: 15px 0 5px;
-}
-
-.review-thumb {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: transform 0.2s, border-color 0.2s;
-    cursor: pointer;
-}
-
-.review-thumb:hover {
-    transform: scale(1.05);
-    border-color: var(--gold);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-/* 5. AUTHOR META */
-.meta { 
+/* Meta Data */
+.review-card .meta { 
     margin-top: auto; 
-    padding-top: 18px; 
+    padding-top: 15px; 
     border-top: 1px solid rgba(255,255,255,0.1); 
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 12px;
 }
 
-.meta-author { 
-    font-weight: 700; 
-    color: #fff; 
-    font-size: 13px; 
-    display: block;
-}
+.meta-author { font-weight: 700; color: #fff; }
+.meta-location { color: var(--muted); display: block; font-size: 11px; }
 
-.meta-location { 
-    color: var(--muted); 
-    font-size: 11px; 
-}
+/* Badges */
+.reviews-cta { text-align:center; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid rgba(231,191,99,0.2); }
+.reviews-cta .btn { margin: 6px; }
 
-/* Link Icon */
-.meta-link {
-    color: var(--gold);
-    font-size: 18px;
-    text-decoration: none;
-    opacity: 0.7;
-    transition: 0.2s;
-}
-.meta-link:hover { opacity: 1; transform: translateX(2px); }
-
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-    .trust-dashboard { flex-direction: column; gap: 15px; }
-    .review-grid { grid-template-columns: 1fr; }
+.badges { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; justify-content:center; }
+.badge-pill { 
+    font-size: 12px; 
+    padding: 8px 16px; 
+    border-radius: 999px; 
+    border: 1px solid rgba(231,191,99,0.35); 
+    color: var(--gold-soft); 
+    background: rgba(5,12,25,0.85); 
+    font-weight: 600;
 }
 </style>
 
@@ -247,20 +137,14 @@
   <div class="hero-content">
     <h1 class="faq-title" style="margin-top: 0;">What Neighbors Are Saying</h1>
     <p class="reviews-intro">
-      We build our reputation one project at a time. Read verified feedback from homeowners in Staten Island, Brooklyn, and New Jersey regarding our cleanliness, communication, and craftsmanship.
+      We build our reputation one project at a time. Here is the feedback we have received from homeowners in your area regarding our cleanliness, communication, and craftsmanship.
     </p>
 
-    <div class="trust-dashboard">
-        <div class="trust-score">
-            <div class="big-num">5.0</div>
-            <div class="stars">★★★★★</div>
-            <div class="label">Average Rating</div>
-        </div>
-        <div class="trust-score" style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 30px;">
-            <div class="big-num" style="color:white; font-size:32px; padding-top:8px;">100%</div>
-            <div class="label">Recommended</div>
-        </div>
-    </div>
+    <ul class="trust-pills" role="list" style="justify-content: center; margin-top: 20px;">
+      <li>NYC Licensed & Insured · HIC #21311291</li>
+      <li>EPA Lead-Safe Certified</li>
+      <li>Local NYC & NJ Business</li>
+    </ul>
 
     <div class="badges">
       <span class="badge-pill">✨ Detail Oriented</span>
@@ -274,41 +158,13 @@
   
   <div class="review-grid">
 
-    <article class="review-card featured">
-        <div style="display:flex; align-items:flex-start; margin-bottom: 8px;">
-            <div class="service-tag" style="margin-bottom:0;">Skylight & Wall Repair</div>
-            <div class="google-badge">
-               <span style="color:#4285F4; font-weight:900;">G</span> Verified Review
-            </div>
-        </div>
-        
-        <div class="stars">★★★★★</div>
-        
-        <div class="quote">
-          "Noman and his assistant were great to work with. Very concerned about doing a super job. They welcomed questions and concerns. Their work was great and priced fairly. I recommend them without reservation. They renovated my 2 skylight window frames and repaired the wall... I even took their recommendation to do a white frame!"
-        </div>
-  
-        <div class="review-photos">
-            <img src="/images/skylight-before.jpg" alt="Skylight Repair Before" class="review-thumb">
-            <img src="/images/skylight-after.jpg" alt="Skylight Repair After" class="review-thumb">
-        </div>
-  
-        <div class="meta">
-          <div>
-            <span class="meta-author">Verified Client</span>
-            <span class="meta-location">Staten Island, NY</span>
-          </div>
-          <a href="https://g.page/r/YOUR_GOOGLE_LINK_HERE/review" target="_blank" class="meta-link" aria-label="View on Google">↗</a>
-        </div>
-      </article>
-
     <article class="review-card">
       <div class="service-tag">Bathroom Remodel</div>
-      <div class="stars">★★★★★</div>
-      <div class="quote">"They protected the floors, controlled dust perfectly, and cleaned up every day. The bathroom refresh came out spotless and exactly as we envisioned."</div>
+      <div class="quote-icon">❝</div>
+      <div class="quote">They protected the floors, controlled dust perfectly, and cleaned up every day. The bathroom refresh came out spotless and exactly as we envisioned.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">S.L. (Homeowner)</span>
+          <span class="meta-author">Private Homeowner</span>
           <span class="meta-location">Staten Island, NY</span>
         </div>
       </div>
@@ -316,11 +172,11 @@
 
     <article class="review-card">
       <div class="service-tag">Brick Repointing</div>
-      <div class="stars">★★★★★</div>
-      <div class="quote">"Pointing and paver work was precise and clean. They explained everything clearly and stayed on schedule. Highly recommended."</div>
+      <div class="quote-icon">❝</div>
+      <div class="quote">Pointing and paver work was precise and clean. They explained everything clearly and stayed on schedule. Highly recommended.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">Mike R.</span>
+          <span class="meta-author">Private Homeowner</span>
           <span class="meta-location">Brooklyn, NY</span>
         </div>
       </div>
@@ -328,11 +184,11 @@
 
     <article class="review-card">
       <div class="service-tag">Window Repair</div>
-      <div class="stars">★★★★★</div>
-      <div class="quote">"Lead-safe window repair in our pre-war home was handled so professionally. The containment and cleanup were perfect. We felt safe the whole time."</div>
+      <div class="quote-icon">❝</div>
+      <div class="quote">Lead-safe window repair in our pre-war home was handled so professionally. The containment and cleanup were perfect. We felt safe the whole time.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">J.D.</span>
+          <span class="meta-author">Private Homeowner</span>
           <span class="meta-location">Queens, NY</span>
         </div>
       </div>
@@ -340,11 +196,11 @@
 
     <article class="review-card">
       <div class="service-tag">Painting & Trim</div>
-      <div class="stars">★★★★★</div>
-      <div class="quote">"Building rules, elevator scheduling — they handled it all. The trim work and painting came out amazing. A stress-free experience."</div>
+      <div class="quote-icon">❝</div>
+      <div class="quote">Building rules, elevator scheduling — they handled it all. The trim work and painting came out amazing. A stress-free experience.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">A.K.</span>
+          <span class="meta-author">Private Homeowner</span>
           <span class="meta-location">Manhattan, NY</span>
         </div>
       </div>
@@ -352,11 +208,11 @@
 
     <article class="review-card">
       <div class="service-tag">General Carpentry</div>
-      <div class="stars">★★★★★</div>
-      <div class="quote">"Great value and solid craftsmanship. There was a small material delay but they communicated well and made up the time. The result is beautiful."</div>
+      <div class="quote-icon">❝</div>
+      <div class="quote">Great value and solid craftsmanship. There was a small material delay but they communicated well and made up the time. The result is beautiful.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">T.B.</span>
+          <span class="meta-author">Private Homeowner</span>
           <span class="meta-location">New Jersey</span>
         </div>
       </div>
@@ -367,11 +223,11 @@
   <div class="reviews-cta">
     <h3 style="color:var(--gold-soft); margin-bottom:15px;">Have we worked together?</h3>
     <p style="color:var(--muted); max-width:600px; margin:0 auto 20px;">
-        As a growing business, your online review means the world to us. If you were happy with our work, please consider leaving us a Google Review!
+        As a growing business, your online review means the world to us. If you were happy with our work, please consider leaving us our first Google Review!
     </p>
     <a class="btn gold-btn" href="https://g.page/r/YOUR_GOOGLE_LINK_HERE/review" target="_blank" rel="noopener">Write a Google Review</a>
     
-    <div style="margin-top: 25px;">
+    <div style="margin-top: 20px;">
         <a class="btn ghost" href="/contact.html">Request a Free Estimate</a>
     </div>
   </div>
@@ -384,6 +240,7 @@
 <div id="footer-include"></div>
 
 <script src="/script.js"></script>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
@@ -395,19 +252,26 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("header-include").innerHTML = header;
     document.getElementById("cta-include").innerHTML = cta;
     document.getElementById("footer-include").innerHTML = footer;
-    
-    // Header interaction script if needed
-    if (typeof initHeaderInteractions === "function") initHeaderInteractions();
+
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+
+    if (typeof initHeaderInteractions === "function") {
+      initHeaderInteractions();
+    }
   })
   .catch(console.error);
 });
 </script>
-
 <link rel="stylesheet" href="/chat.css">
 <script src="/chat.js" defer></script>
 
 </body>
 </html>
+
+
+
+
 
 
 
