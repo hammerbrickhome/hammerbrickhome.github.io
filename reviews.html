@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Client Testimonials — Hammer Brick & Home LLC | NYC & NJ</title>
-<meta name="description" content="Read what local homeowners say about our masonry and remodeling work. Honest feedback from clients in Staten Island, Brooklyn, and New Jersey.">
+<meta name="description" content="Read what local homeowners say about our masonry and remodeling work. Verified feedback from clients in Staten Island, Brooklyn, and New Jersey.">
 
 <link rel="icon" href="/images/hero.PNG">
 <link rel="preload" as="image" href="/images/hero.PNG">
@@ -25,7 +25,7 @@
   "name": "Hammer Brick & Home LLC",
   "image": "https://www.hammerbrickhome.com/images/hero.PNG",
   "url": "https://www.hammerbrickhome.com",
-  "telephone": "+13473233632",
+  "telephone": "+19295955300",
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
@@ -81,9 +81,54 @@
     border: 1px solid rgba(231,191,99,0.3);
     padding: 4px 10px;
     border-radius: 4px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     align-self: flex-start;
     background: rgba(231,191,99,0.05);
+}
+
+/* Star Ratings */
+.stars {
+    color: #E7BF63;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+/* Google Verified Badge */
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: #4285F4; /* Google Blue */
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: auto; 
+}
+
+/* Review Photos Container */
+.review-photos {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+/* Individual Photo Styling */
+.review-thumb {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.review-thumb:hover {
+    transform: scale(1.1);
+    border-color: var(--gold);
 }
 
 .review-card .quote { 
@@ -158,13 +203,41 @@
   
   <div class="review-grid">
 
+    <article class="review-card" style="border-color: var(--gold);">
+        <div style="display:flex; align-items:flex-start; margin-bottom: 8px;">
+            <div class="service-tag" style="margin-bottom:0;">Skylight & Wall Repair</div>
+            <div class="verified-badge">
+               <span>G</span> Verified Google Review
+            </div>
+        </div>
+        
+        <div class="stars">★★★★★</div>
+        
+        <div class="quote">
+          "Noman and his assistant were great to work with. Very concerned about doing a super job. They welcomed questions and concerns. Their work was great and priced fairly. I recommend them without reservation. They renovated my 2 skylight window frames and repaired the wall. Not an easy job... I even took their recommendation to do a white frame!"
+        </div>
+  
+        <div class="review-photos">
+            <img src="/images/skylight-before.jpg" alt="Skylight Repair Before" class="review-thumb">
+            <img src="/images/skylight-after.jpg" alt="Skylight Repair After" class="review-thumb">
+        </div>
+  
+        <div class="meta">
+          <div>
+            <span class="meta-author">Verified Client</span>
+            <span class="meta-location">Staten Island, NY</span>
+          </div>
+        </div>
+      </article>
+
     <article class="review-card">
       <div class="service-tag">Bathroom Remodel</div>
+      <div class="stars">★★★★★</div>
       <div class="quote-icon">❝</div>
       <div class="quote">They protected the floors, controlled dust perfectly, and cleaned up every day. The bathroom refresh came out spotless and exactly as we envisioned.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">Private Homeowner</span>
+          <span class="meta-author">S.L. (Homeowner)</span>
           <span class="meta-location">Staten Island, NY</span>
         </div>
       </div>
@@ -172,11 +245,12 @@
 
     <article class="review-card">
       <div class="service-tag">Brick Repointing</div>
+      <div class="stars">★★★★★</div>
       <div class="quote-icon">❝</div>
       <div class="quote">Pointing and paver work was precise and clean. They explained everything clearly and stayed on schedule. Highly recommended.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">Private Homeowner</span>
+          <span class="meta-author">Mike R.</span>
           <span class="meta-location">Brooklyn, NY</span>
         </div>
       </div>
@@ -184,11 +258,12 @@
 
     <article class="review-card">
       <div class="service-tag">Window Repair</div>
+      <div class="stars">★★★★★</div>
       <div class="quote-icon">❝</div>
       <div class="quote">Lead-safe window repair in our pre-war home was handled so professionally. The containment and cleanup were perfect. We felt safe the whole time.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">Private Homeowner</span>
+          <span class="meta-author">J.D.</span>
           <span class="meta-location">Queens, NY</span>
         </div>
       </div>
@@ -196,11 +271,12 @@
 
     <article class="review-card">
       <div class="service-tag">Painting & Trim</div>
+      <div class="stars">★★★★★</div>
       <div class="quote-icon">❝</div>
       <div class="quote">Building rules, elevator scheduling — they handled it all. The trim work and painting came out amazing. A stress-free experience.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">Private Homeowner</span>
+          <span class="meta-author">A.K.</span>
           <span class="meta-location">Manhattan, NY</span>
         </div>
       </div>
@@ -208,11 +284,12 @@
 
     <article class="review-card">
       <div class="service-tag">General Carpentry</div>
+      <div class="stars">★★★★★</div>
       <div class="quote-icon">❝</div>
       <div class="quote">Great value and solid craftsmanship. There was a small material delay but they communicated well and made up the time. The result is beautiful.</div>
       <div class="meta">
         <div>
-          <span class="meta-author">Private Homeowner</span>
+          <span class="meta-author">T.B.</span>
           <span class="meta-location">New Jersey</span>
         </div>
       </div>
@@ -223,7 +300,7 @@
   <div class="reviews-cta">
     <h3 style="color:var(--gold-soft); margin-bottom:15px;">Have we worked together?</h3>
     <p style="color:var(--muted); max-width:600px; margin:0 auto 20px;">
-        As a growing business, your online review means the world to us. If you were happy with our work, please consider leaving us our first Google Review!
+        As a growing business, your online review means the world to us. If you were happy with our work, please consider leaving us a Google Review!
     </p>
     <a class="btn gold-btn" href="https://g.page/r/YOUR_GOOGLE_LINK_HERE/review" target="_blank" rel="noopener">Write a Google Review</a>
     
