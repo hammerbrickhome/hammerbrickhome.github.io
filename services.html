@@ -1,17 +1,3 @@
-Here is the **fully upgraded `services.html**`.
-
-I have applied your **Luxury Dark + Gold `style.css**` to this page.
-**Changes made to "Make it Better":**
-
-1. **Visual "Glow Cards":** I replaced the plain text buttons with your new `.glow-card` classes (from your CSS). They now have icons (emojis), specific colors (Brick = Red, Water = Blue, Luxury = Gold), and the "lift" animation.
-2. **Trust Badges:** Added your license and insurance info as **Gold Pills** right under the hero section so people see them immediately.
-3. **Search Updated:** I updated the JavaScript at the bottom so the search bar works with the new fancy buttons.
-4. **Gallery Strip:** Added a "Recent Work" preview strip using your `.gallery-grid` class to break up the text.
-5. **No Content Removed:** Every single service link from your original file is included.
-
-### `services.html`
-
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -50,12 +36,7 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
     "image": "https://www.hammerbrickhome.com/images/hero.PNG",
     "priceRange": "$$$",
     "telephone": "+1-929-595-5300",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer service",
-      "telephone": "+1-929-595-5300",
-      "email": "contact@hammerbrickhome.com"
-    },
+    "description": "Licensed NYC home improvement contractor specializing in luxury masonry, brickwork, pavers, and lead-safe renovations.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "76 Palmer Ave",
@@ -64,6 +45,19 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
       "postalCode": "10302",
       "addressCountry": "US"
     },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.6305,
+      "longitude": -74.1376
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      }
+    ],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
@@ -72,25 +66,13 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
     "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Full Range of Masonry, Hardscape, Windows, Doors, and Exterior Services",
+      "name": "Construction Services",
       "itemListElement": [
-        {
-          "@type": "OfferCatalog",
-          "name": "Masonry & Hardscape Services",
-          "itemListElement": [
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "DOT Violation Repairs", "serviceType": "Sidewalk Repair"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Hardscape Design", "serviceType": "Paver Installation"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Brickwork & Repointing", "serviceType": "Facade Restoration"}}
-          ]
-        },
-        {
-          "@type": "OfferCatalog",
-          "name": "Carpentry, Windows & Doors", 
-          "itemListElement": [
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Window Installation"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Door Installation"}}
-          ]
-        }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brickwork & Repointing", "url": "https://www.hammerbrickhome.com/masonry-brickwork.html" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "DOT Violation Removal", "url": "https://www.hammerbrickhome.com/dot-violation-repair.html" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Paver Installation", "url": "https://www.hammerbrickhome.com/pavers-hardscape.html" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Window Installation", "url": "https://www.hammerbrickhome.com/window-installation.html" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kitchen Remodeling", "url": "https://www.hammerbrickhome.com/kitchen-remodeling.html" } }
       ]
     }
   },
@@ -98,18 +80,8 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://www.hammerbrickhome.com/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Services",
-        "item": "https://www.hammerbrickhome.com/services"
-      }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.hammerbrickhome.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.hammerbrickhome.com/services" }
     ]
   },
   {
@@ -119,17 +91,12 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
       {
         "@type": "Question",
         "name": "Do you repair DOT sidewalk violations?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, we handle violation removal, permits, demolition, concrete pouring, broom finish, and final inspection for all 5 boroughs. We specialize in fast compliance." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, we handle violation removal, permits, demolition, concrete pouring, broom finish, and final inspection for all 5 boroughs." }
       },
       {
         "@type": "Question",
-        "name": "What is the difference between your Premium and Signature tiers?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The Premium Tier offers a 3-Year Warranty and Enhanced Dust Control. The Signature Tier offers a 5-Year Warranty, White-Glove Cleanup, and includes full management of Co-op/Condo board approvals and custom design work." }
-      },
-      {
-        "@type": "Question",
-        "name": "Are you licensed and insured for all NYC boroughs?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, Hammer Brick & Home LLC is fully licensed (NYC HIC #21311291) and carries all required general liability and worker's compensation insurance to operate legally across Staten Island, Brooklyn, Queens, Manhattan, and The Bronx." }
+        "name": "Are you licensed and insured?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, Hammer Brick & Home LLC is fully licensed (NYC HIC #21311291) and carries all required general liability and worker's compensation insurance." }
       }
     ]
   }
@@ -137,25 +104,20 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
 </script>
 
 <style>
-/* Local overrides specific to Services Page logic */
+/* Page-Specific Styles */
 .search-label { display:block; margin-bottom:6px; font-size:14px; color:var(--muted); text-align: center; }
 #noResults {
   display:none; margin-top:10px; text-align:center; color:var(--gold-soft);
   font-weight:600; letter-spacing:0.4px;
 }
-
-/* Breadcrumbs */
 .breadcrumbs {
   font-size: 13px;
   color: var(--muted);
   margin: 10px auto 15px;
-  max-width: 1000px; /* Match content-wrapper */
+  max-width: 1000px;
   padding: 0 18px;
 }
-.breadcrumbs a {
-  color: var(--gold-soft);
-  text-decoration: none;
-}
+.breadcrumbs a { color: var(--gold-soft); text-decoration: none; }
 
 /* Quick Action Row */
 .quick-action-row {
@@ -185,7 +147,73 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
   color: #fff;
 }
 
-/* SEO Blocks styling */
+/* --- ADVANCED PROJECT CARD STYLES --- */
+.project-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(231,191,99,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+}
+.project-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+.project-card:hover .project-img { opacity: 1; transform: scale(1.05); }
+.project-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0));
+  padding: 20px 15px 15px;
+}
+.project-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--gold);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.project-loc {
+  font-size: 10px;
+  color: var(--gold-soft);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  display: block;
+}
+.project-title {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 700;
+  margin: 0;
+}
+.project-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #ccc;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 6px;
+}
+
+/* SEO Blocks */
 .seo-block {
     background: rgba(15,25,40,.8);
     padding: 18px;
@@ -342,14 +370,55 @@ I have applied your **Luxury Dark + Gold `style.css**` to this page.
 </section>
 
 <section class="section fade-up">
-    <h2>Recent Projects</h2>
-    <div class="gallery-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important; gap: 10px !important;">
-        <img src="/images/hero.webp" alt="Recent Masonry Work" style="height: 150px;">
-        <img src="/images/hero.webp" alt="Recent Interior Work" style="height: 150px;">
-        <img src="/images/hero.webp" alt="Recent Tile Work" style="height: 150px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:15px;">
+        <div>
+            <h2>Recent Projects</h2>
+            <p class="section-note">Live from our latest jobsites.</p>
+        </div>
+        <a href="/contact.html?type=photo" style="font-size:12px; color:var(--gold-soft); text-decoration:none;">View Full Gallery &raquo;</a>
     </div>
-    <div style="text-align:center; margin-top:10px;">
-        <a href="/contact.html?type=photo" style="font-size:12px; color:var(--gold-soft);">View Full Gallery &raquo;</a>
+
+    <div class="gallery-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important; gap: 20px !important;">
+        
+        <a href="/masonry-brickwork.html" class="project-card" style="text-decoration:none;">
+            <span class="project-badge">Completed Dec 14</span>
+            <img src="/images/hero.webp" alt="Brick Repointing Staten Island" class="project-img">
+            <div class="project-overlay">
+                <span class="project-loc">📍 Staten Island, NY</span>
+                <h3 class="project-title">Brick Facade Restoration</h3>
+                <div class="project-stats">
+                    <span>⏱️ 4 Days</span>
+                    <span>🧱 Grind & Point</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="/window-installation.html" class="project-card" style="text-decoration:none;">
+            <span class="project-badge" style="background:#4a90e2; color:#fff;">In Progress</span>
+             <img src="/images/hero.webp" alt="Window Installation Brooklyn" class="project-img">
+            <div class="project-overlay">
+                <span class="project-loc">📍 Brooklyn, NY</span>
+                <h3 class="project-title">Lead-Safe Window Install</h3>
+                <div class="project-stats">
+                    <span>⏱️ Ongoing</span>
+                    <span>🪟 6 Windows</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="/pavers-hardscape.html" class="project-card" style="text-decoration:none;">
+            <span class="project-badge">Completed Dec 10</span>
+             <img src="/images/hero.webp" alt="Paver Walkway NJ" class="project-img">
+            <div class="project-overlay">
+                <span class="project-loc">📍 Woodbridge, NJ</span>
+                <h3 class="project-title">Custom Paver Walkway</h3>
+                <div class="project-stats">
+                    <span>⏱️ 2 Days</span>
+                    <span>🏡 Hardscape</span>
+                </div>
+            </div>
+        </a>
+
     </div>
 </section>
 
@@ -436,10 +505,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if(typeof initHeaderInteractions === "function") initHeaderInteractions();
   }).catch(console.error);
 
-  // SEARCH LOGIC UPDATED FOR NEW GLOW CARDS
+  // SEARCH LOGIC
   const input = document.getElementById("serviceSearch");
   const noResults = document.getElementById("noResults");
-  // Target the new class .glow-card
   const buttons = document.querySelectorAll(".glow-grid .glow-card");
 
   if(input && buttons.length){
@@ -449,10 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
       buttons.forEach(btn=>{
         const textContent = btn.textContent.toLowerCase();
         const match = textContent.includes(query);
-        
-        // Hide the card directly
         btn.style.display = match ? "flex" : "none"; 
-        
         if(match) visible++;
       });
       noResults.style.display = visible ? "none" : "block";
@@ -466,5 +531,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
-```
