@@ -147,72 +147,6 @@
   color: #fff;
 }
 
-/* --- ADVANCED PROJECT CARD STYLES --- */
-.project-card {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #000;
-  border: 1px solid rgba(231,191,99,0.2);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.project-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--gold);
-}
-.project-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  opacity: 0.85;
-  transition: opacity 0.3s;
-}
-.project-card:hover .project-img { opacity: 1; transform: scale(1.05); }
-.project-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0));
-  padding: 20px 15px 15px;
-}
-.project-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: var(--gold);
-  color: #000;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 4px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-.project-loc {
-  font-size: 10px;
-  color: var(--gold-soft);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-  display: block;
-}
-.project-title {
-  font-size: 15px;
-  color: #fff;
-  font-weight: 700;
-  margin: 0;
-}
-.project-stats {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-  font-size: 11px;
-  color: #ccc;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 6px;
-}
-
 /* SEO Blocks */
 .seo-block {
     background: rgba(15,25,40,.8);
@@ -261,7 +195,7 @@
 <section class="section fade-up">
   <label class="search-label" for="serviceSearch">Filter Services</label>
   <input id="serviceSearch" class="search-input"
-    placeholder="Type to find services (e.g. cabinets, stairs, pavers)..."
+    placeholder="Type to find services (e.g. cabinets, french drain, mounting)..."
     aria-label="Search available services">
   <p id="noResults">No matching services found.</p>
 </section>
@@ -350,6 +284,7 @@
         <a href="/dot-violation-repair.html" class="glow-card style-red"><span class="glow-icon">⚠️</span> DOT Violation Repairs</a>
         <a href="/pavers-hardscape.html" class="glow-card style-red"><span class="glow-icon">🏡</span> Pavers & Walkways</a>
         <a href="/pavers-hardscape.html" class="glow-card style-red"><span class="glow-icon">📐</span> Custom Hardscape Design</a>
+        <a href="/masonry-walls.html" class="glow-card style-blue"><span class="glow-icon">🌧️</span> French Drains & Dry Wells</a>
         <a href="/pavers-hardscape.html" class="glow-card style-red"><span class="glow-icon">🍖</span> Outdoor Kitchen Bases</a>
         <a href="/masonry-steps.html" class="glow-card style-red"><span class="glow-icon">🪜</span> Steps & Stoops Rebuild</a>
         <a href="/masonry-walls.html" class="glow-card style-red"><span class="glow-icon">🧗</span> Retaining Walls</a>
@@ -358,6 +293,9 @@
         <a href="/dot-violation-repair.html" class="glow-card style-white"><span class="glow-icon">📝</span> Sidewalk Permits</a>
         <a href="/masonry-brickwork.html" class="glow-card style-red"><span class="glow-icon">🏰</span> Stone Veneer Facades</a>
         <a href="/basement-finishing.html" class="glow-card style-blue"><span class="glow-icon">💧</span> Interior Waterproofing</a>
+        <a href="/masonry-brickwork.html" class="glow-card style-red"><span class="glow-icon">mailbox</span> Brick Mailbox Pillars</a>
+        <a href="/pavers-hardscape.html" class="glow-card style-red"><span class="glow-icon">🔥</span> Custom Fire Pits</a>
+        <a href="/pavers-hardscape.html" class="glow-card style-white"><span class="glow-icon">🛣️</span> Belgian Block Curbing</a>
       </div>
   </div>
     <div class="seo-block" id="masonry-details">
@@ -367,55 +305,6 @@
     <div class="mini-cta"><a href="/project-estimator.html" class="btn breathing-gold">Get a Fast Estimate</a></div>
 </section>
 
-<section class="section fade-up">
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:15px;">
-        <div>
-            <h2>Recent Projects</h2>
-            <p class="section-note">Live from our latest jobsites.</p>
-        </div>
-        <a href="/contact.html?type=photo" style="font-size:12px; color:var(--gold-soft); text-decoration:none;">View Full Gallery &raquo;</a>
-    </div>
-
-    <div class="gallery-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important; gap: 20px !important;">
-        <a href="/masonry-brickwork.html" class="project-card" style="text-decoration:none;">
-            <span class="project-badge">Completed Dec 14</span>
-            <img src="/images/hero.webp" alt="Brick Repointing Staten Island" class="project-img">
-            <div class="project-overlay">
-                <span class="project-loc">📍 Staten Island, NY</span>
-                <h3 class="project-title">Brick Facade Restoration</h3>
-                <div class="project-stats">
-                    <span>⏱️ 4 Days</span>
-                    <span>🧱 Grind & Point</span>
-                </div>
-            </div>
-        </a>
-        <a href="/window-installation.html" class="project-card" style="text-decoration:none;">
-            <span class="project-badge" style="background:#4a90e2; color:#fff;">In Progress</span>
-            <img src="/images/hero.webp" alt="Window Installation Brooklyn" class="project-img">
-            <div class="project-overlay">
-                <span class="project-loc">📍 Brooklyn, NY</span>
-                <h3 class="project-title">Lead-Safe Window Install</h3>
-                <div class="project-stats">
-                    <span>⏱️ Ongoing</span>
-                    <span>🪟 6 Windows</span>
-                </div>
-            </div>
-        </a>
-        <a href="/pavers-hardscape.html" class="project-card" style="text-decoration:none;">
-            <span class="project-badge">Completed Dec 10</span>
-            <img src="/images/hero.webp" alt="Paver Walkway NJ" class="project-img">
-            <div class="project-overlay">
-                <span class="project-loc">📍 Woodbridge, NJ</span>
-                <h3 class="project-title">Custom Paver Walkway</h3>
-                <div class="project-stats">
-                    <span>⏱️ 2 Days</span>
-                    <span>🏡 Hardscape</span>
-                </div>
-            </div>
-        </a>
-    </div>
-</section>
-
 <section class="section fade-up" id="remodeling-section">
   <h2>Carpentry, Remodeling & Millwork</h2>
   <p class="section-note">Custom built-ins, media walls, stairs, and expert installation.</p>
@@ -423,7 +312,9 @@
   <div class="services-glow-container">
       <div class="glow-grid">
         <a href="/kitchen-remodeling.html" class="glow-card style-gold"><span class="glow-icon">🍳</span> Kitchen Remodels</a>
+        <a href="/kitchen-remodeling.html" class="glow-card style-gold"><span class="glow-icon">🟧</span> Kitchen Backsplashes</a>
         <a href="/bathroom-remodeling.html" class="glow-card style-gold"><span class="glow-icon">🚿</span> Bathroom Remodels</a>
+        <a href="/bathroom-remodeling.html" class="glow-card style-white"><span class="glow-icon">✨</span> Tile Regrouting</a>
         <a href="/basement-finishing.html" class="glow-card style-gold"><span class="glow-icon">🏠</span> Basement Finishing</a>
         <a href="/custom-millwork.html" class="glow-card style-gold"><span class="glow-icon">🔥</span> Media Walls & Fireplaces</a>
         <a href="/custom-millwork.html" class="glow-card style-gold"><span class="glow-icon">👔</span> Custom Closet Systems</a>
@@ -433,15 +324,18 @@
         <a href="/window-installation.html" class="glow-card style-cyan"><span class="glow-icon">🪟</span> Window Installation</a>
         <a href="/door-installation.html" class="glow-card style-gold"><span class="glow-icon">🚪</span> Door Installation</a>
         <a href="/flooring.html" class="glow-card style-gold"><span class="glow-icon">👣</span> Flooring Installation</a>
-        <a href="/flooring.html" class="glow-card style-gold"><span class="glow-icon">✨</span> Floor Refinishing</a>
+        <a href="/flooring.html" class="glow-card style-gold"><span class="glow-icon">🪵</span> LVP & Laminate Plank</a>
+        <a href="/flooring.html" class="glow-card style-gold"><span class="glow-icon">✨</span> Floor Sanding & Refinishing</a>
         <a href="/carpentry-sheetrock.html" class="glow-card style-white"><span class="glow-icon">🔨</span> Sheetrock & Spackle</a> 
         <a href="/carpentry-sheetrock.html" class="glow-card style-gold"><span class="glow-icon">🪜</span> Attic Ladders & Flooring</a>
-        <a href="/window-installation.html" class="glow-card style-cyan"><span class="glow-icon">📏</span> Aluminum Window Capping</a>
+        <a href="/custom-millwork.html" class="glow-card style-cyan"><span class="glow-icon">📺</span> TV Mounting & Wires</a>
+        <a href="/bathroom-remodeling.html" class="glow-card style-white"><span class="glow-icon">♿</span> Grab Bars & Safety Rails</a>
+        <a href="/door-installation.html" class="glow-card style-gold"><span class="glow-icon">🐶</span> Pet Door Installation</a>
       </div>
   </div>
     <div class="seo-block" id="remodeling-details">
         <h3>Custom Millwork & Carpentry</h3>
-        <p>From custom media walls to refinishing stairs and installing crown molding, our carpentry team adds value and luxury to your home. We specialize in custom storage solutions and seamless trim installation.</p>
+        <p>From custom media walls to refinishing stairs and installing crown molding, our carpentry team adds value and luxury to your home. We specialize in custom storage solutions, backsplashes, and seamless trim installation.</p>
     </div>
 </section>
 
@@ -453,6 +347,8 @@
         <a href="/painting.html" class="glow-card style-cyan"><span class="glow-icon">🚪</span> Cabinet Refinishing</a>
         <a href="/painting.html" class="glow-card style-gold"><span class="glow-icon">🚪</span> Front Door Restoration</a>
         <a href="/painting.html" class="glow-card style-cyan"><span class="glow-icon">✨</span> Accent Walls</a>
+        <a href="/painting.html" class="glow-card style-cyan"><span class="glow-icon">🍿</span> Popcorn Ceiling Removal</a>
+        <a href="/painting.html" class="glow-card style-white"><span class="glow-icon">📜</span> Wallpaper Removal</a>
         <a href="/painting.html" class="glow-card style-cyan"><span class="glow-icon">🖌️</span> Exterior Painting</a>
         <a href="/painting-plaster.html" class="glow-card style-white"><span class="glow-icon">🩹</span> Plaster & Skim Coat</a>
         <a href="/painting-stucco.html" class="glow-card style-white"><span class="glow-icon">🏰</span> Stucco Repair</a>
@@ -462,15 +358,18 @@
 </section>
 
 <section class="section fade-up" id="restoration-section">
-  <h2>Restoration & Specialty Repairs</h2>
+  <h2>Restoration, Demo & Specialty</h2>
   <p class="section-note">Solving tough problems for homeowners and landlords.</p>
   <div class="services-glow-container">
       <div class="glow-grid">
         <a href="/painting.html" class="glow-card style-cyan"><span class="glow-icon">🏢</span> Apartment Turnovers</a>
+        <a href="/carpentry-sheetrock.html" class="glow-card style-red"><span class="glow-icon">🗑️</span> Interior Demolition</a>
+        <a href="/carpentry-sheetrock.html" class="glow-card style-red"><span class="glow-icon">🧹</span> Debris Removal & Bagging</a>
         <a href="/painting-plaster.html" class="glow-card style-white"><span class="glow-icon">💧</span> Water Damage Repairs</a>
         <a href="/carpentry-sheetrock.html" class="glow-card style-white"><span class="glow-icon">🔇</span> Soundproofing Walls</a>
         <a href="/exterior-care.html" class="glow-card style-red"><span class="glow-icon">🧼</span> Graffiti Removal</a>
-        <a href="/window-replacement.html" class="glow-card style-cyan"><span class="glow-icon">♻️</span> Lead-Safe Replacement</a>
+        <a href="/flooring.html" class="glow-card style-gold"><span class="glow-icon">🔊</span> Squeaky Floor Repair</a>
+        <a href="/window-installation.html" class="glow-card style-cyan"><span class="glow-icon">📏</span> Aluminum Window Capping</a>
       </div>
   </div>
 </section>
@@ -485,7 +384,9 @@
         <a href="/exterior-care.html" class="glow-card style-green"><span class="glow-icon">🧱</span> Paver Wash & Seal</a>
         <a href="/exterior-care.html" class="glow-card style-gold"><span class="glow-icon">🖌️</span> Deck Stain/Seal</a>
         <a href="/exterior-care.html" class="glow-card style-green"><span class="glow-icon">🍂</span> Gutter Cleaning</a>
+        <a href="/exterior-care.html" class="glow-card style-green"><span class="glow-icon">🛡️</span> Gutter Guard Install</a>
         <a href="/exterior-care.html" class="glow-card style-green"><span class="glow-icon">🌳</span> Landscape Touch-Ups</a>
+        <a href="/masonry-walls.html" class="glow-card style-red"><span class="glow-icon">🏠</span> Shed Base Installation</a>
         <a href="/exterior-care.html" class="glow-card style-white"><span class="glow-icon">✅</span> Safety Checklists</a>
         <a href="/exterior-care.html" class="glow-card style-red"><span class="glow-icon">🆘</span> Emergency Patches</a>
       </div>
