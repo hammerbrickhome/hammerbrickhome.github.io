@@ -197,7 +197,7 @@
     background: var(--gold); color: #000; border-color: var(--gold);
   }
 
-  /* Perks List Styling */
+  /* Perk Items */
   .perk-item {
     display: flex; gap: 15px; align-items: center;
     background: rgba(255,255,255,0.03);
@@ -210,6 +210,56 @@
   .perk-content strong { display: block; color: #fff; margin-bottom: 4px; font-size: 14px; }
   .perk-content p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
   .hidden { display: none !important; }
+
+  /* --- 5. WINNERS GRID STYLING (NEW) --- */
+  .winners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .winner-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(231,191,99,0.2);
+    border-radius: 8px;
+    padding: 15px 10px;
+    text-align: center;
+    transition: 0.3s;
+  }
+  /* Style for Confirmed Winners */
+  .winner-card.won {
+    background: linear-gradient(135deg, rgba(231,191,99,0.1), rgba(0,0,0,0));
+    border-color: var(--gold);
+    box-shadow: 0 5px 15px rgba(231,191,99,0.15);
+    transform: translateY(-3px);
+  }
+  /* Style for Upcoming Months */
+  .winner-card.upcoming {
+    opacity: 0.5;
+    border-style: dashed;
+  }
+  .month-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .winner-card.won .month-label {
+    color: var(--gold);
+  }
+  .winner-name {
+    font-weight: bold;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .prize-won {
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+  }
 
   /* Legal Footer Style */
   .legal-disclaimer {
@@ -369,212 +419,131 @@
         </div>
 
         <div id="perks-list">
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">01</div>
-                <div class="perk-content"><strong>The "ROI Renovation" Roadmap</strong><p>A strategic walk-through to identify which renovations will actually increase resale value.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">02</div>
-                <div class="perk-content"><strong>Curb Appeal "First Impressions" Audit</strong><p>We identify 3 specific things making your home look dated with sketch fixes.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">03</div>
-                <div class="perk-content"><strong>Masonry & Foundation Health Check</strong><p>Structural inspection of pointing, cracks, and lintels to catch issues early.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">04</div>
-                <div class="perk-content"><strong>"Decode My Quote" Session</strong><p>Confused by another contractor? We explain what’s missing or overpriced.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">05</div>
-                <div class="perk-content"><strong>Kitchen/Bath Layout Optimization</strong><p>We sketch 2 layout changes to maximize flow without moving load-bearing walls.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">06</div>
-                <div class="perk-content"><strong>Material Selection Concierge</strong><p>We bring sample books or meet at a supplier (45 mins) to finalize your palette.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">07</div>
-                <div class="perk-content"><strong>Pre-Sale "Photo-Ready" Checklist</strong><p>We tag the top 10 cosmetic flaws to fix before selling.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">08</div>
-                <div class="perk-content"><strong>Basement Moisture Analysis</strong><p>Humidity check and inspection with dehumidification recommendations.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">09</div>
-                <div class="perk-content"><strong>Energy Efficiency Audit</strong><p>Visual check to tag window and door leaks costing you heating money.</p></div>
-            </div>
-            <div class="perk-item" data-cat="consult">
-                <div class="perk-number">10</div>
-                <div class="perk-content"><strong>Outdoor Living Concept Sketch</strong><p>We sketch a "zone plan" for your patio, fire pit, or outdoor kitchen.</p></div>
-            </div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">01</div><div class="perk-content"><strong>The "ROI Renovation" Roadmap</strong><p>A strategic walk-through to identify which renovations will actually increase resale value.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">02</div><div class="perk-content"><strong>Curb Appeal "First Impressions" Audit</strong><p>We identify 3 specific things making your home look dated with sketch fixes.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">03</div><div class="perk-content"><strong>Masonry & Foundation Health Check</strong><p>Structural inspection of pointing, cracks, and lintels to catch issues early.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">04</div><div class="perk-content"><strong>"Decode My Quote" Session</strong><p>Confused by another contractor? We explain what’s missing or overpriced.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">05</div><div class="perk-content"><strong>Kitchen/Bath Layout Optimization</strong><p>We sketch 2 layout changes to maximize flow without moving load-bearing walls.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">06</div><div class="perk-content"><strong>Material Selection Concierge</strong><p>We bring sample books or meet at a supplier (45 mins) to finalize your palette.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">07</div><div class="perk-content"><strong>Pre-Sale "Photo-Ready" Checklist</strong><p>We tag the top 10 cosmetic flaws to fix before selling.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">08</div><div class="perk-content"><strong>Basement Moisture Analysis</strong><p>Humidity check and inspection with dehumidification recommendations.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">09</div><div class="perk-content"><strong>Energy Efficiency Audit</strong><p>Visual check to tag window and door leaks costing you heating money.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">10</div><div class="perk-content"><strong>Outdoor Living Concept Sketch</strong><p>We sketch a "zone plan" for your patio, fire pit, or outdoor kitchen.</p></div></div>
 
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">11</div>
-                <div class="perk-content"><strong>Front Door "Grand Entrance" Detail</strong><p>Polish hardware, tighten hinges, clean glass, and wipe threshold.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">12</div>
-                <div class="perk-content"><strong>"Silent Home" Hinge Tune-Up</strong><p>Lubricate and tighten squeaky door hinges and cabinets (up to 10).</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">13</div>
-                <div class="perk-content"><strong>Shower Caulk Safety Strip</strong><p>Remove and replace one strip of ugly/moldy silicone (up to 5ft).</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">14</div>
-                <div class="perk-content"><strong>Grout "Steam & Gleam"</strong><p>Targeted steam cleaning of high-traffic floor section (20 sq ft).</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">15</div>
-                <div class="perk-content"><strong>Cabinet Door Re-Alignment</strong><p>Adjust hinges on 5 cabinet doors so they hang straight.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">16</div>
-                <div class="perk-content"><strong>Appliance Gap Dusting</strong><p>Move fridge/stove to vacuum coils and dust underneath.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">17</div>
-                <div class="perk-content"><strong>Dryer Vent Exit Clear-Out</strong><p>Clean external vent hood to reduce fire risk.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">18</div>
-                <div class="perk-content"><strong>A/C Filter & Vent Refresh</strong><p>Swap owner-supplied filters and vacuum intake grilles.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">19</div>
-                <div class="perk-content"><strong>Light Fixture "Brighten Up"</strong><p>Remove and wash glass globes on 3 fixtures for brighter light.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">20</div>
-                <div class="perk-content"><strong>Ceiling Fan Dust & Balance</strong><p>Clean blades and tighten screws to reduce wobbling.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">21</div>
-                <div class="perk-content"><strong>Window Track Deep Clean</strong><p>Vacuum and scrub tracks of 2-3 sliding windows.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">22</div>
-                <div class="perk-content"><strong>Paint Touch-Up "Spot Doctor"</strong><p>Feather-in scuffs on one wall (Paint supplied by you).</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">23</div>
-                <div class="perk-content"><strong>Furniture Anti-Scratch</strong><p>Install heavy-duty felt pads on dining chairs/tables.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">24</div>
-                <div class="perk-content"><strong>Sliding Door Glide Service</strong><p>Clean track and lubricate rollers of patio door.</p></div>
-            </div>
-            <div class="perk-item" data-cat="interior">
-                <div class="perk-number">25</div>
-                <div class="perk-content"><strong>Loose Handle Lockdown</strong><p>Tighten wobbly knobs, towel bars, and holders.</p></div>
-            </div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">11</div><div class="perk-content"><strong>Front Door "Grand Entrance" Detail</strong><p>Polish hardware, tighten hinges, clean glass, and wipe threshold.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">12</div><div class="perk-content"><strong>"Silent Home" Hinge Tune-Up</strong><p>Lubricate and tighten squeaky door hinges and cabinets (up to 10).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">13</div><div class="perk-content"><strong>Shower Caulk Safety Strip</strong><p>Remove and replace one strip of ugly/moldy silicone (up to 5ft).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">14</div><div class="perk-content"><strong>Grout "Steam & Gleam"</strong><p>Targeted steam cleaning of high-traffic floor section (20 sq ft).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">15</div><div class="perk-content"><strong>Cabinet Door Re-Alignment</strong><p>Adjust hinges on 5 cabinet doors so they hang straight.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">16</div><div class="perk-content"><strong>Appliance Gap Dusting</strong><p>Move fridge/stove to vacuum coils and dust underneath.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">17</div><div class="perk-content"><strong>Dryer Vent Exit Clear-Out</strong><p>Clean external vent hood to reduce fire risk.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">18</div><div class="perk-content"><strong>A/C Filter & Vent Refresh</strong><p>Swap owner-supplied filters and vacuum intake grilles.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">19</div><div class="perk-content"><strong>Light Fixture "Brighten Up"</strong><p>Remove and wash glass globes on 3 fixtures for brighter light.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">20</div><div class="perk-content"><strong>Ceiling Fan Dust & Balance</strong><p>Clean blades and tighten screws to reduce wobbling.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">21</div><div class="perk-content"><strong>Window Track Deep Clean</strong><p>Vacuum and scrub tracks of 2-3 sliding windows.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">22</div><div class="perk-content"><strong>Paint Touch-Up "Spot Doctor"</strong><p>Feather-in scuffs on one wall (Paint supplied by you).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">23</div><div class="perk-content"><strong>Furniture Anti-Scratch</strong><p>Install heavy-duty felt pads on dining chairs/tables.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">24</div><div class="perk-content"><strong>Sliding Door Glide Service</strong><p>Clean track and lubricate rollers of patio door.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">25</div><div class="perk-content"><strong>Loose Handle Lockdown</strong><p>Tighten wobbly knobs, towel bars, and holders.</p></div></div>
 
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">26</div>
-                <div class="perk-content"><strong>Mailbox Rescue</strong><p>Straighten post, tighten box, and apply black paint touch-up.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">27</div>
-                <div class="perk-content"><strong>House Number Install</strong><p>Drill and install new modern numbers (Owner supplied).</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">28</div>
-                <div class="perk-content"><strong>Exterior Bulb Swap (High Reach)</strong><p>We bring the tall ladder to swap floodlights (Owner supplied).</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">29</div>
-                <div class="perk-content"><strong>Gate Latch Adjustment</strong><p>Re-align fence latch that isn't clicking shut.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">30</div>
-                <div class="perk-content"><strong>Green Algae Spot Treatment</strong><p>Chemical spray/scrub of small siding area (e.g. garage side).</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">31</div>
-                <div class="perk-content"><strong>Paver Weed Warrior</strong><p>Torch or pull weeds from patio (200 sq ft) and sweep.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">32</div>
-                <div class="perk-content"><strong>Gutter Downspout Flush</strong><p>Clear clogs at ground level elbows (No roof access).</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">33</div>
-                <div class="perk-content"><strong>Storm Door Piston Adjust</strong><p>Adjust closer so door doesn't slam or stay open.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">34</div>
-                <div class="perk-content"><strong>Fence Post Cap Secure</strong><p>Glue/screw loose caps that rattle in wind.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">35</div>
-                <div class="perk-content"><strong>Outdoor Furniture Wrap</strong><p>Seasonal stack and wrap of patio furniture (Owner supplies wrap).</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">36</div>
-                <div class="perk-content"><strong>Hose Bib Winterization</strong><p>Drain spigots, shut off inside, and install foam covers.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">37</div>
-                <div class="perk-content"><strong>Driveway Oil Spot Primer</strong><p>Apply oil-stain remover on up to 3 asphalt spots.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">38</div>
-                <div class="perk-content"><strong>Loose Brick "Quick-Tuck"</strong><p>Re-secure 1-3 loose bricks on garden wall/step.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">39</div>
-                <div class="perk-content"><strong>Shrub Trimming (Access)</strong><p>Trim back one bush blocking a walkway or siding.</p></div>
-            </div>
-            <div class="perk-item" data-cat="exterior">
-                <div class="perk-number">40</div>
-                <div class="perk-content"><strong>Pressure Wash "Test Patch"</strong><p>Clean 5x5 square so you can see the difference.</p></div>
-            </div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">26</div><div class="perk-content"><strong>Mailbox Rescue</strong><p>Straighten post, tighten box, and apply black paint touch-up.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">27</div><div class="perk-content"><strong>House Number Install</strong><p>Drill and install new modern numbers (Owner supplied).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">28</div><div class="perk-content"><strong>Exterior Bulb Swap (High Reach)</strong><p>We bring the tall ladder to swap floodlights (Owner supplied).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">29</div><div class="perk-content"><strong>Gate Latch Adjustment</strong><p>Re-align fence latch that isn't clicking shut.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">30</div><div class="perk-content"><strong>Green Algae Spot Treatment</strong><p>Chemical spray/scrub of small siding area (e.g. garage side).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">31</div><div class="perk-content"><strong>Paver Weed Warrior</strong><p>Torch or pull weeds from patio (200 sq ft) and sweep.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">32</div><div class="perk-content"><strong>Gutter Downspout Flush</strong><p>Clear clogs at ground level elbows (No roof access).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">33</div><div class="perk-content"><strong>Storm Door Piston Adjust</strong><p>Adjust closer so door doesn't slam or stay open.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">34</div><div class="perk-content"><strong>Fence Post Cap Secure</strong><p>Glue/screw loose caps that rattle in wind.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">35</div><div class="perk-content"><strong>Outdoor Furniture Wrap</strong><p>Seasonal stack and wrap of patio furniture (Owner supplies wrap).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">36</div><div class="perk-content"><strong>Hose Bib Winterization</strong><p>Drain spigots, shut off inside, and install foam covers.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">37</div><div class="perk-content"><strong>Driveway Oil Spot Primer</strong><p>Apply oil-stain remover on up to 3 asphalt spots.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">38</div><div class="perk-content"><strong>Loose Brick "Quick-Tuck"</strong><p>Re-secure 1-3 loose bricks on garden wall/step.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">39</div><div class="perk-content"><strong>Shrub Trimming (Access)</strong><p>Trim back one bush blocking a walkway or siding.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">40</div><div class="perk-content"><strong>Pressure Wash "Test Patch"</strong><p>Clean 5x5 square so you can see the difference.</p></div></div>
 
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">41</div>
-                <div class="perk-content"><strong>Smoke/CO Battery Swap</strong><p>We bring ladder, you supply 9V batteries. We change all.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">42</div>
-                <div class="perk-content"><strong>Fire Extinguisher Mount</strong><p>Mount unit in kitchen/garage and check gauge.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">43</div>
-                <div class="perk-content"><strong>Child-Proofing Helper</strong><p>Install up to 3 owner-supplied gates or locks.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">44</div>
-                <div class="perk-content"><strong>Heavy Mirror Hanging</strong><p>We find studs and hang one heavy item professionally.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">45</div>
-                <div class="perk-content"><strong>TV Mount (Labor Only)</strong><p>Bolt bracket to studs and hang TV (No wire hiding).</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">46</div>
-                <div class="perk-content"><strong>Closet Rod Reinforce</strong><p>Secure sagging bracket before it collapses.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">47</div>
-                <div class="perk-content"><strong>Water Valve Tagging</strong><p>Locate and tag main shut-offs for emergencies.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">48</div>
-                <div class="perk-content"><strong>Garage Eye-Sensor Align</strong><p>Adjust sensors so door stops reversing.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">49</div>
-                <div class="perk-content"><strong>Blind/Rod Re-Secure</strong><p>Fix curtain rod pulling out of drywall.</p></div>
-            </div>
-            <div class="perk-item" data-cat="safety">
-                <div class="perk-number">50</div>
-                <div class="perk-content"><strong>"Honey-Do" Wildcard</strong><p>You point to a task (drill/ladder needed), if under 45 mins, we do it.</p></div>
-            </div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">41</div><div class="perk-content"><strong>Smoke/CO Battery Swap</strong><p>We bring ladder, you supply 9V batteries. We change all.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">42</div><div class="perk-content"><strong>Fire Extinguisher Mount</strong><p>Mount unit in kitchen/garage and check gauge.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">43</div><div class="perk-content"><strong>Child-Proofing Helper</strong><p>Install up to 3 owner-supplied gates or locks.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">44</div><div class="perk-content"><strong>Heavy Mirror Hanging</strong><p>We find studs and hang one heavy item professionally.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">45</div><div class="perk-content"><strong>TV Mount (Labor Only)</strong><p>Bolt bracket to studs and hang TV (No wire hiding).</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">46</div><div class="perk-content"><strong>Closet Rod Reinforce</strong><p>Secure sagging bracket before it collapses.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">47</div><div class="perk-content"><strong>Water Valve Tagging</strong><p>Locate and tag main shut-offs for emergencies.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">48</div><div class="perk-content"><strong>Garage Eye-Sensor Align</strong><p>Adjust sensors so door stops reversing.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">49</div><div class="perk-content"><strong>Blind/Rod Re-Secure</strong><p>Fix curtain rod pulling out of drywall.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">50</div><div class="perk-content"><strong>"Honey-Do" Wildcard</strong><p>You point to a task (drill/ladder needed), if under 45 mins, we do it.</p></div></div>
         </div>
     </section>
 
+    <section class="section fade-up" id="winners-circle">
+        <h2 style="text-align:center; margin-bottom: 10px;">🏆 The 2026 Winners Circle</h2>
+        <p style="text-align:center; color:var(--muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Real neighbors, real savings. Here are the lucky locals who have won free service perks or gift cards this year. <br><strong style="color: var(--gold);">Will you be next?</strong>
+        </p>
+
+        <div class="winners-grid">
+            <div class="winner-card upcoming">
+                <div class="month-label">JAN 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">FEB 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">MAR 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">APR 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">MAY 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">JUN 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">JUL 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">AUG 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">SEP 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">OCT 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">NOV 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+            <div class="winner-card upcoming">
+                <div class="month-label">DEC 2026</div>
+                <div class="winner-name">Drawing Soon</div>
+                <div class="prize-won">---</div>
+            </div>
+        </div>
+    </section>
     <section class="rules-accordion-section fade-up">
         <h2 class="rules-accordion-title" style="text-align: center;">Rules & FAQs</h2>
         <div class="accordion" style="max-width: 900px; margin: auto;">
