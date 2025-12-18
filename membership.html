@@ -167,7 +167,7 @@
   .perk-content p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
   .hidden { display: none !important; }
 
-  /* --- 5. LUXURY WINNERS GRID (UPDATED) --- */
+  /* --- 5. GEMSTONE WINNERS GRID --- */
   .winners-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -175,58 +175,68 @@
     margin-top: 20px;
   }
   .winner-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(231,191,99,0.2);
-    border-radius: 12px;
-    padding: 18px 10px;
-    text-align: center;
-    transition: 0.3s;
-    position: relative;
-    overflow: hidden;
+    border-radius: 12px; padding: 18px 10px; text-align: center;
+    transition: 0.3s; position: relative; overflow: hidden;
+    transform: translateY(0);
   }
   
-  /* --- THE LUXURY FIREWORKS EFFECT (GOLD DUST) --- */
+  /* BASE ANIMATION for ALL CARDS */
   .winner-card.won {
     background-color: rgba(15, 25, 40, 0.8);
-    background-image: 
-        radial-gradient(circle, #e7bf63 1.5px, transparent 1.5px),
-        radial-gradient(circle, #ffd700 1px, transparent 1px);
     background-size: 24px 24px;
     background-position: 0 0, 12px 12px;
-    border: 1px solid var(--gold);
-    box-shadow: 0 10px 30px rgba(212,175,55,0.25), inset 0 0 20px rgba(212,175,55,0.1);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
     transform: translateY(-5px) scale(1.02);
-    animation: goldDustMove 6s linear infinite;
+    animation: dustMove 6s linear infinite;
   }
-  
-  /* ANIMATE THE BACKGROUND DOTS */
-  @keyframes goldDustMove {
+  @keyframes dustMove {
     0% { background-position: 0 0, 12px 12px; }
     100% { background-position: 24px 24px, 36px 36px; }
   }
-
-  .winner-card.upcoming { opacity: 0.5; border-style: dashed; }
   
+  /* --- COLOR THEMES (GEMSTONES) --- */
+
+  /* 1. GOLD (Original) */
+  .winner-card.gold {
+    border: 1px solid #ffd700;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.25);
+    background-image: radial-gradient(circle, #ffd700 1.5px, transparent 1.5px), radial-gradient(circle, #e7bf63 1px, transparent 1px);
+  }
+  .winner-card.gold .month-label { color: #ffd700; }
+  .winner-card.gold .winner-name { text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); }
+
+  /* 2. RUBY (Red) */
+  .winner-card.ruby {
+    border: 1px solid #ff4d4d;
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.35);
+    background-image: radial-gradient(circle, #ff4d4d 1.5px, transparent 1.5px), radial-gradient(circle, #ff9999 1px, transparent 1px);
+  }
+  .winner-card.ruby .month-label { color: #ff4d4d; }
+  .winner-card.ruby .winner-name { text-shadow: 0 0 10px rgba(255, 77, 77, 0.8); }
+
+  /* 3. EMERALD (Green) */
+  .winner-card.emerald {
+    border: 1px solid #2ecc71;
+    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.35);
+    background-image: radial-gradient(circle, #2ecc71 1.5px, transparent 1.5px), radial-gradient(circle, #aaffaa 1px, transparent 1px);
+  }
+  .winner-card.emerald .month-label { color: #2ecc71; }
+  .winner-card.emerald .winner-name { text-shadow: 0 0 10px rgba(46, 204, 113, 0.8); }
+
+  /* 4. SAPPHIRE (Blue) */
+  .winner-card.sapphire {
+    border: 1px solid #3498db;
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.35);
+    background-image: radial-gradient(circle, #3498db 1.5px, transparent 1.5px), radial-gradient(circle, #85c1e9 1px, transparent 1px);
+  }
+  .winner-card.sapphire .month-label { color: #3498db; }
+  .winner-card.sapphire .winner-name { text-shadow: 0 0 10px rgba(52, 152, 219, 0.8); }
+
+  /* General Text Styles */
+  .winner-card.upcoming { opacity: 0.5; border: 1px dashed rgba(255,255,255,0.2); }
   .month-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
-  .winner-card.won .month-label { color: var(--gold); text-shadow: 0 0 5px rgba(231,191,99,0.8); }
-
-  /* GLOWY NAME ANIMATION */
   .winner-name { font-weight: bold; color: #fff; font-size: 15px; margin-bottom: 4px; }
-  
-  .winner-card.won .winner-name {
-    color: #fff;
-    font-size: 17px;
-    text-shadow: 0 0 10px rgba(231,191,99,0.8), 0 0 20px rgba(231,191,99,0.5);
-    animation: glowText 2s ease-in-out infinite alternate;
-  }
-  @keyframes glowText {
-    from { text-shadow: 0 0 5px #b8860b; }
-    to { text-shadow: 0 0 15px #ffd700, 0 0 25px #e7bf63; }
-  }
-
   .prize-won { font-size: 11px; color: var(--muted); font-style: italic; }
-  
-  /* CROWN ICON FOR WINNERS */
   .crown-icon { font-size: 16px; margin-bottom: 4px; display: block; animation: bounce 2s infinite; }
   @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-3px);} }
 
@@ -413,73 +423,73 @@
         </p>
 
         <div class="winners-grid">
-            <div class="winner-card won">
+            <div class="winner-card won gold">
                 <div class="month-label">JAN 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won ruby">
                 <div class="month-label">FEB 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won emerald">
                 <div class="month-label">MAR 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won sapphire">
                 <div class="month-label">APR 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won gold">
                 <div class="month-label">MAY 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won ruby">
                 <div class="month-label">JUN 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won emerald">
                 <div class="month-label">JUL 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won sapphire">
                 <div class="month-label">AUG 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won gold">
                 <div class="month-label">SEP 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won ruby">
                 <div class="month-label">OCT 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won emerald">
                 <div class="month-label">NOV 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
             </div>
 
-            <div class="winner-card won">
+            <div class="winner-card won sapphire">
                 <div class="month-label">DEC 2026</div>
                 <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
                 <div class="prize-won">Join now to win!</div>
