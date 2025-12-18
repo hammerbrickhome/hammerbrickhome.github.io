@@ -11,6 +11,10 @@
 <link rel="icon" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css?v=3">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,6 +49,11 @@
 </script>
 
 <style>
+  /* --- LUXURY FONT OVERRIDES --- */
+  h1, h2, h3, .winner-name, .card-holder, .card-number, .brand-name {
+    font-family: 'Playfair Display', serif !important;
+  }
+  
   /* --- 1. WINNERS TICKER --- */
   .ticker-wrap {
     width: 100%;
@@ -71,7 +80,7 @@
   }
   body { padding-top: 150px; } 
 
-  /* --- 2. DIGITAL MEMBERSHIP CARD (3D) --- */
+  /* --- 2. DIGITAL MEMBERSHIP CARD (3D + SHEEN) --- */
   .member-card-container {
     perspective: 1200px;
     margin: 20px auto 40px;
@@ -90,12 +99,28 @@
     transform: rotateX(0) rotateY(0);
     transition: transform 0.1s ease;
   }
-  .card-top, .card-number, .card-bottom { transform: translateZ(30px); }
-  .member-card::before {
-    content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(231,191,99,0.15) 0%, transparent 60%);
-    transform: rotate(45deg); pointer-events: none;
+  
+  /* PLATINUM SHEEN ANIMATION */
+  .member-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: skewX(-25deg);
+    animation: cardSheen 6s infinite;
+    pointer-events: none;
   }
+  @keyframes cardSheen {
+    0% { left: -150%; }
+    20% { left: 150%; } /* Fast swipe across */
+    100% { left: 150%; } /* Wait for next loop */
+  }
+
+  .card-top, .card-number, .card-bottom { transform: translateZ(30px); }
+  
   .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
   .card-chip {
     width: 45px; height: 32px;
@@ -111,10 +136,10 @@
     animation: pulseStatus 2s infinite;
   }
   @keyframes pulseStatus { 0% {opacity:0.6;} 50% {opacity:1;} 100% {opacity:0.6;} }
-  .card-number { font-family: monospace; font-size: 18px; color: #fff; letter-spacing: 2px; text-shadow: 0 2px 2px rgba(0,0,0,0.8); margin-bottom: 20px; }
+  .card-number { font-size: 22px; color: #fff; letter-spacing: 2px; text-shadow: 0 2px 2px rgba(0,0,0,0.8); margin-bottom: 20px; }
   .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
   .card-holder { font-size: 12px; color: var(--muted); text-transform: uppercase; }
-  .card-holder strong { display: block; font-size: 14px; color: #fff; margin-top: 4px; }
+  .card-holder strong { display: block; font-size: 16px; color: #fff; margin-top: 4px; letter-spacing: 1px; }
   .card-logo img { width: 50px; opacity: 0.9; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); }
 
   /* --- 3. JOIN ROADMAP --- */
@@ -235,7 +260,7 @@
   /* General Text Styles */
   .winner-card.upcoming { opacity: 0.5; border: 1px dashed rgba(255,255,255,0.2); }
   .month-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
-  .winner-name { font-weight: bold; color: #fff; font-size: 15px; margin-bottom: 4px; }
+  .winner-name { font-weight: bold; color: #fff; font-size: 18px; margin-bottom: 4px; letter-spacing: 0.5px; }
   .prize-won { font-size: 11px; color: var(--muted); font-style: italic; }
   .crown-icon { font-size: 16px; margin-bottom: 4px; display: block; animation: bounce 2s infinite; }
   @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-3px);} }
@@ -271,7 +296,7 @@
         </div>
         
         <h1 style="margin-bottom: 10px;">
-            Signature Membership <span class="free-badge" style="font-size: 0.5em; vertical-align: middle;">100% FREE</span>
+            Signature Membership <span class="free-badge" style="font-size: 0.5em; vertical-align: middle; font-family:sans-serif !important;">100% FREE</span>
         </h1>
         
         <p style="max-width: 600px; margin: 0 auto; color: var(--muted);">Join the only contractor loyalty program in NYC that gives back. Service perks for locals, gift cards for everyone else.</p>
@@ -300,7 +325,7 @@
         <h2 style="text-align:center;">How to Enter the Monthly Draw</h2>
         
         <p style="text-align:center; font-size:14px; color:var(--gold-soft); margin-bottom:30px;">
-            <span class="free-badge">100% FREE</span> No Credit Card Required. Just support us online to win.
+            <span class="free-badge" style="font-family:sans-serif !important;">100% FREE</span> No Credit Card Required. Just support us online to win.
         </p>
 
         <div class="roadmap">
