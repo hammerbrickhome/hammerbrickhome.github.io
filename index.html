@@ -4,21 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Hammer Brick & Home LLC | Luxury Remodeling & Masonry Staten Island & NYC</title>
+  <title>Hammer Brick & Home LLC | Luxury Remodeling & Masonry in NYC</title>
 
   <link rel="canonical" href="https://www.hammerbrickhome.com/">
 
-  <meta name="description" content="5-Star luxury remodeling and true masonry in NYC. EPA Lead-Safe Certified Firm, licensed & insured HIC #2131291. Expert brickwork, kitchens, and baths in Staten Island and Brooklyn.">
+  <meta name="description" content="Hammer Brick & Home LLC provides luxury remodeling and true masonry in NYC. EPA Lead-Safe Certified Firm, licensed & insured HIC #2131291. Staten Island based. Clean, precise, and respectful crew.">
 
-  <link rel="stylesheet" href="/style.css?v=4">
+  <link rel="stylesheet" href="/style.css?v=3">
    
   <link rel="icon" href="/images/hero.PNG">
 
   <meta property="og:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
-  <meta property="og:description" content="Staten Island's 5-star luxury contractor. Licensed & insured HIC #2131291. Specialized in masonry and home transformations.">
+  <meta property="og:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm. Licensed & insured HIC #2131291.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.hammerbrickhome.com/">
   <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
+  <meta name="twitter:description" content="Luxury NYC remodeling and true masonry. EPA Lead-Safe Certified Firm. Licensed & insured HIC #2131291.">
+  <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
   <script type="application/ld+json">
   {
@@ -26,9 +31,9 @@
     "@graph": [
       {
         "@type": "HomeAndConstructionBusiness",
-        "@id": "https://www.hammerbrickhome.com/#business",
         "name": "Hammer Brick & Home LLC",
         "url": "https://www.hammerbrickhome.com/",
+        "image": "https://www.hammerbrickhome.com/images/hero.PNG",
         "logo": "https://www.hammerbrickhome.com/images/hero.PNG",
         "telephone": "+1-929-595-5300",
         "priceRange": "$$",
@@ -55,7 +60,7 @@
           "@type": "Review",
           "author": {"@type": "Person", "name": "Steven Nahas"},
           "datePublished": "2025-12-15",
-          "reviewBody": "Highly impressed with the work. Professional, on time, and cleaned up great. 5 Stars across the board.",
+          "reviewBody": "Highly impressed with the work. They were very professional, came on time, and the work was done in the time frame they said. No mess at all.",
           "reviewRating": {
             "@type": "Rating",
             "ratingValue": "5"
@@ -66,47 +71,162 @@
           {"@type": "City", "name": "Brooklyn"},
           {"@type": "Neighborhood", "name": "Park Slope"},
           {"@type": "Neighborhood", "name": "Westerleigh"},
-          {"@type": "Neighborhood", "name": "Bay Ridge"}
+          {"@type": "Neighborhood", "name": "Todt Hill"}
         ]
+      },
+      {
+        "@type": "WebSite",
+        "name": "Hammer Brick & Home LLC",
+        "url": "https://www.hammerbrickhome.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.hammerbrickhome.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
     ]
   }
   </script>
 
   <style>
-    /* 2026 Polish: Trust Badge Styling */
-    .google-trust-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 8px 16px;
-      border-radius: 50px;
-      border: 1px solid rgba(231, 191, 99, 0.3);
-      margin-bottom: 20px;
+    /* 1. Hero Gradient Overlay */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(7,20,38,0.4) 0%, rgba(5,12,25,0.85) 90%);
+      z-index: 1;
+      border-radius: var(--radius-xl, 22px);
     }
-
-    /* Existing Styles Retained */
-    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(7,20,38,0.4) 0%, rgba(5,12,25,0.85) 90%); z-index: 1; border-radius: 22px; }
     .hero-content, .hero-badge { z-index: 2; position: relative; }
-    .gold-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(231,191,99,0.5), transparent); margin: 60px auto; width: 80%; opacity: 0.6; }
+
+    /* 2. Gold Divider Shimmer */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(231,191,99,0.5), transparent);
+      margin: 60px auto;
+      width: 80%;
+      position: relative;
+      opacity: 0.6;
+      overflow: hidden;
+    }
+    .gold-divider::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+      animation: shimmerDivider 3s infinite;
+    }
+    @keyframes shimmerDivider { 100% { left: 200%; } }
+
+    /* 3. Review Carousel */
+    .review-carousel-container { position: relative; overflow: hidden; padding: 20px 0; }
     .review-track { display: flex; transition: transform 0.5s ease-in-out; }
     .review-slide { min-width: 100%; padding: 0 20px; box-sizing: border-box; text-align: center; }
-    .glow-icon svg { width: 28px; height: 28px; fill: currentColor; }
-    
-    @media (max-width: 1000px) {
-      .split { display: flex !important; flex-direction: column-reverse !important; gap: 35px !important; align-items: center !important; }
-      .trust-content { width: 100% !important; text-align: center !important; }
-      .glow-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
+    .review-nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+    .review-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; cursor: pointer; }
+    .review-dot.active { background: #e7bf63; }
+
+    /* 4. Background Noise */
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz4KPC9zdmc+');
+      opacity: 0.4;
     }
 
-    /* 3D Membership Card */
-    .member-card-container { perspective: 1000px; width: 100%; max-width: 380px; margin: 15px auto; }
-    .member-card { background: linear-gradient(135deg, #0f1c30 0%, #071426 100%); border: 1px solid #e7bf63; border-radius: 16px; padding: 20px; transform-style: preserve-3d; transition: transform 0.1s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-    .card-top { display: flex; justify-content: space-between; margin-bottom: 25px; }
-    .card-status { font-size: 9px; font-weight: 800; color: #e7bf63; border: 1px solid #e7bf63; padding: 3px 6px; border-radius: 4px; }
-    .card-number { font-family: monospace; font-size: 16px; color: #fff; letter-spacing: 2px; margin-bottom: 15px; }
-    .card-logo img { width: 45px; border-radius: 50%; }
+    /* 5. Fix Services Glow Icons (SVG Sizing) */
+    .glow-icon svg { width: 28px; height: 28px; fill: currentColor; }
+
+    /* 6. MOBILE LAYOUT FIX */
+    @media (max-width: 1000px) {
+      .split { 
+        display: flex !important; 
+        flex-direction: column-reverse !important; 
+        gap: 35px !important;
+        align-items: center !important;
+      }
+      .trust-content { 
+        width: 100% !important; 
+        text-align: center !important; 
+        padding-right: 0 !important;
+      }
+      .services-glow-container { 
+        width: 100% !important; 
+        max-width: 500px !important; 
+        margin: 0 auto !important;
+      }
+      .glow-grid { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 15px !important; 
+      }
+      .glow-card {
+        padding: 15px 5px !important;
+      }
+    }
+
+    /* 7. NEW 3D MEMBERSHIP CARD STYLES */
+    .free-badge {
+      background-color: #2ecc71;
+      color: #000;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 1px solid #27ae60;
+      box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+
+    .member-card-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 380px;
+      margin: 15px auto;
+    }
+
+    .member-card {
+      background: linear-gradient(135deg, #0f1c30 0%, #071426 100%);
+      border: 1px solid #e7bf63;
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(0) rotateY(0);
+      transition: transform 0.1s ease;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(231,191,99,0.2);
+    }
+     
+    .member-card::before {
+      content: "";
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(231,191,99,0.15) 0%, transparent 60%);
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; transform: translateZ(20px); }
+    .card-chip {
+      width: 40px; height: 28px;
+      background: linear-gradient(135deg, #e7bf63, #b8860b);
+      border-radius: 5px;
+      position: relative;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .card-status {
+      font-size: 9px; font-weight: 800; letter-spacing: 1px;
+      color: #e7bf63; border: 1px solid #e7bf63;
+      padding: 3px 6px; border-radius: 4px; text-transform: uppercase;
+      animation: pulseStatus 2s infinite;
+    }
+    @keyframes pulseStatus { 0% {opacity:0.6;} 50% {opacity:1;} 100% {opacity:0.6;} }
+     
+    .card-number { font-family: monospace; font-size: 16px; color: #fff; letter-spacing: 2px; text-shadow: 0 2px 2px rgba(0,0,0,0.8); margin-bottom: 15px; transform: translateZ(30px); }
+    .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; transform: translateZ(20px); }
+    .card-holder { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; }
+    .card-holder strong { display: block; font-size: 12px; color: #fff; margin-top: 2px; }
+    .card-logo img { width: 45px; opacity: 0.9; border-radius: 50%; }
   </style>
 </head>
 
@@ -120,13 +240,13 @@
       <div class="hero-overlay"></div>
       
       <div class="hero-content">
-        <div class="google-trust-badge">
-          <span style="color: #fbbc05; font-size: 18px;">★★★★★</span>
-          <span style="font-size: 14px; font-weight: 700;">5.0 Rated on Google</span>
+        <div style="margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+          <span style="color:#fbbc05; font-size: 18px;">★★★★★</span>
+          <span style="font-size:14px; font-weight:700;">5.0 Rated on Google</span>
         </div>
 
         <h1>Luxury Remodeling &amp; True Masonry for NYC Homes</h1>
-        <p>White-glove craftsmanship with honest pricing. From masonry safety repairs to high-end bathroom remodels, we protect your home while we build your vision.</p>
+        <p>White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.</p>
         
         <div class="hero-actions">
           <a class="btn" href="tel:+19295955300">📞 Fast Estimate</a>
@@ -134,19 +254,20 @@
         </div>
         <ul class="trust-pills" role="list">
           <li class="gold-pill breathing-gold">NYC Licensed &amp; Insured · HIC #2131291</li>
-          <li class="gold-pill breathing-gold">EPA Lead-Safe Certified</li>
-          <li class="gold-pill breathing-gold">Staten Island &amp; Brooklyn Specialists</li>
+          <li class="gold-pill breathing-gold">EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
+          <li class="gold-pill breathing-gold">Before/After Documentation</li>
+          <li class="gold-pill breathing-gold">Clean, Respectful Crew</li>
         </ul>
       </div>
       <div class="hero-badge">
-        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC Badge" width="170" height="170" loading="lazy">
+        <img src="/images/hero.PNG" alt="Hammer Brick & Home LLC American flag hero badge" width="170" height="170" loading="lazy">
       </div>
     </section>
 
     <section class="section fade-up">
       <div style="text-align:center; max-width:700px; margin:0 auto 25px;">
         <h2>Monthly Service Specials</h2>
-        <p style="color:var(--muted); font-size:14px;">Limited-time neighborhood pricing for high-impact masonry and interior work.</p>
+        <p style="color:var(--muted); font-size:14px;">Exclusive pricing on high-impact upgrades. Protection clauses apply.</p>
       </div>
 
       <div class="specials-grid">
@@ -154,39 +275,39 @@
           <div class="special-tag" style="background:#4a90e2;">Most Popular</div>
           <h3>Masonry Tune-Up</h3>
           <div class="special-price">$349</div>
-          <p class="special-desc">Critical safety maintenance for your front steps or walkways.</p>
+          <p class="special-desc">Restore safety and curb appeal to your front steps without a full rebuild.</p>
           <ul class="bullets">
-            <li>Repoint 6–8 bricks</li>
-            <li>Seal dangerous cracks</li>
+            <li>Repoint 6–8 bricks or joints</li>
+            <li><strong>Seal cracks (up to 10 lin. ft.)</strong></li>
             <li>Trip-hazard safety check</li>
           </ul>
-          <button type="button" class="btn contact-panel-toggle">Claim Special</button>
+          <button type="button" class="btn contact-panel-toggle">Book Best Value Special</button>
         </div>
 
         <div class="special-card" style="border-top: 4px solid #e7bf63;">
           <div class="special-tag" style="background:#e7bf63; color:#000;">Best Value</div>
-          <h3>Interior Room Refresh</h3>
+          <h3>The Interior Facelift</h3>
           <div class="special-price">$699</div>
-          <p class="special-desc">Professional 2-coat painting with full floor protection.</p>
+          <p class="special-desc">White-glove interior painting service to transform one standard room.</p>
           <ul class="bullets">
-            <li>Up to 12'x12' room</li>
-            <li>Minor plaster/hole repair</li>
-            <li>Premium dust protection</li>
+            <li>Walls painted (up to 12'x12')</li>
+            <li>Nail hole filling included</li>
+            <li>2 Coats Premium Paint</li>
           </ul>
-          <button type="button" class="btn contact-panel-toggle">Claim Special</button>
+          <button type="button" class="btn contact-panel-toggle">Book Premium Special</button>
         </div>
 
         <div class="special-card" style="border-top: 4px solid #e67e22;">
           <div class="special-tag" style="background:#e67e22;">Energy Saver</div>
-          <h3>Draft-Stop Window</h3>
+          <h3>Draft-Stop Window Upgrade</h3>
           <div class="special-price">$949</div>
-          <p class="special-desc">Supply and installation of a new energy-efficient window.</p>
+          <p class="special-desc">Stop the drafts. We supply and install a new energy-efficient vinyl window.</p>
           <ul class="bullets">
-            <li>White Vinyl Double-Hung</li>
-            <li>Old unit disposal included</li>
-            <li>Insulated seal and trim</li>
+            <li>1 Double-Hung Window (White)</li>
+            <li>Removal & Disposal</li>
+            <li>Insulation & Watertight Seal</li>
           </ul>
-          <button type="button" class="btn contact-panel-toggle">Claim Special</button>
+          <button type="button" class="btn contact-panel-toggle">Book Signature Special</button>
         </div>
       </div>
     </section>
@@ -195,22 +316,25 @@
 
     <section class="section tier-section fade-up">
       <div class="tier-header">
-        <h2>Transparent Tiered Estimates</h2>
-        <p>We work with your budget. We provide three clear pricing levels for every project so you can choose the finish that fits your financial comfort zone.</p>
+        <h2>Your Budget, Your Choice</h2>
+        <p>We provide <strong>Transparent Tiered Estimates</strong> so you can decide the level of finish that fits your comfort zone.</p>
       </div>
       <div class="tier-grid">
-        <div class="tier-card foundation">
-          <h3>Foundation</h3>
-          <p>Professional, code-compliant work focusing on function and durability.</p>
+        <div class="tier-card foundation" style="border-top: 4px solid #4a90e2;">
+          <div class="tier-top"><h3>Foundation</h3><span class="tier-badge">Essential</span></div>
+          <p class="tier-desc">Solid results focusing on routine maintenance and essential repairs.</p>
         </div>
-        <div class="tier-card premium">
-          <h3>Premium</h3>
-          <p>Enhanced materials and extra detailing for a superior look and feel.</p>
+        <div class="tier-card premium" style="border-top: 4px solid #e7bf63;">
+          <div class="tier-top"><h3>Premium</h3><span class="tier-badge">Most Popular</span></div>
+          <p class="tier-desc">Our most popular tier — higher-grade materials and enhanced detail.</p>
         </div>
-        <div class="tier-card signature">
-          <h3>Signature</h3>
-          <p>True luxury finish with high-end materials and white-glove dust control.</p>
+        <div class="tier-card signature" style="border-top: 4px solid #e67e22;">
+          <div class="tier-top"><h3>Signature</h3><span class="tier-badge">Luxury</span></div>
+          <p class="tier-desc">The highest-end finish with custom designs and white-glove finishing.</p>
         </div>
+      </div>
+      <div class="tier-hook">
+        <a href="/project-estimator.html" class="btn">Get a Tiered Estimate</a>
       </div>
     </section>
 
@@ -218,34 +342,22 @@
 
     <section class="section split fade-up">
       <div class="trust-content">
-        <h2>Local Expertise in Staten Island &amp; Brooklyn</h2>
-        <p>We understand the masonry challenges of the North Shore and the strict co-op rules of Brooklyn. Our crew is trained in high-protection protocols to keep your home clean.</p>
-        
-        <ul class="bullets" style="margin:20px 0;">
-          <li><strong>HIC Licensed:</strong> #2131291</li>
-          <li><strong>Insured:</strong> Full General Liability &amp; Workers Comp</li>
-          <li><strong>Lead-Safe:</strong> EPA Certified for Pre-1978 Homes</li>
-        </ul>
-
-        <div style="background:rgba(231,191,99,0.05); border:1px solid rgba(231,191,99,0.25); border-radius:16px; padding:20px;">
-          <h3 style="color:#e7bf63;">🎁 Free Signature Membership</h3>
-          <p style="font-size:13px; margin:10px 0;">Join our local neighbor rewards program for free service draws and priority scheduling.</p>
-          
-          <div class="member-card-container">
+        <h2>Licensed • Insured • Giving Back</h2>
+        <p>Staten Island–based contractor serving NYC. We are the only local contractor with a <strong>Signature Membership</strong> that gives back to neighbors.</p>
+        <div class="member-card-container">
             <div class="member-card">
-              <div class="card-top">
-                <div style="width:40px;height:28px;background:#e7bf63;border-radius:5px;"></div>
-                <div class="card-status">ACTIVATE FOR FREE</div>
-              </div>
-              <div class="card-number">•••• •••• •••• 2026</div>
-              <div style="display:flex;justify-content:space-between;align-items:flex-end;">
-                <div style="font-size:10px;color:#fff;">FUTURE MEMBER<strong>STEVEN NAHAS &amp; NEIGHBORS</strong></div>
-                <div class="card-logo"><img src="/images/hero.PNG" alt="HBH"></div>
-              </div>
+                <div class="card-top">
+                    <div class="card-chip"></div>
+                    <div class="card-status">PENDING ACTIVATION</div>
+                </div>
+                <div class="card-number">•••• •••• •••• 2025</div>
+                <div class="card-bottom">
+                    <div class="card-holder">MEMBER NAME<strong>FUTURE WINNER</strong></div>
+                    <div class="card-logo"><img src="/images/hero.PNG" alt="Logo"></div>
+                </div>
             </div>
           </div>
-          <a href="/membership.html" class="btn" style="width:100%; text-align:center;">Activate My Free Card &rarr;</a>
-        </div>
+          <a href="/membership.html" class="btn" style="width:100%; margin-top:15px; text-align:center;">Activate Card & Enter Draw &rarr;</a>
       </div>
 
       <div class="services-glow-container">
@@ -265,47 +377,74 @@
 
     <div class="gold-divider"></div>
 
+    <section class="section section-process fade-up">
+      <h2>How We Work on Your Home</h2>
+      <ol class="process-steps">
+        <li><h3>1. Quick Call, Text, or Photos</h3><p>You reach out however is easiest — call, text, or send a few photos.</p></li>
+        <li><h3>2. Clear, Written Estimate</h3><p>You receive an itemized estimate with Foundation, Premium, and Signature options.</p></li>
+        <li><h3>3. Protection &amp; Prep</h3><p>Before tools come out, floors and walkways are covered with paper and drop cloths.</p></li>
+      </ol>
+    </section>
+
+    <div class="gold-divider"></div>
+
     <section class="section section-reviews-highlight fade-up">
       <div class="review-carousel-container">
         <div class="review-track" id="reviewTrack">
           <div class="review-slide">
             <p class="review-score">⭐⭐⭐⭐⭐</p>
             <p class="review-quote">“Highly impressed with the work. They were very professional, came on time... work was done in the time frame said. Fantastic cleanup—no mess at all.”</p>
-            <p class="review-note">- Steven Nahas, Local Resident</p>
-            <p style="font-size: 11px; color: #e7bf63; margin-top: 5px;">Verified Google 5-Star Review</p>
+            <p class="review-note">- Steven Nahas, Local Homeowner</p>
           </div>
+          <div class="review-slide">
+            <p class="review-score">⭐⭐⭐⭐⭐</p>
+            <p class="review-quote">“HBH was honest about the pricing and the tiers made it easy to choose.”</p>
+            <p class="review-note">- Private Homeowner, Brooklyn</p>
+          </div>
+        </div>
+        <div class="review-nav" id="reviewNav">
+          <div class="review-dot active" data-index="0"></div>
+          <div class="review-dot" data-index="1"></div>
         </div>
       </div>
     </section>
 
     <div class="gold-divider"></div>
 
+    <section id="before-after" class="section fade-up">
+      <h2>Before &amp; After</h2>
+      <div id="ba-grid" class="ba-grid"></div>
+      <div class="ba-actions"><button id="ba-loadmore" class="btn">Load 6 More</button></div>
+      <template id="ba-card">
+        <article class="ba-card">
+          <div class="ba-frame">
+            <img class="ba-img ba-before" alt="Before">
+            <div class="ba-after-wrap"><img class="ba-img ba-after" alt="After"></div>
+            <input class="ba-slider" type="range" min="0" max="100" value="50">
+            <div class="ba-label ba-label-left">Before</div><div class="ba-label ba-label-right">After</div>
+          </div>
+          <div class="ba-caption"></div>
+        </article>
+      </template>
+    </section>
+
+    <div class="gold-divider"></div>
+
     <section class="section faq-section fade-up">
-      <h2 class="faq-title shimmer-gold">Project Questions</h2>
-      <details>
-        <summary>Are you licensed and insured for work in NYC?</summary>
-        <p>Yes. Hammer Brick & Home LLC is a fully licensed Home Improvement Contractor (HIC #2131291) with full General Liability and Workers' Comp insurance for Staten Island, Brooklyn, and all NYC boroughs.</p>
-      </details>
-      <details>
-        <summary>How do your tiered estimates work?</summary>
-        <p>We provide Foundation (essential), Premium (high-value), and Signature (luxury) options for every project. This lets you see the difference in material quality and finishing before you commit.</p>
-      </details>
-      <details>
-        <summary>What is your cleanup process?</summary>
-        <p>We use a 'White-Glove' approach. This includes floor masking with Ram Board or plastic, HEPA dust control during masonry, and a complete site sweep and wipe-down every single day.</p>
-      </details>
+      <h2 class="faq-title shimmer-gold">Common Questions</h2>
+      <details><summary>Do you provide free estimates?</summary><p>Yes. We provide clear, itemized written estimates.</p></details>
+      <details><summary>Are you licensed and insured in NYC?</summary><p>Absolutely. HIC #2131291. COIs available.</p></details>
     </section>
 
   </main>
 
-  <div id="contact-panel" class="contact-panel" aria-hidden="true" style="display:none;">
+  <div id="contact-panel" class="contact-panel" style="display:none;">
     <div class="contact-panel-inner">
       <button class="contact-panel-close">×</button>
-      <h2>Contact HBH</h2>
+      <h2>Contact Us</h2>
       <ul class="contact-panel-actions">
         <li><a href="tel:+19295955300">📞 Call Now</a></li>
-        <li><a href="/project-estimator.html">🧮 Fast Price Estimate</a></li>
-        <li><a href="/contact.html">📝 Message Us</a></li>
+        <li><a href="/project-estimator.html">🧮 Free Estimate</a></li>
       </ul>
     </div>
   </div>
@@ -314,41 +453,75 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Intersection Observer for Animations
+      // 1. ANIMATIONS
       const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-          }
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.opacity = 1; });
       }, { threshold: 0.1 });
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-      // Contact Panel Logic
+      // 2. REVIEW CAROUSEL
+      const track = document.getElementById('reviewTrack');
+      const dots = document.querySelectorAll('.review-dot');
+      let currentSlide = 0;
+      function updateSlide(index) {
+        if(!track) return;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach(d => d.classList.remove('active'));
+        dots[index].classList.add('active');
+        currentSlide = index;
+      }
+      dots.forEach((dot, index) => dot.addEventListener('click', () => updateSlide(index)));
+
+      // 3. CONTACT PANEL
       const panel = document.getElementById("contact-panel");
       document.querySelectorAll(".contact-panel-toggle").forEach(b => b.addEventListener("click", () => panel.style.display="flex"));
       panel.querySelector(".contact-panel-close").addEventListener("click", () => panel.style.display="none");
 
-      // 3D Card Tilt Effect
+      // 4. GALLERY LOGIC
+      let allHomePairs = [];
+      let currentIndex = 0;
+      const PAGE_SIZE = 6;
+      const grid = document.getElementById("ba-grid");
+      const loadBtn = document.getElementById("ba-loadmore");
+      const tmpl = document.getElementById("ba-card");
+
+      function renderBatch() {
+        const nextBatch = allHomePairs.slice(currentIndex, currentIndex + PAGE_SIZE);
+        nextBatch.forEach(item => {
+          const card = tmpl.content.cloneNode(true);
+          card.querySelector(".ba-before").src = "/images/" + item.before;
+          card.querySelector(".ba-after").src = "/images/" + item.after;
+          card.querySelector(".ba-caption").textContent = item.label || "";
+          const wrap = card.querySelector(".ba-after-wrap");
+          const slider = card.querySelector(".ba-slider");
+          slider.addEventListener("input", e => { wrap.style.width = e.target.value + "%"; });
+          grid.appendChild(card);
+        });
+        currentIndex += nextBatch.length;
+        if (currentIndex >= allHomePairs.length) loadBtn.style.display = "none";
+      }
+
+      fetch("/gallery.json").then(r => r.json()).then(data => {
+        allHomePairs = data.homePairs || [];
+        renderBatch();
+        loadBtn.addEventListener("click", renderBatch);
+      }).catch(e => console.log("Gallery unavailable:", e));
+
+      // 5. 3D CARD
       const card = document.querySelector('.member-card');
       const container = document.querySelector('.member-card-container');
       if (container && card) {
         container.addEventListener('mousemove', (e) => {
           const rect = container.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const xAxis = (rect.width / 2 - x) / 15; 
-          const yAxis = (rect.height / 2 - y) / 15;
-          card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+          card.style.transform = `rotateY(${(rect.width / 2 - (e.clientX - rect.left)) / 15}deg) rotateX(${(rect.height / 2 - (e.clientY - rect.top)) / 15}deg)`;
         });
-        container.addEventListener('mouseleave', () => {
-          card.style.transition = 'transform 0.5s ease';
-          card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
+        container.addEventListener('mouseleave', () => card.style.transform = `rotateY(0deg) rotateX(0deg)`);
       }
     });
   </script>
+   
+  <link rel="stylesheet" href="/chat.css">
+  <script src="/chat.js?v=2" defer></script>
+  <script src="/script.js?v=2" defer></script>
 </body>
 </html>
