@@ -25,14 +25,14 @@
       "tags": ["walkway", "tiles", "pavers", "exterior", "stone"]
     },
     {
-      "before": "front-walkway-before.jpeg",
+      "before": "",
       "after": "front-walkway-after.jpeg",
       "label": "Staten Island: Full Front House Update",
       "tags": ["remodel", "exterior", "walkway", "pavers", "front"]
     },
     {
-      "before": "Full-front-remodel-before.jpeg",
-      "after": "full-front-remodel-after.jpeg",
+      "before": "",
+      "after": "",
       "label": " Full Facade Masonry Rebuild",
       "tags": ["rebuild", "exterior", "front", "masonry"]
     },
