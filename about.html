@@ -95,7 +95,7 @@
   }
   .trust-item span { color: var(--gold); font-size: 18px; }
 
-  /* --- 3. OWNER SECTION --- */
+  /* --- 3. OWNER SECTION (Mobile Fixed) --- */
   .owner-frame {
     position: relative;
     border: 1px solid var(--gold);
@@ -103,7 +103,6 @@
     border-radius: 20px;
     background: rgba(10,20,35,0.8);
     box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    /* Default width for desktop */
     width: 320px; 
     flex-shrink: 0; 
   }
@@ -122,8 +121,6 @@
     transform: rotate(-2deg);
     text-align: right;
   }
-  
-  /* Text Container */
   .owner-text {
     padding-top: 10px;
     flex-grow: 1;
@@ -246,7 +243,7 @@
     .about-hero h1 { font-size: 28px; }
     .th-steps { flex-direction: column; gap: 15px; align-items: center; }
     
-    /* FIX FOR SQUISHED TEXT */
+    /* FIX FOR SQUISHED TEXT: Stack elements vertically */
     .section.split {
         flex-direction: column;
         align-items: center;
@@ -410,14 +407,17 @@
   <section class="section fade-up">
     <h2 style="text-align: center;">What Our Clients Say</h2>
     <div class="testimonial-grid">
+      
       <div class="testi-card">
-        "The cleanest contractor I've ever hired. They fixed our front steps and left the sidewalk spotless. Highly recommended."
-        <div class="testi-author">— Anonymous, Staten Island</div>
+        "Norman and his assistant came to the rescue! They were great to work with. Very concerned about doing a super job. They welcomed questions and concerns. Their work was great and priced fairly. Highly recommended."
+        <div class="testi-author">— Loren Ellis Art, Staten Island</div>
       </div>
+
       <div class="testi-card">
-        "HBH and his team were professional from start to finish. The estimate was clear, and the work is beautiful."
-        <div class="testi-author">— Anonymous, Brooklyn</div>
+        "I was highly impressed with the work they had done. The work was fantastic and they cleaned up great, no mess at all. I highly recommend them and will tell my friends and neighbors."
+        <div class="testi-author">— Steven Nahas, New York</div>
       </div>
+
     </div>
   </section>
 
@@ -432,7 +432,7 @@
       <span class="quick-faq-a">Yes. We provide free, itemized estimates. You can even text us photos for a faster ballpark quote.</span>
     </div>
     <div style="text-align: center; margin-top: 20px;">
-        <a href="/faq" class="btn ghost">Read Full FAQ &rarr;</a>
+        <a href="/faq.html" class="btn ghost">Read Full FAQ &rarr;</a>
     </div>
   </section>
 
@@ -442,7 +442,7 @@
     <div class="hero-actions" style="justify-content: center; margin-top: 20px;">
       <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
       <a class="btn ghost" href="sms:+19295955300">📱 Text Us Photos</a>
-      <a class="btn ghost" href="/contact">Online Contact Form</a>
+      <a class="btn ghost" href="/contact.html">Online Contact Form</a>
     </div>
   </section>
 
