@@ -64,48 +64,12 @@
           "@type": "OfferCatalog",
           "name": "Construction Services",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Masonry Tune-Up" }, "price": "449.00", "priceCurrency": "USD" },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Interior Facelift" }, "price": "799.00", "priceCurrency": "USD" },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Draft-Stop Window" }, "price": "1499.00", "priceCurrency": "USD" }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Masonry & Concrete" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pavers & Patios" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kitchens & Baths" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "General Remodeling" } }
           ]
         }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do you provide free estimates?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. We provide clear, itemized written estimates."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Are you licensed and insured in NYC?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Absolutely. HIC #2131291. COIs available."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do you handle permits?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, we work with licensed architects for DOB filings."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What areas do you serve?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ."
-            }
-          }
-        ]
       },
       {
         "@type": "WebSite",
@@ -122,7 +86,7 @@
   </script>
 
   <style>
-    /* 1. Hero Gradient Overlay & Glassmorphism */
+    /* 1. Hero Gradient Overlay */
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -130,29 +94,6 @@
       z-index: 1;
       border-radius: var(--radius-xl, 22px);
     }
-    
-    /* NEW: Luxury Hero Text Styling */
-    .hero-glass {
-        background: rgba(10, 20, 35, 0.6);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(231, 191, 99, 0.3);
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    }
-
-    .hero-content h1 {
-        /* GOLD GRADIENT TEXT */
-        background: linear-gradient(135deg, #ffffff 30%, #f5d89b 70%, #d4af37 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        line-height: 1.2;
-    }
-
     .hero-content, .hero-badge { z-index: 2; position: relative; }
 
     /* 2. Gold Divider Shimmer */
@@ -233,7 +174,6 @@
       .glow-card {
         padding: 15px 5px !important;
       }
-      .hero-glass { padding: 20px 15px; } /* Less padding on mobile */
     }
 
     /* 7. NEW 3D MEMBERSHIP CARD STYLES */
@@ -312,7 +252,7 @@
    <section class="hero hero-home fade-up" style="margin-top: 60px;">
       <div class="hero-overlay"></div>
       
-      <div class="hero-content hero-glass">
+      <div class="hero-content">
         <h1>Luxury Remodeling &amp; True Masonry for NYC Homes</h1>
         <p>White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.</p>
         
@@ -821,3 +761,5 @@
 
 </body>
 </html>
+
+
