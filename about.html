@@ -103,6 +103,9 @@
     border-radius: 20px;
     background: rgba(10,20,35,0.8);
     box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    /* Default width for desktop */
+    width: 320px; 
+    flex-shrink: 0; 
   }
   .owner-frame img {
     width: 100%;
@@ -118,6 +121,12 @@
     display: block;
     transform: rotate(-2deg);
     text-align: right;
+  }
+  
+  /* Text Container */
+  .owner-text {
+    padding-top: 10px;
+    flex-grow: 1;
   }
 
   /* --- 4. THE HAMMER STANDARD GRID --- */
@@ -233,9 +242,24 @@
   .quick-faq-a { font-size: 14px; color: var(--muted); }
 
   /* Mobile Adjustments */
-  @media(max-width: 768px) {
+  @media(max-width: 800px) {
     .about-hero h1 { font-size: 28px; }
     .th-steps { flex-direction: column; gap: 15px; align-items: center; }
+    
+    /* FIX FOR SQUISHED TEXT */
+    .section.split {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .owner-frame {
+        width: 100%;
+        max-width: 320px;
+    }
+    .owner-text {
+        text-align: left;
+        width: 100%;
+    }
   }
 </style>
 
@@ -263,8 +287,8 @@
     <div class="owner-frame">
         <img src="/images/hero.PNG" alt="Noman - Owner of Hammer Brick & Home LLC" loading="lazy">
     </div>
-    <div style="padding-top: 10px;">
-      <h2 style="color: #fff;">Meet  — Owner & Lead</h2>
+    <div class="owner-text">
+      <h2 style="color: #fff;">Meet Noman — Owner & Lead</h2>
       <p style="color: var(--gold-soft); font-weight: bold; margin-bottom: 15px; font-style: italic;">"I don't just send a crew. I lead them."</p>
       
       <p style="color: var(--muted); line-height: 1.7; margin-bottom: 20px;">
