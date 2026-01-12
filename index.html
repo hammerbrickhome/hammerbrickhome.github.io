@@ -124,6 +124,21 @@
     .review-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; cursor: pointer; }
     .review-dot.active { background: #e7bf63; }
 
+    /* Verified Badge Style */
+    .verified-badge {
+      font-size: 11px;
+      color: #2ecc71; /* Green */
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      background: rgba(46, 204, 113, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-left: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
     /* 4. Background Noise */
     body::after {
       content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
@@ -582,12 +597,12 @@
       <div class="review-carousel-container">
         <div class="review-track" id="reviewTrack">
           <div class="review-slide">
-            <p class="review-score">⭐⭐⭐⭐⭐</p>
+            <p class="review-score">⭐⭐⭐⭐⭐ <span class="verified-badge">✔ Google Verified</span></p>
             <p class="review-quote">“Norman and his assistant came to the rescue! They were great to work with. Very concerned about doing a super job. Highly recommended.”</p>
             <p class="review-note">- Loren Ellis Art, Staten Island</p>
           </div>
           <div class="review-slide">
-            <p class="review-score">⭐⭐⭐⭐⭐</p>
+            <p class="review-score">⭐⭐⭐⭐⭐ <span class="verified-badge">✔ Google Verified</span></p>
             <p class="review-quote">“The work was fantastic and they cleaned up great, no mess at all. I highly recommend them and will tell my friends and neighbors.”</p>
             <p class="review-note">- Steven Nahas, New York</p>
           </div>
