@@ -199,14 +199,20 @@
     }
 
     .member-card-container {
-      perspective: 1000px; width: 100%; max-width: 380px; margin: 15px auto;
+      perspective: 1000px; /* Essential for 3D effect */
+      width: 100%;
+      max-width: 380px;
+      margin: 15px auto;
     }
 
     .member-card {
       background: linear-gradient(135deg, #0f1c30 0%, #071426 100%);
       border: 1px solid #e7bf63; border-radius: 16px; padding: 20px;
-      position: relative; transform-style: preserve-3d;
-      transform: rotateX(0) rotateY(0); transition: transform 0.1s ease;
+      position: relative;
+      /* Advanced 3D Settings */
+      transform-style: preserve-3d;
+      transform: rotateX(0) rotateY(0);
+      transition: transform 0.1s ease; /* Fast transition for mouse movement */
       box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(231,191,99,0.2);
     }
      
@@ -245,15 +251,15 @@
       <div class="hero-overlay"></div>
       
       <div class="hero-content hero-glass">
-        <h1>Luxury Remodeling &amp; True Masonry for NYC Homes</h1>
+        <h1>Luxury Remodeling & True Masonry for NYC Homes</h1>
         <p>White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.</p>
         
         <div class="hero-actions">
           <a class="btn" href="tel:+19295955300">📞 Fast Estimate</a>
-          <button type="button" class="btn ghost contact-panel-toggle">Contact &amp; Options</button>
+          <button type="button" class="btn ghost contact-panel-toggle">Contact & Options</button>
         </div>
         <ul class="trust-pills" role="list">
-          <li class="gold-pill breathing-gold">NYC Licensed &amp; Insured · HIC #2131291</li>
+          <li class="gold-pill breathing-gold">NYC Licensed & Insured · HIC #2131291</li>
           <li class="gold-pill breathing-gold">EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
           <li class="gold-pill breathing-gold">Before/After Documentation</li>
           <li class="gold-pill breathing-gold">Clean, Respectful Crew</li>
@@ -384,43 +390,24 @@
       <div class="tier-grid">
         <div class="tier-card foundation" style="border-top: 4px solid #4a90e2;">
           <div class="tier-top"><h3>Foundation</h3><span class="tier-badge">Essential</span></div>
-          <p class="tier-desc">A solid, reliable option when you want clean, professional results without unnecessary extras.</p>
-          <ul class="bullets">
-            <li>Standard materials (NYC-approved)</li>
-            <li>Clean workmanship & Basic prep</li>
-            <li>Clear, itemized estimate</li>
-            <li>Before/after photos</li>
-          </ul>
-          <p class="tier-best"><strong>Best for:</strong> Sidewalk repairs, patchwork, painting, routine maintenance, small remodel fixes.</p>
+          <p class="tier-desc">Clean, professional results without unnecessary extras.</p>
+          <p class="tier-best"><strong>Best for:</strong> Repairs, painting, maintenance.</p>
         </div>
 
         <div class="tier-card premium" style="border-top: 4px solid #e7bf63;">
           <div class="tier-top"><h3>Premium</h3><span class="tier-badge">Most Popular</span></div>
-          <p class="tier-desc">Our most popular tier — a balance of luxury and value.</p>
-          <ul class="bullets">
-            <li>Higher-grade materials (better longevity)</li>
-            <li>Enhanced dust protection</li>
-            <li>Smoother finishes & extra detail</li>
-            <li>Extended warranty options</li>
-          </ul>
-          <p class="tier-best"><strong>Best for:</strong> Stoops, pavers, bathroom refresh, higher-end masonry, flooring, kitchen upgrades.</p>
+          <p class="tier-desc">Balance of luxury and value. Better materials, smoother finish.</p>
+          <p class="tier-best"><strong>Best for:</strong> Bathrooms, flooring, kitchens.</p>
         </div>
 
         <div class="tier-card signature" style="border-top: 4px solid #e67e22;">
           <div class="tier-top"><h3>Signature</h3><span class="tier-badge">Luxury</span></div>
-          <p class="tier-desc">Made for homeowners who want the highest-end finish with a designer-level look.</p>
-          <ul class="bullets">
-            <li>Luxury materials (premium pavers, tiles)</li>
-            <li>Custom designs & layouts</li>
-            <li>Advanced HEPA dust control</li>
-            <li>Signature “White-Glove” finishing</li>
-          </ul>
-          <p class="tier-best"><strong>Best for:</strong> Full remodels, luxury bathrooms/kitchens, high-end masonry, custom outdoor spaces.</p>
+          <p class="tier-desc">The highest-end finish with a designer-level look.</p>
+          <p class="tier-best"><strong>Best for:</strong> Full remodels, custom spaces.</p>
         </div>
       </div>
 
       <div class="tier-hook">
-        <p><strong>How it works:</strong> You give us a ballpark budget, and we show you exactly what we can build at each tier. No hidden fees, no surprises.</p>
         <a href="/project-estimator.html" class="btn">Get a Tiered Estimate</a>
       </div>
     </section>
@@ -474,7 +461,7 @@
             </div>
           </div>
 
-          <a href="/membership.html" class="btn" style="width:100%; margin-top:15px; text-align:center;">Activate Card & Enter Draw &rarr;</a>
+          <a href="/membership.html" class="btn" style="width:100%; margin-top:15px; text-align:center;">Activate Card & Enter Draw →</a>
         </div>
 
       </div>
@@ -542,7 +529,7 @@
           <p>If needed, we schedule a walk-through to measure, check conditions, and spot any hidden issues before they become surprises. You receive a written, itemized estimate with Foundation, Premium, and Signature options so you can see what each tier includes and exactly what it costs.</p>
         </li>
         <li>
-          <h3>3. Protection &amp; Prep</h3>
+          <h3>3. Protection & Prep</h3>
           <p>Before tools come out, floors, railings, and walkways are covered with paper, plastic, and drop cloths. We set up dust control, safe walking paths, and protect nearby finishes so the rest of your home stays clean and livable while we work.</p>
         </li>
         <li>
@@ -550,7 +537,7 @@
           <p>Our licensed crew performs the work according to manufacturer specs and NYC-ready code awareness. You get updates during the project — what we did today, what’s happening next — and we do internal checks to make sure everything is straight, level, and properly tied into the existing structure.</p>
         </li>
         <li>
-          <h3>5. Final Walk-Through &amp; After Photos</h3>
+          <h3>5. Final Walk-Through & After Photos</h3>
           <p>We walk the project with you, note any touch-ups, and handle them before we call the job finished. The area is swept, wiped, and ready for photos. You leave with before/after documentation and simple care tips so your new work stays looking sharp for years.</p>
         </li>
       </ol>
@@ -560,7 +547,7 @@
 
     <section id="before-after" class="section fade-up">
       <div class="ba-head">
-        <h2>Before &amp; After</h2>
+        <h2>Before & After</h2>
         <p class="ba-note">Real customer projects — auto-loaded from our gallery.</p>
       </div>
       <div id="ba-grid" class="ba-grid"></div>
@@ -628,12 +615,12 @@
         <div style="padding:20px;">
           <h2 style="margin-bottom:10px; text-align:left;">Serving Our Neighbors</h2>
           <p style="color:var(--muted); margin-bottom:20px;">
-            Based in <strong>Staten Island (10302)</strong>, we proudly serve homeowners across the bridge in Brooklyn and select parts of NJ.
+            Based in <strong>Staten Island (10302)</strong>, we proudly serve the entire New York City metro area and New Jersey.
           </p>
           <ul class="bullets">
-            <li>Staten Island (All Neighborhoods)</li>
-            <li>Bay Ridge & Dyker Heights</li>
-            <li>New Jersey (Middlesex/Union)</li>
+            <li><strong>NYC:</strong> All 5 Boroughs (Staten Island, Brooklyn, Queens, Manhattan, The Bronx)</li>
+            <li><strong>New Jersey:</strong> 50-Mile Radius Service Area</li>
+            <li><strong>Westchester & Nassau:</strong> By Request</li>
           </ul>
         </div>
 
