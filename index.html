@@ -85,6 +85,11 @@
           },
           {
             "@type": "Question",
+            "name": "Do you handle permits?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, we work with licensed architects for DOB filings." }
+          },
+          {
+            "@type": "Question",
             "name": "What areas do you serve?",
             "acceptedAnswer": { "@type": "Answer", "text": "Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ." }
           }
@@ -105,12 +110,14 @@
   </script>
 
   <style>
-    /* Hero Glass Effect */
+    /* 1. Hero Gradient Overlay & Glassmorphism */
     .hero-overlay {
       position: absolute; inset: 0;
       background: radial-gradient(circle at center, rgba(7,20,38,0.4) 0%, rgba(5,12,25,0.85) 90%);
       z-index: 1; border-radius: var(--radius-xl, 22px);
     }
+    
+    /* Luxury Hero Text Styling */
     .hero-glass {
         background: rgba(10, 20, 35, 0.6);
         backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -118,15 +125,19 @@
         padding: 30px; border-radius: 20px;
         box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     }
+
     .hero-content h1 {
+        /* GOLD GRADIENT TEXT */
         background: linear-gradient(135deg, #ffffff 30%, #f5d89b 70%, #d4af37 100%);
         -webkit-background-clip: text; background-clip: text;
         -webkit-text-fill-color: transparent; color: transparent;
         text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        line-height: 1.2;
     }
+
     .hero-content, .hero-badge { z-index: 2; position: relative; }
 
-    /* Divider */
+    /* 2. Gold Divider Shimmer */
     .gold-divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(231,191,99,0.5), transparent);
@@ -139,47 +150,88 @@
     }
     @keyframes shimmerDivider { 100% { left: 200%; } }
 
-    /* Review Carousel */
+    /* 3. Review Carousel */
     .review-carousel-container { position: relative; overflow: hidden; padding: 20px 0; }
     .review-track { display: flex; transition: transform 0.5s ease-in-out; }
     .review-slide { min-width: 100%; padding: 0 20px; box-sizing: border-box; text-align: center; }
     .review-nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
     .review-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; cursor: pointer; }
     .review-dot.active { background: #e7bf63; }
+
+    /* Verified Badge Style */
     .verified-badge {
-      font-size: 11px; color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.3);
+      font-size: 11px; color: #2ecc71; /* Green */
+      border: 1px solid rgba(46, 204, 113, 0.3);
       background: rgba(46, 204, 113, 0.1); padding: 2px 6px; border-radius: 4px;
-      vertical-align: middle; margin-left: 8px; font-weight: 700; text-transform: uppercase;
+      vertical-align: middle; margin-left: 8px; letter-spacing: 0.5px;
+      text-transform: uppercase; font-weight: 700;
     }
 
-    /* 3D Card */
-    .member-card-container { perspective: 1000px; width: 100%; max-width: 380px; margin: 15px auto; }
+    /* 4. Background Noise */
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz4KPC9zdmc+');
+      opacity: 0.4;
+    }
+
+    /* 5. Fix Services Glow Icons (SVG Sizing) */
+    .glow-icon svg { width: 28px; height: 28px; fill: currentColor; }
+
+    /* 6. MOBILE LAYOUT FIX */
+    @media (max-width: 1000px) {
+      .split { 
+        display: flex !important; flex-direction: column-reverse !important; 
+        gap: 35px !important; align-items: center !important;
+      }
+      .trust-content { width: 100% !important; text-align: center !important; padding-right: 0 !important; }
+      .services-glow-container { width: 100% !important; max-width: 500px !important; margin: 0 auto !important; }
+      .glow-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
+      .glow-card { padding: 15px 5px !important; }
+      .hero-glass { padding: 20px 15px; } /* Less padding on mobile */
+    }
+
+    /* 7. NEW 3D MEMBERSHIP CARD STYLES */
+    .free-badge {
+      background-color: #2ecc71; color: #000; padding: 3px 8px;
+      border-radius: 4px; font-weight: 800; font-size: 11px;
+      border: 1px solid #27ae60; box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+      display: inline-block; vertical-align: middle; margin-left: 8px;
+    }
+
+    .member-card-container {
+      perspective: 1000px; width: 100%; max-width: 380px; margin: 15px auto;
+    }
+
     .member-card {
       background: linear-gradient(135deg, #0f1c30 0%, #071426 100%);
       border: 1px solid #e7bf63; border-radius: 16px; padding: 20px;
       position: relative; transform-style: preserve-3d;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      transform: rotateX(0) rotateY(0); transition: transform 0.1s ease;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(231,191,99,0.2);
     }
-    .card-top { display: flex; justify-content: space-between; margin-bottom: 25px; transform: translateZ(20px); }
-    .card-chip { width: 40px; height: 28px; background: linear-gradient(135deg, #e7bf63, #b8860b); border-radius: 5px; }
-    .card-status { font-size: 9px; font-weight: 800; color: #e7bf63; border: 1px solid #e7bf63; padding: 3px 6px; border-radius: 4px; }
-    .card-number { font-family: monospace; font-size: 16px; color: #fff; letter-spacing: 2px; margin-bottom: 15px; transform: translateZ(30px); }
+     
+    .member-card::before {
+      content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(231,191,99,0.15) 0%, transparent 60%);
+      transform: rotate(45deg); pointer-events: none;
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; transform: translateZ(20px); }
+    .card-chip {
+      width: 40px; height: 28px; background: linear-gradient(135deg, #e7bf63, #b8860b);
+      border-radius: 5px; position: relative; box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .card-status {
+      font-size: 9px; font-weight: 800; letter-spacing: 1px; color: #e7bf63;
+      border: 1px solid #e7bf63; padding: 3px 6px; border-radius: 4px;
+      text-transform: uppercase; animation: pulseStatus 2s infinite;
+    }
+    @keyframes pulseStatus { 0% {opacity:0.6;} 50% {opacity:1;} 100% {opacity:0.6;} }
+     
+    .card-number { font-family: monospace; font-size: 16px; color: #fff; letter-spacing: 2px; text-shadow: 0 2px 2px rgba(0,0,0,0.8); margin-bottom: 15px; transform: translateZ(30px); }
     .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; transform: translateZ(20px); }
     .card-holder { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; }
     .card-holder strong { display: block; font-size: 12px; color: #fff; margin-top: 2px; }
     .card-logo img { width: 45px; opacity: 0.9; border-radius: 50%; }
-
-    /* Mobile Fixes */
-    @media (max-width: 1000px) {
-      .split { display: flex !important; flex-direction: column-reverse !important; gap: 35px !important; align-items: center !important; }
-      .trust-content { width: 100% !important; text-align: center !important; padding-right: 0 !important; }
-      .services-glow-container { width: 100% !important; max-width: 500px !important; margin: 0 auto !important; }
-      .glow-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
-      .hero-glass { padding: 20px 15px; }
-    }
-    
-    .glow-icon svg { width: 28px; height: 28px; fill: currentColor; }
-    .free-badge { background-color: #2ecc71; color: #000; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 11px; margin-left: 8px; }
   </style>
 </head>
 
@@ -193,15 +245,15 @@
       <div class="hero-overlay"></div>
       
       <div class="hero-content hero-glass">
-        <h1>Luxury Remodeling & True Masonry for NYC Homes</h1>
+        <h1>Luxury Remodeling &amp; True Masonry for NYC Homes</h1>
         <p>White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.</p>
         
         <div class="hero-actions">
           <a class="btn" href="tel:+19295955300">📞 Fast Estimate</a>
-          <button type="button" class="btn ghost contact-panel-toggle">Contact & Options</button>
+          <button type="button" class="btn ghost contact-panel-toggle">Contact &amp; Options</button>
         </div>
         <ul class="trust-pills" role="list">
-          <li class="gold-pill breathing-gold">NYC Licensed & Insured · HIC #2131291</li>
+          <li class="gold-pill breathing-gold">NYC Licensed &amp; Insured · HIC #2131291</li>
           <li class="gold-pill breathing-gold">EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
           <li class="gold-pill breathing-gold">Before/After Documentation</li>
           <li class="gold-pill breathing-gold">Clean, Respectful Crew</li>
@@ -240,6 +292,22 @@
             <li><strong>Seal cracks (up to 10 lin. ft.)</strong></li>
             <li>Trip-hazard safety check</li>
           </ul>
+
+          <div class="special-addons">
+            <h4>Popular Add-Ons</h4>
+            <ul class="addon-list">
+              <li><span>Lead Prep (Only if Painted)</span> <span class="addon-price">+$399</span></li>
+              <li><span>Power Wash Entry</span> <span class="addon-price">+$149</span></li>
+              <li><span>Waterproofing Seal</span> <span class="addon-price">+$99</span></li>
+              <li><span>Limestone Patching</span> <span class="addon-price">+$125</span></li>
+            </ul>
+          </div>
+
+          <div class="special-protection">
+            <strong>⚠️ Client Requirements:</strong>
+            Standard height steps only (no scaffolding). Access to water/power required. Structural failures require full estimate.
+          </div>
+
           <button type="button" class="btn contact-panel-toggle">Book Best Value Special</button>
         </div>
 
@@ -253,6 +321,22 @@
             <li>Nail hole filling included</li>
             <li>2 Coats Premium Paint</li>
           </ul>
+
+          <div class="special-addons">
+            <h4>Popular Add-Ons</h4>
+            <ul class="addon-list">
+              <li><span>Lead Prep (Only if Painted)</span> <span class="addon-price">+$399</span></li>
+              <li><span>Paint Ceilings</span> <span class="addon-price">+$150</span></li>
+              <li><span>Paint Baseboards/Trim</span> <span class="addon-price">+$150</span></li>
+              <li><span>Deep Plaster Repair</span> <span class="addon-price">Quote</span></li>
+            </ul>
+          </div>
+
+          <div class="special-protection">
+            <strong>⚠️ Client Requirements:</strong>
+            Room must be cleared or furniture moved to center prior to arrival. Walls must be clean. Max height 12ft.
+          </div>
+
           <button type="button" class="btn contact-panel-toggle">Book Premium Special</button>
         </div>
 
@@ -266,6 +350,22 @@
             <li>Removal & Disposal</li>
             <li>Insulation & Watertight Seal</li>
           </ul>
+
+          <div class="special-addons">
+            <h4>Popular Add-Ons</h4>
+            <ul class="addon-list">
+              <li><span>Lead Prep (Only if Painted)</span> <span class="addon-price">+$399</span></li>
+              <li><span>Exterior Capping</span> <span class="addon-price">+$125</span></li>
+              <li><span>Full Screen Mesh</span> <span class="addon-price">+$45</span></li>
+              <li><span>Grid/Grille Pattern</span> <span class="addon-price">+$65</span></li>
+            </ul>
+          </div>
+
+          <div class="special-protection">
+            <strong>⚠️ Client Requirements:</strong>
+            <strong>1st, 2nd, or 3rd Floor Only (Ladder Access).</strong> Standard size (up to 36"x60"). No rotted wood frames (repair is extra). Removal of security bars is extra.
+          </div>
+
           <button type="button" class="btn contact-panel-toggle">Book Signature Special</button>
         </div>
 
@@ -278,30 +378,49 @@
     <section class="section tier-section fade-up">
       <div class="tier-header">
         <h2>Your Budget, Your Choice</h2>
-        <p>We don't guess your budget—we work with it. We provide <strong>Transparent Tiered Estimates</strong>.</p>
+        <p>We don't guess your budget—we work with it. We provide <strong>Transparent Tiered Estimates</strong> so you can decide the level of finish that fits your financial comfort zone.</p>
       </div>
 
       <div class="tier-grid">
         <div class="tier-card foundation" style="border-top: 4px solid #4a90e2;">
           <div class="tier-top"><h3>Foundation</h3><span class="tier-badge">Essential</span></div>
-          <p class="tier-desc">Clean, professional results without unnecessary extras.</p>
-          <p class="tier-best"><strong>Best for:</strong> Repairs, painting, maintenance.</p>
+          <p class="tier-desc">A solid, reliable option when you want clean, professional results without unnecessary extras.</p>
+          <ul class="bullets">
+            <li>Standard materials (NYC-approved)</li>
+            <li>Clean workmanship & Basic prep</li>
+            <li>Clear, itemized estimate</li>
+            <li>Before/after photos</li>
+          </ul>
+          <p class="tier-best"><strong>Best for:</strong> Sidewalk repairs, patchwork, painting, routine maintenance, small remodel fixes.</p>
         </div>
 
         <div class="tier-card premium" style="border-top: 4px solid #e7bf63;">
           <div class="tier-top"><h3>Premium</h3><span class="tier-badge">Most Popular</span></div>
-          <p class="tier-desc">Balance of luxury and value. Better materials, smoother finish.</p>
-          <p class="tier-best"><strong>Best for:</strong> Bathrooms, flooring, kitchens.</p>
+          <p class="tier-desc">Our most popular tier — a balance of luxury and value.</p>
+          <ul class="bullets">
+            <li>Higher-grade materials (better longevity)</li>
+            <li>Enhanced dust protection</li>
+            <li>Smoother finishes & extra detail</li>
+            <li>Extended warranty options</li>
+          </ul>
+          <p class="tier-best"><strong>Best for:</strong> Stoops, pavers, bathroom refresh, higher-end masonry, flooring, kitchen upgrades.</p>
         </div>
 
         <div class="tier-card signature" style="border-top: 4px solid #e67e22;">
           <div class="tier-top"><h3>Signature</h3><span class="tier-badge">Luxury</span></div>
-          <p class="tier-desc">The highest-end finish with a designer-level look.</p>
-          <p class="tier-best"><strong>Best for:</strong> Full remodels, custom spaces.</p>
+          <p class="tier-desc">Made for homeowners who want the highest-end finish with a designer-level look.</p>
+          <ul class="bullets">
+            <li>Luxury materials (premium pavers, tiles)</li>
+            <li>Custom designs & layouts</li>
+            <li>Advanced HEPA dust control</li>
+            <li>Signature “White-Glove” finishing</li>
+          </ul>
+          <p class="tier-best"><strong>Best for:</strong> Full remodels, luxury bathrooms/kitchens, high-end masonry, custom outdoor spaces.</p>
         </div>
       </div>
 
       <div class="tier-hook">
+        <p><strong>How it works:</strong> You give us a ballpark budget, and we show you exactly what we can build at each tier. No hidden fees, no surprises.</p>
         <a href="/project-estimator.html" class="btn">Get a Tiered Estimate</a>
       </div>
     </section>
@@ -355,22 +474,56 @@
             </div>
           </div>
 
-          <a href="/membership.html" class="btn" style="width:100%; margin-top:15px; text-align:center;">Activate Card & Enter Draw →</a>
+          <a href="/membership.html" class="btn" style="width:100%; margin-top:15px; text-align:center;">Activate Card & Enter Draw &rarr;</a>
         </div>
 
       </div>
 
       <div class="services-glow-container">
         <h3 style="text-align:center; color:var(--gold-soft); margin-bottom:15px;">Signature Services</h3>
+        
         <div class="glow-grid">
-          <a href="/services.html" class="glow-card style-white"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></span><span>Masonry</span></a>
-          <a href="/services.html" class="glow-card style-gold"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></span><span>Pavers</span></a>
-          <a href="/services.html" class="glow-card style-blue"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M21.9 21.9l-2.9-2.9c.4-.9.6-1.9.6-2.9 0-4.4-3.6-8-8-8s-8 3.6-8 8c0 1 .2 2 .6 2.9l-2.9 2.9L2.8 20.5l2.9 2.9C6.6 23.8 7.3 24 8 24c4.4 0 8-3.6 8-8 0-1-.2-2-.6-2.9l2.9-2.9 1.4 1.4zM4 12c0-4.4 3.6-8 8-8s8 3.6 8 8h-2c0-3.3-2.7-6-6-6s-6 2.7-6 6H4z"/></svg></span><span>Kitchens</span></a>
-          <a href="/services.html" class="glow-card style-blue"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.5-.08-.85 0-1.58.54-1.87 1.3l-.13.37V13H20zM3 13h9v-2H3v2zm9 7h8v-6h-8v6zm-8 0h6v-6H4v6z"/></svg></span><span>Bathrooms</span></a>
-          <a href="/services.html" class="glow-card style-red"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M22 11V5h-5V3H7v2H2v6h2v10h16V11h2zm-8 8h-4v-4h4v4zm0-6h-4v-4h4v4z"/></svg></span><span>Basements</span></a>
-          <a href="/services.html" class="glow-card style-cyan"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3.8L18.4 17H5.6L12 5.8zM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span><span>Waterproofing</span></a>
-          <a href="/services.html" class="glow-card style-green"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M17.5 12c-2.5 0-4.5-2-4.5-4.5S15 3 17.5 3 22 5 22 7.5 20 12 17.5 12zM4 21h16v-2H4v2zm0-4h10v-2H4v2z"/></svg></span><span>Painting</span></a>
-          <a href="/services.html" class="glow-card style-cyan"><span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V5h14v16zm-7-1h5v-5h-5v5zm-5 0h5v-5H7v5zm5-7h5V8h-5v5zm-5 0h5V8H7v5z"/></svg></span><span>Windows</span></a>
+          
+          <a href="/services.html" class="glow-card style-white">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></span>
+            <span>Masonry</span>
+          </a>
+
+          <a href="/services.html" class="glow-card style-gold">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></span>
+            <span>Pavers</span>
+          </a>
+
+          <a href="/services.html" class="glow-card style-blue">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M21.9 21.9l-2.9-2.9c.4-.9.6-1.9.6-2.9 0-4.4-3.6-8-8-8s-8 3.6-8 8c0 1 .2 2 .6 2.9l-2.9 2.9L2.8 20.5l2.9 2.9C6.6 23.8 7.3 24 8 24c4.4 0 8-3.6 8-8 0-1-.2-2-.6-2.9l2.9-2.9 1.4 1.4zM4 12c0-4.4 3.6-8 8-8s8 3.6 8 8h-2c0-3.3-2.7-6-6-6s-6 2.7-6 6H4z"/></svg></span>
+            <span>Kitchens</span>
+          </a>
+
+          <a href="/services.html" class="glow-card style-blue">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.5-.08-.85 0-1.58.54-1.87 1.3l-.13.37V13H20zM3 13h9v-2H3v2zm9 7h8v-6h-8v6zm-8 0h6v-6H4v6z"/></svg></span>
+            <span>Bathrooms</span>
+          </a>
+
+          <a href="/services.html" class="glow-card style-red">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M22 11V5h-5V3H7v2H2v6h2v10h16V11h2zm-8 8h-4v-4h4v4zm0-6h-4v-4h4v4z"/></svg></span>
+            <span>Basements</span>
+          </a>
+
+          <a href="/services.html" class="glow-card style-cyan">
+             <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3.8L18.4 17H5.6L12 5.8zM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
+             <span>Waterproofing</span>
+          </a>
+
+          <a href="/services.html" class="glow-card style-green">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M17.5 12c-2.5 0-4.5-2-4.5-4.5S15 3 17.5 3 22 5 22 7.5 20 12 17.5 12zM4 21h16v-2H4v2zm0-4h10v-2H4v2z"/></svg></span>
+            <span>Painting</span>
+          </a>
+
+          <a href="/services.html" class="glow-card style-cyan">
+            <span class="glow-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V5h14v16zm-7-1h5v-5h-5v5zm-5 0h5v-5H7v5zm5-7h5V8h-5v5zm-5 0h5V8H7v5z"/></svg></span>
+            <span>Windows</span>
+          </a>
+
         </div>
       </div>
     </section>
@@ -378,12 +531,28 @@
     <div class="gold-divider"></div>
 
     <section class="section section-process fade-up">
-      <h2>How We Work</h2>
+      <h2>How We Work on Your Home</h2>
       <ol class="process-steps">
-        <li><h3>1. Quick Call/Text</h3><p>Send photos. We ask simple questions about your home and budget.</p></li>
-        <li><h3>2. Clear Estimate</h3><p>You get a written estimate with Foundation, Premium, and Signature options.</p></li>
-        <li><h3>3. Protection</h3><p>We cover floors and set up dust control before tools come out.</p></li>
-        <li><h3>4. Build & Clean</h3><p>Licensed work with daily updates and a spotless finish.</p></li>
+        <li>
+          <h3>1. Quick Call, Text, or Photos</h3>
+          <p>You reach out however is easiest — call, text, or send a few photos of the area. We ask simple questions about your home, timeline, and budget so we know if you need a small repair, a safety fix, or a full remodel.</p>
+        </li>
+        <li>
+          <h3>2. Clear, Written Estimate</h3>
+          <p>If needed, we schedule a walk-through to measure, check conditions, and spot any hidden issues before they become surprises. You receive a written, itemized estimate with Foundation, Premium, and Signature options so you can see what each tier includes and exactly what it costs.</p>
+        </li>
+        <li>
+          <h3>3. Protection &amp; Prep</h3>
+          <p>Before tools come out, floors, railings, and walkways are covered with paper, plastic, and drop cloths. We set up dust control, safe walking paths, and protect nearby finishes so the rest of your home stays clean and livable while we work.</p>
+        </li>
+        <li>
+          <h3>4. Build, Inspect, Communicate</h3>
+          <p>Our licensed crew performs the work according to manufacturer specs and NYC-ready code awareness. You get updates during the project — what we did today, what’s happening next — and we do internal checks to make sure everything is straight, level, and properly tied into the existing structure.</p>
+        </li>
+        <li>
+          <h3>5. Final Walk-Through &amp; After Photos</h3>
+          <p>We walk the project with you, note any touch-ups, and handle them before we call the job finished. The area is swept, wiped, and ready for photos. You leave with before/after documentation and simple care tips so your new work stays looking sharp for years.</p>
+        </li>
       </ol>
     </section>
 
@@ -391,8 +560,8 @@
 
     <section id="before-after" class="section fade-up">
       <div class="ba-head">
-        <h2>Before & After</h2>
-        <p class="ba-note">Real customer projects — auto-loaded.</p>
+        <h2>Before &amp; After</h2>
+        <p class="ba-note">Real customer projects — auto-loaded from our gallery.</p>
       </div>
       <div id="ba-grid" class="ba-grid"></div>
       <div class="ba-actions"><button id="ba-loadmore" class="btn">Load 6 More</button></div>
@@ -417,12 +586,12 @@
           <span style="font-size: 24px;">👷‍♂️</span>
         </div>
         <h3 style="color: var(--gold);">The Hammer Guarantee</h3>
-        <p style="color: var(--muted);">"I don't just send a crew; I’m there to lead them. I personally guarantee detailed craftsmanship, total site protection, and a spotless finish."</p>
+        <p style="color: var(--muted);">"I don't just send a crew; I’m there to lead them. I personally guarantee detailed craftsmanship, total site protection, and a spotless finish on every project."</p>
         <p style="margin-top: 10px; font-weight: bold; color: #fff;">— The Owner</p>
       </div>
       <div>
         <h2>Why Neighbors Choose Us</h2>
-        <p>We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.</p>
+        <p>We aren't a generic franchise. We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.</p>
       </div>
     </section>
 
@@ -470,10 +639,10 @@
 
         <div style="border-radius:22px; overflow:hidden; border:1px solid var(--gold); box-shadow:0 10px 30px rgba(0,0,0,0.5); height:300px;">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48419.89787364654!2d-74.1500!3d40.6300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sStaten%20Island%2C%20NY!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3027.859876274296!2d-74.13735168459744!3d40.63297697934091!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24e6c38a83d3d%3A0x8e82683072292f7a!2sStaten%20Island%2C%20NY%2010302!5e0!3m2!1sen!2sus!4v1645564756245!5m2!1sen!2sus" 
             width="100%" 
             height="100%" 
-            style="border:0; filter: invert(90%) hue-rotate(180deg);" 
+            style="border:0; filter: invert(90%) hue-rotate(180deg) grayscale(20%) contrast(1.2);" 
             allowfullscreen="" 
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade">
