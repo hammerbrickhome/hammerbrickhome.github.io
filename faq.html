@@ -25,56 +25,34 @@
     {
       "@type": "Question",
       "name": "Do you provide free estimates?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer free estimates for homeowners in NYC and NJ. You can text us photos for a quick quote or schedule an in-person site visit." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer free estimates for homeowners in NYC and NJ." }
     },
     {
       "@type": "Question",
       "name": "Are you licensed, bonded, and insured?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We hold an NYC Home Improvement Contractor License (#21311291), are Bonded, and carry full General Liability & Workers' Comp insurance." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We hold an NYC Home Improvement Contractor License (#21311291), are Bonded, and carry full General Liability & Workers' Comp." }
     },
     {
       "@type": "Question",
-      "name": "How do I know if I need a roof repair or a full replacement?",
-      "acceptedAnswer": { "@type": "Answer", "text": "If your roof is over 20 years old, has curling shingles, or multiple leaks, a replacement is usually more cost-effective. If it's a single isolated leak from a storm, a repair is often sufficient. We provide an honest assessment." }
+      "name": "How long does a roof replacement take?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most residential roof replacements (Shingle or Flat) are completed in 1 to 2 days." }
     },
     {
       "@type": "Question",
-      "name": "Can you match my existing brick or mortar color?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Matching old NYC brick and mortar is an art. We use specialized techniques to blend new repairs with your existing facade so it doesn't look like a patch job." }
-    },
-    {
-      "@type": "Question",
-      "name": "What happens if you find hidden damage behind the walls?",
-      "acceptedAnswer": { "@type": "Answer", "text": "This is common in older homes. If we find rotted wood or plumbing issues, we stop, document it with photos, and provide a clear 'Change Order' price for approval before doing any extra work. No surprise bills." }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need an architect for my remodel?",
-      "acceptedAnswer": { "@type": "Answer", "text": "For cosmetic work (kitchens, baths, flooring), usually no. For structural changes (moving walls, extensions), yes. We can recommend trusted architects if your project requires one." }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you work in the winter?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We perform interior remodeling year-round. For exterior masonry and roofing, we work as long as temperatures allow materials to cure properly, often using heaters or additives when necessary." }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you offer warranties?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every project is different, so warranty coverage varies based on the scope of work and materials used. Specific warranty terms will be discussed and finalized when we sign the contract." }
+      "name": "Do you repair Brownstones and historic masonry?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We specialize in Brownstone facade repair and historic mortar matching." }
     }
   ]
 }
 </script>
 
 <style>
-/* --- FAQ SPECIFIC STYLES --- */
-
+/* --- FAQ SPECIFIC STYLES (Restored from your working version) --- */
 .faq-container {
   max-width: 900px;
   margin: 0 auto 60px;
 }
 
-/* Category Headers */
 .faq-category {
   color: var(--gold-soft);
   font-family: var(--font-serif);
@@ -86,12 +64,11 @@
   letter-spacing: 1px;
 }
 
-/* Individual Item Styling */
 .faq-item {
   margin-bottom: 12px;
   border-radius: 12px;
-  background: rgba(8, 16, 28, 0.95); /* Dark Luxury BG */
-  border: 1px solid rgba(231, 191, 99, 0.15); /* Subtle Gold Border */
+  background: rgba(8, 16, 28, 0.95);
+  border: 1px solid rgba(231, 191, 99, 0.15);
   overflow: hidden;
   transition: .3s ease;
 }
@@ -101,7 +78,6 @@
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Question Button */
 .faq-question {
   width: 100%;
   padding: 18px 24px;
@@ -123,7 +99,6 @@
   background: rgba(255,255,255,0.03);
 }
 
-/* Icon Rotation */
 .faq-icon {
   font-size: 20px;
   transition: transform 0.3s ease;
@@ -131,10 +106,9 @@
 }
 
 .faq-question.active .faq-icon {
-  transform: rotate(45deg); /* Turns (+) into (x) */
+  transform: rotate(45deg);
 }
 
-/* Answer Content */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
@@ -150,7 +124,6 @@
   color: var(--muted);
 }
 
-/* Call to Action Box at Bottom */
 .faq-cta {
   text-align: center;
   padding: 40px 20px;
@@ -180,7 +153,7 @@
       <div class="pill-row" style="justify-content: center; margin-top: 20px;">
         <span class="gold-pill">Licensed, Bonded & Insured</span>
         <span class="gold-pill">Permit Handling</span>
-        <span class="gold-pill">Contract-Based Warranty</span>
+        <span class="gold-pill">Warranty Included</span>
       </div>
     </div>
   </section>
@@ -259,28 +232,16 @@
         <div class="faq-answer"><p>Yes. Brownstone and historic masonry repair is a specialty. We match mortar colors and restore facades to their original character.</p></div>
       </div>
 
-      <h3 class="faq-category">Interiors & Commercial</h3>
-
-      <div class="faq-item">
-        <button class="faq-question">What happens if you find hidden damage behind walls?<span class="faq-icon">+</span></button>
-        <div class="faq-answer"><p>This is common in older homes. If we uncover hidden rot or plumbing issues, we stop immediately, document it with photos, and provide a clear "Change Order" price for your approval before proceeding. No surprise bills.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Do I need to move out during a remodel?<span class="faq-icon">+</span></button>
-        <div class="faq-answer"><p>Usually, no. For most kitchen, bath, or basement projects, we use heavy-duty dust barriers and negative air pressure to isolate the work zone, allowing you to live comfortably in the rest of your home.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Do you perform Commercial work?<span class="faq-icon">+</span></button>
-        <div class="faq-answer"><p>Yes. We handle commercial roofing, masonry, and "white-boxing" (preparing a space for a new tenant). We can schedule work nights/weekends to minimize disruption.</p></div>
-      </div>
-
-      <h3 class="faq-category">Permits & Safety</h3>
+      <h3 class="faq-category">Interiors, Permits & Safety</h3>
 
       <div class="faq-item">
         <button class="faq-question">Do I need an architect for my project?<span class="faq-icon">+</span></button>
         <div class="faq-answer"><p>For cosmetic work (kitchens, baths, flooring), generally no. For structural work (removing load-bearing walls, extensions), yes. We can recommend trusted architects if your project requires one.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What happens if you find hidden damage behind walls?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>This is common in older homes. If we uncover hidden rot or plumbing issues, we stop immediately, document it with photos, and provide a clear "Change Order" price for your approval before proceeding. No surprise bills.</p></div>
       </div>
 
       <div class="faq-item">
@@ -298,7 +259,16 @@
         <div class="faq-answer"><p>Yes. As an EPA Lead-Safe Certified Firm, we follow all required safety practices and dust containment procedures.</p></div>
       </div>
 
-      <h3 class="faq-category">Membership & Warranty</h3>
+      <h3 class="faq-category">Pricing Tiers & Warranty</h3>
+
+      <div class="faq-item">
+        <button class="faq-question">What is the difference between your tiers?<span class="faq-icon">+</span></button>
+        <div class="faq-answer">
+          <p><strong>Foundation:</strong> Standard materials, essential installation, basic cleanup.<br>
+          <strong>Premium:</strong> Upgraded materials, enhanced protection, cleaner finishing.<br>
+          <strong>Signature:</strong> Highest-grade materials, custom design, priority scheduling, white-glove cleanup.</p>
+        </div>
+      </div>
 
       <div class="faq-item">
         <button class="faq-question">Do you offer warranties?<span class="faq-icon">+</span></button>
@@ -324,6 +294,10 @@
   </section>
 
 </main>
+
+<a href="sms:+19295955300" class="floating-sms-btn">
+  <span>📱</span> Text Us Photos
+</a>
 
 <div id="footer-include"></div>
 
