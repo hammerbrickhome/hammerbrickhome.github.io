@@ -25,34 +25,76 @@
     {
       "@type": "Question",
       "name": "Do you provide free estimates?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer free estimates for homeowners in NYC and NJ." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer free estimates for homeowners in NYC and NJ. You can text us photos for a quick quote or schedule an in-person site visit." }
     },
     {
       "@type": "Question",
       "name": "Are you licensed, bonded, and insured?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We hold an NYC Home Improvement Contractor License (#21311291), are Bonded, and carry full General Liability & Workers' Comp." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We hold an NYC Home Improvement Contractor License (#21311291), are Bonded, and carry full General Liability & Workers' Comp insurance." }
     },
     {
       "@type": "Question",
       "name": "How long does a roof replacement take?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Most residential roof replacements (Shingle or Flat) are completed in 1 to 2 days." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Most residential roof replacements (Shingle or Flat) are completed in 1 to 2 days. We protect your property and clean up daily." }
     },
     {
       "@type": "Question",
       "name": "Do you repair Brownstones and historic masonry?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We specialize in Brownstone facade repair and historic mortar matching." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We specialize in Brownstone facade repair, stoop restoration, and color-matching historic mortar joints." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I drive on my new concrete driveway immediately?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. You can walk on it after 24 hours, but we recommend waiting 5-7 days before driving vehicles on new concrete to allow proper curing." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to move out during a kitchen or bath remodel?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Usually, no. We use heavy-duty dust barriers and air scrubbers to isolate the work area so you can live comfortably in the rest of your home." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer warranties?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every project is different, so warranty coverage varies based on the scope of work and materials used. Specific warranty terms will be discussed and finalized when we sign the contract." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle permits for renovations?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle all necessary Department of Buildings (DOB) permits, sidewalk violation removals, and landmark approvals." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you perform commercial work?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle commercial roofing, white-boxing for retail spaces, and masonry repairs. We can work nights or weekends to avoid disrupting your business." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if I need a roof repair or a full replacement?",
+      "acceptedAnswer": { "@type": "Answer", "text": "If your roof is over 20 years old, has curling shingles, or multiple leaks, a replacement is usually more cost-effective. If it's a single isolated leak from a storm, a repair is often sufficient. We provide an honest assessment." }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if you find hidden damage behind the walls?",
+      "acceptedAnswer": { "@type": "Answer", "text": "This is common in older homes. If we find rotted wood or plumbing issues, we stop, document it with photos, and provide a clear 'Change Order' price for approval before doing any extra work. No surprise bills." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you work in the winter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We perform interior remodeling year-round. For exterior masonry and roofing, we work as long as temperatures allow materials to cure properly, often using heaters or additives when necessary." }
     }
   ]
 }
 </script>
 
 <style>
-/* --- FAQ SPECIFIC STYLES (Restored from your working version) --- */
+/* --- FAQ SPECIFIC STYLES --- */
+
 .faq-container {
   max-width: 900px;
   margin: 0 auto 60px;
 }
 
+/* Category Headers */
 .faq-category {
   color: var(--gold-soft);
   font-family: var(--font-serif);
@@ -64,11 +106,12 @@
   letter-spacing: 1px;
 }
 
+/* Individual Item Styling */
 .faq-item {
   margin-bottom: 12px;
   border-radius: 12px;
-  background: rgba(8, 16, 28, 0.95);
-  border: 1px solid rgba(231, 191, 99, 0.15);
+  background: rgba(8, 16, 28, 0.95); /* Dark Luxury BG */
+  border: 1px solid rgba(231, 191, 99, 0.15); /* Subtle Gold Border */
   overflow: hidden;
   transition: .3s ease;
 }
@@ -78,6 +121,7 @@
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+/* Question Button */
 .faq-question {
   width: 100%;
   padding: 18px 24px;
@@ -99,6 +143,7 @@
   background: rgba(255,255,255,0.03);
 }
 
+/* Icon Rotation */
 .faq-icon {
   font-size: 20px;
   transition: transform 0.3s ease;
@@ -106,9 +151,10 @@
 }
 
 .faq-question.active .faq-icon {
-  transform: rotate(45deg);
+  transform: rotate(45deg); /* Turns (+) into (x) */
 }
 
+/* Answer Content */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
@@ -124,6 +170,7 @@
   color: var(--muted);
 }
 
+/* Call to Action Box at Bottom */
 .faq-cta {
   text-align: center;
   padding: 40px 20px;
@@ -153,7 +200,7 @@
       <div class="pill-row" style="justify-content: center; margin-top: 20px;">
         <span class="gold-pill">Licensed, Bonded & Insured</span>
         <span class="gold-pill">Permit Handling</span>
-        <span class="gold-pill">Warranty Included</span>
+        <span class="gold-pill">Contract-Based Warranty</span>
       </div>
     </div>
   </section>
@@ -259,16 +306,17 @@
         <div class="faq-answer"><p>Yes. As an EPA Lead-Safe Certified Firm, we follow all required safety practices and dust containment procedures.</p></div>
       </div>
 
-      <h3 class="faq-category">Pricing Tiers & Warranty</h3>
+      <div class="faq-item">
+        <button class="faq-question">Do I need to move out during a remodel?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Usually, no. For most kitchen, bath, or basement projects, we use heavy-duty dust barriers and negative air pressure to isolate the work zone, allowing you to live comfortably in the rest of your home.</p></div>
+      </div>
 
       <div class="faq-item">
-        <button class="faq-question">What is the difference between your tiers?<span class="faq-icon">+</span></button>
-        <div class="faq-answer">
-          <p><strong>Foundation:</strong> Standard materials, essential installation, basic cleanup.<br>
-          <strong>Premium:</strong> Upgraded materials, enhanced protection, cleaner finishing.<br>
-          <strong>Signature:</strong> Highest-grade materials, custom design, priority scheduling, white-glove cleanup.</p>
-        </div>
+        <button class="faq-question">Do you perform Commercial work?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Yes. We handle commercial roofing, masonry, and "white-boxing" for retail spaces. We can schedule work nights/weekends to minimize disruption.</p></div>
       </div>
+
+      <h3 class="faq-category">Warranty & Membership</h3>
 
       <div class="faq-item">
         <button class="faq-question">Do you offer warranties?<span class="faq-icon">+</span></button>
@@ -294,10 +342,6 @@
   </section>
 
 </main>
-
-<a href="sms:+19295955300" class="floating-sms-btn">
-  <span>📱</span> Text Us Photos
-</a>
 
 <div id="footer-include"></div>
 
