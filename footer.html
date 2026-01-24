@@ -1,4 +1,4 @@
-<footer class="site-footer" style="text-align:center; padding:30px 16px; background:#071426; color:#f5d89b; font-size:14px; line-height:1.6;">
+<footer class="site-footer" style="text-align:center; padding:35px 16px; background:#071426; color:#f5d89b; font-size:14px; line-height:1.6;">
 
   <nav aria-label="Quick Links" style="margin-bottom: 20px;">
     <a href="/services.html" style="color:#f5d89b; margin:0 8px; text-decoration:none; font-weight:600;">Residential & Commercial</a>
@@ -20,6 +20,7 @@
       <svg width="24" height="24" viewBox="0 0 24 24" style="fill:#fff; transition:0.3s;">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
         <circle cx="12" cy="12" r="4" fill="#071426"></circle>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#071426" stroke-width="2" stroke-linecap="round"></line>
         <path d="M12,7A5,5 0 1,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 1,0 15,12A3,3 0 0,0 12,9M17.25,5.5A1.25,1.25 0 1,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5Z" fill="#fff"></path>
       </svg>
     </a>
@@ -30,25 +31,26 @@
     </a>
   </div>
 
-  <div>
+  <div style="margin-bottom: 12px;">
     © <span id="yr"></span> <strong>Hammer Brick & Home LLC</strong>. All Rights Reserved.<br>
     <span style="font-size: 13px; opacity: 0.9;">NYC HIC License #2131291</span>
   </div>
 
-  <div style="margin-top: 8px;">
-    Serving all 5 Boroughs: <strong>Brooklyn</strong> · <strong>Staten Island</strong> · <strong>Queens</strong> · <strong>Manhattan</strong> · <strong>Bronx</strong>
+  <div style="margin-top: 8px; line-height: 1.8;">
+    Serving: <strong>Staten Island</strong> · <strong>Brooklyn</strong> · <strong>Queens</strong> · <strong>Manhattan</strong> · <strong>Bronx</strong> · <strong>New Jersey</strong>
   </div>
   
-  <div style="font-size: 11px; margin-top: 6px; opacity: 0.7;">
+  <div style="font-size: 11px; margin-top: 8px; opacity: 0.8; font-weight: 500;">
     Licensed, Bonded & Insured · EPA Lead-Safe Certified Firm
   </div>
 
-  <div style="font-size: 10px; margin-top: 15px; opacity: 0.5; letter-spacing: 0.5px; text-transform: uppercase;">
-    Luxury Remodeling · Commercial Masonry · Concrete Specialists · NYC Home Improvement
+  <div style="font-size: 10px; margin-top: 20px; opacity: 0.4; letter-spacing: 0.5px; text-transform: uppercase;">
+    Luxury Remodeling · Commercial Masonry · Concrete Specialists · Custom Brickwork
   </div>
 </footer>
 
 <script>
+  // Auto-updates year in the footer
   (function () {
     const y = document.getElementById('yr');
     if (y) {
@@ -58,6 +60,7 @@
 </script>
 
 <style>
+  /* Hover Effect: Icons turn Gold */
   .social-links svg:hover {
     fill: #e7bf63 !important;
     transform: translateY(-3px);
