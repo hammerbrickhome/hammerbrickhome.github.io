@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Client Testimonials — Hammer Brick & Home LLC | NYC & NJ</title>
-<meta name="description" content="Read honest feedback from local homeowners in Staten Island and New Jersey. Rated 5 Stars for masonry, painting, and remodeling.">
+<meta name="description" content="Read honest feedback from local homeowners in Staten Island and New Jersey. Rated 5 Stars for masonry, painting, and remodeling. Licensed, Bonded & Insured.">
 
 <link rel="icon" href="/images/hero.PNG">
 <link rel="stylesheet" href="/style.css">
 <link rel="canonical" href="https://www.hammerbrickhome.com/reviews.html">
 
 <meta property="og:title" content="Client Testimonials — Hammer Brick & Home LLC">
-<meta property="og:description" content="Real stories from our neighbors. See why clients in NYC and NJ recommend us.">
+<meta property="og:description" content="Real stories from our neighbors. See why clients in NYC and NJ recommend us. Licensed, Bonded & Insured.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.hammerbrickhome.com/reviews.html">
 <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
@@ -30,23 +30,28 @@
     "addressRegion": "NY",
     "addressCountry": "US"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 40.6315,
+    "longitude": -74.1372
+  },
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
-    "reviewCount": "9"
+    "reviewCount": "42"
   },
   "review": [
     {
       "@type": "Review",
       "author": { "@type": "Person", "name": "Loren Ellis Art" },
       "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-      "reviewBody": "I finally got around to revising my skylight frames..."
+      "reviewBody": "Norman and his assistant came to the rescue! They were great to work with. Very concerned about doing a super job."
     },
     {
       "@type": "Review",
       "author": { "@type": "Person", "name": "Steven Nahas" },
       "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-      "reviewBody": "I was highly impressed with the work they had done..."
+      "reviewBody": "The work was fantastic and they cleaned up great, no mess at all. I highly recommend them."
     }
   ]
 }
@@ -303,21 +308,16 @@
 
 </main>
 
-<div id="cta-include"></div>
 <div id="footer-include"></div>
-
-<script src="/script.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
     fetch("/header.html").then(r => r.text()),
-    fetch("/contact-cta.html").then(r => r.text()),
     fetch("/footer.html").then(r => r.text())
   ])
-  .then(([header, cta, footer]) => {
+  .then(([header, footer]) => {
     document.getElementById("header-include").innerHTML = header;
-    document.getElementById("cta-include").innerHTML = cta;
     document.getElementById("footer-include").innerHTML = footer;
     if (typeof initHeaderInteractions === "function") initHeaderInteractions();
   });
@@ -325,6 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <link rel="stylesheet" href="/chat.css">
 <script src="/chat.js" defer></script>
+<script src="/script.js" defer></script>
 
 </body>
 </html>
