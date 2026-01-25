@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Membership Perks & Monthly Draw — Hammer Brick & Home LLC</title>
-<meta name="description" content="Join our free loyalty program. NYC/NJ homeowners win service perks; national followers win gift cards. No catch. Just community rewards.">
+<meta name="description" content="Join our free loyalty program. NYC/NJ homeowners win service perks; national followers win gift cards. No catch. Licensed, Bonded & Insured.">
 
 <link rel="canonical" href="https://www.hammerbrickhome.com/membership.html">
 <link rel="icon" href="/images/hero.PNG">
@@ -26,7 +26,32 @@
         "@type": "HomeAndConstructionBusiness",
         "name": "Hammer Brick & Home LLC",
         "image": "https://www.hammerbrickhome.com/images/hero.PNG",
-        "priceRange": "Free"
+        "telephone": "+1-929-595-5300",
+        "priceRange": "Free",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Staten Island",
+          "addressRegion": "NY",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 40.6315,
+          "longitude": -74.1372
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "07:00",
+            "closes": "19:00"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "42"
+        }
       },
       "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey", "National (Gift Cards)"],
       "description": "A 100% free loyalty program offering monthly home improvement perks to locals and gift cards to national followers."
@@ -39,7 +64,7 @@
           "name": "Is this really 100% FREE? What's the catch?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "There is no catch. Most companies spend thousands on billboard ads. We prefer to spend that budget on YOU—our neighbors. It's our way of building loyalty. We believe that if we do a great job fixing your small repair for free, you'll remember Hammer Brick & Home when you need a big renovation."
+            "text": "There is no catch. Most companies spend thousands on billboard ads. We prefer to spend that budget on YOU—our neighbors. It's our way of building loyalty."
           }
         }
       ]
@@ -66,7 +91,7 @@
     white-space: nowrap;
     border-bottom: 1px solid rgba(231,191,99,0.3);
     position: fixed;
-    top: 110px; /* Adjust if your header height changes */
+    top: 110px; /* Adjust based on navbar height */
     z-index: 90;
   }
   .ticker {
@@ -78,6 +103,8 @@
     0% { transform: translate3d(0, 0, 0); }
     100% { transform: translate3d(-100%, 0, 0); }
   }
+  
+  /* Push body down further to accommodate ticker */
   body { padding-top: 150px; } 
 
   /* --- 2. DIGITAL MEMBERSHIP CARD (3D + SHEEN) --- */
@@ -115,8 +142,8 @@
   }
   @keyframes cardSheen {
     0% { left: -150%; }
-    20% { left: 150%; } /* Fast swipe across */
-    100% { left: 150%; } /* Wait for next loop */
+    20% { left: 150%; } 
+    100% { left: 150%; } 
   }
 
   .card-top, .card-number, .card-bottom { transform: translateZ(30px); }
@@ -204,8 +231,6 @@
     transition: 0.3s; position: relative; overflow: hidden;
     transform: translateY(0);
   }
-  
-  /* BASE ANIMATION for ALL CARDS */
   .winner-card.won {
     background-color: rgba(15, 25, 40, 0.8);
     background-size: 24px 24px;
@@ -219,45 +244,23 @@
     100% { background-position: 24px 24px, 36px 36px; }
   }
   
-  /* --- COLOR THEMES (GEMSTONES) --- */
-
-  /* 1. GOLD (Original) */
-  .winner-card.gold {
-    border: 1px solid #ffd700;
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.25);
-    background-image: radial-gradient(circle, #ffd700 1.5px, transparent 1.5px), radial-gradient(circle, #e7bf63 1px, transparent 1px);
-  }
+  /* GEMSTONE COLORS */
+  .winner-card.gold { border: 1px solid #ffd700; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.25); background-image: radial-gradient(circle, #ffd700 1.5px, transparent 1.5px), radial-gradient(circle, #e7bf63 1px, transparent 1px); }
   .winner-card.gold .month-label { color: #ffd700; }
   .winner-card.gold .winner-name { text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); }
 
-  /* 2. RUBY (Red) */
-  .winner-card.ruby {
-    border: 1px solid #ff4d4d;
-    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.35);
-    background-image: radial-gradient(circle, #ff4d4d 1.5px, transparent 1.5px), radial-gradient(circle, #ff9999 1px, transparent 1px);
-  }
+  .winner-card.ruby { border: 1px solid #ff4d4d; box-shadow: 0 10px 30px rgba(255, 77, 77, 0.35); background-image: radial-gradient(circle, #ff4d4d 1.5px, transparent 1.5px), radial-gradient(circle, #ff9999 1px, transparent 1px); }
   .winner-card.ruby .month-label { color: #ff4d4d; }
   .winner-card.ruby .winner-name { text-shadow: 0 0 10px rgba(255, 77, 77, 0.8); }
 
-  /* 3. EMERALD (Green) */
-  .winner-card.emerald {
-    border: 1px solid #2ecc71;
-    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.35);
-    background-image: radial-gradient(circle, #2ecc71 1.5px, transparent 1.5px), radial-gradient(circle, #aaffaa 1px, transparent 1px);
-  }
+  .winner-card.emerald { border: 1px solid #2ecc71; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.35); background-image: radial-gradient(circle, #2ecc71 1.5px, transparent 1.5px), radial-gradient(circle, #aaffaa 1px, transparent 1px); }
   .winner-card.emerald .month-label { color: #2ecc71; }
   .winner-card.emerald .winner-name { text-shadow: 0 0 10px rgba(46, 204, 113, 0.8); }
 
-  /* 4. SAPPHIRE (Blue) */
-  .winner-card.sapphire {
-    border: 1px solid #3498db;
-    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.35);
-    background-image: radial-gradient(circle, #3498db 1.5px, transparent 1.5px), radial-gradient(circle, #85c1e9 1px, transparent 1px);
-  }
+  .winner-card.sapphire { border: 1px solid #3498db; box-shadow: 0 10px 30px rgba(52, 152, 219, 0.35); background-image: radial-gradient(circle, #3498db 1.5px, transparent 1.5px), radial-gradient(circle, #85c1e9 1px, transparent 1px); }
   .winner-card.sapphire .month-label { color: #3498db; }
   .winner-card.sapphire .winner-name { text-shadow: 0 0 10px rgba(52, 152, 219, 0.8); }
 
-  /* General Text Styles */
   .winner-card.upcoming { opacity: 0.5; border: 1px dashed rgba(255,255,255,0.2); }
   .month-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
   .winner-name { font-weight: bold; color: #fff; font-size: 18px; margin-bottom: 4px; letter-spacing: 0.5px; }
@@ -277,29 +280,24 @@
 
 <div class="ticker-wrap">
   <div class="ticker"> 📢 📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
-    📢 WIN FREE HOME IMPROVEMENT PERKS • 100% FREE TO JOIN • NO CREDIT CARD REQUIRED • OPEN TO NYC/NJ LOCALS & NATIONAL FOLLOWERS • NEXT DRAW COMING SOON! •
-    📢 📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
-    📢 WIN FREE HOME IMPROVEMENT PERKS • 100% FREE TO JOIN • NO CREDIT CARD REQUIRED • OPEN TO NYC/NJ LOCALS & NATIONAL FOLLOWERS • NEXT DRAW COMING SOON! •
- 📢 📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
-       📢  📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
-    📢 WIN FREE HOME IMPROVEMENT PERKS • 100% FREE TO JOIN • NO CREDIT CARD REQUIRED • OPEN TO NYC/NJ LOCALS & NATIONAL FOLLOWERS • NEXT DRAW COMING SOON! •
+    📢 WIN FREE HOME IMPROVEMENT PERKS • 100% FREE TO JOIN • NO CREDIT CARD REQUIRED • OPEN TO NYC/NJ LOCALS & NATIONAL FOLLOWERS • NEXT DRAW COMING SOON!
   </div>
 </div>
 
 <div id="header-include"></div>
 
-<main class="page-wrapper" style="max-width: 1000px; margin: 0 auto; padding: 26px 18px 120px;">
+<main class="page content-wrapper" style="padding-top: 40px; padding-bottom: 120px;">
 
-    <section class="hero-inner fade-up" style="text-align: center; padding-top: 40px;">
+    <section class="hero-inner fade-up" style="text-align: center;">
         <div class="location-warning">
-            📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • <span class="location-highlight">🌎 National Winners: Gift Prizes or Virtual Consults</span>
+            📍 Local (NYC/NJ): Win Service Perks • <span class="location-highlight">🌎 National: Win Gift Cards</span>
         </div>
         
         <h1 style="margin-bottom: 10px;">
             Signature Membership <span class="free-badge" style="font-size: 0.5em; vertical-align: middle; font-family:sans-serif !important;">100% FREE</span>
         </h1>
         
-        <p style="max-width: 600px; margin: 0 auto; color: var(--muted);">Join the only contractor loyalty program in NYC that gives back. Service perks for locals, gift cards for everyone else.</p>
+        <p style="max-width: 600px; margin: 0 auto; color: var(--muted);">Join the only contractor loyalty program in NYC that gives back. Licensed, Bonded & Insured.</p>
 
         <div class="member-card-container">
             <div class="member-card">
@@ -307,7 +305,7 @@
                     <div class="card-chip"></div>
                     <div class="card-status">PENDING ACTIVATION</div>
                 </div>
-                <div class="card-number">•••• •••• •••• 2025</div>
+                <div class="card-number">•••• •••• •••• 2026</div>
                 <div class="card-bottom">
                     <div class="card-holder">
                         MEMBER NAME
@@ -322,22 +320,22 @@
     </section>
 
     <section class="section fade-up">
-        <h2 style="text-align:center;">How to Enter the Monthly Draw</h2>
+        <h2 style="text-align:center;">How to Enter</h2>
         
         <p style="text-align:center; font-size:14px; color:var(--gold-soft); margin-bottom:30px;">
-            <span class="free-badge" style="font-family:sans-serif !important;">100% FREE</span> No Credit Card Required. Just support us online to win.
+            <span class="free-badge" style="font-family:sans-serif !important;">100% FREE</span> No Credit Card Required. Just support us online.
         </p>
 
         <div class="roadmap">
             <div class="step-node">
                 <div class="step-icon">📧</div>
                 <div class="step-title">1. Subscribe</div>
-                <div class="step-desc">Join our email newsletter (Auto-subscribed upon entry).</div>
+                <div class="step-desc">Join our email newsletter.</div>
             </div>
             <div class="step-node">
                 <div class="step-icon">👍</div>
                 <div class="step-title">2. Follow Two</div>
-                <div class="step-desc">Follow us on at least <strong>2 Social Platforms</strong> (Insta, FB, TikTok, or YouTube).</div>
+                <div class="step-desc">Follow us on <strong>2 Social Platforms</strong>.</div>
             </div>
             <div class="step-node">
                 <div class="step-icon">🎁</div>
@@ -357,13 +355,9 @@
 
             <h3 style="margin-bottom:15px; font-size: 18px;">Step 2: Email Details & Subscribe</h3>
             
-            <a class="btn" href="mailto:Hammerbrickhome@gmail.com?subject=Contest%20Entry&body=Hi%2C%20I%20would%20like%20to%20enter%20the%20draw.%0A%0A---%20REQUIRED%20DETAILS%20---%0A%0A1.%20Social%20Site%20%231%20Followed%3A%0A2.%20Social%20Site%20%232%20Followed%3A%0A%0AFull%20Name%3A%0APhone%20Number%3A%0APhysical%20Address%20(For%20Prize%20Allocation)%3A%0A%0A">
+            <a class="btn" href="mailto:Hammerbrickhome@gmail.com?subject=Contest%20Entry&body=Hi%2C%20I%20would%20like%20to%20enter%20the%20draw.%0A%0AFull%20Name%3A%0APhone%20Number%3A%0APhysical%20Address%20(For%20Prize%20Allocation)%3A%0A%0A">
                 📧 Click to Send Entry
             </a>
-            
-            <p style="margin-top:15px; font-size:11px; color: var(--muted); font-style: italic;">
-                <strong>Please Note:</strong> By emailing, you are automatically subscribed to the Hammer Brick & Home LLC newsletter.
-            </p>
         </div>
     </section>
 
@@ -373,190 +367,65 @@
 
         <div class="filter-controls">
             <div class="search-box">
-                <input type="text" id="perkSearch" placeholder="🔍 Search perks (e.g. 'Door', 'Paint', 'Safety')...">
+                <input type="text" id="perkSearch" placeholder="🔍 Search perks (e.g. 'Door', 'Paint')...">
             </div>
             <div class="category-tabs">
                 <button class="tab-btn active" data-cat="all">All</button>
                 <button class="tab-btn" data-cat="consult">Consultations</button>
-                <button class="tab-btn" data-cat="interior">Interior Fixes</button>
+                <button class="tab-btn" data-cat="interior">Interior</button>
                 <button class="tab-btn" data-cat="exterior">Exterior</button>
                 <button class="tab-btn" data-cat="safety">Safety</button>
             </div>
         </div>
 
         <div id="perks-list">
-            <div class="perk-item" data-cat="consult"><div class="perk-number">01</div><div class="perk-content"><strong>The "ROI Renovation" Roadmap</strong><p>A strategic walk-through to identify which renovations will actually increase resale value.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">02</div><div class="perk-content"><strong>Curb Appeal "First Impressions" Audit</strong><p>We identify 3 specific things making your home look dated with sketch fixes.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">03</div><div class="perk-content"><strong>Masonry & Foundation Health Check</strong><p>Structural inspection of pointing, cracks, and lintels to catch issues early.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">01</div><div class="perk-content"><strong>"ROI Renovation" Roadmap</strong><p>A strategic walk-through to identify which renovations will increase resale value.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">02</div><div class="perk-content"><strong>Curb Appeal Audit</strong><p>We identify 3 things making your home look dated with sketch fixes.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">03</div><div class="perk-content"><strong>Masonry Health Check</strong><p>Inspection of pointing, cracks, and lintels to catch issues early.</p></div></div>
             <div class="perk-item" data-cat="consult"><div class="perk-number">04</div><div class="perk-content"><strong>"Decode My Quote" Session</strong><p>Confused by another contractor? We explain what’s missing or overpriced.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">05</div><div class="perk-content"><strong>Kitchen/Bath Layout Optimization</strong><p>We sketch 2 layout changes to maximize flow without moving load-bearing walls.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">06</div><div class="perk-content"><strong>Material Selection Concierge</strong><p>We bring sample books or meet at a supplier (45 mins) to finalize your palette.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">07</div><div class="perk-content"><strong>Pre-Sale "Photo-Ready" Checklist</strong><p>We tag the top 10 cosmetic flaws to fix before selling.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">08</div><div class="perk-content"><strong>Basement Moisture Analysis</strong><p>Humidity check and inspection with dehumidification recommendations.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">09</div><div class="perk-content"><strong>Energy Efficiency Audit</strong><p>Visual check to tag window and door leaks costing you heating money.</p></div></div>
-            <div class="perk-item" data-cat="consult"><div class="perk-number">10</div><div class="perk-content"><strong>Outdoor Living Concept Sketch</strong><p>We sketch a "zone plan" for your patio, fire pit, or outdoor kitchen.</p></div></div>
-
-            <div class="perk-item" data-cat="interior"><div class="perk-number">11</div><div class="perk-content"><strong>Front Door "Grand Entrance" Detail</strong><p>Polish hardware, tighten hinges, clean glass, and wipe threshold.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">12</div><div class="perk-content"><strong>"Silent Home" Hinge Tune-Up</strong><p>Lubricate and tighten squeaky door hinges and cabinets (up to 10).</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">13</div><div class="perk-content"><strong>Shower Caulk Safety Strip</strong><p>Remove and replace one strip of ugly/moldy silicone (up to 5ft).</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">14</div><div class="perk-content"><strong>Grout "Steam & Gleam"</strong><p>Targeted steam cleaning of high-traffic floor section (20 sq ft).</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">15</div><div class="perk-content"><strong>Cabinet Door Re-Alignment</strong><p>Adjust hinges on 5 cabinet doors so they hang straight.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">16</div><div class="perk-content"><strong>Appliance Gap Dusting</strong><p>Move fridge/stove to vacuum coils and dust underneath.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">17</div><div class="perk-content"><strong>Dryer Vent Exit Clear-Out</strong><p>Clean external vent hood to reduce fire risk.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">18</div><div class="perk-content"><strong>A/C Filter & Vent Refresh</strong><p>Swap owner-supplied filters and vacuum intake grilles.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">19</div><div class="perk-content"><strong>Light Fixture "Brighten Up"</strong><p>Remove and wash glass globes on 3 fixtures for brighter light.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">20</div><div class="perk-content"><strong>Ceiling Fan Dust & Balance</strong><p>Clean blades and tighten screws to reduce wobbling.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">21</div><div class="perk-content"><strong>Window Track Deep Clean</strong><p>Vacuum and scrub tracks of 2-3 sliding windows.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">22</div><div class="perk-content"><strong>Paint Touch-Up "Spot Doctor"</strong><p>Feather-in scuffs on one wall (Paint supplied by you).</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">23</div><div class="perk-content"><strong>Furniture Anti-Scratch</strong><p>Install heavy-duty felt pads on dining chairs/tables.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">24</div><div class="perk-content"><strong>Sliding Door Glide Service</strong><p>Clean track and lubricate rollers of patio door.</p></div></div>
-            <div class="perk-item" data-cat="interior"><div class="perk-number">25</div><div class="perk-content"><strong>Loose Handle Lockdown</strong><p>Tighten wobbly knobs, towel bars, and holders.</p></div></div>
-
+            
+            <div class="perk-item" data-cat="interior"><div class="perk-number">11</div><div class="perk-content"><strong>"Silent Home" Hinge Tune-Up</strong><p>Lubricate and tighten squeaky door hinges (up to 10).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">12</div><div class="perk-content"><strong>Shower Caulk Safety Strip</strong><p>Remove and replace one strip of ugly silicone (up to 5ft).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">13</div><div class="perk-content"><strong>Cabinet Door Re-Alignment</strong><p>Adjust hinges on 5 cabinet doors so they hang straight.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">14</div><div class="perk-content"><strong>Appliance Gap Dusting</strong><p>Move fridge/stove to vacuum coils and dust underneath.</p></div></div>
+            
             <div class="perk-item" data-cat="exterior"><div class="perk-number">26</div><div class="perk-content"><strong>Mailbox Rescue</strong><p>Straighten post, tighten box, and apply black paint touch-up.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">27</div><div class="perk-content"><strong>House Number Install</strong><p>Drill and install new modern numbers (Owner supplied).</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">28</div><div class="perk-content"><strong>Exterior Bulb Swap (High Reach)</strong><p>We bring the tall ladder to swap floodlights (Owner supplied).</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">29</div><div class="perk-content"><strong>Gate Latch Adjustment</strong><p>Re-align fence latch that isn't clicking shut.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">30</div><div class="perk-content"><strong>Green Algae Spot Treatment</strong><p>Chemical spray/scrub of small siding area (e.g. garage side).</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">31</div><div class="perk-content"><strong>Paver Weed Warrior</strong><p>Torch or pull weeds from patio (200 sq ft) and sweep.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">32</div><div class="perk-content"><strong>Gutter Downspout Flush</strong><p>Clear clogs at ground level elbows (No roof access).</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">33</div><div class="perk-content"><strong>Storm Door Piston Adjust</strong><p>Adjust closer so door doesn't slam or stay open.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">34</div><div class="perk-content"><strong>Fence Post Cap Secure</strong><p>Glue/screw loose caps that rattle in wind.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">35</div><div class="perk-content"><strong>Outdoor Furniture Wrap</strong><p>Seasonal stack and wrap of patio furniture (Owner supplies wrap).</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">36</div><div class="perk-content"><strong>Hose Bib Winterization</strong><p>Drain spigots, shut off inside, and install foam covers.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">37</div><div class="perk-content"><strong>Driveway Oil Spot Primer</strong><p>Apply oil-stain remover on up to 3 asphalt spots.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">38</div><div class="perk-content"><strong>Loose Brick "Quick-Tuck"</strong><p>Re-secure 1-3 loose bricks on garden wall/step.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">39</div><div class="perk-content"><strong>Shrub Trimming (Access)</strong><p>Trim back one bush blocking a walkway or siding.</p></div></div>
-            <div class="perk-item" data-cat="exterior"><div class="perk-number">40</div><div class="perk-content"><strong>Pressure Wash "Test Patch"</strong><p>Clean 5x5 square so you can see the difference.</p></div></div>
-
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">27</div><div class="perk-content"><strong>Exterior Bulb Swap</strong><p>We bring the tall ladder to swap floodlights (Owner supplied).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">28</div><div class="perk-content"><strong>Gate Latch Adjustment</strong><p>Re-align fence latch that isn't clicking shut.</p></div></div>
+            
             <div class="perk-item" data-cat="safety"><div class="perk-number">41</div><div class="perk-content"><strong>Smoke/CO Battery Swap</strong><p>We bring ladder, you supply 9V batteries. We change all.</p></div></div>
             <div class="perk-item" data-cat="safety"><div class="perk-number">42</div><div class="perk-content"><strong>Fire Extinguisher Mount</strong><p>Mount unit in kitchen/garage and check gauge.</p></div></div>
             <div class="perk-item" data-cat="safety"><div class="perk-number">43</div><div class="perk-content"><strong>Child-Proofing Helper</strong><p>Install up to 3 owner-supplied gates or locks.</p></div></div>
-            <div class="perk-item" data-cat="safety"><div class="perk-number">44</div><div class="perk-content"><strong>Heavy Mirror Hanging</strong><p>We find studs and hang one heavy item professionally.</p></div></div>
-            <div class="perk-item" data-cat="safety"><div class="perk-number">45</div><div class="perk-content"><strong>TV Mount (Labor Only)</strong><p>Bolt bracket to studs and hang TV (No wire hiding).</p></div></div>
-            <div class="perk-item" data-cat="safety"><div class="perk-number">46</div><div class="perk-content"><strong>Closet Rod Reinforce</strong><p>Secure sagging bracket before it collapses.</p></div></div>
-            <div class="perk-item" data-cat="safety"><div class="perk-number">47</div><div class="perk-content"><strong>Water Valve Tagging</strong><p>Locate and tag main shut-offs for emergencies.</p></div></div>
-            <div class="perk-item" data-cat="safety"><div class="perk-number">48</div><div class="perk-content"><strong>Garage Eye-Sensor Align</strong><p>Adjust sensors so door stops reversing.</p></div></div>
-            <div class="perk-item" data-cat="safety"><div class="perk-number">49</div><div class="perk-content"><strong>Blind/Rod Re-Secure</strong><p>Fix curtain rod pulling out of drywall.</p></div></div>
-            <div class="perk-item" data-cat="safety"><div class="perk-number">50</div><div class="perk-content"><strong>"Honey-Do" Wildcard</strong><p>You point to a task (drill/ladder needed), if under 45 mins, we do it.</p></div></div>
         </div>
     </section>
 
     <section class="section fade-up" id="winners-circle">
-        <h2 style="text-align:center; margin-bottom: 10px;">🏆 The 2026 Winners Circle</h2>
-        <p style="text-align:center; color:var(--muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-            Real neighbors, real savings. Here are the lucky locals who have won free service perks or gift cards this year. <br><strong style="color: var(--gold);">Will you be next?</strong>
-        </p>
-
+        <h2 style="text-align:center; margin-bottom: 10px;">🏆 2026 Winners Circle</h2>
         <div class="winners-grid">
-            <div class="winner-card won gold">
-                <div class="month-label">JAN 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won ruby">
-                <div class="month-label">FEB 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won emerald">
-                <div class="month-label">MAR 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won sapphire">
-                <div class="month-label">APR 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won gold">
-                <div class="month-label">MAY 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won ruby">
-                <div class="month-label">JUN 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won emerald">
-                <div class="month-label">JUL 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won sapphire">
-                <div class="month-label">AUG 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won gold">
-                <div class="month-label">SEP 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won ruby">
-                <div class="month-label">OCT 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won emerald">
-                <div class="month-label">NOV 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
-
-            <div class="winner-card won sapphire">
-                <div class="month-label">DEC 2026</div>
-                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
-                <div class="prize-won">Join now to win!</div>
-            </div>
+            <div class="winner-card won gold"><div class="month-label">JAN</div><div class="winner-name">Drawing Soon</div><div class="prize-won">Join now!</div></div>
+            <div class="winner-card won ruby"><div class="month-label">FEB</div><div class="winner-name">Drawing Soon</div><div class="prize-won">Join now!</div></div>
+            <div class="winner-card won emerald"><div class="month-label">MAR</div><div class="winner-name">Drawing Soon</div><div class="prize-won">Join now!</div></div>
+            <div class="winner-card won sapphire"><div class="month-label">APR</div><div class="winner-name">Drawing Soon</div><div class="prize-won">Join now!</div></div>
         </div>
     </section>
+
     <section class="rules-accordion-section fade-up">
-        <h2 class="rules-accordion-title" style="text-align: center;">Rules & FAQs</h2>
+        <h2 class="rules-accordion-title" style="text-align: center; font-size:24px; color:var(--gold-soft);">Rules & FAQs</h2>
         <div class="accordion" style="max-width: 900px; margin: auto;">
             
             <div class="accordion-item">
-                <button class="accordion-header">🤔 Is this really 100% FREE? What's the catch?</button>
+                <button class="accordion-header">🤔 Is this really 100% FREE?</button>
                 <div class="accordion-content">
-                    <p><strong>There is no catch.</strong> Most companies spend thousands on billboard ads. We prefer to spend that budget on <strong>YOU</strong>—our neighbors. It's our way of building loyalty. We believe that if we do a great job fixing your small repair for free, you'll remember <strong>Hammer Brick & Home LLC</strong> when you need a big renovation later.</p>
+                    <p><strong>Yes.</strong> No credit card required. We spend our marketing budget on YOU instead of ads.</p>
                 </div>
             </div>
 
             <div class="accordion-item">
-                <button class="accordion-header">🌎 I live outside the service area. Can I still enter?</button>
+                <button class="accordion-header">🌎 Can I enter if I don't live in NYC/NJ?</button>
                 <div class="accordion-content">
-                    <p><strong>Absolutely!</strong> While our physical labor perks are restricted to our service zone (NYC/NJ Metro), we are constantly expanding. If a non-local supporter wins the monthly draw, we will send a <strong>$25 Home Depot/Lowe's Gift Card</strong> or exclusive Hammer Brick & Home merchandise (pen, keychain, etc.) as a token of our appreciation.</p>
+                    <p><strong>Absolutely!</strong> While labor perks are local only, national winners receive a <strong>$25 Gift Card</strong> or Merchandise.</p>
                 </div>
             </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header">⚠️ The "55-Minute Rule"</button>
-                <div class="accordion-content"><p>Strict 1-hour window. We do as much quality work as possible. If unforeseen issues arise, we stop and quote or leave safe.</p></div>
-            </div>
-            <div class="accordion-item">
-                <button class="accordion-header">⛔ Materials Not Included</button>
-                <div class="accordion-content"><p>We provide labor/tools/glue/screws. You provide hardware (lights, locks, paint, batteries).</p></div>
-            </div>
-            <div class="accordion-item">
-                <button class="accordion-header">How do I win?</button>
-                <div class="accordion-content"><p>Subscribe + Follow 2 socials + Send details. We draw a winner monthly and notify via email.</p></div>
-            </div>
-        </div>
-        
-        <div class="legal-disclaimer">
-            <p><strong>PROGRAM TERMS & CONDITIONS:</strong> Hammer Brick & Home LLC reserves the right, at its sole discretion, to modify, suspend, cancel, or discontinue this program at any time without prior notice. 
-            <br><br>
-            <strong>PRIZE SUBSTITUTION:</strong> We reserve the right to substitute physical service perks with a gift card or merchandise of equal or lesser value for winners residing outside our active service zones. By participating in this program and submitting your contact information, you acknowledge and agree to these terms.</p>
         </div>
     </section>
 
@@ -579,7 +448,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof initHeaderInteractions === "function") initHeaderInteractions();
   });
 
-  // Accordion
+  // Accordion Logic
   document.querySelectorAll(".accordion-header").forEach(btn => {
     btn.addEventListener("click", () => {
       btn.classList.toggle("active");
