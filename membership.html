@@ -99,7 +99,7 @@
     white-space: nowrap;
     border-bottom: 1px solid rgba(231,191,99,0.3);
     position: fixed;
-    top: 110px; /* Adjust based on navbar height */
+    top: 110px; 
     z-index: 90;
   }
   .ticker {
@@ -269,7 +269,15 @@
   .winner-card.sapphire .month-label { color: #3498db; }
   .winner-card.sapphire .winner-name { text-shadow: 0 0 10px rgba(52, 152, 219, 0.8); }
 
-  .winner-card.upcoming { opacity: 0.5; border: 1px dashed rgba(255,255,255,0.2); }
+  /* Placeholder Style for Future Months */
+  .winner-card.upcoming { 
+    opacity: 0.5; 
+    border: 1px dashed rgba(255,255,255,0.2); 
+    background: rgba(255,255,255,0.02);
+  }
+  .winner-card.upcoming .month-label { color: var(--muted); }
+  .winner-card.upcoming .winner-name { font-size: 14px; font-weight:normal; color: var(--muted); }
+
   .month-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
   .winner-name { font-weight: bold; color: #fff; font-size: 18px; margin-bottom: 4px; letter-spacing: 0.5px; }
   .prize-won { font-size: 11px; color: var(--muted); font-style: italic; }
@@ -414,6 +422,15 @@
             <div class="winner-card won ruby"><div class="month-label">FEB</div><div class="winner-name">Drawing Soon</div><div class="prize-won">Join now!</div></div>
             <div class="winner-card won emerald"><div class="month-label">MAR</div><div class="winner-name">Drawing Soon</div><div class="prize-won">Join now!</div></div>
             <div class="winner-card won sapphire"><div class="month-label">APR</div><div class="winner-name">Drawing Soon</div><div class="prize-won">Join now!</div></div>
+            
+            <div class="winner-card upcoming"><div class="month-label">MAY</div><div class="winner-name">Locked</div></div>
+            <div class="winner-card upcoming"><div class="month-label">JUN</div><div class="winner-name">Locked</div></div>
+            <div class="winner-card upcoming"><div class="month-label">JUL</div><div class="winner-name">Locked</div></div>
+            <div class="winner-card upcoming"><div class="month-label">AUG</div><div class="winner-name">Locked</div></div>
+            <div class="winner-card upcoming"><div class="month-label">SEP</div><div class="winner-name">Locked</div></div>
+            <div class="winner-card upcoming"><div class="month-label">OCT</div><div class="winner-name">Locked</div></div>
+            <div class="winner-card upcoming"><div class="month-label">NOV</div><div class="winner-name">Locked</div></div>
+            <div class="winner-card upcoming"><div class="month-label">DEC</div><div class="winner-name">Locked</div></div>
         </div>
     </section>
 
