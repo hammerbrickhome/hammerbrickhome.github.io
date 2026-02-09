@@ -8,21 +8,21 @@
 
   <link rel="canonical" href="https://www.hammerbrickhome.com/">
 
-  <meta name="description" content="Staten Island owned & operated. Luxury residential & commercial remodeling, roofing, and true masonry in NYC. 10% Off for City Employees. Licensed & Bonded HIC #2131291.">
+  <meta name="description" content="Hammer Brick & Home LLC provides luxury residential & commercial remodeling, full roofing services, and true masonry in NYC. EPA Lead-Safe Certified, licensed, bonded & insured HIC #2131291. Staten Island based.">
 
   <link rel="stylesheet" href="/style.css?v=3">
    
   <link rel="icon" href="/images/hero.PNG">
 
   <meta property="og:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
-  <meta property="og:description" content="Staten Island owned. Luxury NYC residential & commercial remodeling. EPA Lead-Safe Certified. Licensed, bonded & insured HIC #2131291.">
+  <meta property="og:description" content="Luxury NYC residential & commercial remodeling. EPA Lead-Safe Certified. Licensed, bonded & insured HIC #2131291.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.hammerbrickhome.com/">
   <meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hammer Brick & Home LLC — Luxury Remodeling & Masonry">
-  <meta name="twitter:description" content="Staten Island owned. Luxury NYC residential & commercial remodeling. Licensed, bonded & insured HIC #2131291.">
+  <meta name="twitter:description" content="Luxury NYC residential & commercial remodeling. Licensed, bonded & insured HIC #2131291.">
   <meta name="twitter:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
 
   <script type="application/ld+json">
@@ -37,7 +37,7 @@
         "logo": "https://www.hammerbrickhome.com/images/hero.PNG",
         "telephone": "+1-929-595-5300",
         "priceRange": "$$",
-        "description": "Staten Island owned and operated. Luxury NYC residential and commercial remodeling, roofing, and true masonry. EPA Lead-Safe Certified. Licensed, bonded, and insured HIC #2131291.",
+        "description": "Luxury NYC residential and commercial remodeling and true masonry. EPA Lead-Safe Certified. Licensed, bonded, and insured HIC #2131291.",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "76 Palmer Ave",
@@ -69,61 +69,84 @@
           "@type": "Person",
           "name": "Noman"
         },
-        "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"]
+        "sameAs": [
+          "https://www.facebook.com/hammerbrickhome",
+          "https://www.instagram.com/hammerbrickhome",
+          "https://www.youtube.com/@hammerbrickhome"
+        ],
+        "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"],
+        "identifier": [
+          { "@type": "PropertyValue", "name": "NYC HIC", "value": "2131291" },
+          { "@type": "PropertyValue", "name": "EPA Lead-Safe Certified Firm", "value": "Yes" }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Construction Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Masonry Tune-Up" }, "price": "449.00", "priceCurrency": "USD" },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Interior Facelift" }, "price": "799.00", "priceCurrency": "USD" },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Draft-Stop Window" }, "price": "1499.00", "priceCurrency": "USD" }
+          ]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do you provide free estimates?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide clear, itemized written estimates." }
+          },
+          {
+            "@type": "Question",
+            "name": "Are you licensed and insured in NYC?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Licensed, Bonded & Insured. HIC #2131291." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you handle permits?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, we work with licensed architects for DOB filings." }
+          },
+          {
+            "@type": "Question",
+            "name": "What areas do you serve?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ." }
+          }
+        ]
       },
       {
         "@type": "WebSite",
         "name": "Hammer Brick & Home LLC",
-        "url": "https://www.hammerbrickhome.com/"
+        "url": "https://www.hammerbrickhome.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.hammerbrickhome.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
     ]
   }
   </script>
 
   <style>
-    /* --- FIXED TICKER STYLE --- */
-    .promo-ticker-wrap {
-      width: 100%;
-      background: #000;
-      border-bottom: 1px solid rgba(231,191,99,0.4);
-      overflow: hidden;
-      white-space: nowrap;
-      position: relative;
-      z-index: 50;
-      padding: 10px 0;
-      /* FIX: Increased margin to push it below the fixed header */
-      margin-top: 120px; 
-    }
-    .promo-ticker {
-      display: inline-block;
-      padding-left: 100%;
-      animation: ticker 35s linear infinite;
-      color: #e7bf63;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-    }
-    @keyframes ticker {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-100%, 0, 0); }
-    }
-
-    /* EXISTING STYLES PRESERVED */
+    /* 1. Hero Gradient Overlay & Glassmorphism */
     .hero-overlay {
       position: absolute; inset: 0;
       background: radial-gradient(circle at center, rgba(7,20,38,0.4) 0%, rgba(5,12,25,0.85) 90%);
       z-index: 1; border-radius: var(--radius-xl, 22px);
     }
     
+    /* Luxury Hero Text Styling */
     .hero-glass {
         background: rgba(10, 20, 35, 0.6);
         backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(231,191,99,0.3);
+        border: 1px solid rgba(231, 191, 99, 0.3);
         padding: 30px; border-radius: 20px;
         box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     }
 
     .hero-content h1 {
+        /* GOLD GRADIENT TEXT */
         background: linear-gradient(135deg, #ffffff 30%, #f5d89b 70%, #d4af37 100%);
         -webkit-background-clip: text; background-clip: text;
         -webkit-text-fill-color: transparent; color: transparent;
@@ -133,6 +156,7 @@
 
     .hero-content, .hero-badge { z-index: 2; position: relative; }
 
+    /* 2. Gold Divider Shimmer */
     .gold-divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(231,191,99,0.5), transparent);
@@ -145,6 +169,7 @@
     }
     @keyframes shimmerDivider { 100% { left: 200%; } }
 
+    /* 3. Review Carousel */
     .review-carousel-container { position: relative; overflow: hidden; padding: 20px 0; }
     .review-track { display: flex; transition: transform 0.5s ease-in-out; }
     .review-slide { min-width: 100%; padding: 0 20px; box-sizing: border-box; text-align: center; }
@@ -152,22 +177,26 @@
     .review-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; cursor: pointer; }
     .review-dot.active { background: #e7bf63; }
 
+    /* Verified Badge Style */
     .verified-badge {
-      font-size: 11px; color: #2ecc71;
+      font-size: 11px; color: #2ecc71; /* Green */
       border: 1px solid rgba(46, 204, 113, 0.3);
       background: rgba(46, 204, 113, 0.1); padding: 2px 6px; border-radius: 4px;
       vertical-align: middle; margin-left: 8px; letter-spacing: 0.5px;
       text-transform: uppercase; font-weight: 700;
     }
 
+    /* 4. Background Noise */
     body::after {
       content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
       background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz4KPC9zdmc+');
       opacity: 0.4;
     }
 
+    /* 5. Fix Services Glow Icons (SVG Sizing) */
     .glow-icon svg { width: 28px; height: 28px; fill: currentColor; }
 
+    /* 6. MOBILE LAYOUT FIX */
     @media (max-width: 1000px) {
       .split { 
         display: flex !important; flex-direction: column-reverse !important; 
@@ -177,10 +206,10 @@
       .services-glow-container { width: 100% !important; max-width: 500px !important; margin: 0 auto !important; }
       .glow-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
       .glow-card { padding: 15px 5px !important; }
-      .hero-glass { padding: 20px 15px; }
+      .hero-glass { padding: 20px 15px; } /* Less padding on mobile */
     }
 
-    /* --- LUXURY MEMBERSHIP CARD STYLES --- */
+    /* 7. NEW 3D MEMBERSHIP CARD STYLES */
     .free-badge {
       background-color: #2ecc71; color: #000; padding: 3px 8px;
       border-radius: 4px; font-weight: 800; font-size: 11px;
@@ -189,7 +218,7 @@
     }
 
     .member-card-container {
-      perspective: 1000px;
+      perspective: 1000px; /* Essential for 3D effect */
       width: 100%;
       max-width: 380px;
       margin: 15px auto;
@@ -199,9 +228,10 @@
       background: linear-gradient(135deg, #0f1c30 0%, #071426 100%);
       border: 1px solid #e7bf63; border-radius: 16px; padding: 20px;
       position: relative;
+      /* Advanced 3D Settings */
       transform-style: preserve-3d;
       transform: rotateX(0) rotateY(0);
-      transition: transform 0.1s ease;
+      transition: transform 0.1s ease; /* Fast transition for mouse movement */
       box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(231,191,99,0.2);
     }
      
@@ -236,15 +266,7 @@
 
   <main class="page content-wrapper" id="main">
 
-   <div class="promo-ticker-wrap">
-     <div class="promo-ticker">
-       📢 <strong>SPECIAL OFFER:</strong> 10% OFF Labor for all NYC City Employees (NYPD, FDNY, DSNY, DOE) — Thank you for your service! • 
-       📢 <strong>100% FREE Membership</strong> Available for Local Homeowners • 
-       📢 <strong>SPECIAL OFFER:</strong> 10% OFF Labor for all NYC City Employees (NYPD, FDNY, DSNY, DOE) •
-     </div>
-   </div>
-
-   <section class="hero hero-home fade-up" style="margin-top: 20px;">
+   <section class="hero hero-home fade-up" style="margin-top: 60px;">
       <div class="hero-overlay"></div>
       
       <div class="hero-content hero-glass">
@@ -253,14 +275,12 @@
         
         <div class="hero-actions">
           <a class="btn" href="tel:+19295955300">📞 Fast Estimate</a>
-          <a class="btn ghost" href="/gallery.html">👀 View Gallery</a>
-          <button type="button" class="btn ghost contact-panel-toggle" style="border:none; color: #fff; font-size:12px; margin-left: 5px;">More Options ↓</button>
+          <button type="button" class="btn ghost contact-panel-toggle">Contact & Options</button>
         </div>
-        
         <ul class="trust-pills" role="list">
-          <li class="gold-pill breathing-gold">📍 Staten Island Owned & Operated</li>
           <li class="gold-pill breathing-gold">Licensed, Bonded & Insured · HIC #2131291</li>
-          <li class="gold-pill breathing-gold">EPA Lead-Safe Certified Firm</li>
+          <li class="gold-pill breathing-gold">EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
+          <li class="gold-pill breathing-gold">Before/After Documentation</li>
           <li class="gold-pill breathing-gold">Clean, Respectful Crew</li>
         </ul>
       </div>
@@ -443,19 +463,19 @@
           <li><strong>Lead Safety:</strong> EPA RRP Lead-Safe Certified for pre-1978 homes.</li>
         </ul>
 
-        <div style="background:linear-gradient(145deg, rgba(8,16,28,0.95), rgba(231,191,99,0.08)); border:1px solid rgba(231,191,99,0.4); border-radius:16px; padding:24px; position:relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="background:rgba(231,191,99,0.05); border:1px solid rgba(231,191,99,0.25); border-radius:16px; padding:20px; position:relative;">
           
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-             <h3 style="font-size:18px; color:#fff; margin:0; text-shadow: 0 0 10px rgba(231,191,99,0.4);">🎁 Signature Membership</h3>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+             <h3 style="font-size:17px; color:#fff; margin:0;">🎁 Signature Membership</h3>
              <span class="free-badge">100% FREE</span>
           </div>
 
           <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:15px;">
-            <strong>There is no catch.</strong> Most companies spend thousands on billboard ads. We prefer to spend that budget on <strong>YOU—our neighbors</strong>. 
+            <strong>There is no catch.</strong> Most companies spend thousands on billboard ads. We prefer to spend that budget on <strong>YOU—our neighbors</strong>. We believe if we fix your small repair for free, you'll remember us for the big renovation.
           </p>
           
-          <div style="background:#0a0f18; border-radius:8px; padding:12px; margin-bottom:15px; border:1px dashed rgba(231,191,99,0.3); font-size:12px; color:#ccc;">
-             <span style="color:var(--gold);">📍 Local (NYC/NJ):</span> Win Service Perks (Repairs, Consults)<br>
+          <div style="background:#0a0f18; border-radius:8px; padding:12px; margin-bottom:15px; border:1px dashed #333; font-size:12px; color:#ccc;">
+             <span style="color:var(--gold);">📍 Local (NYC/NJ):</span> Win Service Perks (Repairs, Consults) — or choose the National Prize<br>
              <span style="color:var(--gold);">🌎 National:</span> Gift Prizes or Virtual Consults
           </div>
 
@@ -478,10 +498,7 @@
             </div>
           </div>
 
-          <div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;">
-            <a href="/membership.html" class="btn" style="flex:1; text-align:center;">Activate Card →</a>
-            <a href="tel:+19295955300" class="btn ghost" style="flex:1; text-align:center; white-space:nowrap;">📞 Call to Join</a>
-          </div>
+          <a href="/membership.html" class="btn" style="width:100%; margin-top:15px; text-align:center;">Activate Card & Enter Draw →</a>
         </div>
 
       </div>
@@ -820,3 +837,4 @@
 
 </body>
 </html>
+
