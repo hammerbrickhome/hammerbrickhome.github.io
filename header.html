@@ -1,4 +1,3 @@
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -53,201 +52,53 @@
 
   .gold-text {
     color: #e7bf63;
-    text-shadow: 0 0 6px rgba(231,191,99,0.4);
+    text-shadow: 0 0 6px rgba(231,191,99,0.7);
   }
 
-  .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 20px;
+  .pkg-card:hover {
+    box-shadow: 0 0 20px rgba(231,191,99,0.35);
+    transform: translateY(-3px);
+    transition: 0.25s ease;
   }
 
-  /* LOGO */
-  .logo {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-  }
-  .logo-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .logo-img {
-    height: 55px;
-    width: auto;
-    border-radius: 50%;
-    border: 1px solid #e7bf63; /* Gold Border */
-    box-shadow: 0 0 15px rgba(231,191,99,0.2);
-  }
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .brand-name {
-    font-family: "Georgia", serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-  }
-  .llc {
-    color: #e7bf63; /* Gold */
-    font-size: 12px;
-    vertical-align: middle;
-  }
-  .tagline {
-    font-size: 10px;
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-    font-weight: 400;
-  }
-
-  /* NAVIGATION */
-  .main-nav {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-  .main-nav a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: color 0.3s, text-shadow 0.3s;
-  }
-  .main-nav a:hover {
-    color: #e7bf63;
-    text-shadow: 0 0 8px rgba(231,191,99,0.4);
-  }
-
-  /* BUTTONS */
-  .btn-sm {
-    padding: 8px 18px;
-    font-size: 12px;
-    background: #e7bf63;
-    color: #000 !important;
-    border-radius: 50px;
-    font-weight: 800;
-    border: 1px solid #e7bf63;
-    transition: all 0.3s;
-  }
-  .btn-sm:hover {
-    background: #fff;
-    border-color: #fff;
-    box-shadow: 0 0 15px rgba(255,255,255,0.4);
-  }
-
-  /* DROPDOWN MENU */
-  .dropdown {
+  .btn, .pill-btn {
     position: relative;
-    display: inline-block;
+    overflow: hidden;
   }
-  .dropbtn {
-    cursor: pointer;
-  }
-  .dropdown-content {
-    display: none;
+  .btn::after, .pill-btn::after {
+    content: "";
     position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #0d1a2e; /* Dark Blue */
-    min-width: 200px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-    border: 1px solid rgba(231,191,99,0.2); /* Gold Border */
-    border-radius: 8px;
-    z-index: 10000;
-    padding: 10px 0;
-    flex-direction: column;
+    top: 0; left: -120%;
+    width: 120%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(231,191,99,0.35), transparent);
+    transform: skewX(-20deg);
+    transition: 0.45s;
   }
-  .dropdown-content a {
-    color: #fff;
-    padding: 12px 20px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    text-transform: none; /* Keep text normal case */
-  }
-  .dropdown-content a:last-child {
-    border-bottom: none;
-  }
-  .dropdown-content a:hover {
-    background-color: rgba(231,191,99,0.1);
-    color: #e7bf63;
-  }
-  /* Show dropdown on hover */
-  .dropdown:hover .dropdown-content {
-    display: flex;
+  .btn:hover::after, .pill-btn:hover::after {
+    left: 120%;
   }
 
-  /* MOBILE HAMBURGER */
-  .nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: #e7bf63;
-    font-size: 28px;
-    cursor: pointer;
+  .hero-badge img {
+    filter: drop-shadow(0 0 12px rgba(231,191,99,0.45));
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 1100px) {
-    .nav-toggle { display: block; }
-    .main-nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: rgba(3,8,16,0.98);
-      flex-direction: column;
-      padding: 20px;
-      border-bottom: 1px solid #e7bf63;
-      align-items: flex-start;
-    }
-    .main-nav.active { display: flex; }
-    .main-nav a {
-      width: 100%;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .dropdown { width: 100%; }
-    .dropdown-content {
-      position: static;
-      transform: none;
-      box-shadow: none;
-      border: none;
-      background: rgba(255,255,255,0.05);
-      padding-left: 15px;
-    }
-    .logo-img { height: 45px; }
-    .brand-name { font-size: 18px; }
-    .tagline { display: none; } /* Hide tagline on mobile */
+  .note-box.lux {
+    border: 1px solid rgba(231,191,99,0.55);
+    background: rgba(10,15,25,0.82);
+    box-shadow: 0 0 18px rgba(231,191,99,0.25);
+    border-radius: 18px;
   }
 </style>
 
-<header class="topbar">
-  <div class="container nav-container">
-    
-    <a href="/" class="logo" aria-label="Hammer Brick & Home LLC">
-      <div class="logo-wrapper">
-        <img src="/images/hero.PNG" alt="Hammer Brick & Home Logo" class="logo-img">
-        
-        <div class="logo-text">
-          <span class="brand-name">Hammer Brick & Home <span class="llc">LLC</span></span>
-          <span class="tagline">Residential & Commercial · Licensed, Bonded & Insured · EPA Lead-Safe · HIC #2131291</span>
+<header class="topbar gold-glow" role="banner">
+  <div class="topbar-inner">
+
+    <a class="brand-lockup" href="/">
+      <img class="brand-logo" src="/images/hero.PNG" alt="Hammer Brick & Home LLC Logo">
+      <div class="brand-text">
+        <div class="brand-name gold-text">Hammer Brick & Home LLC</div>
+        <div class="brand-sub">
+          Luxury Residential & Commercial · Licensed, Bonded & Insured · EPA Lead-Safe · HIC #2131291
         </div>
       </div>
     </a>
@@ -287,32 +138,12 @@
           <a href="/manhattan.html">Manhattan</a>
           <a href="/queens.html">Queens</a>
           <a href="/bronx.html">Bronx</a>
-          <a href="/nj.html">New Jersey</a>
+          <a href="/new-jersey.html">New Jersey</a>
         </div>
       </div>
 
-      <a href="/contact.html" class="btn-sm gold-glow">Get a Quote</a>
+      <a href="/contact.html">Get in Touch</a>
 
     </nav>
   </div>
 </header>
-
-<script>
-  // Mobile Menu Toggle Logic
-  document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.querySelector('.nav-toggle');
-    const nav = document.querySelector('.main-nav');
-    
-    if(toggle && nav) {
-      toggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-        // Change icon from hamburger to X
-        if (nav.classList.contains('active')) {
-          toggle.innerHTML = '✕';
-        } else {
-          toggle.innerHTML = '☰';
-        }
-      });
-    }
-  });
-</script>
