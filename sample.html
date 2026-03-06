@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sample Include Test — Hammer Brick & Home LLC</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header-include"></div>
+
+<main class="page fade-up">
+  <section class="section">
+    <h1>Sample Page Using Header & Footer Includes</h1>
+    <p>This is an example page. The header and footer automatically load from shared files.</p>
+  </section>
+</main>
+
+<div id="footer-include"></div>
+
+<script>
+// Load shared header & footer
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([
+    fetch("header.html").then(r => r.text()),
+    fetch("footer.html").then(r => r.text())
+  ]).then(([header, footer]) => {
+    document.getElementById("header-include").innerHTML = header;
+    document.getElementById("footer-include").innerHTML = footer;
+    document.getElementById("yr").textContent = new Date().getFullYear();
+  }).catch(err => console.error("Include load error", err));
+});
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>
