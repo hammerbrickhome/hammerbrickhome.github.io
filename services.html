@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Licensed Contractor Services NYC | Roofing, Masonry, Windows & Remodeling</title>
+
+<meta name="description" content="Hammer Brick & Home LLC offers luxury masonry, full roofing, window & door installation, commercial remodeling, and exterior maintenance in NYC & NJ. Licensed, Bonded & Insured.">
+
+<link rel="canonical" href="https://www.hammerbrickhome.com/services">
+<link rel="icon" href="/images/hero.PNG">
+<link rel="preload" as="image" href="/images/hero.webp"> 
+<link rel="stylesheet" href="/chat.css">
+<link rel="stylesheet" href="/style.css">
+
+<meta property="og:title" content="Services — Hammer Brick & Home LLC">
+<meta property="og:description" content="Luxury masonry, full roofing, window installation, commercial remodeling, and lead-safe renovation for NYC.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.hammerbrickhome.com/services">
+<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG">
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "name": "Hammer Brick & Home LLC",
+    "url": "https://www.hammerbrickhome.com/",
+    "logo": "https://www.hammerbrickhome.com/images/hero.PNG",
+    "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+    "priceRange": "$$$",
+    "telephone": "+1-929-595-5300",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "telephone": "+1-929-595-5300",
+      "email": "contact@hammerbrickhome.com"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "76 Palmer Ave",
+      "addressLocality": "Staten Island",
+      "addressRegion": "NY",
+      "postalCode": "10302",
+      "addressCountry": "US"
+    },
+    "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Full Range of Construction Services",
+      "itemListElement": [
+        {
+          "@type": "OfferCatalog",
+          "name": "Roofing & Waterproofing",
+          "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Flat Roof Installation"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Shingle Roof Replacement"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercial Roofing"}}
+          ]
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Masonry & Hardscape",
+          "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Brownstone Repair"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Brickwork & Repointing"}}
+          ]
+        }
+      ]
+    }
+  }
+]
+</script>
+
+<style>
+/* GRID STYLES */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+.service-button {
+  padding: 16px 20px;
+  text-align: center;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(245,216,155,0.16), rgba(10,15,25,0.96));
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: var(--gold-soft);
+  text-shadow: 0 2px 6px rgba(0,0,0,.6);
+  cursor: pointer;
+  transition: .25s;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.service-button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  color: #151515;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.75);
+}
+.service-button a {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.breadcrumbs {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 10px auto 15px;
+  max-width: 1240px;
+  padding: 0 18px;
+}
+.breadcrumbs a { color: var(--gold-soft); text-decoration: none; }
+.quick-action-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 20px 0 30px;
+}
+.quick-btn {
+  padding: 10px 16px; border-radius: 999px;
+  border: 1px solid rgba(231,191,99,0.3); background: rgba(255,255,255,0.05);
+  color: var(--gold-soft); text-decoration: none; font-size: 13px; font-weight: 700;
+  transition: .25s; display: flex; align-items: center; gap: 6px;
+}
+.quick-btn:hover { background: rgba(231,191,99,0.15); border-color: var(--gold); color: #fff; }
+.search-label { display:block; margin-bottom:6px; font-size:14px; color:var(--muted); }
+.search-input {
+  width:100%; max-width:420px; padding:12px 16px;
+  font-size:15px; border-radius:12px;
+  background: rgba(7,14,26,0.92); border:1px solid rgba(231,191,99,0.35);
+  color: var(--ink); margin:0 auto 10px auto; display:block;
+  box-shadow:0 0 12px rgba(212,175,55,0.12); transition:0.25s ease;
+}
+.search-input:focus { border-color: var(--gold); box-shadow:0 0 18px rgba(212,175,55,0.45); outline:none; }
+#noResults { display:none; margin-top:10px; text-align:center; color:var(--gold-soft); font-weight:600; }
+.seo-block {
+    background: rgba(15,25,40,.8); padding: 18px; border-radius: 14px;
+    margin-top: 20px; margin-bottom: 20px; border-left: 4px solid var(--gold-soft);
+}
+.seo-block h3 { font-size: 16px; color: var(--gold-soft); margin-bottom: 8px; }
+.seo-block p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.mini-cta { text-align: center; margin-top: 25px; margin-bottom: 40px; }
+</style>
+</head>
+
+<body>
+
+<div id="header-include"></div>
+
+<main class="page content-wrapper">
+
+<nav class="breadcrumbs">
+ <a href="/">Home</a> &raquo; Services
+</nav>
+
+<section class="hero hero-inner fade-up">
+  <div class="hero-content">
+    <h1 class="shimmer-title">Complete Service Menu</h1>
+    <p>Premium masonry, full roofing & waterproofing, window installation, commercial remodeling, and exterior home care for NYC and NJ.</p>
+  </div>
+</section>
+
+<section class="section fade-up" style="margin-top: -20px; text-align: center;">
+    <p class="section-note" style="font-size: 12px; font-weight: 700; color: var(--gold-soft);">
+        Licensed, Bonded & Insured &bull; EPA Lead-Safe Certified &bull; NYC HIC #2131291
+    </p>
+</section>
+
+<section class="quick-action-row fade-up">
+    <a href="/contact.html?type=photo" class="quick-btn"><span>📸</span> Text Photos</a>
+    <a href="tel:+19295955300" class="quick-btn"><span>📞</span> Call Now</a>
+    <a href="/project-estimator.html" class="quick-btn"><span>🧮</span> AI Estimator</a>
+    <a href="/contact.html" class="quick-btn"><span>📅</span> Book Visit</a>
+</section>
+
+<section class="section fade-up">
+  <label class="search-label" for="serviceSearch">Search Services</label>
+  <input id="serviceSearch" class="search-input"
+    placeholder="Type to filter (e.g., roofing, brownstone, pavers)..."
+    aria-label="Search available services">
+  <p id="noResults">No matching services found.</p>
+</section>
+
+<section class="section fade-up" id="roofing-section">
+  <h2>Roofing & Waterproofing</h2>
+  <div class="service-grid">
+    <div class="service-button"><a href="/roofing.html">Flat Roofs (Rubber/EPDM)</a></div>
+    <div class="service-button"><a href="/roofing.html">Shingle Roofs (Timberline)</a></div>
+    <div class="service-button"><a href="/roofing.html">Commercial Roofing</a></div>
+    <div class="service-button"><a href="/roofing.html">Emergency Leak Repair</a></div>
+    <div class="service-button"><a href="/roofing.html">Silver-Coat Maintenance</a></div>
+    <div class="service-button"><a href="/roofing.html">Skylight Installation</a></div>
+    <div class="service-button"><a href="/roofing.html">Chimney Flashing/Caps</a></div>
+    <div class="service-button"><a href="/roofing.html">Seamless Gutters</a></div>
+    <div class="service-button"><a href="/roofing.html">Fascia & Soffit Repair</a></div>
+  </div>
+    <div class="seo-block" id="roofing-details">
+        <h3>NYC Roofing & Waterproofing Specialists</h3>
+        <p>We provide complete roofing solutions for Residential & Commercial properties. From 3-ply rubber roofing for Brooklyn flat roofs to architectural shingles for Staten Island homes. We also specialize in leak diagnostics, chimney caps, and waterproofing coatings.</p>
+    </div>
+    <div class="mini-cta"><a href="/project-estimator.html" class="btn breathing-gold">Get a Roofing Estimate</a></div>
+</section>
+
+<section class="section fade-up" id="masonry-section">
+  <h2>Masonry, Concrete & Hardscape</h2>
+  <div class="service-grid">
+    <div class="service-button"><a href="/masonry-brickwork.html">Brickwork & Repointing</a></div>
+    <div class="service-button"><a href="/masonry-brickwork.html">Brownstone Repair</a></div>
+    <div class="service-button"><a href="/masonry-brickwork.html">Stucco & Thorocoat</a></div>
+    <div class="service-button"><a href="/sidewalk-repair.html">Concrete Sidewalks (DOT)</a></div>
+    <div class="service-button"><a href="/dot-violation-repair.html">DOT Violation Removal</a></div>
+    <div class="service-button"><a href="/pavers-hardscape.html">Pavers & Patios</a></div>
+    <div class="service-button"><a href="/pavers-hardscape.html">Commercial Masonry</a></div>
+    <div class="service-button"><a href="/masonry-steps.html">Steps & Stoops Rebuild</a></div>
+    <div class="service-button"><a href="/masonry-walls.html">Retaining Walls</a></div>
+    <div class="service-button"><a href="/masonry-chimney.html">Chimney Rebuilds</a></div>
+  </div>
+    <div class="seo-block" id="masonry-details">
+        <h3>NYC Masonry & Concrete Specialists</h3>
+        <p>Expert restoration for brownstones, brick facades, and stucco. We handle full sidewalk replacements, DOT violations, and luxury hardscape installations including pavers and retaining walls.</p>
+    </div>
+</section>
+
+<section class="section fade-up" id="remodeling-section">
+  <h2>Interior Remodeling</h2>
+  <div class="service-grid">
+    <div class="service-button"><a href="/kitchen-remodeling.html">Kitchen Remodels</a></div>
+    <div class="service-button"><a href="/bathroom-remodeling.html">Bathroom Remodels</a></div>
+    <div class="service-button"><a href="/basement-finishing.html">Basement Finishing</a></div>
+    <div class="service-button"><a href="/commercial-renovations.html">Commercial Renovations</a></div>
+    <div class="service-button"><a href="/commercial-renovations.html">White Boxing (Retail)</a></div>
+    <div class="service-button"><a href="/flooring.html">Flooring Installation</a></div>
+    <div class="service-button"><a href="/carpentry-sheetrock.html">Sheetrock & Spackle</a></div> 
+    <div class="service-button"><a href="/custom-millwork.html">Built-Ins & Millwork</a></div>
+  </div>
+</section>
+
+<section class="section fade-up" id="carpentry-section">
+  <h2>Windows, Doors & Siding</h2>
+  <div class="service-grid">
+    <div class="service-button"><a href="/window-installation.html">Window Replacement</a></div>
+    <div class="service-button"><a href="/door-installation.html">Door Installation</a></div>
+    <div class="service-button"><a href="/siding.html">Vinyl Siding Installation</a></div>
+    <div class="service-button"><a href="/deck-fence.html">Deck Building</a></div>
+    <div class="service-button"><a href="/deck-fence.html">Fence Installation</a></div>
+  </div>
+</section>
+
+<section class="section fade-up" id="painting-section">
+  <h2>Painting & Finishes</h2>
+  <div class="service-grid">
+    <div class="service-button"><a href="/painting.html">Interior Painting</a></div>
+    <div class="service-button"><a href="/painting.html">Exterior Painting</a></div>
+    <div class="service-button"><a href="/painting-plaster.html">Plaster & Patch</a></div>
+    <div class="service-button"><a href="/painting-epoxy.html">Epoxy Floors</a></div>
+  </div>
+</section>
+
+<section class="section fade-up" id="exterior-section">
+  <h2>Exterior Care & Maintenance</h2>
+  <p class="section-note">Protecting your investment with white-glove cleaning.</p>
+  <div class="service-grid">
+    <div class="service-button"><a href="/exterior-care.html">Soft-Wash Cleaning</a></div>
+    <div class="service-button"><a href="/exterior-care.html">Paver Wash & Seal</a></div>
+    <div class="service-button"><a href="/exterior-care.html">Deck Stripping & Staining</a></div>
+    <div class="service-button"><a href="/exterior-care.html">Graffiti Removal</a></div>
+    <div class="service-button"><a href="/exterior-care.html">Gum Removal (Commercial)</a></div>
+    <div class="service-button"><a href="/exterior-care.html">Gutter Cleaning</a></div>
+    <div class="service-button"><a href="/exterior-care.html">Emergency Masonry Patches</a></div>
+  </div>
+</section>
+
+<section class="section fade-up" id="lead-safe-section">
+  <h2>Lead-Safe Renovation</h2>
+  <p class="section-note">EPA RRP Lead-Safe Certified Firm — strict dust control for pre-1978 homes.</p>
+  <div class="service-grid">
+    <div class="service-button"><a href="/lead-safe.html">Lead-Safe Renovations</a></div>
+    <div class="service-button"><a href="/lead-safe.html">Lead-Safe Window Work</a></div>
+    <div class="service-button"><a href="/lead-safe.html">EPA Test-Kit Screening</a></div>
+  </div>
+</section>
+
+</main>
+
+<div id="footer-include"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([
+    fetch("/header.html").then(r=>r.text()),
+    fetch("/footer.html").then(r=>r.text())
+  ]).then(([h,f])=>{
+    document.getElementById("header-include").innerHTML = h;
+    document.getElementById("footer-include").innerHTML = f;
+    const yr = document.getElementById("yr");
+    if(yr) yr.textContent = new Date().getFullYear();
+    if(typeof initHeaderInteractions === "function") initHeaderInteractions();
+  }).catch(console.error);
+
+  const input = document.getElementById("serviceSearch");
+  const noResults = document.getElementById("noResults");
+  const buttons = document.querySelectorAll(".service-grid .service-button");
+
+  if(input && buttons.length){
+    input.addEventListener("input", ()=>{
+      const query = input.value.toLowerCase().trim();
+      let visible = 0;
+      buttons.forEach(btn=>{
+        const textContent = btn.textContent.toLowerCase();
+        const match = textContent.includes(query);
+        btn.style.display = match ? "flex" : "none"; 
+        if(match) visible++;
+      });
+      noResults.style.display = visible ? "none" : "block";
+    });
+  }
+});
+</script>
+
+<script src="/chat.js" defer></script>
+<script src="/script.js" defer></script>
+
+</body>
+</html>
