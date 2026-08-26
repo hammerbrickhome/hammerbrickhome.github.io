@@ -392,22 +392,6 @@ function applyHammerBusinessSettings(data) {
       const a = footer.querySelector(`a[aria-label="${label}"]`);
       if (a && url) a.href = url;
     });
-
-    // Admin V4 public trust/resource links.
-    if (!footer.querySelector(".hb-managed-footer-links")) {
-      const row = document.createElement("nav");
-      row.className = "hb-managed-footer-links";
-      row.setAttribute("aria-label", "Customer Resources");
-      row.style.cssText = "margin:14px auto 4px;display:flex;justify-content:center;gap:8px 14px;flex-wrap:wrap;font-size:11px;";
-      row.innerHTML = `
-        <a href="/warranty.html" style="color:#f5d89b;text-decoration:none;">Standards & Warranty</a>
-        <a href="/property-managers.html" style="color:#f5d89b;text-decoration:none;">Property Managers</a>
-        <a href="/lead-safe.html" style="color:#f5d89b;text-decoration:none;">Lead-Safe</a>
-        <a href="/project-preparation.html" style="color:#f5d89b;text-decoration:none;">Project Preparation</a>
-        <a href="/privacy.html" style="color:#f5d89b;text-decoration:none;">Privacy</a>
-      `;
-      footer.appendChild(row);
-    }
   }
 
   // Update homepage trust wording where the existing IDs/classes are present.
@@ -431,133 +415,6 @@ function refreshHammerBusinessSettings() {
 document.addEventListener("DOMContentLoaded", refreshHammerBusinessSettings);
 
 
-
-/* ============================================================
-   ADMIN V4 — MANAGED NAVIGATION
-   Disabled by default in /site-data/navigation.json.
-=============================================================== */
-
-function hbEscape(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-async function applyHammerManagedNavigation() {
-  const nav = document.querySelector(".main-nav");
-  if (!nav) return;
-
-  try {
-    const res = await fetch("/site-data/navigation.json", { cache: "no-store" });
-    if (!res.ok) return;
-    const data = await res.json();
-
-    if (!data || data.enableManagedNavigation !== true || !Array.isArray(data.items)) return;
-
-    nav.innerHTML = data.items
-      .filter(item => item && item.active !== false)
-      .map(item => {
-        if (item.type === "dropdown") {
-          const children = Array.isArray(item.children)
-            ? item.children.filter(child => child && child.active !== false)
-            : [];
-
-          return `
-            <div class="dropdown">
-              <a href="#" class="nav-link dropbtn">${hbEscape(item.label)} ▾</a>
-              <div class="dropdown-content">
-                ${children.map(child =>
-                  `<a href="${hbEscape(child.url || "#")}">${hbEscape(child.label)}</a>`
-                ).join("")}
-              </div>
-            </div>`;
-        }
-
-        return `<a${item.highlight ? ' class="nav-call"' : ""} href="${hbEscape(item.url || "#")}">${hbEscape(item.label)}</a>`;
-      }).join("");
-  } catch (err) {
-    console.warn("Managed navigation unavailable; using header.html navigation.", err);
-  }
-}
-
-/* ============================================================
-   ADMIN V4 — CHAT DISPLAY SETTINGS
-   Preserves the existing estimator/chatbot logic.
-=============================================================== */
-
-async function loadHammerChatDisplaySettings() {
-  try {
-    const res = await fetch("/site-data/chat.json", { cache: "no-store" });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch (_) {
-    return null;
-  }
-}
-
-function applyHammerChatDisplaySettings(data) {
-  if (!data) return;
-
-  // IMPORTANT:
-  // Only change a value when it is actually different.
-  // The earlier V4 observer rewrote text repeatedly and could trigger itself.
-  const apply = () => {
-    const fab = document.querySelector(".hb-chat-fab");
-    const wrapper = document.querySelector(".hb-chat-wrapper");
-
-    if (data.enabled === false) {
-      if (fab && fab.style.display !== "none") fab.style.display = "none";
-      if (wrapper && wrapper.style.display !== "none") wrapper.style.display = "none";
-      return Boolean(fab || wrapper);
-    }
-
-    const fabText = document.querySelector(".hb-fab-text");
-    if (fabText && data.fabLabel && fabText.textContent !== data.fabLabel) {
-      fabText.textContent = data.fabLabel;
-    }
-
-    const title = document.querySelector(".hb-chat-title h3");
-    if (title && data.headerTitle && title.textContent !== data.headerTitle) {
-      title.textContent = data.headerTitle;
-    }
-
-    const subtitle = document.querySelector(".hb-chat-title span");
-    if (subtitle && data.headerSubtitle && subtitle.textContent !== data.headerSubtitle) {
-      subtitle.textContent = data.headerSubtitle;
-    }
-
-    const ticker = document.getElementById("hb-ticker");
-    if (ticker && data.initialStatus && /Initializing/i.test(ticker.textContent)) {
-      ticker.textContent = data.initialStatus;
-    }
-
-    return Boolean(fab || wrapper || fabText || title || subtitle || ticker);
-  };
-
-  // In normal loading order chat.js is already present by DOMContentLoaded.
-  // If so, apply once and stop — no observer needed.
-  if (apply()) return;
-
-  // Fallback only if chat markup arrives later.
-  // Disconnect immediately once the chat exists.
-  const observer = new MutationObserver(() => {
-    if (apply()) observer.disconnect();
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  // Hard safety stop so this observer can never live indefinitely.
-  setTimeout(() => observer.disconnect(), 3000);
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const chatSettings = await loadHammerChatDisplaySettings();
-  applyHammerChatDisplaySettings(chatSettings);
-});
-
-
 /* ============================================================
    AUTO-INCLUDE HEADER & FOOTER
    (Fixed: Initializes Menu AFTER Header loads)
@@ -575,11 +432,9 @@ document.addEventListener("DOMContentLoaded", () => {
       headerEl.innerHTML = header;
       footerEl.innerHTML = footer;
       
-      // Admin V4 can optionally replace the menu from navigation.json.
-      applyHammerManagedNavigation().finally(() => {
-        initHeaderInteractions();
-        refreshHammerBusinessSettings();
-      });
+      // ✅ FIXED: Initialize menu here, once header is in DOM
+      initHeaderInteractions();
+      refreshHammerBusinessSettings();
     });
   }
 });
