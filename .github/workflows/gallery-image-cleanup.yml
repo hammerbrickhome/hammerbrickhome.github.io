@@ -1,1 +1,69 @@
 
+name: Hammer Brick - Safe Image Cleanup
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS payload as JSON
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Decide scan or delete
+        id: mode
+        env:
+          PAGES_CMS_PAYLOAD: ${{ inputs.payload }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTION_NAME="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.action.name // empty')"
+
+          if [ "$ACTION_NAME" = "scan-unused-gallery-images" ]; then
+            echo "mode=scan" >> "$GITHUB_OUTPUT"
+          elif [ "$ACTION_NAME" = "delete-verified-unused-images" ]; then
+            echo "mode=delete" >> "$GITHUB_OUTPUT"
+          else
+            echo "Unknown Pages CMS action: $ACTION_NAME"
+            exit 1
+          fi
+
+      - name: Run safe image cleanup
+        run: |
+          python3 scripts/gallery_media_cleanup.py --mode "${{ steps.mode.outputs.mode }}"
+
+      - name: Commit report or verified deletions
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No repository changes to commit."
+            exit 0
+          fi
+
+          git config user.name "Hammer Brick Admin"
+          git config user.email "actions@users.noreply.github.com"
+
+          git add admin-tools/unused-images-report.json images/
+
+          if [ "${{ steps.mode.outputs.mode }}" = "scan" ]; then
+            git commit -m "admin: update unused image report"
+          else
+            git commit -m "admin: delete verified unused gallery images"
+          fi
+
+          git push
