@@ -128,7 +128,8 @@
         "diningroom",
         "electrical"
       ]
-    }
+    },
+    {}
   ],
   "galleryPairs": [
     {
@@ -209,8 +210,8 @@
       ]
     },
     {
-      "before": "/images/backcover.jpeg",
-      "after": "/images/chatgpt-image-jun-10-2026-014708-pm.png",
+      "before": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e-3.webp",
+      "after": "/images/176621d2-a5c6-4112-9118-8909c91d5982-1.png",
       "label": "Checking ",
       "tags": [
         "Business card"
