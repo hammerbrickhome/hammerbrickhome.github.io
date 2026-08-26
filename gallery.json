@@ -34,6 +34,14 @@
       ]
     },
     {
+      "before": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e-2.webp",
+      "after": "/images/176621d2-a5c6-4112-9118-8909c91d5982.png",
+      "label": "Testinghome ",
+      "tags": [
+        "MAsory "
+      ]
+    },
+    {
       "before": "front-walk-way-wood-gut-before.jpeg",
       "after": "front-walk-way-wood-gut-after.jpeg",
       "label": " Limestone Walkway Upgrade",
@@ -119,14 +127,6 @@
         "interior",
         "diningroom",
         "electrical"
-      ]
-    },
-    {
-      "before": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e-2.webp",
-      "after": "/images/176621d2-a5c6-4112-9118-8909c91d5982.png",
-      "label": "Testinghome ",
-      "tags": [
-        "MAsory "
       ]
     }
   ],
