@@ -44,7 +44,9 @@
         }
       ],
       "requirements": "Standard height steps only (no scaffolding). Access to water/power required. Structural failures require full estimate.",
-      "buttonText": "Book Best Value Special"
+      "buttonText": "Book Best Value Special",
+      "startDate": "",
+      "endDate": ""
     },
     {
       "active": true,
@@ -87,7 +89,9 @@
         }
       ],
       "requirements": "Room must be cleared or furniture moved to center prior to arrival. Walls must be clean. Max height 12ft.",
-      "buttonText": "Book Premium Special"
+      "buttonText": "Book Premium Special",
+      "startDate": "",
+      "endDate": ""
     },
     {
       "active": true,
@@ -130,7 +134,9 @@
         }
       ],
       "requirements": "1st, 2nd, or 3rd Floor Only (Ladder Access). Standard size (up to 36\"x60\"). No rotted wood frames (repair is extra). Removal of security bars is extra.",
-      "buttonText": "Book Signature Special"
+      "buttonText": "Book Signature Special",
+      "startDate": "",
+      "endDate": ""
     }
   ]
 }

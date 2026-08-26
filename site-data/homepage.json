@@ -40,5 +40,23 @@
   "whyNeighborsTitle": "Why Neighbors Choose Us",
   "whyNeighborsText": "We aren't a generic franchise. We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.",
   "serviceAreaHeading": "Serving Our Neighbors",
-  "serviceAreaIntro": "Based in Staten Island (10302) , we proudly serve the entire New York City metro area and New Jersey."
+  "serviceAreaIntro": "Based in Staten Island (10302) , we proudly serve the entire New York City metro area and New Jersey.",
+  "enableCustomOrder": false,
+  "showProjectStories": false,
+  "projectStoriesHeading": "Project Stories",
+  "projectStoriesIntro": "A closer look at how we approach real homes, real problems, and finished work.",
+  "sectionOrder": [
+    "homeHero",
+    "premiumMaterialsSection",
+    "specialsSection",
+    "tiersSection",
+    "membershipServicesSection",
+    "processSection",
+    "before-after",
+    "guaranteeSection",
+    "projectStoriesSection",
+    "reviewsSection",
+    "serviceAreaSection",
+    "faqSection"
+  ]
 }

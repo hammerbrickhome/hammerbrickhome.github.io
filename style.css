@@ -3334,3 +3334,78 @@ input.gallery-search-box,
   }
 }
 
+
+
+/* ============================================================
+   ADMIN V4 — HOMEPAGE PROJECT STORIES
+=============================================================== */
+.managed-home-intro{
+  text-align:center;
+  max-width:760px;
+  margin:0 auto 24px;
+}
+.managed-home-eyebrow{
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.managed-home-intro p:last-child{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+.home-project-stories-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.home-project-story-card{
+  overflow:hidden;
+  border:1px solid rgba(231,191,99,.24);
+  border-radius:20px;
+  background:rgba(7,14,26,.9);
+  box-shadow:0 16px 40px rgba(0,0,0,.3);
+}
+.home-project-story-card img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  display:block;
+}
+.home-project-story-copy{padding:16px}
+.home-project-story-kicker{
+  color:var(--gold);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.home-project-story-copy h3{
+  color:#fff;
+  font-size:18px;
+  margin:7px 0;
+}
+.home-project-story-copy p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+.home-project-story-copy a{
+  display:inline-block;
+  margin-top:10px;
+  color:var(--gold-soft);
+  font-weight:800;
+  text-decoration:none;
+}
+@media(max-width:850px){
+  .home-project-stories-grid{grid-template-columns:1fr}
+  .home-project-story-card{display:grid;grid-template-columns:140px 1fr}
+  .home-project-story-card img{height:100%;min-height:170px}
+}
+@media(max-width:520px){
+  .home-project-story-card{display:block}
+  .home-project-story-card img{height:210px}
+}
