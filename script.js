@@ -317,6 +317,104 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+/* ============================================================
+   HAMMER BRICK PUBLIC BUSINESS SETTINGS
+   One public JSON file controls phone/email/header/footer details.
+=============================================================== */
+
+let hammerBusinessSettingsPromise = null;
+
+function normalizeDialNumber(value) {
+  const digits = String(value || "").replace(/\D/g, "");
+  if (!digits) return "";
+  return digits.length === 10 ? "+1" + digits : "+" + digits;
+}
+
+function loadHammerBusinessSettings() {
+  if (!hammerBusinessSettingsPromise) {
+    hammerBusinessSettingsPromise = fetch("/site-data/business.json", { cache: "no-store" })
+      .then(r => r.ok ? r.json() : null)
+      .catch(() => null);
+  }
+  return hammerBusinessSettingsPromise;
+}
+
+function applyHammerBusinessSettings(data) {
+  if (!data) return;
+
+  const dial = normalizeDialNumber(data.phone);
+  if (dial) {
+    document.querySelectorAll('a[href^="tel:"]').forEach(a => a.href = "tel:" + dial);
+    document.querySelectorAll('a[href^="sms:"]').forEach(a => a.href = "sms:" + dial);
+  }
+  if (data.email) {
+    document.querySelectorAll('a[href^="mailto:"]').forEach(a => a.href = "mailto:" + data.email);
+  }
+
+  const brandName = document.querySelector(".brand-name");
+  if (brandName && data.businessName) brandName.textContent = data.businessName;
+
+  const brandSub = document.querySelector(".brand-sub");
+  if (brandSub && data.headerTagline) brandSub.textContent = data.headerTagline;
+
+  const footer = document.querySelector(".site-footer");
+  if (footer) {
+    const copyrightStrong = footer.querySelector("div strong");
+    if (copyrightStrong && data.businessName) copyrightStrong.textContent = data.businessName;
+
+    footer.querySelectorAll("div").forEach(div => {
+      const text = div.textContent.trim();
+      if (text.startsWith("Serving:") && Array.isArray(data.serviceAreas)) {
+        div.innerHTML = "Serving: " + data.serviceAreas.map(x => `<strong>${String(x)}</strong>`).join(" · ");
+      }
+      if (text.includes("Licensed, Bonded & Insured") && data.epaLabel) {
+        div.textContent = `Licensed, Bonded & Insured · ${data.epaLabel}`;
+      }
+    });
+
+    const licenseSpan = Array.from(footer.querySelectorAll("span")).find(
+      s => s.textContent.includes("NYC HIC") || s.textContent.includes("NJ HIC")
+    );
+    if (licenseSpan) {
+      const parts = [];
+      if (data.nycHic) parts.push(`NYC HIC #${data.nycHic}`);
+      if (data.njHic) parts.push(`NJ HIC #${data.njHic}`);
+      licenseSpan.textContent = parts.join(" · ");
+    }
+
+    const socialMap = {
+      "Facebook": data.facebook,
+      "Instagram": data.instagram,
+      "YouTube": data.youtube
+    };
+    Object.entries(socialMap).forEach(([label, url]) => {
+      const a = footer.querySelector(`a[aria-label="${label}"]`);
+      if (a && url) a.href = url;
+    });
+  }
+
+  // Update homepage trust wording where the existing IDs/classes are present.
+  const home = document.getElementById("main");
+  if (home) {
+    document.querySelectorAll(".trust-pills li").forEach(li => {
+      if (data.nycHic && li.textContent.includes("HIC #")) {
+        li.textContent = li.textContent.replace(/HIC\s*#\s*\d+/i, `HIC #${data.nycHic}`);
+      }
+      if (data.epaLabel && /EPA Lead-Safe/i.test(li.textContent)) {
+        li.textContent = data.epaLabel + (li.textContent.includes("Pre-1978") ? " (Pre-1978 Homes)" : "");
+      }
+    });
+  }
+}
+
+function refreshHammerBusinessSettings() {
+  return loadHammerBusinessSettings().then(applyHammerBusinessSettings);
+}
+
+document.addEventListener("DOMContentLoaded", refreshHammerBusinessSettings);
+
+
 /* ============================================================
    AUTO-INCLUDE HEADER & FOOTER
    (Fixed: Initializes Menu AFTER Header loads)
@@ -336,6 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       // ✅ FIXED: Initialize menu here, once header is in DOM
       initHeaderInteractions();
+      refreshHammerBusinessSettings();
     });
   }
 });
@@ -377,6 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     document.body.appendChild(panel);
+    refreshHammerBusinessSettings();
 
     /* Open panel ONLY this one */
     sticky.addEventListener("click", (e) => {
