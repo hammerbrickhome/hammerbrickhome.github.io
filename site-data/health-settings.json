@@ -1,9 +1,0 @@
-{
-  "ignoreHiddenServiceLinks": true,
-  "largeImageWarningMB": 1.5,
-  "checkMissingAltText": true,
-  "checkBusinessLicenseConsistency": true,
-  "checkAnalyticsPlaceholders": true,
-  "checkMetaDescriptions": true,
-  "checkCanonicals": true
-}

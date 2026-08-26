@@ -7,7 +7,7 @@
 <title>Hammer Brick &amp; Home LLC | Luxury Remodeling &amp; Masonry in NYC</title>
 <link href="https://www.hammerbrickhome.com/" rel="canonical"/>
 <meta content="Hammer Brick &amp; Home LLC provides luxury residential &amp; commercial remodeling, full roofing services, and true masonry in NYC. EPA Lead-Safe Certified, licensed, bonded &amp; insured HIC #2131291. Staten Island based." name="description"/>
-<link href="/style.css?v=4" rel="stylesheet"/>
+<link href="/style.css?v=3" rel="stylesheet"/>
 <link href="/images/hero.PNG" rel="icon"/>
 <meta content="Hammer Brick &amp; Home LLC — Luxury Remodeling &amp; Masonry" property="og:title"/>
 <meta content="Luxury NYC residential &amp; commercial remodeling. EPA Lead-Safe Certified. Licensed, bonded &amp; insured HIC #2131291." property="og:description"/>
@@ -621,17 +621,6 @@
 <p id="whyNeighborsText">We aren't a generic franchise. We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.</p>
 </div>
 </section>
-<section class="section fade-up" id="projectStoriesSection" style="display:none;">
-<div class="managed-home-intro">
-<p class="managed-home-eyebrow">REAL PROJECTS · MORE DETAIL</p>
-<h2 id="projectStoriesHeading">Project Stories</h2>
-<p id="projectStoriesIntro">A closer look at how we approach real homes, real problems, and finished work.</p>
-</div>
-<div class="home-project-stories-grid" id="homeProjectStoriesGrid"></div>
-<div style="text-align:center;margin-top:18px;">
-<a class="btn ghost" href="/projects/">View Project Stories</a>
-</div>
-</section>
 <section class="section section-reviews-highlight fade-up" id="reviewsSection"><div class="review-trust-header">
 <p class="review-eyebrow">TRUSTED BY HOMEOWNERS</p>
 <h2>Real Customer Experiences</h2>
@@ -1022,8 +1011,6 @@
         setText("whyNeighborsText", data.whyNeighborsText);
         setText("serviceAreaHeading", data.serviceAreaHeading);
         setText("serviceAreaIntro", data.serviceAreaIntro);
-        setText("projectStoriesHeading", data.projectStoriesHeading);
-        setText("projectStoriesIntro", data.projectStoriesIntro);
 
         renderStringList("homeTrustPills", data.trustPills, value =>
           `<li class="gold-pill breathing-gold">${escapeHtml(value)}</li>`
@@ -1043,31 +1030,6 @@
         setSectionVisible("reviewsSection", data.showReviews);
         setSectionVisible("serviceAreaSection", data.showServiceArea);
         setSectionVisible("faqSection", data.showFaq);
-        setSectionVisible("projectStoriesSection", data.showProjectStories);
-
-        if (data.enableCustomOrder === true && Array.isArray(data.sectionOrder)) {
-          const main = document.getElementById("main");
-          if (main) {
-            const ordered = data.sectionOrder
-              .map(id => document.getElementById(id))
-              .filter(Boolean);
-
-            if (ordered.length) {
-              const anchor = document.createComment("admin-v4-section-order");
-              const first = ordered[0];
-              first.parentNode.insertBefore(anchor, first);
-
-              document.querySelectorAll("#main > .gold-divider").forEach(divider => {
-                divider.style.display = "none";
-              });
-
-              const frag = document.createDocumentFragment();
-              ordered.forEach(el => frag.appendChild(el));
-              anchor.parentNode.insertBefore(frag, anchor.nextSibling);
-              anchor.remove();
-            }
-          }
-        }
       }
 
       async function loadHomepageControls() {
@@ -1405,39 +1367,6 @@
         }
       }
 
-
-      async function loadProjectStories() {
-        const section = document.getElementById("projectStoriesSection");
-        const grid = document.getElementById("homeProjectStoriesGrid");
-        if (!section || !grid) return;
-
-        try {
-          const r = await fetch("/site-data/project-index.json", { cache: "no-store" });
-          if (!r.ok) return;
-
-          const items = await r.json();
-          const featured = (Array.isArray(items) ? items : [])
-            .filter(item => item && item.featured)
-            .slice(0, 3);
-
-          if (!featured.length) return;
-
-          grid.innerHTML = featured.map(item => `
-            <article class="home-project-story-card">
-              ${item.afterImage ? `<img loading="lazy" src="${escapeHtml(item.afterImage)}" alt="${escapeHtml(item.title)}">` : ""}
-              <div class="home-project-story-copy">
-                <p class="home-project-story-kicker">${escapeHtml(item.service || "Project")} · ${escapeHtml(item.location || "")}</p>
-                <h3>${escapeHtml(item.title)}</h3>
-                <p>${escapeHtml(item.summary || "")}</p>
-                <a href="${escapeHtml(item.url)}">See the project →</a>
-              </div>
-            </article>
-          `).join("");
-        } catch (err) {
-          console.warn("Project stories unavailable.", err);
-        }
-      }
-
       async function loadManagedHomepageContent() {
         try {
           const [specialsRes, reviewsRes, faqsRes] = await Promise.all([
@@ -1462,7 +1391,6 @@
       // Start static carousel immediately, then replace it if CMS content loads.
       initReviewCarousel();
       loadHomepageControls();
-      loadProjectStories();
       loadManagedHomepageContent();
 
       // 3. CONTACT PANEL
@@ -1564,6 +1492,6 @@
   </script>
 <link href="/chat.css" rel="stylesheet"/>
 <script defer="" src="/chat.js?v=2"></script>
-<script defer="" src="/script.js?v=4"></script>
+<script defer="" src="/script.js?v=2"></script>
 </body>
 </html>
