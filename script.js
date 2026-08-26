@@ -100,6 +100,11 @@ function makeSkeleton(h) {
 }
 
 // NOTE: This function is preserved from your original code, but modified slightly.
+function galleryImagePath(value) {
+  if (!value) return "";
+  return value.startsWith("/") ? value : "/images/" + value;
+}
+
 function buildCompare(pair) {
   const card = document.createElement("div");
   card.className = "ba-card fade-in";
@@ -108,14 +113,14 @@ function buildCompare(pair) {
   frame.className = "ba-frame";
 
   const before = document.createElement("img");
-  before.src = "/images/" + pair.before;
+  before.src = galleryImagePath(pair.before);
   before.className = "ba-before";
 
   const afterWrap = document.createElement("div");
   afterWrap.className = "ba-after-wrap";
 
   const after = document.createElement("img");
-  after.src = "/images/" + pair.after;
+  after.src = galleryImagePath(pair.after);
   after.className = "ba-after";
   afterWrap.appendChild(after);
 
@@ -164,7 +169,7 @@ function renderGallery(photos, append = false) {
     const imgName = typeof photo === 'string' ? photo : photo.name;
     
     const img = document.createElement("img");
-    img.src = "/images/" + imgName;
+    img.src = galleryImagePath(imgName);
     img.className = "grid-photo fade-in";
     img.addEventListener("click", () => openLightbox(img.src));
     container.appendChild(img);
