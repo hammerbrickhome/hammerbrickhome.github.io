@@ -1,13 +1,7 @@
 {
-  "generatedAt": "2026-08-26 16:39:06 UTC",
-  "count": 1,
-  "totalSize": "156 B",
+  "generatedAt": "2026-08-26 16:40:15 UTC",
+  "count": 0,
+  "totalSize": "0 B",
   "note": "Review every image below before deleting. The delete action re-checks the repository and only deletes images that were in this report and are still unused. 1 unreferenced branding/critical-looking file(s) were automatically protected and are not listed.",
-  "files": [
-    {
-      "image": "/images/gold-dot.png",
-      "size": "156 B",
-      "reason": "No reference to this filename/path was found in the repository."
-    }
-  ]
+  "files": []
 }
