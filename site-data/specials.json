@@ -131,15 +131,6 @@
       ],
       "requirements": "1st, 2nd, or 3rd Floor Only (Ladder Access). Standard size (up to 36\"x60\"). No rotted wood frames (repair is extra). Removal of security bars is extra.",
       "buttonText": "Book Signature Special"
-    },
-    {
-      "active": true,
-      "badge": "Energy Saver tester ",
-      "accentColor": "#fff",
-      "badgeTextColor": "black",
-      "title": "NOmi",
-      "price": "1899",
-      "description": "Speical tester "
     }
   ]
 }
