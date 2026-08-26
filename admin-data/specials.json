@@ -1,0 +1,106 @@
+{
+  "heading": "Monthly Service Specials",
+  "subheading": "Exclusive pricing on high-impact upgrades. Protection clauses apply.",
+  "finePrint": "*Prices for standard residential conditions. Oversized rooms or custom windows may vary. We reserve the right to decline unsafe work.",
+  "specials": [
+    {
+      "active": true,
+      "badge": "Most Popular",
+      "accentColor": "#4a90e2",
+      "title": "Masonry Tune-Up",
+      "price": "$449",
+      "description": "Restore safety and curb appeal to your front steps without a full rebuild.",
+      "features": [
+        "Repoint 6–8 bricks or joints",
+        "Seal cracks (up to 10 lin. ft.)",
+        "Trip-hazard safety check"
+      ],
+      "addons": [
+        {
+          "name": "Lead Prep (Only if Painted)",
+          "price": "+$399"
+        },
+        {
+          "name": "Power Wash Entry",
+          "price": "+$149"
+        },
+        {
+          "name": "Waterproofing Seal",
+          "price": "+$99"
+        },
+        {
+          "name": "Limestone Patching",
+          "price": "+$125"
+        }
+      ],
+      "requirements": "Standard height steps only (no scaffolding). Access to water/power required. Structural failures require full estimate.",
+      "buttonText": "Book Best Value Special"
+    },
+    {
+      "active": true,
+      "badge": "Best Value",
+      "accentColor": "#e7bf63",
+      "title": "The Interior Facelift",
+      "price": "$799",
+      "description": "White-glove interior painting service to transform one standard room.",
+      "features": [
+        "Walls painted (up to 12'x12')",
+        "Nail hole filling included",
+        "2 Coats Premium Paint"
+      ],
+      "addons": [
+        {
+          "name": "Lead Prep (Only if Painted)",
+          "price": "+$399"
+        },
+        {
+          "name": "Paint Ceilings",
+          "price": "+$150"
+        },
+        {
+          "name": "Paint Baseboards/Trim",
+          "price": "+$150"
+        },
+        {
+          "name": "Deep Plaster Repair",
+          "price": "Quote"
+        }
+      ],
+      "requirements": "Room must be cleared or furniture moved to center prior to arrival. Walls must be clean. Max height 12ft.",
+      "buttonText": "Book Premium Special"
+    },
+    {
+      "active": true,
+      "badge": "Energy Saver",
+      "accentColor": "#e67e22",
+      "title": "Draft-Stop Window Upgrade",
+      "price": "$1499",
+      "description": "Stop the drafts. We supply and install a new energy-efficient vinyl window.",
+      "features": [
+        "1 Double-Hung Window (White)",
+        "Removal & Disposal",
+        "Insulation & Watertight Seal"
+      ],
+      "addons": [
+        {
+          "name": "Lead Prep (Only if Painted)",
+          "price": "+$399"
+        },
+        {
+          "name": "Exterior Capping",
+          "price": "+$125"
+        },
+        {
+          "name": "Full Screen Mesh",
+          "price": "+$45"
+        },
+        {
+          "name": "Grid/Grille Pattern",
+          "price": "+$65"
+        }
+      ],
+      "requirements": "1st, 2nd, or 3rd Floor Only (Ladder Access). Standard size up to 36x60. Rotted-frame repairs and security-bar removal are extra.",
+      "buttonText": "Book Signature Special"
+    }
+  ]
+}
