@@ -1,0 +1,131 @@
+# Hammer Brick & Home LLC — Pages CMS configuration
+# Place this file at the ROOT of your GitHub repository.
+# Pages CMS will use GitHub authentication; no PHP/database is required.
+
+media:
+  - name: project_images
+    label: Project Photos
+    input: images
+    output: /images
+    categories: [image]
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+    commit:
+      templates:
+        create: "gallery: upload {filename}"
+        update: "gallery: update {filename}"
+        delete: "gallery: remove {filename}"
+        rename: "gallery: rename {oldFilename} to {newFilename}"
+
+settings:
+  commit:
+    identity: app
+    templates:
+      update: "gallery: update {path}"
+
+content:
+  - name: gallery
+    label: "Project Gallery Manager"
+    type: file
+    path: gallery.json
+    format: json
+    fields:
+      - name: homePairs
+        label: "Homepage Before & After"
+        type: object
+        description: "Projects shown in the Before & After section on the homepage. Drag items to change their order."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label} — #{index}"
+        fields:
+          - name: before
+            label: "Before Photo"
+            type: image
+            required: false
+            options:
+              media: project_images
+              extensions: [jpg, jpeg, png, webp]
+              rename: safe
+          - name: after
+            label: "After Photo"
+            type: image
+            required: false
+            options:
+              media: project_images
+              extensions: [jpg, jpeg, png, webp]
+              rename: safe
+          - name: label
+            label: "Project Title"
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: tags
+            label: "Tags"
+            type: string
+            list: true
+            required: false
+            description: "Examples: masonry, exterior, stairs, granite, remodel"
+
+      - name: galleryPairs
+        label: "Full Gallery Before & After"
+        type: object
+        description: "Before/after projects used on the full gallery page."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label} — #{index}"
+        fields:
+          - name: before
+            label: "Before Photo"
+            type: image
+            required: false
+            options:
+              media: project_images
+              extensions: [jpg, jpeg, png, webp]
+              rename: safe
+          - name: after
+            label: "After Photo"
+            type: image
+            required: false
+            options:
+              media: project_images
+              extensions: [jpg, jpeg, png, webp]
+              rename: safe
+          - name: label
+            label: "Project Title"
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: tags
+            label: "Tags"
+            type: string
+            list: true
+            required: false
+            description: "Examples: masonry, exterior, stairs, granite, remodel"
+
+      - name: galleryGrid
+        label: "Gallery Photo Grid"
+        type: object
+        description: "Single finished-project photos shown in the gallery grid."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "Photo #{index}"
+        fields:
+          - name: name
+            label: "Photo"
+            type: image
+            required: true
+            options:
+              media: project_images
+              extensions: [jpg, jpeg, png, webp]
+              rename: safe
+          - name: tags
+            label: "Tags"
+            type: string
+            list: true
+            required: false
+            description: "Examples: interior, masonry, exterior, remodel"
