@@ -120,6 +120,11 @@
         "exterior",
         "granite"
       ]
+    },
+    {
+      "before": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-3.png",
+      "after": "/images/chatgpt-image-aug-24-2026-102430-pm.png",
+      "label": "test"
     }
   ],
   "galleryPairs": [
