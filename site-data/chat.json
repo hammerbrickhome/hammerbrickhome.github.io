@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "fabLabel": "Instant Estimate",
+  "headerTitle": "Hammer Brick & Home",
+  "headerSubtitle": "NYC Licensed #2131291",
+  "initialStatus": "Tell us what you are planning.",
+  "disclaimerTitle": "Just so you know:",
+  "disclaimerMarketText": "This tool calculates generic NYC/NJ market estimates based on standard industry data.",
+  "disclaimerCompetitiveText": "Hammer Brick & Home is often able to offer more competitive pricing than these averages.",
+  "disclaimerFinalText": "This is a ballpark range, not a final quote until a walkthrough.",
+  "startButtonText": "✅ I Understand – Start Estimate",
+  "shareButtonText": "📢 Share This Estimate Tool"
+}

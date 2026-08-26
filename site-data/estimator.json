@@ -1,0 +1,497 @@
+{
+  "note": "These values mirror the current public estimator. Saving changes can sync the existing estimator engine without replacing the estimator page.",
+  "boroughFactors": {
+    "staten-island": 1.0,
+    "brooklyn": 1.08,
+    "queens": 1.05,
+    "bronx": 1.03,
+    "manhattan": 1.18,
+    "nj": 0.96,
+    "outside": 1.0
+  },
+  "buildingFactors": {
+    "house": 1.0,
+    "small-multi": 1.08,
+    "coop-condo": 1.15,
+    "mixed": 1.2
+  },
+  "finishFactors": {
+    "standard": 1.0,
+    "premium": 1.15,
+    "luxury": 1.32
+  },
+  "urgencyFactors": {
+    "flex": 1.0,
+    "soon": 1.07,
+    "rush": 1.15
+  },
+  "services": [
+    {
+      "key": "masonry",
+      "label": "Masonry · Pavers · Concrete",
+      "mode": "area",
+      "minArea": 80,
+      "maxArea": 4000,
+      "perSqLow": 16,
+      "perSqHigh": 28,
+      "minLow": 2500,
+      "minHigh": 6500
+    },
+    {
+      "key": "driveway",
+      "label": "Driveway / Parking Area",
+      "mode": "area",
+      "minArea": 250,
+      "maxArea": 5000,
+      "perSqLow": 8,
+      "perSqHigh": 20,
+      "minLow": 3500,
+      "minHigh": 15000
+    },
+    {
+      "key": "roofing",
+      "label": "Roofing – Shingle / Flat",
+      "mode": "area",
+      "minArea": 700,
+      "maxArea": 5000,
+      "perSqLow": 3.75,
+      "perSqHigh": 9.5,
+      "minLow": 6500,
+      "minHigh": 22000
+    },
+    {
+      "key": "siding",
+      "label": "Siding – Exterior",
+      "mode": "area",
+      "minArea": 600,
+      "maxArea": 4500,
+      "perSqLow": 5,
+      "perSqHigh": 12,
+      "minLow": 6500,
+      "minHigh": 28000
+    },
+    {
+      "key": "windows",
+      "label": "Windows & Exterior Doors",
+      "mode": "area",
+      "minArea": 3,
+      "maxArea": 40,
+      "perSqLow": 750,
+      "perSqHigh": 1600,
+      "minLow": 5000,
+      "minHigh": 45000
+    },
+    {
+      "key": "exterior-paint",
+      "label": "Exterior Facade / Painting",
+      "mode": "area",
+      "minArea": 400,
+      "maxArea": 5000,
+      "perSqLow": 2.5,
+      "perSqHigh": 6.5,
+      "minLow": 2800,
+      "minHigh": 10000
+    },
+    {
+      "key": "deck",
+      "label": "Deck / Patio Build or Rebuild",
+      "mode": "area",
+      "minArea": 120,
+      "maxArea": 1500,
+      "perSqLow": 28,
+      "perSqHigh": 60,
+      "minLow": 6000,
+      "minHigh": 26000
+    },
+    {
+      "key": "fence",
+      "label": "Fence Install / Replacement",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "yard",
+          "label": "Standard run",
+          "low": 3000,
+          "high": 6500
+        },
+        {
+          "key": "corner",
+          "label": "Corner / larger yard",
+          "low": 6500,
+          "high": 12000
+        },
+        {
+          "key": "premium",
+          "label": "Premium/custom",
+          "low": 12000,
+          "high": 20000
+        }
+      ]
+    },
+    {
+      "key": "waterproofing",
+      "label": "Waterproofing & Foundation Sealing",
+      "mode": "area",
+      "minArea": 200,
+      "maxArea": 2000,
+      "perSqLow": 18,
+      "perSqHigh": 40,
+      "minLow": 3800,
+      "minHigh": 22000
+    },
+    {
+      "key": "power-wash",
+      "label": "Power Washing / Soft Washing",
+      "mode": "area",
+      "minArea": 400,
+      "maxArea": 6000,
+      "perSqLow": 0.5,
+      "perSqHigh": 1.6,
+      "minLow": 300,
+      "minHigh": 2500
+    },
+    {
+      "key": "landscaping",
+      "label": "Landscaping & Seasonal Care",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "basic",
+          "label": "Basic monthly care",
+          "low": 180,
+          "high": 450
+        },
+        {
+          "key": "seasonal",
+          "label": "Spring / Fall cleanup",
+          "low": 650,
+          "high": 1800
+        },
+        {
+          "key": "upgrade",
+          "label": "Landscape upgrade",
+          "low": 2500,
+          "high": 9000
+        }
+      ]
+    },
+    {
+      "key": "exterior-lighting",
+      "label": "Exterior Lighting & Smart Security",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "basic",
+          "label": "Basic package",
+          "low": 1500,
+          "high": 3500
+        },
+        {
+          "key": "standard",
+          "label": "Full front package",
+          "low": 3500,
+          "high": 7500
+        },
+        {
+          "key": "premium",
+          "label": "Whole-property / high-end",
+          "low": 7500,
+          "high": 16000
+        }
+      ]
+    },
+    {
+      "key": "sidewalk",
+      "label": "Sidewalk / DOT Concrete Repair",
+      "mode": "area",
+      "minArea": 80,
+      "maxArea": 800,
+      "perSqLow": 18,
+      "perSqHigh": 35,
+      "minLow": 4500,
+      "minHigh": 18000
+    },
+    {
+      "key": "gutters",
+      "label": "Gutter Install / Repair",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "clean",
+          "label": "Cleanout / minor repair",
+          "low": 250,
+          "high": 700
+        },
+        {
+          "key": "replace",
+          "label": "Standard replacement",
+          "low": 1500,
+          "high": 3500
+        },
+        {
+          "key": "guards",
+          "label": "Install gutter guards",
+          "low": 1500,
+          "high": 3800
+        }
+      ]
+    },
+    {
+      "key": "interior-paint",
+      "label": "Interior Painting",
+      "mode": "area",
+      "minArea": 250,
+      "maxArea": 4000,
+      "perSqLow": 1.5,
+      "perSqHigh": 3.5,
+      "minLow": 1800,
+      "minHigh": 9000
+    },
+    {
+      "key": "flooring",
+      "label": "Flooring (LVP / Tile / Hardwood)",
+      "mode": "area",
+      "minArea": 200,
+      "maxArea": 3000,
+      "perSqLow": 4,
+      "perSqHigh": 14,
+      "minLow": 2500,
+      "minHigh": 26000
+    },
+    {
+      "key": "drywall",
+      "label": "Drywall / Plaster / Skim Coat",
+      "mode": "area",
+      "minArea": 200,
+      "maxArea": 4000,
+      "perSqLow": 2.75,
+      "perSqHigh": 7.5,
+      "minLow": 2000,
+      "minHigh": 18000
+    },
+    {
+      "key": "interior-doors",
+      "label": "Interior Doors & Trim",
+      "mode": "area",
+      "minArea": 2,
+      "maxArea": 20,
+      "perSqLow": 300,
+      "perSqHigh": 900,
+      "minLow": 600,
+      "minHigh": 12000
+    },
+    {
+      "key": "closets",
+      "label": "Closet / Storage Buildouts",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "simple",
+          "label": "Simple reach-in",
+          "low": 1500,
+          "high": 3500
+        },
+        {
+          "key": "walkin",
+          "label": "Standard walk-in",
+          "low": 3500,
+          "high": 7800
+        },
+        {
+          "key": "premium",
+          "label": "Custom built-ins",
+          "low": 7800,
+          "high": 15000
+        }
+      ]
+    },
+    {
+      "key": "interior-lighting",
+      "label": "Interior Electrical / Smart Lighting",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "room",
+          "label": "Single room",
+          "low": 1500,
+          "high": 3000
+        },
+        {
+          "key": "multi",
+          "label": "Multiple rooms",
+          "low": 3000,
+          "high": 6500
+        },
+        {
+          "key": "whole",
+          "label": "Whole-home",
+          "low": 6500,
+          "high": 18000
+        }
+      ]
+    },
+    {
+      "key": "bathroom",
+      "label": "Bathroom Remodel",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "refresh",
+          "label": "Light refresh",
+          "low": 9000,
+          "high": 16000
+        },
+        {
+          "key": "mid",
+          "label": "Mid-level remodel",
+          "low": 16000,
+          "high": 28000
+        },
+        {
+          "key": "gut",
+          "label": "Full gut / higher-end",
+          "low": 28000,
+          "high": 45000
+        }
+      ]
+    },
+    {
+      "key": "kitchen",
+      "label": "Kitchen Remodel",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "refresh",
+          "label": "Cosmetic refresh",
+          "low": 16000,
+          "high": 28000
+        },
+        {
+          "key": "mid",
+          "label": "Mid-level remodel",
+          "low": 28000,
+          "high": 55000
+        },
+        {
+          "key": "gut",
+          "label": "Full gut / higher-end",
+          "low": 55000,
+          "high": 90000
+        }
+      ]
+    },
+    {
+      "key": "basement",
+      "label": "Basement Finishing",
+      "mode": "area",
+      "minArea": 400,
+      "maxArea": 2000,
+      "perSqLow": 35,
+      "perSqHigh": 85,
+      "minLow": 22000,
+      "minHigh": 65000
+    },
+    {
+      "key": "garage-conversion",
+      "label": "Garage Conversion / Remodel",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "basic",
+          "label": "Basic insulated studio / office",
+          "low": 18000,
+          "high": 35000
+        },
+        {
+          "key": "enhanced",
+          "label": "Enhanced conversion",
+          "low": 35000,
+          "high": 65000
+        }
+      ]
+    },
+    {
+      "key": "epoxy-garage",
+      "label": "Epoxy Garage Floor",
+      "mode": "area",
+      "minArea": 250,
+      "maxArea": 1500,
+      "perSqLow": 4.25,
+      "perSqHigh": 9.5,
+      "minLow": 1800,
+      "minHigh": 9000
+    },
+    {
+      "key": "smart-home",
+      "label": "Smart Home Upgrades",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "basic",
+          "label": "Doorbell / cameras / smart lock",
+          "low": 1500,
+          "high": 3000
+        },
+        {
+          "key": "standard",
+          "label": "Full-floor / small home",
+          "low": 3000,
+          "high": 6500
+        },
+        {
+          "key": "premium",
+          "label": "Whole-home integrated",
+          "low": 6500,
+          "high": 15000
+        }
+      ]
+    },
+    {
+      "key": "handyman",
+      "label": "Small Repairs / Handyman Visit",
+      "mode": "scope",
+      "scopes": [
+        {
+          "key": "small",
+          "label": "Small visit",
+          "low": 250,
+          "high": 450
+        },
+        {
+          "key": "halfday",
+          "label": "Half day",
+          "low": 450,
+          "high": 700
+        },
+        {
+          "key": "fullday",
+          "label": "Full day",
+          "low": 700,
+          "high": 1000
+        }
+      ]
+    },
+    {
+      "key": "soundproofing",
+      "label": "Soundproofing",
+      "mode": "area",
+      "minArea": 150,
+      "maxArea": 2000,
+      "perSqLow": 12,
+      "perSqHigh": 28,
+      "minLow": 3000,
+      "minHigh": 15000
+    },
+    {
+      "key": "moisture-control",
+      "label": "Mold / Moisture Prevention (non-remediation)",
+      "mode": "area",
+      "minArea": 150,
+      "maxArea": 2000,
+      "perSqLow": 8,
+      "perSqHigh": 22,
+      "minLow": 2500,
+      "minHigh": 15000
+    }
+  ]
+}

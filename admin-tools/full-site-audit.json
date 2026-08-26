@@ -1,0 +1,13 @@
+{
+  "generatedAt": "Run Full Site Audit to generate this report.",
+  "status": "NOT RUN YET",
+  "summary": "No audit has been run yet.",
+  "checks": [
+    {
+      "name": "Full Site Audit",
+      "status": "INFO",
+      "details": "Run the Pages CMS action after installation.",
+      "items": []
+    }
+  ]
+}
