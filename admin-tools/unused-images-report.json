@@ -1,57 +1,12 @@
 {
-  "generatedAt": "2026-08-26 16:32:52 UTC",
-  "count": 11,
-  "totalSize": "5.7 MB",
+  "generatedAt": "2026-08-26 16:39:06 UTC",
+  "count": 1,
+  "totalSize": "156 B",
   "note": "Review every image below before deleting. The delete action re-checks the repository and only deletes images that were in this report and are still unused. 1 unreferenced branding/critical-looking file(s) were automatically protected and are not listed.",
   "files": [
     {
-      "image": "/images/Full-front-remodel-after.jpeg",
-      "size": "472.8 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/Full-front-remodel-before.jpeg",
-      "size": "349.7 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/IMG_1777.jpg",
-      "size": "186.1 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/Livingroom-fullgut-before1 Large.jpeg",
-      "size": "239.6 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/cement-under-deck-base-after.jpeg",
-      "size": "301.4 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/cement-under-deck-base-before.jpeg",
-      "size": "285.7 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/chatgpt-image-jun-10-2026-014708-pm.png",
-      "size": "2.5 MB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/front-walkway-before.jpeg",
-      "size": "477.0 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/front-walkway-gut-after.jpeg",
-      "size": "550.0 KB",
-      "reason": "No reference to this filename/path was found in the repository."
-    },
-    {
-      "image": "/images/front-walkway-gut-before.jpeg",
-      "size": "418.6 KB",
+      "image": "/images/gold-dot.png",
+      "size": "156 B",
       "reason": "No reference to this filename/path was found in the repository."
     }
   ]
