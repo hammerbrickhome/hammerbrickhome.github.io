@@ -139,13 +139,7 @@
       "badgeTextColor": "black",
       "title": "NOmi",
       "price": "1899",
-      "description": "Speical tester ",
-      "features": [
-        {
-          "text": "nomi +1200",
-          "bold": false
-        }
-      ]
+      "description": "Speical tester "
     }
   ]
 }
