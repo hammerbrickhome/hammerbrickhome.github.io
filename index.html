@@ -1130,12 +1130,27 @@
       const loadBtn = document.getElementById("ba-loadmore");
       const tmpl = document.getElementById("ba-card");
 
+      // Accept both the OLD gallery.json format ("photo.jpg") and
+      // Pages CMS image paths ("/images/photo.jpg").
+      function galleryImageUrl(value) {
+        if (!value) return "";
+        const src = String(value).trim();
+        if (!src) return "";
+        if (/^(?:https?:)?\/\//i.test(src) || src.startsWith("data:") || src.startsWith("blob:")) return src;
+        if (src.startsWith("/images/")) return src;
+        if (src.startsWith("images/")) return "/" + src;
+        return "/images/" + src.replace(/^\/+/, "");
+      }
+
       function renderBatch() {
         const nextBatch = allHomePairs.slice(currentIndex, currentIndex + PAGE_SIZE);
         nextBatch.forEach(item => {
+          // Avoid rendering an unusable comparison card if either side is missing.
+          if (!item || !item.before || !item.after) return;
+
           const card = tmpl.content.cloneNode(true);
-          card.querySelector(".ba-before").src = "/images/" + item.before;
-          card.querySelector(".ba-after").src = "/images/" + item.after;
+          card.querySelector(".ba-before").src = galleryImageUrl(item.before);
+          card.querySelector(".ba-after").src = galleryImageUrl(item.after);
           card.querySelector(".ba-caption").textContent = item.label || "";
           
           const wrap = card.querySelector(".ba-after-wrap");
