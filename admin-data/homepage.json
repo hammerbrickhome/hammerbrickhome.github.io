@@ -1,8 +1,8 @@
 {
-  "heroTitle": "Luxury Residential & Commercial Remodeling in NYC",
-  "heroText": "White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.",
-  "heroPrimaryButtonText": "📞 Fast Estimate",
-  "heroSecondaryButtonText": "Contact & Options",
+  "heroTitle": "Masonry, Roofing & Remodeling Across NYC & New Jersey",
+  "heroText": "Owner-led home improvement for Staten Island, Brooklyn, Queens, Manhattan, the Bronx and select New Jersey areas. From brick and roofing repairs to bathrooms, kitchens and full renovations, we bring the same clean, detailed workmanship to every project.",
+  "heroPrimaryButtonText": "📞 Call for a Free Estimate",
+  "heroSecondaryButtonText": "📱 Text Photos for a Free Estimate",
   "premiumMaterials": [
     "Benjamin Moore",
     "Cambridge Pavers",
@@ -11,9 +11,9 @@
   ],
   "reviewEyebrow": "TRUSTED BY HOMEOWNERS",
   "reviewHeading": "Real Customer Experiences",
-  "reviewIntro": "Real feedback from homeowners who trusted Hammer Brick & Home with their projects.",
+  "reviewIntro": "Feedback from homeowners who trusted Hammer Brick & Home with masonry, remodeling and home-improvement projects.",
   "reviewButtonText": "★ Read Our Google Reviews",
   "faqHeading": "Common Questions",
   "serviceAreaHeading": "Serving Our Neighbors",
-  "serviceAreaIntro": "Based in Staten Island (10302), we proudly serve the entire New York City metro area and New Jersey."
+  "serviceAreaIntro": "Based in Staten Island and serving Brooklyn, Queens, Manhattan, the Bronx and select New Jersey areas."
 }

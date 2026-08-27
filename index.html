@@ -4,21 +4,22 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Hammer Brick &amp; Home LLC | Luxury Remodeling &amp; Masonry in NYC</title>
+<title>NYC &amp; NJ Contractor | Masonry, Roofing &amp; Remodeling | Hammer Brick &amp; Home</title>
 <link href="https://www.hammerbrickhome.com/" rel="canonical"/>
-<meta content="Hammer Brick &amp; Home LLC provides luxury residential &amp; commercial remodeling, full roofing services, and true masonry in NYC. EPA Lead-Safe Certified, licensed, bonded &amp; insured HIC #2131291. Staten Island based." name="description"/>
+<meta content="Hammer Brick &amp; Home LLC provides owner-led masonry, roofing, remodeling, waterproofing, windows and home improvement across NYC and select New Jersey areas. Call or text for a free estimate. NYC HIC #2131291." name="description"/>
 <link href="/style.css?v=3" rel="stylesheet"/>
 <link href="/images/hero.PNG" rel="icon"/>
-<meta content="Hammer Brick &amp; Home LLC — Luxury Remodeling &amp; Masonry" property="og:title"/>
-<meta content="Luxury NYC residential &amp; commercial remodeling. EPA Lead-Safe Certified. Licensed, bonded &amp; insured HIC #2131291." property="og:description"/>
+<meta content="Masonry, Roofing &amp; Remodeling Across NYC &amp; New Jersey | Hammer Brick &amp; Home" property="og:title"/>
+<meta content="Owner-led contracting across NYC and select New Jersey areas. Call or text photos for a free estimate." property="og:description"/>
 <meta content="website" property="og:type"/>
 <meta content="https://www.hammerbrickhome.com/" property="og:url"/>
 <meta content="https://www.hammerbrickhome.com/images/hero.PNG" property="og:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Hammer Brick &amp; Home LLC — Luxury Remodeling &amp; Masonry" name="twitter:title"/>
-<meta content="Luxury NYC residential &amp; commercial remodeling. Licensed, bonded &amp; insured HIC #2131291." name="twitter:description"/>
+<meta content="Masonry, Roofing &amp; Remodeling Across NYC &amp; New Jersey" name="twitter:title"/>
+<meta content="Call or text Hammer Brick &amp; Home directly for a free estimate." name="twitter:description"/>
 <meta content="https://www.hammerbrickhome.com/images/hero.PNG" name="twitter:image"/>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -170,7 +171,8 @@
       }
     }
   ]
-}</script>
+}
+</script>
 <style>
     /* 1. Hero Gradient Overlay & Glassmorphism */
     .hero-overlay {
@@ -300,46 +302,549 @@
     .card-holder { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; }
     .card-holder strong { display: block; font-size: 12px; color: #fff; margin-top: 2px; }
     .card-logo img { width: 45px; opacity: 0.9; border-radius: 50%; }
-  </style>
+  
+/* =========================================================
+   HAMMER BRICK HOMEPAGE V2 — NYC + NJ / ADMIN COMPATIBLE
+   ========================================================= */
+.hb-home-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:13px;
+  color:var(--gold-soft,#f5d89b);font-size:11px;font-weight:900;
+  letter-spacing:1.8px;text-transform:uppercase
+}
+.hb-home-eyebrow:before{content:"";width:26px;height:1px;background:var(--gold,#e7bf63)}
+.hb-hero-copy{max-width:850px}
+.hb-hero-copy h1{max-width:820px}
+.hb-hero-copy p{max-width:730px}
+.hb-hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.hb-call-btn,.hb-text-btn{min-width:240px;text-align:center}
+.hb-direct-note{margin-top:13px;color:rgba(255,255,255,.68);font-size:12px}
+.hb-direct-note strong{color:#fff}
+.hb-proof-bar{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
+  margin:18px 0 44px
+}
+.hb-proof{
+  padding:15px 12px;border:1px solid rgba(231,191,99,.22);
+  border-radius:14px;background:linear-gradient(145deg,rgba(12,25,43,.97),rgba(6,13,24,.97));
+  text-align:center
+}
+.hb-proof strong{display:block;color:#fff;font-size:12px;margin-bottom:4px}
+.hb-proof span{display:block;color:var(--muted);font-size:10px;line-height:1.45}
+.hb-section-intro{max-width:760px;margin:0 auto 26px;text-align:center}
+.hb-section-intro p{color:var(--muted);line-height:1.65}
+.hb-services{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:24px
+}
+.hb-service{
+  position:relative;display:block;min-height:158px;padding:22px 18px;
+  border-radius:18px;border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(145deg,rgba(11,23,40,.98),rgba(6,13,24,.98));
+  text-decoration:none;overflow:hidden;transition:.22s ease
+}
+.hb-service:before{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold,#e7bf63),transparent);opacity:.75
+}
+.hb-service:hover{transform:translateY(-4px);border-color:rgba(231,191,99,.55);box-shadow:0 14px 35px rgba(0,0,0,.3)}
+.hb-service .ico{display:block;font-size:26px;margin-bottom:12px}
+.hb-service h3{color:#fff;font-size:16px;margin:0 0 7px}
+.hb-service p{color:var(--muted);font-size:12px;line-height:1.55;margin:0}
+.hb-proof-first-note{
+  margin:18px auto 0;max-width:760px;padding:14px 16px;border-radius:12px;
+  border:1px solid rgba(231,191,99,.18);background:rgba(231,191,99,.035);
+  color:var(--muted);font-size:12px;text-align:center
+}
+.hb-owner{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px}
+.hb-owner>div{
+  padding:28px;border-radius:20px;border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(145deg,rgba(11,23,40,.98),rgba(6,13,24,.98))
+}
+.hb-owner-quote{
+  border-color:rgba(231,191,99,.38)!important;text-align:center;
+  display:flex;flex-direction:column;justify-content:center
+}
+.hb-owner-badge{
+  width:68px;height:68px;margin:0 auto 15px;border-radius:50%;
+  border:1px solid var(--gold,#e7bf63);display:flex;align-items:center;justify-content:center;
+  color:var(--gold-soft,#f5d89b);font-weight:900;font-size:20px
+}
+.hb-owner-quote blockquote{
+  margin:0;color:#fff;font-family:var(--font-serif,Georgia,serif);
+  font-size:18px;line-height:1.65
+}
+.hb-owner-sign{margin-top:15px;color:var(--gold-soft,#f5d89b);font-weight:800;font-size:13px}
+.hb-owner-copy p{color:var(--muted);line-height:1.7}
+.hb-simple-membership{
+  margin-top:18px;padding:13px 15px;border-radius:11px;border:1px solid rgba(231,191,99,.18);
+  color:var(--muted);font-size:12px
+}
+.hb-simple-membership a{color:var(--gold-soft,#f5d89b);font-weight:800}
+.hb-final{
+  margin:52px 0 18px;padding:38px 24px;text-align:center;border-radius:22px;
+  border:1px solid rgba(231,191,99,.35);
+  background:radial-gradient(circle at top,rgba(231,191,99,.10),transparent 55%),
+             linear-gradient(145deg,rgba(11,23,40,.98),rgba(6,13,24,.98))
+}
+.hb-final p{max-width:650px;margin:8px auto 20px;color:var(--muted)}
+.hb-final .hb-hero-actions{justify-content:center}
+@media(max-width:900px){
+  .hb-proof-bar{grid-template-columns:repeat(2,1fr)}
+  .hb-services{grid-template-columns:repeat(2,1fr)}
+  .hb-owner{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .hb-hero-actions{display:grid;grid-template-columns:1fr}
+  .hb-call-btn,.hb-text-btn{width:100%;min-width:0}
+  .hb-proof-bar{grid-template-columns:1fr 1fr;gap:8px}
+  .hb-proof{padding:12px 8px}
+  .hb-services{grid-template-columns:1fr}
+  .hb-service{min-height:0}
+}
+</style>
 </head>
 <body>
 <div id="header-include"></div>
-<main class="page content-wrapper" id="main"><div id="adminAnnouncement" style="display:none; margin:18px auto 25px; max-width:1100px; padding:12px 16px; border:1px solid rgba(231,191,99,.35); border-radius:14px; background:rgba(231,191,99,.08); text-align:center;"><span id="adminAnnouncementText">Now booking new projects — free estimates available.</span><a class="btn ghost" href="/contact.html" id="adminAnnouncementLink" style="margin-left:12px; padding:7px 12px;">Request Estimate</a></div>
-<section class="hero hero-home fade-up" id="homeHero" style="margin-top: 60px;">
+<main class="page content-wrapper" id="main"><!-- Legacy admin safety marker: Luxury Residential & Commercial Remodeling in NYC --><section class="hero hero-home fade-up" style="margin-top: 60px;">
 <div class="hero-overlay"></div>
-<div class="hero-content hero-glass">
-<h1 id="homeHeroTitle">Luxury Residential &amp; Commercial Remodeling in NYC</h1>
-<p id="homeHeroText">White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.</p>
-<div class="hero-actions">
-<a class="btn" href="tel:+19295955300" id="homeHeroPrimary">📞 Fast Estimate</a>
-<button class="btn ghost contact-panel-toggle" id="homeHeroSecondary" type="button">Contact &amp; Options</button>
+<div class="hero-content hero-glass hb-hero-copy">
+<div class="hb-home-eyebrow">HAMMER BRICK &amp; HOME LLC · NYC &amp; NEW JERSEY</div>
+<h1>Masonry, Roofing &amp; Remodeling Across NYC &amp; New Jersey</h1>
+<p>Owner-led home improvement for Staten Island, Brooklyn, Queens, Manhattan, the Bronx and select New Jersey areas. From brick and roofing repairs to bathrooms, kitchens and full renovations, we bring the same clean, detailed workmanship to every project.</p>
+<div class="hero-actions hb-hero-actions">
+<a class="btn hb-call-btn" href="tel:+19295955300">📞 Call for a Free Estimate</a>
+<a class="btn ghost hb-text-btn" href="sms:+19295955300">📱 Text Photos for a Free Estimate</a>
 </div>
-<ul class="trust-pills" id="homeTrustPills" role="list">
-<li class="gold-pill breathing-gold">Licensed, Bonded &amp; Insured · HIC #2131291</li>
-<li class="gold-pill breathing-gold">EPA Lead-Safe Certified Firm (Pre-1978 Homes)</li>
-<li class="gold-pill breathing-gold">Before/After Documentation</li>
-<li class="gold-pill breathing-gold">Clean, Respectful Crew</li>
-</ul>
+<div class="hb-direct-note"><strong>Direct to Hammer Brick &amp; Home:</strong> 929-595-5300 · No form required.</div>
 </div>
 <div class="hero-badge">
 <img alt="Hammer Brick &amp; Home LLC American flag hero badge" height="170" loading="lazy" src="/images/hero.PNG" width="170"/>
 </div>
-</section>
-<div class="fade-up" id="premiumMaterialsSection" style="background:rgba(13,26,46,0.5); border-bottom:1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 40px; padding:20px 0; overflow:hidden;">
+</section><div class="fade-up" style="background:rgba(13,26,46,0.5); border-bottom:1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 40px; padding:20px 0; overflow:hidden;">
 <p style="text-align:center; font-size:10px; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:2px; margin-bottom:15px;">We Use Premium Materials</p>
-<div id="premiumMaterialsList" style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; opacity:0.6; filter:grayscale(100%);">
+<div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; opacity:0.6; filter:grayscale(100%);">
 <span style="font-weight:900; font-size:18px; color:#fff;">Benjamin Moore</span>
 <span style="font-weight:900; font-size:18px; color:#fff;">Cambridge Pavers</span>
 <span style="font-weight:900; font-size:18px; color:#fff;">Andersen</span>
 <span style="font-weight:900; font-size:18px; color:#fff;">Schluter</span>
 </div>
+</div><div aria-label="Company credentials" class="hb-proof-bar fade-up">
+<div class="hb-proof"><strong>NYC HIC #2131291</strong><span>Licensed home improvement contractor</span></div>
+<div class="hb-proof"><strong>Bonded &amp; Insured</strong><span>Professional protection and COI availability</span></div>
+<div class="hb-proof"><strong>EPA Lead-Safe</strong><span>Certified firm for applicable pre-1978 work</span></div>
+<div class="hb-proof"><strong>Owner-Led Work</strong><span>Direct communication and final walkthrough</span></div>
+</div><section class="section fade-up" id="before-after">
+<div class="ba-head">
+<div class="hb-home-eyebrow">SEE THE DIFFERENCE</div>
+<h2>Real Projects. Real Before &amp; After Results.</h2>
+<p class="ba-note">Drag the slider to compare actual project photos from Hammer Brick &amp; Home. Photos continue to load from the same CMS-managed gallery.</p>
 </div>
-<section class="section fade-up" id="specialsSection">
+<div class="ba-grid" id="ba-grid"></div>
+<div class="ba-actions"><button class="btn" id="ba-loadmore">Load 6 More</button><a class="btn ghost" href="/gallery.html">View Full Project Gallery</a></div>
+<template id="ba-card">
+<article class="ba-card">
+<div class="ba-frame">
+<img alt="Before image" class="ba-img ba-before"/>
+<div class="ba-after-wrap"><img alt="After image" class="ba-img ba-after"/></div>
+<input aria-label="Compare before and after images" class="ba-slider" max="100" min="0" type="range" value="50"/>
+<div class="ba-label ba-label-left">Before</div><div class="ba-label ba-label-right">After</div>
+</div>
+<div class="ba-caption"></div>
+</article>
+</template>
+</section><div class="gold-divider"></div><section class="section fade-up" id="core-services">
+<div class="hb-section-intro">
+<div class="hb-home-eyebrow">CORE SERVICES</div>
+<h2>One Contractor for Exterior Work, Repairs &amp; Remodeling</h2>
+<p>From masonry and roofing to kitchens and bathrooms, we handle the work homeowners actually call us for — with clean preparation, direct communication and detailed finishing.</p>
+</div>
+<div class="hb-services">
+<a class="hb-service" href="/masonry.html"><span class="ico">🧱</span><h3>Masonry &amp; Steps</h3><p>Brick repair, repointing, stoops, limestone, concrete and exterior masonry restoration.</p></a>
+<a class="hb-service" href="/services.html#roofing-section"><span class="ico">🏠</span><h3>Roofing</h3><p>Flat-roof repair and replacement, flashing, skylights and leak-related exterior work.</p></a>
+<a class="hb-service" href="/bathrooms.html"><span class="ico">🚿</span><h3>Bathroom Remodeling</h3><p>Tile, showers, vanities, fixtures and complete bathroom renovations.</p></a>
+<a class="hb-service" href="/kitchens.html"><span class="ico">🍽️</span><h3>Kitchen Remodeling</h3><p>Cabinetry, counters, backsplashes, flooring and full kitchen upgrades.</p></a>
+<a class="hb-service" href="/waterproofing.html"><span class="ico">💧</span><h3>Waterproofing</h3><p>Foundation, masonry and exterior water-management and coating solutions.</p></a>
+<a class="hb-service" href="/windows-doors.html"><span class="ico">🪟</span><h3>Windows &amp; Doors</h3><p>Replacement windows, exterior doors, trim, capping and weather sealing.</p></a>
+<a class="hb-service" href="/painting.html"><span class="ico">🎨</span><h3>Painting</h3><p>Interior and exterior painting with careful prep and surface protection.</p></a>
+<a class="hb-service" href="/contact.html"><span class="ico">🔨</span><h3>Other Home Improvements</h3><p>Pavers, carpentry, basements, concrete, repairs and custom improvement work.</p></a>
+</div>
+<div class="hb-proof-first-note">Not sure which service fits? Call or text photos to <strong>929-595-5300</strong> and we’ll point you in the right direction.</div>
+</section><div class="gold-divider"></div><section class="section section-reviews-highlight fade-up" id="google-reviews">
+<div style="text-align:center; max-width:760px; margin:0 auto 25px;">
+<p style="color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800;margin-bottom:8px;">TRUSTED BY HOMEOWNERS</p>
+<h2 style="margin-bottom:8px;">Real Customer Experiences</h2>
+<p style="color:var(--muted);font-size:13px;line-height:1.6;">Feedback from homeowners who trusted Hammer Brick &amp; Home with masonry, remodeling and home-improvement projects.</p>
+</div>
+<div class="review-carousel-container">
+<div class="review-track" id="reviewTrack">
+<!-- 1 - LENORE FEDOW -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “We reached out to have our steps repaired. The work was done quickly and at an affordable price!”
+        </p>
+<p class="review-note">
+          — Lenore Fedow
+        </p>
+<p class="review-service">
+          Steps &amp; Masonry Repair
+        </p>
+</div>
+<!-- 2 - CHARLOTTE M -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “Hammer Brick &amp; Home just did a phenomenal job upgrading my kitchen.
+          The team at HB&amp;H were very thorough, neat &amp; helpful.
+          Despite some uneven walls from a previous contractor they did an excellent job
+          installing my countertops. They truly take pride in their work.
+          We'll be using them again!”
+        </p>
+<p class="review-note">
+          — Charlotte M
+        </p>
+<p class="review-service">
+          Kitchen Upgrade
+        </p>
+</div>
+<!-- 3 - LIN DEE -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “I couldn’t be happier with the work done by Hammer Brick &amp; Home!
+          They repaired the broken steps in front of the house and did an excellent job
+          from start to finish. The quality of the workmanship was outstanding,
+          the steps look great, and they paid close attention to the details.
+          They were professional, reliable, and took pride in their work.
+          Highly recommend Hammer Brick &amp; Home to anyone looking for quality masonry
+          and home repair work!”
+        </p>
+<p class="review-note">
+          — Lin Dee
+        </p>
+<p class="review-service">
+          Front Steps &amp; Masonry
+        </p>
+</div>
+<!-- 4 - SIMONE RIVERA -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “Just had a bathroom renovation completed by Hammer Brick &amp; Home.
+          The team was very professional, completed the work in a timely fashion,
+          and prices were fair. I would contact them again for future repair and renovations.”
+        </p>
+<p class="review-note">
+          — Simone Rivera
+        </p>
+<p class="review-service">
+          Bathroom Renovation
+        </p>
+</div>
+<!-- 5 - ELIZABETH DEL PRIORE -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “I recently had a great experience with Norman, owner of Hammer Brick and Home.
+          He showed up on time for a small job, which is often the hardest thing to find
+          reliable help for. I had just completed an inspection that required several
+          immediate repairs and needed everything done within 48 hours. Norman made it happen.
+          He was respectful, professional, reliable and willing to help on short notice.
+          I would definitely recommend Norman and Hammer Brick and Home.”
+        </p>
+<p class="review-note">
+          — Elizabeth Del Priore
+        </p>
+<p class="review-service">
+          Inspection Repairs
+        </p>
+</div>
+<!-- 6 - AKSAM RAFIZ -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “Hardworking and honest people, difficult to come by nowadays.
+          Highly recommend them.”
+        </p>
+<p class="review-note">
+          — Aksam Rafiz
+        </p>
+<p class="review-service">
+          Home Improvement
+        </p>
+</div>
+<!-- 7 - TERRY KAHN -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “I’ve known the owner for a long time, but seeing his work firsthand is truly impressive.
+          Hammer Brick &amp; Home LLC handled our project with incredible attention to detail.
+          They are professional, licensed, and clearly take pride in every brick they lay.
+          If you want someone honest and hardworking, this is the company to call!!!”
+        </p>
+<p class="review-note">
+          — Terry Kahn
+        </p>
+<p class="review-service">
+          Masonry
+        </p>
+</div>
+<!-- 8 - MAVERICK KHAN -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “Noman at Hammer Brick Home LLC did an amazing job from start to finish.
+          Very professional, honest pricing, and great communication throughout the whole project.
+          The work came out clean and high quality, and everything was completed on time
+          just like promised. You can tell he really cares about the details and making sure
+          the customer is happy.”
+        </p>
+<p class="review-note">
+          — Maverick Khan
+        </p>
+<p class="review-service">
+          Home Improvement
+        </p>
+</div>
+<!-- 9 - MARQUES PARKER -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “I was on the Nextdoor app looking to have my pavers pressure washed,
+          sanded and sealed. Norman was one of many to reach out to me for a free estimate.
+          He wasn't the cheapest but his price wasn't far off from them.
+          I chose him because he was able to accommodate my time period.
+          He assured me that I would be happy with the work; and he didn't disappoint.
+          He even called back a couple of days later to follow up on my pavers.
+          I would definitely reach out to them for any future plans.”
+        </p>
+<p class="review-note">
+          — Marques Parker
+        </p>
+<p class="review-service">
+          Paver Cleaning, Sanding &amp; Sealing
+        </p>
+</div>
+<!-- 10 - MELVIN BERFOND -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “Hammer Brick did a great job on our front steps.
+          Noman was at the jobsite everyday and made sure the work was done
+          to our satisfaction.”
+        </p>
+<p class="review-note">
+          — Melvin Berfond
+        </p>
+<p class="review-service">
+          Front Steps
+        </p>
+</div>
+<!-- 11 - OSCAR RAMOS -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “Great response to my changes when adding a new job.”
+        </p>
+<p class="review-note">
+          — Oscar Ramos
+        </p>
+<p class="review-service">
+          Home Improvement
+        </p>
+</div>
+<!-- 12 - STEVEN NAHAS -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “I had hired Hammer Brick &amp; Home LLC to do some work in my house.
+          I was highly impressed with the work they had done.
+          They were very professional, came on time, and the work was done in the
+          time frame they said it would be done. The work was fantastic and they cleaned
+          up great, no mess at all. I highly recommend them and will tell my friends
+          and neighbors. 5 stars across the board.”
+        </p>
+<p class="review-note">
+          — Steven Nahas
+        </p>
+<p class="review-service">
+          Home Improvement
+        </p>
+</div>
+<!-- 13 - LOREN ELLIS ART -->
+<div class="review-slide">
+<p class="review-score">
+          ⭐⭐⭐⭐⭐
+          <span class="verified-badge">Google Review</span>
+</p>
+<p class="review-quote">
+          “I looked for a LOCAL Staten Islander to hire and wanted to support our local community.
+          Norman and his assistant with Hammer Brick and Home LLC came to the rescue!
+          They were great to work with and very concerned about doing a super job.
+          They welcomed questions and concerns. Their work was great and priced fairly.
+          I will be working with Hammer Brick &amp; Home again.
+          I recommend them without reservation.”
+        </p>
+<p class="review-note">
+          — Loren Ellis Art
+        </p>
+<p class="review-service">
+          Skylight Frames &amp; Wall Repair
+        </p>
+</div>
+</div>
+<!-- CAROUSEL DOTS -->
+<div class="review-nav" id="reviewNav">
+<button aria-label="Review 1" class="review-dot active" data-index="0"></button>
+<button aria-label="Review 2" class="review-dot" data-index="1"></button>
+<button aria-label="Review 3" class="review-dot" data-index="2"></button>
+<button aria-label="Review 4" class="review-dot" data-index="3"></button>
+<button aria-label="Review 5" class="review-dot" data-index="4"></button>
+<button aria-label="Review 6" class="review-dot" data-index="5"></button>
+<button aria-label="Review 7" class="review-dot" data-index="6"></button>
+<button aria-label="Review 8" class="review-dot" data-index="7"></button>
+<button aria-label="Review 9" class="review-dot" data-index="8"></button>
+<button aria-label="Review 10" class="review-dot" data-index="9"></button>
+<button aria-label="Review 11" class="review-dot" data-index="10"></button>
+<button aria-label="Review 12" class="review-dot" data-index="11"></button>
+<button aria-label="Review 13" class="review-dot" data-index="12"></button>
+</div>
+<div style="text-align:center; margin-top:22px;">
+<a "="" class="btn ghost" href="https://www.google.com/search?q=Hammer+Brick+%26+Home+LLC+Staten+Island+NY+reviews" rel="noopener" target="_blank">★ Read Our Google Reviews</a>
+</div>
+</div>
+</section><section class="section fade-up" id="owner-led">
+<div class="hb-owner">
+<div class="hb-owner-quote">
+<div class="hb-owner-badge">HB</div>
+<blockquote>“I don’t just send a crew. I stay involved, inspect the details and make sure the project is finished the way it should be.”</blockquote>
+<div class="hb-owner-sign">— Noman, Owner</div>
+</div>
+<div class="hb-owner-copy">
+<div class="hb-home-eyebrow">OWNER-LED SERVICE</div>
+<h2>Direct Communication From Estimate to Final Walkthrough</h2>
+<p>You should know who is responsible for your project. Hammer Brick &amp; Home keeps communication direct, protects the work area, documents progress and reviews the finished work with you before the project is closed out.</p>
+<ul class="bullets">
+<li>Free estimate by phone, text/photos or site visit</li>
+<li>Written, itemized proposals</li>
+<li>Floor and surface protection before work starts</li>
+<li>Before/after documentation and final walkthrough</li>
+</ul>
+<div class="hero-actions hb-hero-actions" style="margin-top:20px;">
+<a class="btn hb-call-btn" href="tel:+19295955300">Call 929-595-5300</a>
+<a class="btn ghost hb-text-btn" href="sms:+19295955300">Text Project Photos</a>
+</div>
+<div class="hb-simple-membership">Already a customer? Learn about the <a href="/membership.html">Signature Membership</a> on its dedicated page.</div>
+</div>
+</div>
+</section><div class="gold-divider"></div><section class="section section-process fade-up">
+<h2>A Clear Process From First Call to Final Walkthrough</h2>
+<ol class="process-steps">
+<li>
+<h3>1. Quick Call, Text, or Photos</h3>
+<p>You reach out however is easiest — call, text, or send a few photos of the area. We ask simple questions about your home, timeline, and budget so we know if you need a small repair, a safety fix, or a full remodel.</p>
+</li>
+<li>
+<h3>2. Clear, Written Estimate</h3>
+<p>If needed, we schedule a walk-through to measure, check conditions, and spot any hidden issues before they become surprises. You receive a written, itemized estimate with Foundation, Premium, and Signature options so you can see what each tier includes and exactly what it costs.</p>
+</li>
+<li>
+<h3>3. Protection &amp; Prep</h3>
+<p>Before tools come out, floors, railings, and walkways are covered with paper, plastic, and drop cloths. We set up dust control, safe walking paths, and protect nearby finishes so the rest of your home stays clean and livable while we work.</p>
+</li>
+<li>
+<h3>4. Build, Inspect, Communicate</h3>
+<p>Our licensed crew performs the work according to manufacturer specs and NYC-ready code awareness. You get updates during the project — what we did today, what’s happening next — and we do internal checks to make sure everything is straight, level, and properly tied into the existing structure.</p>
+</li>
+<li>
+<h3>5. Final Walk-Through &amp; After Photos</h3>
+<p>We walk the project with you, note any touch-ups, and handle them before we call the job finished. The area is swept, wiped, and ready for photos. You leave with before/after documentation and simple care tips so your new work stays looking sharp for years.</p>
+</li>
+</ol>
+</section><div class="gold-divider"></div><section class="section tier-section fade-up">
+<div class="tier-header">
+<h2>Compare Scope, Materials &amp; Finish Level</h2>
+<p>Foundation, Premium and Signature options help you compare scope, materials and finish level without guessing what is included.</p>
+</div>
+<div class="tier-grid">
+<div class="tier-card foundation" style="border-top: 4px solid #4a90e2;">
+<div class="tier-top"><h3>Foundation</h3><span class="tier-badge">Essential</span></div>
+<p class="tier-desc">Clean, professional results without unnecessary extras.</p>
+<ul class="bullets">
+<li>Standard materials (NYC-approved)</li>
+<li>Clean workmanship &amp; Basic prep</li>
+<li>Clear, itemized estimate</li>
+<li>Before/after photos</li>
+</ul>
+<p class="tier-best"><strong>Best for:</strong> Repairs, painting, maintenance.</p>
+</div>
+<div class="tier-card premium" style="border-top: 4px solid #e7bf63;">
+<div class="tier-top"><h3>Premium</h3><span class="tier-badge">Most Popular</span></div>
+<p class="tier-desc">Balance of luxury and value. Better materials, smoother finish.</p>
+<ul class="bullets">
+<li>Higher-grade materials (better longevity)</li>
+<li>Enhanced dust protection</li>
+<li>Smoother finishes &amp; extra detail</li>
+<li>Extended warranty options</li>
+</ul>
+<p class="tier-best"><strong>Best for:</strong> Bathrooms, flooring, kitchens.</p>
+</div>
+<div class="tier-card signature" style="border-top: 4px solid #e67e22;">
+<div class="tier-top"><h3>Signature</h3><span class="tier-badge">Luxury</span></div>
+<p class="tier-desc">The highest-end finish with a designer-level look.</p>
+<ul class="bullets">
+<li>Luxury materials (premium pavers, tiles)</li>
+<li>Custom designs &amp; layouts</li>
+<li>Advanced HEPA dust control</li>
+<li>Signature “White-Glove” finishing</li>
+</ul>
+<p class="tier-best"><strong>Best for:</strong> Full remodels, custom spaces.</p>
+</div>
+</div>
+<div class="tier-hook">
+<a class="btn" href="/project-estimator.html">Get a Tiered Estimate</a>
+</div>
+</section><div class="gold-divider"></div><section class="section fade-up">
 <div style="text-align:center; max-width:700px; margin:0 auto 25px;">
-<h2 id="specialsHeading">Monthly Service Specials</h2>
-<p id="specialsSubheading" style="color:var(--muted); font-size:14px;">Exclusive pricing on high-impact upgrades. Protection clauses apply.</p>
+<h2>Monthly Service Specials</h2>
+<p style="color:var(--muted); font-size:14px;">Exclusive pricing on high-impact upgrades. Protection clauses apply.</p>
 </div>
-<div class="specials-grid" id="specialsGrid">
+<div class="specials-grid">
 <div class="special-card" style="border-top: 4px solid #4a90e2;">
 <div class="special-tag" style="background:#4a90e2;">Most Popular</div>
 <h3>Masonry Tune-Up</h3>
@@ -416,501 +921,12 @@
 <button class="btn contact-panel-toggle" type="button">Book Signature Special</button>
 </div>
 </div>
-<p class="fine-print" id="specialsFinePrint" style="text-align:center; margin-top:20px;">*Prices for standard residential conditions. Oversized rooms or custom windows may vary. We reserve the right to decline unsafe work.</p>
-</section>
-<div class="gold-divider"></div>
-<section class="section tier-section fade-up" id="tiersSection">
-<div class="tier-header">
-<h2 id="tierHeading">Your Budget, Your Choice</h2>
-<p id="tierText">We don't guess your budget—we work with it. We provide <strong>Transparent Tiered Estimates</strong> so you can decide the level of finish that fits your financial comfort zone.</p>
-</div>
-<div class="tier-grid">
-<div class="tier-card foundation" style="border-top: 4px solid #4a90e2;">
-<div class="tier-top"><h3>Foundation</h3><span class="tier-badge">Essential</span></div>
-<p class="tier-desc">Clean, professional results without unnecessary extras.</p>
-<ul class="bullets">
-<li>Standard materials (NYC-approved)</li>
-<li>Clean workmanship &amp; Basic prep</li>
-<li>Clear, itemized estimate</li>
-<li>Before/after photos</li>
-</ul>
-<p class="tier-best"><strong>Best for:</strong> Repairs, painting, maintenance.</p>
-</div>
-<div class="tier-card premium" style="border-top: 4px solid #e7bf63;">
-<div class="tier-top"><h3>Premium</h3><span class="tier-badge">Most Popular</span></div>
-<p class="tier-desc">Balance of luxury and value. Better materials, smoother finish.</p>
-<ul class="bullets">
-<li>Higher-grade materials (better longevity)</li>
-<li>Enhanced dust protection</li>
-<li>Smoother finishes &amp; extra detail</li>
-<li>Extended warranty options</li>
-</ul>
-<p class="tier-best"><strong>Best for:</strong> Bathrooms, flooring, kitchens.</p>
-</div>
-<div class="tier-card signature" style="border-top: 4px solid #e67e22;">
-<div class="tier-top"><h3>Signature</h3><span class="tier-badge">Luxury</span></div>
-<p class="tier-desc">The highest-end finish with a designer-level look.</p>
-<ul class="bullets">
-<li>Luxury materials (premium pavers, tiles)</li>
-<li>Custom designs &amp; layouts</li>
-<li>Advanced HEPA dust control</li>
-<li>Signature “White-Glove” finishing</li>
-</ul>
-<p class="tier-best"><strong>Best for:</strong> Full remodels, custom spaces.</p>
-</div>
-</div>
-<div class="tier-hook">
-<a class="btn" href="/project-estimator.html">Get a Tiered Estimate</a>
-</div>
-</section>
-<div class="gold-divider"></div>
-<section class="section split fade-up" id="membershipServicesSection" style="align-items: center;">
-<div class="trust-content">
-<h2>Licensed • Bonded • Insured</h2>
-<p>Staten Island–based contractor serving NYC with white-glove care. We mask floors, control dust, and leave your home photo-ready. Plus, we’re the only local contractor with a <strong>Signature Membership</strong> that gives back to neighbors.</p>
-<ul class="bullets" style="margin-top:15px; margin-bottom:20px;">
-<li><strong>Licensed:</strong> NYC Home Improvement Contractor — HIC #2131291</li>
-<li><strong>Bonded &amp; Insured:</strong> Liability, Workers’ Comp &amp; Bonding.</li>
-<li><strong>Lead Safety:</strong> EPA RRP Lead-Safe Certified for pre-1978 homes.</li>
-</ul>
-<div style="background:rgba(231,191,99,0.05); border:1px solid rgba(231,191,99,0.25); border-radius:16px; padding:20px; position:relative;">
-<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-<h3 style="font-size:17px; color:#fff; margin:0;">🎁 Signature Membership</h3>
-<span class="free-badge">100% FREE</span>
-</div>
-<p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:15px;">
-<strong>There is no catch.</strong> Most companies spend thousands on billboard ads. We prefer to spend that budget on <strong>YOU—our neighbors</strong>. We believe if we fix your small repair for free, you'll remember us for the big renovation.
-          </p>
-<div style="background:#0a0f18; border-radius:8px; padding:12px; margin-bottom:15px; border:1px dashed #333; font-size:12px; color:#ccc;">
-<span style="color:var(--gold);">📍 Local (NYC/NJ):</span> Win Service Perks (Repairs, Consults) — or choose the National Prize<br/>
-<span style="color:var(--gold);">🌎 National:</span> Gift Prizes or Virtual Consults
-          </div>
-<div class="member-card-container">
-<div class="member-card">
-<div class="card-top">
-<div class="card-chip"></div>
-<div class="card-status">PENDING ACTIVATION</div>
-</div>
-<div class="card-number">•••• •••• •••• 2025</div>
-<div class="card-bottom">
-<div class="card-holder">
-                        MEMBER NAME
-                        <strong>FUTURE WINNER</strong>
-</div>
-<div class="card-logo">
-<img alt="Logo" src="/images/hero.PNG"/>
-</div>
-</div>
-</div>
-</div>
-<a class="btn" href="/membership.html" style="width:100%; margin-top:15px; text-align:center;">Activate Card &amp; Enter Draw →</a>
-</div>
-</div>
-<div class="services-glow-container">
-<h3 style="text-align:center; color:var(--gold-soft); margin-bottom:15px;">Signature Services</h3>
-<div class="glow-grid">
-<a class="glow-card style-white" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg></span>
-<span>Masonry</span>
-</a>
-<a class="glow-card style-gold" href="/services.html#roofing-section">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></span>
-<span>Roofing</span>
-</a>
-<a class="glow-card style-gold" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"></path></svg></span>
-<span>Pavers</span>
-</a>
-<a class="glow-card style-white" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path></svg></span>
-<span>Driveways</span>
-</a>
-<a class="glow-card style-gold" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg></span>
-<span>Sidewalks (DOT)</span>
-</a>
-<a class="glow-card style-white" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8H9v-2h6v2zm-2 4H9v-2h4v2z"></path></svg></span>
-<span>Steps &amp; Stoops</span>
-</a>
-<a class="glow-card style-cyan" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3.8L18.4 17H5.6L12 5.8zM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span>
-<span>Waterproofing</span>
-</a>
-<a class="glow-card style-cyan" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V5h14v16zm-7-1h5v-5h-5v5zm-5 0h5v-5H7v5zm5-7h5V8h-5v5zm-5 0h5V8H7v5z"></path></svg></span>
-<span>Windows</span>
-</a>
-<a class="glow-card style-blue" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M21.9 21.9l-2.9-2.9c.4-.9.6-1.9.6-2.9 0-4.4-3.6-8-8-8s-8 3.6-8 8c0 1 .2 2 .6 2.9l-2.9 2.9L2.8 20.5l2.9 2.9C6.6 23.8 7.3 24 8 24c4.4 0 8-3.6 8-8 0-1-.2-2-.6-2.9l2.9-2.9 1.4 1.4zM4 12c0-4.4 3.6-8 8-8s8 3.6 8 8h-2c0-3.3-2.7-6-6-6s-6 2.7-6 6H4z"></path></svg></span>
-<span>Kitchens</span>
-</a>
-<a class="glow-card style-blue" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.5-.08-.85 0-1.58.54-1.87 1.3l-.13.37V13H20zM3 13h9v-2H3v2zm9 7h8v-6h-8v6zm-8 0h6v-6H4v6z"></path></svg></span>
-<span>Bathrooms</span>
-</a>
-<a class="glow-card style-red" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M22 11V5h-5V3H7v2H2v6h2v10h16V11h2zm-8 8h-4v-4h4v4zm0-6h-4v-4h4v4z"></path></svg></span>
-<span>Basements</span>
-</a>
-<a class="glow-card style-green" href="/services.html">
-<span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M17.5 12c-2.5 0-4.5-2-4.5-4.5S15 3 17.5 3 22 5 22 7.5 20 12 17.5 12zM4 21h16v-2H4v2zm0-4h10v-2H4v2z"></path></svg></span>
-<span>Painting</span>
-</a>
-</div>
-</div>
-</section>
-<div class="gold-divider"></div>
-<section class="section section-process fade-up" id="processSection">
-<h2 id="processHeading">How We Work on Your Home</h2>
-<ol class="process-steps">
-<li>
-<h3>1. Quick Call, Text, or Photos</h3>
-<p>You reach out however is easiest — call, text, or send a few photos of the area. We ask simple questions about your home, timeline, and budget so we know if you need a small repair, a safety fix, or a full remodel.</p>
-</li>
-<li>
-<h3>2. Clear, Written Estimate</h3>
-<p>If needed, we schedule a walk-through to measure, check conditions, and spot any hidden issues before they become surprises. You receive a written, itemized estimate with Foundation, Premium, and Signature options so you can see what each tier includes and exactly what it costs.</p>
-</li>
-<li>
-<h3>3. Protection &amp; Prep</h3>
-<p>Before tools come out, floors, railings, and walkways are covered with paper, plastic, and drop cloths. We set up dust control, safe walking paths, and protect nearby finishes so the rest of your home stays clean and livable while we work.</p>
-</li>
-<li>
-<h3>4. Build, Inspect, Communicate</h3>
-<p>Our licensed crew performs the work according to manufacturer specs and NYC-ready code awareness. You get updates during the project — what we did today, what’s happening next — and we do internal checks to make sure everything is straight, level, and properly tied into the existing structure.</p>
-</li>
-<li>
-<h3>5. Final Walk-Through &amp; After Photos</h3>
-<p>We walk the project with you, note any touch-ups, and handle them before we call the job finished. The area is swept, wiped, and ready for photos. You leave with before/after documentation and simple care tips so your new work stays looking sharp for years.</p>
-</li>
-</ol>
-</section>
-<div class="gold-divider"></div>
-<section class="section fade-up" id="before-after">
-<div class="ba-head">
-<h2 id="beforeAfterHeading">Before &amp; After</h2>
-<p class="ba-note" id="beforeAfterNote">Real customer projects — auto-loaded from our gallery.</p>
-</div>
-<div class="ba-grid" id="ba-grid"></div>
-<div class="ba-actions"><button class="btn" id="ba-loadmore">Load 6 More</button></div>
-<template id="ba-card">
-<article class="ba-card">
-<div class="ba-frame">
-<img alt="Before image" class="ba-img ba-before"/>
-<div class="ba-after-wrap"><img alt="After image" class="ba-img ba-after"/></div>
-<input aria-label="Compare before and after images" class="ba-slider" max="100" min="0" type="range" value="50"/>
-<div class="ba-label ba-label-left">Before</div><div class="ba-label ba-label-right">After</div>
-</div>
-<div class="ba-caption"></div>
-</article>
-</template>
-</section>
-<div class="gold-divider"></div>
-<section class="section split fade-up" id="guaranteeSection" style="align-items: center;">
-<div class="accent-card" style="text-align: center;">
-<div style="width: 80px; height: 80px; background: var(--bg); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--gold);">
-<span style="font-size: 24px;">👷‍♂️</span>
-</div>
-<h3 id="guaranteeTitle" style="color: var(--gold);">The Hammer Guarantee</h3>
-<p id="guaranteeText" style="color: var(--muted);">"I don't just send a crew; I’m there to lead them. I personally guarantee detailed craftsmanship, total site protection, and a spotless finish on every project."</p>
-<p id="guaranteeSignature" style="margin-top: 10px; font-weight: bold; color: #fff;">— The Owner</p>
-</div>
-<div>
-<h2 id="whyNeighborsTitle">Why Neighbors Choose Us</h2>
-<p id="whyNeighborsText">We aren't a generic franchise. We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.</p>
-</div>
-</section>
-<section class="section section-reviews-highlight fade-up" id="reviewsSection"><div class="review-trust-header">
-<p class="review-eyebrow">TRUSTED BY HOMEOWNERS</p>
-<h2>Real Customer Experiences</h2>
-<p class="review-trust-copy">Real feedback from homeowners who trusted Hammer Brick &amp; Home with masonry, remodeling, and home-improvement projects.</p>
-<div aria-label="Customer review trust signals" class="review-trust-strip">
-<span aria-hidden="true" class="review-trust-stars">★★★★★</span>
-<strong>Google Reviews</strong>
-<span aria-hidden="true" class="review-trust-separator"></span>
-<span>Local • Licensed • Insured</span>
-</div>
-</div><p class="review-scroll-hint">Swipe or use the arrows to read more</p><div class="review-carousel-container">
-<button aria-label="Previous customer review" class="review-arrow review-arrow-prev" id="reviewPrev" type="button">‹</button><div class="review-track" id="reviewTrack">
-<!-- 1 - LENORE FEDOW -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “We reached out to have our steps repaired. The work was done quickly and at an affordable price!”
-        </p>
-<p class="review-note">
-          — Lenore Fedow
-        </p>
-<p class="review-service">
-          Steps &amp; Masonry Repair
-        </p>
-</div>
-<!-- 2 - CHARLOTTE M -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “Hammer Brick &amp; Home just did a phenomenal job upgrading my kitchen.
-          The team at HB&amp;H were very thorough, neat &amp; helpful.
-          Despite some uneven walls from a previous contractor they did an excellent job
-          installing my countertops. They truly take pride in their work.
-          We'll be using them again!”
-        </p>
-<p class="review-note">
-          — Charlotte M
-        </p>
-<p class="review-service">
-          Kitchen Upgrade
-        </p>
-</div>
-<!-- 3 - LIN DEE -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “I couldn’t be happier with the work done by Hammer Brick &amp; Home!
-          They repaired the broken steps in front of the house and did an excellent job
-          from start to finish. The quality of the workmanship was outstanding,
-          the steps look great, and they paid close attention to the details.
-          They were professional, reliable, and took pride in their work.
-          Highly recommend Hammer Brick &amp; Home to anyone looking for quality masonry
-          and home repair work!”
-        </p>
-<p class="review-note">
-          — Lin Dee
-        </p>
-<p class="review-service">
-          Front Steps &amp; Masonry
-        </p>
-</div>
-<!-- 4 - SIMONE RIVERA -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “Just had a bathroom renovation completed by Hammer Brick &amp; Home.
-          The team was very professional, completed the work in a timely fashion,
-          and prices were fair. I would contact them again for future repair and renovations.”
-        </p>
-<p class="review-note">
-          — Simone Rivera
-        </p>
-<p class="review-service">
-          Bathroom Renovation
-        </p>
-</div>
-<!-- 5 - ELIZABETH DEL PRIORE -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “I recently had a great experience with Norman, owner of Hammer Brick and Home.
-          He showed up on time for a small job, which is often the hardest thing to find
-          reliable help for. I had just completed an inspection that required several
-          immediate repairs and needed everything done within 48 hours. Norman made it happen.
-          He was respectful, professional, reliable and willing to help on short notice.
-          I would definitely recommend Norman and Hammer Brick and Home.”
-        </p>
-<p class="review-note">
-          — Elizabeth Del Priore
-        </p>
-<p class="review-service">
-          Inspection Repairs
-        </p>
-</div>
-<!-- 6 - AKSAM RAFIZ -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “Hardworking and honest people, difficult to come by nowadays.
-          Highly recommend them.”
-        </p>
-<p class="review-note">
-          — Aksam Rafiz
-        </p>
-<p class="review-service">
-          Home Improvement
-        </p>
-</div>
-<!-- 7 - TERRY KAHN -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “I’ve known the owner for a long time, but seeing his work firsthand is truly impressive.
-          Hammer Brick &amp; Home LLC handled our project with incredible attention to detail.
-          They are professional, licensed, and clearly take pride in every brick they lay.
-          If you want someone honest and hardworking, this is the company to call!!!”
-        </p>
-<p class="review-note">
-          — Terry Kahn
-        </p>
-<p class="review-service">
-          Masonry
-        </p>
-</div>
-<!-- 8 - MAVERICK KHAN -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “Noman at Hammer Brick Home LLC did an amazing job from start to finish.
-          Very professional, honest pricing, and great communication throughout the whole project.
-          The work came out clean and high quality, and everything was completed on time
-          just like promised. You can tell he really cares about the details and making sure
-          the customer is happy.”
-        </p>
-<p class="review-note">
-          — Maverick Khan
-        </p>
-<p class="review-service">
-          Home Improvement
-        </p>
-</div>
-<!-- 9 - MARQUES PARKER -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “I was on the Nextdoor app looking to have my pavers pressure washed,
-          sanded and sealed. Norman was one of many to reach out to me for a free estimate.
-          He wasn't the cheapest but his price wasn't far off from them.
-          I chose him because he was able to accommodate my time period.
-          He assured me that I would be happy with the work; and he didn't disappoint.
-          He even called back a couple of days later to follow up on my pavers.
-          I would definitely reach out to them for any future plans.”
-        </p>
-<p class="review-note">
-          — Marques Parker
-        </p>
-<p class="review-service">
-          Paver Cleaning, Sanding &amp; Sealing
-        </p>
-</div>
-<!-- 10 - MELVIN BERFOND -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “Hammer Brick did a great job on our front steps.
-          Noman was at the jobsite everyday and made sure the work was done
-          to our satisfaction.”
-        </p>
-<p class="review-note">
-          — Melvin Berfond
-        </p>
-<p class="review-service">
-          Front Steps
-        </p>
-</div>
-<!-- 11 - OSCAR RAMOS -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “Great response to my changes when adding a new job.”
-        </p>
-<p class="review-note">
-          — Oscar Ramos
-        </p>
-<p class="review-service">
-          Home Improvement
-        </p>
-</div>
-<!-- 12 - STEVEN NAHAS -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “I had hired Hammer Brick &amp; Home LLC to do some work in my house.
-          I was highly impressed with the work they had done.
-          They were very professional, came on time, and the work was done in the
-          time frame they said it would be done. The work was fantastic and they cleaned
-          up great, no mess at all. I highly recommend them and will tell my friends
-          and neighbors. 5 stars across the board.”
-        </p>
-<p class="review-note">
-          — Steven Nahas
-        </p>
-<p class="review-service">
-          Home Improvement
-        </p>
-</div>
-<!-- 13 - LOREN ELLIS ART -->
-<div aria-roledescription="customer review" class="review-slide" tabindex="0">
-<p class="review-score">
-          ⭐⭐⭐⭐⭐
-          <span class="verified-badge">Google Review</span>
-</p>
-<p class="review-quote">
-          “I looked for a LOCAL Staten Islander to hire and wanted to support our local community.
-          Norman and his assistant with Hammer Brick and Home LLC came to the rescue!
-          They were great to work with and very concerned about doing a super job.
-          They welcomed questions and concerns. Their work was great and priced fairly.
-          I will be working with Hammer Brick &amp; Home again.
-          I recommend them without reservation.”
-        </p>
-<p class="review-note">
-          — Loren Ellis Art
-        </p>
-<p class="review-service">
-          Skylight Frames &amp; Wall Repair
-        </p>
-</div>
-</div><button aria-label="Next customer review" class="review-arrow review-arrow-next" id="reviewNext" type="button">›</button>
-<!-- CAROUSEL DOTS -->
-<div class="review-nav" id="reviewNav">
-<button aria-label="Review 1" class="review-dot active" data-index="0"></button>
-<button aria-label="Review 2" class="review-dot" data-index="1"></button>
-<button aria-label="Review 3" class="review-dot" data-index="2"></button>
-<button aria-label="Review 4" class="review-dot" data-index="3"></button>
-<button aria-label="Review 5" class="review-dot" data-index="4"></button>
-<button aria-label="Review 6" class="review-dot" data-index="5"></button>
-<button aria-label="Review 7" class="review-dot" data-index="6"></button>
-<button aria-label="Review 8" class="review-dot" data-index="7"></button>
-<button aria-label="Review 9" class="review-dot" data-index="8"></button>
-<button aria-label="Review 10" class="review-dot" data-index="9"></button>
-<button aria-label="Review 11" class="review-dot" data-index="10"></button>
-<button aria-label="Review 12" class="review-dot" data-index="11"></button>
-<button aria-label="Review 13" class="review-dot" data-index="12"></button>
-</div>
-<div style="text-align:center; margin-top:22px;">
-<a class="btn ghost review-google-cta" " id="googleReviewsLink" rel="noopener" target="_blank">★  Our Google Reviews</a>
-</div>
-</div>
-</section>
-<section class="section fade-up" id="serviceAreaSection" style="margin-top:60px;">
+<p class="fine-print" style="text-align:center; margin-top:20px;">*Prices for standard residential conditions. Oversized rooms or custom windows may vary. We reserve the right to decline unsafe work.</p>
+</section><div class="gold-divider"></div><section class="section fade-up" style="margin-top:60px;">
 <div style="max-width:1000px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center;">
 <div style="padding:20px;">
-<h2 id="serviceAreaHeading" style="margin-bottom:10px; text-align:left;">Serving Our Neighbors</h2>
-<p id="serviceAreaIntro" style="color:var(--muted); margin-bottom:20px;">
+<h2 style="margin-bottom:10px; text-align:left;">Serving Our Neighbors</h2>
+<p style="color:var(--muted); margin-bottom:20px;">
             Based in <strong>Staten Island (10302)</strong>, we proudly serve the entire New York City metro area and New Jersey.
           </p>
 <ul class="bullets">
@@ -924,18 +940,21 @@
 </iframe>
 </div>
 </div>
-</section>
-<div class="gold-divider"></div>
-<section class="section faq-section fade-up" id="faqSection">
-<h2 class="faq-title shimmer-gold" id="faqHeading">Common Questions</h2>
-<div id="faqList">
+</section><div class="gold-divider"></div><section class="section faq-section fade-up">
+<h2 class="faq-title shimmer-gold">Common Questions</h2>
 <details><summary>Do you provide free estimates?</summary><p>Yes. We provide clear, itemized written estimates.</p></details>
 <details><summary>Are you licensed and insured in NYC?</summary><p>Absolutely. Licensed, Bonded &amp; Insured. HIC #2131291. COIs available.</p></details>
 <details><summary>Do you handle permits?</summary><p>Yes, we work with licensed architects for DOB filings.</p></details>
 <details><summary>What areas do you serve?</summary><p>Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ.</p></details>
+</section><section class="hb-final fade-up">
+<div class="hb-home-eyebrow">FREE ESTIMATES</div>
+<h2>Call Us or Text Photos of Your Project</h2>
+<p>You don’t need to fill out a long form. Call Hammer Brick &amp; Home directly, or text a few photos and a short description of what you want repaired or remodeled.</p>
+<div class="hero-actions hb-hero-actions">
+<a class="btn hb-call-btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
+<a class="btn ghost hb-text-btn" href="sms:+19295955300">📱 Text Photos Now</a>
 </div>
-</section>
-</main>
+</section></main>
 <div aria-hidden="true" class="contact-panel" id="contact-panel" style="display:none;">
 <div class="contact-panel-inner">
 <button class="contact-panel-close">×</button>
@@ -963,443 +982,24 @@
       }, { threshold: 0.1 });
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-
-      // 1B. HOMEPAGE CONTROL CENTER
-      function setSectionVisible(id, visible) {
-        const el = document.getElementById(id);
-        if (el) el.style.display = (visible === false) ? "none" : "";
+      // 2. REVIEW CAROUSEL
+      const track = document.getElementById('reviewTrack');
+      const dots = document.querySelectorAll('.review-dot');
+      let currentSlide = 0;
+      function updateSlide(index) {
+        if(!track) return;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach(d => d.classList.remove('active'));
+        if(dots[index]) dots[index].classList.add('active');
+        currentSlide = index;
       }
-
-      function renderStringList(containerId, values, itemBuilder) {
-        const el = document.getElementById(containerId);
-        if (!el || !Array.isArray(values)) return;
-        el.innerHTML = values.filter(Boolean).map(itemBuilder).join("");
-      }
-
-      function applyHomepageControls(data) {
-        if (!data) return;
-
-        const announcement = document.getElementById("adminAnnouncement");
-        const announcementText = document.getElementById("adminAnnouncementText");
-        const announcementLink = document.getElementById("adminAnnouncementLink");
-        if (announcement) announcement.style.display = data.announcementEnabled ? "block" : "none";
-        if (announcementText && data.announcementText) announcementText.textContent = data.announcementText;
-        if (announcementLink) {
-          announcementLink.textContent = data.announcementButtonText || "Learn More";
-          announcementLink.href = data.announcementButtonUrl || "/contact.html";
-          announcementLink.style.display = data.announcementButtonText ? "inline-block" : "none";
-        }
-
-        const setText = (id, value) => {
-          const el = document.getElementById(id);
-          if (el && value !== undefined && value !== null && value !== "") el.textContent = value;
-        };
-
-        setText("homeHeroTitle", data.heroTitle);
-        setText("homeHeroText", data.heroText);
-        setText("homeHeroPrimary", data.heroPrimaryButtonText);
-        setText("homeHeroSecondary", data.heroSecondaryButtonText);
-        setText("tierHeading", data.tierHeading);
-        setText("tierText", data.tierText);
-        setText("processHeading", data.processHeading);
-        setText("beforeAfterHeading", data.beforeAfterHeading);
-        setText("beforeAfterNote", data.beforeAfterNote);
-        setText("guaranteeTitle", data.guaranteeTitle);
-        setText("guaranteeText", data.guaranteeText);
-        if (data.guaranteeSignature) setText("guaranteeSignature", "— " + data.guaranteeSignature.replace(/^—\s*/, ""));
-        setText("whyNeighborsTitle", data.whyNeighborsTitle);
-        setText("whyNeighborsText", data.whyNeighborsText);
-        setText("serviceAreaHeading", data.serviceAreaHeading);
-        setText("serviceAreaIntro", data.serviceAreaIntro);
-
-        renderStringList("homeTrustPills", data.trustPills, value =>
-          `<li class="gold-pill breathing-gold">${escapeHtml(value)}</li>`
-        );
-
-        renderStringList("premiumMaterialsList", data.premiumMaterials, value =>
-          `<span style="font-weight:900; font-size:18px; color:#fff;">${escapeHtml(value)}</span>`
-        );
-
-        setSectionVisible("premiumMaterialsSection", data.showPremiumMaterials);
-        setSectionVisible("specialsSection", data.showSpecials);
-        setSectionVisible("tiersSection", data.showTiers);
-        setSectionVisible("membershipServicesSection", data.showMembershipServices);
-        setSectionVisible("processSection", data.showProcess);
-        setSectionVisible("before-after", data.showBeforeAfter);
-        setSectionVisible("guaranteeSection", data.showGuarantee);
-        setSectionVisible("reviewsSection", data.showReviews);
-        setSectionVisible("serviceAreaSection", data.showServiceArea);
-        setSectionVisible("faqSection", data.showFaq);
-      }
-
-      async function loadHomepageControls() {
-        try {
-          const r = await fetch("/site-data/homepage.json", { cache: "no-store" });
-          if (!r.ok) return;
-          applyHomepageControls(await r.json());
-        } catch (err) {
-          console.warn("Homepage controls unavailable; using built-in content.", err);
-        }
-      }
-
-      // 2. MANAGED HOMEPAGE CONTENT (Pages CMS)
-      // Static HTML above remains as a fallback. If these JSON files load,
-      // the CMS-managed values replace Specials, Reviews and FAQs.
-      let reviewTimer = null;
-
-      function escapeHtml(value) {
-        return String(value ?? "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
-      }
-
-      function safeColor(value, fallback = "#e7bf63") {
-        const v = String(value || "").trim();
-        return /^#[0-9a-fA-F]{3,8}$/.test(v) ? v : fallback;
-      }
-
-      function renderSpecials(data) {
-        if (!data || !Array.isArray(data.specials)) return;
-
-        const heading = document.getElementById("specialsHeading");
-        const subheading = document.getElementById("specialsSubheading");
-        const grid = document.getElementById("specialsGrid");
-        const fine = document.getElementById("specialsFinePrint");
-        if (!grid) return;
-
-        if (heading && data.heading) heading.textContent = data.heading;
-        if (subheading && data.subheading) subheading.textContent = data.subheading;
-        if (fine && data.finePrint) fine.textContent = data.finePrint;
-
-        const today = new Date();
-        today.setHours(0,0,0,0);
-        const items = data.specials.filter(item => {
-          if (!item || item.active === false) return false;
-          const start = item.startDate ? new Date(item.startDate + "T00:00:00") : null;
-          const end = item.endDate ? new Date(item.endDate + "T23:59:59") : null;
-          if (start && !Number.isNaN(start.getTime()) && today < start) return false;
-          if (end && !Number.isNaN(end.getTime()) && today > end) return false;
-          return true;
-        });
-        grid.innerHTML = items.map(item => {
-          const accent = safeColor(item.accentColor);
-          const badgeText = safeColor(item.badgeTextColor, "#ffffff");
-
-          const features = Array.isArray(item.features) ? item.features : [];
-          const addons = Array.isArray(item.addons) ? item.addons : [];
-
-          const featureHtml = features.map(feature => {
-            const text = escapeHtml(typeof feature === "string" ? feature : feature?.text);
-            const bold = typeof feature === "object" && feature?.bold === true;
-            return `<li>${bold ? `<strong>${text}</strong>` : text}</li>`;
-          }).join("");
-
-          const addonsHtml = addons.map(addon =>
-            `<li><span>${escapeHtml(addon?.name)}</span> <span class="addon-price">${escapeHtml(addon?.price)}</span></li>`
-          ).join("");
-
-          return `
-            <div class="special-card" style="border-top:4px solid ${accent};">
-              ${item.badge ? `<div class="special-tag" style="background:${accent};color:${badgeText};">${escapeHtml(item.badge)}</div>` : ""}
-              <h3>${escapeHtml(item.title)}</h3>
-              <div class="special-price">${escapeHtml(item.price)}</div>
-              <p class="special-desc">${escapeHtml(item.description)}</p>
-              ${featureHtml ? `<ul class="bullets">${featureHtml}</ul>` : ""}
-              ${addonsHtml ? `
-                <div class="special-addons">
-                  <h4>Popular Add-Ons</h4>
-                  <ul class="addon-list">${addonsHtml}</ul>
-                </div>` : ""}
-              ${item.requirements ? `
-                <div class="special-protection">
-                  <strong>⚠️ Client Requirements:</strong>
-                  ${escapeHtml(item.requirements)}
-                </div>` : ""}
-              <button type="button" class="btn contact-panel-toggle">${escapeHtml(item.buttonText || "Contact Us")}</button>
-            </div>`;
-        }).join("");
-
-        if (!items.length) {
-          grid.innerHTML = `<p style="text-align:center;color:var(--muted);grid-column:1/-1;">No service specials are active right now.</p>`;
-        }
-      }
-
-      function initReviewCarousel() {
-        const section = document.getElementById("reviewsSection");
-        const track = document.getElementById("reviewTrack");
-        const nav = document.getElementById("reviewNav");
-        const prev = document.getElementById("reviewPrev");
-        const next = document.getElementById("reviewNext");
-        if (!section || !track || !nav) return;
-
-        const slides = Array.from(track.querySelectorAll(".review-slide"));
-        const dots = Array.from(nav.querySelectorAll(".review-dot"));
-
-        if (reviewTimer) {
-          clearInterval(reviewTimer);
-          reviewTimer = null;
-        }
-
-        if (!slides.length) return;
-
-        let currentSlide = 0;
-        let touchStartX = null;
-        let touchStartY = null;
-
-        const updateSlide = (index, userInitiated = false) => {
-          const total = slides.length;
-          const safeIndex = ((index % total) + total) % total;
-
-          track.style.transform = `translateX(-${safeIndex * 100}%)`;
-          slides.forEach((slide, i) => {
-            slide.setAttribute("aria-hidden", i === safeIndex ? "false" : "true");
-            slide.tabIndex = i === safeIndex ? 0 : -1;
-          });
-          dots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === safeIndex);
-            dot.setAttribute("aria-current", i === safeIndex ? "true" : "false");
-          });
-
-          currentSlide = safeIndex;
-
-          if (userInitiated) restartAutoScroll();
-        };
-
-        const stopAutoScroll = () => {
-          if (reviewTimer) {
-            clearInterval(reviewTimer);
-            reviewTimer = null;
-          }
-        };
-
-        const startAutoScroll = () => {
-          stopAutoScroll();
-          if (slides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            reviewTimer = setInterval(() => updateSlide(currentSlide + 1), 6500);
-          }
-        };
-
-        const restartAutoScroll = () => {
-          stopAutoScroll();
-          startAutoScroll();
-        };
-
-        dots.forEach((dot, index) => {
-          dot.onclick = () => updateSlide(index, true);
-        });
-
-        if (prev) prev.onclick = () => updateSlide(currentSlide - 1, true);
-        if (next) next.onclick = () => updateSlide(currentSlide + 1, true);
-
-        section.onmouseenter = stopAutoScroll;
-        section.onmouseleave = startAutoScroll;
-        section.onfocusin = stopAutoScroll;
-        section.onfocusout = (event) => {
-          if (!section.contains(event.relatedTarget)) startAutoScroll();
-        };
-
-        section.onkeydown = event => {
-          if (event.key === "ArrowLeft") {
-            event.preventDefault();
-            updateSlide(currentSlide - 1, true);
-          } else if (event.key === "ArrowRight") {
-            event.preventDefault();
-            updateSlide(currentSlide + 1, true);
-          }
-        };
-
-        track.ontouchstart = event => {
-          const touch = event.changedTouches[0];
-          touchStartX = touch.clientX;
-          touchStartY = touch.clientY;
-        };
-
-        track.ontouchend = event => {
-          if (touchStartX === null || touchStartY === null) return;
-          const touch = event.changedTouches[0];
-          const deltaX = touch.clientX - touchStartX;
-          const deltaY = touch.clientY - touchStartY;
-
-          if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
-            updateSlide(currentSlide + (deltaX < 0 ? 1 : -1), true);
-          }
-
-          touchStartX = null;
-          touchStartY = null;
-        };
-
-        updateSlide(0);
-        startAutoScroll();
-      }
-
-      function renderReviews(data) {
-        if (!data || !Array.isArray(data.reviews)) return;
-
-        // V3 ADMIN FIX:
-        // The homepage section is reviewsSection. The old google-reviews ID
-        // prevented Pages CMS review changes from rendering into the carousel.
-        const section = document.getElementById("reviewsSection");
-        const track = document.getElementById("reviewTrack");
-        const nav = document.getElementById("reviewNav");
-        const link = document.getElementById("googleReviewsLink");
-        if (!section || !track || !nav) return;
-
-        // Permanent trust wording stays in the HTML.
-        // Admin controls the actual reviews, order, visibility, rating,
-        // source, customer name, service and Google Reviews destination.
-        if (link && data.reviewUrl) link.href = data.reviewUrl;
-
-        const reviews = data.reviews.filter(item => item && item.active !== false);
-
-        track.innerHTML = reviews.map((item, index) => {
-          const rating = Math.max(1, Math.min(5, Number(item.rating) || 5));
-          const source = escapeHtml(item.source || "Google Review");
-          const service = escapeHtml(item.service || "Home Improvement");
-
-          return `
-            <div class="review-slide" tabindex="${index === 0 ? "0" : "-1"}" aria-hidden="${index === 0 ? "false" : "true"}" aria-roledescription="customer review">
-              <p class="review-score" aria-label="${rating} out of 5 stars">
-                <span class="review-stars" aria-hidden="true">${"★".repeat(rating)}${"☆".repeat(5-rating)}</span>
-                <span class="verified-badge">${source}</span>
-              </p>
-              <p class="review-quote">“${escapeHtml(item.review)}”</p>
-              <div class="review-person">
-                <p class="review-note">— ${escapeHtml(item.name)}</p>
-                <p class="review-service">${service}</p>
-              </div>
-            </div>`;
-        }).join("");
-
-        nav.innerHTML = reviews.map((_, index) =>
-          `<button class="review-dot${index === 0 ? " active" : ""}" data-index="${index}" aria-label="Open customer review" aria-current="${index === 0 ? "true" : "false"}"></button>`
-        ).join("");
-
-        if (!reviews.length) {
-          track.innerHTML = `
-            <div class="review-slide" tabindex="0">
-              <p class="review-quote">Customer experiences will be added here soon.</p>
-            </div>`;
-          nav.innerHTML = "";
-        }
-
-        initReviewCarousel();
-      }
-
-      function renderFaqs(data) {
-        if (!data || !Array.isArray(data.items)) return;
-
-        const heading = document.getElementById("faqHeading");
-        const list = document.getElementById("faqList");
-        if (!list) return;
-
-        if (heading && data.heading) heading.textContent = data.heading;
-        const items = data.items.filter(item => item && item.active !== false);
-
-        list.innerHTML = items.map(item =>
-          `<details><summary>${escapeHtml(item.question)}</summary><p>${escapeHtml(item.answer)}</p></details>`
-        ).join("");
-      }
-
-      function updateManagedStructuredData(specialsData, reviewsData, faqsData) {
-        try {
-          const schema = document.querySelector('script[type="application/ld+json"]');
-          if (!schema) return;
-          const obj = JSON.parse(schema.textContent);
-          const graph = Array.isArray(obj["@graph"]) ? obj["@graph"] : [];
-
-          const business = graph.find(x => x && x["@type"] === "LocalBusiness");
-          const faq = graph.find(x => x && x["@type"] === "FAQPage");
-
-          // Specials can still update public offer structured data.
-          if (business && specialsData && Array.isArray(specialsData.specials)) {
-            const today = new Date();
-            today.setHours(0,0,0,0);
-
-            const offers = specialsData.specials
-              .filter(x => {
-                if (!x || x.active === false) return false;
-                const startDate = x.startDate ? new Date(x.startDate + "T00:00:00") : null;
-                const endDate = x.endDate ? new Date(x.endDate + "T23:59:59") : null;
-                if (startDate && !Number.isNaN(startDate.getTime()) && today < startDate) return false;
-                if (endDate && !Number.isNaN(endDate.getTime()) && today > endDate) return false;
-                return true;
-              })
-              .map(x => {
-                const numeric = String(x.price || "").replace(/[^0-9.]/g, "");
-                const offer = {
-                  "@type": "Offer",
-                  "itemOffered": { "@type": "Service", "name": String(x.title || "") }
-                };
-                if (numeric && !Number.isNaN(Number(numeric))) {
-                  offer.price = numeric;
-                  offer.priceCurrency = "USD";
-                }
-                return offer;
-              });
-
-            business.hasOfferCatalog = {
-              "@type": "OfferCatalog",
-              "name": "Construction Services",
-              "itemListElement": offers
-            };
-          }
-
-          // FAQs stay synchronized with the admin-managed questions.
-          if (faq && faqsData && Array.isArray(faqsData.items)) {
-            faq.mainEntity = faqsData.items
-              .filter(x => x && x.active !== false)
-              .map(x => ({
-                "@type": "Question",
-                "name": String(x.question || ""),
-                "acceptedAnswer": { "@type": "Answer", "text": String(x.answer || "") }
-              }));
-          }
-
-          // Intentionally NO automatic review counter / aggregate review count.
-          if (business) business.aggregateRating = undefined;
-
-          schema.textContent = JSON.stringify(obj, (key, value) => value === undefined ? undefined : value);
-        } catch (err) {
-          console.warn("Managed SEO data could not be updated:", err);
-        }
-      }
-
-      async function loadManagedHomepageContent() {
-        try {
-          const [specialsRes, reviewsRes, faqsRes] = await Promise.all([
-            fetch("/site-data/specials.json", { cache: "no-store" }),
-            fetch("/site-data/reviews.json", { cache: "no-store" }),
-            fetch("/site-data/faqs.json", { cache: "no-store" })
-          ]);
-
-          const specialsData = specialsRes.ok ? await specialsRes.json() : null;
-          const reviewsData = reviewsRes.ok ? await reviewsRes.json() : null;
-          const faqsData = faqsRes.ok ? await faqsRes.json() : null;
-
-          if (specialsData) renderSpecials(specialsData);
-          if (reviewsData) renderReviews(reviewsData);
-          if (faqsData) renderFaqs(faqsData);
-          updateManagedStructuredData(specialsData, reviewsData, faqsData);
-        } catch (err) {
-          console.warn("Managed homepage content unavailable; using built-in fallback content.", err);
-        }
-      }
-
-      // Start static carousel immediately, then replace it if CMS content loads.
-      initReviewCarousel();
-      loadHomepageControls();
-      loadManagedHomepageContent();
+      dots.forEach((dot, index) => dot.addEventListener('click', () => updateSlide(index)));
+      if(track) setInterval(() => updateSlide((currentSlide + 1) % dots.length), 5000);
 
       // 3. CONTACT PANEL
       const panel = document.getElementById("contact-panel");
       if(panel) {
-        document.addEventListener("click", (e) => {
-          const trigger = e.target.closest(".contact-panel-toggle");
-          if (trigger) panel.style.display = "flex";
-        });
+        document.querySelectorAll(".contact-panel-toggle").forEach(b => b.addEventListener("click", () => panel.style.display="flex"));
         panel.querySelector(".contact-panel-close").addEventListener("click", () => panel.style.display="none");
         panel.addEventListener("click", (e) => { if(e.target===panel) panel.style.display="none"; });
       }

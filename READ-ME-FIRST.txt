@@ -1,0 +1,54 @@
+HAMMER BRICK & HOME — HOMEPAGE V2 (ADMIN COMPATIBLE)
+
+THIS VERSION ADDRESSES TWO THINGS:
+1. The homepage no longer positions the company as only a Staten Island contractor.
+2. Free Estimate is direct: CALL or TEXT the business phone.
+
+NEW HERO:
+Masonry, Roofing & Remodeling Across NYC & New Jersey
+
+DIRECT CTA BUTTONS:
+- Call for a Free Estimate -> tel:+19295955300
+- Text Photos for a Free Estimate -> sms:+19295955300
+
+HOMEPAGE ORDER:
+Hero
+Credentials
+Before & After
+Core Services
+Customer Reviews
+Owner-Led Trust
+How We Work
+Pricing Tiers
+Monthly Service Specials
+Service Areas
+FAQ
+Direct Call/Text CTA
+
+MASTER ADMIN COMPATIBILITY:
+This package includes:
+- index.html
+- admin-data/homepage.json
+- scripts/apply_homepage.py
+
+Upload all 3 to their matching locations if you are using the Master Admin.
+The updated Apply Homepage script understands this new design, keeps the CALL/TEXT
+links direct to the business phone, and lets CMS control their button wording.
+
+UNCHANGED / NOT INCLUDED:
+- style.css
+- script.js
+- header.html
+- footer.html
+- gallery.json
+- images/
+- .pages.yml
+- estimator files
+
+ROLLBACK:
+BACKUP-current-working-index.html is the exact working homepage used as the starting point.
+If needed, copy it back to root as index.html.
+
+SAFETY:
+The updated Apply Homepage script checks the V2 page landmarks and stages all replacements
+in memory before writing index.html.

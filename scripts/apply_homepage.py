@@ -29,7 +29,7 @@ def render_specials(data):
             '<li><span>' + esc(x.get("name")) + '</span> <span class="addon-price">' + esc(x.get("price")) + '</span></li>'
             for x in item.get("addons", [])
         )
-        card = (
+        cards.append(
             '<div class="special-card" style="border-top:4px solid ' + accent + ';">'
             '<div class="special-tag" style="background:' + accent + ';">' + esc(item.get("badge")) + '</div>'
             '<h3>' + esc(item.get("title")) + '</h3>'
@@ -41,12 +41,10 @@ def render_specials(data):
             '<button type="button" class="btn contact-panel-toggle">' + esc(item.get("buttonText") or "Contact Us") + '</button>'
             '</div>'
         )
-        cards.append(card)
-
     return (
         '<section class="section fade-up">'
         '<div style="text-align:center; max-width:700px; margin:0 auto 25px;">'
-        '<h2>' + esc(data.get("heading")) + '</h2>'
+        '<h2>Monthly Service Specials</h2>'
         '<p style="color:var(--muted); font-size:14px;">' + esc(data.get("subheading")) + '</p>'
         '</div>'
         '<div class="specials-grid">' + "".join(cards) + '</div>'
@@ -57,13 +55,11 @@ def render_specials(data):
 def render_reviews(home, data):
     active = [x for x in data.get("reviews", []) if x.get("active") is not False]
     slides, dots = [], []
-
     for i, item in enumerate(active):
         try:
             rating = max(1, min(5, int(item.get("rating") or 5)))
         except Exception:
             rating = 5
-
         slides.append(
             '<div class="review-slide">'
             '<p class="review-score">' + ("⭐" * rating) + ' <span class="verified-badge">' + esc(item.get("source") or "Google Review") + '</span></p>'
@@ -73,21 +69,22 @@ def render_reviews(home, data):
             '</div>'
         )
         dots.append(
-            '<button class="review-dot' + (' active' if i == 0 else '') + '" data-index="' + str(i) + '" aria-label="Review ' + str(i + 1) + '"></button>'
+            '<button class="review-dot' + (' active' if i == 0 else '') +
+            '" data-index="' + str(i) + '" aria-label="Review ' + str(i + 1) + '"></button>'
         )
-
     return (
         '<section class="section section-reviews-highlight fade-up" id="google-reviews">'
         '<div style="text-align:center; max-width:760px; margin:0 auto 25px;">'
         '<p style="color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800;margin-bottom:8px;">' + esc(home.get("reviewEyebrow")) + '</p>'
         '<h2 style="margin-bottom:8px;">' + esc(home.get("reviewHeading")) + '</h2>'
-        '<p style="color:var(--muted);font-size:13px;">' + esc(home.get("reviewIntro")) + '</p>'
+        '<p style="color:var(--muted);font-size:13px;line-height:1.6;">' + esc(home.get("reviewIntro")) + '</p>'
         '</div>'
         '<div class="review-carousel-container">'
         '<div class="review-track" id="reviewTrack">' + "".join(slides) + '</div>'
         '<div class="review-nav" id="reviewNav">' + "".join(dots) + '</div>'
         '<div style="text-align:center; margin-top:22px;">'
-        '<a href="' + esc(data.get("reviewUrl")) + '" target="_blank" rel="noopener" class="btn ghost">' + esc(home.get("reviewButtonText")) + '</a>'
+        '<a href="' + esc(data.get("reviewUrl")) + '" target="_blank" rel="noopener" class="btn ghost">' +
+        esc(home.get("reviewButtonText")) + '</a>'
         '</div></div></section>'
     )
 
@@ -97,43 +94,63 @@ def render_faq(home, data):
         if item.get("active") is False:
             continue
         items.append(
-            '<details><summary>' + esc(item.get("question")) + '</summary><p>' + esc(item.get("answer")) + '</p></details>'
+            '<details><summary>' + esc(item.get("question")) +
+            '</summary><p>' + esc(item.get("answer")) + '</p></details>'
         )
-
     return (
         '<section class="section faq-section fade-up">'
-        '<h2 class="faq-title shimmer-gold">' + esc(home.get("faqHeading") or "Common Questions") + '</h2>'
-        + "".join(items) +
+        '<h2 class="faq-title shimmer-gold">' + esc(home.get("faqHeading") or "Common Questions") + '</h2>' +
+        "".join(items) +
         '</section>'
     )
 
 def main():
     original = INDEX.read_text(encoding="utf-8")
     text = original
-
     home = load("homepage.json")
     specials = load("specials.json")
     reviews = load("reviews.json")
     faqs = load("faqs.json")
 
+    # Safety landmarks from the V2 homepage.
     required = [
-        "Luxury Residential & Commercial Remodeling in NYC",
-        "Monthly Service Specials",
+        'class="hero hero-home',
+        'hb-call-btn',
+        'hb-text-btn',
+        'We Use Premium Materials',
+        'Monthly Service Specials',
         'id="google-reviews"',
-        "Common Questions",
-        "gallery.json"
+        'Serving Our Neighbors',
+        'faq-section',
+        'gallery.json'
     ]
     missing = [x for x in required if x not in text]
     if missing:
-        raise RuntimeError("Safety stop: current working homepage structure changed: " + ", ".join(missing))
+        raise RuntimeError("Safety stop: homepage structure changed: " + ", ".join(missing))
 
+    # Hero title + intro.
     text = replace_once(
         text,
-        r'(<section class="hero hero-home fade-up"[^>]*>.*?<div class="hero-content hero-glass">\s*<h1>).*?(</h1>\s*<p>).*?(</p>)',
+        r'(<div class="[^"]*\bhero-content\b[^"]*">.*?<h1>).*?(</h1>\s*<p>).*?(</p>)',
         lambda m: m.group(1) + esc(home.get("heroTitle")) + m.group(2) + esc(home.get("heroText")) + m.group(3),
         "homepage hero"
     )
 
+    # Direct Call / Text button labels. Hrefs stay direct to the business phone.
+    text = replace_once(
+        text,
+        r'(<a class="btn hb-call-btn" href="tel:\+19295955300">).*?(</a>)',
+        lambda m: m.group(1) + esc(home.get("heroPrimaryButtonText")) + m.group(2),
+        "direct call button"
+    )
+    text = replace_once(
+        text,
+        r'(<a class="btn ghost hb-text-btn" href="sms:\+19295955300">).*?(</a>)',
+        lambda m: m.group(1) + esc(home.get("heroSecondaryButtonText")) + m.group(2),
+        "direct text button"
+    )
+
+    # Premium materials.
     mats = "".join(
         '<span style="font-weight:900; font-size:18px; color:#fff;">' + esc(x) + '</span>'
         for x in home.get("premiumMaterials", [])
@@ -145,6 +162,7 @@ def main():
         "premium materials"
     )
 
+    # Specials.
     text = replace_once(
         text,
         r'<section class="section fade-up">\s*<div[^>]*>\s*<h2>Monthly Service Specials</h2>.*?</section>',
@@ -152,6 +170,7 @@ def main():
         "monthly specials"
     )
 
+    # Reviews.
     text = replace_once(
         text,
         r'<section class="section section-reviews-highlight fade-up" id="google-reviews">.*?</section>',
@@ -159,13 +178,16 @@ def main():
         "review section"
     )
 
+    # Service area intro, keeping the admin anchor heading exact.
     text = replace_once(
         text,
         r'(<h2 style="margin-bottom:10px; text-align:left;">)Serving Our Neighbors(</h2>\s*<p style="color:var\(--muted\); margin-bottom:20px;">).*?(</p>)',
-        lambda m: m.group(1) + esc(home.get("serviceAreaHeading")) + m.group(2) + esc(home.get("serviceAreaIntro")) + m.group(3),
+        lambda m: m.group(1) + esc(home.get("serviceAreaHeading") or "Serving Our Neighbors") +
+                  m.group(2) + esc(home.get("serviceAreaIntro")) + m.group(3),
         "service area"
     )
 
+    # FAQ.
     text = replace_once(
         text,
         r'<section class="section faq-section fade-up">.*?</section>',
@@ -173,9 +195,9 @@ def main():
         "FAQ section"
     )
 
-    # Write once, only after all safety checks/replacements succeeded.
+    # All changes staged in memory. Only now write the homepage.
     INDEX.write_text(text, encoding="utf-8")
-    print("Homepage content applied safely.")
+    print("V2 homepage content applied safely.")
 
 if __name__ == "__main__":
     main()
