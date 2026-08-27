@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "active": true,
+      "icon": "🧱",
+      "title": "Masonry, Steps & Concrete",
+      "description": "Brick repair, repointing, stoops, limestone, concrete and exterior masonry restoration.",
+      "url": "/masonry.html"
+    },
+    {
+      "active": true,
+      "icon": "🏠",
+      "title": "Roofing & Exterior Repair",
+      "description": "Flat-roof work, flashing, skylight-related repairs and exterior water-entry solutions.",
+      "url": "/contact.html"
+    },
+    {
+      "active": true,
+      "icon": "🚿",
+      "title": "Bathroom Remodeling",
+      "description": "Tile, showers, vanities, fixtures and complete bathroom renovations.",
+      "url": "/bathrooms.html"
+    },
+    {
+      "active": true,
+      "icon": "🍽️",
+      "title": "Kitchen Remodeling",
+      "description": "Cabinetry, counters, backsplashes, flooring and complete kitchen upgrades.",
+      "url": "/kitchens.html"
+    },
+    {
+      "active": true,
+      "icon": "💧",
+      "title": "Waterproofing",
+      "description": "Foundation, masonry and exterior waterproofing and coating solutions.",
+      "url": "/waterproofing.html"
+    },
+    {
+      "active": true,
+      "icon": "🪟",
+      "title": "Windows, Doors & Exterior Trim",
+      "description": "Replacement windows, doors, exterior trim, capping and weather sealing.",
+      "url": "/windows-doors.html"
+    }
+  ],
+  "otherServices": "Also available: painting, pavers, decks, carpentry, siding, basements, gutters and other home-improvement work."
+}

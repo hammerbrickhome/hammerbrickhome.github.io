@@ -1,136 +1,49 @@
 {
+  "eyebrow": "CURRENT OFFERS",
   "heading": "Monthly Service Specials",
-  "subheading": "Exclusive pricing on high-impact upgrades. Protection clauses apply.",
-  "finePrint": "*Prices for standard residential conditions. Oversized rooms or custom windows may vary. We reserve the right to decline unsafe work.",
-  "specials": [
+  "intro": "Selected small-project offers. Final eligibility depends on site conditions and scope.",
+  "finePrint": "Prices shown are for qualifying standard conditions. Structural issues, access limitations, concealed damage and additional work are quoted separately.",
+  "viewAllText": "See Full Specials & Details",
+  "viewAllUrl": "/monthly-specials.html",
+  "items": [
     {
       "active": true,
       "badge": "Most Popular",
-      "accentColor": "#4a90e2",
-      "badgeTextColor": "#fff",
       "title": "Masonry Tune-Up",
       "price": "$449",
-      "description": "Restore safety and curb appeal to your front steps without a full rebuild.",
+      "description": "A focused repair visit for small masonry maintenance and entry-step concerns.",
       "features": [
-        {
-          "text": "Repoint 6–8 bricks or joints",
-          "bold": false
-        },
-        {
-          "text": "Seal cracks (up to 10 lin. ft.)",
-          "bold": true
-        },
-        {
-          "text": "Trip-hazard safety check",
-          "bold": false
-        }
+        "Repoint 6–8 bricks or joints",
+        "Seal cracks up to 10 linear ft.",
+        "Trip-hazard visual check"
       ],
-      "addons": [
-        {
-          "name": "Lead Prep (Only if Painted)",
-          "price": "+$399"
-        },
-        {
-          "name": "Power Wash Entry",
-          "price": "+$149"
-        },
-        {
-          "name": "Waterproofing Seal",
-          "price": "+$99"
-        },
-        {
-          "name": "Limestone Patching",
-          "price": "+$125"
-        }
-      ],
-      "requirements": "Standard height steps only (no scaffolding). Access to water/power required. Structural failures require full estimate.",
-      "buttonText": "Book Best Value Special"
+      "buttonText": "Text About Masonry Special"
     },
     {
       "active": true,
-      "badge": "Best Value",
-      "accentColor": "#e7bf63",
-      "badgeTextColor": "#000",
+      "badge": "Interior",
       "title": "The Interior Facelift",
       "price": "$799",
-      "description": "White-glove interior painting service to transform one standard room.",
+      "description": "Professional painting for one qualifying standard room with careful preparation.",
       "features": [
-        {
-          "text": "Walls painted (up to 12'x12')",
-          "bold": false
-        },
-        {
-          "text": "Nail hole filling included",
-          "bold": false
-        },
-        {
-          "text": "2 Coats Premium Paint",
-          "bold": false
-        }
+        "Walls up to 12'×12' room",
+        "Nail-hole filling",
+        "Two coats of premium paint"
       ],
-      "addons": [
-        {
-          "name": "Lead Prep (Only if Painted)",
-          "price": "+$399"
-        },
-        {
-          "name": "Paint Ceilings",
-          "price": "+$150"
-        },
-        {
-          "name": "Paint Baseboards/Trim",
-          "price": "+$150"
-        },
-        {
-          "name": "Deep Plaster Repair",
-          "price": "Quote"
-        }
-      ],
-      "requirements": "Room must be cleared or furniture moved to center prior to arrival. Walls must be clean. Max height 12ft.",
-      "buttonText": "Book Premium Special"
+      "buttonText": "Text About Painting Special"
     },
     {
       "active": true,
-      "badge": "Energy Saver",
-      "accentColor": "#e67e22",
-      "badgeTextColor": "#fff",
+      "badge": "Window",
       "title": "Draft-Stop Window Upgrade",
-      "price": "$1499",
-      "description": "Stop the drafts. We supply and install a new energy-efficient vinyl window.",
+      "price": "$1,499",
+      "description": "Supply and installation of one qualifying standard white double-hung vinyl window.",
       "features": [
-        {
-          "text": "1 Double-Hung Window (White)",
-          "bold": false
-        },
-        {
-          "text": "Removal & Disposal",
-          "bold": false
-        },
-        {
-          "text": "Insulation & Watertight Seal",
-          "bold": false
-        }
+        "Removal and disposal",
+        "Insulation around opening",
+        "Exterior/interior sealing"
       ],
-      "addons": [
-        {
-          "name": "Lead Prep (Only if Painted)",
-          "price": "+$399"
-        },
-        {
-          "name": "Exterior Capping",
-          "price": "+$125"
-        },
-        {
-          "name": "Full Screen Mesh",
-          "price": "+$45"
-        },
-        {
-          "name": "Grid/Grille Pattern",
-          "price": "+$65"
-        }
-      ],
-      "requirements": "1st, 2nd, or 3rd Floor Only (Ladder Access). Standard size (up to 36\"x60\"). No rotted wood frames (repair is extra). Removal of security bars is extra.",
-      "buttonText": "Book Signature Special"
+      "buttonText": "Text About Window Special"
     }
   ]
 }

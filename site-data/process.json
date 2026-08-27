@@ -1,0 +1,38 @@
+{
+  "ownerEyebrow": "OWNER-LED SERVICE",
+  "ownerHeading": "Direct Communication From Estimate to Final Walkthrough",
+  "ownerQuote": "I don’t just send a crew. I stay involved, inspect the details and make sure the project is finished the way it should be.",
+  "ownerByline": "— Noman, Owner",
+  "ownerText": "You should know who is responsible for your project. We keep communication direct, protect the work area, document progress and review the finished work with you before the project is closed out.",
+  "ownerBullets": [
+    "Free estimate by call, text/photos or site visit",
+    "Written, itemized proposals",
+    "Floor and surface protection before work starts",
+    "Before/after documentation and final walkthrough"
+  ],
+  "processEyebrow": "HOW WE WORK",
+  "processHeading": "A Clear Process Without the Guesswork",
+  "processIntro": "A simple path from first contact to a clean finished job.",
+  "steps": [
+    {
+      "number": "01",
+      "title": "Call or Text Photos",
+      "text": "Tell us what you want done, where the property is and your timeline. Photos help us understand the project before a site visit."
+    },
+    {
+      "number": "02",
+      "title": "Site Visit & Written Scope",
+      "text": "When needed, we inspect, measure and discuss options. You receive a written estimate so the scope and expectations are clear."
+    },
+    {
+      "number": "03",
+      "title": "Protect, Build & Communicate",
+      "text": "We protect surrounding finishes, perform the agreed work and keep communication open as the project moves forward."
+    },
+    {
+      "number": "04",
+      "title": "Final Walkthrough",
+      "text": "We review the finished work with you, address agreed touch-ups and document the completed project."
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "eyebrow": "TRANSPARENT OPTIONS",
+  "heading": "Choose the Finish Level That Fits the Project",
+  "intro": "Foundation, Premium and Signature make it easier to compare materials, preparation and finish level without guessing what is included.",
+  "buttonText": "Ask About Your Project",
+  "estimatorText": "Or use the online project estimator",
+  "estimatorUrl": "/project-estimator.html",
+  "items": [
+    {
+      "name": "Foundation",
+      "badge": "Practical",
+      "description": "Professional work focused on the repair or improvement you actually need.",
+      "features": [
+        "Standard-quality materials",
+        "Clear scope and preparation",
+        "Clean workmanship",
+        "Before/after documentation"
+      ],
+      "bestFor": "Repairs, maintenance and straightforward upgrades."
+    },
+    {
+      "name": "Premium",
+      "badge": "Most Popular",
+      "description": "Upgraded materials, preparation and finish detail for projects where longevity and appearance matter.",
+      "features": [
+        "Higher-grade material options",
+        "Enhanced prep and protection",
+        "More finish-detail time",
+        "Project-specific upgrade choices"
+      ],
+      "bestFor": "Bathrooms, kitchens, masonry, flooring and exterior upgrades."
+    },
+    {
+      "name": "Signature",
+      "badge": "Custom",
+      "description": "A higher-detail approach for custom layouts, premium materials and design-focused work.",
+      "features": [
+        "Premium material selections",
+        "Custom layouts and details",
+        "Higher-finish preparation",
+        "White-glove project protection"
+      ],
+      "bestFor": "Full remodels and custom high-finish projects."
+    }
+  ]
+}
