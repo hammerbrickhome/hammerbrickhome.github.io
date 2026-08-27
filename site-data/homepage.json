@@ -1,81 +1,44 @@
 {
-  "pageTitle": "Masonry, Roofing & Remodeling in NYC & NJ | Hammer Brick & Home",
-  "metaDescription": "Owner-led masonry, roofing, remodeling, waterproofing, windows and home improvement across NYC and select New Jersey areas. Call or text for a free estimate.",
-  "heroEyebrow": "RESIDENTIAL & COMMERCIAL",
-  "heroTitle": "Masonry, Roofing & Remodeling",
-  "heroText": "Built with strength. Finished with pride. Staten Island based and serving all 5 boroughs plus select New Jersey areas.",
-  "heroCallText": "Call for a Free Estimate",
-  "heroTextText": "Text Photos for a Free Estimate",
-  "heroWorkText": "See Our Work",
-  "heroWorkUrl": "#project-proof",
-  "heroNote": "Direct: 929-595-5300",
-  "showTrust": true,
-  "showServices": true,
-  "servicesEyebrow": "OUR SERVICES",
-  "servicesHeading": "Quality Work for Every Part of Your Home",
-  "servicesIntro": "Exterior craftsmanship, repairs and interior remodeling with direct owner communication.",
-  "showMaterials": true,
-  "materialsHeading": "Materials & systems we commonly work with",
-  "materials": [
+  "announcementEnabled": false,
+  "announcementText": "Now booking new projects — free estimates available.",
+  "announcementButtonText": "Request Estimate",
+  "announcementButtonUrl": "/contact.html",
+  "heroTitle": "Luxury Residential & Commercial Remodeling in NYC",
+  "heroText": "White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.",
+  "heroPrimaryButtonText": "📞 Fast Estimate",
+  "heroSecondaryButtonText": "Contact & Options",
+  "trustPills": [
+    "Licensed, Bonded & Insured · HIC #2131291",
+    "EPA Lead-Safe Certified Firm (Pre-1978 Homes)",
+    "Before/After Documentation",
+    "Clean, Respectful Crew"
+  ],
+  "showPremiumMaterials": true,
+  "premiumMaterials": [
     "Benjamin Moore",
     "Cambridge Pavers",
     "Andersen",
     "Schluter"
   ],
-  "showProjects": true,
-  "projectsEyebrow": "BEFORE & AFTER",
-  "projectsHeading": "Real Projects. Real Results.",
-  "projectsIntro": "See the quality, detail and craftsmanship we bring to every project.",
-  "projectPageSize": 3,
-  "galleryButtonText": "View Full Project Gallery",
-  "showReviews": true,
-  "reviewsEyebrow": "WHAT OUR CLIENTS SAY",
-  "reviewsHeading": "Real Reviews From Real Customers",
-  "reviewsIntro": "Your satisfaction is our priority.",
-  "showOwner": true,
-  "showProcess": true,
-  "showTiers": true,
   "showSpecials": true,
-  "showMembership": true,
-  "membershipTitle": "Signature Membership",
-  "membershipText": "Already a customer? Explore membership benefits, service perks and current opportunities on the dedicated Membership page.",
-  "membershipButtonText": "Explore Membership",
-  "membershipUrl": "/membership.html",
-  "showAreas": true,
-  "areasEyebrow": "AREAS WE SERVE",
-  "areasHeading": "NYC & New Jersey",
-  "areasIntro": "Proudly serving New York City and select New Jersey areas.",
-  "areas": [
-    {
-      "name": "Staten Island",
-      "url": "/staten-island.html"
-    },
-    {
-      "name": "Brooklyn",
-      "url": "/brooklyn.html"
-    },
-    {
-      "name": "Queens",
-      "url": "/queens.html"
-    },
-    {
-      "name": "Manhattan",
-      "url": "/manhattan.html"
-    },
-    {
-      "name": "The Bronx",
-      "url": "/bronx.html"
-    },
-    {
-      "name": "New Jersey",
-      "url": "/new-jersey.html"
-    }
-  ],
+  "showTiers": true,
+  "showMembershipServices": true,
+  "showProcess": true,
+  "showBeforeAfter": true,
+  "showGuarantee": true,
+  "showReviews": true,
+  "showServiceArea": true,
   "showFaq": true,
-  "finalEyebrow": "FREE ESTIMATES",
-  "finalHeading": "Ready to Start Your Project?",
-  "finalText": "Call or text us today for your free estimate.",
-  "finalCallText": "Call 929-595-5300",
-  "finalTextText": "Text Project Photos",
-  "heroAccent": "Across NYC & New Jersey"
+  "tierHeading": "Your Budget, Your Choice",
+  "tierText": "We don't guess your budget—we work with it. We provide Transparent Tiered Estimates so you can decide the level of finish that fits your financial comfort zone.",
+  "processHeading": "How We Work on Your Home",
+  "beforeAfterHeading": "Before & After",
+  "beforeAfterNote": "Real customer projects — auto-loaded from our gallery.",
+  "guaranteeTitle": "The Hammer Guarantee",
+  "guaranteeText": "I don't just send a crew; I’m there to lead them. I personally guarantee detailed craftsmanship, total site protection, and a spotless finish on every project.",
+  "guaranteeSignature": "The Owner",
+  "whyNeighborsTitle": "Why Neighbors Choose Us",
+  "whyNeighborsText": "We aren't a generic franchise. We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.",
+  "serviceAreaHeading": "Serving Our Neighbors",
+  "serviceAreaIntro": "Based in Staten Island (10302) , we proudly serve the entire New York City metro area and New Jersey."
 }

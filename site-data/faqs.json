@@ -4,32 +4,22 @@
     {
       "active": true,
       "question": "Do you provide free estimates?",
-      "answer": "Yes. Call us directly or text photos of the project. If the scope needs an in-person look, we can schedule a site visit."
+      "answer": "Yes. We provide clear, itemized written estimates."
     },
     {
       "active": true,
-      "question": "Are you licensed and insured?",
-      "answer": "Hammer Brick & Home LLC is licensed, bonded and insured. NYC HIC #2131291 and NJ HIC #13VH14026000."
+      "question": "Are you licensed and insured in NYC?",
+      "answer": "Absolutely. Licensed, Bonded & Insured. HIC #2131291. COIs available."
+    },
+    {
+      "active": true,
+      "question": "Do you handle permits?",
+      "answer": "Yes, we work with licensed architects for DOB filings."
     },
     {
       "active": true,
       "question": "What areas do you serve?",
-      "answer": "We are based in Staten Island and serve the five boroughs of New York City plus select New Jersey areas. Call or text to confirm your location."
-    },
-    {
-      "active": true,
-      "question": "Can I send photos before scheduling a visit?",
-      "answer": "Yes. Texting clear photos is one of the fastest ways to start. Include your location and a short description of what you want repaired or remodeled."
-    },
-    {
-      "active": true,
-      "question": "What about work in pre-1978 homes?",
-      "answer": "Hammer Brick & Home LLC is an EPA Lead-Safe Certified Firm. Applicable projects are evaluated for lead-safe work requirements."
-    },
-    {
-      "active": true,
-      "question": "Who handles permits?",
-      "answer": "Permit requirements depend on the project. When permits are applicable, the written proposal or contract should identify the permitting responsibility and scope."
+      "answer": "Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ."
     }
   ]
 }
