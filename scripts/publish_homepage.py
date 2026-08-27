@@ -49,6 +49,7 @@ def render_home():
     <div class="hb-hero-copy">
       <div class="hb-kicker">{e(h.get("heroEyebrow"))}</div>
       <h1 id="home-title">{e(h.get("heroTitle"))}</h1>
+      <div class="hb-hero-accent">{e(h.get("heroAccent") or "Across NYC & New Jersey")}</div>
       <p>{e(h.get("heroText"))}</p>
       <div class="hb-hero-actions">
         {a("tel:"+PHONE_E164, "📞 " + str(h.get("heroCallText") or "Call for a Free Estimate"), "hb-btn")}
@@ -82,12 +83,21 @@ def render_home():
         for item in services.get("items", []):
             if item.get("active") is False:
                 continue
+            photo = str(item.get("image") or "").strip() or str(item.get("imageUrl") or "").strip()
+            if photo and not photo.startswith(("http://","https://","/")):
+                photo = "/" + photo
+            photo_html = (
+                f'<div class="hb-service-photo"><img src="{e(photo)}" alt="{e(item.get("imageAlt") or item.get("title"))}" loading="lazy"></div>'
+                if photo else '<div class="hb-service-photo hb-service-photo-empty"></div>'
+            )
             cards.append(f'''
 <a class="hb-service-card" href="{e(item.get("url") or "/contact.html")}">
+  {photo_html}
   <span class="hb-service-icon">{e(item.get("icon"))}</span>
-  <h3>{e(item.get("title"))}</h3>
-  <p>{e(item.get("description"))}</p>
-  <span class="hb-card-arrow">Explore →</span>
+  <div class="hb-service-copy">
+    <h3>{e(item.get("title"))}</h3>
+    <p>{e(item.get("description"))}</p>
+  </div>
 </a>''')
         parts.append(f'''
 <section class="hb-section" id="services">

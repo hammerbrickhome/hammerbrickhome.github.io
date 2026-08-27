@@ -23,207 +23,31 @@
 <link rel="stylesheet" href="/style.css?v=3">
 <style>
 
-:root{
-  --hb-gold:#e7bf63;
-  --hb-gold-soft:#f5d89b;
-  --hb-ink:#07111f;
-  --hb-card:#0b1829;
-  --hb-card2:#081321;
-  --hb-text:#f7f7f4;
-  --hb-muted:#aeb8c5;
-  --hb-line:rgba(255,255,255,.09);
-}
-html{scroll-behavior:smooth}
-body{overflow-x:hidden}
-#main.hb-home{max-width:1180px;margin:0 auto;padding:0 22px 30px}
-.hb-home *{box-sizing:border-box}
-.hb-kicker{display:inline-flex;align-items:center;gap:9px;color:var(--hb-gold-soft);font-size:11px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase}
-.hb-kicker:before{content:"";width:24px;height:1px;background:var(--hb-gold)}
-.hb-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border:1px solid var(--hb-gold);border-radius:10px;background:linear-gradient(180deg,#f0cf7b,#d3a84b);color:#07111f!important;text-decoration:none!important;font-size:13px;font-weight:900;box-shadow:0 9px 24px rgba(0,0,0,.22);cursor:pointer;transition:.2s ease}
-.hb-btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
-.hb-btn-ghost{background:rgba(5,14,26,.68);color:#fff!important;border-color:rgba(231,191,99,.55)}
-.hb-text-link{display:inline-flex;align-items:center;color:var(--hb-gold-soft)!important;text-decoration:none!important;font-size:13px;font-weight:800}
-.hb-text-link:hover{text-decoration:underline!important}
-.hb-center{text-align:center}
-.hb-section{padding:68px 0}
-.hb-section-head{max-width:760px;margin:0 auto 30px;text-align:center}
-.hb-section-head .hb-kicker{justify-content:center}
-.hb-section-head h2{margin:9px 0;color:#fff;font-size:clamp(27px,4vw,40px);line-height:1.08}
-.hb-section-head p{margin:0;color:var(--hb-muted);font-size:15px;line-height:1.7}
-
-/* HERO */
-.hb-hero{position:relative;min-height:590px;margin:34px 0 18px;border:1px solid rgba(231,191,99,.22);border-radius:26px;overflow:hidden;background-image:linear-gradient(90deg,rgba(5,12,22,.97) 0%,rgba(5,12,22,.89) 46%,rgba(5,12,22,.52) 100%),url('/images/hero.jpg');background-size:cover;background-position:center;box-shadow:0 30px 70px rgba(0,0,0,.34)}
-.hb-hero-shade{position:absolute;inset:0;background:radial-gradient(circle at 75% 20%,rgba(231,191,99,.13),transparent 38%);pointer-events:none}
-.hb-hero-grid{position:relative;z-index:1;min-height:590px;display:grid;grid-template-columns:1.32fr .68fr;gap:36px;align-items:center;padding:64px}
-.hb-hero-copy h1{max-width:760px;margin:12px 0 16px;color:#fff;font-size:clamp(38px,5.2vw,67px);line-height:1.02;letter-spacing:-1.6px}
-.hb-hero-copy>p{max-width:700px;margin:0;color:#d7dde5;font-size:17px;line-height:1.72}
-.hb-hero-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:25px}
-.hb-hero-note{margin-top:14px;color:rgba(255,255,255,.67);font-size:12px}
-.hb-contact-card{padding:25px;border:1px solid rgba(231,191,99,.34);border-radius:19px;background:rgba(5,14,26,.86);backdrop-filter:blur(13px);box-shadow:0 20px 45px rgba(0,0,0,.3)}
-.hb-card-small{color:var(--hb-gold-soft);font-size:10px;font-weight:900;letter-spacing:1.7px}
-.hb-contact-card h2{margin:7px 0 9px;color:#fff;font-size:25px;line-height:1.12}
-.hb-contact-card>p{margin:0 0 17px;color:var(--hb-muted);font-size:13px;line-height:1.55}
-.hb-contact-row{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:9px;padding:13px 14px;border:1px solid var(--hb-line);border-radius:11px;background:rgba(255,255,255,.035);color:#fff!important;text-decoration:none!important}
-.hb-contact-row:hover{border-color:rgba(231,191,99,.4)}
-.hb-contact-row span{font-size:11px;color:var(--hb-muted)}
-.hb-contact-row strong{font-size:12px;text-align:right}
-.hb-card-foot{margin-top:14px;color:rgba(255,255,255,.55);font-size:10px;text-align:center}
-
-/* TRUST */
-.hb-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 16px}
-.hb-trust>div{padding:15px 12px;border:1px solid rgba(231,191,99,.18);border-radius:13px;background:linear-gradient(145deg,rgba(11,24,41,.97),rgba(6,14,25,.97));text-align:center}
-.hb-trust strong{display:block;color:#fff;font-size:12px}
-.hb-trust span{display:block;margin-top:4px;color:var(--hb-muted);font-size:10px}
-
-/* SERVICES */
-.hb-service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.hb-service-card{position:relative;display:block;min-height:205px;padding:24px 22px;border:1px solid var(--hb-line);border-radius:18px;background:linear-gradient(145deg,var(--hb-card),var(--hb-card2));color:#fff!important;text-decoration:none!important;overflow:hidden;transition:.22s ease}
-.hb-service-card:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--hb-gold),transparent);opacity:.75}
-.hb-service-card:hover{transform:translateY(-4px);border-color:rgba(231,191,99,.48);box-shadow:0 16px 38px rgba(0,0,0,.25)}
-.hb-service-icon{display:block;margin-bottom:17px;font-size:28px}
-.hb-service-card h3{margin:0 0 9px;color:#fff;font-size:18px}
-.hb-service-card p{margin:0;color:var(--hb-muted);font-size:13px;line-height:1.58}
-.hb-card-arrow{position:absolute;left:22px;bottom:20px;color:var(--hb-gold-soft);font-size:11px;font-weight:800}
-.hb-other-services{max-width:900px;margin:19px auto 0;color:var(--hb-muted);font-size:12px;text-align:center}
-.hb-other-services a,.hb-area-note a{color:var(--hb-gold-soft)!important;text-decoration:none;font-weight:800}
-
-/* MATERIALS */
-.hb-materials{margin:2px 0 10px;padding:19px 20px;border-top:1px solid var(--hb-line);border-bottom:1px solid var(--hb-line);text-align:center}
-.hb-materials p{margin:0 0 12px;color:rgba(255,255,255,.54);font-size:10px;letter-spacing:1.4px;text-transform:uppercase}
-.hb-materials>div{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
-.hb-materials span{color:#fff;font-size:14px;font-weight:800;opacity:.82}
-
-/* BEFORE / AFTER */
-.hb-projects{scroll-margin-top:100px}
-.hb-ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.hb-ba-card{overflow:hidden;border:1px solid var(--hb-line);border-radius:18px;background:var(--hb-card2)}
-.hb-ba-frame{position:relative;aspect-ratio:4/3;overflow:hidden;background:#060d17}
-.hb-ba-before,.hb-ba-after{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hb-ba-after-wrap{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}
-.hb-ba-label{position:absolute;top:13px;padding:5px 8px;border-radius:6px;background:rgba(5,12,22,.78);color:#fff;font-size:9px;font-weight:900;letter-spacing:1px;text-transform:uppercase;z-index:3}
-.hb-ba-label-before{left:13px}.hb-ba-label-after{right:13px}
-.hb-ba-slider{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:4}
-.hb-ba-caption{padding:14px 16px;color:#fff;font-size:13px;font-weight:750}
-.hb-project-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
-
-/* REVIEWS */
-.hb-reviews{overflow:hidden}
-.hb-review-shell{display:grid;grid-template-columns:46px minmax(0,1fr) 46px;align-items:center;gap:10px;max-width:900px;margin:0 auto}
-.hb-review-window{overflow:hidden}
-.hb-review-track{display:flex;transition:transform .48s cubic-bezier(.2,.7,.2,1)}
-.hb-review-slide{min-width:100%;padding:28px;border:1px solid rgba(231,191,99,.25);border-radius:20px;background:linear-gradient(145deg,var(--hb-card),var(--hb-card2));box-shadow:0 20px 45px rgba(0,0,0,.22)}
-.hb-stars{color:var(--hb-gold);letter-spacing:2px;font-size:14px}
-.hb-stars span{margin-left:10px;padding:3px 7px;border:1px solid rgba(231,191,99,.22);border-radius:5px;color:var(--hb-muted);font-size:9px;letter-spacing:0}
-.hb-review-slide blockquote{margin:19px 0;color:#eef1f5;font-family:Georgia,serif;font-size:18px;line-height:1.7}
-.hb-review-person{display:flex;justify-content:space-between;gap:12px;padding-top:15px;border-top:1px solid var(--hb-line)}
-.hb-review-person strong{color:#fff;font-size:12px}.hb-review-person span{color:var(--hb-muted);font-size:11px;text-align:right}
-.hb-review-arrow{width:42px;height:42px;border:1px solid rgba(231,191,99,.3);border-radius:50%;background:rgba(8,19,33,.9);color:var(--hb-gold-soft);font-size:25px;cursor:pointer}
-.hb-review-dots{display:flex;justify-content:center;gap:7px;margin:16px 0}
-.hb-review-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer}
-.hb-review-dot.is-active{background:var(--hb-gold);transform:scale(1.3)}
-
-/* OWNER */
-.hb-owner-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:17px}
-.hb-owner-quote,.hb-owner-copy{padding:31px;border:1px solid var(--hb-line);border-radius:20px;background:linear-gradient(145deg,var(--hb-card),var(--hb-card2))}
-.hb-owner-quote{display:flex;flex-direction:column;justify-content:center;border-color:rgba(231,191,99,.34);text-align:center}
-.hb-owner-mark{display:grid;place-items:center;width:70px;height:70px;margin:0 auto 16px;border:1px solid var(--hb-gold);border-radius:50%;color:var(--hb-gold-soft);font-size:20px;font-weight:900}
-.hb-owner-quote blockquote{margin:0;color:#fff;font-family:Georgia,serif;font-size:19px;line-height:1.65}
-.hb-owner-quote p{margin:16px 0 0;color:var(--hb-gold-soft);font-size:12px;font-weight:800}
-.hb-owner-copy h2{margin:9px 0;color:#fff;font-size:34px;line-height:1.1}
-.hb-owner-copy>p{color:var(--hb-muted);line-height:1.7}
-.hb-owner-copy ul,.hb-tier-card ul,.hb-special-card ul{padding-left:19px;color:var(--hb-muted);font-size:12px;line-height:1.8}
-.hb-inline-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}
-
-/* PROCESS */
-.hb-step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.hb-step{padding:23px 19px;border:1px solid var(--hb-line);border-radius:17px;background:linear-gradient(145deg,var(--hb-card),var(--hb-card2))}
-.hb-step>span{display:inline-block;color:var(--hb-gold);font-size:11px;font-weight:900;letter-spacing:1.5px}
-.hb-step h3{margin:11px 0 8px;color:#fff;font-size:16px}
-.hb-step p{margin:0;color:var(--hb-muted);font-size:12px;line-height:1.6}
-
-/* TIERS */
-.hb-tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.hb-tier-card{padding:27px 22px;border:1px solid var(--hb-line);border-radius:19px;background:linear-gradient(145deg,var(--hb-card),var(--hb-card2))}
-.hb-tier-card:nth-child(2){border-color:rgba(231,191,99,.42);box-shadow:0 16px 40px rgba(0,0,0,.22)}
-.hb-tier-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.hb-tier-top h3{margin:0;color:#fff;font-size:21px}
-.hb-tier-top span{padding:4px 7px;border:1px solid rgba(231,191,99,.27);border-radius:6px;color:var(--hb-gold-soft);font-size:9px;font-weight:800;text-transform:uppercase}
-.hb-tier-card>p{color:var(--hb-muted);font-size:12px;line-height:1.62}
-.hb-best{margin-top:15px;padding-top:14px;border-top:1px solid var(--hb-line);color:var(--hb-muted);font-size:11px}
-.hb-best strong{color:#fff}
-.hb-tier-actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px}
-
-/* SPECIALS */
-.hb-special-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.hb-special-card{position:relative;padding:27px 22px;border:1px solid var(--hb-line);border-radius:19px;background:linear-gradient(145deg,var(--hb-card),var(--hb-card2))}
-.hb-special-badge{display:inline-block;padding:4px 8px;border:1px solid rgba(231,191,99,.26);border-radius:6px;color:var(--hb-gold-soft);font-size:9px;font-weight:900;text-transform:uppercase}
-.hb-special-card h3{margin:12px 0 3px;color:#fff;font-size:19px}
-.hb-special-price{color:var(--hb-gold-soft);font-size:30px;font-weight:900}
-.hb-special-card>p{color:var(--hb-muted);font-size:12px;line-height:1.55}
-.hb-special-card .hb-btn{width:100%;margin-top:12px}
-.hb-fineprint{max-width:850px;margin:17px auto 10px;color:rgba(255,255,255,.48);font-size:10px;line-height:1.5;text-align:center}
-
-/* MEMBERSHIP */
-.hb-membership{display:flex;align-items:center;justify-content:space-between;gap:22px;margin:18px 0;padding:25px 27px;border:1px solid rgba(231,191,99,.22);border-radius:18px;background:rgba(231,191,99,.045)}
-.hb-membership span{color:var(--hb-gold-soft);font-size:9px;font-weight:900;letter-spacing:1.4px}
-.hb-membership h2{margin:4px 0;color:#fff;font-size:22px}
-.hb-membership p{max-width:700px;margin:0;color:var(--hb-muted);font-size:12px;line-height:1.55}
-
-/* AREAS */
-.hb-area-links{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
-.hb-area-links a{padding:10px 13px;border:1px solid rgba(231,191,99,.22);border-radius:999px;background:rgba(255,255,255,.025);color:#fff!important;text-decoration:none!important;font-size:11px;font-weight:800}
-.hb-area-links a:hover{border-color:var(--hb-gold)}
-.hb-area-note{margin-top:17px;color:var(--hb-muted);font-size:11px;text-align:center}
-
-/* FAQ */
-.hb-faq-list{max-width:900px;margin:0 auto}
-.hb-faq details{margin:9px 0;border:1px solid var(--hb-line);border-radius:13px;background:rgba(8,19,33,.72)}
-.hb-faq summary{padding:16px 18px;color:#fff;font-size:13px;font-weight:800;cursor:pointer}
-.hb-faq details p{margin:0;padding:0 18px 17px;color:var(--hb-muted);font-size:12px;line-height:1.65}
-
-/* FINAL CTA */
-.hb-final-cta{margin:35px 0 30px;padding:44px 28px;border:1px solid rgba(231,191,99,.36);border-radius:24px;background:radial-gradient(circle at top,rgba(231,191,99,.13),transparent 52%),linear-gradient(145deg,#0c1a2c,#07111f);text-align:center}
-.hb-final-cta h2{max-width:760px;margin:9px auto;color:#fff;font-size:clamp(30px,4.5vw,48px);line-height:1.08}
-.hb-final-cta p{max-width:650px;margin:0 auto;color:var(--hb-muted);font-size:14px;line-height:1.7}
-.hb-final-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
-
-@media(max-width:980px){
-  .hb-hero-grid{grid-template-columns:1fr;padding:48px 34px}
-  .hb-contact-card{max-width:560px}
-  .hb-service-grid{grid-template-columns:repeat(2,1fr)}
-  .hb-trust{grid-template-columns:repeat(2,1fr)}
-  .hb-step-grid{grid-template-columns:repeat(2,1fr)}
-  .hb-owner-grid{grid-template-columns:1fr}
-}
-@media(max-width:720px){
-  #main.hb-home{padding:0 14px 24px}
-  .hb-hero{min-height:0;margin-top:18px;border-radius:19px;background-position:64% center}
-  .hb-hero-grid{min-height:0;padding:38px 20px}
-  .hb-hero-copy h1{font-size:42px;letter-spacing:-.8px}
-  .hb-hero-copy>p{font-size:15px}
-  .hb-hero-actions{display:grid;grid-template-columns:1fr;width:100%}
-  .hb-hero-actions .hb-btn,.hb-hero-actions .hb-text-link{width:100%}
-  .hb-contact-card{padding:20px}
-  .hb-section{padding:52px 0}
-  .hb-service-grid,.hb-ba-grid,.hb-tier-grid,.hb-special-grid{grid-template-columns:1fr}
-  .hb-service-card{min-height:185px}
-  .hb-review-shell{grid-template-columns:1fr}
-  .hb-review-arrow{display:none}
-  .hb-review-slide{padding:22px 18px}
-  .hb-review-slide blockquote{font-size:16px}
-  .hb-owner-quote,.hb-owner-copy{padding:24px 19px}
-  .hb-owner-copy h2{font-size:29px}
-  .hb-step-grid{grid-template-columns:1fr}
-  .hb-membership{align-items:flex-start;flex-direction:column}
-  .hb-membership .hb-btn{width:100%}
-}
-@media(max-width:430px){
-  .hb-trust{grid-template-columns:1fr 1fr;gap:7px}
-  .hb-trust>div{padding:12px 7px}
-  .hb-hero-copy h1{font-size:36px}
-  .hb-inline-actions{display:grid;grid-template-columns:1fr;width:100%}
-  .hb-inline-actions .hb-btn,.hb-inline-actions .hb-text-link{width:100%}
-}
+:root{--hb-gold:#e6b844;--hb-gold-soft:#f4cf72;--hb-navy:#07192d;--hb-navy2:#0b2947;--hb-ink:#0e2035;--hb-muted:#667587;--hb-paper:#f7f7f5;--hb-white:#fff;--hb-line:#e4e7ea}
+body{background:var(--hb-paper)!important;color:var(--hb-ink)}
+#main.hb-home{max-width:none!important;margin:0!important;padding:0!important}
+.hb-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 17px;border-radius:5px;border:1px solid var(--hb-gold);background:linear-gradient(#f2cf74,#dfae37);color:var(--hb-navy)!important;text-decoration:none!important;font-size:11px;font-weight:900;box-shadow:none}
+.hb-btn-ghost{background:transparent;color:#fff!important;border-color:rgba(255,255,255,.75)}
+.hb-text-link{color:var(--hb-gold-soft)!important;font-size:11px;font-weight:900;text-decoration:none!important}.hb-center{text-align:center}
+.hb-kicker{display:inline-block;color:var(--hb-gold-soft);font-size:10px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase}.hb-kicker:before{display:none}
+.hb-section{max-width:1180px;margin:0 auto;padding:48px 22px}.hb-section-head{max-width:760px;margin:0 auto 24px;text-align:center}.hb-section-head h2{margin:6px 0;color:var(--hb-navy);font-size:28px;line-height:1.08}.hb-section-head p{margin:0;color:var(--hb-muted);font-size:12px;line-height:1.6}.hb-section-head:after{content:"";display:block;width:34px;height:3px;background:var(--hb-gold);margin:11px auto 0}
+.hb-hero{position:relative;min-height:500px;margin:0!important;border:0!important;border-radius:0!important;background-image:linear-gradient(90deg,rgba(4,18,34,.98),rgba(4,18,34,.91) 48%,rgba(4,18,34,.36)),url('/images/hero.jpg')!important;background-size:cover!important;background-position:center!important;box-shadow:none!important}.hb-hero-grid{max-width:1180px;margin:0 auto;min-height:500px;padding:55px 22px!important;grid-template-columns:1.45fr .55fr!important}.hb-hero-copy h1{font-size:clamp(42px,5.4vw,68px)!important;line-height:.99!important;text-transform:uppercase;letter-spacing:-1.4px!important;margin:7px 0 0!important}.hb-hero-accent{font-family:Georgia,serif;font-style:italic;color:#efb83b;font-size:clamp(28px,3vw,39px);margin:3px 0 12px}.hb-hero-copy>p{font-size:14px!important;line-height:1.65!important;color:#f0f3f6!important;max-width:620px!important}.hb-hero-actions{gap:12px!important;margin-top:22px!important}.hb-hero-note{font-size:10px!important;color:rgba(255,255,255,.66)!important}.hb-contact-card{background:rgba(4,17,31,.82)!important;border-color:rgba(232,184,68,.42)!important;border-radius:8px!important;padding:21px!important}.hb-contact-card h2{font-size:21px!important}.hb-contact-row{border-radius:5px!important;padding:11px!important}.hb-card-foot{font-size:9px!important}
+.hb-trust{max-width:1100px;margin:-22px auto 26px!important;position:relative;z-index:5;grid-template-columns:repeat(4,1fr)!important;gap:0!important;background:#fff;border:1px solid #eceef0;border-radius:10px;box-shadow:0 9px 25px rgba(15,34,54,.10);overflow:hidden}.hb-trust>div{background:#fff!important;border:0!important;border-right:1px solid #eceef0!important;border-radius:0!important;padding:18px 12px!important}.hb-trust>div:last-child{border-right:0!important}.hb-trust strong{color:var(--hb-navy)!important;font-size:11px!important}.hb-trust span{font-size:9px!important;color:var(--hb-muted)!important}
+#services{padding-top:28px!important}.hb-service-grid{grid-template-columns:repeat(6,1fr)!important;gap:13px!important}.hb-service-card{position:relative;min-height:0!important;padding:0!important;background:#fff!important;border:1px solid #dfe4e8!important;border-radius:7px!important;box-shadow:0 5px 16px rgba(15,34,54,.06)!important;overflow:hidden!important;color:var(--hb-ink)!important;text-decoration:none!important}.hb-service-card:before{display:none!important}.hb-service-card:hover{transform:translateY(-4px)!important;border-color:#cdd4da!important}.hb-service-photo{height:120px;background:#dfe4e8;overflow:hidden}.hb-service-photo img{display:block;width:100%;height:100%;object-fit:cover}.hb-service-icon{position:absolute;top:97px;left:50%;transform:translateX(-50%);display:grid!important;place-items:center;width:45px;height:45px;border-radius:50%;background:#fff;border:1px solid #dfe4e8;font-size:20px;margin:0!important;z-index:2}.hb-service-copy{padding:31px 12px 16px;text-align:center}.hb-service-card h3{font-size:11px!important;color:var(--hb-navy)!important;text-transform:uppercase;margin:0 0 7px!important}.hb-service-card p{font-size:9px!important;line-height:1.5!important;color:#526172!important;margin:0!important}.hb-card-arrow{display:none!important}.hb-other-services{font-size:10px!important;color:#6a7784!important}
+.hb-materials{max-width:1180px;margin:0 auto!important;border-top:1px solid #eceef0!important;border-bottom:1px solid #eceef0!important;background:#fff!important;padding:15px 22px!important}.hb-materials p{color:#8b96a0!important}.hb-materials span{color:var(--hb-navy)!important;font-size:12px!important}
+.hb-projects{padding-top:46px!important}.hb-ba-grid{grid-template-columns:repeat(3,1fr)!important;gap:14px!important}.hb-ba-card{background:#fff!important;border:1px solid #dfe4e8!important;border-radius:7px!important;box-shadow:0 5px 15px rgba(15,34,54,.05)!important}.hb-ba-frame{aspect-ratio:4/3!important;background:#dce3e8!important}.hb-ba-caption{color:var(--hb-navy)!important;text-align:center;text-transform:uppercase;font-size:10px!important;padding:10px 11px!important}.hb-ba-label{border-radius:3px!important;background:rgba(7,25,45,.78)!important;font-size:8px!important}.hb-project-actions{margin-top:16px!important}.hb-project-actions .hb-btn-ghost{color:var(--hb-navy)!important;border-color:#b8c1c9!important}
+.hb-reviews{max-width:none!important;background:linear-gradient(90deg,var(--hb-navy),var(--hb-navy2));padding:34px max(22px,calc((100vw - 1136px)/2))!important;color:#fff}.hb-reviews .hb-section-head h2{color:#fff!important}.hb-reviews .hb-section-head p{color:#d8e2ea!important}.hb-reviews .hb-section-head:after{background:var(--hb-gold)!important}.hb-review-shell{max-width:1000px!important}.hb-review-slide{background:#fff!important;border:0!important;border-radius:7px!important;padding:20px!important;box-shadow:none!important}.hb-review-slide blockquote{color:#2a3949!important;font-size:14px!important;line-height:1.55!important}.hb-review-person strong{color:var(--hb-navy)!important}.hb-review-person span{color:#748293!important}.hb-review-arrow{background:#efbe4d!important;color:var(--hb-navy)!important;border:0!important;border-radius:5px!important}.hb-review-dot{background:rgba(255,255,255,.35)!important}.hb-review-dot.is-active{background:#efbe4d!important}.hb-reviews .hb-btn-ghost{background:#efbe4d!important;color:var(--hb-navy)!important;border-color:#efbe4d!important}
+.hb-owner-grid{grid-template-columns:.8fr 1.2fr!important;gap:20px!important}.hb-owner-quote,.hb-owner-copy{background:#fff!important;border:1px solid #e1e5e8!important;border-radius:7px!important;box-shadow:none!important}.hb-owner-quote{border-left:4px solid var(--hb-gold)!important}.hb-owner-quote blockquote{color:#334253!important;font-size:16px!important}.hb-owner-copy h2{color:var(--hb-navy)!important;font-size:27px!important}.hb-owner-copy>p,.hb-owner-copy ul{color:#647281!important}.hb-owner-copy .hb-kicker{color:#95721d!important}.hb-owner-copy .hb-btn-ghost{color:var(--hb-navy)!important;border-color:#b8c1c9!important}.hb-owner-copy .hb-text-link{color:var(--hb-navy)!important}
+.hb-process{border-top:1px solid #eceef0}.hb-step-grid{grid-template-columns:repeat(4,1fr)!important;gap:12px!important}.hb-step{background:#fff!important;border:0!important;text-align:center;padding:16px 10px!important}.hb-step>span{display:grid!important;place-items:center;width:35px;height:35px;margin:0 auto;border:2px solid #c89e39;border-radius:50%;color:var(--hb-navy)!important}.hb-step h3{font-size:10px!important;text-transform:uppercase;color:var(--hb-navy)!important}.hb-step p{font-size:9px!important;color:#687685!important}
+.hb-tiers{border-top:1px solid #eceef0}.hb-tier-grid{grid-template-columns:repeat(3,1fr)!important;gap:13px!important}.hb-tier-card{background:#fff!important;border:1px solid #dfe4e8!important;border-radius:7px!important;padding:20px!important;box-shadow:none!important}.hb-tier-card:nth-child(2){border-color:#dfb34c!important;box-shadow:0 5px 16px rgba(15,34,54,.07)!important}.hb-tier-top h3{color:var(--hb-navy)!important}.hb-tier-card>p,.hb-tier-card ul,.hb-best{color:#667485!important}.hb-tier-actions .hb-text-link{color:var(--hb-navy)!important}
+.hb-specials{border-top:1px solid #eceef0}.hb-special-grid{grid-template-columns:repeat(3,1fr)!important;gap:13px!important}.hb-special-card{background:#fff!important;border:1px solid #dfe4e8!important;border-radius:7px!important;padding:20px!important}.hb-special-card h3{color:var(--hb-navy)!important}.hb-special-card>p,.hb-special-card ul{color:#667485!important}.hb-special-card .hb-btn-ghost{background:var(--hb-navy)!important;color:#fff!important;border-color:var(--hb-navy)!important}.hb-fineprint{color:#86919c!important}
+.hb-membership{max-width:1136px;margin:15px auto 20px!important;border:1px solid #dfe4e8!important;border-radius:7px!important;background:#eef1f4!important}.hb-membership h2{color:var(--hb-navy)!important}.hb-membership p{color:#657382!important}.hb-membership .hb-btn-ghost{color:var(--hb-navy)!important;border-color:#9eabb7!important}
+.hb-areas{border-top:1px solid #eceef0}.hb-area-links a{background:#fff!important;color:var(--hb-navy)!important;border-color:#d3d9df!important}.hb-area-note{color:#6e7a87!important}.hb-area-note a{color:#98731a!important}
+.hb-faq{border-top:1px solid #eceef0}.hb-faq details{background:#fff!important;border-color:#dfe4e8!important;border-radius:6px!important}.hb-faq summary{color:var(--hb-navy)!important}.hb-faq details p{color:#657382!important}
+.hb-final-cta{max-width:none!important;margin:0!important;border:0!important;border-radius:0!important;background:linear-gradient(90deg,var(--hb-navy),var(--hb-navy2))!important;padding:26px max(22px,calc((100vw - 1136px)/2))!important;text-align:left!important}.hb-final-cta h2{color:#fff!important;font-size:28px!important;margin:5px 0!important}.hb-final-cta p{color:#d8e2ea!important;margin:0!important}.hb-final-actions{justify-content:flex-start!important}.hb-final-actions .hb-btn-ghost{color:#fff!important;border-color:#fff!important}
+@media(max-width:1000px){.hb-service-grid{grid-template-columns:repeat(3,1fr)!important}.hb-trust{grid-template-columns:repeat(2,1fr)!important;margin-left:18px!important;margin-right:18px!important}.hb-ba-grid{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:720px){.hb-hero-grid{grid-template-columns:1fr!important;padding:40px 18px!important}.hb-contact-card{max-width:520px}.hb-service-grid{grid-template-columns:repeat(2,1fr)!important}.hb-ba-grid{grid-template-columns:1fr!important}.hb-step-grid{grid-template-columns:repeat(2,1fr)!important}.hb-owner-grid{grid-template-columns:1fr!important}.hb-tier-grid,.hb-special-grid{grid-template-columns:1fr!important}}
+@media(max-width:480px){.hb-service-grid{grid-template-columns:1fr!important}.hb-trust{grid-template-columns:1fr!important}.hb-hero-copy h1{font-size:38px!important}}
 
 </style>
 </head>
@@ -236,15 +60,16 @@ body{overflow-x:hidden}
   <div class="hb-hero-shade"></div>
   <div class="hb-hero-grid">
     <div class="hb-hero-copy">
-      <div class="hb-kicker">RESIDENTIAL &amp; COMMERCIAL · NYC &amp; NEW JERSEY</div>
-      <h1 id="home-title">Masonry, Roofing &amp; Remodeling Across NYC &amp; New Jersey</h1>
-      <p>Staten Island–based and owner-led, Hammer Brick &amp; Home handles exterior repairs, masonry, roofing and interior remodeling across New York City and select New Jersey areas—with clean preparation, clear communication and detailed finishing.</p>
+      <div class="hb-kicker">RESIDENTIAL &amp; COMMERCIAL</div>
+      <h1 id="home-title">Masonry, Roofing &amp; Remodeling</h1>
+      <div class="hb-hero-accent">Across NYC &amp; New Jersey</div>
+      <p>Built with strength. Finished with pride. Staten Island based and serving all 5 boroughs plus select New Jersey areas.</p>
       <div class="hb-hero-actions">
         <a class="hb-btn" href="tel:+19295955300">📞 Call for a Free Estimate</a>
         <a class="hb-btn hb-btn-ghost" href="sms:+19295955300">📱 Text Photos for a Free Estimate</a>
         <a class="hb-text-link" href="#project-proof">See Our Work</a>
       </div>
-      <div class="hb-hero-note">Call or text 929-595-5300 directly. No long form required.</div>
+      <div class="hb-hero-note">Direct: 929-595-5300</div>
     </div>
     <aside class="hb-contact-card" aria-label="Free estimate contact">
       <span class="hb-card-small">FREE ESTIMATE</span>
@@ -265,43 +90,55 @@ body{overflow-x:hidden}
 </section>
 
 <section class="hb-section" id="services">
-  <div class="hb-section-head"><div class="hb-kicker">WHAT WE DO</div><h2>The Work Homeowners Call Us For</h2><p>Focused exterior craftsmanship and interior remodeling, backed by written estimates and an owner-led process.</p></div>
+  <div class="hb-section-head"><div class="hb-kicker">OUR SERVICES</div><h2>Quality Work for Every Part of Your Home</h2><p>Exterior craftsmanship, repairs and interior remodeling with direct owner communication.</p></div>
   <div class="hb-service-grid">
 <a class="hb-service-card" href="/masonry.html">
+  <div class="hb-service-photo"><img src="https://images.unsplash.com/photo-1754810296359-2822675ba60b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Brick steps and masonry entrance" loading="lazy"></div>
   <span class="hb-service-icon">🧱</span>
-  <h3>Masonry, Steps &amp; Concrete</h3>
-  <p>Brick repair, repointing, stoops, limestone, concrete and exterior masonry restoration.</p>
-  <span class="hb-card-arrow">Explore →</span>
+  <div class="hb-service-copy">
+    <h3>Masonry</h3>
+    <p>Brick, block, stone, concrete, repointing, steps, walls and sidewalks.</p>
+  </div>
 </a>
 <a class="hb-service-card" href="/contact.html">
+  <div class="hb-service-photo"><img src="https://images.unsplash.com/photo-1472342139520-1aa49517fed8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Roof shingles" loading="lazy"></div>
   <span class="hb-service-icon">🏠</span>
-  <h3>Roofing &amp; Exterior Repair</h3>
-  <p>Flat-roof work, flashing, skylight-related repairs and exterior water-entry solutions.</p>
-  <span class="hb-card-arrow">Explore →</span>
+  <div class="hb-service-copy">
+    <h3>Roofing</h3>
+    <p>Flat roofs, shingle roofs, roof repairs, flashing, skylights and full replacements.</p>
+  </div>
 </a>
 <a class="hb-service-card" href="/bathrooms.html">
-  <span class="hb-service-icon">🚿</span>
-  <h3>Bathroom Remodeling</h3>
-  <p>Tile, showers, vanities, fixtures and complete bathroom renovations.</p>
-  <span class="hb-card-arrow">Explore →</span>
+  <div class="hb-service-photo"><img src="https://images.unsplash.com/photo-1770941550709-a555ac4a69b3?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Modern bathroom remodel" loading="lazy"></div>
+  <span class="hb-service-icon">🛁</span>
+  <div class="hb-service-copy">
+    <h3>Bathrooms</h3>
+    <p>Full bathroom remodeling with tile, showers, vanities, fixtures and quality finishes.</p>
+  </div>
 </a>
 <a class="hb-service-card" href="/kitchens.html">
+  <div class="hb-service-photo"><img src="https://images.unsplash.com/photo-1770135878277-73e589248b43?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Modern kitchen remodel" loading="lazy"></div>
   <span class="hb-service-icon">🍽️</span>
-  <h3>Kitchen Remodeling</h3>
-  <p>Cabinetry, counters, backsplashes, flooring and complete kitchen upgrades.</p>
-  <span class="hb-card-arrow">Explore →</span>
+  <div class="hb-service-copy">
+    <h3>Kitchens</h3>
+    <p>Custom kitchen remodeling with modern layouts, cabinets, counters and finishes.</p>
+  </div>
 </a>
 <a class="hb-service-card" href="/waterproofing.html">
+  <div class="hb-service-photo"><img src="https://images.unsplash.com/photo-1760331840361-d751cfc1becf?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Roof repair and waterproofing work" loading="lazy"></div>
   <span class="hb-service-icon">💧</span>
-  <h3>Waterproofing</h3>
-  <p>Foundation, masonry and exterior waterproofing and coating solutions.</p>
-  <span class="hb-card-arrow">Explore →</span>
+  <div class="hb-service-copy">
+    <h3>Waterproofing</h3>
+    <p>Basements, roofs, masonry and exterior waterproofing and coating solutions.</p>
+  </div>
 </a>
 <a class="hb-service-card" href="/windows-doors.html">
+  <div class="hb-service-photo"><img src="https://images.unsplash.com/photo-1761158497156-c8f202a07b42?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="House with large windows and exterior doors" loading="lazy"></div>
   <span class="hb-service-icon">🪟</span>
-  <h3>Windows, Doors &amp; Exterior Trim</h3>
-  <p>Replacement windows, doors, exterior trim, capping and weather sealing.</p>
-  <span class="hb-card-arrow">Explore →</span>
+  <div class="hb-service-copy">
+    <h3>Windows &amp; Doors</h3>
+    <p>Quality replacement windows, exterior doors, capping, trim and weather sealing.</p>
+  </div>
 </a></div>
   <p class="hb-other-services">Also available: painting, pavers, decks, carpentry, siding, basements, gutters and other home-improvement work. <a href="sms:+19295955300">Text us about your project →</a></p>
 </section>
@@ -311,8 +148,8 @@ body{overflow-x:hidden}
   <div><span>Benjamin Moore</span><span>Cambridge Pavers</span><span>Andersen</span><span>Schluter</span></div>
 </section>
 
-<section class="hb-section hb-projects" id="project-proof" data-page-size="4">
-  <div class="hb-section-head"><div class="hb-kicker">REAL PROJECT PROOF</div><h2>Before &amp; After — Work You Can Actually Inspect</h2><p>Real project photos from our gallery. Drag the slider to compare before and after.</p></div>
+<section class="hb-section hb-projects" id="project-proof" data-page-size="3">
+  <div class="hb-section-head"><div class="hb-kicker">BEFORE &amp; AFTER</div><h2>Real Projects. Real Results.</h2><p>See the quality, detail and craftsmanship we bring to every project.</p></div>
   <div id="hb-ba-grid" class="hb-ba-grid" aria-live="polite"></div>
   <div class="hb-project-actions">
     <button type="button" class="hb-btn hb-btn-ghost" id="hb-ba-more">Load More Projects</button>
@@ -333,7 +170,7 @@ body{overflow-x:hidden}
 </section>
 
 <section class="hb-section hb-reviews" id="reviews">
-  <div class="hb-section-head"><div class="hb-kicker">TRUSTED BY HOMEOWNERS</div><h2>Real Customer Experiences</h2><p>Feedback from homeowners who hired Hammer Brick &amp; Home for repairs, masonry and remodeling.</p></div>
+  <div class="hb-section-head"><div class="hb-kicker">WHAT OUR CLIENTS SAY</div><h2>Real Reviews From Real Customers</h2><p>Your satisfaction is our priority.</p></div>
   <div class="hb-review-shell">
     <button type="button" class="hb-review-arrow hb-review-prev" aria-label="Previous review">‹</button>
     <div class="hb-review-window"><div class="hb-review-track" id="hb-review-track">
@@ -498,7 +335,7 @@ body{overflow-x:hidden}
 </section>
 
 <section class="hb-section hb-areas">
-  <div class="hb-section-head"><div class="hb-kicker">SERVICE AREA</div><h2>Serving NYC &amp; Select New Jersey Areas</h2><p>Based in Staten Island and serving residential and commercial clients across the five boroughs and select New Jersey communities.</p></div>
+  <div class="hb-section-head"><div class="hb-kicker">AREAS WE SERVE</div><h2>NYC &amp; New Jersey</h2><p>Proudly serving New York City and select New Jersey areas.</p></div>
   <div class="hb-area-links"><a href="/staten-island.html">Staten Island</a><a href="/brooklyn.html">Brooklyn</a><a href="/queens.html">Queens</a><a href="/manhattan.html">Manhattan</a><a href="/bronx.html">The Bronx</a><a href="/new-jersey.html">New Jersey</a></div>
   <p class="hb-area-note">Not sure if we cover your location? <a href="sms:+19295955300">Text us your ZIP code →</a></p>
 </section>
@@ -510,8 +347,8 @@ body{overflow-x:hidden}
 
 <section class="hb-final-cta">
   <div class="hb-kicker">FREE ESTIMATES</div>
-  <h2>Call Us or Text Photos of Your Project</h2>
-  <p>Tell us what you want repaired, replaced or remodeled. Call directly, or text a few photos and a short description for a quick first look.</p>
+  <h2>Ready to Start Your Project?</h2>
+  <p>Call or text us today for your free estimate.</p>
   <div class="hb-final-actions">
     <a class="hb-btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
     <a class="hb-btn hb-btn-ghost" href="sms:+19295955300">📱 Text Project Photos</a>

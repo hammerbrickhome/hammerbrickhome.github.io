@@ -3,44 +3,68 @@
     {
       "active": true,
       "icon": "🧱",
-      "title": "Masonry, Steps & Concrete",
-      "description": "Brick repair, repointing, stoops, limestone, concrete and exterior masonry restoration.",
-      "url": "/masonry.html"
+      "title": "Masonry",
+      "description": "Brick, block, stone, concrete, repointing, steps, walls and sidewalks.",
+      "url": "/masonry.html",
+      "image": "",
+      "imageUrl": "https://images.unsplash.com/photo-1754810296359-2822675ba60b?auto=format&fit=crop&w=1200&q=80",
+      "imageAlt": "Brick steps and masonry entrance",
+      "sourceUrl": "https://unsplash.com/photos/modern-building-entrance-with-brick-steps-and-trees-sYneGJ47Glw"
     },
     {
       "active": true,
       "icon": "🏠",
-      "title": "Roofing & Exterior Repair",
-      "description": "Flat-roof work, flashing, skylight-related repairs and exterior water-entry solutions.",
-      "url": "/contact.html"
+      "title": "Roofing",
+      "description": "Flat roofs, shingle roofs, roof repairs, flashing, skylights and full replacements.",
+      "url": "/contact.html",
+      "image": "",
+      "imageUrl": "https://images.unsplash.com/photo-1472342139520-1aa49517fed8?auto=format&fit=crop&w=1200&q=80",
+      "imageAlt": "Roof shingles",
+      "sourceUrl": "https://unsplash.com/photos/roof-shingles-k0-_G8bH0x4"
     },
     {
       "active": true,
-      "icon": "🚿",
-      "title": "Bathroom Remodeling",
-      "description": "Tile, showers, vanities, fixtures and complete bathroom renovations.",
-      "url": "/bathrooms.html"
+      "icon": "🛁",
+      "title": "Bathrooms",
+      "description": "Full bathroom remodeling with tile, showers, vanities, fixtures and quality finishes.",
+      "url": "/bathrooms.html",
+      "image": "",
+      "imageUrl": "https://images.unsplash.com/photo-1770941550709-a555ac4a69b3?auto=format&fit=crop&w=1200&q=80",
+      "imageAlt": "Modern bathroom remodel",
+      "sourceUrl": "https://unsplash.com/photos/a-modern-bathroom-with-double-sinks-and-a-bathtub-YDc_S7uIYic"
     },
     {
       "active": true,
       "icon": "🍽️",
-      "title": "Kitchen Remodeling",
-      "description": "Cabinetry, counters, backsplashes, flooring and complete kitchen upgrades.",
-      "url": "/kitchens.html"
+      "title": "Kitchens",
+      "description": "Custom kitchen remodeling with modern layouts, cabinets, counters and finishes.",
+      "url": "/kitchens.html",
+      "image": "",
+      "imageUrl": "https://images.unsplash.com/photo-1770135878277-73e589248b43?auto=format&fit=crop&w=1200&q=80",
+      "imageAlt": "Modern kitchen remodel",
+      "sourceUrl": "https://unsplash.com/photos/modern-kitchen-with-island-and-stainless-steel-appliances-J77Yzq9_Hcg"
     },
     {
       "active": true,
       "icon": "💧",
       "title": "Waterproofing",
-      "description": "Foundation, masonry and exterior waterproofing and coating solutions.",
-      "url": "/waterproofing.html"
+      "description": "Basements, roofs, masonry and exterior waterproofing and coating solutions.",
+      "url": "/waterproofing.html",
+      "image": "",
+      "imageUrl": "https://images.unsplash.com/photo-1760331840361-d751cfc1becf?auto=format&fit=crop&w=1200&q=80",
+      "imageAlt": "Roof repair and waterproofing work",
+      "sourceUrl": "https://unsplash.com/photos/workers-repairing-a-damaged-roof-with-debris-gDlNRHRL5ek"
     },
     {
       "active": true,
       "icon": "🪟",
-      "title": "Windows, Doors & Exterior Trim",
-      "description": "Replacement windows, doors, exterior trim, capping and weather sealing.",
-      "url": "/windows-doors.html"
+      "title": "Windows & Doors",
+      "description": "Quality replacement windows, exterior doors, capping, trim and weather sealing.",
+      "url": "/windows-doors.html",
+      "image": "",
+      "imageUrl": "https://images.unsplash.com/photo-1761158497156-c8f202a07b42?auto=format&fit=crop&w=1200&q=80",
+      "imageAlt": "House with large windows and exterior doors",
+      "sourceUrl": "https://unsplash.com/photos/modern-house-with-large-windows-and-sunroom-g_B92WafICI"
     }
   ],
   "otherServices": "Also available: painting, pavers, decks, carpentry, siding, basements, gutters and other home-improvement work."
