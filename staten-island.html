@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<title>Staten Island Masonry & Design | Pavers, Pools & Stoops | Hammer Brick & Home LLC</title>
+<meta name="description" content="Staten Island's premier masonry contractor. Specializing in luxury pool surrounds, paver patios, circular driveways, and custom stoops. Licensed NYC HIC #2131291." />
+
+<link rel="icon" href="/images/hero.PNG" />
+<link rel="preload" as="image" href="/images/hero.PNG" />
+<link rel="stylesheet" href="/style.css" />
+
+<meta property="og:title" content="Staten Island Luxury Masonry & Design" />
+<meta property="og:description" content="Transform your backyard. Pool pavers, outdoor kitchens, and custom masonry in Staten Island." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.hammerbrickhome.com/staten-island.html" />
+<meta property="og:image" content="https://www.hammerbrickhome.com/images/hero.PNG" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Hammer Brick & Home LLC — Staten Island HQ",
+  "url": "https://www.hammerbrickhome.com/staten-island.html",
+  "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+  "description": "Staten Island based masonry and remodeling firm specializing in outdoor living, pavers, and high-end concrete work.",
+  "areaServed": { "@type": "City", "name": "Staten Island" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Staten Island", "addressRegion": "NY" },
+  "identifier": { "@type": "PropertyValue", "name": "NYC HIC", "value": "2131291" }
+}
+</script>
+</head>
+
+<body>
+
+<div id="header-include"></div>
+
+<main class="page content-wrapper">
+
+<section class="hero hero-inner fade-up">
+  <div class="hero-content">
+    <h1>Staten Island Outdoor Living</h1>
+    <p>We turn Staten Island backyards into resorts. From Tottenville to Todt Hill, we design and install luxury paver patios, pool coping, and custom masonry.</p>
+
+    <ul class="trust-pills" role="list" style="margin-top:12px">
+      <li>Cambridge & Nicolock Pros</li>
+      <li>Pool Surround Specialists</li>
+      <li>Custom Stoops & Rails</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section split fade-up">
+  <div>
+    <h2>The "Island" Lifestyle</h2>
+    <p>Staten Island homes have the space for true outdoor luxury. We maximize that potential with durable, high-end hardscaping.</p>
+
+    <ul class="bullets">
+      <li><strong>Poolscapes:</strong> Bullnose coping and slip-resistant pavers for inground and semi-inground pools.</li>
+      <li><strong>Driveways:</strong> Circular driveways, belgian block borders, and aprons that boost curb appeal.</li>
+      <li><strong>Outdoor Kitchens:</strong> Built-in BBQ islands and stone seating walls for entertaining.</li>
+      <li><strong>Stoops:</strong> Granite, limestone, or cultured stone steps that withstand the elements.</li>
+    </ul>
+  </div>
+
+  <div class="accent-card">
+    <h3>Local Expertise</h3>
+    <p class="section-note">We know the local housing styles.</p>
+    <ul class="bullets">
+      <li><strong>High Ranch:</strong> Modernizing the split-entry foyer and steps.</li>
+      <li><strong>Cape Cod:</strong> Classic brick walkways and pointing.</li>
+      <li><strong>Center Hall Colonial:</strong> Grand entrance masonry.</li>
+      <li><strong>Townhouses:</strong> Maximizing small rear yards with pavers.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section note-box fade-up">
+  <h2>Visit Our Staten Island HQ</h2>
+  <p>We are locally based. Call us for a same-day or next-day estimate on the Island.</p>
+  <div class="cta-actions">
+    <a class="btn" href="tel:+19295955300">📞 Call 929-595-5300</a>
+    <a class="btn ghost" href="/contact.html">Request a Quote</a>
+  </div>
+</section>
+
+<section class="micro-summary fade-up" style="margin-top:60px;">
+    <p><strong>Serving NYC:</strong> <a href="/brooklyn.html" style="color:var(--gold);">Brooklyn</a> | <a href="/queens.html" style="color:var(--gold);">Queens</a> | <a href="/manhattan.html" style="color:var(--gold);">Manhattan</a> | <a href="/bronx.html" style="color:var(--gold);">The Bronx</a></p>
+</section>
+
+</main>
+
+<div id="cta-include"></div>
+<div id="footer-include"></div>
+
+<script src="/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([
+    fetch("/header.html").then(r => r.text()),
+    fetch("/contact-cta.html").then(r => r.text()),
+    fetch("/footer.html").then(r => r.text())
+  ])
+  .then(([header, cta, footer]) => {
+    document.getElementById("header-include").innerHTML = header;
+    document.getElementById("cta-include").innerHTML = cta;
+    document.getElementById("footer-include").innerHTML = footer;
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+    if (typeof initHeaderInteractions === "function") { initHeaderInteractions(); }
+  })
+  .catch(console.error);
+});
+</script>
+<link rel="stylesheet" href="/chat.css">
+<script src="/chat.js" defer></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Membership Perks & Monthly Draw — Hammer Brick & Home LLC</title>
+<meta name="description" content="Join our free loyalty program. NYC/NJ homeowners win service perks; national followers win gift cards. No catch. Licensed, Bonded & Insured.">
+
+<link rel="canonical" href="https://www.hammerbrickhome.com/membership.html">
+<link rel="icon" href="/images/hero.PNG">
+<link rel="stylesheet" href="/style.css?v=3">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Hammer Brick & Home Signature Membership",
+      "provider": {
+        "@type": "HomeAndConstructionBusiness",
+        "name": "Hammer Brick & Home LLC",
+        "image": "https://www.hammerbrickhome.com/images/hero.PNG",
+        "telephone": "+1-929-595-5300",
+        "priceRange": "Free",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Staten Island",
+          "addressRegion": "NY",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 40.6315,
+          "longitude": -74.1372
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "07:00",
+            "closes": "19:00"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "42"
+        }
+      },
+      "areaServed": ["Staten Island", "Brooklyn", "Queens", "Manhattan", "Bronx", "New Jersey", "National (Gift Cards)"],
+      "description": "A 100% free loyalty program offering monthly home improvement perks to locals and gift cards to national followers."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this really 100% FREE? What's the catch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There is no catch. Most companies spend thousands on billboard ads. We prefer to spend that budget on YOU—our neighbors. It's our way of building loyalty."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  /* --- LUXURY FONT OVERRIDES --- */
+  h1, h2, h3, .winner-name, .card-holder, .card-number, .brand-name {
+    font-family: 'Playfair Display', serif !important;
+  }
+  
+  /* --- 1. WINNERS TICKER --- */
+  .ticker-wrap {
+    width: 100%;
+    background: #000;
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(231,191,99,0.3);
+    position: fixed;
+    top: 110px; /* Adjust based on navbar height */
+    z-index: 90;
+  }
+  .ticker {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 40s linear infinite;
+  }
+  @keyframes ticker {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+  }
+  
+  /* Push body down further to accommodate ticker */
+  body { padding-top: 160px; } 
+
+  /* --- 2. DIGITAL MEMBERSHIP CARD (3D + SHEEN) --- */
+  .member-card-container {
+    perspective: 1200px;
+    margin: 20px auto 40px;
+    width: 100%;
+    max-width: 380px;
+  }
+  .member-card {
+    background: linear-gradient(135deg, #0f1c30 0%, #071426 100%);
+    border: 1px solid var(--gold);
+    border-radius: 16px;
+    padding: 25px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(231,191,99,0.2);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transform: rotateX(0) rotateY(0);
+    transition: transform 0.1s ease;
+  }
+  
+  /* PLATINUM SHEEN ANIMATION */
+  .member-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: skewX(-25deg);
+    animation: cardSheen 6s infinite;
+    pointer-events: none;
+  }
+  @keyframes cardSheen {
+    0% { left: -150%; }
+    20% { left: 150%; } 
+    100% { left: 150%; } 
+  }
+
+  .card-top, .card-number, .card-bottom { transform: translateZ(30px); }
+  
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+  .card-chip {
+    width: 45px; height: 32px;
+    background: linear-gradient(135deg, #e7bf63, #b8860b);
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  }
+  .card-status {
+    font-size: 10px; font-weight: 800; letter-spacing: 1px;
+    color: var(--gold); border: 1px solid var(--gold);
+    padding: 4px 8px; border-radius: 4px; text-transform: uppercase;
+    animation: pulseStatus 2s infinite;
+  }
+  @keyframes pulseStatus { 0% {opacity:0.6;} 50% {opacity:1;} 100% {opacity:0.6;} }
+  .card-number { font-size: 22px; color: #fff; letter-spacing: 2px; text-shadow: 0 2px 2px rgba(0,0,0,0.8); margin-bottom: 20px; }
+  .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .card-holder { font-size: 12px; color: var(--muted); text-transform: uppercase; }
+  .card-holder strong { display: block; font-size: 16px; color: #fff; margin-top: 4px; letter-spacing: 1px; }
+  .card-logo img { width: 50px; opacity: 0.9; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); }
+
+  /* --- 3. JOIN ROADMAP --- */
+  .roadmap { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin: 40px 0; position: relative; }
+  .roadmap::before {
+    content: ""; position: absolute; top: 25px; left: 10%; right: 10%;
+    height: 2px; background: rgba(231,191,99,0.3); z-index: 0; border-top: 2px dotted var(--gold);
+  }
+  .step-node { position: relative; z-index: 1; text-align: center; flex: 1; background: var(--bg); padding: 0 10px; }
+  .step-icon {
+    width: 50px; height: 50px; margin: 0 auto 15px;
+    background: var(--bg-alt); border: 1px solid var(--gold);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; box-shadow: 0 0 15px rgba(212,175,55,0.2);
+  }
+  .step-title { font-weight: 800; color: #fff; font-size: 14px; margin-bottom: 6px; }
+  .step-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  @media (max-width: 600px) {
+    .roadmap { flex-direction: column; gap: 30px; align-items: center; }
+    .roadmap::before { width: 2px; height: 80%; left: 50%; top: 10px; bottom: 10px; }
+    .step-node { width: 100%; padding: 10px 0; }
+  }
+
+  /* --- 4. SEARCH & TABS --- */
+  .filter-controls {
+    position: sticky; top: 145px; z-index: 80;
+    background: rgba(7,20,38,0.95); padding: 15px 0; margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+  }
+  .search-box { width: 100%; max-width: 500px; margin: 0 auto 15px; position: relative; }
+  .search-box input {
+    width: 100%; padding: 12px 20px; border-radius: 50px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(231,191,99,0.3);
+    color: #fff; font-size: 14px; outline: none;
+  }
+  .search-box input:focus { border-color: var(--gold); background: rgba(255,255,255,0.15); }
+  .category-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; justify-content: center; }
+  .tab-btn {
+    padding: 8px 16px; border-radius: 20px; background: transparent; border: 1px solid rgba(255,255,255,0.2);
+    color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: 0.3s;
+  }
+  .tab-btn.active, .tab-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+  .perk-item {
+    display: flex; gap: 15px; align-items: center; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; transition: 0.2s;
+  }
+  .perk-item:hover { transform: translateX(5px); border-color: rgba(231,191,99,0.3); background: rgba(255,255,255,0.06); }
+  .perk-number { font-family: monospace; color: var(--gold); font-weight: bold; opacity: 0.6; min-width: 30px; }
+  .perk-content strong { display: block; color: #fff; margin-bottom: 4px; font-size: 14px; }
+  .perk-content p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .hidden { display: none !important; }
+
+  /* --- 5. GEMSTONE WINNERS GRID --- */
+  .winners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .winner-card {
+    border-radius: 12px; padding: 18px 10px; text-align: center;
+    transition: 0.3s; position: relative; overflow: hidden;
+    transform: translateY(0);
+  }
+  .winner-card.won {
+    background-color: rgba(15, 25, 40, 0.8);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    transform: translateY(-5px) scale(1.02);
+    animation: dustMove 6s linear infinite;
+  }
+  @keyframes dustMove {
+    0% { background-position: 0 0, 12px 12px; }
+    100% { background-position: 24px 24px, 36px 36px; }
+  }
+  
+  /* GEMSTONE COLORS */
+  .winner-card.gold { border: 1px solid #ffd700; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.25); background-image: radial-gradient(circle, #ffd700 1.5px, transparent 1.5px), radial-gradient(circle, #e7bf63 1px, transparent 1px); }
+  .winner-card.gold .month-label { color: #ffd700; }
+  .winner-card.gold .winner-name { text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); }
+
+  .winner-card.ruby { border: 1px solid #ff4d4d; box-shadow: 0 10px 30px rgba(255, 77, 77, 0.35); background-image: radial-gradient(circle, #ff4d4d 1.5px, transparent 1.5px), radial-gradient(circle, #ff9999 1px, transparent 1px); }
+  .winner-card.ruby .month-label { color: #ff4d4d; }
+  .winner-card.ruby .winner-name { text-shadow: 0 0 10px rgba(255, 77, 77, 0.8); }
+
+  .winner-card.emerald { border: 1px solid #2ecc71; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.35); background-image: radial-gradient(circle, #2ecc71 1.5px, transparent 1.5px), radial-gradient(circle, #aaffaa 1px, transparent 1px); }
+  .winner-card.emerald .month-label { color: #2ecc71; }
+  .winner-card.emerald .winner-name { text-shadow: 0 0 10px rgba(46, 204, 113, 0.8); }
+
+  .winner-card.sapphire { border: 1px solid #3498db; box-shadow: 0 10px 30px rgba(52, 152, 219, 0.35); background-image: radial-gradient(circle, #3498db 1.5px, transparent 1.5px), radial-gradient(circle, #85c1e9 1px, transparent 1px); }
+  .winner-card.sapphire .month-label { color: #3498db; }
+  .winner-card.sapphire .winner-name { text-shadow: 0 0 10px rgba(52, 152, 219, 0.8); }
+
+  .month-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
+  .winner-name { font-weight: bold; color: #fff; font-size: 18px; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .prize-won { font-size: 11px; color: var(--muted); font-style: italic; }
+  .crown-icon { font-size: 16px; margin-bottom: 4px; display: block; animation: bounce 2s infinite; }
+  @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-3px);} }
+
+  /* Misc */
+  .legal-disclaimer { margin-top: 30px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 10px; color: var(--muted); text-align: center; opacity: 0.7; }
+  .location-warning { background-color: #2c3e50; border: 1px solid #d32f2f; color: white; padding: 6px 18px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+  .location-highlight { color: #e7bf63; }
+  .free-badge { background-color: #2ecc71; color: #000; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.9em; border: 1px solid #27ae60; box-shadow: 0 0 10px rgba(46, 204, 113, 0.3); display: inline-block; margin: 0 5px; vertical-align: middle; }
+</style>
+</head>
+
+<body>
+
+<div class="ticker-wrap">
+  <div class="ticker"> 📢 📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
+    📢 WIN FREE HOME IMPROVEMENT PERKS • 100% FREE TO JOIN • NO CREDIT CARD REQUIRED • OPEN TO NYC/NJ LOCALS & NATIONAL FOLLOWERS • NEXT DRAW COMING SOON! •
+    📢 📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
+    📢 WIN FREE HOME IMPROVEMENT PERKS • 100% FREE TO JOIN • NO CREDIT CARD REQUIRED • OPEN TO NYC/NJ LOCALS & NATIONAL FOLLOWERS • NEXT DRAW COMING SOON! •
+ 📢 📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
+       📢  📍 Local (NYC/NJ): Win Service Perks (Repairs, Consults) — or choose the National Prize • 🌎 National Winners: Gift Prizes or Virtual Consults •
+    📢 WIN FREE HOME IMPROVEMENT PERKS • 100% FREE TO JOIN • NO CREDIT CARD REQUIRED • OPEN TO NYC/NJ LOCALS & NATIONAL FOLLOWERS • NEXT DRAW COMING SOON! •
+  </div>
+</div>
+
+<div id="header-include"></div>
+
+<main class="page content-wrapper" style="padding-top: 40px; padding-bottom: 120px;">
+
+    <section class="hero-inner fade-up" style="text-align: center;">
+        <div class="location-warning">
+            📍 Local (NYC/NJ): Win Service Perks • <span class="location-highlight">🌎 National: Win Gift Cards</span>
+        </div>
+        
+        <h1 style="margin-bottom: 10px;">
+            Signature Membership <span class="free-badge" style="font-size: 0.5em; vertical-align: middle; font-family:sans-serif !important;">100% FREE</span>
+        </h1>
+        
+        <p style="max-width: 600px; margin: 0 auto; color: var(--muted);">Join the only contractor loyalty program in NYC that gives back. Service perks for locals, gift cards for everyone else.</p>
+
+        <div class="member-card-container">
+            <div class="member-card">
+                <div class="card-top">
+                    <div class="card-chip"></div>
+                    <div class="card-status">PENDING ACTIVATION</div>
+                </div>
+                <div class="card-number">•••• •••• •••• 2025</div>
+                <div class="card-bottom">
+                    <div class="card-holder">
+                        MEMBER NAME
+                        <strong>YOUR NAME HERE</strong>
+                    </div>
+                    <div class="card-logo">
+                        <img src="/images/hero.PNG" alt="Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-up">
+        <h2 style="text-align:center;">How to Enter the Monthly Draw</h2>
+        
+        <p style="text-align:center; font-size:14px; color:var(--gold-soft); margin-bottom:30px;">
+            <span class="free-badge" style="font-family:sans-serif !important;">100% FREE</span> No Credit Card Required. Just support us online to win.
+        </p>
+
+        <div class="roadmap">
+            <div class="step-node">
+                <div class="step-icon">📧</div>
+                <div class="step-title">1. Subscribe</div>
+                <div class="step-desc">Join our email newsletter (Auto-subscribed upon entry).</div>
+            </div>
+            <div class="step-node">
+                <div class="step-icon">👍</div>
+                <div class="step-title">2. Follow Two</div>
+                <div class="step-desc">Follow us on at least <strong>2 Social Platforms</strong> (Insta, FB, TikTok, or YouTube).</div>
+            </div>
+            <div class="step-node">
+                <div class="step-icon">🎁</div>
+                <div class="step-title">3. You're In!</div>
+                <div class="step-desc">Locals win Service Perks. National fans win Gift Cards!</div>
+            </div>
+        </div>
+
+        <div style="background: var(--bg-alt); padding: 25px; border-radius: 16px; border: 1px solid rgba(231,191,99,0.2); text-align: center;">
+            <h3 style="margin-bottom:15px; font-size: 18px;">Step 1: Follow Us (Pick 2)</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom: 20px;">
+                <a class="btn ghost" href="https://instagram.com/hammerbrickhome" target="_blank">Instagram</a>
+                <a class="btn ghost" href="https://facebook.com/hammerbrickhome" target="_blank">Facebook</a>
+                <a class="btn ghost" href="https://www.tiktok.com/@hammerbrickhome" target="_blank">TikTok</a>
+                <a class="btn ghost" href="https://youtube.com/@hammerbrickhome" target="_blank">YouTube</a>
+            </div>
+
+            <h3 style="margin-bottom:15px; font-size: 18px;">Step 2: Email Details & Subscribe</h3>
+            
+            <a class="btn" href="mailto:Hammerbrickhome@gmail.com?subject=Contest%20Entry&body=Hi%2C%20I%20would%20like%20to%20enter%20the%20draw.%0A%0A---%20REQUIRED%20DETAILS%20---%0A%0A1.%20Social%20Site%20%231%20Followed%3A%0A2.%20Social%20Site%20%232%20Followed%3A%0A%0AFull%20Name%3A%0APhone%20Number%3A%0APhysical%20Address%20(For%20Prize%20Allocation)%3A%0A%0A">
+                📧 Click to Send Entry
+            </a>
+            
+            <p style="margin-top:15px; font-size:11px; color: var(--muted); font-style: italic;">
+                <strong>Please Note:</strong> By emailing, you are automatically subscribed to the Hammer Brick & Home LLC newsletter.
+            </p>
+        </div>
+    </section>
+
+    <section class="section fade-up" id="perks-menu">
+        <h2 style="text-align:center; margin-bottom: 10px;">The Perks Menu (NYC/NJ Only)</h2>
+        <p style="text-align:center; color:var(--muted); margin-bottom: 20px;">Non-local winners receive a $25 Gift Card or Merchandise.</p>
+
+        <div class="filter-controls">
+            <div class="search-box">
+                <input type="text" id="perkSearch" placeholder="🔍 Search perks (e.g. 'Door', 'Paint', 'Safety')...">
+            </div>
+            <div class="category-tabs">
+                <button class="tab-btn active" data-cat="all">All</button>
+                <button class="tab-btn" data-cat="consult">Consultations</button>
+                <button class="tab-btn" data-cat="interior">Interior Fixes</button>
+                <button class="tab-btn" data-cat="exterior">Exterior</button>
+                <button class="tab-btn" data-cat="safety">Safety</button>
+            </div>
+        </div>
+
+        <div id="perks-list">
+            <div class="perk-item" data-cat="consult"><div class="perk-number">01</div><div class="perk-content"><strong>The "ROI Renovation" Roadmap</strong><p>A strategic walk-through to identify which renovations will actually increase resale value.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">02</div><div class="perk-content"><strong>Curb Appeal "First Impressions" Audit</strong><p>We identify 3 specific things making your home look dated with sketch fixes.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">03</div><div class="perk-content"><strong>Masonry & Foundation Health Check</strong><p>Structural inspection of pointing, cracks, and lintels to catch issues early.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">04</div><div class="perk-content"><strong>"Decode My Quote" Session</strong><p>Confused by another contractor? We explain what’s missing or overpriced.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">05</div><div class="perk-content"><strong>Kitchen/Bath Layout Optimization</strong><p>We sketch 2 layout changes to maximize flow without moving load-bearing walls.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">06</div><div class="perk-content"><strong>Material Selection Concierge</strong><p>We bring sample books or meet at a supplier (45 mins) to finalize your palette.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">07</div><div class="perk-content"><strong>Pre-Sale "Photo-Ready" Checklist</strong><p>We tag the top 10 cosmetic flaws to fix before selling.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">08</div><div class="perk-content"><strong>Basement Moisture Analysis</strong><p>Humidity check and inspection with dehumidification recommendations.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">09</div><div class="perk-content"><strong>Energy Efficiency Audit</strong><p>Visual check to tag window and door leaks costing you heating money.</p></div></div>
+            <div class="perk-item" data-cat="consult"><div class="perk-number">10</div><div class="perk-content"><strong>Outdoor Living Concept Sketch</strong><p>We sketch a "zone plan" for your patio, fire pit, or outdoor kitchen.</p></div></div>
+
+            <div class="perk-item" data-cat="interior"><div class="perk-number">11</div><div class="perk-content"><strong>Front Door "Grand Entrance" Detail</strong><p>Polish hardware, tighten hinges, clean glass, and wipe threshold.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">12</div><div class="perk-content"><strong>"Silent Home" Hinge Tune-Up</strong><p>Lubricate and tighten squeaky door hinges and cabinets (up to 10).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">13</div><div class="perk-content"><strong>Shower Caulk Safety Strip</strong><p>Remove and replace one strip of ugly/moldy silicone (up to 5ft).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">14</div><div class="perk-content"><strong>Grout "Steam & Gleam"</strong><p>Targeted steam cleaning of high-traffic floor section (20 sq ft).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">15</div><div class="perk-content"><strong>Cabinet Door Re-Alignment</strong><p>Adjust hinges on 5 cabinet doors so they hang straight.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">16</div><div class="perk-content"><strong>Appliance Gap Dusting</strong><p>Move fridge/stove to vacuum coils and dust underneath.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">17</div><div class="perk-content"><strong>Dryer Vent Exit Clear-Out</strong><p>Clean external vent hood to reduce fire risk.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">18</div><div class="perk-content"><strong>A/C Filter & Vent Refresh</strong><p>Swap owner-supplied filters and vacuum intake grilles.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">19</div><div class="perk-content"><strong>Light Fixture "Brighten Up"</strong><p>Remove and wash glass globes on 3 fixtures for brighter light.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">20</div><div class="perk-content"><strong>Ceiling Fan Dust & Balance</strong><p>Clean blades and tighten screws to reduce wobbling.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">21</div><div class="perk-content"><strong>Window Track Deep Clean</strong><p>Vacuum and scrub tracks of 2-3 sliding windows.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">22</div><div class="perk-content"><strong>Paint Touch-Up "Spot Doctor"</strong><p>Feather-in scuffs on one wall (Paint supplied by you).</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">23</div><div class="perk-content"><strong>Furniture Anti-Scratch</strong><p>Install heavy-duty felt pads on dining chairs/tables.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">24</div><div class="perk-content"><strong>Sliding Door Glide Service</strong><p>Clean track and lubricate rollers of patio door.</p></div></div>
+            <div class="perk-item" data-cat="interior"><div class="perk-number">25</div><div class="perk-content"><strong>Loose Handle Lockdown</strong><p>Tighten wobbly knobs, towel bars, and holders.</p></div></div>
+
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">26</div><div class="perk-content"><strong>Mailbox Rescue</strong><p>Straighten post, tighten box, and apply black paint touch-up.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">27</div><div class="perk-content"><strong>House Number Install</strong><p>Drill and install new modern numbers (Owner supplied).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">28</div><div class="perk-content"><strong>Exterior Bulb Swap (High Reach)</strong><p>We bring the tall ladder to swap floodlights (Owner supplied).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">29</div><div class="perk-content"><strong>Gate Latch Adjustment</strong><p>Re-align fence latch that isn't clicking shut.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">30</div><div class="perk-content"><strong>Green Algae Spot Treatment</strong><p>Chemical spray/scrub of small siding area (e.g. garage side).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">31</div><div class="perk-content"><strong>Paver Weed Warrior</strong><p>Torch or pull weeds from patio (200 sq ft) and sweep.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">32</div><div class="perk-content"><strong>Gutter Downspout Flush</strong><p>Clear clogs at ground level elbows (No roof access).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">33</div><div class="perk-content"><strong>Storm Door Piston Adjust</strong><p>Adjust closer so door doesn't slam or stay open.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">34</div><div class="perk-content"><strong>Fence Post Cap Secure</strong><p>Glue/screw loose caps that rattle in wind.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">35</div><div class="perk-content"><strong>Outdoor Furniture Wrap</strong><p>Seasonal stack and wrap of patio furniture (Owner supplies wrap).</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">36</div><div class="perk-content"><strong>Hose Bib Winterization</strong><p>Drain spigots, shut off inside, and install foam covers.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">37</div><div class="perk-content"><strong>Driveway Oil Spot Primer</strong><p>Apply oil-stain remover on up to 3 asphalt spots.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">38</div><div class="perk-content"><strong>Loose Brick "Quick-Tuck"</strong><p>Re-secure 1-3 loose bricks on garden wall/step.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">39</div><div class="perk-content"><strong>Shrub Trimming (Access)</strong><p>Trim back one bush blocking a walkway or siding.</p></div></div>
+            <div class="perk-item" data-cat="exterior"><div class="perk-number">40</div><div class="perk-content"><strong>Pressure Wash "Test Patch"</strong><p>Clean 5x5 square so you can see the difference.</p></div></div>
+
+            <div class="perk-item" data-cat="safety"><div class="perk-number">41</div><div class="perk-content"><strong>Smoke/CO Battery Swap</strong><p>We bring ladder, you supply 9V batteries. We change all.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">42</div><div class="perk-content"><strong>Fire Extinguisher Mount</strong><p>Mount unit in kitchen/garage and check gauge.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">43</div><div class="perk-content"><strong>Child-Proofing Helper</strong><p>Install up to 3 owner-supplied gates or locks.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">44</div><div class="perk-content"><strong>Heavy Mirror Hanging</strong><p>We find studs and hang one heavy item professionally.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">45</div><div class="perk-content"><strong>TV Mount (Labor Only)</strong><p>Bolt bracket to studs and hang TV (No wire hiding).</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">46</div><div class="perk-content"><strong>Closet Rod Reinforce</strong><p>Secure sagging bracket before it collapses.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">47</div><div class="perk-content"><strong>Water Valve Tagging</strong><p>Locate and tag main shut-offs for emergencies.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">48</div><div class="perk-content"><strong>Garage Eye-Sensor Align</strong><p>Adjust sensors so door stops reversing.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">49</div><div class="perk-content"><strong>Blind/Rod Re-Secure</strong><p>Fix curtain rod pulling out of drywall.</p></div></div>
+            <div class="perk-item" data-cat="safety"><div class="perk-number">50</div><div class="perk-content"><strong>"Honey-Do" Wildcard</strong><p>You point to a task (drill/ladder needed), if under 45 mins, we do it.</p></div></div>
+        </div>
+    </section>
+
+    <section class="section fade-up" id="winners-circle">
+        <h2 style="text-align:center; margin-bottom: 10px;">🏆 The 2026 Winners Circle</h2>
+        <p style="text-align:center; color:var(--muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Real neighbors, real savings. Here are the lucky locals who have won free service perks or gift cards this year. <br><strong style="color: var(--gold);">Will you be next?</strong>
+        </p>
+
+        <div class="winners-grid">
+            <div class="winner-card won gold">
+                <div class="month-label">JAN 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won ruby">
+                <div class="month-label">FEB 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won emerald">
+                <div class="month-label">MAR 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won sapphire">
+                <div class="month-label">APR 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won gold">
+                <div class="month-label">MAY 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won ruby">
+                <div class="month-label">JUN 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won emerald">
+                <div class="month-label">JUL 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won sapphire">
+                <div class="month-label">AUG 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won gold">
+                <div class="month-label">SEP 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won ruby">
+                <div class="month-label">OCT 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won emerald">
+                <div class="month-label">NOV 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+
+            <div class="winner-card won sapphire">
+                <div class="month-label">DEC 2026</div>
+                <div class="winner-name"><span class="crown-icon">👑</span> Drawing Soon</div>
+                <div class="prize-won">Join now to win!</div>
+            </div>
+        </div>
+    </section>
+    <section class="rules-accordion-section fade-up">
+        <h2 class="rules-accordion-title" style="text-align: center;">Rules & FAQs</h2>
+        <div class="accordion" style="max-width: 900px; margin: auto;">
+            
+            <div class="accordion-item">
+                <button class="accordion-header">🤔 Is this really 100% FREE? What's the catch?</button>
+                <div class="accordion-content">
+                    <p><strong>There is no catch.</strong> Most companies spend thousands on billboard ads. We prefer to spend that budget on <strong>YOU</strong>—our neighbors. It's our way of building loyalty. We believe that if we do a great job fixing your small repair for free, you'll remember <strong>Hammer Brick & Home LLC</strong> when you need a big renovation later.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">🌎 I live outside the service area. Can I still enter?</button>
+                <div class="accordion-content">
+                    <p><strong>Absolutely!</strong> While our physical labor perks are restricted to our service zone (NYC/NJ Metro), we are constantly expanding. If a non-local supporter wins the monthly draw, we will send a <strong>$25 Home Depot/Lowe's Gift Card</strong> or exclusive Hammer Brick & Home merchandise (pen, keychain, etc.) as a token of our appreciation.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">⚠️ The "55-Minute Rule"</button>
+                <div class="accordion-content"><p>Strict 1-hour window. We do as much quality work as possible. If unforeseen issues arise, we stop and quote or leave safe.</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">⛔ Materials Not Included</button>
+                <div class="accordion-content"><p>We provide labor/tools/glue/screws. You provide hardware (lights, locks, paint, batteries).</p></div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">How do I win?</button>
+                <div class="accordion-content"><p>Subscribe + Follow 2 socials + Send details. We draw a winner monthly and notify via email.</p></div>
+            </div>
+        </div>
+        
+        <div class="legal-disclaimer">
+            <p><strong>PROGRAM TERMS & CONDITIONS:</strong> Hammer Brick & Home LLC reserves the right, at its sole discretion, to modify, suspend, cancel, or discontinue this program at any time without prior notice. 
+            <br><br>
+            <strong>PRIZE SUBSTITUTION:</strong> We reserve the right to substitute physical service perks with a gift card or merchandise of equal or lesser value for winners residing outside our active service zones. By participating in this program and submitting your contact information, you acknowledge and agree to these terms.</p>
+        </div>
+    </section>
+
+</main>
+
+<div id="footer-include"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Load Header/Footer
+  Promise.all([
+    fetch("/header.html").then(r => r.text()),
+    fetch("/footer.html").then(r => r.text())
+  ])
+  .then(([h, f]) => {
+    document.getElementById("header-include").innerHTML = h;
+    document.getElementById("footer-include").innerHTML = f;
+    const yr = document.getElementById("yr");
+    if (yr) yr.textContent = new Date().getFullYear();
+    if (typeof initHeaderInteractions === "function") initHeaderInteractions();
+  });
+
+  // Accordion
+  document.querySelectorAll(".accordion-header").forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("active");
+      const c = btn.nextElementSibling;
+      c.style.maxHeight = c.style.maxHeight ? null : c.scrollHeight + "px";
+    });
+  });
+
+  // TABS & SEARCH LOGIC
+  const searchInput = document.getElementById('perkSearch');
+  const tabs = document.querySelectorAll('.tab-btn');
+  const items = document.querySelectorAll('.perk-item');
+
+  function filterPerks() {
+    const term = searchInput.value.toLowerCase();
+    const activeCat = document.querySelector('.tab-btn.active').dataset.cat;
+
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      const cat = item.dataset.cat;
+      const matchesSearch = text.includes(term);
+      const matchesCat = activeCat === 'all' || cat === activeCat;
+
+      if (matchesSearch && matchesCat) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  }
+
+  searchInput.addEventListener('input', filterPerks);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      filterPerks();
+    });
+  });
+
+  // --- 3D CARD TILT ---
+  const card = document.querySelector('.member-card');
+  const container = document.querySelector('.member-card-container');
+  
+  if (container && card) {
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const xAxis = (rect.width / 2 - x) / 10;
+      const yAxis = (rect.height / 2 - y) / 10;
+      
+      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.5s ease';
+      card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+
+    container.addEventListener('mouseenter', () => {
+      card.style.transition = 'none';
+    });
+  }
+});
+</script>
+
+<link rel="stylesheet" href="/chat.css">
+<script src="/chat.js" defer></script>
+<script src="/script.js" defer></script>
+
+</body>
+</html>

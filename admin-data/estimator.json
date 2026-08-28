@@ -1,0 +1,22 @@
+{
+  "note": "Safe master admin. Use the Apply Estimator Factors action only after reviewing these numbers.",
+  "boroughFactors": {
+    "staten-island": 1.0,
+    "brooklyn": 1.08,
+    "queens": 1.05,
+    "bronx": 1.03,
+    "manhattan": 1.18,
+    "nj": 0.96,
+    "outside": 1.0
+  },
+  "finishFactors": {
+    "standard": 1.0,
+    "premium": 1.15,
+    "luxury": 1.32
+  },
+  "urgencyFactors": {
+    "flex": 1.0,
+    "soon": 1.07,
+    "rush": 1.15
+  }
+}

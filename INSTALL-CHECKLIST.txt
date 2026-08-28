@@ -1,0 +1,16 @@
+HAMMER BRICK ADMIN — INSTALL CHECKLIST
+
+1. In your GitHub website repository, upload `.pages.yml` to the ROOT.
+2. Replace your current homepage with the included `index.html`.
+3. Upload the `admin` folder to the root (optional, but recommended).
+4. Keep your existing `gallery.json` and `images` folder.
+5. Commit the changes to the branch Cloudflare Pages uses (usually main).
+6. Open https://app.pagescms.org/ and sign in with GitHub.
+7. Authorize the Hammer Brick & Home website repository.
+8. Open "Project Gallery Manager".
+9. Upload one test Before + After project and Save.
+10. Wait for the normal Cloudflare Pages deployment, then check the live website.
+
+IF YOU ALSO HAVE gallery.html:
+Upload `gallery-path-helper.js`, include it on gallery.html, and use
+`galleryImageUrl(...)` instead of manually prefixing `/images/`.

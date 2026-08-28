@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Hammer Brick Admin</title>
+  <style>
+    :root{--bg:#071426;--panel:#0d1a2e;--gold:#e7bf63;--gold2:#f5d89b;--text:#fff;--muted:rgba(255,255,255,.72);--line:rgba(231,191,99,.24)}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at 70% 0,rgba(231,191,99,.10),transparent 30%),var(--bg);color:var(--text);display:grid;place-items:center;padding:24px}
+    .shell{width:min(920px,100%);border:1px solid var(--line);border-radius:28px;background:linear-gradient(160deg,rgba(13,26,46,.98),rgba(5,12,24,.98));box-shadow:0 30px 90px rgba(0,0,0,.55);overflow:hidden}
+    header{padding:28px 32px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:20px;align-items:center}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-weight:800;font-size:11px}h1{font-family:Georgia,serif;font-size:clamp(28px,5vw,46px);margin:6px 0 0}.status{padding:8px 12px;border:1px solid rgba(46,204,113,.35);background:rgba(46,204,113,.08);border-radius:999px;color:#8ff0b8;font-size:12px;font-weight:800;white-space:nowrap}
+    main{padding:32px}.intro{max-width:680px;color:var(--muted);line-height:1.65;margin:0 0 28px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}.card{padding:20px;border:1px solid rgba(255,255,255,.09);border-radius:18px;background:rgba(255,255,255,.035)}.card strong{display:block;color:var(--gold2);margin-bottom:7px}.card span{font-size:13px;color:var(--muted);line-height:1.45}
+    .primary{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 20px;border:0;border-radius:14px;background:linear-gradient(180deg,var(--gold2),var(--gold));color:#151515;font-size:15px;font-weight:900;text-decoration:none;box-shadow:0 12px 28px rgba(0,0,0,.35);transition:.2s}.primary:hover{transform:translateY(-2px)}.secondary{display:inline-block;margin-top:12px;color:var(--gold2);text-decoration:none;font-size:13px}.note{margin-top:24px;padding:16px 18px;border-left:3px solid var(--gold);background:rgba(231,191,99,.06);color:var(--muted);font-size:13px;line-height:1.55}.note b{color:#fff}
+    footer{padding:18px 32px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);font-size:11px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+    @media(max-width:720px){header{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}main,header{padding:24px}.status{align-self:flex-start}}
+  </style>
+</head>
+<body>
+  <section class="shell">
+    <header>
+      <div><div class="eyebrow">Hammer Brick & Home LLC</div><h1>Website Admin</h1></div>
+      <div class="status">GitHub Protected</div>
+    </header>
+    <main>
+      <p class="intro">Manage your project gallery without touching JSON. Upload before and after photos, edit project titles and tags, reorder projects, and save. Pages CMS commits the changes to GitHub; Cloudflare Pages then publishes the update.</p>
+      <div class="grid">
+        <div class="card"><strong>Before & After</strong><span>Add, edit, reorder, or remove homepage and full-gallery comparison projects.</span></div>
+        <div class="card"><strong>Photo Uploads</strong><span>Choose photos from your phone or computer. They are saved into your existing <code>images</code> folder.</span></div>
+        <div class="card"><strong>Automatic Publish</strong><span>Saving creates a GitHub commit. Your connected Cloudflare Pages deployment handles the website update.</span></div>
+      </div>
+      <a class="primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open Secure Gallery Manager →</a>
+      <a class="secondary" href="/" target="_blank" rel="noopener">View live website</a>
+      <div class="note"><b>First time only:</b> sign in with the GitHub account that owns your website repository and allow Pages CMS access to that repository. After that, open <b>Project Gallery Manager</b>.</div>
+    </main>
+    <footer><span>Private editing requires authorized GitHub access.</span><span>No PHP • No database • No Supabase</span></footer>
+  </section>
+</body>
+</html>
