@@ -1,0 +1,24 @@
+{
+  "heading": "Featured Projects",
+  "intro": "A closer look at real Hammer Brick & Home transformations across NYC and New Jersey.",
+  "projects": [
+    {
+      "active": true,
+      "title": "Luxury Living Room Remodel",
+      "location": "New York City",
+      "service": "Interior Remodeling",
+      "summary": "A full living-room transformation with new finishes, flooring, lighting, and careful site protection.",
+      "beforeImage": "/images/Livingroom-before33.jpeg",
+      "afterImage": "/images/Livingroom-after33.jpeg"
+    },
+    {
+      "active": true,
+      "title": "Granite Staircase Transformation",
+      "location": "Staten Island, NY",
+      "service": "Masonry",
+      "summary": "A complete exterior staircase rebuild finished with granite treads and new railings.",
+      "beforeImage": "/images/Full-stairs-remodel-before.jpeg",
+      "afterImage": "/images/Full-stairs-remodel-after.jpeg"
+    }
+  ]
+}

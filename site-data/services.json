@@ -1,0 +1,18 @@
+{
+  "heading": "Complete Service Menu",
+  "intro": "Premium masonry, roofing, waterproofing, windows, remodeling, and exterior home care for NYC and New Jersey.",
+  "services": [
+    {"active": true, "showOnHomepage": true, "name": "Masonry", "category": "Masonry, Concrete & Hardscape", "url": "/masonry.html"},
+    {"active": true, "showOnHomepage": true, "name": "Roofing", "category": "Roofing & Waterproofing", "url": "/services.html#roofing-section"},
+    {"active": true, "showOnHomepage": true, "name": "Pavers", "category": "Masonry, Concrete & Hardscape", "url": "/masonry.html"},
+    {"active": true, "showOnHomepage": true, "name": "Driveways", "category": "Masonry, Concrete & Hardscape", "url": "/masonry.html"},
+    {"active": true, "showOnHomepage": true, "name": "Sidewalks (DOT)", "category": "Masonry, Concrete & Hardscape", "url": "/masonry.html"},
+    {"active": true, "showOnHomepage": true, "name": "Steps & Stoops", "category": "Masonry, Concrete & Hardscape", "url": "/masonry.html"},
+    {"active": true, "showOnHomepage": true, "name": "Waterproofing", "category": "Roofing & Waterproofing", "url": "/waterproofing.html"},
+    {"active": true, "showOnHomepage": true, "name": "Windows", "category": "Windows, Doors & Siding", "url": "/windows-doors.html"},
+    {"active": true, "showOnHomepage": true, "name": "Kitchens", "category": "Interior Remodeling", "url": "/kitchens.html"},
+    {"active": true, "showOnHomepage": true, "name": "Bathrooms", "category": "Interior Remodeling", "url": "/bathrooms.html"},
+    {"active": true, "showOnHomepage": true, "name": "Basements", "category": "Interior Remodeling", "url": "/contact.html"},
+    {"active": true, "showOnHomepage": true, "name": "Painting", "category": "Painting & Finishes", "url": "/painting.html"}
+  ]
+}

@@ -3,7 +3,7 @@ from pathlib import Path
 import json, re
 
 ROOT = Path(__file__).resolve().parents[1]
-B = json.loads((ROOT / "admin-data/business.json").read_text(encoding="utf-8"))
+B = json.loads((ROOT / "site-data/business.json").read_text(encoding="utf-8"))
 
 hic = str(B.get("nycHic") or "").strip()
 nj = str(B.get("njHic") or "").strip()
