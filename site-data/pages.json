@@ -1,0 +1,224 @@
+{
+  "pages": [
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "home",
+      "url": "/",
+      "menuLabel": "Home",
+      "heroTitle": "Luxury Residential & Commercial Remodeling in NYC",
+      "heroText": "White-glove craftsmanship with honest, fair pricing. From small masonry repairs to full luxury remodels, we match the work to your home and your budget.",
+      "seoTitle": "Hammer Brick & Home LLC | Luxury Remodeling & Masonry in NYC",
+      "seoDescription": "Hammer Brick & Home LLC provides luxury residential and commercial remodeling, roofing, and masonry in NYC and New Jersey."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "about",
+      "url": "/about.html",
+      "menuLabel": "Our Story",
+      "heroTitle": "We Build Trust, Then We Build Your Home.",
+      "heroText": "In a city of hit-or-miss contractors, Hammer Brick & Home LLC was founded on a simple promise: luxury craftsmanship, transparent pricing, and total respect for your home.",
+      "seoTitle": "About Us | Luxury Remodeling & Masonry | Hammer Brick & Home LLC",
+      "seoDescription": "Meet Noman and the Hammer Brick & Home team, licensed and insured NYC contractors for masonry and remodeling."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "services",
+      "url": "/services.html",
+      "menuLabel": "What We Do",
+      "heroTitle": "Complete Service Menu",
+      "heroText": "Premium masonry, full roofing and waterproofing, window installation, commercial remodeling, and exterior home care for NYC and NJ.",
+      "seoTitle": "Licensed Contractor Services NYC | Roofing, Masonry, Windows & Remodeling",
+      "seoDescription": "Explore Hammer Brick & Home services for masonry, roofing, remodeling, windows, doors, painting, and exterior care."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "gallery",
+      "url": "/gallery.html",
+      "menuLabel": "Portfolio",
+      "heroTitle": "Project Gallery",
+      "heroText": "Real NYC homes. Real transformations. Precision masonry, flawless prep, and luxury remodeling finishes.",
+      "seoTitle": "Gallery | Before & After | Hammer Brick & Home LLC",
+      "seoDescription": "Explore real NYC masonry, remodeling, pavers, painting, and transformation projects."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "reviews",
+      "url": "/reviews.html",
+      "menuLabel": "Client Reviews",
+      "heroTitle": "Client Stories",
+      "heroText": "Reputation is everything in our business. Read honest experiences from neighbors who trusted us with their homes.",
+      "seoTitle": "Client Testimonials — Hammer Brick & Home LLC | NYC & NJ",
+      "seoDescription": "Read customer reviews for Hammer Brick & Home masonry, painting, and remodeling work."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "pricing",
+      "url": "/pricing.html",
+      "menuLabel": "Pricing & Packages",
+      "heroTitle": "Pricing & Packages",
+      "heroText": "Clear structures, no surprises. Final pricing is always confirmed after an on-site visit and written proposal.",
+      "seoTitle": "Pricing & Packages — Hammer Brick & Home LLC | NYC & NJ",
+      "seoDescription": "Transparent pricing for masonry, painting, and remodeling projects in NYC and New Jersey."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "project-estimator",
+      "url": "/project-estimator.html",
+      "menuLabel": "Project Estimator",
+      "heroTitle": "Project Estimator",
+      "heroText": "Get an NYC or New Jersey ballpark range in seconds. A final quote is issued after an on-site walkthrough.",
+      "seoTitle": "Project Estimator — Hammer Brick & Home LLC",
+      "seoDescription": "Estimate a ballpark range for your NYC or New Jersey home improvement project."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "monthly-specials",
+      "url": "/monthly-specials.html",
+      "menuLabel": "Seasonal Offers",
+      "heroTitle": "Monthly Specials & Limited-Time Offers",
+      "heroText": "Premium home improvement packages for NYC and Staten Island homeowners with transparent pricing and clear scopes.",
+      "seoTitle": "Monthly Specials | Hammer Brick & Home LLC",
+      "seoDescription": "Current monthly masonry, painting, window, and home improvement specials."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "downloads",
+      "url": "/downloads.html",
+      "menuLabel": "Home Care Library",
+      "heroTitle": "Homeowner Care Library",
+      "heroText": "Free professional checklists and guides to keep your NYC or New Jersey home safe, efficient, and renovation-ready.",
+      "seoTitle": "Free Homeowner Checklists & Guides | Hammer Brick & Home LLC",
+      "seoDescription": "Download free NYC home maintenance checklists, renovation prep guides, and masonry care resources."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "membership",
+      "url": "/membership.html",
+      "menuLabel": "Signature Membership (Free)",
+      "heroTitle": "Signature Membership — 100% Free",
+      "heroText": "Join the contractor loyalty program that gives back with service perks for locals and gift cards for everyone else.",
+      "seoTitle": "Membership Perks & Monthly Draw — Hammer Brick & Home LLC",
+      "seoDescription": "Join the free Hammer Brick & Home loyalty program for service perks and monthly rewards."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "faq",
+      "url": "/faq.html",
+      "menuLabel": "Help Center",
+      "heroTitle": "Frequently Asked Questions",
+      "heroText": "Clear answers about our process, pricing, and safety standards. If you do not see your question, simply text or email us.",
+      "seoTitle": "Common Questions — Hammer Brick & Home LLC | NYC & NJ Contractor",
+      "seoDescription": "Answers about home renovation, roofing, masonry, permits, pricing, and lead safety."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
+      "slug": "contact",
+      "url": "/contact.html",
+      "menuLabel": "Get in Touch",
+      "heroTitle": "Contact & Booking",
+      "heroText": "Ready to start? Send photos, ask questions, or schedule a free site visit. We typically respond within two hours.",
+      "seoTitle": "Contact & Estimates — Hammer Brick & Home LLC | NYC & NJ Contractor",
+      "seoDescription": "Get a free estimate for masonry, renovations, roofing, painting, or repairs in NYC and New Jersey."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "masonry",
+      "url": "/masonry.html",
+      "menuLabel": "Masonry",
+      "heroTitle": "Restoring the Soul of NYC Homes",
+      "heroText": "From historic brownstone facades to modern paver patios, we restore structural integrity and curb appeal with old-world craftsmanship.",
+      "seoTitle": "Masonry & Brownstone Restoration | Hammer Brick & Home LLC",
+      "seoDescription": "NYC brick pointing, brownstone restoration, stoop rebuilding, pavers, and DOT violation repair."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "kitchens",
+      "url": "/kitchens.html",
+      "menuLabel": "Kitchens",
+      "heroTitle": "The Heart of Your Home, Reimagined",
+      "heroText": "Whether it is a smart cosmetic update or a chef-grade transformation, we build kitchens that blend NYC style with serious functionality.",
+      "seoTitle": "Kitchen Remodeling NYC | Luxury & Custom Renovations | Hammer Brick & Home",
+      "seoDescription": "NYC kitchen remodeling, cabinet upgrades, custom islands, counters, and full renovations."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "bathrooms",
+      "url": "/bathrooms.html",
+      "menuLabel": "Bathrooms",
+      "heroTitle": "Spa Luxury in Small Spaces",
+      "heroText": "Transform your dated NYC bathroom into a modern sanctuary with waterproofing, smart layouts, and high-end tile installation.",
+      "seoTitle": "Bathroom Renovations NYC | Spa & Custom Baths | Hammer Brick & Home",
+      "seoDescription": "NYC bathroom remodeling, walk-in showers, waterproofing, custom tile, and layout upgrades."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "painting",
+      "url": "/painting.html",
+      "menuLabel": "Painting",
+      "heroTitle": "Flawless Finishes. Zero Mess.",
+      "heroText": "Painting is 80% preparation. We fill, sand, repair, and protect your floors before a single drop of paint is opened.",
+      "seoTitle": "Interior Painting Services NYC | Plaster & Skim Coating | Hammer Brick & Home",
+      "seoDescription": "White-glove NYC interior painting, plaster repair, skim coating, and professional preparation."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "windows-doors",
+      "url": "/windows-doors.html",
+      "menuLabel": "Windows & Doors",
+      "heroTitle": "Stop Drafts. Boost Security.",
+      "heroText": "We install high-efficiency, secure windows and doors that seal your home against New York City weather.",
+      "seoTitle": "Window & Door Installation NYC | Energy Efficient Upgrades | Hammer Brick & Home",
+      "seoDescription": "Professional window and door replacement in NYC with vinyl, wood, and fiberglass options."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "waterproofing",
+      "url": "/waterproofing.html",
+      "menuLabel": "Waterproofing",
+      "heroTitle": "Dry Basements. Guaranteed.",
+      "heroText": "We stop leaks, address moisture, and help reclaim your basement with proven waterproofing systems.",
+      "seoTitle": "Basement Waterproofing NYC | French Drains & Sealing | Hammer Brick & Home",
+      "seoDescription": "Basement leak repair, French drains, exterior excavation, sealing, and waterproofing in NYC."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "our-process",
+      "url": "/our-process.html",
+      "menuLabel": "Our Process",
+      "heroTitle": "The White-Glove Standard",
+      "heroText": "Construction does not have to be chaotic. We protect your home with clean work zones and clear communication.",
+      "seoTitle": "Our Process | The White Glove Renovation Experience | Hammer Brick & Home",
+      "seoDescription": "See how Hammer Brick & Home protects your property, communicates clearly, and completes clean projects."
+    },
+    {
+      "active": true,
+      "showInNavigation": false,
+      "slug": "financing",
+      "url": "/financing.html",
+      "menuLabel": "Payment Options",
+      "heroTitle": "Fair Payments. No Interest.",
+      "heroText": "We offer transparent milestone payment plans based on completed work.",
+      "seoTitle": "Payment Plans & Fair Pricing | Hammer Brick & Home LLC",
+      "seoDescription": "Learn about transparent milestone payment schedules for NYC construction projects."
+    }
+  ]
+}

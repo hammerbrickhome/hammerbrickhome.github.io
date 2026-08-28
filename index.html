@@ -622,9 +622,9 @@
 </div>
 </section>
 <section class="section section-reviews-highlight fade-up" id="reviewsSection"><div class="review-trust-header">
-<p class="review-eyebrow">TRUSTED BY HOMEOWNERS</p>
-<h2>Real Customer Experiences</h2>
-<p class="review-trust-copy">Real feedback from homeowners who trusted Hammer Brick &amp; Home with masonry, remodeling, and home-improvement projects.</p>
+<p class="review-eyebrow" id="reviewEyebrow">TRUSTED BY HOMEOWNERS</p>
+<h2 id="reviewHeading">Real Customer Experiences</h2>
+<p class="review-trust-copy" id="reviewIntro">Real feedback from homeowners who trusted Hammer Brick &amp; Home with masonry, remodeling, and home-improvement projects.</p>
 <div aria-label="Customer review trust signals" class="review-trust-strip">
 <span aria-hidden="true" class="review-trust-stars">★★★★★</span>
 <strong>Google Reviews</strong>
@@ -1009,6 +1009,10 @@
         if (data.guaranteeSignature) setText("guaranteeSignature", "— " + data.guaranteeSignature.replace(/^—\s*/, ""));
         setText("whyNeighborsTitle", data.whyNeighborsTitle);
         setText("whyNeighborsText", data.whyNeighborsText);
+        setText("reviewEyebrow", data.reviewEyebrow);
+        setText("reviewHeading", data.reviewHeading);
+        setText("reviewIntro", data.reviewIntro);
+        setText("googleReviewsLink", data.reviewButtonText);
         setText("serviceAreaHeading", data.serviceAreaHeading);
         setText("serviceAreaIntro", data.serviceAreaIntro);
 
@@ -1077,7 +1081,7 @@
         const today = new Date();
         today.setHours(0,0,0,0);
         const items = data.specials.filter(item => {
-          if (!item || item.active === false) return false;
+          if (!item || item.active === false || item.showOnHomepage === false) return false;
           const start = item.startDate ? new Date(item.startDate + "T00:00:00") : null;
           const end = item.endDate ? new Date(item.endDate + "T23:59:59") : null;
           if (start && !Number.isNaN(start.getTime()) && today < start) return false;
@@ -1252,7 +1256,7 @@
         // source, customer name, service and Google Reviews destination.
         if (link && data.reviewUrl) link.href = data.reviewUrl;
 
-        const reviews = data.reviews.filter(item => item && item.active !== false);
+        const reviews = data.reviews.filter(item => item && item.active !== false && item.showOnHomepage !== false);
 
         track.innerHTML = reviews.map((item, index) => {
           const rating = Math.max(1, Math.min(5, Number(item.rating) || 5));
@@ -1296,7 +1300,7 @@
         if (!list) return;
 
         if (heading && data.heading) heading.textContent = data.heading;
-        const items = data.items.filter(item => item && item.active !== false);
+        const items = data.items.filter(item => item && item.active !== false && item.showOnHomepage !== false);
 
         list.innerHTML = items.map(item =>
           `<details><summary>${escapeHtml(item.question)}</summary><p>${escapeHtml(item.answer)}</p></details>`
@@ -1320,7 +1324,7 @@
 
             const offers = specialsData.specials
               .filter(x => {
-                if (!x || x.active === false) return false;
+                if (!x || x.active === false || x.showOnHomepage === false) return false;
                 const startDate = x.startDate ? new Date(x.startDate + "T00:00:00") : null;
                 const endDate = x.endDate ? new Date(x.endDate + "T23:59:59") : null;
                 if (startDate && !Number.isNaN(startDate.getTime()) && today < startDate) return false;
@@ -1350,7 +1354,7 @@
           // FAQs stay synchronized with the admin-managed questions.
           if (faq && faqsData && Array.isArray(faqsData.items)) {
             faq.mainEntity = faqsData.items
-              .filter(x => x && x.active !== false)
+              .filter(x => x && x.active !== false && x.showOnHomepage !== false)
               .map(x => ({
                 "@type": "Question",
                 "name": String(x.question || ""),
@@ -1449,7 +1453,7 @@
       fetch("/gallery.json")
         .then(r => r.json())
         .then(data => {
-          allHomePairs = data.homePairs || [];
+          allHomePairs = (data.homePairs || []).filter(item => item && item.active !== false);
           if (allHomePairs.length > 0) {
             renderBatch();
             loadBtn.addEventListener("click", renderBatch);

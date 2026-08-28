@@ -261,10 +261,10 @@ async function loadGalleryPage() {
     const data = await res.json();
     
     // ⭐ UPDATED: Store and set initial data globally
-    allGridPhotos = shuffle(data.galleryGrid || []);
+    allGridPhotos = shuffle((data.galleryGrid || []).filter(item => item && item.active !== false));
     currentFilteredGrid = allGridPhotos;
 
-    allComparePairs = shuffle(data.galleryPairs || []);
+    allComparePairs = shuffle((data.galleryPairs || []).filter(item => item && item.active !== false));
     currentFilteredPairs = allComparePairs;
 
     /* Compare pairs */
@@ -317,6 +317,386 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+/* ============================================================
+   PAGES CMS — SITE-WIDE CONTENT CONTROLS
+   Static HTML remains as a safe fallback if a JSON file is unavailable.
+=============================================================== */
+
+const hammerContentCache = new Map();
+
+function hammerFetchJson(path) {
+  if (!hammerContentCache.has(path)) {
+    hammerContentCache.set(path, fetch(path, { cache: "no-store" })
+      .then(response => response.ok ? response.json() : null)
+      .catch(() => null));
+  }
+  return hammerContentCache.get(path);
+}
+
+function hammerEscape(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function hammerPath() {
+  const path = window.location.pathname.replace(/\/+$/, "");
+  return path || "/";
+}
+
+function hammerSlug() {
+  const path = hammerPath();
+  if (path === "/" || path === "/index.html") return "home";
+  return path.split("/").pop().replace(/\.html$/i, "");
+}
+
+function hammerSetMeta(name, value) {
+  if (!value) return;
+  let meta = document.querySelector(`meta[name="${name}"]`);
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = name;
+    document.head.appendChild(meta);
+  }
+  meta.content = value;
+}
+
+function hammerApplySeo(item) {
+  if (!item) return;
+  if (item.seoTitle) document.title = item.seoTitle;
+  hammerSetMeta("description", item.seoDescription);
+}
+
+function hammerApplyHero(item) {
+  if (!item) return;
+  const hero = document.querySelector("main .hero");
+  if (!hero) return;
+  hero.style.display = item.showHero === false ? "none" : "";
+  const title = hero.querySelector("h1");
+  const text = hero.querySelector(".hero-content > p, p");
+  if (title && item.heroTitle) title.textContent = item.heroTitle;
+  if (text && item.heroText) text.textContent = item.heroText;
+}
+
+function hammerApplyCustomSection(item) {
+  if (!item) return;
+  let section = document.getElementById("cmsPageExtraSection");
+  if (!item.showCustomSection) {
+    if (section) section.style.display = "none";
+    return;
+  }
+  if (!section) {
+    const hero = document.querySelector("main .hero");
+    if (!hero || !hero.parentNode) return;
+    section = document.createElement("section");
+    section.id = "cmsPageExtraSection";
+    section.className = "section note-box fade-up";
+    hero.parentNode.insertBefore(section, hero.nextSibling);
+  }
+  section.style.display = "";
+  section.innerHTML = `
+    ${item.sectionHeading ? `<h2>${hammerEscape(item.sectionHeading)}</h2>` : ""}
+    ${item.sectionText ? `<p>${hammerEscape(item.sectionText)}</p>` : ""}
+    ${item.buttonText ? `<div class="cta-actions"><a class="btn" href="${hammerEscape(item.buttonUrl || "/contact.html")}">${hammerEscape(item.buttonText)}</a></div>` : ""}`;
+}
+
+function hammerLinkPath(anchor) {
+  try {
+    return new URL(anchor.href, window.location.origin).pathname.replace(/\/+$/, "") || "/";
+  } catch (_) {
+    return "";
+  }
+}
+
+function hammerApplyPageControls(data) {
+  if (!data || !Array.isArray(data.pages)) return;
+
+  const pagesByUrl = new Map();
+  data.pages.forEach(page => {
+    if (!page || !page.url) return;
+    const normalized = page.url.replace(/\/+$/, "") || "/";
+    pagesByUrl.set(normalized, page);
+  });
+
+  const current = data.pages.find(page => page && page.slug === hammerSlug());
+  if (current) {
+    hammerApplySeo(current);
+    hammerApplyHero(current);
+    hammerApplyCustomSection(current);
+    if (current.active === false) {
+      hammerSetMeta("robots", "noindex, nofollow");
+      document.body.dataset.cmsPageActive = "false";
+    }
+  }
+
+  document.querySelectorAll(".main-nav a[href], .site-footer nav a[href]").forEach(anchor => {
+    const page = pagesByUrl.get(hammerLinkPath(anchor));
+    if (!page) return;
+    anchor.style.display = (page.active === false || page.showInNavigation === false) ? "none" : "";
+    if (page.menuLabel) anchor.textContent = page.menuLabel;
+  });
+}
+
+function hammerAreaIcon(slug) {
+  const icons = {
+    "staten-island": "🏡",
+    "brooklyn": "🏙️",
+    "queens": "🧱",
+    "manhattan": "🏢",
+    "bronx": "🏗️",
+    "new-jersey": "🌳"
+  };
+  return icons[slug] || "📍";
+}
+
+function hammerRenderHomeAreas(data, homepage) {
+  if (hammerSlug() !== "home" || !data || !Array.isArray(data.areas)) return;
+
+  let section = document.getElementById("cmsServiceAreasSection");
+  if (!section) {
+    section = document.createElement("section");
+    section.id = "cmsServiceAreasSection";
+    section.className = "section fade-up";
+    section.style.marginTop = "50px";
+    const mapSection = document.getElementById("serviceAreaSection");
+    const main = document.getElementById("main") || document.querySelector("main");
+    if (mapSection && mapSection.parentNode) mapSection.parentNode.insertBefore(section, mapSection);
+    else if (main) main.appendChild(section);
+  }
+
+  section.style.display = homepage && homepage.showServiceAreas === false ? "none" : "";
+  const areas = data.areas.filter(area => area && area.active !== false && area.showOnHomepage !== false);
+  const heading = (homepage && homepage.serviceAreasHeading) || data.heading || "Areas We Serve";
+  const intro = (homepage && homepage.serviceAreasIntro) || data.intro || "";
+
+  section.innerHTML = `
+    <div style="text-align:center;max-width:780px;margin:0 auto 26px;">
+      <h2>${hammerEscape(heading)}</h2>
+      <p style="color:var(--muted);">${hammerEscape(intro)}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;">
+      ${areas.map(area => `
+        <a class="accent-card" href="${hammerEscape(area.url)}" style="display:block;text-decoration:none;color:inherit;padding:22px;">
+          <div style="font-size:25px;margin-bottom:8px;">${hammerAreaIcon(area.slug)}</div>
+          <h3 style="color:var(--gold-soft);margin-bottom:8px;">${hammerEscape(area.name)}</h3>
+          <p style="color:var(--muted);margin:0 0 12px;">${hammerEscape(area.cardText)}</p>
+          <span style="color:var(--gold);font-weight:700;">View ${hammerEscape(area.name)} services →</span>
+        </a>`).join("")}
+    </div>`;
+}
+
+function hammerApplyAreaControls(data) {
+  if (!data || !Array.isArray(data.areas)) return;
+
+  const activeAreas = data.areas.filter(area => area && area.active !== false);
+  const areaByUrl = new Map(activeAreas.map(area => [(area.url || "").replace(/\/+$/, ""), area]));
+
+  document.querySelectorAll(".main-nav .dropdown-content a[href]").forEach(anchor => {
+    const area = areaByUrl.get(hammerLinkPath(anchor));
+    const knownArea = data.areas.find(item => item && (item.url || "").replace(/\/+$/, "") === hammerLinkPath(anchor));
+    if (knownArea) anchor.style.display = knownArea.active === false ? "none" : "";
+    if (area && area.name) anchor.textContent = area.name;
+  });
+
+  const area = data.areas.find(item => item && item.slug === hammerSlug());
+  if (!area) return;
+  hammerApplySeo(area);
+  hammerApplyHero(area);
+  if (area.active === false) hammerSetMeta("robots", "noindex, nofollow");
+
+  const mainSection = document.querySelector("main .section.split");
+  if (mainSection) {
+    const heading = mainSection.querySelector("h2");
+    const paragraph = mainSection.querySelector(":scope > div > p");
+    const services = mainSection.querySelector(":scope > div > ul.bullets");
+    const areaCard = mainSection.querySelector(".accent-card");
+    if (heading && area.sectionTitle) heading.textContent = area.sectionTitle;
+    if (paragraph && area.sectionText) paragraph.textContent = area.sectionText;
+    if (services && Array.isArray(area.featuredServices) && area.featuredServices.length) {
+      services.innerHTML = area.featuredServices.map(item => `<li>${hammerEscape(item)}</li>`).join("");
+    }
+    if (areaCard) {
+      const areaCardHeading = areaCard.querySelector("h3");
+      const areaCardList = areaCard.querySelector("ul.bullets");
+      if (areaCardHeading) areaCardHeading.textContent = "Neighborhoods We Serve";
+      if (areaCardList && Array.isArray(area.neighborhoods) && area.neighborhoods.length) {
+        areaCardList.innerHTML = area.neighborhoods.map(item => `<li>${hammerEscape(item)}</li>`).join("");
+      }
+    }
+  }
+
+  const cta = document.querySelector("main .section.note-box");
+  if (cta) {
+    const heading = cta.querySelector("h2");
+    const paragraph = cta.querySelector("p");
+    if (heading && area.ctaTitle) heading.textContent = area.ctaTitle;
+    if (paragraph && area.ctaText) paragraph.textContent = area.ctaText;
+  }
+}
+
+function hammerRenderSignatureServices(data) {
+  if (hammerSlug() !== "home" || !data || !Array.isArray(data.services)) return;
+  const container = document.querySelector(".services-glow-container");
+  const grid = container && container.querySelector(".glow-grid");
+  if (!container || !grid) return;
+  const heading = container.querySelector("h3");
+  if (heading && data.heading) heading.textContent = data.heading;
+  const services = data.services.filter(service => service && service.active !== false && service.showOnHomepage !== false);
+  grid.innerHTML = services.map((service, index) => {
+    const styles = ["gold", "white", "blue", "cyan", "green", "red"];
+    const style = styles.includes(service.style) ? service.style : (index % 2 ? "gold" : "white");
+    return `<a class="glow-card style-${style}" href="${hammerEscape(service.url || "/services.html")}">
+      <span class="glow-icon" aria-hidden="true">◆</span><span>${hammerEscape(service.title)}</span>
+    </a>`;
+  }).join("");
+}
+
+function hammerRenderFaqPage(data) {
+  if (hammerSlug() !== "faq" || !data || !Array.isArray(data.items)) return;
+  const container = document.querySelector(".faq-container");
+  if (!container) return;
+  const items = data.items.filter(item => item && item.active !== false);
+  const groups = new Map();
+  items.forEach(item => {
+    const category = item.category || "General";
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(item);
+  });
+  container.innerHTML = Array.from(groups.entries()).map(([category, group]) => `
+    <h3 class="faq-category">${hammerEscape(category)}</h3>
+    ${group.map(item => `
+      <div class="faq-item">
+        <button class="faq-question" type="button">${hammerEscape(item.question)}<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>${hammerEscape(item.answer)}</p></div>
+      </div>`).join("")}`).join("");
+  container.querySelectorAll(".faq-question").forEach(button => {
+    button.addEventListener("click", () => {
+      button.classList.toggle("active");
+      const answer = button.nextElementSibling;
+      if (answer) answer.style.maxHeight = button.classList.contains("active") ? answer.scrollHeight + "px" : null;
+    });
+  });
+}
+
+function hammerRenderReviewsPage(data) {
+  if (hammerSlug() !== "reviews" || !data || !Array.isArray(data.reviews)) return;
+  const section = document.querySelector("main .section.content-wrapper");
+  if (!section) return;
+  const reviews = data.reviews.filter(item => item && item.active !== false);
+  section.innerHTML = `
+    <div id="cmsReviewsPage">
+      <div style="text-align:center;max-width:760px;margin:0 auto 30px;">
+        ${data.eyebrow ? `<p class="review-eyebrow">${hammerEscape(data.eyebrow)}</p>` : ""}
+        ${data.heading ? `<h2>${hammerEscape(data.heading)}</h2>` : ""}
+      </div>
+      ${reviews.map(item => `
+        <article class="review-feature">
+          <div class="watermark-icon">“</div>
+          <div class="star-row">${"★".repeat(Math.max(1, Math.min(5, Number(item.rating) || 5)))} <span class="verified-tag">${hammerEscape(item.source || "Customer Review")}</span></div>
+          <div class="review-text">“${hammerEscape(item.review)}”</div>
+          <div class="author-block">
+            <div class="author-initial">${hammerEscape(String(item.name || "C").charAt(0).toUpperCase())}</div>
+            <div class="author-details"><h4>${hammerEscape(item.name)}</h4><span>${hammerEscape(item.service || "Home Improvement")}</span></div>
+          </div>
+        </article>`).join("")}
+      <div class="reviews-cta">
+        <h3 class="shimmer-title" style="font-size:26px;margin-bottom:15px;">Share Your Experience</h3>
+        <a class="btn gold-btn" href="${hammerEscape(data.reviewUrl || "/contact.html")}" target="_blank" rel="noopener">Write a Google Review</a>
+      </div>
+    </div>`;
+}
+
+function hammerSpecialIsCurrent(item) {
+  if (!item || item.active === false) return false;
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const start = item.startDate ? new Date(item.startDate + "T00:00:00") : null;
+  const end = item.endDate ? new Date(item.endDate + "T23:59:59") : null;
+  if (start && !Number.isNaN(start.getTime()) && now < start) return false;
+  if (end && !Number.isNaN(end.getTime()) && now > end) return false;
+  return true;
+}
+
+function hammerRenderSpecialCards(items) {
+  return items.map(item => {
+    const accent = /^#[0-9a-f]{3,8}$/i.test(item.accentColor || "") ? item.accentColor : "#e7bf63";
+    const badgeText = /^#[0-9a-f]{3,8}$/i.test(item.badgeTextColor || "") ? item.badgeTextColor : "#ffffff";
+    const features = Array.isArray(item.features) ? item.features : [];
+    const addons = Array.isArray(item.addons) ? item.addons : [];
+    return `<article class="special-card" style="border-top:4px solid ${accent};">
+      <div class="special-tag" style="background:${accent};color:${badgeText};">${hammerEscape(item.badge || "Special")}</div>
+      <h3>${hammerEscape(item.title)}</h3>
+      <div class="special-price">${hammerEscape(item.price)}</div>
+      <p class="special-desc">${hammerEscape(item.description)}</p>
+      <ul class="bullets">${features.map(feature => `<li>${feature.bold ? "<strong>" : ""}${hammerEscape(feature.text)}${feature.bold ? "</strong>" : ""}</li>`).join("")}</ul>
+      ${addons.length ? `<div class="special-addons"><h4>Popular Add-Ons</h4><ul class="addon-list">${addons.map(addon => `<li><span>${hammerEscape(addon.name)}</span><span class="addon-price">${hammerEscape(addon.price)}</span></li>`).join("")}</ul></div>` : ""}
+      ${item.requirements ? `<div class="special-protection"><strong>Client Requirements:</strong> ${hammerEscape(item.requirements)}</div>` : ""}
+      <a class="btn" href="/contact.html">${hammerEscape(item.buttonText || "Ask About This Special")}</a>
+    </article>`;
+  }).join("");
+}
+
+function hammerRenderSpecialsPage(data) {
+  if (hammerSlug() !== "monthly-specials" || !data || !Array.isArray(data.specials)) return;
+  const grid = document.querySelector("main .specials-grid");
+  if (!grid) return;
+  const section = grid.closest("section");
+  const heading = section && section.querySelector("h2");
+  const intro = section && section.querySelector("h2 + p");
+  if (heading && data.heading) heading.textContent = data.heading;
+  if (intro && data.subheading) intro.textContent = data.subheading;
+  grid.innerHTML = hammerRenderSpecialCards(data.specials.filter(hammerSpecialIsCurrent));
+}
+
+function refreshHammerContentControls() {
+  return Promise.all([
+    hammerFetchJson("/site-data/pages.json"),
+    hammerFetchJson("/site-data/areas.json"),
+    hammerFetchJson("/site-data/services.json"),
+    hammerFetchJson("/site-data/homepage.json"),
+    hammerFetchJson("/site-data/faqs.json"),
+    hammerFetchJson("/site-data/reviews.json"),
+    hammerFetchJson("/site-data/specials.json")
+  ]).then(([pages, areas, services, homepage, faqs, reviews, specials]) => {
+    hammerApplyPageControls(pages);
+    hammerApplyAreaControls(areas);
+    hammerRenderHomeAreas(areas, homepage);
+    hammerRenderSignatureServices(services);
+    hammerRenderFaqPage(faqs);
+    hammerRenderReviewsPage(reviews);
+    hammerRenderSpecialsPage(specials);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", refreshHammerContentControls);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const includes = [document.getElementById("header-include"), document.getElementById("footer-include")].filter(Boolean);
+  if (!includes.length || typeof MutationObserver === "undefined") return;
+  let scheduled = false;
+  const observer = new MutationObserver(() => {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(() => {
+      scheduled = false;
+      Promise.all([
+        hammerFetchJson("/site-data/pages.json"),
+        hammerFetchJson("/site-data/areas.json"),
+        loadHammerBusinessSettings()
+      ]).then(([pages, areas, business]) => {
+        hammerApplyPageControls(pages);
+        hammerApplyAreaControls(areas);
+        applyHammerBusinessSettings(business);
+        initHeaderInteractions();
+      });
+    });
+  });
+  includes.forEach(element => observer.observe(element, { childList: true }));
+});
+
 
 /* ============================================================
    HAMMER BRICK PUBLIC BUSINESS SETTINGS
@@ -358,8 +738,20 @@ function applyHammerBusinessSettings(data) {
   const brandSub = document.querySelector(".brand-sub");
   if (brandSub && data.headerTagline) brandSub.textContent = data.headerTagline;
 
+  const stickyContact = document.querySelector(".sticky-quick-btn");
+  if (stickyContact) stickyContact.style.display = data.showStickyContact === false ? "none" : "";
+
+  const quickHeading = document.querySelector("#quick-contact-panel h2");
+  if (quickHeading && data.contactPanelHeading) quickHeading.textContent = data.contactPanelHeading;
+
   const footer = document.querySelector(".site-footer");
   if (footer) {
+    const footerQuickLinks = footer.querySelector('nav[aria-label="Quick Links"]');
+    if (footerQuickLinks) footerQuickLinks.style.display = data.showFooterQuickLinks === false ? "none" : "";
+
+    const footerSocials = footer.querySelector(".social-links");
+    if (footerSocials) footerSocials.style.display = data.showSocialLinks === false ? "none" : "flex";
+
     const copyrightStrong = footer.querySelector("div strong");
     if (copyrightStrong && data.businessName) copyrightStrong.textContent = data.businessName;
 
@@ -370,6 +762,9 @@ function applyHammerBusinessSettings(data) {
       }
       if (text.includes("Licensed, Bonded & Insured") && data.epaLabel) {
         div.textContent = `Licensed, Bonded & Insured · ${data.epaLabel}`;
+      }
+      if (data.footerTagline && text.includes("Luxury Remodeling") && text.includes("Custom Brickwork")) {
+        div.textContent = data.footerTagline;
       }
     });
 
@@ -435,6 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // ✅ FIXED: Initialize menu here, once header is in DOM
       initHeaderInteractions();
       refreshHammerBusinessSettings();
+      refreshHammerContentControls();
     });
   }
 });
