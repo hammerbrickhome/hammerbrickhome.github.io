@@ -27,7 +27,7 @@
   "showBeforeAfter": true,
   "showGuarantee": true,
   "showReviews": true,
-  "showServiceAreas": true,
+  "showServiceAreas": false,
   "showServiceArea": true,
   "showFaq": true,
   "tierHeading": "Your Budget, Your Choice",

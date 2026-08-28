@@ -15,31 +15,174 @@
 </script>
 
 <style>
-  /* =========================================
-     FIX: STICKY "GLASS" HEADER (Final Robust Code)
-     ========================================= */
-  .topbar {
-    position: fixed !important; /* Locks to top */
+  /* Compact glass header. The wrapper stays in normal page flow so the
+     header never covers the first part of a page. */
+  #header-include {
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999; /* Stays on top of everything */
-    
-    /* THE GLASS EFFECT FIX */
-    background: rgba(3, 8, 16, 0.85); /* More transparent so blur is visible */
-    backdrop-filter: blur(20px);      /* Strong blur */
-    -webkit-backdrop-filter: blur(20px); /* Safari/iPhone support */
-    
-    /* HARDWARE ACCELERATION TRICK: FORCES GPU RENDERING */
-    transform: translateZ(0); 
-    
-    border-bottom: 1px solid rgba(231,191,99,0.2);
-    transition: all 0.3s ease;
+    z-index: 10000;
   }
 
-  /* Push content down so it doesn't hide behind the fixed header */
+  .topbar {
+    position: relative !important;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(3, 8, 16, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform: translateZ(0);
+    border-bottom: 1px solid rgba(231,191,99,0.2);
+    transition: background-color 0.25s ease;
+  }
+
   body {
-    padding-top: 80px; 
+    padding-top: 0 !important;
+  }
+
+  .topbar-inner {
+    max-width: 1440px;
+    min-height: 70px;
+    padding: 7px 16px;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .brand-lockup {
+    flex: 1 1 330px;
+    min-width: 270px;
+    max-width: 430px;
+  }
+
+  .brand-logo {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+
+  .brand-sub {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .main-nav {
+    flex: 0 0 auto;
+    gap: 2px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .main-nav > a,
+  .main-nav > .dropdown > .dropbtn {
+    padding: 7px 8px;
+  }
+
+  .dropdown-content {
+    white-space: normal;
+  }
+
+  .dropdown.show > .dropdown-content {
+    display: block;
+  }
+
+  @media (max-width: 1180px) {
+    .topbar-inner {
+      min-height: 66px;
+      padding: 7px 14px;
+    }
+
+    .brand-lockup {
+      min-width: 0;
+      max-width: calc(100% - 64px);
+    }
+
+    .nav-toggle {
+      display: block;
+      font-size: 28px;
+      padding: 4px 10px;
+      color: #e7bf63;
+    }
+
+    .main-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-height: calc(100vh - 66px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 6px 0 10px;
+      background: rgba(4, 12, 22, 0.98);
+      border-bottom: 2px solid #e7bf63;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.9);
+      opacity: 1;
+      transform: none;
+      white-space: normal;
+    }
+
+    .main-nav.show {
+      display: flex;
+    }
+
+    .main-nav > a,
+    .main-nav > .dropdown > .dropbtn {
+      display: block;
+      width: 100%;
+      padding: 10px 18px;
+      font-size: 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+
+    .dropdown {
+      width: 100%;
+    }
+
+    .dropdown-content,
+    .dropdown:hover > .dropdown-content {
+      display: none !important;
+      position: static;
+      width: 100%;
+      min-width: 0;
+      background: rgba(0,0,0,0.28);
+      border: 0;
+      border-left: 2px solid #e7bf63;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .dropdown.show > .dropdown-content {
+      display: block !important;
+    }
+
+    .dropdown-content a {
+      padding: 9px 18px 9px 34px;
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .brand-sub {
+      display: none;
+    }
+
+    .brand-name {
+      font-size: 14px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      flex-basis: 44px;
+    }
   }
 
   /* =========================================
@@ -103,16 +246,13 @@
       </div>
     </a>
 
-    <button class="nav-toggle" aria-label="Open menu">☰</button>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
 
     <nav class="main-nav" aria-label="Primary Navigation">
 
       <a href="/">Home</a>
-      <a href="/about.html">Our Story</a>
       <a href="/services.html">What We Do</a>
-
       <a href="/gallery.html">Portfolio</a>
-
       <a href="/reviews.html">Client Reviews</a>
 
       <div class="dropdown">
@@ -124,17 +264,21 @@
       </div>
 
       <a href="/monthly-specials.html">Seasonal Offers</a>
-      <a href="/downloads.html">Home Care Library</a>
-
-      <a href="/membership.html">Signature Membership (Free)</a>
-
-      <a href="/faq.html">Help Center</a>
-
-      <a href="/areas.html">Service Areas</a>
 
       <div class="dropdown">
-        <a href="#" class="nav-link dropbtn">Choose Your Area ▾</a>
+        <a href="#" class="nav-link dropbtn">More ▾</a>
         <div class="dropdown-content">
+          <a href="/about.html">Our Story</a>
+          <a href="/downloads.html">Home Care Library</a>
+          <a href="/membership.html">Signature Membership (Free)</a>
+          <a href="/faq.html">Help Center</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#" class="nav-link dropbtn">Service Areas ▾</a>
+        <div class="dropdown-content">
+          <a href="/areas.html">All Service Areas</a>
           <a href="/staten-island.html">Staten Island</a>
           <a href="/brooklyn.html">Brooklyn</a>
           <a href="/manhattan.html">Manhattan</a>

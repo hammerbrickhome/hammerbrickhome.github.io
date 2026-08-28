@@ -6,18 +6,35 @@ function initHeaderInteractions() {
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
 
+  const closeMenu = () => {
+    if (!mainNav || !navToggle) return;
+    mainNav.classList.remove('show');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('.dropdown.show').forEach(item => item.classList.remove('show'));
+  };
+
   if (navToggle && mainNav && !navToggle.hasAttribute('data-init')) {
     navToggle.setAttribute('data-init', 'true');
 
     navToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       mainNav.classList.toggle('show');
+      navToggle.setAttribute('aria-expanded', mainNav.classList.contains('show') ? 'true' : 'false');
     });
 
     document.addEventListener('click', (e) => {
       if (!mainNav.contains(e.target) && !navToggle.contains(e.target)) {
-        mainNav.classList.remove('show');
+        closeMenu();
       }
+    });
+
+    mainNav.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (link && !link.classList.contains('dropbtn')) closeMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
     });
   }
 
@@ -31,6 +48,9 @@ function initHeaderInteractions() {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
+        document.querySelectorAll('.dropdown.show').forEach(item => {
+          if (item !== dropdown) item.classList.remove('show');
+        });
         dropdown.classList.toggle('show');
       });
 
@@ -448,6 +468,8 @@ function hammerApplyPageControls(data) {
   }
 
   document.querySelectorAll(".main-nav a[href], .site-footer nav a[href]").forEach(anchor => {
+    const rawHref = anchor.getAttribute("href") || "";
+    if (anchor.classList.contains("dropbtn") || rawHref.startsWith("#")) return;
     const page = pagesByUrl.get(hammerLinkPath(anchor));
     if (!page) return;
     anchor.style.display = (page.active === false || page.showInNavigation === false) ? "none" : "";
