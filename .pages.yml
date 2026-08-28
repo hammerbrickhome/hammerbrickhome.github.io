@@ -29,14 +29,39 @@ content:
       - name: homepage
         label: "Homepage Content"
         type: file
-        path: admin-data/homepage.json
+        path: site-data/homepage.json
         format: json
         fields:
+          - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
+          - {name: announcementText, label: "Announcement Text", type: string, required: false}
+          - {name: announcementButtonText, label: "Announcement Button", type: string, required: false}
+          - {name: announcementButtonUrl, label: "Announcement Link", type: string, required: false}
           - {name: heroTitle, label: "Hero Headline", type: string}
           - {name: heroText, label: "Hero Intro", type: text}
           - {name: heroPrimaryButtonText, label: "Primary Button", type: string}
           - {name: heroSecondaryButtonText, label: "Secondary Button", type: string}
+          - {name: trustPills, label: "Trust Messages", type: string, list: true, required: false}
+          - {name: showPremiumMaterials, label: "Show Premium Materials", type: boolean, required: false}
           - {name: premiumMaterials, label: "Premium Materials", type: string, list: true}
+          - {name: showSpecials, label: "Show Specials", type: boolean, required: false}
+          - {name: showTiers, label: "Show Estimate Tiers", type: boolean, required: false}
+          - {name: showMembershipServices, label: "Show Membership Services", type: boolean, required: false}
+          - {name: showProcess, label: "Show Process", type: boolean, required: false}
+          - {name: showBeforeAfter, label: "Show Before & After", type: boolean, required: false}
+          - {name: showGuarantee, label: "Show Guarantee", type: boolean, required: false}
+          - {name: showReviews, label: "Show Reviews", type: boolean, required: false}
+          - {name: showServiceArea, label: "Show Service Area", type: boolean, required: false}
+          - {name: showFaq, label: "Show FAQs", type: boolean, required: false}
+          - {name: tierHeading, label: "Tier Heading", type: string, required: false}
+          - {name: tierText, label: "Tier Introduction", type: text, required: false}
+          - {name: processHeading, label: "Process Heading", type: string, required: false}
+          - {name: beforeAfterHeading, label: "Before & After Heading", type: string, required: false}
+          - {name: beforeAfterNote, label: "Before & After Note", type: text, required: false}
+          - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
+          - {name: guaranteeText, label: "Guarantee Text", type: text, required: false}
+          - {name: guaranteeSignature, label: "Guarantee Signature", type: string, required: false}
+          - {name: whyNeighborsTitle, label: "Why Neighbors Title", type: string, required: false}
+          - {name: whyNeighborsText, label: "Why Neighbors Text", type: text, required: false}
           - {name: reviewEyebrow, label: "Review Eyebrow", type: string}
           - {name: reviewHeading, label: "Review Heading", type: string}
           - {name: reviewIntro, label: "Review Intro", type: text}
@@ -48,7 +73,7 @@ content:
       - name: business
         label: "Business Settings"
         type: file
-        path: admin-data/business.json
+        path: site-data/business.json
         format: json
         fields:
           - {name: businessName, label: "Business Name", type: string}
@@ -58,6 +83,7 @@ content:
           - {name: nycHic, label: "NYC HIC", type: string}
           - {name: njHic, label: "NJ HIC", type: string}
           - {name: epaLabel, label: "EPA Wording", type: string}
+          - {name: headerTagline, label: "Header Tagline", type: text, required: false}
           - {name: serviceAreas, label: "Service Areas", type: string, list: true}
           - {name: facebook, label: "Facebook", type: string, required: false}
           - {name: instagram, label: "Instagram", type: string, required: false}
@@ -72,7 +98,7 @@ content:
       - name: specials
         label: "Monthly Specials"
         type: file
-        path: admin-data/specials.json
+        path: site-data/specials.json
         format: json
         fields:
           - {name: heading, label: "Heading", type: string}
@@ -89,10 +115,22 @@ content:
               - {name: active, label: "Active", type: boolean}
               - {name: badge, label: "Badge", type: string}
               - {name: accentColor, label: "Accent Color", type: string}
+              - {name: badgeTextColor, label: "Badge Text Color", type: string, required: false}
+              - {name: startDate, label: "Start Date (YYYY-MM-DD)", type: string, required: false}
+              - {name: endDate, label: "End Date (YYYY-MM-DD)", type: string, required: false}
               - {name: title, label: "Title", type: string}
               - {name: price, label: "Price", type: string}
               - {name: description, label: "Description", type: text}
-              - {name: features, label: "Included Work", type: string, list: true}
+              - name: features
+                label: "Included Work"
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{text}"
+                fields:
+                  - {name: text, label: "Item", type: string}
+                  - {name: bold, label: "Bold", type: boolean, required: false}
               - name: addons
                 label: "Add-Ons"
                 type: object
@@ -109,9 +147,11 @@ content:
       - name: reviews
         label: "Customer Reviews"
         type: file
-        path: admin-data/reviews.json
+        path: site-data/reviews.json
         format: json
         fields:
+          - {name: eyebrow, label: "Review Eyebrow", type: string, required: false}
+          - {name: heading, label: "Review Heading", type: string, required: false}
           - {name: reviewUrl, label: "Google Reviews URL", type: string}
           - name: reviews
             label: "Reviews"
@@ -131,9 +171,10 @@ content:
       - name: faqs
         label: "Common Questions"
         type: file
-        path: admin-data/faqs.json
+        path: site-data/faqs.json
         format: json
         fields:
+          - {name: heading, label: "FAQ Heading", type: string, required: false}
           - name: items
             label: "Questions"
             type: object
@@ -381,42 +422,6 @@ content:
               - {name: reason, label: "Why It Is Listed", type: text}
 
 actions:
-  - name: apply-homepage
-    label: "Apply Homepage Content"
-    workflow: master-apply-homepage.yml
-    ref: current
-    confirm:
-      title: "Apply saved homepage content?"
-      message: "This is the only master-admin action that rewrites index.html. It stops without writing if the current working homepage landmarks do not match."
-      button: "Apply Homepage"
-
-  - name: apply-business
-    label: "Apply Business Settings"
-    workflow: master-apply-business.yml
-    ref: current
-    confirm:
-      title: "Apply public business settings?"
-      message: "Updates known public phone, email and HIC values."
-      button: "Apply Business Settings"
-
-  - name: apply-estimator
-    label: "Apply Estimator Factors"
-    workflow: master-apply-estimator.yml
-    ref: current
-    confirm:
-      title: "Apply estimator factors?"
-      message: "This safe version changes only borough, finish and urgency factors."
-      button: "Apply Factors"
-
-  - name: master-audit
-    label: "Run Master Site Audit"
-    workflow: master-site-audit.yml
-    ref: current
-    confirm:
-      title: "Run website audit?"
-      message: "Report only. Does not change live website content."
-      button: "Run Audit"
-
   - name: scan-unused-gallery-images
     label: "Scan Unused Images"
     workflow: gallery-image-cleanup.yml
@@ -434,3 +439,4 @@ actions:
       title: "Delete reviewed unused images?"
       message: "Only files still verified as unused by the existing cleanup workflow should be deleted."
       button: "Delete Verified Images"
+
