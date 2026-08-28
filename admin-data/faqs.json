@@ -1,8 +1,0 @@
-{
-  "items": [
-    {"active": true, "question": "Do you provide free estimates?", "answer": "Yes. We provide clear, itemized written estimates."},
-    {"active": true, "question": "Are you licensed and insured in NYC?", "answer": "Yes. Hammer Brick & Home LLC is licensed, bonded and insured. NYC HIC #2131291."},
-    {"active": true, "question": "Do you handle permits?", "answer": "When permits are required, we explain the process and can coordinate with the appropriate licensed professionals."},
-    {"active": true, "question": "What areas do you serve?", "answer": "We serve Staten Island, Brooklyn, Queens, Manhattan, the Bronx and select New Jersey areas."}
-  ]
-}
