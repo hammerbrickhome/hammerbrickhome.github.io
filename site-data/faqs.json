@@ -25,7 +25,7 @@
       "active": false
     },
     {
-      "active": false,
+      "active": true,
       "question": "do you work on weekned ?",
       "answer": "yes "
     }
