@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "active": true,
+      "question": "Do you provide free estimates?",
+      "answer": "Yes. We provide clear, itemized written estimates."
+    },
+    {
+      "active": true,
+      "question": "Are you licensed and insured in NYC?",
+      "answer": "Absolutely. Licensed, Bonded & Insured. HIC #2131291. COIs available."
+    },
+    {
+      "active": true,
+      "question": "Do you handle permits?",
+      "answer": "Yes, we work with licensed architects for DOB filings."
+    },
+    {
+      "active": true,
+      "question": "What areas do you serve?",
+      "answer": "Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ."
+    }
+  ]
+}
