@@ -108,7 +108,7 @@
       "service": "Skylight Frames & Wall Repair"
     },
     {
-      "active": false,
+      "active": true,
       "name": "nomi",
       "rating": 8,
       "review": "HI NOMI "
