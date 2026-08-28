@@ -50,6 +50,7 @@ content:
           - {name: showBeforeAfter, label: "Show Before & After", type: boolean, required: false}
           - {name: showGuarantee, label: "Show Guarantee", type: boolean, required: false}
           - {name: showReviews, label: "Show Reviews", type: boolean, required: false}
+          - {name: showServiceAreas, label: "Show Service Area Page Cards", type: boolean, required: false, default: true}
           - {name: showServiceArea, label: "Show Service Area", type: boolean, required: false}
           - {name: showFaq, label: "Show FAQs", type: boolean, required: false}
           - {name: tierHeading, label: "Tier Heading", type: string, required: false}
@@ -67,6 +68,8 @@ content:
           - {name: reviewIntro, label: "Review Intro", type: text}
           - {name: reviewButtonText, label: "Review Button", type: string}
           - {name: faqHeading, label: "FAQ Heading", type: string}
+          - {name: serviceAreasHeading, label: "Service Area Cards Heading", type: string, required: false}
+          - {name: serviceAreasIntro, label: "Service Area Cards Intro", type: text, required: false}
           - {name: serviceAreaHeading, label: "Service Area Heading", type: string}
           - {name: serviceAreaIntro, label: "Service Area Intro", type: text}
 
@@ -84,11 +87,237 @@ content:
           - {name: njHic, label: "NJ HIC", type: string}
           - {name: epaLabel, label: "EPA Wording", type: string}
           - {name: headerTagline, label: "Header Tagline", type: text, required: false}
+          - {name: showStickyContact, label: "Show Floating Contact Button", type: boolean, required: false, default: true}
+          - {name: showFooterQuickLinks, label: "Show Footer Quick Links", type: boolean, required: false, default: true}
+          - {name: showSocialLinks, label: "Show Social Icons", type: boolean, required: false, default: true}
+          - {name: footerTagline, label: "Footer Tagline", type: string, required: false}
+          - {name: contactPanelHeading, label: "Contact Panel Heading", type: string, required: false}
           - {name: serviceAreas, label: "Service Areas", type: string, list: true}
           - {name: facebook, label: "Facebook", type: string, required: false}
           - {name: instagram, label: "Instagram", type: string, required: false}
           - {name: youtube, label: "YouTube", type: string, required: false}
           - {name: googleReviewsUrl, label: "Google Reviews URL", type: string, required: false}
+
+      - name: page_control
+        label: "All Website Pages"
+        type: file
+        path: site-data/pages.json
+        format: json
+        fields:
+          - name: pages
+            label: "Pages"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{menuLabel} — {url}"
+            fields:
+              - {name: active, label: "Page Active", type: boolean, default: true, description: "Turn off to remove the page from menus and search indexing without deleting the HTML file."}
+              - {name: showInNavigation, label: "Show In Main Menu", type: boolean, default: true}
+              - {name: slug, label: "Page ID", type: string, readonly: true}
+              - {name: url, label: "Page URL", type: string, readonly: true}
+              - {name: menuLabel, label: "Menu Label", type: string}
+              - {name: showHero, label: "Show Hero Section", type: boolean, default: true}
+              - {name: heroTitle, label: "Page Main Heading", type: string, required: false}
+              - {name: heroText, label: "Page Intro Text", type: text, required: false}
+              - {name: showCustomSection, label: "Show Extra Editable Section", type: boolean, default: false}
+              - {name: sectionHeading, label: "Extra Section Heading", type: string, required: false}
+              - {name: sectionText, label: "Extra Section Text", type: text, required: false}
+              - {name: buttonText, label: "Extra Section Button", type: string, required: false}
+              - {name: buttonUrl, label: "Extra Section Button Link", type: string, required: false}
+              - {name: seoTitle, label: "Browser / SEO Title", type: string, required: false}
+              - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+  - name: services_and_areas
+    label: "🗺️ Services & Areas"
+    type: group
+    items:
+
+      - name: signature_services
+        label: "Homepage Signature Services"
+        type: file
+        path: site-data/services.json
+        format: json
+        fields:
+          - {name: heading, label: "Heading", type: string}
+          - {name: intro, label: "Admin Note", type: text, required: false}
+          - name: services
+            label: "Services"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - {name: active, label: "Service Active", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
+              - {name: title, label: "Service Name", type: string}
+              - {name: url, label: "Link", type: string}
+              - name: style
+                label: "Button Color"
+                type: select
+                default: gold
+                options:
+                  values: [gold, white, blue, cyan, green, red]
+
+      - name: live_area_pages
+        label: "Area Menu, Cards & Toggles"
+        type: file
+        path: site-data/areas.json
+        format: json
+        fields:
+          - {name: heading, label: "Homepage Area Heading", type: string}
+          - {name: intro, label: "Homepage Area Intro", type: text}
+          - name: areas
+            label: "Areas"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name} — {url}"
+            fields:
+              - {name: active, label: "Area Page Active", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
+              - {name: name, label: "Area Name", type: string}
+              - {name: slug, label: "Page ID", type: string, readonly: true}
+              - {name: url, label: "Page URL", type: string, readonly: true}
+              - {name: cardText, label: "Homepage Card Text", type: text}
+              - {name: heroTitle, label: "Page Main Heading", type: string}
+              - {name: heroText, label: "Page Intro", type: text}
+              - {name: sectionTitle, label: "Main Section Heading", type: string, required: false}
+              - {name: sectionText, label: "Main Section Text", type: text, required: false}
+              - {name: featuredServices, label: "Featured Services", type: string, list: true, required: false}
+              - {name: neighborhoods, label: "Neighborhoods / Towns", type: string, list: true, required: false}
+              - {name: ctaTitle, label: "Call-To-Action Heading", type: string, required: false}
+              - {name: ctaText, label: "Call-To-Action Text", type: text, required: false}
+              - {name: seoTitle, label: "SEO Title", type: string, required: false}
+              - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+      - name: staten_island_page
+        label: "Staten Island Page"
+        type: file
+        path: content/areas/staten-island.json
+        format: json
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: brooklyn_page
+        label: "Brooklyn Page"
+        type: file
+        path: content/areas/brooklyn.json
+        format: json
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: queens_page
+        label: "Queens Page"
+        type: file
+        path: content/areas/queens.json
+        format: json
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: manhattan_page
+        label: "Manhattan Page"
+        type: file
+        path: content/areas/manhattan.json
+        format: json
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: bronx_page
+        label: "Bronx Page"
+        type: file
+        path: content/areas/bronx.json
+        format: json
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: new_jersey_page
+        label: "New Jersey Page"
+        type: file
+        path: content/areas/new-jersey.json
+        format: json
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Towns", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
 
   - name: marketing
     label: "📣 Marketing"
@@ -113,6 +342,7 @@ content:
                 summary: "{title} — {price}"
             fields:
               - {name: active, label: "Active", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
               - {name: badge, label: "Badge", type: string}
               - {name: accentColor, label: "Accent Color", type: string}
               - {name: badgeTextColor, label: "Badge Text Color", type: string, required: false}
@@ -162,6 +392,7 @@ content:
                 summary: "{name} — {service}"
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
               - {name: name, label: "Customer Name", type: string}
               - {name: rating, label: "Stars", type: number, default: 5, options: {min: 1, max: 5}}
               - {name: source, label: "Source", type: string, default: "Google Review"}
@@ -184,6 +415,8 @@ content:
                 summary: "{question}"
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: false}
+              - {name: category, label: "Category", type: string, required: false}
               - {name: question, label: "Question", type: string}
               - {name: answer, label: "Answer", type: text}
 
@@ -206,6 +439,7 @@ content:
                 collapsed: true
                 summary: "{label} — #{index}"
             fields:
+              - {name: active, label: "Show", type: boolean, default: true}
               - {name: before, label: "Before Photo", type: image, required: false, options: {media: project_images}}
               - {name: after, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: label, label: "Project Title", type: string}
@@ -219,6 +453,7 @@ content:
                 collapsed: true
                 summary: "{label} — #{index}"
             fields:
+              - {name: active, label: "Show", type: boolean, default: true}
               - {name: before, label: "Before Photo", type: image, required: false, options: {media: project_images}}
               - {name: after, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: label, label: "Project Title", type: string}
@@ -232,6 +467,7 @@ content:
                 collapsed: true
                 summary: "Photo #{index}"
             fields:
+              - {name: active, label: "Show", type: boolean, default: true}
               - {name: name, label: "Photo", type: image, options: {media: project_images}}
               - {name: tags, label: "Tags", type: string, list: true, required: false}
 
