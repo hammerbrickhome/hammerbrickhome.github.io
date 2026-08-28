@@ -1,0 +1,1742 @@
+/************** TEMPLATE FILE IDs **************/
+const ESTIMATE_TEMPLATE_ID = '1Ki9aqNXOhiipC5qW3Ji43azdZwP3DyTzGTa6rusaRdM';
+const INVOICE_TEMPLATE_ID  = '1Rs7700GqDFRCA1sWVdbe9Goj6-2gCCUp81wUrximT24';
+
+/************** SHEET NAMES **************/
+const SH = {
+  SETTINGS: 'Settings', CLIENTS: 'Clients', ITEMS: 'Items', AUTOIDS: 'AutoIDs',
+  ESTIMATES: 'Estimates', EST_LINES: 'EstimateLines',
+  INVOICES: 'Invoices', INV_LINES: 'InvoiceLines',
+  PAYMENTS: 'Payments'
+};
+
+/************** HBH CONTACT (for newsletter HTML footer/buttons) **************/
+const HBH_CONTACT = {
+  phoneDisplay: '929 595 5300',
+  websiteUrl: 'https://www.hammerbrickhome.com',
+  instagramHandle: 'hammerbrickhome',
+  testEmail: 'hammerbrickhome@gmail.com'
+};
+
+/************** UTILITIES **************/
+function gs(n){ return SpreadsheetApp.getActive().getSheetByName(n); }
+function today(){ return Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'); }
+
+function settings(){
+  const rows = gs(SH.SETTINGS).getDataRange().getValues();
+  const s = {};
+  rows.slice(1).forEach(r => s[r[0]] = r[1]);
+  return s;
+}
+
+/************** AUTO ID GENERATOR **************/
+function nextId(type){
+  const sh = gs(SH.AUTOIDS);
+  const rows = sh.getDataRange().getValues();
+  const d = new Date();
+  const mm = Utilities.formatDate(d, Session.getScriptTimeZone(), "MM");
+  const yyyy = Utilities.formatDate(d, Session.getScriptTimeZone(), "yyyy");
+  for(let r=1; r<rows.length; r++){
+    if(rows[r][0] === type){
+      let seq = rows[r][3] || 1;
+      let prefix = rows[r][1];
+      const id = `${prefix}-${yyyy}${mm}-${String(seq).padStart(3,'0')}`;
+      sh.getRange(r+1,4).setValue(seq + 1);
+      return id;
+    }
+  }
+  throw new Error("Missing AutoID type " + type);
+}
+
+/************** CLIENT LOOKUPS **************/
+function getClient(cid){
+  const rows = gs(SH.CLIENTS).getDataRange().getValues();
+  for(let r=1;r<rows.length;r++){
+    if(String(rows[r][0]).trim() === String(cid).trim()){
+      return { id:rows[r][0], name:rows[r][1], email:rows[r][2], phone:rows[r][3], bill:rows[r][4], site:rows[r][5] };
+    }
+  }
+  throw "Client not found: "+cid;
+}
+
+// Flexible resolver: accepts ID, Name, or "ID — Name" (from dropdown)
+function getClientFlex_(key){
+  if(!key) throw "Missing client key";
+  let k = String(key).trim();
+
+  const dashIdx = k.indexOf('—'); // em dash
+  if(dashIdx > -1){
+    k = k.slice(0, dashIdx).trim();
+  }
+
+  const rows = gs(SH.CLIENTS).getDataRange().getValues();
+
+  // Try ID first
+  for(let r=1;r<rows.length;r++){
+    const id = String(rows[r][0]).trim();
+    const name = String(rows[r][1]).trim();
+    if (id === k){
+      return { id, name, email:rows[r][2], phone:rows[r][3], bill:rows[r][4], site:rows[r][5] };
+    }
+  }
+
+  // Then try Name (case-insensitive)
+  const kLower = k.toLowerCase();
+  for(let r=1;r<rows.length;r++){
+    const id = String(rows[r][0]).trim();
+    const name = String(rows[r][1]).trim();
+    if (name.toLowerCase() === kLower){
+      return { id, name, email:rows[r][2], phone:rows[r][3], bill:rows[r][4], site:rows[r][5] };
+    }
+  }
+
+  throw "Client not found (ID/Name): "+key;
+}
+
+/************** AUTO-START BLOCK FOR LINES **************/
+function autoStartBlockIfNeeded_(linesSheetName, newId){
+  const sh = gs(linesSheetName);
+  const data = sh.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++){
+    const id = data[i][0];
+    const itemCode = data[i][2];
+    const otherHasData = data[i].slice(3,9).some(v => String(v) !== '');
+    if (!id && (itemCode || otherHasData)) return;
+  }
+  const lastRowValues = data[data.length - 1] || [];
+  const isLastBlank = lastRowValues.every(v => v === '');
+  let targetRow = data.length;
+  if (!isLastBlank){
+    sh.insertRowsAfter(data.length, 1);
+    targetRow = data.length + 1;
+  }
+  sh.getRange(targetRow, 1).setValue(newId);
+}
+
+/************** FILL LINES **************/
+function fillPendingInvoiceLinesWithId_(invoiceId){
+  const sh = gs(SH.INV_LINES);
+  const last = sh.getLastRow();
+  for(let r=2; r<=last; r++){
+    const currentId = sh.getRange(r,1).getValue();
+    const itemCode  = sh.getRange(r,3).getValue();
+    if(!currentId && itemCode){ sh.getRange(r,1).setValue(invoiceId); }
+  }
+}
+function fillPendingEstimateLinesWithId_(estimateId){
+  const sh = gs(SH.EST_LINES);
+  const last = sh.getLastRow();
+  for(let r=2; r<=last; r++){
+    const currentId = sh.getRange(r,1).getValue();
+    const itemCode  = sh.getRange(r,3).getValue();
+    if(!currentId && itemCode){ sh.getRange(r,1).setValue(estimateId); }
+  }
+}
+
+/************** DOC BUILD **************/
+function buildDoc_(tid,map){
+  const src = DriveApp.getFileById(tid);
+  const file = src.makeCopy(map.DocNumber);
+  const doc = DocumentApp.openById(file.getId());
+  const body = doc.getBody();
+  Object.keys(map).forEach(k=>body.replaceText('{{'+k+'}}', map[k] ?? ''));
+  return doc;
+}
+function insertLines_(doc, lines){
+  const table = doc.getBody().getTables()[0];
+  while(table.getNumRows() > 1) table.removeRow(1);
+  lines.forEach(r=>{
+    const tr = table.appendTableRow();
+    r.forEach(c=>tr.appendTableCell(String(c)));
+  });
+}
+
+/************** ========== AUDIT / TAX HELPERS ========== **************/
+const AUDIT_SHEET = "HBH_AUDIT_LOG";
+
+function ensureAuditSheet_(){
+  let sh = gs(AUDIT_SHEET);
+  if (!sh){
+    sh = SpreadsheetApp.getActive().insertSheet(AUDIT_SHEET);
+    sh.getRange(1,1,1,14).setValues([[
+      "Timestamp","UserEmail","DocType","DocID","ClientID","ClientName",
+      "Subtotal","Tax","Total","PDF_URL","PDF_SHA256",
+      "HeaderJSON","LinesJSON","Note"
+    ]]);
+    sh.setFrozenRows(1);
+  }
+  return sh;
+}
+
+// Return best-effort user email (may be blank on consumer accounts)
+function who_(){
+  return (Session.getActiveUser() && Session.getActiveUser().getEmail()) ||
+         (Session.getEffectiveUser() && Session.getEffectiveUser().getEmail()) || "";
+}
+
+function sha256Hex_(blob){
+  const bytes = blob.getBytes();
+  const hash = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, bytes);
+  return hash.map(b => ('0' + (b & 0xFF).toString(16)).slice(-2)).join('');
+}
+
+// Safe stringify (limit size if huge)
+function toJSON_(obj, max=40000){
+  try{
+    const s = JSON.stringify(obj);
+    return s.length > max ? s.slice(0, max) + " …(truncated)" : s;
+  }catch(e){ return ""; }
+}
+
+// Build a compact header snapshot that mirrors what went into the Doc
+function buildHeaderSnapshot_(sheetName, row){
+  const sh = gs(sheetName);
+  const vals = sh.getRange(row,1,1,sh.getLastColumn()).getValues()[0];
+  const hdrs = sh.getRange(1,1,1,sh.getLastColumn()).getValues()[0].map(h=>String(h||""));
+  const obj = {};
+  hdrs.forEach((h,i)=>{ obj[h || ("Col"+(i+1))] = vals[i]; });
+  return obj;
+}
+
+// Collect line items for a given doc id (works for estimates & invoices)
+function collectLinesSnapshot_(linesSheetName, docId){
+  const all = gs(linesSheetName).getDataRange().getValues();
+  const hdr = all[0];
+  const rows = all.slice(1).filter(r => String(r[0]) === String(docId));
+  return rows.map(r=>{
+    const o = {};
+    hdr.forEach((h,i)=>{ o[h || ("Col"+(i+1))] = r[i]; });
+    return o;
+  });
+}
+
+// Append one audit row
+function writeAuditRow_({docType, docId, clientId, clientName, subtotal, tax, total, pdfUrl, pdfBlob, headerObj, linesArr, note}){
+  const sh = ensureAuditSheet_();
+  const email = who_();
+  const hash = pdfBlob ? sha256Hex_(pdfBlob) : "";
+  sh.appendRow([
+    new Date(), email, docType, docId, clientId, clientName,
+    Number(subtotal || 0), Number(tax || 0), Number(total || 0),
+    pdfUrl || "", hash,
+    toJSON_(headerObj), toJSON_(linesArr), note || ""
+  ]);
+}
+
+/************** SAVE PDF TO 3 DESTINATIONS **************/
+function finalizeDoc_(doc, sheet, row) {
+  doc.saveAndClose();
+  const docFile = DriveApp.getFileById(doc.getId());
+  const pdfBlob = docFile.getAs('application/pdf');
+  const pdfName = doc.getName() + ".pdf";
+  const rowData = gs(sheet).getRange(row,1,1,gs(sheet).getLastColumn()).getValues()[0];
+
+  const clientKey = rowData[2];
+  const client = getClientFlex_(clientKey);
+  const clientName = client.name.trim().replace(/[^\w\s-]/g, "");
+
+  // 1️⃣ ALL invoices/estimates folder
+  let master; try { master = DriveApp.getFoldersByName("ALL_Invoices_Estimates").next(); }
+  catch(e){ master = DriveApp.createFolder("ALL_Invoices_Estimates"); }
+  const pdfMaster = master.createFile(pdfBlob).setName(pdfName);
+
+  // 2️⃣ Client folders (NO DATE)
+  let clientRoot; try { clientRoot = DriveApp.getFoldersByName("CLIENT_FOLDERS").next(); }
+  catch(e){ clientRoot = DriveApp.createFolder("CLIENT_FOLDERS"); }
+  let clientFolder; try { clientFolder = clientRoot.getFoldersByName(clientName).next(); }
+  catch(e){ clientFolder = clientRoot.createFolder(clientName); }
+  clientFolder.createFile(pdfBlob).setName(pdfName);
+
+  // 3️⃣ Year/Month/Client under Invoices_PDFs
+  let root; try { root = DriveApp.getFoldersByName("Invoices_PDFs").next(); }
+  catch(e){ root = DriveApp.createFolder("Invoices_PDFs"); }
+
+  const year = new Date().getFullYear().toString();
+  let yearFolder; try { yearFolder = root.getFoldersByName(year).next(); }
+  catch(e){ yearFolder = root.createFolder(year); }
+
+  const monthNum = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "MM");
+  const monthName = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "MMMM");
+  const month = `${monthNum} ${monthName}`;
+  let monthFolder; try { monthFolder = yearFolder.getFoldersByName(month).next(); }
+  catch(e){ monthFolder = yearFolder.createFolder(month); }
+
+  let ymClient; try { ymClient = monthFolder.getFoldersByName(clientName).next(); }
+  catch(e){ ymClient = monthFolder.createFolder(clientName); }
+  ymClient.createFile(pdfBlob).setName(pdfName);
+
+  gs(sheet).getRange(row, gs(sheet).getLastColumn() - 2).setValue(pdfMaster.getUrl());
+
+  // NOTE: Do NOT trash the doc here; callers access it to email the PDF.
+  docFile.setTrashed(true); // ✅ Remove temp Google Doc after PDF created
+
+
+  /***** NEW: build & write audit snapshot (non-blocking) *****/
+  try {
+    const docType = (sheet === SH.INVOICES) ? "Invoice" :
+                    (sheet === SH.ESTIMATES) ? "Estimate" : sheet;
+    const docId   = gs(sheet).getRange(row,1).getValue(); // Col A ID
+    const header  = buildHeaderSnapshot_(sheet, row);
+    const lines   = collectLinesSnapshot_(docType === "Invoice" ? SH.INV_LINES : SH.EST_LINES, docId);
+
+    // Derive money figures (fallback to 0 if missing)
+    const subtotal = Number(header.Subtotal || header["Subtotal"] || 0);
+    const tax      = Number(header.Tax || header["Tax"] || 0);
+    const total    = Number(header.Total || header["Total"] || 0);
+
+    writeAuditRow_({
+      docType, docId,
+      clientId: client.id, clientName: client.name,
+      subtotal, tax, total,
+      pdfUrl: pdfMaster.getUrl(),
+      pdfBlob: pdfBlob,
+      headerObj: header,
+      linesArr: lines,
+      note: "Finalized via finalizeDoc_()"
+    });
+  } catch(e){ /* never break main flow for audit logging */ }
+}
+
+/************** EMAIL / WHATSAPP **************/
+function sendDocEmail_(to,sub,msg,pdf){
+  GmailApp.sendEmail(to,sub,msg,{attachments:[pdf.getAs(MimeType.PDF)]});
+}
+function promptSMSMessage_(phone, pdfUrl, invoiceId) {
+  SpreadsheetApp.getUi().alert("WhatsApp Message", 
+`Invoice ${invoiceId}
+${pdfUrl}
+
+Thank you!`, SpreadsheetApp.getUi().ButtonSet.OK);
+}
+
+/************** TAX **************/
+function calcInvoiceTax(invId){
+  const taxRate = Number(settings().DefaultTaxRate || 0);
+  const rows = gs(SH.INV_LINES).getDataRange().getValues().filter(r=>r[0]==invId);
+  let taxable=0;
+  rows.forEach(r=>{ if(String(r[7]).toLowerCase()==="yes"){ taxable += Number(r[8]||0); }});
+  return Math.round(taxable * taxRate * 100) / 100;
+}
+
+/************** CREATE ESTIMATE **************/
+function createEstimateFromSheet_(row){
+  const sh = gs(SH.ESTIMATES);
+  const v = sh.getRange(row,1,1,sh.getLastColumn()).getValues()[0];
+  const id = nextId("Estimate");
+  sh.getRange(row,1).setValue(id);
+  autoStartBlockIfNeeded_(SH.EST_LINES, id);
+  fillPendingEstimateLinesWithId_(id);
+
+  const c = getClientFlex_(v[2]);
+  const s = settings();
+
+  const lines = gs(SH.EST_LINES).getDataRange().getValues().filter(r=>r[0]===id)
+    .map(r=>[r[2], r[3], r[4], "$"+r[5], r[6]+"%", "$"+r[7]]);
+
+  const mp = {
+    DocNumber:id, DocDate:today(), ClientName:c.name, ClientEmail:c.email, ClientPhone:c.phone,
+    BillingAddress:c.bill, SiteAddress:c.site, Subtotal:"$"+v[6], Tax:"$"+v[7], Total:"$"+v[8],
+    DepositDue:"$"+v[10], DepositPct:v[9]+"%", ValidUntil:v[5], Notes:v[11],
+        
+    ScopeOfWork:v[11] || "",CompanyTagline:s.CompanyTagline, CompanyName:"Hammer Brick & Home LLC"
+  };
+
+  const doc = buildDoc_(ESTIMATE_TEMPLATE_ID,mp);
+  insertLines_(doc,lines);
+  finalizeDoc_(doc,SH.ESTIMATES,row);
+
+  const pdfUrl = sh.getRange(row, sh.getLastColumn()-2).getValue();
+  const pdf = DriveApp.getFileById(doc.getId()).getAs('application/pdf');
+  const ui = SpreadsheetApp.getUi();
+
+  if(c.email && ui.alert("Email Estimate?","Send to "+c.email+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    sendDocEmail_(c.email,"Estimate "+id,"Thank you!",pdf);
+
+  if(c.phone && ui.alert("WhatsApp Estimate?","Send to "+c.phone+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    promptSMSMessage_(c.phone, pdfUrl, id);
+}
+
+/************** CREATE INVOICE (original) **************/
+function createInvoiceFromSheet_(row){
+  const sh = gs(SH.INVOICES);
+  const v = sh.getRange(row,1,1,sh.getLastColumn()).getValues()[0];
+  const id = nextId("Invoice");
+  sh.getRange(row,1).setValue(id);
+  autoStartBlockIfNeeded_(SH.INV_LINES, id);
+  fillPendingInvoiceLinesWithId_(id);
+
+  const c = getClientFlex_(v[2]); 
+  const s = settings();
+
+  const lines = gs(SH.INV_LINES).getDataRange().getValues().filter(r=>r[0]==id);
+  const subtotal = lines.reduce((sum,r)=> sum + Number(r[8]||0),0);
+  const tax = calcInvoiceTax(id); 
+  const total = subtotal + tax;
+  sh.getRange(row,9).setValue(subtotal); 
+  sh.getRange(row,10).setValue(tax); 
+  sh.getRange(row,11).setValue(total);
+
+  const lineFmt = lines.map(r=>[r[2],r[3],r[4],"$"+r[5],r[6]+"%",r[7],"$"+r[8]]);
+  const mp = {
+    DocNumber:id, DocDate:today(), ClientName:c.name, ClientEmail:c.email, ClientPhone:c.phone,
+    BillingAddress:c.bill, SiteAddress:c.site, Subtotal:"$"+subtotal.toFixed(2), Tax:"$"+tax.toFixed(2),
+    Total:"$"+total.toFixed(2), Terms:v[5], DueDate:v[6], Notes:v[16]||"",
+            
+    ScopeOfWork:v[11] || "",CompanyTagline:s.CompanyTagline, CompanyName:"Hammer Brick & Home LLC"
+  };
+
+  const doc = buildDoc_(INVOICE_TEMPLATE_ID,mp);
+  insertLines_(doc,lineFmt);
+  finalizeDoc_(doc,SH.INVOICES,row);
+  const pdfUrl = sh.getRange(row, sh.getLastColumn()-2).getValue();
+  const pdf = DriveApp.getFileById(doc.getId()).getAs('application/pdf');
+  const ui = SpreadsheetApp.getUi();
+
+  if(c.email && ui.alert("Email Invoice?","Send to "+c.email+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    sendDocEmail_(c.email,"Invoice "+id,"Thank you!",pdf);
+
+  if(c.phone && ui.alert("WhatsApp Invoice?","Send to "+c.phone+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    promptSMSMessage_(c.phone, pdfUrl, id);
+}
+
+/************** RE-GENERATE INVOICE **************/
+function regenerateInvoicePDF(){
+  const sh = SpreadsheetApp.getActiveSheet();
+  const row = sh.getActiveRange().getRow();
+  if(sh.getName()!=="Invoices" || row<=1) return SpreadsheetApp.getUi().alert("Select invoice row");
+
+  const v = sh.getRange(row,1,1,sh.getLastColumn()).getValues()[0];
+  const id = v[0]; 
+  const c = getClientFlex_(v[2]); 
+  const s = settings();
+
+  const lines = gs(SH.INV_LINES).getDataRange().getValues().filter(r=>r[0]==id);
+  const subtotal = lines.reduce((sum,r)=> sum + Number(r[8]||0),0);
+  const tax = calcInvoiceTax(id); 
+  const total = subtotal + tax;
+
+  sh.getRange(row,9).setValue(subtotal); 
+  sh.getRange(row,10).setValue(tax); 
+  sh.getRange(row,11).setValue(total);
+
+  const lineFmt = lines.map(r=>[r[2],r[3],r[4],"$"+r[5],r[6]+"%",r[7],"$"+r[8]]);
+  const mp = {
+    DocNumber:id, DocDate:today(), ClientName:c.name, ClientEmail:c.email, ClientPhone:c.phone,
+    BillingAddress:c.bill, SiteAddress:c.site, Subtotal:"$"+subtotal.toFixed(2),
+    Tax:"$"+tax.toFixed(2), Total:"$"+total.toFixed(2), Terms:v[5], DueDate:v[6],
+    Notes:v[16]||"",
+          
+    ScopeOfWork:v[11] || "",};
+
+  const doc = buildDoc_(INVOICE_TEMPLATE_ID,mp);
+  insertLines_(doc,lineFmt);
+  finalizeDoc_(doc,SH.INVOICES,row);
+
+  const pdfUrl = sh.getRange(row, sh.getLastColumn()-2).getValue();
+  const pdf = DriveApp.getFileById(doc.getId()).getAs('application/pdf');
+  const ui = SpreadsheetApp.getUi();
+  ui.alert("✅ Invoice updated (same ID)");
+
+  if(c.email && ui.alert("Email Updated Invoice?","Send to "+c.email+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    sendDocEmail_(c.email,"Updated Invoice "+id,"Updated invoice attached.",pdf);
+
+  if(c.phone && ui.alert("WhatsApp Updated Invoice?","Send to "+c.phone+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    promptSMSMessage_(c.phone, pdfUrl, id);
+}
+
+/************** RE-GENERATE ESTIMATE **************/
+function regenerateEstimatePDF(){
+  const sh = SpreadsheetApp.getActiveSheet();
+  const row = sh.getActiveRange().getRow();
+  if(sh.getName()!=="Estimates" || row<=1) return SpreadsheetApp.getUi().alert("Select estimate row");
+
+  const v = sh.getRange(row,1,1,sh.getLastColumn()).getValues()[0];
+  const id = v[0]; 
+  const c = getClientFlex_(v[2]); 
+  const s = settings();
+
+  const lines = gs(SH.EST_LINES).getDataRange().getValues().filter(r=>r[0]==id)
+    .map(r=>[r[2],r[3],r[4],"$"+r[5],r[6]+"%","$"+r[7]]);
+
+  const mp = {
+    DocNumber:id, DocDate:today(), ClientName:c.name, ClientEmail:c.email, ClientPhone:c.phone,
+    BillingAddress:c.bill, SiteAddress:c.site, Subtotal:"$"+v[6], Tax:"$"+v[7], Total:"$"+v[8],
+    DepositDue:"$"+v[10], DepositPct:v[9]+"%", ValidUntil:v[5], Notes:v[11],
+        
+    ScopeOfWork:v[11] || "",CompanyTagline:s.CompanyTagline, CompanyName:"Hammer Brick & Home LLC"
+  };
+
+  const doc = buildDoc_(ESTIMATE_TEMPLATE_ID,mp);
+  insertLines_(doc,lines);
+  finalizeDoc_(doc,SH.ESTIMATES,row);
+
+  const pdfUrl = sh.getRange(row, sh.getLastColumn()-2).getValue();
+  const pdf = DriveApp.getFileById(doc.getId()).getAs('application/pdf');
+  const ui = SpreadsheetApp.getUi();
+  ui.alert("✅ Estimate updated (same ID)");
+
+  if(c.email && ui.alert("Email Updated Estimate?","Send to "+c.email+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    sendDocEmail_(c.email,"Updated Estimate "+id,"Updated estimate attached.",pdf);
+
+  if(c.phone && ui.alert("WhatsApp Updated Estimate?","Send to "+c.phone+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    promptSMSMessage_(c.phone, pdfUrl, id);
+}
+
+/************** VIEW PDF BUTTONS **************/
+function viewInvoicePDF(){
+  const sh = SpreadsheetApp.getActiveSheet();
+  const row = sh.getActiveRange().getRow();
+  if(sh.getName()!=="Invoices" || row<=1) return;
+  const url = sh.getRange(row, sh.getLastColumn()-2).getValue();
+  if(!url) return SpreadsheetApp.getUi().alert("No PDF found");
+  SpreadsheetApp.getUi().showModalDialog(
+    HtmlService.createHtmlOutput(`<script>window.open("${url}")</script>`),
+    "Opening Invoice PDF…"
+  );
+}
+function viewEstimatePDF(){
+  const sh = SpreadsheetApp.getActiveSheet();
+  const row = sh.getActiveRange().getRow();
+  if(sh.getName()!=="Estimates" || row<=1) return;
+  const url = sh.getRange(row, sh.getLastColumn()-2).getValue();
+  if(!url) return SpreadsheetApp.getUi().alert("No PDF found");
+  SpreadsheetApp.getUi().showModalDialog(
+    HtmlService.createHtmlOutput(`<script>window.open("${url}")</script>`),
+    "Opening Estimate PDF…"
+  );
+}
+
+/************** CLIENT DROPDOWNS (ID — Name) **************/
+function refreshClientDropdowns_(){
+  const clients = gs(SH.CLIENTS).getDataRange().getValues().slice(1)
+    .filter(r => r[0] && r[1]);
+
+  const list = clients.map(r => `${String(r[0]).trim()} — ${String(r[1]).trim()}`);
+
+  const dv = SpreadsheetApp.newDataValidation()
+    .requireValueInList(list, true)
+    .setAllowInvalid(true)
+    .build();
+
+  gs(SH.INVOICES).getRange(2,3,1000,1).setDataValidation(dv);
+  gs(SH.ESTIMATES).getRange(2,3,1000,1).setDataValidation(dv);
+
+  // Also apply to Newsletter client column if sheet exists
+  const ns = gs("HBH Newsletter");
+  if (ns) ns.getRange(2,2,2000,1).setDataValidation(dv);
+}
+
+/************** MENUS **************/
+function onOpen(){
+  const ui = SpreadsheetApp.getUi();
+
+  // Your original HBH System menu
+  ui.createMenu("HBH System")
+    .addItem("Create Estimate","menuCreateEstimate")
+    .addItem("Re-Generate Estimate PDF","regenerateEstimatePDF")
+    .addItem("View Estimate PDF","viewEstimatePDF")
+    .addSeparator()
+    .addItem("Create Invoice","menuCreateInvoice")
+    .addItem("Create Invoice (Selection Only)","menuCreateInvoiceSelectionOnly") // NEW
+    .addItem("Re-Generate Invoice PDF","regenerateInvoicePDF")
+    .addItem("View Invoice PDF","viewInvoicePDF")
+    .addSeparator()
+    .addItem("Refresh Client Dropdowns","refreshClientDropdowns_")
+    .addToUi();
+
+  // NEW Newsletter submenu (separate; does not touch invoice/estimate)
+  ui.createMenu("HBH Newsletter")
+    .addItem("Open Newsletter Sheet","openNewsletterSheet_")
+    .addItem("Load All Clients","loadAllClientsToNewsletter_")
+    .addItem("Apply Selected Template to Row","applyTemplateToRow_")
+    .addItem("Insert / Change Image URL","insertImageToRow_")
+    .addItem("Preview HTML Email","previewNewsletter_")
+    .addItem("Test Send to Me","testSendNewsletter_")
+    .addItem("Send to Checked Clients","sendNewsletterBatch_")
+    .addToUi();
+
+  // NEW Audit menu
+  ui.createMenu("HBH Audit")
+    .addItem("Export Month (CSV)", "auditExportMonthCSV_")
+    .addItem("Soft-Lock Active Row", "auditLockActiveRow_")
+    .addToUi();
+
+  try { ensureNewsletterSheets_(); } catch(e){}
+  try { refreshClientDropdowns_(); } catch(e){}
+}
+
+/************** FIRST EMPTY ROW **************/
+function firstEmptyIdRow_(sh){
+  const last = sh.getLastRow();
+  for(let r=2;r<=last;r++){ if(!sh.getRange(r,1).getValue()) return r; }
+  sh.insertRowsAfter(last,1);
+  return last+1;
+}
+
+/************** MENU ACTIONS **************/
+function menuCreateEstimate(){
+  const sh=gs(SH.ESTIMATES);
+  const a=SpreadsheetApp.getActive().getActiveRange();
+  let r=a&&a.getSheet().getName()===SH.ESTIMATES?a.getRow():null;
+  if(!(r&&r>1&&!sh.getRange(r,1).getValue())) r=firstEmptyIdRow_(sh);
+  createEstimateFromSheet_(r);
+}
+function menuCreateInvoice(){
+  const sh=gs(SH.INVOICES);
+  const a=SpreadsheetApp.getActive().getActiveRange();
+  let r=a&&a.getSheet().getName()===SH.INVOICES?a.getRow():null;
+  if(!(r&&r>1&&!sh.getRange(r,1).getValue())) r=firstEmptyIdRow_(sh);
+  createInvoiceFromSheet_(r);
+}
+
+/************** NEW: SELECTION-ONLY HELPERS & FLOW **************/
+// Bind ONLY the selected rows (in InvoiceLines) to a given invoice ID
+function bindSelectedInvoiceLinesToId_(invoiceId){
+  const ar = SpreadsheetApp.getActiveRange();
+  const sheet = ar && ar.getSheet();
+  if (!ar || !sheet || sheet.getName() !== SH.INV_LINES){
+    SpreadsheetApp.getUi().alert("Select one or more rows in the 'InvoiceLines' sheet first.");
+    throw new Error("No selection on InvoiceLines.");
+  }
+  const start = ar.getRow();
+  const n = ar.getNumRows();
+  const lastCol = sheet.getLastColumn();
+  const vals = sheet.getRange(start, 1, n, lastCol).getValues();
+
+  for (let i = 0; i < n; i++){
+    const rowVals = vals[i];
+    const itemCode = rowVals[2]; // Col C
+    const hasAny = rowVals.slice(2, 9).some(v => String(v) !== ""); // C..I has data?
+    if (hasAny || itemCode){
+      sheet.getRange(start + i, 1).setValue(invoiceId); // set InvoiceID only for these rows
+    }
+  }
+}
+
+// Full create using ONLY the current selection in InvoiceLines
+function createInvoiceFromSheetSelectionOnly_(row){
+  const sh = gs(SH.INVOICES);
+  const v = sh.getRange(row,1,1,sh.getLastColumn()).getValues()[0];
+
+  // make a new ID (or reuse if already set)
+  let id = v[0];
+  if (!id){
+    id = nextId("Invoice");
+    sh.getRange(row,1).setValue(id);
+  }
+
+  // IMPORTANT: Only bind the selected rows to this ID
+  bindSelectedInvoiceLinesToId_(id);
+
+  const c = getClientFlex_(v[2]);
+  const s = settings();
+
+  const lines = gs(SH.INV_LINES).getDataRange().getValues().filter(r=>r[0]==id);
+  const subtotal = lines.reduce((sum,r)=> sum + Number(r[8]||0),0);
+  const tax = calcInvoiceTax(id);
+  const total = subtotal + tax;
+  sh.getRange(row,9).setValue(subtotal);
+  sh.getRange(row,10).setValue(tax);
+  sh.getRange(row,11).setValue(total);
+
+  const lineFmt = lines.map(r=>[r[2],r[3],r[4],"$"+r[5],r[6]+"%",r[7],"$"+r[8]]);
+  const mp = {
+    DocNumber:id, DocDate:today(), ClientName:c.name, ClientEmail:c.email, ClientPhone:c.phone,
+    BillingAddress:c.bill, SiteAddress:c.site, Subtotal:"$"+subtotal.toFixed(2), Tax:"$"+tax.toFixed(2),
+    Total:"$"+total.toFixed(2), Terms:v[5], DueDate:v[6], Notes:v[16]||"",
+            
+    ScopeOfWork:v[11] || "",CompanyTagline:s.CompanyTagline, CompanyName:"Hammer Brick & Home LLC"
+  };
+
+  const doc = buildDoc_(INVOICE_TEMPLATE_ID, mp);
+  insertLines_(doc, lineFmt);
+  finalizeDoc_(doc, SH.INVOICES, row);
+
+  const pdfUrl = sh.getRange(row, sh.getLastColumn()-2).getValue();
+  const pdf = DriveApp.getFileById(doc.getId()).getAs('application/pdf');
+  const ui = SpreadsheetApp.getUi();
+
+  if(c.email && ui.alert("Email Invoice?","Send to "+c.email+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    sendDocEmail_(c.email,"Invoice "+id,"Thank you!",pdf);
+
+  if(c.phone && ui.alert("WhatsApp Invoice?","Send to "+c.phone+"?",ui.ButtonSet.YES_NO)===ui.Button.YES)
+    promptSMSMessage_(c.phone, pdfUrl, id);
+}
+
+function menuCreateInvoiceSelectionOnly(){
+  const inv = gs(SH.INVOICES);
+  const a = SpreadsheetApp.getActive().getActiveRange();
+  let r = (a && a.getSheet().getName() === SH.INVOICES) ? a.getRow() : null;
+  if(!(r && r>1 && !inv.getRange(r,1).getValue())) r = firstEmptyIdRow_(inv);
+  createInvoiceFromSheetSelectionOnly_(r);
+}
+
+/************** AUTO CALC + NEWSLETTER AUTOFILL **************/
+function onEdit(e){
+  try{
+    const sh = e.source.getActiveSheet();
+    const row=e.range.getRow(), col=e.range.getColumn();
+
+    // Existing calc for lines
+    if(["InvoiceLines","EstimateLines"].includes(sh.getName())){
+      if(col<5||col>7||row<2) return;
+      const qty=Number(sh.getRange(row,5).getValue());
+      const price=Number(sh.getRange(row,6).getValue());
+      const disc=Number(sh.getRange(row,7).getValue());
+      if(!qty||!price) return;
+      sh.getRange(row,9).setValue(qty*price*(1-disc/100));
+      return;
+    }
+
+    // NEW: Newsletter autofill email when Client dropdown changes
+    if (sh.getName()==="HBH Newsletter" && col===2 && row>1){
+      const clientKey = sh.getRange(row,2).getValue();
+      if (clientKey){
+        try {
+          const c = getClientFlex_(clientKey);
+          sh.getRange(row,3).setValue(c.email || "");
+          if (!sh.getRange(row,4).getValue()){
+            sh.getRange(row,4).setValue("HBH Update & Offers");
+          }
+          if (!sh.getRange(row,5).getValue()){
+            sh.getRange(row,5).setValue("Hi " + (c.name||"there") + ",");
+          }
+        } catch(err){
+          // leave as-is if not found
+        }
+      }
+    }
+  }catch(e){}
+}
+
+/************** LOG PAYMENT **************/
+function logPayment(invoiceId, amount, method, note) {
+  gs(SH.PAYMENTS).appendRow([today(), invoiceId, amount, method, note]);
+  generateReceipt(invoiceId, amount, method, note);
+}
+function generateReceipt(invoiceId, amount, method, note) {
+  const invSheet=gs(SH.INVOICES);
+  const rows=invSheet.getDataRange().getValues();
+  const i=rows.findIndex(r=>r[0]===invoiceId);
+  if(i<1) throw "Invoice not found";
+
+  const client = getClientFlex_(rows[i][2]);
+  const text = `
+RECEIPT
+-------------------------
+Invoice: ${invoiceId}
+Client: ${client.name}
+Date: ${today()}
+Amount: $${amount}
+Method: ${method}
+Note: ${note||""}
+-------------------------
+Hammer Brick & Home LLC
+Thank you!
+`;
+
+  let root; try{root=DriveApp.getFoldersByName("Invoices_PDFs").next();}
+  catch(e){root=DriveApp.createFolder("Invoices_PDFs");}
+
+  const year = new Date().getFullYear().toString();
+  const monthNum = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "MM");
+  const monthName = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "MMMM");
+  const month = `${monthNum} ${monthName}`;
+
+  let yearFolder=folderSafe(root,year);
+  let monthFolder=folderSafe(yearFolder,month);
+  let clientFolder=folderSafe(monthFolder,client.name);
+
+  clientFolder.createFile(Utilities.newBlob(text,"application/pdf",`Receipt-${invoiceId}.pdf`));
+}
+function folderSafe(parent,name){ try{return parent.getFoldersByName(name).next();} catch(e){return parent.createFolder(name);} }
+
+/************** ===================== NEWSLETTER SYSTEM ===================== **************/
+const NEWSLETTER_SHEET = "HBH Newsletter";
+const NEWSLETTER_TEMPLATES_SHEET = "Newsletter Templates";
+
+// Create newsletter sheets (if missing) + headers + validations
+function ensureNewsletterSheets_(){
+  // Newsletter main
+  let ns = gs(NEWSLETTER_SHEET);
+  if (!ns){
+    ns = SpreadsheetApp.getActive().insertSheet(NEWSLETTER_SHEET);
+    ns.getRange(1,1,1,10).setValues([[
+      "Send","Client (ID — Name)","Email","Subject","Greeting","Message","ImageURL","Use HTML","Template","Sent?"
+    ]]);
+    // make Send & Use HTML checkboxes
+    ns.getRange(2,1,1000,1).insertCheckboxes();
+    ns.getRange(2,8,1000,1).insertCheckboxes();
+  }
+
+  // Templates sheet
+  let ts = gs(NEWSLETTER_TEMPLATES_SHEET);
+  if (!ts){
+    ts = SpreadsheetApp.getActive().insertSheet(NEWSLETTER_TEMPLATES_SHEET);
+    ts.getRange(1,1,1,3).setValues([[ "Template Name", "Default Subject", "Default Message" ]]);
+    ts.getRange(2,1,4,3).setValues([
+      ["Spring Cleanup", "Spring Cleanup Specials", "Get your yard ready! Weekly mowing, mulch refresh, and debris haul-away."],
+      ["Gutter Cleaning", "Protect Your Home: Gutter Cleaning", "Avoid water damage. Book gutter clean + downspout flush this week."],
+      ["Holiday Lighting", "Holiday Lighting Install", "We design, install, and remove holiday lights. Ask for a quick estimate."],
+      ["Power Washing", "Driveway & Siding Power Wash", "Restore curb appeal with a quick power wash—driveway, steps, siding."]
+    ]);
+  }
+
+  // Template dropdown on Newsletter sheet (column I)
+  const templateList = ts.getRange(2,1,ts.getLastRow()-1,1).getValues().map(r=>r[0]).filter(Boolean);
+  if (templateList.length){
+    const dv = SpreadsheetApp.newDataValidation().requireValueInList(templateList, true).setAllowInvalid(true).build();
+    ns.getRange(2,9,2000,1).setDataValidation(dv);
+  }
+
+  // Client dropdown (column B)
+  refreshClientDropdowns_();
+}
+
+// Load ALL clients into newsletter sheet (auto-copy emails)
+function loadAllClientsToNewsletter_(){
+  ensureNewsletterSheets_();
+  const ns = gs(NEWSLETTER_SHEET);
+  const clients = gs(SH.CLIENTS).getDataRange().getValues().slice(1).filter(r=>r[1] && r[2]); // name+email
+  if (!clients.length) { SpreadsheetApp.getUi().alert("No clients with emails found."); return; }
+
+  // Clear old rows (except header)
+  if (ns.getLastRow() > 1) ns.getRange(2,1,ns.getLastRow()-1,10).clearContent().clearDataValidations();
+
+  // Write rows
+  const rows = clients.map(r=>{
+    const id = String(r[0]||"").trim();
+    const name = String(r[1]||"").trim();
+    const email = String(r[2]||"").trim();
+    return [false, (id?`${id} — ${name}`:name), email, "HBH Update & Offers", `Hi ${name},`, "", "", true, "", ""];
+  });
+  if (rows.length) ns.getRange(2,1,rows.length,10).setValues(rows);
+
+  // Reapply validations (checkboxes + template list + client dropdown)
+  ns.getRange(2,1,rows.length,1).insertCheckboxes();
+  ns.getRange(2,8,rows.length,1).insertCheckboxes();
+  ensureNewsletterSheets_(); // to reapply template DV + client DV
+  SpreadsheetApp.getUi().alert("✅ Loaded "+rows.length+" clients into HBH Newsletter.");
+}
+
+// Apply selected template to the active row
+function applyTemplateToRow_(){
+  ensureNewsletterSheets_();
+  const ns = gs(NEWSLETTER_SHEET);
+  const ts = gs(NEWSLETTER_TEMPLATES_SHEET);
+  const row = ns.getActiveRange().getRow();
+  if (row <= 1) return SpreadsheetApp.getUi().alert("Select a row under the header.");
+
+  const templateName = ns.getRange(row,9).getValue();
+  if (!templateName) return SpreadsheetApp.getUi().alert("Pick a template in the 'Template' column (I).");
+
+  const tv = ts.getDataRange().getValues();
+  const found = tv.slice(1).find(r => String(r[0]).trim().toLowerCase() === String(templateName).trim().toLowerCase());
+  if (!found) return SpreadsheetApp.getUi().alert("Template not found.");
+
+  const subject = found[1] || "HBH Update";
+  const message = found[2] || "";
+
+  if (!ns.getRange(row,4).getValue()) ns.getRange(row,4).setValue(subject);
+  if (!ns.getRange(row,6).getValue()) ns.getRange(row,6).setValue(message);
+
+  SpreadsheetApp.getUi().alert("✅ Template applied to row "+row+".");
+}
+
+// Prompt user to insert/change ImageURL for the active row
+function insertImageToRow_(){
+  const ns = gs(NEWSLETTER_SHEET);
+  const row = ns.getActiveRange().getRow();
+  if (row <= 1) return SpreadsheetApp.getUi().alert("Select a row under the header.");
+  const ui = SpreadsheetApp.getUi();
+  const res = ui.prompt("Image URL", "Paste a public image URL to include in the email (optional):", ui.ButtonSet.OK_CANCEL);
+  if (res.getSelectedButton() === ui.Button.OK){
+    ns.getRange(row,7).setValue(res.getResponseText());
+    ui.alert("✅ Image URL set for row "+row+".");
+  }
+}
+
+// Build HTML email (American flag theme) with buttons
+function buildNewsletterHtml_(greeting, message, imageUrl){
+  const phone = HBH_CONTACT.phoneDisplay;
+  const website = HBH_CONTACT.websiteUrl;
+  const ig = HBH_CONTACT.instagramHandle;
+
+  const imgHtml = imageUrl ? `<div style="margin:16px 0;"><img src="${imageUrl}" style="max-width:100%;height:auto;border-radius:8px;"></div>` : "";
+
+  return `
+  <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:auto;border:1px solid #e3e3e3;border-radius:12px;overflow:hidden">
+    <div style="background:linear-gradient(90deg,#b22234,#3c3b6e);color:#fff;padding:16px 20px">
+      <div style="font-size:20px;font-weight:700;letter-spacing:.5px">Hammer Brick & Home LLC</div>
+      <div style="font-size:12px;opacity:.95">Building Trust, One Brick at a Time</div>
+    </div>
+    <div style="padding:18px 20px">
+      <p style="margin:0 0 12px 0;font-size:14px">${greeting || "Hi there,"}</p>
+      ${imgHtml}
+      <div style="white-space:pre-wrap;font-size:14px;line-height:1.5;color:#222">${message || ""}</div>
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <a href="tel:${phone.replace(/\s+/g,'')}" style="text-decoration:none;padding:10px 14px;border:1px solid #b22234;border-radius:8px;color:#b22234;font-weight:600">Call ${phone}</a>
+        <a href="${website}" style="text-decoration:none;padding:10px 14px;border:1px solid #3c3b6e;border-radius:8px;color:#3c3b6e;font-weight:600">Visit Website</a>
+        <a href="https://instagram.com/${ig}" style="text-decoration:none;padding:10px 14px;border:1px solid #3c3b6e;border-radius:8px;color:#3c3b6e;font-weight:600">Instagram @${ig}</a>
+      </div>
+      <div style="margin-top:22px;font-size:12px;color:#666">
+        If you’d like to pause emails, reply “unsubscribe”.
+      </div>
+    </div>
+  </div>`;
+}
+
+// Open newsletter sheet (creates if missing)
+function openNewsletterSheet_(){
+  ensureNewsletterSheets_();
+  SpreadsheetApp.setActiveSheet(gs(NEWSLETTER_SHEET));
+}
+
+// Preview HTML for the active row
+function previewNewsletter_(){
+  ensureNewsletterSheets_();
+  const ns = gs(NEWSLETTER_SHEET);
+  const row = ns.getActiveRange().getRow();
+  if (row <= 1) return SpreadsheetApp.getUi().alert("Select a row under the header.");
+
+  const [send, clientKey, email, subject, greet, msg, imgUrl, useHtml] = ns.getRange(row,1,1,8).getValues()[0];
+
+  const html = buildNewsletterHtml_(greet, msg, imgUrl);
+  const out = HtmlService.createHtmlOutput(html).setWidth(720).setHeight(600);
+  SpreadsheetApp.getUi().showModalDialog(out, `Preview: ${subject || "HBH Newsletter"}`);
+}
+
+// Test send to your email
+function testSendNewsletter_(){
+  ensureNewsletterSheets_();
+  const ns = gs(NEWSLETTER_SHEET);
+  const row = ns.getActiveRange().getRow();
+  if (row <= 1) return SpreadsheetApp.getUi().alert("Select a row under the header.");
+  const [send, clientKey, email, subject, greet, msg, imgUrl, useHtml] = ns.getRange(row,1,1,8).getValues()[0];
+
+  if (useHtml){
+    const html = buildNewsletterHtml_(greet, msg, imgUrl);
+    GmailApp.sendEmail(HBH_CONTACT.testEmail, subject || "HBH Newsletter Test", (msg || " "), {htmlBody: html});
+  } else {
+    GmailApp.sendEmail(HBH_CONTACT.testEmail, subject || "HBH Newsletter Test", `${greet||"Hi,"}\n\n${msg||""}`);
+  }
+  SpreadsheetApp.getUi().alert("✅ Test email sent to: " + HBH_CONTACT.testEmail);
+}
+
+// Send to all rows where Send = TRUE
+function sendNewsletterBatch_(){
+  ensureNewsletterSheets_();
+  const ns = gs(NEWSLETTER_SHEET);
+  const last = ns.getLastRow();
+  if (last <= 1) return SpreadsheetApp.getUi().alert("No rows to send.");
+
+  const data = ns.getRange(2,1,last-1,10).getValues();
+  let sentCount = 0;
+
+  data.forEach((row, i)=>{
+    const r = i+2;
+    const [toSend, clientKey, email, subject, greet, msg, imgUrl, useHtml, tmpl, sentMark] = row;
+    if (toSend === true && sentMark !== "YES" && email){
+      if (useHtml){
+        const html = buildNewsletterHtml_(greet, msg, imgUrl);
+        GmailApp.sendEmail(String(email), subject || "HBH Newsletter", (msg || " "), {htmlBody: html});
+      } else {
+        GmailApp.sendEmail(String(email), subject || "HBH Newsletter", `${greet||"Hi,"}\n\n${msg||""}`);
+      }
+      ns.getRange(r,10).setValue("YES");
+      sentCount++;
+    }
+  });
+
+  SpreadsheetApp.getUi().alert(`✅ Sent ${sentCount} newsletter(s).`);
+}
+/************** LEGACY SUPPORT: old button call **************/
+function hbhnl_init() {
+  ensureNewsletterSheets_();   // builds sheets if not there
+  openNewsletterSheet_();      // opens newsletter tab
+  refreshClientDropdowns_();   // refresh dropdowns
+}
+
+/************** AUDIT MENU + UTILITIES **************/
+function auditExportMonthCSV_(){
+  ensureAuditSheet_();
+  const tz = Session.getScriptTimeZone();
+  const d  = new Date();
+  const yyyy = Utilities.formatDate(d, tz, "yyyy");
+  const mm   = Utilities.formatDate(d, tz, "MM");
+  const monthName = Utilities.formatDate(d, tz, "MMMM");
+  const monthStart = new Date(yyyy, Number(mm)-1, 1);
+  const monthEnd   = new Date(yyyy, Number(mm), 1);
+
+  const sh = gs(AUDIT_SHEET);
+  const data = sh.getDataRange().getValues();
+  const hdr = data[0];
+  const rows = data.slice(1).filter(r=>{
+    const t = r[0]; // Timestamp
+    return t && t >= monthStart && t < monthEnd;
+  });
+
+  // Build CSV
+  const csvRows = [hdr].concat(rows).map(arr=>{
+    return arr.map(v=>{
+      const s = (v === null || v === undefined) ? "" : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s;
+    }).join(",");
+  }).join("\n");
+
+  // Save CSV into the same Year/Month folder you already create
+  let root; try { root = DriveApp.getFoldersByName("Invoices_PDFs").next(); }
+  catch(e){ root = DriveApp.createFolder("Invoices_PDFs"); }
+  let yearFolder; try { yearFolder = root.getFoldersByName(yyyy).next(); }
+  catch(e){ yearFolder = root.createFolder(yyyy); }
+  let monthFolder; try { monthFolder = yearFolder.getFoldersByName(`${mm} ${monthName}`).next(); }
+  catch(e){ monthFolder = yearFolder.createFolder(`${mm} ${monthName}`); }
+
+  const file = monthFolder.createFile(`AUDIT_EXPORT_${yyyy}-${mm}.csv`, csvRows, MimeType.CSV);
+  SpreadsheetApp.getUi().alert("✅ Audit CSV saved:\n" + file.getUrl());
+}
+
+function auditLockActiveRow_(){
+  const sh = SpreadsheetApp.getActiveSheet();
+  const row = sh.getActiveRange().getRow();
+  if (row <= 1) return SpreadsheetApp.getUi().alert("Select a data row.");
+  const rng = sh.getRange(row, 1, 1, sh.getLastColumn());
+  const p = rng.protect().setDescription(`HBH_LOCK_ROW_${sh.getName()}_${row}`);
+  p.removeEditors(p.getEditors());
+  SpreadsheetApp.getUi().alert("🔒 Row locked. (Manage under Data → Protected sheets & ranges)");
+}
+
+/************** MENU ACTIONS CONT'D (Selection Only) **************/
+function menuCreateInvoiceSelectionOnly(){
+  const sh=gs(SH.INVOICES);
+  const a=SpreadsheetApp.getActive().getActiveRange();
+  let r=a&&a.getSheet().getName()===SH.INVOICES?a.getRow():null;
+  if(!(r&&r>1&&!sh.getRange(r,1).getValue())) r=firstEmptyIdRow_(sh);
+  createInvoiceFromSheetSelectionOnly_(r);
+}
+
+/* =========================
+   === ADD-ONLY HELPERS ===
+   ========================= */
+
+/** === Auto-date helper: fills Invoices!B when A or C is set === */
+function _autoInvoiceDate_(e){
+  try{
+    if (!e || !e.range) return;
+    const sh = e.range.getSheet();
+    const SHEET_NAME = (typeof SH !== 'undefined' && SH.INVOICES) ? SH.INVOICES : 'Invoices';
+    if (sh.getName() !== SHEET_NAME) return;
+
+    const r = e.range.getRow();
+    if (r < 2) return; // header
+
+    const c = e.range.getColumn();
+    const COL_INVOICEID = 1; // A
+    const COL_CLIENTID  = 3; // C
+    const COL_DATE      = 2; // B
+
+    if (c !== COL_INVOICEID && c !== COL_CLIENTID) return;
+
+    const dateCell = sh.getRange(r, COL_DATE);
+    const hasDate  = String(dateCell.getValue()).trim() !== '';
+    const hasValue = e && typeof e.value !== 'undefined' && String(e.value).trim() !== '';
+    if (!hasDate && hasValue){
+      dateCell.setValue(new Date()).setNumberFormat('m-d-yyyy');
+    }
+  }catch(err){ /* silent */ }
+}
+
+/** === Installable trigger for the auto-date helper (run once) === */
+function setupAutoInvoiceDateTrigger(){
+  const fn = '_autoInvoiceDate_';
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === fn)
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger(fn).forSpreadsheet(SpreadsheetApp.getActive()).onEdit().create();
+}
+
+/** === Optional backfill for existing rows with blank dates === */
+function backfillMissingInvoiceDates(){
+  const SHEET = (typeof SH !== 'undefined' && SH.INVOICES) ? SH.INVOICES : 'Invoices';
+  const sh = SpreadsheetApp.getActive().getSheetByName(SHEET);
+  if (!sh) return;
+  const last = sh.getLastRow();
+  if (last < 2) return;
+
+  const ids   = sh.getRange(2,1,last-1,1).getValues();  // A
+  const dates = sh.getRange(2,2,last-1,1).getValues();  // B
+  const now = new Date();
+
+  for (let i=0;i<ids.length;i++){
+    if (ids[i][0] && !dates[i][0]) dates[i][0] = now;
+  }
+  sh.getRange(2,2,last-1,1).setValues(dates).setNumberFormat('m-d-yyyy');
+}
+
+/** === Apply dropdown to InvoiceLines!C from Items!A2:A (run once) === */
+function applyItemCodeDropdown(){
+  const ss = SpreadsheetApp.getActive();
+  const LINES = (typeof SH !== 'undefined' && SH.INV_LINES) ? SH.INV_LINES : 'InvoiceLines';
+  const ITEMS = (typeof SH !== 'undefined' && SH.ITEMS)     ? SH.ITEMS     : 'Items';
+
+  const lines = ss.getSheetByName(LINES);
+  const items = ss.getSheetByName(ITEMS);
+  if (!lines || !items) return;
+
+  const src = items.getRange('A2:A'); // ItemCode list
+  const rule = SpreadsheetApp.newDataValidation()
+    .requireValueInRange(src, true)
+    .setAllowInvalid(false)
+    .build();
+
+  lines.getRange('C2:C').setDataValidation(rule);
+}
+
+
+
+/************** ===================== HBH PAYROLL (NAME-ONLY, ADD-ONLY) ===================== **************
+ * Adds: Employees, TimeEntries, PayrollRuns + Pay-stub PDF + Drive filing + Payroll menu
+ * • Uses employee NAME only (no IDs)
+ * • Saves PDFs to three locations:
+ *   1) ALL_Payroll_PDFs (master)
+ *   2) EMPLOYEE_FOLDERS/{EmployeeName}
+ *   3) Payroll_PDFs/{YYYY}/{MM Month}/{EmployeeName}
+ * • Adds its own UI via an INSTALLABLE onOpen trigger (leaves your onOpen() untouched)
+ * • Hours auto-calc uses an INSTALLABLE onEdit trigger (leaves your onEdit(e) untouched)
+ * • Reuses your helpers: gs(), SH.AUTOIDS, nextId(), settings(), buildDoc_(), insertLines_(), writeAuditRow_()  (if present)
+ **********************************************************************************************************/
+const PAYROLL_TEMPLATE_ID = '1Lftg1MdqGVAktyZ3OVLIiSVnEhgp1bNLnRuXRWL6PGU'; // <-- paste the Google Doc template ID
+
+const HBHP = { EMP:'Employees', TIME:'TimeEntries', RUNS:'PayrollRuns' };
+
+/** ----- One-time installers (run each once from the editor) ----- */
+function HBHP_setupOnOpenTrigger(){
+  const fn = 'HBHP_onOpen_';
+  ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction()===fn).forEach(t=>ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger(fn).forSpreadsheet(SpreadsheetApp.getActive()).onOpen().create();
+}
+function HBHP_setupOnEditTrigger(){
+  const fn = 'HBHP_onEdit_';
+  ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction()===fn).forEach(t=>ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger(fn).forSpreadsheet(SpreadsheetApp.getActive()).onEdit().create();
+}
+
+/** Fired by installable onOpen: adds the Payroll menu */
+function HBHP_onOpen_(){
+  try { HBHP_addMenus_(); } catch(_){}
+}
+
+/** ---------------- UI (your buttons) ---------------- */
+function HBHP_addMenus_(){
+  SpreadsheetApp.getUi().createMenu("HBH Payroll")
+    .addItem("Ensure/Repair Payroll Sheets","HBHP_ensureSheets_")
+    .addItem("Quick Add Employees…","HBHP_quickAddEmployees_")
+    .addItem("Refresh Employee Dropdowns","HBHP_refreshEmployeeDropdowns_")
+    .addSeparator()
+    .addItem("Create Paystub (active row)","HBHP_menuCreatePaystub")
+      .addItem("Create Paystubs (selected rows)", "HBHP_menuCreatePaystubsSelected")
+      .addItem("Re-Generate Paystub PDF","HBHP_menuRegenPaystub")
+    .addItem("View Paystub PDF","HBHP_viewPaystub")
+    .addSeparator()
+    .addItem("Install/Refresh Open Trigger","HBHP_setupOnOpenTrigger")
+    .addItem("Install/Refresh Hours Trigger","HBHP_setupOnEditTrigger")
+    .addToUi();
+}
+
+/** ---------------- Ensure Sheets, formats, AutoIDs row ---------------- */
+function HBHP_ensureSheets_(){
+  const ss = SpreadsheetApp.getActive();
+
+  // Employees
+  let emp = ss.getSheetByName(HBHP.EMP);
+  if (!emp){
+    emp = ss.insertSheet(HBHP.EMP);
+    emp.getRange(1,1,1,11).setValues([[
+      "Name","Email","Phone","Title","PayType (Hourly/Salaried)",
+      "HourlyRate","OvertimeEligible (Yes/No)","StartDate","Status","Notes","Address"
+    ]]);
+    emp.setFrozenRows(1);
+  } else {
+    const h = String(emp.getRange(1,1).getValue()||"");
+    if (/^EmpID$/i.test(h)) emp.getRange(1,1).setValue("Name");
+  }
+
+  // TimeEntries
+  let te = ss.getSheetByName(HBHP.TIME);
+  if (!te){
+    te = ss.insertSheet(HBHP.TIME);
+    te.getRange(1,1,1,9).setValues([[
+      "Date","Employee (Name)","StartTime","EndTime","BreakMins",
+      "Hours","Job/Note","Approved?","Imported?"
+    ]]);
+    te.getRange("H2:H").insertCheckboxes(); // Approved?
+    te.setFrozenRows(1);
+  }
+
+  // PayrollRuns
+  let pr = ss.getSheetByName(HBHP.RUNS);
+  if (!pr){
+    pr = ss.insertSheet(HBHP.RUNS);
+    pr.getRange(1,1,1,15).setValues([[
+      "RunID","PeriodStart","PeriodEnd","PayDate","Employee (Name)","HourlyRate",
+      "OvertimeEligible","RegularHours","OvertimeHours","Gross","EstTaxes","Net",
+      "PDF_URL","Notes","Paid?"
+    ]]);
+    pr.getRange("O2:O").insertCheckboxes(); // Paid?
+    pr.setFrozenRows(1);
+  }
+
+  // Formats
+  [HBHP.TIME, HBHP.RUNS].forEach(n=>{
+    const sh = ss.getSheetByName(n);
+    if (!sh) return;
+    sh.getRange("A2:A").setNumberFormat("m/d/yyyy");
+    if (n===HBHP.TIME){ sh.getRange("C2:D").setNumberFormat("h:mm AM/PM"); }
+    if (n===HBHP.RUNS){
+      sh.getRange("B2:D").setNumberFormat("m/d/yyyy");
+      sh.getRange("F2:F").setNumberFormat("$0.00");
+      sh.getRange("J2:L").setNumberFormat("$0.00");
+    }
+  });
+
+  HBHP_ensurePayrollAutoIdRow_();
+  HBHP_assertUniqueNames_();
+  HBHP_refreshEmployeeDropdowns_();
+}
+
+/** Ensure AutoIDs contains "Payroll | PR | | 1" (uses your SH.AUTOIDS sheet) */
+function HBHP_ensurePayrollAutoIdRow_(){
+  try{
+    const sh = gs(SH.AUTOIDS);
+    if (!sh) return;
+    const data = sh.getDataRange().getValues();
+    const has = data.some(r => String(r[0]).trim().toLowerCase()==='payroll');
+    if (!has) sh.appendRow(['Payroll','PR','',1]);
+  }catch(_){}
+}
+
+/** ---------------- Employees: enforce unique Names ---------------- */
+function HBHP_assertUniqueNames_(){
+  const sh = gs(HBHP.EMP);
+  if (!sh) return;
+  const names = sh.getDataRange().getValues().slice(1).map(r => String(r[0]||"").trim()).filter(Boolean);
+  const seen = new Set(), dups = new Set();
+  names.forEach(n => seen.has(n.toLowerCase()) ? dups.add(n) : seen.add(n.toLowerCase()));
+  if (dups.size){
+    SpreadsheetApp.getUi().alert("Duplicate employee names found: "+[...dups].join(", ")+"\nPlease make each name unique.");
+  }
+}
+
+/** Dropdowns = names only (for TimeEntries & PayrollRuns) */
+function HBHP_refreshEmployeeDropdowns_(){
+  const emp = gs(HBHP.EMP);
+  if (!emp) return;
+  const names = emp.getDataRange().getValues().slice(1)
+    .map(r => String(r[0]||"").trim()).filter(Boolean);
+
+  const rule = SpreadsheetApp.newDataValidation().requireValueInList(names, true).setAllowInvalid(true).build();
+  const te = gs(HBHP.TIME), pr = gs(HBHP.RUNS);
+  if (te) te.getRange(2,2,1000,1).setDataValidation(rule); // B
+  if (pr) pr.getRange(2,5,1000,1).setDataValidation(rule); // E
+}
+
+/** Quick Add Employees (comma-separated names) */
+function HBHP_quickAddEmployees_(){
+  const ui = SpreadsheetApp.getUi();
+  const res = ui.prompt("Quick Add Employees","Enter names, separated by commas:", ui.ButtonSet.OK_CANCEL);
+  if (res.getSelectedButton() !== ui.Button.OK) return;
+  const parts = res.getResponseText().split(",").map(s=>s.trim()).filter(Boolean);
+  if (!parts.length) return;
+  const sh = gs(HBHP.EMP);
+  const rows = parts.map(n => [n,"","","","Hourly",0,"Yes","","Active","",""]);
+  sh.getRange(sh.getLastRow()+1,1,rows.length,rows[0].length).setValues(rows);
+  HBHP_assertUniqueNames_();
+  HBHP_refreshEmployeeDropdowns_();
+}
+
+/** ---------------- onEdit (installable): auto-calc Hours ---------------- */
+function HBHP_onEdit_(e){
+  try{
+    if (!e || !e.range) return;
+    const sh = e.range.getSheet();
+    if (sh.getName() !== HBHP.TIME) return;
+    const r = e.range.getRow(); if (r<2) return;
+
+    const start = sh.getRange(r,3).getValue(); // C Start
+    const end   = sh.getRange(r,4).getValue(); // D End
+    const br    = Number(sh.getRange(r,5).getValue() || 0); // E BreakMins
+    if (!start || !end) return;
+
+    const hrs = Math.max(0, ( (end - start) / (1000*60*60) ) - (br/60));
+
+    sh.getRange(r,6).setValue(Math.round(hrs*100)/100);    // F Hours
+  }catch(_){}
+}
+
+/** ---------------- Compute hours & pay from TimeEntries ---------------- */
+function HBHP_computeFromTimeEntries_(empName, startDate, endDate, hourly, otEligible){
+  const te = gs(HBHP.TIME).getDataRange().getValues();
+  const start = new Date(startDate), end = new Date(endDate); end.setHours(23,59,59,999);
+
+  const key = String(empName||"").trim().toLowerCase();
+  const entries = [];
+  for (let i=1;i<te.length;i++){
+    const d = te[i][0], nm = String(te[i][1]||"").trim().toLowerCase(), hrs = Number(te[i][5]||0), approved = te[i][7]===true;
+    if (!d || !approved) continue;
+    if (nm !== key) continue;
+    const dt = new Date(d);
+    if (dt >= start && dt <= end) entries.push({date:dt, hrs});
+  }
+
+  if (!entries.length) return {regular:0, overtime:0, gross:0, entries:[]};
+
+  if (!otEligible){
+    const total = entries.reduce((s,e)=>s+e.hrs,0);
+    return {regular: total, overtime: 0, gross: total*hourly, entries};
+  }
+
+  // Overtime by Sun..Sat week
+  const byWeek = {};
+  entries.forEach(e=>{
+    const d = e.date;
+    const sun = new Date(d); sun.setDate(d.getDate() - d.getDay()); sun.setHours(0,0,0,0);
+    const k = sun.toISOString().slice(0,10);
+    byWeek[k] = (byWeek[k]||0) + e.hrs;
+  });
+
+  let reg = 0, ot = 0;
+  Object.values(byWeek).forEach(weekH=>{
+    reg += Math.min(40, weekH);
+    ot  += Math.max(0, weekH - 40);
+  });
+  const gross = reg*hourly + ot*hourly*1.5;
+  return {regular: Math.round(reg*100)/100, overtime: Math.round(ot*100)/100, gross: Math.round(gross*100)/100, entries};
+}
+
+/** Simple tax estimate (uses your Settings keys if set; defaults to 0) */
+function HBHP_taxEstimate_(gross){
+  const s = (typeof settings==='function') ? settings() : {};
+  const r = Number(s.FICA_SocialRate || 0) + Number(s.MedicareRate || 0) + Number(s.NY_PFL_Rate || 0) + Number(s.OtherPayrollRate || 0);
+  return Math.round(gross * r * 100)/100;
+}
+
+/** ---------------- Pay-stub PDF finalize + Drive filing (+ optional audit) ---------------- */
+function HBHP_finalizePaystubDoc_(doc, row){
+  doc.saveAndClose();
+  const file = DriveApp.getFileById(doc.getId());
+  const pdfBlob = file.getAs('application/pdf');
+  const pdfName = doc.getName()+".pdf";
+
+  const runs = gs(HBHP.RUNS);
+  const v = runs.getRange(row,1,1,runs.getLastColumn()).getValues()[0];
+  const empName = String(v[4]||"").replace(/[^\w\s-]/g,"").trim(); // col E
+
+  // 1) Master
+  let master; try{ master=DriveApp.getFoldersByName("ALL_Payroll_PDFs").next(); }
+  catch(e){ master=DriveApp.createFolder("ALL_Payroll_PDFs"); }
+  const pdfMaster = master.createFile(pdfBlob).setName(pdfName);
+
+  // 2) Employee root
+  let root; try{ root=DriveApp.getFoldersByName("EMPLOYEE_FOLDERS").next(); }
+  catch(e){ root=DriveApp.createFolder("EMPLOYEE_FOLDERS"); }
+  let empFolder; try{ empFolder=root.getFoldersByName(empName).next(); }
+  catch(e){ empFolder=root.createFolder(empName); }
+  empFolder.createFile(pdfBlob).setName(pdfName);
+
+  // 3) Year/Month/Employee
+  let pyRoot; try{ pyRoot=DriveApp.getFoldersByName("Payroll_PDFs").next(); }
+  catch(e){ pyRoot=DriveApp.createFolder("Payroll_PDFs"); }
+  const tz = Session.getScriptTimeZone();
+  const year = Utilities.formatDate(new Date(), tz, "yyyy");
+  const monthNum = Utilities.formatDate(new Date(), tz, "MM");
+  const monthName = Utilities.formatDate(new Date(), tz, "MMMM");
+  const month = `${monthNum} ${monthName}`;
+  let y; try{ y=pyRoot.getFoldersByName(year).next(); }catch(e){ y=pyRoot.createFolder(year); }
+  let m; try{ m=y.getFoldersByName(month).next(); }catch(e){ m=y.createFolder(month); }
+  let efold; try{ efold=m.getFoldersByName(empName).next(); }catch(e){ efold=m.createFolder(empName); }
+  efold.createFile(pdfBlob).setName(pdfName);
+
+  // Save URL back to PayrollRuns!M, trash temp Doc
+  runs.getRange(row, 13).setValue(pdfMaster.getUrl());
+  file.setTrashed(true);
+
+  // Optional audit log (if your writeAuditRow_ exists)
+  try{
+    if (typeof writeAuditRow_ === 'function'){
+      const gross = Number(v[9]||0), tax = Number(v[10]||0), net = Number(v[11]||0);
+      writeAuditRow_({
+        docType:"Payroll", docId:v[0], clientId:"", clientName:empName,
+        subtotal:gross, tax:tax, total:net, pdfUrl:pdfMaster.getUrl(), pdfBlob:pdfBlob,
+        headerObj:{RunID:v[0], Employee:empName, PeriodStart:v[1], PeriodEnd:v[2], PayDate:v[3]},
+        linesArr:[{Type:"Regular", Hours:v[7], Rate:v[5]}, {Type:"Overtime", Hours:v[8], Rate:(Number(v[5])*1.5)}],
+        note:"Paystub via HBHP_finalizePaystubDoc_()"
+      });
+    }
+  }catch(_){}
+}
+
+/** Lookup employee by name (case-insensitive) */
+function HBHP_getEmployeeByName_(name){
+  if(!name) throw "Missing employee name";
+  const target = String(name).trim().toLowerCase();
+  const rows = gs(HBHP.EMP).getDataRange().getValues();
+  for (let r=1;r<rows.length;r++){
+    const nm = String(rows[r][0]||"").trim();
+    if (nm && nm.toLowerCase()===target){
+      return {
+        name: nm, email: rows[r][1], phone: rows[r][2],
+        payType: String(rows[r][4]||'Hourly'),
+        hourly: Number(rows[r][5]||0),
+        otEligible: /^yes/i.test(String(rows[r][6]||'yes'))
+      };
+    }
+  }
+  throw "Employee not found: "+name;
+}
+
+/** Build & save pay-stub for selected PayrollRuns row */
+function HBHP_createPaystubFromRow_(row){
+  HBHP_ensureSheets_();
+
+  const sh = gs(HBHP.RUNS);
+  const v = sh.getRange(row,1,1,sh.getLastColumn()).getValues()[0];
+
+  // RunID
+  let id = v[0];
+  if (!id){
+    id = nextId("Payroll");                 // uses your AutoIDs sheet
+    sh.getRange(row,1).setValue(id);
+  }
+
+  // Employee & rates
+  const empName = String(v[4]||"").trim();
+  const emp = HBHP_getEmployeeByName_(empName);
+  const hourly = Number(v[5] || emp.hourly || 0);
+  const otEligible = String(v[6]|| (emp.otEligible?"Yes":"No")).match(/^yes/i) != null;
+
+  // Hours / gross
+  let reg = Number(v[7]||0), ot = Number(v[8]||0), gross = Number(v[9]||0);
+  if (!reg && !ot){
+    const calc = HBHP_computeFromTimeEntries_(empName, v[1], v[2], hourly, otEligible);
+    reg = calc.regular; ot = calc.overtime; gross = calc.gross;
+    sh.getRange(row,7,1,3).setValues([[otEligible?"Yes":"No", reg, ot]]);
+    sh.getRange(row,10).setValue(gross);
+  } else if (!gross) {
+    gross = reg*hourly + ot*hourly*1.5; sh.getRange(row,10).setValue(gross);
+  }
+
+  // Taxes & Net
+  const estTax = HBHP_taxEstimate_(gross); sh.getRange(row,11).setValue(estTax);
+  const net = Math.max(0, Math.round((gross - estTax)*100)/100); sh.getRange(row,12).setValue(net);
+
+  // Merge map for template
+  const tz = Session.getScriptTimeZone();
+  const mp = {
+    DocNumber: id,
+    CompanyName: "Hammer Brick & Home LLC",
+    CompanyTagline: (typeof settings==='function' && settings().CompanyTagline) || "Building Trust, One Brick at a Time",
+    EmployeeName: empName,
+    EmployeeId: "", // not used (name-only)
+    PayPeriod: Utilities.formatDate(new Date(v[1]), tz, "MMM d, yyyy") + " - " + Utilities.formatDate(new Date(v[2]), tz, "MMM d, yyyy"),
+    PayDate: Utilities.formatDate(new Date(v[3]), tz, "MMM d, yyyy"),
+    RegularHours: reg, OvertimeHours: ot, HourlyRate: "$"+hourly.toFixed(2),
+    Gross: "$"+gross.toFixed(2), EstTaxes: "$"+estTax.toFixed(2), Net: "$"+net.toFixed(2)
+  };
+
+  
+// ✅ Use detailed shift lines if present (batch mode)
+let lines;
+
+if (globalThis.HBHP_CUSTOM_LINES) {
+  lines = globalThis.HBHP_CUSTOM_LINES;
+  globalThis.HBHP_CUSTOM_LINES = null; // clear so single row mode works normally again
+} else {
+  // ✅ Normal 1-row stub mode
+  lines = [];
+  if (reg>0) lines.push(["Regular", String(reg), "$"+hourly.toFixed(2), "$"+(reg*hourly).toFixed(2)]);
+  if (ot>0)  lines.push(["Overtime (1.5×)", String(ot), "$"+(hourly*1.5).toFixed(2), "$"+(ot*hourly*1.5).toFixed(2)]);
+}
+
+// ✅ Insert rows into PDF template
+
+// build doc first
+const doc = buildDoc_(PAYROLL_TEMPLATE_ID, mp);
+
+// then insert lines once
+insertLines_(doc, lines);
+
+// finalize
+HBHP_finalizePaystubDoc_(doc, row);
+
+}
+
+/** ---------------- Menu wrappers ---------------- */
+function HBHP_menuCreatePaystub(){
+  const sh = gs(HBHP.RUNS);
+  if (!sh){ SpreadsheetApp.getUi().alert("Open '"+HBHP.RUNS+"' first."); return; }
+  let r = SpreadsheetApp.getActive().getActiveRange().getRow();
+  if (r<=1){ r = sh.getLastRow()+1; sh.insertRowsAfter(sh.getLastRow(),1); }
+  HBHP_createPaystubFromRow_(r);
+}
+function HBHP_menuRegenPaystub(){
+  const sh = gs(HBHP.RUNS);
+  if (!sh) return;
+  const r = SpreadsheetApp.getActive().getActiveRange().getRow();
+  if (r<=1) return SpreadsheetApp.getUi().alert("Select a row in '"+HBHP.RUNS+"'.");
+  HBHP_createPaystubFromRow_(r);
+}
+function HBHP_viewPaystub(){
+  const sh = gs(HBHP.RUNS);
+  if (!sh) return;
+  const r = SpreadsheetApp.getActive().getActiveRange().getRow();
+  if (r<=1) return;
+  const url = sh.getRange(r,13).getValue(); // PDF_URL
+  if (!url) return SpreadsheetApp.getUi().alert("No PDF found");
+  SpreadsheetApp.getUi().showModalDialog(
+    HtmlService.createHtmlOutput(`<script>window.open("${url}")</script>`),
+    "Opening Paystub PDF…"
+  );
+}
+/***** HBH Payroll — Send Paystub Checkbox System *****/
+
+/** Auto-add Send Checkboxes when payroll sheets exist */
+function HBHP_addSendCheckboxColumns_() {
+  const ss = SpreadsheetApp.getActive();
+
+  // ✅ Employees sheet
+  const emp = ss.getSheetByName("Employees");
+  if (emp) {
+    const empHeader = emp.getRange(1,1,1,emp.getLastColumn()).getValues()[0];
+    if (!empHeader.includes("Send Paystub?")) {
+      const nextCol = emp.getLastColumn()+1;
+      emp.getRange(1,nextCol).setValue("Send Paystub?");
+      emp.getRange(2,nextCol,500,1).insertCheckboxes();
+    }
+  }
+
+  // ✅ PayrollRuns sheet
+  const pr = ss.getSheetByName("PayrollRuns");
+  if (pr) {
+    const prHeader = pr.getRange(1,1,1,pr.getLastColumn()).getValues()[0];
+    if (!prHeader.includes("Send PDF?")) {
+      const nextCol = pr.getLastColumn()+1;
+      pr.getRange(1,nextCol).setValue("Send PDF?");
+      pr.getRange(2,nextCol,500,1).insertCheckboxes();
+    }
+  }
+}
+
+/** Trigger: check in PayrollRuns to generate paystub */
+function HBHP_onEditGeneratePaystub_(e) {
+  try {
+    if (!e || !e.range) return;
+    const sh = e.range.getSheet();
+    if (sh.getName() !== "PayrollRuns") return;
+
+    const row = e.range.getRow();
+    if (row < 2) return; // ignore header
+
+    const col = e.range.getColumn();
+    const lastCol = sh.getLastColumn();
+
+    // Only when last column checkbox is checked
+    if (col !== lastCol) return;
+    if (e.range.getValue() !== true) return;
+
+    // ✅ Create paystub for that row
+    if (typeof HBHP_createPaystubFromRow_ === "function") {
+      HBHP_createPaystubFromRow_(row);
+    }
+
+    // Auto-uncheck so it won't double-run
+    e.range.setValue(false);
+  } catch (err) {
+    SpreadsheetApp.getUi().alert("Payroll checkbox error: " + err);
+  }
+}
+
+/** Wrap email + WhatsApp after paystub created */
+function HBHP_afterPaystubSend_(row, pdfFile) {
+  const ui = SpreadsheetApp.getUi();
+  const runs = gs("PayrollRuns");
+  const empName = runs.getRange(row, 5).getValue(); // col E
+  const emp = HBHP_getEmployeeByName_(empName);
+  const email = emp.email;
+  const phone = emp.phone;
+
+  // ✅ Ask to send email
+  const emailAsk = ui.alert(
+    "Send Paystub?",
+    `Email paystub PDF to ${empName} at ${email}?`,
+    ui.ButtonSet.YES_NO
+  );
+
+  if (emailAsk === ui.Button.YES && email) {
+    GmailApp.sendEmail(
+      email,
+      "Your Paystub — Hammer Brick & Home LLC Payroll",
+      "Hello,\n\nAttached is your paystub.\n\nThank you,\nHammer Brick & Home LLC Payroll",
+      { attachments: [pdfFile.getAs(MimeType.PDF)] }
+    );
+    ui.alert("📧 Paystub emailed to " + email);
+  }
+
+  // ✅ Ask to send WhatsApp
+  const waAsk = ui.alert(
+    "Send WhatsApp?",
+    `Do you want to send a WhatsApp message link for ${empName}?`,
+    ui.ButtonSet.YES_NO
+  );
+
+  if (waAsk === ui.Button.YES) {
+    const link = runs.getRange(row, 13).getValue(); // PDF URL col
+    ui.alert("📲 WhatsApp Message", 
+`Paystub Available
+
+${link}
+
+Thank you!`, ui.ButtonSet.OK);
+  }
+}
+
+/** Hook into paystub completion (do NOT change your core code) */
+const HBHP_originalFinalize = HBHP_finalizePaystubDoc_;
+
+HBHP_finalizePaystubDoc_ = function(doc, row) {
+  HBHP_originalFinalize(doc, row);
+  try {
+    const runs = gs("PayrollRuns");
+    const pdfUrl = runs.getRange(row, 13).getValue();
+    const pdfFile = DriveApp.getFileById(pdfUrl.match(/[-\w]{25,}/)[0]);
+    HBHP_afterPaystubSend_(row, pdfFile);
+  } catch(e){}
+};
+function HBHP_menuCreatePaystubsSelected(){
+  
+  
+  const sh = gs(HBHP.RUNS);
+  if (!sh){ 
+    SpreadsheetApp.getUi().alert("Open '"+HBHP.RUNS+"' first."); 
+    return; 
+  }
+
+  const range = SpreadsheetApp.getActive().getActiveRange();
+  const start = range.getRow();
+  const num = range.getNumRows();
+
+  let count = 0;
+
+  for (let i = 0; i < num; i++) {
+    let r = start + i;
+    if (r <= 1) continue; // skip header row
+    try {
+      HBHP_createPaystubFromRow_(r);
+      count++;
+    } catch(err) {
+      Logger.log("❌ Error on row " + r + ": " + err);
+    }
+  }
+
+  SpreadsheetApp.getUi().alert("✅ Paystubs created for " + count + " selected rows!");
+}
+function HBHP_menuCreatePaystubsSelected(){
+  const sh = gs(HBHP.RUNS);
+  if (!sh){
+    SpreadsheetApp.getUi().alert("Open '"+HBHP.RUNS+"' first.");
+    return;
+  }
+
+  const sel = SpreadsheetApp.getActive().getActiveRange();
+  if (!sel){ SpreadsheetApp.getUi().alert("Select rows in '"+HBHP.RUNS+"' first."); return; }
+
+  const start = sel.getRow();
+  const num   = sel.getNumRows();
+
+  // Pull the selected rows
+  const rows = [];
+  for (let i = 0; i < num; i++){
+    const r   = start + i;
+    if (r <= 1) continue; // skip header
+    const emp = sh.getRange(r, 5).getValue();      // E: Employee (Name)
+    if (!emp) continue;
+
+    rows.push({
+      row: r,
+      emp: String(emp).trim(),
+      ps:  sh.getRange(r, 2).getValue(),           // B: PeriodStart
+      pe:  sh.getRange(r, 3).getValue(),           // C: PeriodEnd
+      pd:  sh.getRange(r, 4).getValue(),           // D: PayDate
+      rid: sh.getRange(r, 1).getValue(),           // A: RunID (may be blank)
+      hr:  Number(sh.getRange(r, 6).getValue() || 0), // F: HourlyRate (fallback later)
+      reg: Number(sh.getRange(r, 8).getValue() || 0), // H: RegularHours
+      ot:  Number(sh.getRange(r, 9).getValue() || 0)  // I: OvertimeHours
+    });
+  }
+
+  if (!rows.length){
+    SpreadsheetApp.getUi().alert("⚠️ No valid rows selected.");
+    return;
+  }
+
+  // Group by (emp+dates)
+  const keyOf = o => [
+    o.emp,
+    o.ps ? String(o.ps) : "",
+    o.pe ? String(o.pe) : "",
+    o.pd ? String(o.pd) : ""
+  ].join(" | ");
+
+  const groups = new Map();
+  rows.forEach(o => {
+    const k = keyOf(o);
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(o);
+  });
+
+  let made = 0;
+
+  // Process each group once
+  groups.forEach(list => {
+    // Pick master row: first with a RunID, else the first in the group
+    let master = list.find(x => x.rid) || list[0];
+
+    // Ensure one shared RunID
+    let runId = master.rid;
+    if (!runId){
+      runId = nextId("Payroll");                                         // uses your AutoIDs sheet
+      sh.getRange(master.row, 1).setValue(runId);                        // A
+      master.rid = runId;
+    }
+    // Force the same RunID into all group rows
+    list.forEach(x => { if (sh.getRange(x.row,1).getValue() !== runId) sh.getRange(x.row,1).setValue(runId); });
+
+    // Sum hours across group
+    const regTotal = list.reduce((s,o)=> s + (o.reg||0), 0);
+    const otTotal  = list.reduce((s,o)=> s + (o.ot||0), 0);
+
+    // Make sure the master row has totals (createPaystubFromRow_ reads only that row’s fields)
+    // H: RegularHours, I: OvertimeHours. Leave J (Gross) blank so function will compute it.
+    if (regTotal || otTotal){
+      sh.getRange(master.row, 8).setValue(regTotal); // H
+      sh.getRange(master.row, 9).setValue(otTotal);  // I
+      sh.getRange(master.row,10).clearContent();     // J Gross — let function compute
+    }
+
+    // (Optional) normalize HourlyRate in master if group rows differ; keep master’s existing F if set
+    if (!master.hr){
+      const anyRate = list.find(x => x.hr)?.hr || 0;
+      if (anyRate) sh.getRange(master.row, 6).setValue(anyRate); // F
+    }
+
+    // Build one stub per group
+    try{
+      HBHP_createPaystubFromRow_(master.row);
+      made++;
+    }catch(err){
+      Logger.log("❌ Error building group for RunID "+runId+" on row "+master.row+": "+err);
+    }
+  });
+
+  SpreadsheetApp.getUi().alert("✅ Paystubs created for "+made+" grouped selection(s).");
+}
+

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hammer Brick & Home - QR Codes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-gold: #C5A059; /* Luxury Gold Color */
+            --brand-black: #111111;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            color: var(--brand-black);
+        }
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .text-gold {
+            color: var(--brand-gold);
+        }
+        .bg-gold {
+            background-color: var(--brand-gold);
+        }
+        .border-gold {
+            border-color: var(--brand-gold);
+        }
+        
+        /* Luxury Double Border Construction */
+        .page-frame-outer {
+            border: 8px solid var(--brand-gold);
+            padding: 6px;
+            height: 100%;
+            background: white;
+            box-sizing: border-box; /* Ensures border is included in height */
+        }
+        .page-frame-inner {
+            border: 1px solid var(--brand-black);
+            height: 100%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* Clean QR Styling */
+        .qr-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0.5rem;
+        }
+        
+        /* Gold styling for the QR container - UPDATED BORDER */
+        .qr-box {
+            padding: 12px;
+            border: 3px double var(--brand-gold); /* Double Gold Border */
+            border-radius: 4px;
+            box-shadow: 0 4px 15px -3px rgba(197, 160, 89, 0.2);
+            background: white;
+        }
+
+        .divider-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-gold), transparent);
+            width: 80%;
+            margin: 1.5rem auto;
+            opacity: 0.8;
+        }
+
+        /* Print Specific Styles - OPTIMIZED FOR ONE PAGE */
+        @media print {
+            @page {
+                margin: 0.3cm; /* Small print margin */
+                size: portrait;
+            }
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                height: 100vh;
+                overflow: hidden; /* Prevent page spill */
+            }
+            .page-container {
+                box-shadow: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                height: 99vh !important; /* slightly less than 100 to fit border */
+            }
+            .page-frame-outer {
+                height: 100%;
+                border: 6px solid #C5A059 !important; /* Force Gold Print */
+            }
+            .page-frame-inner {
+                padding: 1rem !important; /* Reduce internal padding for print */
+                justify-content: space-evenly !important; /* Distribute space */
+            }
+            .qr-box {
+                border: 3px double #C5A059 !important; /* Ensure border prints */
+                box-shadow: none !important;
+            }
+            
+            /* Compact Header for Print */
+            .header-title {
+                margin-bottom: 0.25rem !important;
+            }
+            .divider-line {
+                margin: 0.75rem auto !important; /* Reduce divider spacing */
+            }
+
+            /* Compact Grid for Print */
+            .qr-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important; /* Tighter gap */
+                margin-bottom: 0.5rem !important;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            .qr-item {
+                padding: 0.25rem !important;
+            }
+            .qr-item canvas, .qr-item img {
+                width: 120px !important; /* Slightly smaller to fit */
+                height: 120px !important;
+            }
+            
+            /* Compact Footer Elements */
+            .expertise-title {
+                margin-bottom: 0.5rem !important;
+            }
+            .services-text {
+                font-size: 0.7rem !important; /* Slightly smaller text */
+            }
+            .footer-section {
+                margin-top: 0.5rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-8 print:py-0">
+
+    <!-- Printable Sheet -->
+    <div class="page-container bg-white shadow-2xl w-full max-w-[800px] aspect-[1/1.29] mx-auto">
+        <div class="page-frame-outer">
+            <div class="page-frame-inner">
+                
+                <!-- Header Section -->
+                <div class="text-center">
+                    <h1 class="header-title text-4xl md:text-5xl font-bold uppercase tracking-[0.15em] mb-2 font-serif">Hammer Brick</h1>
+                    <h2 class="text-2xl md:text-3xl font-light uppercase tracking-[0.2em] mb-4">& Home <span class="text-gold font-bold">LLC</span></h2>
+                    
+                    <div class="w-24 h-1 bg-gold mx-auto mb-4"></div>
+                    
+                    <p class="text-lg italic serif-font text-gray-800">Luxury Remodeling & Masonry Specialists</p>
+                    <p class="text-xs uppercase tracking-widest mt-2 text-gold font-bold">Building Trust One Neighbor at a Time</p>
+                </div>
+
+                <div class="divider-line"></div>
+
+                <!-- QR Grid (2x2 Layout) -->
+                <div class="qr-grid grid grid-cols-1 md:grid-cols-2 gap-10 px-8">
+                    
+                    <!-- QR 1: Website -->
+                    <div class="qr-item">
+                        <div class="qr-box mb-3">
+                            <div id="qrcode-website"></div>
+                        </div>
+                        <h3 class="text-sm font-bold uppercase tracking-widest mb-1 text-gold">Visit Website</h3>
+                        <p class="text-xs text-gray-500 serif-font italic">hammerbrickhome.com</p>
+                    </div>
+
+                    <!-- QR 2: Save to Contacts -->
+                    <div class="qr-item">
+                        <div class="qr-box mb-3">
+                            <div id="qrcode-contact"></div>
+                        </div>
+                        <h3 class="text-sm font-bold uppercase tracking-widest mb-1 text-gold">Save Contact</h3>
+                        <p class="text-xs text-gray-500 serif-font italic">Add to Address Book</p>
+                    </div>
+
+                    <!-- QR 3: Facebook -->
+                    <div class="qr-item">
+                        <div class="qr-box mb-3">
+                            <div id="qrcode-facebook"></div>
+                        </div>
+                        <h3 class="text-sm font-bold uppercase tracking-widest mb-1 text-gold">Facebook</h3>
+                        <p class="text-xs text-gray-500 serif-font italic">Follow Our Projects</p>
+                    </div>
+
+                    <!-- QR 4: Google Review -->
+                    <div class="qr-item">
+                        <div class="qr-box mb-3">
+                            <div id="qrcode-review"></div>
+                        </div>
+                        <h3 class="text-sm font-bold uppercase tracking-widest mb-1 text-gold">Review Us</h3>
+                        <p class="text-xs text-gray-500 serif-font italic">Share Your Experience</p>
+                    </div>
+
+                </div>
+
+                <div class="divider-line"></div>
+
+                <!-- Services List -->
+                <div class="text-center px-4">
+                    <h4 class="expertise-title text-sm font-bold uppercase tracking-widest mb-5 border-b-2 border-gold inline-block pb-1">Our Expertise</h4>
+                    <div class="services-text grid grid-cols-2 gap-x-8 gap-y-2 text-xs md:text-sm font-medium uppercase tracking-wide leading-relaxed text-gray-800">
+                        <div class="text-right border-r border-gold pr-4">Brick & Stone Masonry</div>
+                        <div class="text-left pl-4">Concrete Pavers & Patios</div>
+                        
+                        <div class="text-right border-r border-gold pr-4">Kitchen & Bath Remodeling</div>
+                        <div class="text-left pl-4">Steps, Stoops & Railings</div>
+                        
+                        <div class="text-right border-r border-gold pr-4">Brownstone Restoration</div>
+                        <div class="text-left pl-4">Waterproofing & Roofing</div>
+                    </div>
+                    
+                    <p class="text-xs serif-font italic text-gray-500 mt-6">
+                        We Do It All <span class="text-gold font-bold px-1">&bull;</span> Affordable Luxury <span class="text-gold font-bold px-1">&bull;</span> And Much More
+                    </p>
+                </div>
+
+                <!-- Footer -->
+                <div class="footer-section text-center mt-6">
+                    <p class="text-3xl font-bold serif-font mb-2">929-595-5300</p>
+                    <div class="flex justify-center items-center space-x-3 text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>Insured</span>
+                        <span class="text-gold">&bull;</span>
+                        <span>Bonded</span>
+                        <span class="text-gold">&bull;</span>
+                        <span>Licensed</span>
+                    </div>
+                    <p class="text-gold text-[10px] mt-2 font-mono uppercase tracking-widest">www.hammerbrickhome.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for QR Codes
+        // ADVANCED vCard with Title and Services in Notes
+        // Notes are slightly optimized to prevent the QR from becoming too dense/hard to scan
+        const vcardData = `BEGIN:VCARD
+VERSION:3.0
+N:;Hammer Brick & Home LLC;;;
+FN:Hammer Brick & Home LLC
+ORG:Hammer Brick & Home LLC
+TITLE:Construction & Luxury Remodeling
+TEL;TYPE=WORK,VOICE:929-595-5300
+URL:https://www.hammerbrickhome.com
+NOTE:We Do It All! Affordable Luxury. Specializing in: Masonry, Kitchens, Roofing, Brownstones & More. Insured, Bonded & Licensed.
+END:VCARD`;
+
+        const links = {
+            website: "https://www.hammerbrickhome.com",
+            contact: vcardData,
+            facebook: "https://www.facebook.com/hammerbrickhome",
+            review: "https://g.page/r/CQ6UWcWLSx4KEAI/review"
+        };
+
+        // Function to generate QR codes
+        function generateQR(elementId, text, isVcard = false) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = "";
+            
+            new QRCode(container, {
+                text: text,
+                width: 150, // Slightly larger for clarity
+                height: 150,
+                colorDark : "#000000", // Keep Black for safety
+                colorLight : "#ffffff",
+                correctLevel : isVcard ? QRCode.CorrectLevel.L : QRCode.CorrectLevel.M
+            });
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            generateQR("qrcode-website", links.website);
+            generateQR("qrcode-contact", links.contact, true);
+            generateQR("qrcode-facebook", links.facebook);
+            generateQR("qrcode-review", links.review);
+        };
+    </script>
+</body>
+</html>

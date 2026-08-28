@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hammer Brick & Home - Signature Perks Handout</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Loading only the Bold/Heavy weights */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Montserrat:wght@600;700;800;900&display=swap');
+
+        :root {
+            /* HIGH VISIBILITY PALETTE FOR GOLD PAPER */
+            --bg-color: #ffffff;
+            
+            /* DARK BRONZE GOLD */
+            --gold: #B8860B;      
+            
+            /* VIBRANT ROYAL BLUE */
+            --text-main: #0033A0; 
+            
+            /* SOLID GREEN */
+            --highlight-green: #2ecc71; 
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e0e0e0;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            background: white;
+            position: relative;
+            padding: 0.25in 0.35in;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            color: var(--text-main);
+        }
+
+        /* Border - Kept Thick for Visibility */
+        .border-frame {
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 4px solid var(--gold); 
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* Added a double-border effect for extra luxury */
+        .border-frame::after {
+            content: '';
+            position: absolute;
+            top: 3px; left: 3px; right: 3px; bottom: 3px;
+            border: 1px solid var(--gold);
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif; /* LUXURY FONT UPDATE */
+            color: var(--text-main); 
+            font-size: 26pt; /* Slightly larger to show off the font */
+            margin: 0;
+            letter-spacing: -0.5px; /* Tighter for editorial look */
+            text-transform: uppercase;
+            font-weight: 900; 
+            font-style: italic; /* Slight italic for elegance */
+        }
+
+        .subtitle {
+            font-size: 9.5pt; 
+            color: var(--gold);
+            letter-spacing: 1.5px; /* Wider spacing for luxury feel */
+            text-transform: uppercase;
+            margin-top: 3px;
+            font-weight: 800; 
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .details-row {
+            font-size: 6.5pt;
+            color: var(--text-main);
+            margin-top: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .contact-bar {
+            margin-top: 5px;
+            font-size: 7.5pt;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; 
+            gap: 10px;
+            align-items: center;
+            font-weight: 700;
+        }
+        .contact-bar span { color: var(--gold); margin: 0 2px; font-weight: 900; }
+
+        /* --- JOIN BOX STYLES --- */
+        .join-box {
+            border: 3px solid var(--gold);
+            background: transparent;
+            padding: 6px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .join-header {
+            text-align: center;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 2px solid var(--gold);
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--text-main); 
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif; /* LUXURY FONT */
+        }
+        .join-header .highlight {
+            color: var(--gold);
+            font-weight: 900;
+            font-style: italic;
+        }
+        
+        .green-badge {
+            background-color: var(--highlight-green);
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 2px; /* Sharper corners are more luxury */
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            border: 1px solid #000;
+            text-decoration: none;
+            font-size: 8pt;
+            vertical-align: middle;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .join-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 0 4px;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 5px;
+            bottom: 5px;
+            width: 1px; 
+            background: var(--gold);
+        }
+
+        .step-icon {
+            font-size: 11pt; 
+            margin-bottom: 2px;
+            display: block;
+            color: var(--text-main); 
+        }
+
+        .step-title {
+            font-family: 'Playfair Display', serif; /* LUXURY FONT */
+            font-size: 9pt;
+            color: var(--gold);
+            font-weight: 900;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+        .step-desc {
+            font-size: 6.5pt;
+            color: var(--text-main); 
+            line-height: 1.2;
+            font-weight: 700; 
+        }
+
+        /* Main Content */
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            position: relative;
+            z-index: 2;
+            gap: 20px;
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .divider {
+            width: 2px;
+            background: var(--gold);
+            margin: 0 5px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif; /* LUXURY FONT */
+            color: var(--gold);
+            font-size: 11pt; 
+            margin: 4px 0 2px 0;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 2px;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            font-size: 6.5pt;
+            line-height: 1.15;
+            margin-bottom: 1px;
+            color: var(--text-main);
+            display: flex;
+            align-items: baseline;
+        }
+
+        li .num {
+            color: var(--gold);
+            font-weight: 900;
+            width: 18px;
+            flex-shrink: 0;
+            text-align: right;
+            margin-right: 6px;
+            font-family: 'Playfair Display', serif; /* LUXURY FONT NUMBERS */
+            font-size: 7.5pt;
+        }
+
+        li strong {
+            color: var(--text-main);
+            font-weight: 800; 
+        }
+        
+        li span.desc {
+            color: var(--text-main);
+            font-size: 6.5pt;
+            margin-left: 3px;
+            font-weight: 600;
+        }
+
+        /* QR Code Box */
+        .qr-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            padding: 5px;
+            border: 3px solid var(--gold);
+            background: transparent;
+        }
+        
+        .qr-text h3 {
+            font-family: 'Playfair Display', serif; /* LUXURY FONT */
+            color: var(--gold); 
+            margin:0 0 1px; 
+            font-size: 10pt;
+            font-weight: 900;
+        }
+        .qr-text p {
+            font-size: 6.5pt;
+            color: var(--text-main);
+            margin:0;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            border-top: 2px solid var(--gold);
+            padding-top: 6px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rules-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            gap: 10px;
+        }
+
+        .rule-box {
+            background: transparent;
+            border: 2px solid var(--gold);
+            padding: 4px 8px;
+            width: 50%;
+            text-align: left;
+        }
+        .rule-box h3 {
+            color: var(--gold);
+            font-size: 7pt;
+            margin: 0 0 1px 0;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+        }
+        .rule-box p {
+            font-size: 6pt;
+            margin: 0;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .disclaimer {
+            font-size: 5pt;
+            color: var(--text-main);
+            text-align: justify;
+            line-height: 1.1;
+            font-weight: 600;
+        }
+
+        @media print {
+            body { 
+                background: white; 
+                display: block;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <div class="border-frame"></div>
+
+        <header>
+            <h1>Hammer Brick & Home LLC</h1>
+            <div class="subtitle">Signature Membership & Monthly Draw</div>
+            <div class="details-row">
+                Luxury Remodeling & Masonry &bull; HIC #2131291 &bull; Licensed & Insured
+            </div>
+            <div class="contact-bar">
+                <div><i class="fas fa-phone"></i> (929) 595-5300</div>
+                <span>|</span>
+                <div><i class="fas fa-globe"></i> www.hammerbrickhome.com</div>
+                <span>|</span>
+                <div><i class="fas fa-envelope"></i> Hammerbrickhome@gmail.com</div>
+            </div>
+        </header>
+
+        <div class="join-box">
+            <div class="join-header">
+                <span class="highlight">Win Free Services</span> &bull; <span class="green-badge">100% FREE</span> to Join &bull; No Catch
+            </div>
+            <div class="join-steps">
+                <div class="step">
+                    <span class="step-icon">📧</span>
+                    <div class="step-title">1. Subscribe</div>
+                    <div class="step-desc">Join our email newsletter (Auto-subscribed upon entry).</div>
+                </div>
+                <div class="step">
+                    <span class="step-icon">👍</span>
+                    <div class="step-title">2. Follow Two</div>
+                    <div class="step-desc">Follow us on at least 2 Social Platforms (Insta, FB, TikTok, or YouTube).</div>
+                </div>
+                <div class="step">
+                    <span class="step-icon">🎁</span>
+                    <div class="step-title">3. You're In!</div>
+                    <div class="step-desc" style="font-size: 5pt; line-height: 1.2; font-weight: 600;">
+                        📍 Local (NYC/NJ): Win Monthly Repairs, Consults — or choose the National Prize<br>
+                        🌎 National: Gift Prizes or Virtual Consults
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            
+            <!-- Left Column: 1-25 -->
+            <div class="column">
+                
+                <h2>Consultations</h2>
+                <ul>
+                    <li><span class="num">01</span> <div><strong>"ROI Renovation" Roadmap</strong> <span class="desc">- Strategic resale value plan.</span></div></li>
+                    <li><span class="num">02</span> <div><strong>Curb Appeal Audit</strong> <span class="desc">- Fix "first impression" flaws.</span></div></li>
+                    <li><span class="num">03</span> <div><strong>Masonry Health Check</strong> <span class="desc">- Inspect pointing & cracks.</span></div></li>
+                    <li><span class="num">04</span> <div><strong>"Decode My Quote"</strong> <span class="desc">- Review other contractor quotes.</span></div></li>
+                    <li><span class="num">05</span> <div><strong>Layout Optimization</strong> <span class="desc">- Kitchen/Bath flow sketches.</span></div></li>
+                    <li><span class="num">06</span> <div><strong>Material Concierge</strong> <span class="desc">- Sample selection assistance.</span></div></li>
+                    <li><span class="num">07</span> <div><strong>Photo-Ready Checklist</strong> <span class="desc">- Pre-sale cosmetic tags.</span></div></li>
+                    <li><span class="num">08</span> <div><strong>Basement Moisture Analysis</strong> <span class="desc">- Humidity check.</span></div></li>
+                    <li><span class="num">09</span> <div><strong>Energy Efficiency Audit</strong> <span class="desc">- Find window/door leaks.</span></div></li>
+                    <li><span class="num">10</span> <div><strong>Outdoor Zone Sketch</strong> <span class="desc">- Patio/Firepit planning.</span></div></li>
+                </ul>
+
+                <h2>Interior Maintenance</h2>
+                <ul>
+                    <li><span class="num">11</span> <div><strong>Front Door Detail</strong> <span class="desc">- Polish hardware & clean glass.</span></div></li>
+                    <li><span class="num">12</span> <div><strong>Hinge Tune-Up</strong> <span class="desc">- Silence squeaky doors (up to 10).</span></div></li>
+                    <li><span class="num">13</span> <div><strong>Shower Caulk Strip</strong> <span class="desc">- Replace 5ft of bad silicone.</span></div></li>
+                    <li><span class="num">14</span> <div><strong>Grout "Steam & Gleam"</strong> <span class="desc">- 20 sq ft deep clean.</span></div></li>
+                    <li><span class="num">15</span> <div><strong>Cabinet Re-Alignment</strong> <span class="desc">- Adjust 5 crooked doors.</span></div></li>
+                    <li><span class="num">16</span> <div><strong>Appliance Gap Dusting</strong> <span class="desc">- Behind fridge/stove.</span></div></li>
+                    <li><span class="num">17</span> <div><strong>Dryer Vent Clear-Out</strong> <span class="desc">- Clean external exit hood.</span></div></li>
+                    <li><span class="num">18</span> <div><strong>A/C Filter Refresh</strong> <span class="desc">- Swap filters & vacuum grilles.</span></div></li>
+                    <li><span class="num">19</span> <div><strong>Light Fixture Wash</strong> <span class="desc">- Clean glass globes (3 fixtures).</span></div></li>
+                    <li><span class="num">20</span> <div><strong>Ceiling Fan Balance</strong> <span class="desc">- Dust & tighten wobbles.</span></div></li>
+                    <li><span class="num">21</span> <div><strong>Window Track Clean</strong> <span class="desc">- Scrub sliding tracks.</span></div></li>
+                    <li><span class="num">22</span> <div><strong>Paint "Spot Doctor"</strong> <span class="desc">- Feather-in wall scuffs.</span></div></li>
+                    <li><span class="num">23</span> <div><strong>Furniture Anti-Scratch</strong> <span class="desc">- Install felt pads.</span></div></li>
+                    <li><span class="num">24</span> <div><strong>Sliding Door Service</strong> <span class="desc">- Lube rollers & track.</span></div></li>
+                    <li><span class="num">25</span> <div><strong>Loose Handle Lockdown</strong> <span class="desc">- Tighten wobbly knobs.</span></div></li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Right Column: 26-50 -->
+            <div class="column">
+                
+                <h2>Exterior Maintenance</h2>
+                <ul>
+                    <li><span class="num">26</span> <div><strong>Mailbox Rescue</strong> <span class="desc">- Straighten & paint touch-up.</span></div></li>
+                    <li><span class="num">27</span> <div><strong>House Number Install</strong> <span class="desc">- Drill & mount new numbers.</span></div></li>
+                    <li><span class="num">28</span> <div><strong>Exterior Bulb Swap</strong> <span class="desc">- High-reach floodlight change.</span></div></li>
+                    <li><span class="num">29</span> <div><strong>Gate Latch Adjustment</strong> <span class="desc">- Re-align fence latch.</span></div></li>
+                    <li><span class="num">30</span> <div><strong>Algae Spot Treatment</strong> <span class="desc">- Siding chemical scrub.</span></div></li>
+                    <li><span class="num">31</span> <div><strong>Paver Weed Warrior</strong> <span class="desc">- Torch/pull patio weeds.</span></div></li>
+                    <li><span class="num">32</span> <div><strong>Downspout Flush</strong> <span class="desc">- Clear ground-level clogs.</span></div></li>
+                    <li><span class="num">33</span> <div><strong>Storm Door Piston</strong> <span class="desc">- Adjust closure speed.</span></div></li>
+                    <li><span class="num">34</span> <div><strong>Fence Post Cap Secure</strong> <span class="desc">- Glue loose caps.</span></div></li>
+                    <li><span class="num">35</span> <div><strong>Furniture Wrap</strong> <span class="desc">- Seasonal stack & wrap.</span></div></li>
+                    <li><span class="num">36</span> <div><strong>Hose Bib Winterization</strong> <span class="desc">- Drain & cover spigots.</span></div></li>
+                    <li><span class="num">37</span> <div><strong>Driveway Oil Primer</strong> <span class="desc">- Treat asphalt stains.</span></div></li>
+                    <li><span class="num">38</span> <div><strong>Brick "Quick-Tuck"</strong> <span class="desc">- Secure 1-3 loose bricks.</span></div></li>
+                    <li><span class="num">39</span> <div><strong>Shrub Trimming</strong> <span class="desc">- Clear walkway access.</span></div></li>
+                    <li><span class="num">40</span> <div><strong>Pressure Wash Test</strong> <span class="desc">- 5x5 demo patch.</span></div></li>
+                </ul>
+
+                <h2>Safety & Mounting</h2>
+                <ul>
+                    <li><span class="num">41</span> <div><strong>Smoke/CO Battery Swap</strong> <span class="desc">- High reach service.</span></div></li>
+                    <li><span class="num">42</span> <div><strong>Fire Extinguisher Mount</strong> <span class="desc">- Kitchen/Garage install.</span></div></li>
+                    <li><span class="num">43</span> <div><strong>Child-Proofing</strong> <span class="desc">- Install 3 gates/locks.</span></div></li>
+                    <li><span class="num">44</span> <div><strong>Heavy Mirror Hanging</strong> <span class="desc">- Professional stud mount.</span></div></li>
+                    <li><span class="num">45</span> <div><strong>TV Mount (Labor)</strong> <span class="desc">- Bracket install & hang.</span></div></li>
+                    <li><span class="num">46</span> <div><strong>Closet Rod Reinforce</strong> <span class="desc">- Secure sagging brackets.</span></div></li>
+                    <li><span class="num">47</span> <div><strong>Water Valve Tagging</strong> <span class="desc">- Label emergency shut-offs.</span></div></li>
+                    <li><span class="num">48</span> <div><strong>Garage Eye-Sensor</strong> <span class="desc">- Re-align safety beam.</span></div></li>
+                    <li><span class="num">49</span> <div><strong>Blind/Rod Re-Secure</strong> <span class="desc">- Fix pulled-out drywall.</span></div></li>
+                    <li><span class="num">50</span> <div><strong>"Honey-Do" Wildcard</strong> <span class="desc">- Any 45-min drill/ladder task.</span></div></li>
+                </ul>
+                
+                <div class="qr-section">
+                    <!-- QR Code Generated via API -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.hammerbrickhome.com" alt="QR Code" width="50" height="50">
+                    <div class="qr-text">
+                        <h3>Visit Website</h3>
+                        <p>Scan to join the program.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer>
+            <div class="rules-grid">
+                <div class="rule-box">
+                    <h3>The 55-Minute Rule</h3>
+                    <p>We do as much quality work as possible in under 1 hour. If complex issues arise, we pause and quote.</p>
+                </div>
+                <div class="rule-box">
+                    <h3>Materials Not Included</h3>
+                    <p>We provide pro labor & tools. You provide the consumables (paint, bulbs, batteries, hardware).</p>
+                </div>
+            </div>
+            <div class="disclaimer">
+                <strong>PROGRAM TERMS:</strong> Hammer Brick & Home LLC reserves the right to modify or discontinue this program at any time. 
+                Prize Substitution: We reserve the right to substitute physical service perks with gift cards/merchandise for non-local winners.
+                All services performed subject to availability and safety assessment.
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

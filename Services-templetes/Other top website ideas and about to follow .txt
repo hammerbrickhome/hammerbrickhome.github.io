@@ -1,0 +1,234 @@
+
+Homebuddy.com has a good layout and they tell you what to do etc 
+
+https://www.makinglooksgood.com/ lot of certifications 
+
+
+Here are **10 real-world example pricing points** from contractors / service providers in and around NYC/NJ (or similar urban markets) that you can use as benchmarks for your own packages. I’ve noted the service, the pricing, and any details you should keep in mind.
+
+| #  | Provider & Service                                                  | Pricing                                                                                                                 | Notes                                                                              |
+| -- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 1  | Handy Dan Concierge Home Maintenance – subscription handyman in NYC | **Starts at $395/month** for luxury/concierge level. ([Team Handy Dan][1])                                              | High-end membership model; broad scope, likely 1–2 hrs+ per month.                 |
+| 2  | HomeSafe Handyman Monthly Maintenance Plan – handyman monthly plan  | **Starts at $325/month**. ([Home Safe Maintenance][2])                                                                  | For dedicated monthly visits (~2 hrs) covering interior + exterior maintenance.    |
+| 3  | Homes Trust Handyman – ongoing membership handyman                  | **$246/month** for annual membership OR **$295/month** billed monthly. ([hometrusthandyman.com][3])                     | Good mid-tier benchmark for handyman-type services.                                |
+| 4  | Angi cost guide – handyman job average                              | Average job cost ~$410; range ~$176-$690. ([Angi][4])                                                                   | Useful for “one-off” jobs; membership model must cover many jobs to be profitable. |
+| 5  | HomeGuide cost guide – handyman hourly rate                         | $50-$80/hr for self-employed; $75-$125/hr for corporate in NYC. ([HomeGuide][5])                                        | Helps you validate that monthly membership must cover labor+overhead.              |
+| 6  | Bob Vila cost guide – concrete cleaning/sealing                     | Average ~$1,500 for concrete cleaning/sealing; range ~$1,250-$1,750. ([Bob Vila][6])                                    | Good benchmark for exterior hardscape services (pavers/concrete).                  |
+| 7  | Angi cost guide – paver cleaning & resealing                        | Average ~$400 for cleaning & resealing pavers (for ~200 sq ft); range ~$300-$550. ([Angi][7])                           | Validates smaller scale paver work pricing.                                        |
+| 8  | Handoff.ai cost estimate – pressure-wash concrete in NYC            | ~$0.60-$1.02 per sq ft in NYC. ([Handoff AI][8])                                                                        | Shows how area size affects cost for exterior cleaning work.                       |
+| 9  | Total Home Helpers – handyman subscription                          | “Home Hero Plan” at **$99/month** for monthly walk-around + 2 hrs service; other tiers exist. ([Total Home Helpers][9]) | Entry‐level subscription model; helpful for your “Standard” tier.                  |
+| 10 | PreFix – home maintenance membership                                | $47/month (for one HVAC system home) + $55/hr for general tasks. ([PreFix][10])                                         | Lower cost benchmark; less trade‐intensive than masonry/remodeling services.       |
+
+---
+
+### 🔍 Key Findings & How They Apply to Your Business
+
+* For **monthly membership models** in the NYC/NJ area, realistic prices typically start around **$200-$300/month+** for handyman‐type services. (Examples #2, #3)
+* Luxury or concierge maintenance memberships can go **$395/month** or higher (#1).
+* For **one-off exterior services** (cleaning, sealing, pavers/concrete) the average cost is **hundreds to low thousands**, depending on size (#7, #6).
+* Hourly labor rates in NYC are ~$75-$125/hr for handyman trades (#5).
+* Your services such as masonry, pavers, full remodels are higher-value than just handyman tasks — so your “Premium” and “Luxury” tiers should reflect that added scope.
+* Entry “Standard” membership tiers can start lower (~$99/month) but with limited hours/services (#9).
+
+---
+
+### ✅ Suggested Updates for Your Pricing Based on Benchmarking
+
+Given the data above, I’d **adjust your package price ranges** as follows:
+
+* **Standard Monthly Membership** (maintenance / small repairs) → start around **$119-$149/mo** rather than too low.
+* **Premium Monthly Membership** → around **$249-$299/mo**.
+* **Luxury Monthly Membership** → around **$395-$499/mo** (or more depending on scope).
+* For **one-time annual packages** (exterior cleaning/sealing, paver work) → the “From” range of **$1,000-$3,000+** is valid but you should anchor by size so customers know what “From” means.
+* Implement the **10% upfront payment discount** on these benchmarked prices.
+
+---
+
+If you like, I can **assemble a spreadsheet** with all 10 competitor data + your updated tier suggestions side-by-side (for each service category) and we can pick exact numbers together for your site. Do you want that?
+
+[1]: https://handy-man-nyc.com/concierge/?utm_source=chatgpt.com "Subscription Based Handyman Services in NYC"
+[2]: https://homesafemaintenance.com/monthly-plan/?utm_source=chatgpt.com "HomeSafe Handyman Monthly Maintenance Plan | New York"
+[3]: https://hometrusthandyman.com/pricing/?utm_source=chatgpt.com "Pricing – Home Trust Handyman"
+[4]: https://www.angi.com/articles/what-are-common-handyman-prices.htm?utm_source=chatgpt.com "How Much Does It Cost to Hire a Handyman? [2025 Data]"
+[5]: https://homeguide.com/costs/handyman-prices?utm_source=chatgpt.com "2025 Handyman Hourly Rates | Price List & Avg. Job Cost"
+[6]: https://www.bobvila.com/articles/concrete-cleaning-and-sealing-services-costs/?utm_source=chatgpt.com "How Much Do Concrete Cleaning and Sealing Services Cost?"
+[7]: https://www.angi.com/articles/how-much-pressure-wash-and-reapply-sand-paver-patio.htm?utm_source=chatgpt.com "How Much Does Paver Cleaning And Sealing Cost in 2025?"
+[8]: https://www.handoff.ai/construction-costs/pressure-wash-concrete/new-york-ny?utm_source=chatgpt.com "Cost to pressure wash concrete in New York, NY"
+[9]: https://www.totalhomehelpers.com/subscriptions?utm_source=chatgpt.com "Monthly Home Maintenance Subscriptions"
+[10]: https://www.prefixinc.com/?utm_source=chatgpt.com "Homepage | PreFix Home Maintenance | PreFix"
+
+
+
+
+
+Absolutely — I can expand your membership plans with **more services** as long as they are things a Home Improvement Contractor (NYC HIC) is allowed to offer **without needing extra specialty licenses**.
+
+Here is a **FULL list of services** you can safely add to your plans to make them stronger, more valuable, and more attractive.
+
+I’ll group them by category and bold the NEW ones you can add.
+
+---
+
+# 🧱 **Masonry & Pavers — MORE SERVICES YOU CAN ADD**
+
+(All allowed under Home Improvement HIC)
+
+* **Joint sand renewal (spot or full area)**
+* **Efflorescence removal**
+* **Small mortar repairs on foundation edges**
+* **Step edging repairs**
+* **Stone cleaning & stain removal**
+* **Small curb repair (non-structural)**
+* **Brick sealing (1 coat)**
+* **Paver polymeric spot repair**
+* **Debris clearing between stones/pavers**
+* **Chimney exterior brick cleaning** (non-structural)
+
+---
+
+# 🔨 **Carpentry & Remodeling — MORE SERVICES**
+
+(Still within handyman-level carpentry + small remodeling)
+
+* **Door weatherstripping replacement**
+* **Window lock/handle replacements**
+* **Cabinet soft-close hinge upgrades**
+* **Sliding door track cleaning & lubrication**
+* **Closet rods & shelf installations**
+* **Furniture assembly** (very popular add-on)
+* **Baby-proofing installations** (gates, locks, drawer stoppers)
+* **Smoke/CO detector installation**
+* **Light fixture swapping** (non-hardwired or same wiring)
+* **Mirror, art, and TV mounting**
+* **Caulking around tubs, sinks, backsplash**
+* **Minor tile replacement (1–2 tiles)**
+* **Patch + repaint water stains (post leak fix)**
+* **Door trim rebuilding (minor damage)**
+
+---
+
+# 🎨 **Painting & Finishes — MORE YOU CAN ADD**
+
+(Easy, high-value add-ons)
+
+* **Baseboard repainting (whole room)**
+* **Touch-up package for hallways (scuff removal)**
+* **Ceiling spot repainting**
+* **Door repainting (per door)**
+* **Kitchen cabinet touch-up**
+* **Bathroom humidity-resistant repaint**
+* **Drywall hairline crack sealing**
+* **Filling nail pops throughout house**
+* **Small wallpaper repair (1 panel)**
+* **Accent ceiling color (one room)**
+* **Door hardware polishing/cleaning**
+
+---
+
+# 🌲 **Exterior Care — MORE SERVICES**
+
+(No permit, no licensing required)
+
+* **Garbage enclosure cleaning**
+* **Driveway crack sealing (cold-patch)**
+* **Fence hinge/lock replacement**
+* **Mailbox installation or repairs**
+* **Storm door adjustment or replacement**
+* **Window well cleaning**
+* **Exterior caulking around windows**
+* **Deck railing tightening**
+* **Deck board replacement (1–2 boards)**
+* **Gutter bracket tightening**
+* **Downspout extension install** (for drainage)
+* **Winter prep: faucet shutoff + pipe wrap**
+* **AC sleeve cleaning**
+
+---
+
+# 🌿 **Landscaping & Outdoor Care — MORE SERVICES**
+
+(You requested more here — here are GREAT add-ons)
+
+### **Basic-Level Additions**
+
+* **Small flower bed cleanup**
+* **Minor weed pulling (hand)**
+* **Trash pickup on property**
+* **Sweeping patios & walkways**
+* **Leaf bagging (small areas)**
+* **Light hedge/plant trimming**
+* **Garden hose storage/cleanup**
+
+### **Premium-Level Additions**
+
+* **Mulch install (small/medium areas)**
+* **Shrub shaping**
+* **Weed blocking fabric install (small area)**
+* **Stone edging installation (short runs)**
+* **Sod patch repair (small areas)**
+* **Seasonal planting (flowers)**
+* **Deck cleaning (soap & brush)**
+* **Lawn fertilizer application**
+
+### **Luxury-Level Additions**
+
+* **Full property cleanup (front + back)**
+* **Mulch, topsoil, or decorative stone for multiple beds**
+* **Annual deck wash + stain**
+* **Landscape lighting adjustment, timer setup**
+* **Large hedge pruning**
+* **Yard debris haul-away**
+* **Tree ring beautification**
+* **Seasonal flower rotation (Spring/Summer/Fall)**
+
+---
+
+# 🔧 **HANDYMAN SERVICES YOU CAN SAFELY ADD (VERY POPULAR)**
+
+These are HUGE upsell items:
+
+* **Install blinds/curtains**
+* **Install shelves / closet organizers**
+* **Replace shower head**
+* **Replace faucets (same fit)**
+* **Toilet seat swap**
+* **Caulking bathroom/kitchen**
+* **Patch holes in walls**
+* **Assemble furniture**
+* **Hang pictures / mirrors**
+* **TV mounting**
+* **Install Ring doorbell**
+* **Install smart thermostat**
+* **Garage cleanout**
+
+---
+
+# ⭐ WANT ME TO AUTOMATICALLY ADD THESE TO YOUR PLANS?
+
+I can now:
+
+✔ Add these NEW SERVICES into Basic, Premium, Luxury
+✔ Update the dropdown lists
+✔ Make everything look natural and properly grouped
+✔ Insert the updated 3 combined plans into your full HTML page
+
+---
+
+# ❓ **Do you want me to automatically include ALL the new services into:**
+
+### **A — All 3 combined plans (Basic, Premium, Luxury)**
+
+(best option, makes your packages feel BIG and complete)
+
+### **B — Only Landscaping category**
+
+(only update landscaping)
+
+### **C — Only certain categories (tell me which)**
+
+---
+
+📌 Please reply: **A, B, or C**
+Then I will add the new services and deliver your full updated code.
+
+
