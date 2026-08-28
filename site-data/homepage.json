@@ -1,5 +1,5 @@
 {
-  "announcementEnabled": false,
+  "announcementEnabled": true,
   "announcementText": "Now booking new projects — free estimates available.",
   "announcementButtonText": "Request Estimate",
   "announcementButtonUrl": "/contact.html",
@@ -40,13 +40,13 @@
   "guaranteeSignature": "The Owner",
   "whyNeighborsTitle": "Why Neighbors Choose Us",
   "whyNeighborsText": "We aren't a generic franchise. We are a local NYC team that understands specific local challenges like tight parking, co-op board rules, and old-growth masonry repair.",
-  "serviceAreasHeading": "Explore Every Area We Serve",
-  "serviceAreasIntro": "Choose your area to see local services, neighborhood expertise, and project options.",
-  "serviceAreaHeading": "Serving Our Neighbors",
-  "serviceAreaIntro": "Based in Staten Island (10302), we proudly serve the entire New York City metro area and New Jersey.",
   "reviewEyebrow": "REAL CUSTOMER EXPERIENCES",
   "reviewHeading": "What Our Customers Say",
   "reviewIntro": "Real feedback from local homeowners who trusted our team.",
   "reviewButtonText": "Our Google Reviews",
-  "faqHeading": "Common Questions"
+  "faqHeading": "Common Questions",
+  "serviceAreasHeading": "Explore Every Area We Serve",
+  "serviceAreasIntro": "Choose your area to see local services, neighborhood expertise, and project options.",
+  "serviceAreaHeading": "Serving Our Neighbors",
+  "serviceAreaIntro": "Based in Staten Island (10302), we proudly serve the entire New York City metro area and New Jersey."
 }
