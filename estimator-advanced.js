@@ -2155,7 +2155,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="brand-name">HAMMER BRICK &amp; HOME LLC</div>
       <div>Precision • Protection • Professionalism</div>
       <div>Licensed • Insured • Bonded</div>
-      <div>HIC #2131291</div>
+      <div>HIC #21311291</div>
       <div>Call: 929-595-5300</div>
       <div style="margin-bottom:6px;">Building trust one brick at a time.</div>
       <div class="gold-divider"></div>
@@ -3028,3 +3028,4 @@ function injectEstimatorExtraStyles(){
   style.textContent = css;
   document.head.appendChild(style);
 }
+

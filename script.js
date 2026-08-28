@@ -261,14 +261,10 @@ async function loadGalleryPage() {
     const data = await res.json();
     
     // ⭐ UPDATED: Store and set initial data globally
-    allGridPhotos = shuffle((data.galleryGrid || []).filter(photo =>
-      photo && photo.active !== false && (typeof photo === "string" || photo.name)
-    ));
+    allGridPhotos = shuffle(data.galleryGrid || []);
     currentFilteredGrid = allGridPhotos;
 
-    allComparePairs = shuffle((data.galleryPairs || []).filter(pair =>
-      pair && pair.active !== false && pair.before && pair.after
-    ));
+    allComparePairs = shuffle(data.galleryPairs || []);
     currentFilteredPairs = allComparePairs;
 
     /* Compare pairs */
@@ -370,13 +366,7 @@ function applyHammerBusinessSettings(data) {
     footer.querySelectorAll("div").forEach(div => {
       const text = div.textContent.trim();
       if (text.startsWith("Serving:") && Array.isArray(data.serviceAreas)) {
-        div.textContent = "Serving: ";
-        data.serviceAreas.forEach((area, index) => {
-          if (index) div.appendChild(document.createTextNode(" · "));
-          const strong = document.createElement("strong");
-          strong.textContent = String(area);
-          div.appendChild(strong);
-        });
+        div.innerHTML = "Serving: " + data.serviceAreas.map(x => `<strong>${String(x)}</strong>`).join(" · ");
       }
       if (text.includes("Licensed, Bonded & Insured") && data.epaLabel) {
         div.textContent = `Licensed, Bonded & Insured · ${data.epaLabel}`;
@@ -434,342 +424,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerEl = document.getElementById("header-include");
   const footerEl = document.getElementById("footer-include");
 
-  if (headerEl || footerEl) {
+  if (headerEl) {
     Promise.all([
       fetch("/header.html").then(r => r.text()),
       fetch("/footer.html").then(r => r.text())
     ]).then(([header, footer]) => {
-      if (headerEl) headerEl.innerHTML = header;
-      if (footerEl) footerEl.innerHTML = footer;
+      headerEl.innerHTML = header;
+      footerEl.innerHTML = footer;
       
       // ✅ FIXED: Initialize menu here, once header is in DOM
       initHeaderInteractions();
       refreshHammerBusinessSettings();
     });
   }
-});
-
-/* ============================================================
-   PAGES CMS — SHARED PAGE CONTENT
-   Every renderer keeps the original HTML as a fallback. Content
-   changes only after a valid JSON file has loaded successfully.
-=============================================================== */
-
-const hammerCmsCache = new Map();
-
-function cmsEscape(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-function cmsSafeUrl(value, fallback = "#") {
-  const url = String(value || "").trim();
-  if (/^(\/(?!\/)|#|https:\/\/|mailto:|tel:|sms:)/i.test(url)) return url;
-  return fallback;
-}
-
-function cmsImageUrl(value) {
-  const image = String(value || "").trim();
-  if (!image) return "";
-  if (image.startsWith("/")) return image;
-  return "/images/" + image.replace(/^images\//, "");
-}
-
-function cmsLoadJson(path) {
-  if (!hammerCmsCache.has(path)) {
-    hammerCmsCache.set(path, fetch(path, { cache: "no-store" })
-      .then(response => response.ok ? response.json() : null)
-      .catch(() => null));
-  }
-  return hammerCmsCache.get(path);
-}
-
-function cmsSpecialIsCurrent(item) {
-  if (!item || item.active === false) return false;
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  const start = item.startDate ? new Date(item.startDate + "T00:00:00") : null;
-  const end = item.endDate ? new Date(item.endDate + "T23:59:59") : null;
-  if (start && !Number.isNaN(start.getTime()) && now < start) return false;
-  if (end && !Number.isNaN(end.getTime()) && now > end) return false;
-  return true;
-}
-
-function cmsSpecialCard(item) {
-  const accent = /^#[0-9a-f]{3,8}$/i.test(String(item.accentColor || ""))
-    ? item.accentColor : "#e7bf63";
-  const badgeColor = /^#[0-9a-f]{3,8}$/i.test(String(item.badgeTextColor || ""))
-    ? item.badgeTextColor : "#ffffff";
-  const features = (Array.isArray(item.features) ? item.features : []).map(feature => {
-    const text = cmsEscape(typeof feature === "string" ? feature : feature?.text);
-    return `<li>${feature?.bold === true ? `<strong>${text}</strong>` : text}</li>`;
-  }).join("");
-  const addons = (Array.isArray(item.addons) ? item.addons : []).map(addon =>
-    `<li><span>${cmsEscape(addon?.name)}</span> <span class="addon-price">${cmsEscape(addon?.price)}</span></li>`
-  ).join("");
-
-  return `<div class="special-card" style="border-top:4px solid ${accent};">
-    ${item.badge ? `<div class="special-tag" style="background:${accent};color:${badgeColor};">${cmsEscape(item.badge)}</div>` : ""}
-    <h3>${cmsEscape(item.title)}</h3>
-    <div class="special-price">${cmsEscape(item.price)}</div>
-    <p class="special-desc">${cmsEscape(item.description)}</p>
-    ${features ? `<ul class="bullets">${features}</ul>` : ""}
-    ${addons ? `<div class="special-addons"><h4>Popular Add-Ons</h4><ul class="addon-list">${addons}</ul></div>` : ""}
-    ${item.requirements ? `<div class="special-protection"><strong>Client Requirements:</strong> ${cmsEscape(item.requirements)}</div>` : ""}
-    <button type="button" class="btn contact-panel-toggle">${cmsEscape(item.buttonText || "Contact Us")}</button>
-  </div>`;
-}
-
-async function cmsRenderFaqPage() {
-  const list = document.getElementById("cmsFaqPageList");
-  if (!list) return;
-  const data = await cmsLoadJson("/site-data/faqs.json");
-  if (!data || !Array.isArray(data.items)) return;
-
-  const items = data.items.filter(item => item && item.active !== false && item.question && item.answer);
-  const groups = new Map();
-  items.forEach(item => {
-    const category = String(item.category || "General & Pricing");
-    if (!groups.has(category)) groups.set(category, []);
-    groups.get(category).push(item);
-  });
-
-  const heading = document.getElementById("cmsFaqPageHeading");
-  const intro = document.getElementById("cmsFaqPageIntro");
-  if (heading && data.heading) heading.textContent = data.heading;
-  if (intro && data.intro) intro.textContent = data.intro;
-  list.innerHTML = Array.from(groups.entries()).map(([category, questions]) => `
-    <h3 class="faq-category">${cmsEscape(category)}</h3>
-    ${questions.map(item => `<div class="faq-item">
-      <button class="faq-question" type="button">${cmsEscape(item.question)}<span class="faq-icon">+</span></button>
-      <div class="faq-answer"><p>${cmsEscape(item.answer)}</p></div>
-    </div>`).join("")}
-  `).join("");
-
-  list.querySelectorAll(".faq-question").forEach(button => {
-    button.addEventListener("click", () => {
-      button.classList.toggle("active");
-      const answer = button.nextElementSibling;
-      answer.style.maxHeight = answer.style.maxHeight ? "" : answer.scrollHeight + "px";
-    });
-  });
-}
-
-async function cmsRenderReviewsPage() {
-  const list = document.getElementById("cmsReviewsPageList");
-  if (!list) return;
-  const data = await cmsLoadJson("/site-data/reviews.json");
-  if (!data || !Array.isArray(data.reviews)) return;
-  const reviews = data.reviews.filter(item => item && item.active !== false && item.review);
-  const heading = document.getElementById("cmsReviewsPageHeading");
-  const intro = document.getElementById("cmsReviewsPageIntro");
-  if (heading && data.heading) heading.textContent = data.heading;
-  if (intro && data.intro) intro.textContent = data.intro;
-
-  list.innerHTML = reviews.map(item => {
-    const rating = Math.max(1, Math.min(5, Number(item.rating) || 5));
-    const initial = String(item.name || "C").trim().charAt(0).toUpperCase();
-    return `<article class="review-feature">
-      <div class="watermark-icon" aria-hidden="true">“</div>
-      <div class="star-row">${"★".repeat(rating)}${"☆".repeat(5 - rating)} <span class="verified-tag">${cmsEscape(item.source || "Google Review")}</span></div>
-      <div class="review-text">“${cmsEscape(item.review)}”</div>
-      <div class="author-block"><div class="author-initial">${cmsEscape(initial)}</div>
-        <div class="author-details"><h4>${cmsEscape(item.name)}</h4><span>${cmsEscape(item.service || "Home Improvement")}</span></div>
-      </div>
-    </article>`;
-  }).join("") + `<div class="reviews-cta">
-    <h3 class="shimmer-title" style="font-size:26px;margin-bottom:15px;">Your Turn.</h3>
-    <p style="color:var(--muted);max-width:600px;margin:0 auto 25px;">If we have worked together, please share your story.</p>
-    <a class="btn gold-btn" href="${cmsSafeUrl(data.reviewUrl, "/contact.html")}" target="_blank" rel="noopener">Write a Google Review</a>
-    <div style="margin-top:30px;"><a class="btn ghost" href="/contact.html">Request a Free Estimate</a></div>
-  </div>`;
-}
-
-async function cmsRenderSpecialsPage() {
-  const grid = document.getElementById("cmsSpecialsPageGrid");
-  if (!grid) return;
-  const data = await cmsLoadJson("/site-data/specials.json");
-  if (!data || !Array.isArray(data.specials)) return;
-  const items = data.specials.filter(cmsSpecialIsCurrent);
-  const hero = document.getElementById("cmsSpecialsPageHero");
-  const intro = document.getElementById("cmsSpecialsPageIntro");
-  const heading = document.getElementById("cmsSpecialsPageHeading");
-  const subheading = document.getElementById("cmsSpecialsPageSubheading");
-  const fine = document.getElementById("cmsSpecialsPageFinePrint");
-  if (hero && data.heading) hero.textContent = data.heading;
-  if (heading && data.heading) heading.textContent = data.heading;
-  if (intro && data.subheading) intro.textContent = data.subheading;
-  if (subheading && data.subheading) subheading.textContent = data.subheading;
-  if (fine && data.finePrint) fine.textContent = data.finePrint;
-  grid.innerHTML = items.length ? items.map(cmsSpecialCard).join("")
-    : `<p class="cms-empty">No service specials are active right now.</p>`;
-}
-
-async function cmsRenderProjectsPage() {
-  const grid = document.getElementById("cmsProjectsGrid");
-  if (!grid) return;
-  const data = await cmsLoadJson("/site-data/projects.json");
-  if (!data || !Array.isArray(data.projects)) return;
-  const projects = data.projects.filter(item =>
-    item && item.active !== false && item.title && item.beforeImage && item.afterImage
-  );
-  const heading = document.getElementById("cmsProjectsHeading");
-  const intro = document.getElementById("cmsProjectsIntro");
-  if (heading && data.heading) heading.textContent = data.heading;
-  if (intro && data.intro) intro.textContent = data.intro;
-  grid.innerHTML = projects.map(item => `<article class="cms-project-card">
-    <div class="cms-project-images">
-      <figure><img src="${cmsEscape(cmsImageUrl(item.beforeImage))}" alt="${cmsEscape(item.title)} before"><figcaption>Before</figcaption></figure>
-      <figure><img src="${cmsEscape(cmsImageUrl(item.afterImage))}" alt="${cmsEscape(item.title)} after"><figcaption>After</figcaption></figure>
-    </div>
-    <div class="cms-project-copy">
-      <p class="cms-project-meta">${cmsEscape(item.service)}${item.location ? ` · ${cmsEscape(item.location)}` : ""}</p>
-      <h2>${cmsEscape(item.title)}</h2><p>${cmsEscape(item.summary)}</p>
-    </div>
-  </article>`).join("");
-}
-
-async function cmsRenderServices() {
-  const data = await cmsLoadJson("/site-data/services.json");
-  if (!data || !Array.isArray(data.services)) return;
-
-  const heading = document.getElementById("cmsServicesPageHeading");
-  const intro = document.getElementById("cmsServicesPageIntro");
-  if (heading && data.heading) heading.textContent = data.heading;
-  if (intro && data.intro) intro.textContent = data.intro;
-
-  const directory = document.getElementById("cmsServicesDirectory");
-  if (directory) {
-    const groups = new Map();
-    data.services.filter(item => item && item.active !== false && item.name).forEach(item => {
-      const category = String(item.category || "Other Services");
-      if (!groups.has(category)) groups.set(category, []);
-      groups.get(category).push(item);
-    });
-    directory.innerHTML = Array.from(groups.entries()).map(([category, services]) => `
-      <div class="cms-service-group"><h2>${cmsEscape(category)}</h2><div class="service-grid">
-        ${services.map(item => `<div class="service-button"><a href="${cmsSafeUrl(item.url, "/contact.html")}">${cmsEscape(item.name)}</a></div>`).join("")}
-      </div></div>`).join("");
-    directory.hidden = false;
-    ["roofing-section", "masonry-section", "remodeling-section", "carpentry-section", "painting-section", "exterior-section", "lead-safe-section"]
-      .forEach(id => { const section = document.getElementById(id); if (section) section.hidden = true; });
-
-    const search = document.getElementById("serviceSearch");
-    const noResults = document.getElementById("noResults");
-    if (search) search.oninput = () => {
-      const query = search.value.toLowerCase().trim();
-      let visible = 0;
-      directory.querySelectorAll(".service-button").forEach(button => {
-        const show = button.textContent.toLowerCase().includes(query);
-        button.style.display = show ? "flex" : "none";
-        if (show) visible += 1;
-      });
-      if (noResults) noResults.style.display = visible ? "none" : "block";
-    };
-  }
-
-  const homeGrid = document.getElementById("cmsHomeServices");
-  if (homeGrid) {
-    const cards = Array.from(homeGrid.querySelectorAll(".glow-card"));
-    const homeServices = data.services.filter(item => item && item.active !== false && item.showOnHomepage !== false);
-    cards.forEach((card, index) => {
-      const item = homeServices[index];
-      card.style.display = item ? "" : "none";
-      if (!item) return;
-      card.href = cmsSafeUrl(item.url, "/services.html");
-      const label = card.querySelector("span:last-child");
-      if (label) label.textContent = item.name;
-    });
-  }
-}
-
-let hammerChromeData = null;
-async function cmsApplyChrome() {
-  if (!hammerChromeData) {
-    const [navigation, footer, seo] = await Promise.all([
-      cmsLoadJson("/site-data/navigation.json"),
-      cmsLoadJson("/site-data/footer.json"),
-      cmsLoadJson("/site-data/seo.json")
-    ]);
-    hammerChromeData = { navigation, footer, seo };
-  }
-
-  const nav = document.querySelector(".main-nav");
-  if (nav && hammerChromeData.navigation?.items) {
-    const signature = JSON.stringify(hammerChromeData.navigation.items);
-    if (nav.dataset.cmsNavigation !== signature) {
-      const links = Array.from(nav.children).filter(child => child.matches("a"));
-      const items = hammerChromeData.navigation.items;
-      links.forEach((link, index) => {
-        const item = items[index];
-        link.style.display = item && item.active !== false ? "" : "none";
-        if (!item) return;
-        const href = cmsSafeUrl(item.url, link.getAttribute("href") || "#");
-        if (link.getAttribute("href") !== href) link.setAttribute("href", href);
-        if (link.textContent !== item.label) link.textContent = item.label;
-      });
-      nav.dataset.cmsNavigation = signature;
-    }
-  }
-
-  const footer = document.querySelector(".site-footer");
-  if (footer && hammerChromeData.footer) {
-    const quickLinks = footer.querySelector('nav[aria-label="Quick Links"]');
-    const items = (hammerChromeData.footer.links || []).filter(item => item && item.active !== false);
-    const signature = JSON.stringify(items);
-    if (quickLinks && quickLinks.dataset.cmsFooter !== signature) {
-      quickLinks.innerHTML = items.map((item, index) =>
-        `${index ? '<span style="color:rgba(255,255,255,.3);">|</span>' : ""}<a href="${cmsSafeUrl(item.url, "#")}" style="color:#f5d89b;margin:0 8px;text-decoration:none;font-weight:600;">${cmsEscape(item.label)}</a>`
-      ).join("");
-      quickLinks.dataset.cmsFooter = signature;
-    }
-    const tagline = footer.querySelector("div:last-of-type");
-    if (tagline && hammerChromeData.footer.tagline && tagline.textContent.trim() !== hammerChromeData.footer.tagline) {
-      tagline.textContent = hammerChromeData.footer.tagline;
-    }
-  }
-
-  const seo = hammerChromeData.seo;
-  if (seo) {
-    if (!document.querySelector('meta[name="description"]') && seo.defaultDescription) {
-      const meta = document.createElement("meta");
-      meta.name = "description";
-      meta.content = seo.defaultDescription;
-      document.head.appendChild(meta);
-    }
-    if (!document.querySelector('meta[property="og:image"]') && seo.shareImage) {
-      const meta = document.createElement("meta");
-      meta.setAttribute("property", "og:image");
-      meta.content = new URL(cmsImageUrl(seo.shareImage), location.origin).href;
-      document.head.appendChild(meta);
-    }
-  }
-}
-
-document.addEventListener("click", event => {
-  const trigger = event.target.closest?.(".contact-panel-toggle");
-  const panel = document.getElementById("contact-panel");
-  if (trigger && panel) panel.style.display = "flex";
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  cmsRenderFaqPage();
-  cmsRenderReviewsPage();
-  cmsRenderSpecialsPage();
-  cmsRenderProjectsPage();
-  cmsRenderServices();
-  cmsApplyChrome();
-
-  let chromeTimer = null;
-  const observer = new MutationObserver(() => {
-    clearTimeout(chromeTimer);
-    chromeTimer = setTimeout(cmsApplyChrome, 20);
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
 });
 
 /* ============================================================

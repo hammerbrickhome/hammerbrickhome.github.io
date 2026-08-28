@@ -4,7 +4,7 @@ import json, re, html
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
-DATA = ROOT / "site-data"
+DATA = ROOT / "admin-data"
 
 def load(name):
     return json.loads((DATA / name).read_text(encoding="utf-8"))

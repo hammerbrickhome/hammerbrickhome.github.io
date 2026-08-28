@@ -44,8 +44,7 @@
         }
       ],
       "requirements": "Standard height steps only (no scaffolding). Access to water/power required. Structural failures require full estimate.",
-      "buttonText": "Book Best Value Special",
-      "showOnHomepage": true
+      "buttonText": "Book Best Value Special"
     },
     {
       "active": true,
@@ -88,8 +87,7 @@
         }
       ],
       "requirements": "Room must be cleared or furniture moved to center prior to arrival. Walls must be clean. Max height 12ft.",
-      "buttonText": "Book Premium Special",
-      "showOnHomepage": true
+      "buttonText": "Book Premium Special"
     },
     {
       "active": true,
@@ -132,140 +130,7 @@
         }
       ],
       "requirements": "1st, 2nd, or 3rd Floor Only (Ladder Access). Standard size (up to 36\"x60\"). No rotted wood frames (repair is extra). Removal of security bars is extra.",
-      "buttonText": "Book Signature Special",
-      "showOnHomepage": true
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "badge": "Protection",
-      "accentColor": "#e7bf63",
-      "badgeTextColor": "#ffffff",
-      "title": "\"Winter Shield\" Waterproofing",
-      "price": "$499",
-      "description": "Stop moisture before it freezes. Targeted patching for foundation cracks.",
-      "features": [
-        {
-          "text": "Patch up to 3 active wall cracks",
-          "bold": false
-        },
-        {
-          "text": "Apply Hydraulic Cement (Stop-Leak)",
-          "bold": false
-        },
-        {
-          "text": "Inspect Sump Pump & Drains",
-          "bold": false
-        }
-      ],
-      "addons": [
-        {
-          "name": "Pre-1978 Lead Prep",
-          "price": "+$399"
-        },
-        {
-          "name": "Anti-Mold Spray",
-          "price": "+$85"
-        },
-        {
-          "name": "Seal Rim Joists",
-          "price": "+$150"
-        },
-        {
-          "name": "French Drain Quote",
-          "price": "Free"
-        }
-      ],
-      "requirements": "Foundation walls must be accessible (moved storage). Unfinished basements only. Severe flooding requires full system.",
-      "buttonText": "Book Winter Shield"
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "badge": "Hygiene",
-      "accentColor": "#e7bf63",
-      "badgeTextColor": "#ffffff",
-      "title": "\"Spa Bath\" Grout & Caulk",
-      "price": "$399",
-      "description": "Make your bathroom look brand new for guests without a renovation.",
-      "features": [
-        {
-          "text": "Remove old/moldy silicone (Tub/Sink)",
-          "bold": false
-        },
-        {
-          "text": "Apply 100% mold-resistant silicone",
-          "bold": false
-        },
-        {
-          "text": "Steam clean floor grout lines",
-          "bold": false
-        }
-      ],
-      "addons": [
-        {
-          "name": "Pre-1978 Lead Prep",
-          "price": "+$399"
-        },
-        {
-          "name": "Re-Grout Shower Floor",
-          "price": "+$199"
-        },
-        {
-          "name": "Install New Faucet",
-          "price": "+$125"
-        },
-        {
-          "name": "Install Vanity Light",
-          "price": "+$95"
-        }
-      ],
-      "requirements": "Shower must be dry for 24hrs prior. Does not include replacing loose tiles or plumbing repairs inside walls.",
-      "buttonText": "Book Bath Refresh"
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "badge": "Style",
-      "accentColor": "#e7bf63",
-      "badgeTextColor": "#ffffff",
-      "title": "\"Chef's Splash\" Install",
-      "price": "$899",
-      "description": "Upgrade your kitchen instantly with a luxury tile backsplash installation.",
-      "features": [
-        {
-          "text": "Install up to 30 sq. ft. of tile",
-          "bold": false
-        },
-        {
-          "text": "Grouting & Sealing included",
-          "bold": false
-        },
-        {
-          "text": "Standard subway or mosaic sheets",
-          "bold": false
-        }
-      ],
-      "addons": [
-        {
-          "name": "Pre-1978 Lead Prep",
-          "price": "+$399"
-        },
-        {
-          "name": "Demo Old Tile",
-          "price": "+$250"
-        },
-        {
-          "name": "Metal Edging (Schluter)",
-          "price": "+$65"
-        },
-        {
-          "name": "Install Under-Cab Lights",
-          "price": "+$150"
-        }
-      ],
-      "requirements": "Labor only (Client supplies tile/grout). Wall must be sheetrock/ready. Complex patterns (Herringbone) extra.",
-      "buttonText": "Book Backsplash"
+      "buttonText": "Book Signature Special"
     }
   ]
 }

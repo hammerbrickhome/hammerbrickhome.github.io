@@ -1,25 +1,6 @@
 {
-  "generatedAt": "2026-08-28T14:08:21.379155+00:00",
-  "status": "GOOD",
-  "summary": "0 failed, 0 warning(s).",
-  "checks": [
-    {
-      "name": "Working site core",
-      "status": "PASS",
-      "details": "Core working files present.",
-      "items": []
-    },
-    {
-      "name": "NYC HIC consistency",
-      "status": "PASS",
-      "details": "HIC values consistent.",
-      "items": []
-    },
-    {
-      "name": "Analytics placeholders",
-      "status": "PASS",
-      "details": "No known placeholders found.",
-      "items": []
-    }
-  ]
+  "generatedAt": "Not run yet",
+  "status": "NOT RUN",
+  "summary": "Run Master Site Audit after installation.",
+  "checks": []
 }

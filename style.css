@@ -2846,6 +2846,7 @@ input.gallery-search-box,
       padding-bottom: 5px; /* Prevents letters like 'g' from being cut off */
     }
 
+}
 /* =========================================
    FIXED: DARK LUXURY GRID + BIGGER PHOTOS
    Paste this at the VERY BOTTOM of style.css
@@ -3333,33 +3334,3 @@ input.gallery-search-box,
   }
 }
 
-/* Pages CMS shared directory and featured-project layouts */
-.cms-service-group + .cms-service-group { margin-top: 42px; }
-.cms-service-group h2 { margin-bottom: 18px; }
-.cms-empty { grid-column: 1 / -1; text-align: center; color: var(--muted); }
-
-.cms-project-grid { display: grid; gap: 30px; }
-.cms-project-card {
-  overflow: hidden;
-  border: 1px solid rgba(231, 191, 99, .35);
-  border-radius: 22px;
-  background: linear-gradient(145deg, rgba(16, 35, 58, .98), rgba(7, 20, 38, .98));
-  box-shadow: 0 18px 45px rgba(0, 0, 0, .32);
-}
-.cms-project-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.cms-project-images figure { position: relative; margin: 0; min-height: 260px; }
-.cms-project-images img { width: 100%; height: 100%; min-height: 260px; object-fit: cover; display: block; }
-.cms-project-images figcaption {
-  position: absolute; left: 14px; bottom: 14px; padding: 6px 11px;
-  border-radius: 999px; background: rgba(7, 20, 38, .88); color: var(--gold-soft);
-  font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-}
-.cms-project-copy { padding: 24px; }
-.cms-project-copy h2 { margin: 4px 0 10px; }
-.cms-project-copy p { color: var(--muted); }
-.cms-project-meta { color: var(--gold-soft) !important; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
-
-@media (max-width: 680px) {
-  .cms-project-images { grid-template-columns: 1fr; }
-  .cms-project-images figure, .cms-project-images img { min-height: 220px; }
-}

@@ -1,174 +1,25 @@
 {
   "heading": "Common Questions",
-  "intro": "Clear answers about estimates, scheduling, materials, safety and working with Hammer Brick & Home.",
   "items": [
     {
       "active": true,
-      "showOnHomepage": true,
-      "category": "General & Pricing",
-      "question": "Do you serve all five NYC boroughs and New Jersey?",
-      "answer": "Yes. We’re based in Staten Island and serve all five NYC boroughs plus select New Jersey towns within a 50-mile radius."
-    },
-    {
-      "active": true,
-      "showOnHomepage": true,
-      "category": "General & Pricing",
-      "question": "Are you licensed, bonded, and insured?",
-      "answer": "Yes. We are Licensed, Bonded, and Insured. We hold NYC HIC License #2131291 and are an EPA Lead-Safe Certified Firm."
-    },
-    {
-      "active": true,
-      "showOnHomepage": true,
-      "category": "General & Pricing",
       "question": "Do you provide free estimates?",
-      "answer": "Yes — we offer free estimates for NYC & NJ customers. You may text photos for an instant quote or schedule an in-person visit."
+      "answer": "Yes. We provide clear, itemized written estimates."
     },
     {
       "active": true,
-      "showOnHomepage": true,
-      "category": "General & Pricing",
-      "question": "Do you offer virtual estimates?",
-      "answer": "Yes. You can text or email photos/videos for fast quotes without an appointment."
+      "question": "Are you licensed and insured in NYC?",
+      "answer": "Absolutely. Licensed, Bonded & Insured. HIC #2131291. COIs available."
     },
     {
       "active": true,
-      "showOnHomepage": false,
-      "category": "General & Pricing",
-      "question": "How do payments work?",
-      "answer": "We take a small deposit to schedule the project, followed by progress payments, and a final payment at completion. We accept checks and major credit cards."
+      "question": "Do you handle permits?",
+      "answer": "Yes, we work with licensed architects for DOB filings."
     },
     {
       "active": true,
-      "showOnHomepage": false,
-      "category": "General & Pricing",
-      "question": "Do you work with insurance companies for storm damage?",
-      "answer": "Yes. If your roof, siding, or fence was damaged by a storm, we can provide the detailed technical report and photos your insurance adjuster needs to approve the claim."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Roofing & Exterior",
-      "question": "Do you repair or replace roofs?",
-      "answer": "Yes. We are a full-service roofing contractor. We handle Flat Roofs (Rubber/EPDM) common in Brooklyn/Queens, and Shingle Roofs for Staten Island/NJ."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Roofing & Exterior",
-      "question": "How do I know if I need a repair or a full replacement?",
-      "answer": "If your roof is 20+ years old, shingles are curling, or you have multiple leaks, replacement is usually the smarter investment. If it's a single leak from storm damage, a repair is often enough. We will give you an honest assessment."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Roofing & Exterior",
-      "question": "How long does a roof replacement take?",
-      "answer": "Most residential roof replacements are completed in 1 to 2 days. We strip the old roof, inspect the plywood, install the new system, and clean up — often in a single weekend."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Roofing & Exterior",
-      "question": "Do you offer emergency or same-day repairs?",
-      "answer": "Yes. We prioritize urgent issues like active roof leaks, storm damage, loose bricks, and safety hazards."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Masonry & Concrete",
-      "question": "Can you match my existing brick color?",
-      "answer": "Yes. Matching old NYC brick and mortar is a specialty of ours. We use specific tints and sourcing to blend new repairs with your existing facade so it doesn't look like a patch job."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Masonry & Concrete",
-      "question": "Do you repair DOT sidewalk violations?",
-      "answer": "Yes. We handle everything: demolition, pulling DOT permits, forming, pouring to city code, and preparing the paperwork for your violation dismissal."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Masonry & Concrete",
-      "question": "Can I drive on my new driveway immediately?",
-      "answer": "No. While you can walk on concrete after 24 hours, we strongly recommend waiting 5 to 7 days before driving heavy vehicles on it to ensure it fully cures and reaches maximum strength."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Masonry & Concrete",
-      "question": "Do you restore Brownstones?",
-      "answer": "Yes. Brownstone and historic masonry repair is a specialty. We match mortar colors and restore facades to their original character."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "Who buys the materials?",
-      "answer": "Rough Materials: We buy all the \"rough\" stuff (lumber, drywall, concrete, piping). Finish Materials: You choose the style! You buy the tiles, vanities, and fixtures you love, and we install them. If needed, we can transport them for you."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "Will my property be a mess?",
-      "answer": "No. We perform a \"Daily Clean-Up.\" We sweep the work area, stack materials neatly, and use a magnet to pick up nails before we leave each day."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "What happens if I want to change something mid-project?",
-      "answer": "It happens! We use a simple Change Order form. If you want to add a window or change a tile layout, we give you the price in writing, you approve it, and we proceed. No hidden bills at the end."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "What happens if you find hidden damage behind walls?",
-      "answer": "This is common in older homes. If we uncover hidden rot or plumbing issues, we stop immediately, document it with photos, and provide a clear \"Change Order\" price for your approval before proceeding."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "Do you work in the winter?",
-      "answer": "Yes. Interior work happens year-round. For exterior masonry and roofing, we work as long as temperatures allow materials to set properly, often using additives or heaters if necessary."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "Do you work on homes built before 1978?",
-      "answer": "Yes. As an EPA Lead-Safe Certified Firm, we follow all required safety practices and dust containment procedures."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "Do I need to move out during a remodel?",
-      "answer": "Usually, no. For most kitchen, bath, or basement projects, we use heavy-duty dust barriers and negative air pressure to isolate the work zone, allowing you to live comfortably in the rest of your home."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Process, Materials & Safety",
-      "question": "Do you perform Commercial work?",
-      "answer": "Yes. We handle commercial roofing, masonry, and \"white-boxing\" for retail spaces. We can schedule work nights/weekends to minimize disruption."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Warranty & Membership",
-      "question": "Do you offer warranties?",
-      "answer": "Yes. Every project is different, so warranty coverage varies based on the materials used and the scope of work. Specific warranty terms will be discussed and detailed in the contract when we sign."
-    },
-    {
-      "active": true,
-      "showOnHomepage": false,
-      "category": "Warranty & Membership",
-      "question": "Do you have a loyalty program?",
-      "answer": "Yes! We have a 100% Free Signature Membership where you can win monthly home improvement perks just for following us on social media."
+      "question": "What areas do you serve?",
+      "answer": "Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ."
     }
   ]
 }

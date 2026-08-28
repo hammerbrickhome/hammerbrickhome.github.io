@@ -508,7 +508,7 @@
 </div>
 <div class="services-glow-container">
 <h3 style="text-align:center; color:var(--gold-soft); margin-bottom:15px;">Signature Services</h3>
-<div class="glow-grid" id="cmsHomeServices">
+<div class="glow-grid">
 <a class="glow-card style-white" href="/services.html">
 <span class="glow-icon"><svg viewbox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg></span>
 <span>Masonry</span>
@@ -622,9 +622,9 @@
 </div>
 </section>
 <section class="section section-reviews-highlight fade-up" id="reviewsSection"><div class="review-trust-header">
-<p class="review-eyebrow" id="cmsHomeReviewsEyebrow">TRUSTED BY HOMEOWNERS</p>
-<h2 id="cmsHomeReviewsHeading">Real Customer Experiences</h2>
-<p class="review-trust-copy" id="cmsHomeReviewsIntro">Real feedback from homeowners who trusted Hammer Brick &amp; Home with masonry, remodeling, and home-improvement projects.</p>
+<p class="review-eyebrow">TRUSTED BY HOMEOWNERS</p>
+<h2>Real Customer Experiences</h2>
+<p class="review-trust-copy">Real feedback from homeowners who trusted Hammer Brick &amp; Home with masonry, remodeling, and home-improvement projects.</p>
 <div aria-label="Customer review trust signals" class="review-trust-strip">
 <span aria-hidden="true" class="review-trust-stars">★★★★★</span>
 <strong>Google Reviews</strong>
@@ -902,7 +902,7 @@
 <button aria-label="Review 13" class="review-dot" data-index="12"></button>
 </div>
 <div style="text-align:center; margin-top:22px;">
-<a class="btn ghost review-google-cta" href="https://g.page/r/CQ6UWcWLSx4KEAI/review" id="googleReviewsLink" rel="noopener" target="_blank">★ Our Google Reviews</a>
+<a class="btn ghost review-google-cta" " id="googleReviewsLink" rel="noopener" target="_blank">★  Our Google Reviews</a>
 </div>
 </div>
 </section>
@@ -1077,7 +1077,7 @@
         const today = new Date();
         today.setHours(0,0,0,0);
         const items = data.specials.filter(item => {
-          if (!item || item.active === false || item.showOnHomepage === false) return false;
+          if (!item || item.active === false) return false;
           const start = item.startDate ? new Date(item.startDate + "T00:00:00") : null;
           const end = item.endDate ? new Date(item.endDate + "T23:59:59") : null;
           if (start && !Number.isNaN(start.getTime()) && today < start) return false;
@@ -1247,19 +1247,12 @@
         const link = document.getElementById("googleReviewsLink");
         if (!section || !track || !nav) return;
 
-        const eyebrow = document.getElementById("cmsHomeReviewsEyebrow");
-        const heading = document.getElementById("cmsHomeReviewsHeading");
-        const intro = document.getElementById("cmsHomeReviewsIntro");
-        if (eyebrow && data.eyebrow) eyebrow.textContent = data.eyebrow;
-        if (heading && data.heading) heading.textContent = data.heading;
-        if (intro && data.intro) intro.textContent = data.intro;
-
         // Permanent trust wording stays in the HTML.
         // Admin controls the actual reviews, order, visibility, rating,
         // source, customer name, service and Google Reviews destination.
         if (link && data.reviewUrl) link.href = data.reviewUrl;
 
-        const reviews = data.reviews.filter(item => item && item.active !== false && item.showOnHomepage !== false);
+        const reviews = data.reviews.filter(item => item && item.active !== false);
 
         track.innerHTML = reviews.map((item, index) => {
           const rating = Math.max(1, Math.min(5, Number(item.rating) || 5));
@@ -1303,7 +1296,7 @@
         if (!list) return;
 
         if (heading && data.heading) heading.textContent = data.heading;
-        const items = data.items.filter(item => item && item.active !== false && item.showOnHomepage !== false);
+        const items = data.items.filter(item => item && item.active !== false);
 
         list.innerHTML = items.map(item =>
           `<details><summary>${escapeHtml(item.question)}</summary><p>${escapeHtml(item.answer)}</p></details>`
@@ -1327,7 +1320,7 @@
 
             const offers = specialsData.specials
               .filter(x => {
-                if (!x || x.active === false || x.showOnHomepage === false) return false;
+                if (!x || x.active === false) return false;
                 const startDate = x.startDate ? new Date(x.startDate + "T00:00:00") : null;
                 const endDate = x.endDate ? new Date(x.endDate + "T23:59:59") : null;
                 if (startDate && !Number.isNaN(startDate.getTime()) && today < startDate) return false;
@@ -1357,7 +1350,7 @@
           // FAQs stay synchronized with the admin-managed questions.
           if (faq && faqsData && Array.isArray(faqsData.items)) {
             faq.mainEntity = faqsData.items
-              .filter(x => x && x.active !== false && x.showOnHomepage !== false)
+              .filter(x => x && x.active !== false)
               .map(x => ({
                 "@type": "Question",
                 "name": String(x.question || ""),
@@ -1456,9 +1449,7 @@
       fetch("/gallery.json")
         .then(r => r.json())
         .then(data => {
-          allHomePairs = (data.homePairs || []).filter(pair =>
-            pair && pair.active !== false && pair.before && pair.after
-          );
+          allHomePairs = data.homePairs || [];
           if (allHomePairs.length > 0) {
             renderBatch();
             loadBtn.addEventListener("click", renderBatch);
