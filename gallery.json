@@ -120,11 +120,6 @@
         "exterior",
         "granite"
       ]
-    },
-    {
-      "before": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-3.png",
-      "after": "/images/chatgpt-image-aug-24-2026-102430-pm.png",
-      "label": "test"
     }
   ],
   "galleryPairs": [
@@ -204,11 +199,6 @@
         "concrete",
         "exterior"
       ]
-    },
-    {
-      "before": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e-5.webp",
-      "after": "/images/176621d2-a5c6-4112-9118-8909c91d5982-2.png",
-      "label": "NOmi"
     }
   ],
   "galleryGrid": [
@@ -326,9 +316,6 @@
     {
       "name": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e.webp"
     },
-    {},
-    {
-      "name": "/images/chatgpt-image-aug-25-2026-025048-pm-copy.png"
-    }
+    {}
   ]
 }
