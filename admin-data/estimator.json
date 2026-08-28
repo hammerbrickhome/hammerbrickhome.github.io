@@ -1,0 +1,6 @@
+{
+  "note": "Internal planning factors only. These are not customer quotes and do not replace an on-site inspection or written estimate.",
+  "boroughFactors": {"staten-island": 1, "brooklyn": 1, "queens": 1, "bronx": 1, "manhattan": 1, "nj": 1, "outside": 1},
+  "finishFactors": {"standard": 1, "premium": 1, "luxury": 1},
+  "urgencyFactors": {"flex": 1, "soon": 1, "rush": 1}
+}
