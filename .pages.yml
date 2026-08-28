@@ -112,7 +112,7 @@ content:
                 collapsed: true
                 summary: "{title} — {price}"
             fields:
-              - {name: active, label: "Active", type: boolean}
+              - {name: active, label: "Active", type: boolean, default: true}
               - {name: badge, label: "Badge", type: string}
               - {name: accentColor, label: "Accent Color", type: string}
               - {name: badgeTextColor, label: "Badge Text Color", type: string, required: false}
@@ -161,12 +161,12 @@ content:
                 collapsed: true
                 summary: "{name} — {service}"
             fields:
-              - {name: active, label: "Show", type: boolean}
+              - {name: active, label: "Show", type: boolean, default: true}
               - {name: name, label: "Customer Name", type: string}
-              - {name: rating, label: "Stars", type: number}
-              - {name: source, label: "Source", type: string}
+              - {name: rating, label: "Stars", type: number, default: 5, options: {min: 1, max: 5}}
+              - {name: source, label: "Source", type: string, default: "Google Review"}
               - {name: review, label: "Review", type: text}
-              - {name: service, label: "Service", type: string}
+              - {name: service, label: "Service", type: string, default: "Home Improvement"}
 
       - name: faqs
         label: "Common Questions"
@@ -183,7 +183,7 @@ content:
                 collapsed: true
                 summary: "{question}"
             fields:
-              - {name: active, label: "Show", type: boolean}
+              - {name: active, label: "Show", type: boolean, default: true}
               - {name: question, label: "Question", type: string}
               - {name: answer, label: "Answer", type: text}
 
