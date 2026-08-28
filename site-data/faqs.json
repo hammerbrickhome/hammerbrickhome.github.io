@@ -20,14 +20,6 @@
       "active": true,
       "question": "What areas do you serve?",
       "answer": "Staten Island, Brooklyn, Queens, Manhattan, Bronx, NJ."
-    },
-    {
-      "active": false
-    },
-    {
-      "active": true,
-      "question": "do you work on weekned ?",
-      "answer": "yes "
     }
   ]
 }
