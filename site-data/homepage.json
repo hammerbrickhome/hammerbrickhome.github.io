@@ -1,0 +1,13 @@
+{
+  "announcementEnabled": false,
+  "showPremiumMaterials": false,
+  "showSpecials": false,
+  "showTiers": false,
+  "showMembershipServices": false,
+  "showProcess": false,
+  "showBeforeAfter": false,
+  "showGuarantee": false,
+  "showReviews": false,
+  "showServiceArea": false,
+  "showFaq": false
+}
