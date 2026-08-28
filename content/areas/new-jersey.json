@@ -1,11 +1,16 @@
 {
   "title": "New Jersey",
   "slug": "new-jersey",
-  "published": false,
-  "intro": "",
-  "neighborhoods": [],
-  "featuredServices": [],
+  "published": true,
+  "heroTitle": "New Jersey — Remodeling & Masonry",
+  "intro": "Serving select New Jersey towns with reliable masonry, concrete work, clean remodeling, and respectful project management.",
+  "sectionTitle": "Popular Services in New Jersey",
+  "sectionText": "We serve select nearby New Jersey communities with clear proposals, premium preparation, strong communication, and spotless cleanup.",
+  "neighborhoods": ["Bayonne", "Jersey City", "Hoboken", "Union City", "Elizabeth", "Linden", "Rahway", "Carteret", "Woodbridge"],
+  "featuredServices": ["Masonry, concrete, pavers, and patios", "Kitchen, bathroom, and basement remodeling", "Decks, fences, and carpentry", "Painting and exterior care"],
   "body": "",
-  "seoTitle": "",
-  "seoDescription": ""
+  "ctaTitle": "Request a New Jersey Estimate",
+  "ctaText": "Send photos, request a walkthrough, or share your plans for a clear professional estimate.",
+  "seoTitle": "New Jersey Home Improvement — Remodeling & Masonry | Hammer Brick & Home LLC",
+  "seoDescription": "Masonry, concrete, pavers, kitchens, bathrooms, basements, and exterior care in select New Jersey towns."
 }

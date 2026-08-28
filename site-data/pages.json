@@ -36,6 +36,17 @@
     {
       "active": true,
       "showInNavigation": true,
+      "slug": "areas",
+      "url": "/areas.html",
+      "menuLabel": "Service Areas",
+      "heroTitle": "Areas We Serve",
+      "heroText": "Local masonry, remodeling, roofing, and exterior expertise across all five New York City boroughs and select New Jersey communities.",
+      "seoTitle": "Service Areas | NYC & New Jersey | Hammer Brick & Home LLC",
+      "seoDescription": "Explore Hammer Brick & Home service areas across Staten Island, Brooklyn, Queens, Manhattan, the Bronx, and select New Jersey communities."
+    },
+    {
+      "active": true,
+      "showInNavigation": true,
       "slug": "gallery",
       "url": "/gallery.html",
       "menuLabel": "Portfolio",

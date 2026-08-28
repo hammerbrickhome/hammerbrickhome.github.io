@@ -432,6 +432,21 @@ function hammerApplyPageControls(data) {
     }
   }
 
+  const areaDirectory = data.pages.find(page => page && page.slug === "areas");
+  const mainNav = document.querySelector(".main-nav");
+  if (mainNav && areaDirectory && areaDirectory.active !== false && areaDirectory.showInNavigation !== false) {
+    let areaDirectoryLink = mainNav.querySelector('a[href="/areas.html"]');
+    if (!areaDirectoryLink) {
+      areaDirectoryLink = document.createElement("a");
+      areaDirectoryLink.href = "/areas.html";
+      const areaDropdown = Array.from(mainNav.querySelectorAll(".dropdown")).find(dropdown =>
+        dropdown.querySelector('a[href="/brooklyn.html"]')
+      );
+      mainNav.insertBefore(areaDirectoryLink, areaDropdown || mainNav.lastElementChild);
+    }
+    areaDirectoryLink.textContent = areaDirectory.menuLabel || "Service Areas";
+  }
+
   document.querySelectorAll(".main-nav a[href], .site-footer nav a[href]").forEach(anchor => {
     const page = pagesByUrl.get(hammerLinkPath(anchor));
     if (!page) return;
@@ -453,7 +468,28 @@ function hammerAreaIcon(slug) {
 }
 
 function hammerRenderHomeAreas(data, homepage) {
-  if (hammerSlug() !== "home" || !data || !Array.isArray(data.areas)) return;
+  const isHome = hammerSlug() === "home";
+  const isDirectory = hammerSlug() === "areas";
+  if ((!isHome && !isDirectory) || !data || !Array.isArray(data.areas)) return;
+
+  const allActiveAreas = data.areas.filter(area => area && area.active !== false);
+  if (isDirectory) {
+    const heading = document.getElementById("areaDirectoryHeading");
+    const intro = document.getElementById("areaDirectoryIntro");
+    const grid = document.getElementById("areaDirectoryGrid");
+    if (heading && data.heading) heading.textContent = data.heading;
+    if (intro && data.intro) intro.textContent = data.intro;
+    if (grid) {
+      grid.innerHTML = allActiveAreas.map(area => `
+        <a class="accent-card" href="${hammerEscape(area.url)}" style="display:block;text-decoration:none;color:inherit;padding:24px;">
+          <div style="font-size:28px;margin-bottom:8px;">${hammerAreaIcon(area.slug)}</div>
+          <h2 style="color:var(--gold-soft);margin-bottom:8px;">${hammerEscape(area.name)}</h2>
+          <p style="color:var(--muted);margin-bottom:12px;">${hammerEscape(area.cardText)}</p>
+          <span style="color:var(--gold);font-weight:700;">View local services →</span>
+        </a>`).join("");
+    }
+    return;
+  }
 
   let section = document.getElementById("cmsServiceAreasSection");
   if (!section) {
@@ -488,7 +524,32 @@ function hammerRenderHomeAreas(data, homepage) {
     </div>`;
 }
 
-function hammerApplyAreaControls(data) {
+function hammerMergeAreaDetail(area, detail) {
+  if (!area || !detail || detail.slug !== area.slug) return area;
+  return {
+    ...area,
+    active: area.active !== false && detail.published !== false,
+    name: detail.title || area.name,
+    heroTitle: detail.heroTitle || detail.title || area.heroTitle,
+    heroText: detail.intro || area.heroText,
+    sectionTitle: detail.sectionTitle || area.sectionTitle,
+    sectionText: detail.sectionText || detail.body || area.sectionText,
+    featuredServices: Array.isArray(detail.featuredServices) && detail.featuredServices.length ? detail.featuredServices : area.featuredServices,
+    neighborhoods: Array.isArray(detail.neighborhoods) && detail.neighborhoods.length ? detail.neighborhoods : area.neighborhoods,
+    ctaTitle: detail.ctaTitle || area.ctaTitle,
+    ctaText: detail.ctaText || area.ctaText,
+    seoTitle: detail.seoTitle || area.seoTitle,
+    seoDescription: detail.seoDescription || area.seoDescription
+  };
+}
+
+function hammerCurrentAreaDetail() {
+  const areaSlugs = new Set(["staten-island", "brooklyn", "queens", "manhattan", "bronx", "new-jersey"]);
+  const slug = hammerSlug();
+  return areaSlugs.has(slug) ? hammerFetchJson(`/content/areas/${slug}.json`) : Promise.resolve(null);
+}
+
+function hammerApplyAreaControls(data, detail) {
   if (!data || !Array.isArray(data.areas)) return;
 
   const activeAreas = data.areas.filter(area => area && area.active !== false);
@@ -501,7 +562,7 @@ function hammerApplyAreaControls(data) {
     if (area && area.name) anchor.textContent = area.name;
   });
 
-  const area = data.areas.find(item => item && item.slug === hammerSlug());
+  const area = hammerMergeAreaDetail(data.areas.find(item => item && item.slug === hammerSlug()), detail);
   if (!area) return;
   hammerApplySeo(area);
   hammerApplyHero(area);
@@ -659,10 +720,11 @@ function refreshHammerContentControls() {
     hammerFetchJson("/site-data/homepage.json"),
     hammerFetchJson("/site-data/faqs.json"),
     hammerFetchJson("/site-data/reviews.json"),
-    hammerFetchJson("/site-data/specials.json")
-  ]).then(([pages, areas, services, homepage, faqs, reviews, specials]) => {
+    hammerFetchJson("/site-data/specials.json"),
+    hammerCurrentAreaDetail()
+  ]).then(([pages, areas, services, homepage, faqs, reviews, specials, areaDetail]) => {
     hammerApplyPageControls(pages);
-    hammerApplyAreaControls(areas);
+    hammerApplyAreaControls(areas, areaDetail);
     hammerRenderHomeAreas(areas, homepage);
     hammerRenderSignatureServices(services);
     hammerRenderFaqPage(faqs);
@@ -685,10 +747,11 @@ document.addEventListener("DOMContentLoaded", () => {
       Promise.all([
         hammerFetchJson("/site-data/pages.json"),
         hammerFetchJson("/site-data/areas.json"),
-        loadHammerBusinessSettings()
-      ]).then(([pages, areas, business]) => {
+        loadHammerBusinessSettings(),
+        hammerCurrentAreaDetail()
+      ]).then(([pages, areas, business, areaDetail]) => {
         hammerApplyPageControls(pages);
-        hammerApplyAreaControls(areas);
+        hammerApplyAreaControls(areas, areaDetail);
         applyHammerBusinessSettings(business);
         initHeaderInteractions();
       });
@@ -821,8 +884,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (headerEl) {
     Promise.all([
-      fetch("/header.html").then(r => r.text()),
-      fetch("/footer.html").then(r => r.text())
+      fetch("/header.html", { cache: "no-store" }).then(r => r.text()),
+      fetch("/footer.html", { cache: "no-store" }).then(r => r.text())
     ]).then(([header, footer]) => {
       headerEl.innerHTML = header;
       footerEl.innerHTML = footer;
