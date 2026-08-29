@@ -294,8 +294,32 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
 
@@ -316,8 +340,32 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
 
@@ -338,8 +386,32 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
 
@@ -360,8 +432,32 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
 
@@ -382,8 +478,32 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
 
@@ -404,8 +524,32 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Towns", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
 
