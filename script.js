@@ -384,6 +384,39 @@ function hammerEscape(value) {
     .replace(/'/g, "&#039;");
 }
 
+function hammerSafeMarkdown(value) {
+  const inline = text => hammerEscape(text)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>");
+  const lines = String(value || "").replace(/\r/g, "").split("\n");
+  const output = [];
+  let inList = false;
+  const closeList = () => {
+    if (inList) output.push("</ul>");
+    inList = false;
+  };
+  lines.forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      closeList();
+      return;
+    }
+    const listItem = trimmed.match(/^[-*]\s+(.+)$/);
+    if (listItem) {
+      if (!inList) output.push('<ul class="bullets">');
+      inList = true;
+      output.push(`<li>${inline(listItem[1])}</li>`);
+      return;
+    }
+    closeList();
+    if (/^###\s+/.test(trimmed)) output.push(`<h3>${inline(trimmed.replace(/^###\s+/, ""))}</h3>`);
+    else if (/^##\s+/.test(trimmed)) output.push(`<h2>${inline(trimmed.replace(/^##\s+/, ""))}</h2>`);
+    else output.push(`<p>${inline(trimmed)}</p>`);
+  });
+  closeList();
+  return output.join("");
+}
+
 function hammerPath() {
   const path = window.location.pathname.replace(/\/+$/, "");
   return path || "/";
@@ -572,12 +605,13 @@ function hammerMergeAreaDetail(area, detail) {
   if (!area || !detail || detail.slug !== area.slug) return area;
   return {
     ...area,
+    ...detail,
     active: area.active !== false && detail.published !== false,
     name: detail.title || area.name,
     heroTitle: detail.heroTitle || detail.title || area.heroTitle,
     heroText: detail.intro || area.heroText,
     sectionTitle: detail.sectionTitle || area.sectionTitle,
-    sectionText: detail.sectionText || detail.body || area.sectionText,
+    sectionText: detail.sectionText || area.sectionText,
     featuredServices: Array.isArray(detail.featuredServices) && detail.featuredServices.length ? detail.featuredServices : area.featuredServices,
     neighborhoods: Array.isArray(detail.neighborhoods) && detail.neighborhoods.length ? detail.neighborhoods : area.neighborhoods,
     ctaTitle: detail.ctaTitle || area.ctaTitle,
@@ -637,9 +671,197 @@ function hammerApplyAreaControls(data, detail) {
   if (cta) {
     const heading = cta.querySelector("h2");
     const paragraph = cta.querySelector("p");
+    const button = cta.querySelector(".cta-actions .btn.ghost") || cta.querySelector(".cta-actions .btn:last-child");
     if (heading && area.ctaTitle) heading.textContent = area.ctaTitle;
     if (paragraph && area.ctaText) paragraph.textContent = area.ctaText;
+    if (button && area.ctaButtonText) button.textContent = area.ctaButtonText;
+    if (button && area.ctaButtonUrl) button.href = area.ctaButtonUrl;
   }
+}
+
+function hammerSortByDisplayOrder(items) {
+  return [...items].sort((a, b) => (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999));
+}
+
+function hammerRenderAreaExtras(area, reviewsData, specialsData) {
+  if (!area || area.slug !== hammerSlug()) return;
+  const main = document.querySelector("main");
+  if (!main) return;
+
+  const hero = main.querySelector(".hero");
+  let heroImage = document.getElementById("cmsAreaHeroImage");
+  if (area.showHeroImage && area.heroImage && hero) {
+    if (!heroImage) {
+      heroImage = document.createElement("figure");
+      heroImage.id = "cmsAreaHeroImage";
+      heroImage.className = "cms-area-hero-image";
+      hero.appendChild(heroImage);
+    }
+    heroImage.style.display = "";
+    heroImage.innerHTML = `<img src="${hammerEscape(area.heroImage)}" alt="${hammerEscape(area.heroImageAlt || area.heroTitle || area.name || "Local project")}" loading="eager">`;
+  } else if (heroImage) {
+    heroImage.style.display = "none";
+  }
+
+  let bodySection = document.getElementById("cmsAreaBodySection");
+  if (area.body && String(area.body).trim()) {
+    if (!bodySection) {
+      bodySection = document.createElement("section");
+      bodySection.id = "cmsAreaBodySection";
+      bodySection.className = "section fade-up cms-area-body";
+      const mainSection = main.querySelector(".section.split");
+      if (mainSection && mainSection.parentNode) mainSection.parentNode.insertBefore(bodySection, mainSection.nextSibling);
+      else main.appendChild(bodySection);
+    }
+    bodySection.style.display = "";
+    bodySection.innerHTML = hammerSafeMarkdown(area.body);
+  } else if (bodySection) {
+    bodySection.style.display = "none";
+  }
+
+  const galleryGrid = main.querySelector(".gallery-grid");
+  const gallerySection = galleryGrid && galleryGrid.closest("section");
+  const galleryImages = Array.isArray(area.galleryImages)
+    ? area.galleryImages.filter(item => item && item.active !== false && item.image)
+    : [];
+  if (area.showAreaGallery && galleryGrid && galleryImages.length) {
+    if (gallerySection) gallerySection.dataset.cmsAreaGallery = "true";
+    const heading = gallerySection && gallerySection.querySelector("h2");
+    const intro = gallerySection && gallerySection.querySelector("h2 + p");
+    if (heading && area.galleryHeading) heading.textContent = area.galleryHeading;
+    if (intro && area.galleryIntro) intro.textContent = area.galleryIntro;
+    galleryGrid.innerHTML = galleryImages.map(item => `
+      <figure class="cms-area-gallery-card">
+        <img src="${hammerEscape(item.image)}" alt="${hammerEscape(item.alt || item.caption || area.name || "Completed project")}" loading="lazy">
+        ${item.caption ? `<figcaption>${hammerEscape(item.caption)}</figcaption>` : ""}
+      </figure>`).join("");
+  } else if (gallerySection && gallerySection.dataset.cmsAreaGallery === "true") {
+    gallerySection.style.display = "none";
+  }
+
+  const cta = main.querySelector(".section.note-box");
+  const insertBefore = cta || main.querySelector(".micro-summary") || null;
+
+  let reviewSection = document.getElementById("cmsAreaReviewsSection");
+  const localReviews = reviewsData && Array.isArray(reviewsData.reviews)
+    ? reviewsData.reviews.filter(item => item && item.active !== false && item.showOnAreaPages === true && (!item.areaSlug || item.areaSlug === "all" || item.areaSlug === area.slug))
+    : [];
+  if (area.showLocalReviews && localReviews.length) {
+    if (!reviewSection) {
+      reviewSection = document.createElement("section");
+      reviewSection.id = "cmsAreaReviewsSection";
+      reviewSection.className = "section fade-up cms-area-reviews";
+      main.insertBefore(reviewSection, insertBefore);
+    }
+    reviewSection.style.display = "";
+    reviewSection.innerHTML = `
+      <div class="cms-section-heading"><h2>${hammerEscape(area.reviewsHeading || `What ${area.name || "Local"} Customers Say`)}</h2></div>
+      <div class="cms-area-review-grid">${localReviews.map(item => `
+        <article class="cms-area-review-card">
+          <div class="star-row">${"★".repeat(Math.max(1, Math.min(5, Number(item.rating) || 5)))}</div>
+          <p>“${hammerEscape(item.review)}”</p>
+          <strong>${hammerEscape(item.name || "Customer")}</strong>
+          ${item.service ? `<span>${hammerEscape(item.service)}</span>` : ""}
+        </article>`).join("")}</div>`;
+  } else if (reviewSection) {
+    reviewSection.style.display = "none";
+  }
+
+  let specialsSection = document.getElementById("cmsAreaSpecialsSection");
+  const localSpecials = specialsData && Array.isArray(specialsData.specials)
+    ? specialsData.specials.filter(item => hammerSpecialIsCurrent(item) && item.showOnAreaPages === true && (!item.areaSlug || item.areaSlug === "all" || item.areaSlug === area.slug))
+    : [];
+  if (area.showAreaSpecials && localSpecials.length) {
+    if (!specialsSection) {
+      specialsSection = document.createElement("section");
+      specialsSection.id = "cmsAreaSpecialsSection";
+      specialsSection.className = "section fade-up cms-area-specials";
+      main.insertBefore(specialsSection, insertBefore);
+    }
+    specialsSection.style.display = "";
+    specialsSection.innerHTML = `
+      <div class="cms-section-heading"><h2>${hammerEscape(area.specialsHeading || `${area.name || "Local"} Specials`)}</h2></div>
+      <div class="specials-grid">${hammerRenderSpecialCards(localSpecials)}</div>`;
+  } else if (specialsSection) {
+    specialsSection.style.display = "none";
+  }
+}
+
+function hammerProjectMatchesPage(project, slug) {
+  if (!project || project.active === false) return false;
+  if (slug === "home") return project.showOnHomepage === true;
+  if (slug === "gallery") return project.showInGallery !== false;
+  if (["staten-island", "brooklyn", "queens", "manhattan", "bronx", "new-jersey"].includes(slug)) {
+    return project.showOnAreaPage !== false && project.areaSlug === slug;
+  }
+  return project.showOnServicePage !== false && project.serviceSlug === slug;
+}
+
+function hammerRenderProjects(data) {
+  if (!data || !Array.isArray(data.projects)) return;
+  const main = document.querySelector("main");
+  if (!main) return;
+  const slug = hammerSlug();
+  const projects = hammerSortByDisplayOrder(data.projects.filter(project => hammerProjectMatchesPage(project, slug)));
+  let section = document.getElementById("cmsProjectsSection");
+  if (!projects.length) {
+    if (section) section.style.display = "none";
+    return;
+  }
+
+  if (!section) {
+    section = document.createElement("section");
+    section.id = "cmsProjectsSection";
+    section.className = "section fade-up cms-projects-section";
+    let anchor = null;
+    if (slug === "home") anchor = document.getElementById("serviceAreaSection");
+    else if (["staten-island", "brooklyn", "queens", "manhattan", "bronx", "new-jersey"].includes(slug)) anchor = main.querySelector(".section.note-box");
+    else anchor = main.querySelector(".faq-section") || main.querySelector(".micro-summary");
+    const parent = anchor && anchor.parentNode ? anchor.parentNode : main;
+    parent.insertBefore(section, anchor || null);
+  }
+
+  section.style.display = "";
+  section.innerHTML = `
+    <div class="cms-section-heading">
+      <h2>${hammerEscape(data.heading || "Recent Projects")}</h2>
+      ${data.intro ? `<p>${hammerEscape(data.intro)}</p>` : ""}
+    </div>
+    <div class="cms-project-grid">${projects.map(project => {
+      const photos = [project.beforeImage, project.afterImage, ...(Array.isArray(project.additionalImages) ? project.additionalImages : [])].filter(Boolean);
+      const location = [project.neighborhood, project.areaLabel].filter(Boolean).join(", ");
+      const alt = project.imageAlt || project.title || "Completed project";
+      return `<article class="cms-project-card${project.featured ? " is-featured" : ""}">
+        ${project.featured ? `<span class="cms-project-badge">Featured Project</span>` : ""}
+        ${photos.length ? `<div class="cms-project-images">${photos.map((photo, index) => `<figure><img src="${hammerEscape(photo)}" alt="${hammerEscape(`${alt}${photos.length > 1 ? ` — photo ${index + 1}` : ""}`)}" loading="lazy">${index === 0 && project.beforeImage ? `<span>Before</span>` : index === 1 && project.afterImage ? `<span>After</span>` : ""}</figure>`).join("")}</div>` : ""}
+        <div class="cms-project-content">
+          <h3>${hammerEscape(project.title)}</h3>
+          ${location || project.serviceLabel ? `<p class="cms-project-meta">${hammerEscape([project.serviceLabel, location].filter(Boolean).join(" · "))}</p>` : ""}
+          ${project.summary ? `<p>${hammerEscape(project.summary)}</p>` : ""}
+        </div>
+      </article>`;
+    }).join("")}</div>`;
+}
+
+function hammerRenderDownloads(data) {
+  if (hammerSlug() !== "downloads" || !data || !Array.isArray(data.downloads)) return;
+  const main = document.querySelector("main");
+  const grid = main && main.querySelector(".downloads-grid");
+  if (!main || !grid) return;
+  const hero = main.querySelector(".hero");
+  const title = hero && hero.querySelector("h1");
+  const intro = hero && hero.querySelector(".hero-content > p");
+  if (title && data.heading) title.textContent = data.heading;
+  if (intro && data.intro) intro.textContent = data.intro;
+
+  const items = hammerSortByDisplayOrder(data.downloads.filter(item => item && item.active !== false && item.file));
+  grid.innerHTML = items.map(item => `<article class="download-card${item.featured ? " is-featured" : ""}">
+    ${item.badge ? `<span class="badge-popular">${hammerEscape(item.badge)}</span>` : ""}
+    <div class="doc-icon">${hammerEscape(item.icon || "📄")}</div>
+    <h3>${hammerEscape(item.title)}</h3>
+    <p>${hammerEscape(item.description)}</p>
+    <a class="download-btn" download href="${hammerEscape(item.file)}">📥 ${hammerEscape(item.buttonText || "Download PDF")}</a>
+  </article>`).join("");
 }
 
 function hammerRenderSignatureServices(data) {
@@ -806,15 +1028,23 @@ function refreshHammerContentControls() {
     hammerFetchJson("/site-data/reviews.json"),
     hammerFetchJson("/site-data/specials.json"),
     hammerCurrentAreaDetail(),
-    hammerFetchJson("/site-data/header.json")
-  ]).then(([pages, areas, services, homepage, faqs, reviews, specials, areaDetail, header]) => {
+    hammerFetchJson("/site-data/header.json"),
+    hammerFetchJson("/site-data/projects.json"),
+    hammerFetchJson("/site-data/downloads.json")
+  ]).then(([pages, areas, services, homepage, faqs, reviews, specials, areaDetail, header, projects, downloads]) => {
     hammerApplyPageControls(pages);
     hammerApplyAreaControls(areas, areaDetail);
+    const currentArea = areas && Array.isArray(areas.areas)
+      ? hammerMergeAreaDetail(areas.areas.find(item => item && item.slug === hammerSlug()), areaDetail)
+      : null;
+    hammerRenderAreaExtras(currentArea, reviews, specials);
     hammerRenderHomeAreas(areas, homepage);
     hammerRenderSignatureServices(services);
     hammerRenderFaqPage(faqs);
     hammerRenderReviewsPage(reviews);
     hammerRenderSpecialsPage(specials);
+    hammerRenderProjects(projects);
+    hammerRenderDownloads(downloads);
     hammerApplyHeaderSettings(header);
   });
 }
@@ -881,6 +1111,14 @@ function applyHammerBusinessSettings(data) {
   }
   if (data.email) {
     document.querySelectorAll('a[href^="mailto:"]').forEach(a => a.href = "mailto:" + data.email);
+  }
+
+  if (data.googleReviewsUrl) {
+    const reviewLinks = [
+      document.getElementById("googleReviewsLink"),
+      ...document.querySelectorAll(".reviews-cta a")
+    ].filter(Boolean);
+    reviewLinks.forEach(link => link.href = data.googleReviewsUrl);
   }
 
   const brandName = document.querySelector(".brand-name");

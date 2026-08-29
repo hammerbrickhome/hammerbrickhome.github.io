@@ -42,6 +42,7 @@ required_data = [
     "site-data/homepage.json", "site-data/business.json", "site-data/header.json",
     "site-data/pages.json", "site-data/areas.json", "site-data/services.json",
     "site-data/faqs.json", "site-data/reviews.json", "site-data/specials.json",
+    "site-data/projects.json", "site-data/downloads.json",
     "admin-data/estimator.json", "admin-tools/master-audit.json",
     "admin-tools/unused-images-report.json",
 ]
@@ -164,6 +165,56 @@ add(
     "PASS" if not gallery_missing else "FAIL",
     "Every active gallery photo exists." if not gallery_missing else "Active gallery items reference missing or blank photos.",
     gallery_missing,
+)
+
+managed_asset_missing: list[str] = []
+
+
+def check_managed_asset(value: object, used_in: str) -> None:
+    clean = str(value or "").split("?", 1)[0].split("#", 1)[0].strip()
+    if not clean:
+        return
+    parsed = urlparse(clean)
+    if parsed.scheme or parsed.netloc:
+        return
+    expected = ROOT / unquote(parsed.path).lstrip("/")
+    if not expected.exists():
+        managed_asset_missing.append(f"{used_in}: /{expected.relative_to(ROOT).as_posix()}")
+
+
+projects = read_json(ROOT / "site-data" / "projects.json")
+if isinstance(projects, dict):
+    for index, project in enumerate(projects.get("projects", []), start=1):
+        if not isinstance(project, dict) or project.get("active") is False:
+            continue
+        check_managed_asset(project.get("beforeImage"), f"Live project {index} before photo")
+        check_managed_asset(project.get("afterImage"), f"Live project {index} after photo")
+        for photo_index, photo in enumerate(project.get("additionalImages", []), start=1):
+            check_managed_asset(photo, f"Live project {index} additional photo {photo_index}")
+
+downloads = read_json(ROOT / "site-data" / "downloads.json")
+if isinstance(downloads, dict):
+    for index, download in enumerate(downloads.get("downloads", []), start=1):
+        if not isinstance(download, dict) or download.get("active") is False:
+            continue
+        check_managed_asset(download.get("file"), f"Download {index}")
+
+for area_path in sorted((ROOT / "content" / "areas").glob("*.json")):
+    area = read_json(area_path)
+    if not isinstance(area, dict) or area.get("published") is False:
+        continue
+    if area.get("showHeroImage"):
+        check_managed_asset(area.get("heroImage"), f"{area_path.name} hero photo")
+    if area.get("showAreaGallery"):
+        for index, photo in enumerate(area.get("galleryImages", []), start=1):
+            if isinstance(photo, dict) and photo.get("active") is not False:
+                check_managed_asset(photo.get("image"), f"{area_path.name} gallery photo {index}")
+
+add(
+    "CMS-managed photos and downloads",
+    "PASS" if not managed_asset_missing else "FAIL",
+    "Every active project photo, area photo, and download exists." if not managed_asset_missing else "CMS content references missing photos or PDF files.",
+    managed_asset_missing,
 )
 
 duplicate_scripts: list[str] = []
