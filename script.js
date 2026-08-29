@@ -5,12 +5,27 @@
 function initHeaderInteractions() {
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
+  const topbar = document.querySelector('.topbar');
+
+  const updateStickyHeader = () => {
+    const currentTopbar = document.querySelector('.topbar');
+    if (currentTopbar) currentTopbar.classList.toggle('is-scrolled', window.scrollY > 8);
+  };
+
+  if (!window.__hammerHeaderScrollInit) {
+    window.__hammerHeaderScrollInit = true;
+    window.addEventListener('scroll', updateStickyHeader, { passive: true });
+  }
+  if (topbar) updateStickyHeader();
 
   const closeMenu = () => {
     if (!mainNav || !navToggle) return;
     mainNav.classList.remove('show');
     navToggle.setAttribute('aria-expanded', 'false');
-    document.querySelectorAll('.dropdown.show').forEach(item => item.classList.remove('show'));
+    document.querySelectorAll('.dropdown.show').forEach(item => {
+      item.classList.remove('show');
+      item.querySelector('.dropbtn')?.setAttribute('aria-expanded', 'false');
+    });
   };
 
   if (navToggle && mainNav && !navToggle.hasAttribute('data-init')) {
@@ -49,12 +64,19 @@ function initHeaderInteractions() {
         e.preventDefault();
         e.stopPropagation();
         document.querySelectorAll('.dropdown.show').forEach(item => {
-          if (item !== dropdown) item.classList.remove('show');
+          if (item !== dropdown) {
+            item.classList.remove('show');
+            item.querySelector('.dropbtn')?.setAttribute('aria-expanded', 'false');
+          }
         });
         dropdown.classList.toggle('show');
+        btn.setAttribute('aria-expanded', dropdown.classList.contains('show') ? 'true' : 'false');
       });
 
-      document.addEventListener('click', () => dropdown.classList.remove('show'));
+      document.addEventListener('click', () => {
+        dropdown.classList.remove('show');
+        btn.setAttribute('aria-expanded', 'false');
+      });
     }
   });
 }
@@ -734,6 +756,46 @@ function hammerRenderSpecialsPage(data) {
   grid.innerHTML = hammerRenderSpecialCards(data.specials.filter(hammerSpecialIsCurrent));
 }
 
+function hammerApplyHeaderSettings(data) {
+  if (!data) return;
+
+  const wrapper = document.getElementById("header-include");
+  const topbar = document.querySelector(".topbar");
+  if (wrapper) wrapper.dataset.cmsSticky = data.sticky === false ? "false" : "true";
+  if (topbar) {
+    topbar.dataset.headerSize = data.size === "compact" ? "compact" : "comfortable";
+  }
+
+  const logo = document.querySelector(".brand-logo");
+  if (logo) logo.style.display = data.showLogo === false ? "none" : "";
+  const tagline = document.querySelector(".brand-sub");
+  if (tagline) tagline.style.display = data.showTagline === false ? "none" : "";
+
+  const controls = {
+    home: ["showHome", "homeLabel", "Home"],
+    services: ["showServices", "servicesLabel", "What We Do"],
+    portfolio: ["showPortfolio", "portfolioLabel", "Portfolio"],
+    reviews: ["showReviews", "reviewsLabel", "Client Reviews"],
+    pricing: ["showPricing", "pricingLabel", "Pricing & Estimates"],
+    specials: ["showSpecials", "specialsLabel", "Seasonal Offers"],
+    more: ["showMore", "moreLabel", "More"],
+    areas: ["showAreas", "areasLabel", "Service Areas"],
+    contact: ["showContact", "contactLabel", "Get in Touch"]
+  };
+
+  Object.entries(controls).forEach(([key, [showField, labelField, fallback]]) => {
+    const item = document.querySelector(`[data-nav-item="${key}"]`);
+    if (!item) return;
+    item.style.display = data[showField] === false ? "none" : "";
+    const label = String(data[labelField] || fallback);
+    if (item.matches("a")) item.textContent = label;
+    else {
+      const button = item.querySelector(".dropbtn");
+      if (button) button.textContent = `${label} ▾`;
+    }
+  });
+}
+
 function refreshHammerContentControls() {
   return Promise.all([
     hammerFetchJson("/site-data/pages.json"),
@@ -743,8 +805,9 @@ function refreshHammerContentControls() {
     hammerFetchJson("/site-data/faqs.json"),
     hammerFetchJson("/site-data/reviews.json"),
     hammerFetchJson("/site-data/specials.json"),
-    hammerCurrentAreaDetail()
-  ]).then(([pages, areas, services, homepage, faqs, reviews, specials, areaDetail]) => {
+    hammerCurrentAreaDetail(),
+    hammerFetchJson("/site-data/header.json")
+  ]).then(([pages, areas, services, homepage, faqs, reviews, specials, areaDetail, header]) => {
     hammerApplyPageControls(pages);
     hammerApplyAreaControls(areas, areaDetail);
     hammerRenderHomeAreas(areas, homepage);
@@ -752,6 +815,7 @@ function refreshHammerContentControls() {
     hammerRenderFaqPage(faqs);
     hammerRenderReviewsPage(reviews);
     hammerRenderSpecialsPage(specials);
+    hammerApplyHeaderSettings(header);
   });
 }
 
@@ -770,11 +834,13 @@ document.addEventListener("DOMContentLoaded", () => {
         hammerFetchJson("/site-data/pages.json"),
         hammerFetchJson("/site-data/areas.json"),
         loadHammerBusinessSettings(),
-        hammerCurrentAreaDetail()
-      ]).then(([pages, areas, business, areaDetail]) => {
+        hammerCurrentAreaDetail(),
+        hammerFetchJson("/site-data/header.json")
+      ]).then(([pages, areas, business, areaDetail, header]) => {
         hammerApplyPageControls(pages);
         hammerApplyAreaControls(areas, areaDetail);
         applyHammerBusinessSettings(business);
+        hammerApplyHeaderSettings(header);
         initHeaderInteractions();
       });
     });

@@ -59,13 +59,75 @@ def currently_unused() -> list[Path]:
     return unused
 
 
+def gallery_missing_references() -> list[dict[str, str]]:
+    gallery_path = ROOT / "gallery.json"
+    if not gallery_path.exists():
+        return [{
+            "image": "gallery.json",
+            "usedIn": "Project Gallery",
+            "reason": "The gallery data file is missing. Restore it before editing project photos."
+        }]
+
+    try:
+        gallery = json.loads(gallery_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return [{
+            "image": "gallery.json",
+            "usedIn": "Project Gallery",
+            "reason": "The gallery data file is not valid JSON. Repair it before editing project photos."
+        }]
+
+    references: list[tuple[str, str]] = []
+    for section in ("homePairs", "galleryPairs"):
+        for index, item in enumerate(gallery.get(section, []), start=1):
+            if not isinstance(item, dict) or item.get("active") is False:
+                continue
+            for side in ("before", "after"):
+                references.append((str(item.get(side) or ""), f"{section} item {index} ({side})"))
+
+    for index, item in enumerate(gallery.get("galleryGrid", []), start=1):
+        if isinstance(item, dict):
+            if item.get("active") is False:
+                continue
+            value = str(item.get("name") or "")
+        else:
+            value = str(item or "")
+        references.append((value, f"galleryGrid item {index}"))
+
+    missing: list[dict[str, str]] = []
+    for raw_value, used_in in references:
+        clean = raw_value.split("?", 1)[0].split("#", 1)[0].strip()
+        if not clean:
+            missing.append({
+                "image": "(no photo selected)",
+                "usedIn": used_in,
+                "reason": "Choose a photo in Project Gallery Manager or turn this gallery item off."
+            })
+            continue
+        relative = clean.lstrip("/")
+        if not relative.startswith("images/"):
+            relative = f"images/{relative}"
+        expected = (ROOT / relative).resolve()
+        if ROOT not in expected.parents or expected.exists():
+            continue
+        missing.append({
+            "image": f"/{relative}",
+            "usedIn": used_in,
+            "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+        })
+    return missing
+
+
 def write_report(paths: list[Path], note: str) -> None:
     total = sum(path.stat().st_size for path in paths if path.exists())
+    missing = gallery_missing_references()
     payload = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "count": len(paths),
         "totalSize": human_size(total),
+        "missingCount": len(missing),
         "note": note,
+        "missingReferences": missing,
         "files": [
             {
                 "image": f"/images/{path.relative_to(IMAGES).as_posix()}",
@@ -82,11 +144,15 @@ def write_report(paths: list[Path], note: str) -> None:
 
 def scan() -> None:
     paths = currently_unused()
+    missing = gallery_missing_references()
     write_report(
         paths,
         "Report only — nothing was deleted. Review every image before running the separate delete action."
     )
-    print(f"Found {len(paths)} potentially unused image(s). Nothing deleted.")
+    print(
+        f"Found {len(paths)} potentially unused image(s) and "
+        f"{len(missing)} missing gallery reference(s). Nothing deleted."
+    )
 
 
 def delete_verified() -> None:

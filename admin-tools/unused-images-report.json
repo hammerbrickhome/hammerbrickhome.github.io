@@ -1,7 +1,146 @@
 {
-  "generatedAt": "Not scanned yet",
-  "count": 0,
-  "totalSize": "0 B",
-  "note": "Run Scan Unused Images first. Scanning never deletes files. Review every listed image before using the separate delete action.",
-  "files": []
+  "generatedAt": "2026-08-28T20:18:17.447463+00:00",
+  "count": 10,
+  "totalSize": "18.2 MB",
+  "missingCount": 17,
+  "note": "Report only \u2014 nothing was deleted. Review every image before running the separate delete action.",
+  "missingReferences": [
+    {
+      "image": "(no photo selected)",
+      "usedIn": "homePairs item 6 (before)",
+      "reason": "Choose a photo in Project Gallery Manager or turn this gallery item off."
+    },
+    {
+      "image": "(no photo selected)",
+      "usedIn": "homePairs item 7 (before)",
+      "reason": "Choose a photo in Project Gallery Manager or turn this gallery item off."
+    },
+    {
+      "image": "(no photo selected)",
+      "usedIn": "homePairs item 7 (after)",
+      "reason": "Choose a photo in Project Gallery Manager or turn this gallery item off."
+    },
+    {
+      "image": "/images/stone2-after.png",
+      "usedIn": "galleryPairs item 3 (before)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/stone2-before.png",
+      "usedIn": "galleryPairs item 3 (after)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/stone3-after.png",
+      "usedIn": "galleryPairs item 4 (before)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/stone3-before.png",
+      "usedIn": "galleryPairs item 4 (after)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/job_after.jpg",
+      "usedIn": "galleryPairs item 5 (before)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/job_before.jpg",
+      "usedIn": "galleryPairs item 5 (after)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/after5.png",
+      "usedIn": "galleryPairs item 6 (before)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/before5.png",
+      "usedIn": "galleryPairs item 6 (after)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/after6.png",
+      "usedIn": "galleryPairs item 7 (before)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/before6.png",
+      "usedIn": "galleryPairs item 7 (after)",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/full-gut-deck-remodel-after.jpeg",
+      "usedIn": "galleryGrid item 5",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/full-front-remodel-after.jpeg",
+      "usedIn": "galleryGrid item 6",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "/images/after2.jpg",
+      "usedIn": "galleryGrid item 11",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
+      "image": "(no photo selected)",
+      "usedIn": "galleryGrid item 15",
+      "reason": "Choose a photo in Project Gallery Manager or turn this gallery item off."
+    }
+  ],
+  "files": [
+    {
+      "image": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e-1.webp",
+      "size": "219.0 KB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-1.png",
+      "size": "2.1 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-2.png",
+      "size": "2.1 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-3.png",
+      "size": "2.1 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy.png",
+      "size": "2.1 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-24-2026-102430-pm.png",
+      "size": "2.4 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-25-2026-025048-pm-copy.png",
+      "size": "2.2 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-25-2026-092203-pm.png",
+      "size": "2.1 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/chatgpt-image-jun-10-2026-014708-pm-1.png",
+      "size": "2.5 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/herohome.png",
+      "size": "311.9 KB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    }
+  ]
 }
