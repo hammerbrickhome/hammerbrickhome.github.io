@@ -1,5 +1,6 @@
 /* ============================================================
    HEADER + FOOTER INTERACTIONS
+   SAFE AREA-GALLERY FIX INCLUDED — ALL SIX AREA PAGES
 =============================================================== */
 
 function initHeaderInteractions() {
@@ -719,13 +720,28 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
     bodySection.style.display = "none";
   }
 
-  const galleryGrid = main.querySelector(".gallery-grid");
-  const gallerySection = galleryGrid && galleryGrid.closest("section");
+  let galleryGrid = main.querySelector(".gallery-grid");
+  let gallerySection = galleryGrid && galleryGrid.closest("section");
   const galleryImages = Array.isArray(area.galleryImages)
     ? area.galleryImages.filter(item => item && item.active !== false && item.image)
     : [];
-  if (area.showAreaGallery && galleryGrid && galleryImages.length) {
-    if (gallerySection) gallerySection.dataset.cmsAreaGallery = "true";
+  const hasGalleryToggle = Object.prototype.hasOwnProperty.call(area, "showAreaGallery");
+  if (area.showAreaGallery === true && galleryImages.length) {
+    if (!galleryGrid) {
+      gallerySection = document.createElement("section");
+      gallerySection.className = "section fade-up cms-area-gallery";
+      gallerySection.innerHTML = `
+        <div class="cms-section-heading">
+          <h2>${hammerEscape(area.galleryHeading || `${area.name || "Local"} Project Gallery`)}</h2>
+          <p>${hammerEscape(area.galleryIntro || "")}</p>
+        </div>
+        <div class="gallery-grid"></div>`;
+      const galleryInsertBefore = main.querySelector(".section.note-box") || main.querySelector(".micro-summary") || null;
+      main.insertBefore(gallerySection, galleryInsertBefore);
+      galleryGrid = gallerySection.querySelector(".gallery-grid");
+    }
+    gallerySection.style.display = "";
+    gallerySection.dataset.cmsAreaGallery = "true";
     const heading = gallerySection && gallerySection.querySelector("h2");
     const intro = gallerySection && gallerySection.querySelector("h2 + p");
     if (heading && area.galleryHeading) heading.textContent = area.galleryHeading;
@@ -735,7 +751,7 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
         <img src="${hammerEscape(item.image)}" alt="${hammerEscape(item.alt || item.caption || area.name || "Completed project")}" loading="lazy">
         ${item.caption ? `<figcaption>${hammerEscape(item.caption)}</figcaption>` : ""}
       </figure>`).join("");
-  } else if (gallerySection && gallerySection.dataset.cmsAreaGallery === "true") {
+  } else if (gallerySection && (gallerySection.dataset.cmsAreaGallery === "true" || (hasGalleryToggle && area.showAreaGallery === false))) {
     gallerySection.style.display = "none";
   }
 
