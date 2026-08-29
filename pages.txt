@@ -1,0 +1,1112 @@
+# Hammer Brick & Home LLC — MASTER ADMIN SAFE — OLD HOMEPAGE COMPATIBLE
+# This text file contains the complete .pages.yml code.
+# Built around the current working GitHub site.
+# Uploading this config does NOT replace index.html, style.css or script.js.
+
+media:
+  - name: project_images
+    label: "Project Photos — Upload / Rename / Delete"
+    input: images
+    output: /images
+    categories: [image]
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+    commit:
+      templates:
+        create: "admin: upload project photo {filename}"
+        update: "admin: update project photo {filename}"
+        delete: "admin: delete project photo {filename}"
+        rename: "admin: rename project photo {oldFilename} to {newFilename}"
+    actions:
+      - name: scan-unused-gallery-images
+        label: "Scan Photo Safety"
+        workflow: gallery-image-cleanup.yml
+        ref: current
+        confirm:
+          title: "Scan project photos?"
+          message: "Creates a report of unused files and missing gallery photos. Nothing is deleted."
+          button: "Run Safe Scan"
+      - name: delete-verified-unused-images
+        label: "Delete Reviewed Unused Photos"
+        workflow: gallery-image-cleanup.yml
+        ref: current
+        confirm:
+          title: "Delete reviewed unused photos?"
+          message: "Only photos in the last scan that are still unused will be deleted. This cannot restore deleted photos."
+          button: "Delete Verified Photos"
+
+  - name: homeowner_documents
+    label: "Homeowner PDFs — Upload / Rename / Delete"
+    input: pdfs
+    output: /pdfs
+    categories: [document]
+    extensions: [pdf]
+    rename: safe
+    commit:
+      templates:
+        create: "admin: upload homeowner PDF {filename}"
+        update: "admin: update homeowner PDF {filename}"
+        delete: "admin: delete homeowner PDF {filename}"
+        rename: "admin: rename homeowner PDF {oldFilename} to {newFilename}"
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: app
+    templates:
+      create: "admin: create {path}"
+      update: "admin: update {path}"
+      delete: "admin: delete {path}"
+
+content:
+
+  - name: website
+    label: "🏠 Website"
+    type: group
+    items:
+
+      - name: homepage
+        label: "Homepage Content"
+        type: file
+        path: site-data/homepage.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
+          - {name: announcementText, label: "Announcement Text", type: string, required: false}
+          - {name: announcementButtonText, label: "Announcement Button", type: string, required: false}
+          - {name: announcementButtonUrl, label: "Announcement Link", type: string, required: false}
+          - {name: heroTitle, label: "Hero Headline", type: string}
+          - {name: heroText, label: "Hero Intro", type: text}
+          - {name: heroPrimaryButtonText, label: "Primary Button", type: string}
+          - {name: heroSecondaryButtonText, label: "Secondary Button", type: string}
+          - {name: trustPills, label: "Trust Messages", type: string, list: true, required: false}
+          - {name: showPremiumMaterials, label: "Show Premium Materials", type: boolean, required: false}
+          - {name: premiumMaterials, label: "Premium Materials", type: string, list: true}
+          - {name: showSpecials, label: "Show Specials", type: boolean, required: false}
+          - {name: showTiers, label: "Show Estimate Tiers", type: boolean, required: false}
+          - {name: showMembershipServices, label: "Show Membership Services", type: boolean, required: false}
+          - {name: showProcess, label: "Show Process", type: boolean, required: false}
+          - {name: showBeforeAfter, label: "Show Before & After", type: boolean, required: false}
+          - {name: showGuarantee, label: "Show Guarantee", type: boolean, required: false}
+          - {name: showReviews, label: "Show Reviews", type: boolean, required: false}
+          - {name: showServiceAreas, label: "Show Service Area Page Cards", type: boolean, required: false, default: true}
+          - {name: showServiceArea, label: "Show Service Area", type: boolean, required: false}
+          - {name: showFaq, label: "Show FAQs", type: boolean, required: false}
+          - {name: tierHeading, label: "Tier Heading", type: string, required: false}
+          - {name: tierText, label: "Tier Introduction", type: text, required: false}
+          - {name: processHeading, label: "Process Heading", type: string, required: false}
+          - {name: beforeAfterHeading, label: "Before & After Heading", type: string, required: false}
+          - {name: beforeAfterNote, label: "Before & After Note", type: text, required: false}
+          - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
+          - {name: guaranteeText, label: "Guarantee Text", type: text, required: false}
+          - {name: guaranteeSignature, label: "Guarantee Signature", type: string, required: false}
+          - {name: whyNeighborsTitle, label: "Why Neighbors Title", type: string, required: false}
+          - {name: whyNeighborsText, label: "Why Neighbors Text", type: text, required: false}
+          - {name: reviewEyebrow, label: "Review Eyebrow", type: string}
+          - {name: reviewHeading, label: "Review Heading", type: string}
+          - {name: reviewIntro, label: "Review Intro", type: text}
+          - {name: reviewButtonText, label: "Review Button", type: string}
+          - {name: faqHeading, label: "FAQ Heading", type: string}
+          - {name: serviceAreasHeading, label: "Service Area Cards Heading", type: string, required: false}
+          - {name: serviceAreasIntro, label: "Service Area Cards Intro", type: text, required: false}
+          - {name: serviceAreaHeading, label: "Service Area Heading", type: string}
+          - {name: serviceAreaIntro, label: "Service Area Intro", type: text}
+
+      - name: business
+        label: "Business Settings"
+        type: file
+        path: site-data/business.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: businessName, label: "Business Name", type: string}
+          - {name: phone, label: "Public Phone", type: string}
+          - {name: email, label: "Public Email", type: string}
+          - {name: website, label: "Website", type: string}
+          - {name: nycHic, label: "NYC HIC", type: string}
+          - {name: njHic, label: "NJ HIC", type: string}
+          - {name: epaLabel, label: "EPA Wording", type: string}
+          - {name: headerTagline, label: "Header Tagline", type: text, required: false}
+          - {name: showStickyContact, label: "Show Floating Contact Button", type: boolean, required: false, default: true}
+          - {name: showFooterQuickLinks, label: "Show Footer Quick Links", type: boolean, required: false, default: true}
+          - {name: showSocialLinks, label: "Show Social Icons", type: boolean, required: false, default: true}
+          - {name: footerTagline, label: "Footer Tagline", type: string, required: false}
+          - {name: contactPanelHeading, label: "Contact Panel Heading", type: string, required: false}
+          - {name: serviceAreas, label: "Service Areas", type: string, list: true}
+          - {name: facebook, label: "Facebook", type: string, required: false}
+          - {name: instagram, label: "Instagram", type: string, required: false}
+          - {name: youtube, label: "YouTube", type: string, required: false}
+          - {name: googleReviewsUrl, label: "Google Reviews URL", type: string, required: false}
+
+      - name: header_settings
+        label: "Header Menu & Size"
+        type: file
+        path: site-data/header.json
+        format: json
+        operations:
+          create: false
+          rename: false
+          delete: false
+        fields:
+          - {name: sticky, label: "Keep Header Visible While Scrolling", type: boolean, default: true, description: "Recommended: leave this on."}
+          - name: size
+            label: "Header Size"
+            type: select
+            default: comfortable
+            options:
+              values:
+                - {name: comfortable, label: "Comfortable — larger"}
+                - {name: compact, label: "Compact — smaller"}
+          - {name: showLogo, label: "Show Logo", type: boolean, default: true}
+          - {name: showTagline, label: "Show License Tagline", type: boolean, default: true}
+          - {name: showHome, label: "Show Home", type: boolean, default: true}
+          - {name: homeLabel, label: "Home Label", type: string}
+          - {name: showServices, label: "Show What We Do", type: boolean, default: true}
+          - {name: servicesLabel, label: "What We Do Label", type: string}
+          - {name: showPortfolio, label: "Show Portfolio", type: boolean, default: true}
+          - {name: portfolioLabel, label: "Portfolio Label", type: string}
+          - {name: showReviews, label: "Show Client Reviews", type: boolean, default: true}
+          - {name: reviewsLabel, label: "Client Reviews Label", type: string}
+          - {name: showPricing, label: "Show Pricing Menu", type: boolean, default: true}
+          - {name: pricingLabel, label: "Pricing Menu Label", type: string}
+          - {name: showSpecials, label: "Show Seasonal Offers", type: boolean, default: true}
+          - {name: specialsLabel, label: "Seasonal Offers Label", type: string}
+          - {name: showMore, label: "Show More Menu", type: boolean, default: true}
+          - {name: moreLabel, label: "More Menu Label", type: string}
+          - {name: showAreas, label: "Show Service Areas Menu", type: boolean, default: true}
+          - {name: areasLabel, label: "Service Areas Label", type: string}
+          - {name: showContact, label: "Show Get In Touch", type: boolean, default: true}
+          - {name: contactLabel, label: "Get In Touch Label", type: string}
+
+      - name: page_control
+        label: "All Website Pages"
+        type: file
+        path: site-data/pages.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - name: pages
+            label: "Pages"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{menuLabel} — {url}"
+            fields:
+              - {name: active, label: "Page Active", type: boolean, default: true, description: "Turn off to remove the page from menus and search indexing without deleting the HTML file."}
+              - {name: showInNavigation, label: "Show In Main Menu", type: boolean, default: true}
+              - {name: slug, label: "Page ID", type: string, readonly: true}
+              - {name: url, label: "Page URL", type: string, readonly: true}
+              - {name: menuLabel, label: "Menu Label", type: string}
+              - {name: showHero, label: "Show Hero Section", type: boolean, default: true}
+              - {name: heroTitle, label: "Page Main Heading", type: string, required: false}
+              - {name: heroText, label: "Page Intro Text", type: text, required: false}
+              - {name: showCustomSection, label: "Show Extra Editable Section", type: boolean, default: false}
+              - {name: sectionHeading, label: "Extra Section Heading", type: string, required: false}
+              - {name: sectionText, label: "Extra Section Text", type: text, required: false}
+              - {name: buttonText, label: "Extra Section Button", type: string, required: false}
+              - {name: buttonUrl, label: "Extra Section Button Link", type: string, required: false}
+              - {name: seoTitle, label: "Browser / SEO Title", type: string, required: false}
+              - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+  - name: services_and_areas
+    label: "🗺️ Services & Areas"
+    type: group
+    items:
+
+      - name: signature_services
+        label: "Homepage Signature Services"
+        type: file
+        path: site-data/services.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: heading, label: "Heading", type: string}
+          - {name: intro, label: "Admin Note", type: text, required: false}
+          - name: services
+            label: "Services"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - {name: active, label: "Service Active", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
+              - {name: title, label: "Service Name", type: string}
+              - {name: url, label: "Link", type: string}
+              - name: style
+                label: "Button Color"
+                type: select
+                default: gold
+                options:
+                  values: [gold, white, blue, cyan, green, red]
+
+      - name: live_area_pages
+        label: "Area Menu, Cards & Toggles"
+        type: file
+        path: site-data/areas.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: heading, label: "Homepage Area Heading", type: string}
+          - {name: intro, label: "Homepage Area Intro", type: text}
+          - name: areas
+            label: "Areas"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name} — {url}"
+            fields:
+              - {name: active, label: "Area Page Active", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
+              - {name: name, label: "Area Name", type: string}
+              - {name: slug, label: "Page ID", type: string, readonly: true}
+              - {name: url, label: "Page URL", type: string, readonly: true}
+              - {name: cardText, label: "Homepage Card Text", type: text}
+              - {name: heroTitle, label: "Page Main Heading", type: string}
+              - {name: heroText, label: "Page Intro", type: text}
+              - {name: sectionTitle, label: "Main Section Heading", type: string, required: false}
+              - {name: sectionText, label: "Main Section Text", type: text, required: false}
+              - {name: featuredServices, label: "Featured Services", type: string, list: true, required: false}
+              - {name: neighborhoods, label: "Neighborhoods / Towns", type: string, list: true, required: false}
+              - {name: ctaTitle, label: "Call-To-Action Heading", type: string, required: false}
+              - {name: ctaText, label: "Call-To-Action Text", type: text, required: false}
+              - {name: seoTitle, label: "SEO Title", type: string, required: false}
+              - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+      - name: staten_island_page
+        label: "Staten Island Page"
+        type: file
+        path: content/areas/staten-island.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: brooklyn_page
+        label: "Brooklyn Page"
+        type: file
+        path: content/areas/brooklyn.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: queens_page
+        label: "Queens Page"
+        type: file
+        path: content/areas/queens.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: manhattan_page
+        label: "Manhattan Page"
+        type: file
+        path: content/areas/manhattan.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: bronx_page
+        label: "Bronx Page"
+        type: file
+        path: content/areas/bronx.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+      - name: new_jersey_page
+        label: "New Jersey Page"
+        type: file
+        path: content/areas/new-jersey.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: published, label: "Page Published", type: boolean, default: true}
+          - {name: title, label: "Area Name", type: string}
+          - {name: slug, label: "Page ID", type: string, readonly: true}
+          - {name: heroTitle, label: "Main Heading", type: string}
+          - {name: intro, label: "Hero Introduction", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string}
+          - {name: sectionText, label: "Main Section Text", type: text}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: neighborhoods, label: "Towns", type: string, list: true}
+          - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
+          - {name: ctaText, label: "Call-To-Action Text", type: text}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string}
+          - {name: seoDescription, label: "SEO Description", type: text}
+
+  - name: marketing
+    label: "📣 Marketing"
+    type: group
+    items:
+
+      - name: specials
+        label: "Monthly Specials"
+        type: file
+        path: site-data/specials.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: heading, label: "Heading", type: string}
+          - {name: subheading, label: "Intro", type: text}
+          - {name: finePrint, label: "Fine Print", type: text}
+          - name: specials
+            label: "Specials"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title} — {price}"
+            fields:
+              - {name: active, label: "Active", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
+              - {name: showOnAreaPages, label: "Show On Area Page", type: boolean, default: false, description: "Turn this on to also feature the special on one area page or every area page."}
+              - name: areaSlug
+                label: "Area Page"
+                type: select
+                required: false
+                default: all
+                options:
+                  values:
+                    - {name: all, label: "All Area Pages"}
+                    - {name: staten-island, label: "Staten Island"}
+                    - {name: brooklyn, label: "Brooklyn"}
+                    - {name: queens, label: "Queens"}
+                    - {name: manhattan, label: "Manhattan"}
+                    - {name: bronx, label: "Bronx"}
+                    - {name: new-jersey, label: "New Jersey"}
+              - {name: badge, label: "Badge", type: string}
+              - {name: accentColor, label: "Accent Color", type: string}
+              - {name: badgeTextColor, label: "Badge Text Color", type: string, required: false}
+              - {name: startDate, label: "Start Date", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
+              - {name: endDate, label: "End Date", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
+              - {name: title, label: "Title", type: string}
+              - {name: price, label: "Price", type: string}
+              - {name: description, label: "Description", type: text}
+              - name: features
+                label: "Included Work"
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{text}"
+                fields:
+                  - {name: text, label: "Item", type: string}
+                  - {name: bold, label: "Bold", type: boolean, required: false}
+              - name: addons
+                label: "Add-Ons"
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{name} — {price}"
+                fields:
+                  - {name: name, label: "Add-On", type: string}
+                  - {name: price, label: "Price", type: string}
+              - {name: requirements, label: "Requirements", type: text}
+              - {name: buttonText, label: "Button Text", type: string}
+
+      - name: reviews
+        label: "Customer Reviews"
+        type: file
+        path: site-data/reviews.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: eyebrow, label: "Review Eyebrow", type: string, required: false}
+          - {name: heading, label: "Review Heading", type: string, required: false}
+          - {name: reviewUrl, label: "Google Reviews URL", type: string}
+          - name: reviews
+            label: "Reviews"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name} — {service}"
+            fields:
+              - {name: active, label: "Show", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
+              - {name: showOnAreaPages, label: "Show On Area Page", type: boolean, default: false, description: "Turn this on to feature the review on one area page or every area page."}
+              - name: areaSlug
+                label: "Area Page"
+                type: select
+                required: false
+                default: all
+                options:
+                  values:
+                    - {name: all, label: "All Area Pages"}
+                    - {name: staten-island, label: "Staten Island"}
+                    - {name: brooklyn, label: "Brooklyn"}
+                    - {name: queens, label: "Queens"}
+                    - {name: manhattan, label: "Manhattan"}
+                    - {name: bronx, label: "Bronx"}
+                    - {name: new-jersey, label: "New Jersey"}
+              - {name: name, label: "Customer Name", type: string}
+              - {name: rating, label: "Stars", type: number, default: 5, options: {min: 1, max: 5}}
+              - {name: source, label: "Source", type: string, default: "Google Review"}
+              - {name: review, label: "Review", type: text}
+              - {name: service, label: "Service", type: string, default: "Home Improvement"}
+
+      - name: faqs
+        label: "Common Questions"
+        type: file
+        path: site-data/faqs.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: heading, label: "FAQ Heading", type: string, required: false}
+          - name: items
+            label: "Questions"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{question}"
+            fields:
+              - {name: active, label: "Show", type: boolean, default: true}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: false}
+              - {name: category, label: "Category", type: string, required: false}
+              - {name: question, label: "Question", type: string}
+              - {name: answer, label: "Answer", type: text}
+
+      - name: downloads
+        label: "Downloads Manager"
+        type: file
+        path: site-data/downloads.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: heading, label: "Page Heading", type: string}
+          - {name: intro, label: "Page Introduction", type: text}
+          - name: downloads
+            label: "Download Cards"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title} — {category}"
+            fields:
+              - {name: active, label: "Show Download", type: boolean, default: true}
+              - {name: featured, label: "Featured", type: boolean, default: false}
+              - {name: badge, label: "Badge Text", type: string, required: false, description: "Optional, for example: Most Popular."}
+              - {name: title, label: "Title", type: string}
+              - {name: description, label: "Description", type: text}
+              - {name: category, label: "Category", type: string, required: false}
+              - {name: icon, label: "Icon / Emoji", type: string, required: false}
+              - {name: file, label: "PDF File", type: file, options: {media: homeowner_documents}}
+              - {name: buttonText, label: "Button Text", type: string, default: "Download PDF"}
+              - {name: displayOrder, label: "Display Order", type: number, default: 1}
+
+  - name: projects
+    label: "🧱 Projects & Media"
+    type: group
+    items:
+
+      - name: live_projects
+        label: "Live Project Library"
+        type: file
+        path: site-data/projects.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: heading, label: "Project Section Heading", type: string}
+          - {name: intro, label: "Project Section Introduction", type: text}
+          - name: projects
+            label: "Projects"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title} — {areaLabel}"
+            fields:
+              - {name: active, label: "Project Active", type: boolean, default: true}
+              - {name: featured, label: "Featured Project", type: boolean, default: false}
+              - {name: title, label: "Project Title", type: string}
+              - {name: projectDate, label: "Project Date", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
+              - name: areaSlug
+                label: "Service Area"
+                type: select
+                required: false
+                options:
+                  values:
+                    - {name: staten-island, label: "Staten Island"}
+                    - {name: brooklyn, label: "Brooklyn"}
+                    - {name: queens, label: "Queens"}
+                    - {name: manhattan, label: "Manhattan"}
+                    - {name: bronx, label: "Bronx"}
+                    - {name: new-jersey, label: "New Jersey"}
+              - {name: areaLabel, label: "Area Label", type: string, required: false}
+              - {name: neighborhood, label: "Neighborhood / Town", type: string, required: false}
+              - name: serviceSlug
+                label: "Service Page"
+                type: select
+                required: false
+                options:
+                  values:
+                    - {name: kitchens, label: "Kitchens"}
+                    - {name: bathrooms, label: "Bathrooms"}
+                    - {name: masonry, label: "Masonry"}
+                    - {name: concrete, label: "Concrete"}
+                    - {name: outdoor-living, label: "Outdoor Living"}
+                    - {name: pools, label: "Pools"}
+                    - {name: basement-finishing, label: "Basement Finishing"}
+                    - {name: interior-renovations, label: "Interior Renovations"}
+                    - {name: exterior, label: "Exterior"}
+                    - {name: roofing, label: "Roofing"}
+                    - {name: decks, label: "Decks"}
+                    - {name: other-services, label: "Other Services"}
+              - {name: serviceLabel, label: "Service Label", type: string, required: false}
+              - {name: summary, label: "Project Summary", type: text}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - {name: additionalImages, label: "Additional Photos", type: image, list: true, required: false, options: {media: project_images}}
+              - {name: imageAlt, label: "Photo Description (Accessibility)", type: string, required: false}
+              - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: false}
+              - {name: showInGallery, label: "Show In Main Gallery", type: boolean, default: true}
+              - {name: showOnAreaPage, label: "Show On Selected Area Page", type: boolean, default: true}
+              - {name: showOnServicePage, label: "Show On Selected Service Page", type: boolean, default: true}
+              - {name: displayOrder, label: "Display Order", type: number, default: 1}
+
+      - name: gallery
+        label: "Project Gallery Manager"
+        type: file
+        path: gallery.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - name: homePairs
+            label: "Homepage Before & After"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label} — #{index}"
+            fields:
+              - {name: active, label: "Show", type: boolean, default: true}
+              - {name: before, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: after, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - {name: label, label: "Project Title", type: string}
+              - {name: tags, label: "Tags", type: string, list: true, required: false}
+
+          - name: galleryPairs
+            label: "Full Gallery Before & After"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label} — #{index}"
+            fields:
+              - {name: active, label: "Show", type: boolean, default: true}
+              - {name: before, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: after, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - {name: label, label: "Project Title", type: string}
+              - {name: tags, label: "Tags", type: string, list: true, required: false}
+
+          - name: galleryGrid
+            label: "Gallery Photo Grid"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Photo #{index}"
+            fields:
+              - {name: active, label: "Show", type: boolean, default: true}
+              - {name: name, label: "Photo", type: image, options: {media: project_images}}
+              - {name: tags, label: "Tags", type: string, list: true, required: false}
+
+      - name: project_stories
+        label: "Project Stories — Draft Manager"
+        type: collection
+        path: content/projects
+        format: json
+        exclude: ["_template.json"]
+        filename: "{fields.slug}.json"
+        view:
+          primary: title
+          fields: [published, featured, service, location]
+        fields:
+          - {name: title, label: "Project Title", type: string}
+          - {name: slug, label: "URL Slug", type: string}
+          - {name: published, label: "Published", type: boolean}
+          - {name: featured, label: "Featured", type: boolean}
+          - {name: service, label: "Service", type: string}
+          - {name: location, label: "Location", type: string}
+          - {name: neighborhood, label: "Neighborhood", type: string, required: false}
+          - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+          - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+          - {name: additionalImages, label: "Additional Photos", type: image, list: true, required: false, options: {media: project_images}}
+          - {name: summary, label: "Summary", type: text}
+          - {name: problem, label: "Problem", type: text}
+          - {name: solution, label: "What We Did", type: text}
+          - {name: materials, label: "Materials", type: string, list: true, required: false}
+          - {name: timeline, label: "Timeline", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string, required: false}
+          - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+  - name: estimator
+    label: "🧮 Estimator"
+    type: group
+    items:
+      - name: estimator_factors
+        label: "Estimator Factors"
+        type: file
+        path: admin-data/estimator.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: note, label: "Safety Note", type: text, readonly: true}
+          - name: boroughFactors
+            label: "Borough Factors"
+            type: object
+            fields:
+              - {name: staten-island, label: "Staten Island", type: number}
+              - {name: brooklyn, label: "Brooklyn", type: number}
+              - {name: queens, label: "Queens", type: number}
+              - {name: bronx, label: "Bronx", type: number}
+              - {name: manhattan, label: "Manhattan", type: number}
+              - {name: nj, label: "New Jersey", type: number}
+              - {name: outside, label: "Outside", type: number}
+          - name: finishFactors
+            label: "Finish Factors"
+            type: object
+            fields:
+              - {name: standard, label: "Standard", type: number}
+              - {name: premium, label: "Premium", type: number}
+              - {name: luxury, label: "Luxury", type: number}
+          - name: urgencyFactors
+            label: "Urgency Factors"
+            type: object
+            fields:
+              - {name: flex, label: "Flexible", type: number}
+              - {name: soon, label: "Soon", type: number}
+              - {name: rush, label: "Rush", type: number}
+
+  - name: seo_drafts
+    label: "📚 Pages & SEO Drafts"
+    type: group
+    items:
+
+      - name: service_pages
+        label: "Service Page Drafts"
+        type: collection
+        path: content/services
+        format: json
+        filename: "{fields.slug}.json"
+        view:
+          primary: title
+          fields: [published]
+        fields:
+          - {name: title, label: "Title", type: string}
+          - {name: slug, label: "Slug", type: string}
+          - {name: published, label: "Published", type: boolean}
+          - {name: summary, label: "Summary", type: text}
+          - {name: heroImage, label: "Hero Image", type: image, required: false, options: {media: project_images}}
+          - {name: body, label: "Body", type: rich-text, options: {format: markdown, media: project_images}}
+          - {name: seoTitle, label: "SEO Title", type: string, required: false}
+          - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+      - name: area_pages
+        label: "Area Pages — Photos & Advanced Content"
+        type: collection
+        path: content/areas
+        format: json
+        filename: "{fields.slug}.json"
+        operations:
+          create: true
+          rename: false
+          delete: false
+        view:
+          primary: title
+          fields: [published, slug]
+        fields:
+          - {name: title, label: "Area", type: string}
+          - {name: slug, label: "Slug", type: string}
+          - {name: published, label: "Published", type: boolean}
+          - {name: heroTitle, label: "Main Heading", type: string, required: false}
+          - {name: intro, label: "Intro", type: text}
+          - {name: sectionTitle, label: "Main Section Heading", type: string, required: false}
+          - {name: sectionText, label: "Main Section Text", type: text, required: false}
+          - {name: neighborhoods, label: "Neighborhoods / Towns", type: string, list: true}
+          - {name: featuredServices, label: "Featured Services", type: string, list: true}
+          - {name: body, label: "Body", type: rich-text, options: {format: markdown, media: false}}
+          - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
+          - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
+          - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+          - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
+          - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
+          - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryImages
+            label: "Area Gallery Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - {name: active, label: "Show Photo", type: boolean, default: true}
+              - {name: image, label: "Photo", type: image, options: {media: project_images}}
+              - {name: alt, label: "Photo Description", type: string, required: false}
+              - {name: caption, label: "Caption", type: string, required: false}
+          - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
+          - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
+          - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
+          - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: ctaTitle, label: "Call-To-Action Heading", type: string, required: false}
+          - {name: ctaText, label: "Call-To-Action Text", type: text, required: false}
+          - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
+          - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
+          - {name: seoTitle, label: "SEO Title", type: string, required: false}
+          - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+      - name: resources
+        label: "Resource / Advice Drafts"
+        type: collection
+        path: content/resources
+        format: json
+        filename: "{fields.slug}.json"
+        view:
+          primary: title
+          fields: [published, category]
+        fields:
+          - {name: title, label: "Title", type: string}
+          - {name: slug, label: "Slug", type: string}
+          - {name: published, label: "Published", type: boolean}
+          - {name: category, label: "Category", type: string}
+          - {name: summary, label: "Summary", type: text}
+          - {name: body, label: "Body", type: rich-text, options: {format: markdown, media: project_images}}
+          - {name: seoTitle, label: "SEO Title", type: string, required: false}
+          - {name: seoDescription, label: "SEO Description", type: text, required: false}
+
+  - name: health
+    label: "⚙️ Site Health"
+    type: group
+    items:
+
+      - name: master_audit
+        label: "Master Site Audit"
+        type: file
+        path: admin-tools/master-audit.json
+        format: json
+        operations:
+          create: false
+          rename: false
+          delete: false
+        fields:
+          - {name: generatedAt, label: "Last Run", type: string}
+          - {name: status, label: "Status", type: string}
+          - {name: summary, label: "Summary", type: text}
+          - name: checks
+            label: "Checks"
+            type: object
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{status} — {name}"
+            fields:
+              - {name: name, label: "Check", type: string}
+              - {name: status, label: "Status", type: string}
+              - {name: details, label: "Details", type: text}
+              - {name: items, label: "Items", type: string, list: true, required: false}
+
+      - name: unused_images_report
+        label: "Project Photo Health Report"
+        type: file
+        path: admin-tools/unused-images-report.json
+        format: json
+        operations:
+          create: false
+          rename: false
+          delete: false
+        fields:
+          - {name: generatedAt, label: "Last Scan", type: string}
+          - {name: count, label: "Unused Images Found", type: number}
+          - {name: totalSize, label: "Potential Space To Free", type: string}
+          - {name: missingCount, label: "Missing Gallery Photos", type: number}
+          - {name: note, label: "Safety Note", type: text}
+          - name: missingReferences
+            label: "Broken / Missing Photo References"
+            type: object
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{image} — {usedIn}"
+            fields:
+              - {name: image, label: "Missing Photo Path", type: string}
+              - {name: usedIn, label: "Used In", type: string}
+              - {name: reason, label: "What To Do", type: text}
+          - name: files
+            label: "Review These Images"
+            type: object
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{image} — {size}"
+            fields:
+              - {name: image, label: "Image", type: image, options: {media: project_images}}
+              - {name: size, label: "File Size", type: string}
+              - {name: reason, label: "Why It Is Listed", type: text}
+
+actions:
+  - name: apply-business-settings
+    label: "Apply Business Details To Website"
+    workflow: apply-business-settings.yml
+    ref: current
+    confirm:
+      title: "Apply business details?"
+      message: "Updates the phone, email, and license numbers across the current website files using Business Details. Existing page content is preserved."
+      button: "Apply Business Details"
+
+  - name: apply-estimator-factors
+    label: "Apply Estimator Pricing Factors"
+    workflow: apply-estimator-factors.yml
+    ref: current
+    confirm:
+      title: "Apply estimator factors?"
+      message: "Updates only the borough, finish, and urgency factors in the estimator from the saved Estimator Factors file."
+      button: "Apply Estimator Factors"
+
+  - name: run-full-site-check
+    label: "Run Full Website Check"
+    workflow: site-health-audit.yml
+    ref: current
+    confirm:
+      title: "Run the full website check?"
+      message: "Checks CMS files, JSON, sitemap pages, links, gallery photos, duplicate scripts, licenses, and analytics placeholders. It does not change the public website."
+      button: "Run Full Check"
+
+  - name: scan-unused-gallery-images
+    label: "Scan Unused Images"
+    workflow: gallery-image-cleanup.yml
+    ref: current
+    confirm:
+      title: "Scan for unused images?"
+      message: "Report only. Does not delete images."
+      button: "Run Scan"
+
+  - name: delete-verified-unused-images
+    label: "Delete Verified Unused Images"
+    workflow: gallery-image-cleanup.yml
+    ref: current
+    confirm:
+      title: "Delete reviewed unused images?"
+      message: "Only files still verified as unused by the existing cleanup workflow should be deleted."
+      button: "Delete Verified Images"
