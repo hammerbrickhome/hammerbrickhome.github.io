@@ -48,6 +48,10 @@
 
   body {
     padding-top: 0 !important;
+    /* overflow-x:hidden in the main stylesheet creates a body scroll
+       container and prevents position:sticky from reaching the viewport. */
+    overflow-x: clip !important;
+    overflow-y: visible !important;
   }
 
   .topbar-inner {
