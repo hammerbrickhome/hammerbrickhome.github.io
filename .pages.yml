@@ -1,4 +1,5 @@
-# Hammer Brick & Home LLC — MASTER ADMIN SAFE
+# Hammer Brick & Home LLC — MASTER ADMIN SAFE — OLD HOMEPAGE COMPATIBLE
+# This text file contains the complete .pages.yml code.
 # Built around the current working GitHub site.
 # Uploading this config does NOT replace index.html, style.css or script.js.
 
@@ -66,99 +67,52 @@ content:
     items:
 
       - name: homepage
-        label: "Homepage — Full Control"
+        label: "Homepage Content"
         type: file
         path: site-data/homepage.json
         format: json
         operations: {create: false, rename: false, delete: false}
         fields:
-          - {name: seoTitle, label: "SEO — Search Result Title", type: string, description: "Aim for about 50–60 characters. Keep the main service and location near the beginning."}
-          - {name: seoDescription, label: "SEO — Search Result Description", type: text, description: "Write a clear reason to click, the main services, location and phone number."}
-          - {name: socialImage, label: "SEO — Social Sharing Image", type: image, required: false, options: {media: project_images}}
-
           - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
           - {name: announcementText, label: "Announcement Text", type: string, required: false}
           - {name: announcementButtonText, label: "Announcement Button", type: string, required: false}
           - {name: announcementButtonUrl, label: "Announcement Link", type: string, required: false}
-
-          - {name: heroEyebrow, label: "Hero — Small Location Line", type: string, required: false}
-          - {name: heroTitle, label: "Hero — Main Headline", type: string}
-          - {name: heroText, label: "Hero — Intro Text", type: text}
-          - {name: heroPrimaryButtonText, label: "Hero — Primary Button Text", type: string}
-          - {name: heroPrimaryButtonUrl, label: "Hero — Primary Button Link", type: string}
-          - {name: heroSecondaryButtonText, label: "Hero — Secondary Button Text", type: string}
-          - {name: heroSecondaryButtonUrl, label: "Hero — Secondary Button Link", type: string}
-          - {name: heroTertiaryButtonText, label: "Hero — Third Button Text", type: string, required: false}
-          - {name: heroTertiaryButtonUrl, label: "Hero — Third Button Link", type: string, required: false}
-          - {name: heroImage, label: "Hero — Main Project Photo", type: image, options: {media: project_images}}
-          - {name: heroImageAlt, label: "Hero — Main Photo Description", type: string, description: "Describe the finished work for customers and search engines."}
-          - {name: heroSideImageOne, label: "Hero — Small Project Photo 1", type: image, required: false, options: {media: project_images}}
-          - {name: heroSideImageOneAlt, label: "Hero — Small Photo 1 Description", type: string, required: false}
-          - {name: heroSideImageTwo, label: "Hero — Small Project Photo 2", type: image, required: false, options: {media: project_images}}
-          - {name: heroSideImageTwoAlt, label: "Hero — Small Photo 2 Description", type: string, required: false}
-          - {name: trustPills, label: "Hero — Trust Messages", type: string, list: true, required: false}
-
-          - {name: showProofRail, label: "Show License & Trust Bar", type: boolean, required: false, default: true}
-          - {name: showQuickStart, label: "Show Call / Text / Estimator Choices", type: boolean, required: false, default: true}
-          - {name: showSignatureServices, label: "Show Signature Services", type: boolean, required: false, default: true}
-          - {name: showPremiumMaterials, label: "Show Materials Bar", type: boolean, required: false, default: true}
-          - {name: showBeforeAfter, label: "Show Before & After", type: boolean, required: false, default: true}
-          - {name: showGuarantee, label: "Show Owner Guarantee", type: boolean, required: false, default: true}
-          - {name: showProcess, label: "Show Process", type: boolean, required: false, default: true}
-          - {name: showTiers, label: "Show Estimate Tiers", type: boolean, required: false, default: true}
-          - {name: showSpecials, label: "Show Monthly Specials", type: boolean, required: false, default: true}
-          - {name: showReviews, label: "Show Customer Reviews", type: boolean, required: false, default: true}
-          - {name: showServiceAreas, label: "Show Service Area Cards", type: boolean, required: false, default: true}
-          - {name: showServiceArea, label: "Show Local Area Message", type: boolean, required: false, default: true}
-          - {name: showResources, label: "Show Membership & Free Guides", type: boolean, required: false, default: true}
-          - {name: showMembershipServices, label: "Legacy Resources Toggle — Leave On", type: boolean, required: false, default: true, description: "Kept for compatibility with your existing admin data."}
-          - {name: showFaq, label: "Show Homepage Questions", type: boolean, required: false, default: true}
-          - {name: showFinalCta, label: "Show Final Contact Section", type: boolean, required: false, default: true}
-
-          - {name: quickStartHeading, label: "Quick Start — Heading", type: string, required: false}
-          - {name: quickStartText, label: "Quick Start — Introduction", type: text, required: false}
-
-          - {name: servicesEyebrow, label: "Services — Small Heading", type: string, required: false}
-          - {name: servicesHeading, label: "Services — Main Heading", type: string, required: false}
-          - {name: servicesIntro, label: "Services — Introduction", type: text, required: false}
-          - {name: premiumMaterials, label: "Materials / Brands", type: string, list: true}
-
-          - {name: beforeAfterHeading, label: "Before & After — Heading", type: string, required: false}
-          - {name: beforeAfterNote, label: "Before & After — Introduction", type: text, required: false}
-          - {name: guaranteeTitle, label: "Owner Guarantee — Heading", type: string, required: false}
-          - {name: guaranteeText, label: "Owner Guarantee — Message", type: text, required: false}
-          - {name: guaranteeSignature, label: "Owner Guarantee — Signature", type: string, required: false}
-          - {name: whyNeighborsTitle, label: "Why Choose Us — Heading", type: string, required: false}
-          - {name: whyNeighborsText, label: "Why Choose Us — Text", type: text, required: false}
-
+          - {name: heroTitle, label: "Hero Headline", type: string}
+          - {name: heroText, label: "Hero Intro", type: text}
+          - {name: heroPrimaryButtonText, label: "Primary Button", type: string}
+          - {name: heroSecondaryButtonText, label: "Secondary Button", type: string}
+          - {name: trustPills, label: "Trust Messages", type: string, list: true, required: false}
+          - {name: showPremiumMaterials, label: "Show Premium Materials", type: boolean, required: false}
+          - {name: premiumMaterials, label: "Premium Materials", type: string, list: true}
+          - {name: showSpecials, label: "Show Specials", type: boolean, required: false}
+          - {name: showTiers, label: "Show Estimate Tiers", type: boolean, required: false}
+          - {name: showMembershipServices, label: "Show Membership Services", type: boolean, required: false}
+          - {name: showProcess, label: "Show Process", type: boolean, required: false}
+          - {name: showBeforeAfter, label: "Show Before & After", type: boolean, required: false}
+          - {name: showGuarantee, label: "Show Guarantee", type: boolean, required: false}
+          - {name: showReviews, label: "Show Reviews", type: boolean, required: false}
+          - {name: showServiceAreas, label: "Show Service Area Page Cards", type: boolean, required: false, default: true}
+          - {name: showServiceArea, label: "Show Service Area", type: boolean, required: false}
+          - {name: showFaq, label: "Show FAQs", type: boolean, required: false}
           - {name: tierHeading, label: "Tier Heading", type: string, required: false}
           - {name: tierText, label: "Tier Introduction", type: text, required: false}
           - {name: processHeading, label: "Process Heading", type: string, required: false}
-
-          - {name: reviewEyebrow, label: "Reviews — Small Heading", type: string}
-          - {name: reviewHeading, label: "Reviews — Main Heading", type: string}
-          - {name: reviewIntro, label: "Reviews — Introduction", type: text}
-          - {name: reviewButtonText, label: "Reviews — Button Text", type: string}
-
-          - {name: serviceAreasHeading, label: "Area Cards — Heading", type: string, required: false}
-          - {name: serviceAreasIntro, label: "Area Cards — Introduction", type: text, required: false}
-          - {name: serviceAreaHeading, label: "Local Area Message — Heading", type: string}
-          - {name: serviceAreaIntro, label: "Local Area Message — Text", type: text}
-
-          - {name: resourcesHeading, label: "Resources — Heading", type: string, required: false}
-          - {name: membershipHeading, label: "Membership — Heading", type: string, required: false}
-          - {name: membershipText, label: "Membership — Text", type: text, required: false}
-          - {name: downloadsHeading, label: "Free Guides — Heading", type: string, required: false}
-          - {name: downloadsText, label: "Free Guides — Text", type: text, required: false}
-
-          - {name: faqHeading, label: "Questions — Heading", type: string}
-
-          - {name: finalCtaHeading, label: "Final Contact — Heading", type: string, required: false}
-          - {name: finalCtaText, label: "Final Contact — Text", type: text, required: false}
-          - {name: finalCtaPrimaryButtonText, label: "Final Contact — Primary Button", type: string, required: false}
-          - {name: finalCtaPrimaryButtonUrl, label: "Final Contact — Primary Link", type: string, required: false}
-          - {name: finalCtaSecondaryButtonText, label: "Final Contact — Secondary Button", type: string, required: false}
-          - {name: finalCtaSecondaryButtonUrl, label: "Final Contact — Secondary Link", type: string, required: false}
+          - {name: beforeAfterHeading, label: "Before & After Heading", type: string, required: false}
+          - {name: beforeAfterNote, label: "Before & After Note", type: text, required: false}
+          - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
+          - {name: guaranteeText, label: "Guarantee Text", type: text, required: false}
+          - {name: guaranteeSignature, label: "Guarantee Signature", type: string, required: false}
+          - {name: whyNeighborsTitle, label: "Why Neighbors Title", type: string, required: false}
+          - {name: whyNeighborsText, label: "Why Neighbors Text", type: text, required: false}
+          - {name: reviewEyebrow, label: "Review Eyebrow", type: string}
+          - {name: reviewHeading, label: "Review Heading", type: string}
+          - {name: reviewIntro, label: "Review Intro", type: text}
+          - {name: reviewButtonText, label: "Review Button", type: string}
+          - {name: faqHeading, label: "FAQ Heading", type: string}
+          - {name: serviceAreasHeading, label: "Service Area Cards Heading", type: string, required: false}
+          - {name: serviceAreasIntro, label: "Service Area Cards Intro", type: text, required: false}
+          - {name: serviceAreaHeading, label: "Service Area Heading", type: string}
+          - {name: serviceAreaIntro, label: "Service Area Intro", type: text}
 
       - name: business
         label: "Business Settings"
@@ -976,6 +930,10 @@ content:
         path: content/areas
         format: json
         filename: "{fields.slug}.json"
+        operations:
+          create: true
+          rename: false
+          delete: false
         view:
           primary: title
           fields: [published, slug]
@@ -1152,4 +1110,3 @@ actions:
       title: "Delete reviewed unused images?"
       message: "Only files still verified as unused by the existing cleanup workflow should be deleted."
       button: "Delete Verified Images"
-
