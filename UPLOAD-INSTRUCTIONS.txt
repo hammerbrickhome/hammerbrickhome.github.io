@@ -1,0 +1,8 @@
+Open this folder and upload ALL CONTENTS into the ROOT of your GitHub repository.
+Do NOT upload the outer GITHUB-ROOT-UPLOAD folder itself.
+
+Your repository root should contain:
+.pages.yml
+.github/workflows/gallery-image-cleanup.yml
+scripts/gallery_media_cleanup.py
+admin-tools/unused-images-report.json
