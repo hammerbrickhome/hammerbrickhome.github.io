@@ -1,5 +1,5 @@
 {
-  "announcementEnabled": false,
+  "announcementEnabled": true,
   "announcementText": "Now booking new projects — free estimates available.",
   "announcementButtonText": "Request Estimate",
   "announcementButtonUrl": "/contact.html",
