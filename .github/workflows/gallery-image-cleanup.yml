@@ -1,5 +1,4 @@
-
-name: Hammer Brick - Safe Image Cleanup
+name: Hammer Brick - Full Website Check
 
 on:
   workflow_dispatch:
@@ -13,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  cleanup:
+  audit:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,47 +22,30 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - name: Decide scan or delete
-        id: mode
+      - name: Verify the Pages CMS action
         env:
           PAGES_CMS_PAYLOAD: ${{ inputs.payload }}
         shell: bash
         run: |
           set -euo pipefail
           ACTION_NAME="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.action.name // empty')"
+          test "$ACTION_NAME" = "run-full-site-check"
 
-          if [ "$ACTION_NAME" = "scan-unused-gallery-images" ]; then
-            echo "mode=scan" >> "$GITHUB_OUTPUT"
-          elif [ "$ACTION_NAME" = "delete-verified-unused-images" ]; then
-            echo "mode=delete" >> "$GITHUB_OUTPUT"
-          else
-            echo "Unknown Pages CMS action: $ACTION_NAME"
-            exit 1
-          fi
+      - name: Run full website check
+        run: python3 scripts/master_audit.py
 
-      - name: Run safe image cleanup
-        run: |
-          python3 scripts/gallery_media_cleanup.py --mode "${{ steps.mode.outputs.mode }}"
-
-      - name: Commit report or verified deletions
+      - name: Save the health report
         shell: bash
         run: |
           set -euo pipefail
 
-          if git diff --quiet && git diff --cached --quiet; then
-            echo "No repository changes to commit."
+          if git diff --quiet -- admin-tools/master-audit.json; then
+            echo "The health report is already current."
             exit 0
           fi
 
           git config user.name "Hammer Brick Admin"
           git config user.email "actions@users.noreply.github.com"
-
-          git add admin-tools/unused-images-report.json images/
-
-          if [ "${{ steps.mode.outputs.mode }}" = "scan" ]; then
-            git commit -m "admin: update unused image report"
-          else
-            git commit -m "admin: delete verified unused gallery images"
-          fi
-
+          git add admin-tools/master-audit.json
+          git commit -m "admin: update full website health report"
           git push
