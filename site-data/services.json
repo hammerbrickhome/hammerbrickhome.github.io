@@ -1,0 +1,18 @@
+{
+  "heading": "Signature Services",
+  "intro": "Choose which services appear on the homepage without changing the rest of the service directory.",
+  "services": [
+    {"active": true, "showOnHomepage": true, "title": "Masonry", "url": "/masonry.html", "style": "white"},
+    {"active": true, "showOnHomepage": true, "title": "Roofing", "url": "/services.html#roofing-section", "style": "gold"},
+    {"active": true, "showOnHomepage": true, "title": "Pavers", "url": "/services.html#masonry-section", "style": "gold"},
+    {"active": true, "showOnHomepage": true, "title": "Driveways", "url": "/services.html#masonry-section", "style": "white"},
+    {"active": true, "showOnHomepage": true, "title": "Sidewalks (DOT)", "url": "/services.html#masonry-section", "style": "gold"},
+    {"active": true, "showOnHomepage": true, "title": "Steps & Stoops", "url": "/services.html#masonry-section", "style": "white"},
+    {"active": true, "showOnHomepage": true, "title": "Waterproofing", "url": "/waterproofing.html", "style": "cyan"},
+    {"active": true, "showOnHomepage": true, "title": "Windows", "url": "/windows-doors.html", "style": "cyan"},
+    {"active": true, "showOnHomepage": true, "title": "Kitchens", "url": "/kitchens.html", "style": "blue"},
+    {"active": true, "showOnHomepage": true, "title": "Bathrooms", "url": "/bathrooms.html", "style": "blue"},
+    {"active": true, "showOnHomepage": true, "title": "Basements", "url": "/services.html#remodeling-section", "style": "red"},
+    {"active": true, "showOnHomepage": true, "title": "Painting", "url": "/painting.html", "style": "green"}
+  ]
+}
