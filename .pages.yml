@@ -4,14 +4,53 @@
 
 media:
   - name: project_images
-    label: "Project Photos"
+    label: "Project Photos — Upload / Rename / Delete"
     input: images
     output: /images
     categories: [image]
     extensions: [jpg, jpeg, png, webp]
     rename: safe
+    commit:
+      templates:
+        create: "admin: upload project photo {filename}"
+        update: "admin: update project photo {filename}"
+        delete: "admin: delete project photo {filename}"
+        rename: "admin: rename project photo {oldFilename} to {newFilename}"
+    actions:
+      - name: scan-unused-gallery-images
+        label: "Scan Photo Safety"
+        workflow: gallery-image-cleanup.yml
+        ref: current
+        confirm:
+          title: "Scan project photos?"
+          message: "Creates a report of unused files and missing gallery photos. Nothing is deleted."
+          button: "Run Safe Scan"
+      - name: delete-verified-unused-images
+        label: "Delete Reviewed Unused Photos"
+        workflow: gallery-image-cleanup.yml
+        ref: current
+        confirm:
+          title: "Delete reviewed unused photos?"
+          message: "Only photos in the last scan that are still unused will be deleted. This cannot restore deleted photos."
+          button: "Delete Verified Photos"
+
+  - name: homeowner_documents
+    label: "Homeowner PDFs — Upload / Rename / Delete"
+    input: pdfs
+    output: /pdfs
+    categories: [document]
+    extensions: [pdf]
+    rename: safe
+    commit:
+      templates:
+        create: "admin: upload homeowner PDF {filename}"
+        update: "admin: update homeowner PDF {filename}"
+        delete: "admin: delete homeowner PDF {filename}"
+        rename: "admin: rename homeowner PDF {oldFilename} to {newFilename}"
 
 settings:
+  content:
+    merge: true
   commit:
     identity: app
     templates:
@@ -31,6 +70,7 @@ content:
         type: file
         path: site-data/homepage.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
           - {name: announcementText, label: "Announcement Text", type: string, required: false}
@@ -78,6 +118,7 @@ content:
         type: file
         path: site-data/business.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: businessName, label: "Business Name", type: string}
           - {name: phone, label: "Public Phone", type: string}
@@ -98,11 +139,52 @@ content:
           - {name: youtube, label: "YouTube", type: string, required: false}
           - {name: googleReviewsUrl, label: "Google Reviews URL", type: string, required: false}
 
+      - name: header_settings
+        label: "Header Menu & Size"
+        type: file
+        path: site-data/header.json
+        format: json
+        operations:
+          create: false
+          rename: false
+          delete: false
+        fields:
+          - {name: sticky, label: "Keep Header Visible While Scrolling", type: boolean, default: true, description: "Recommended: leave this on."}
+          - name: size
+            label: "Header Size"
+            type: select
+            default: comfortable
+            options:
+              values:
+                - {value: comfortable, label: "Comfortable — larger"}
+                - {value: compact, label: "Compact — smaller"}
+          - {name: showLogo, label: "Show Logo", type: boolean, default: true}
+          - {name: showTagline, label: "Show License Tagline", type: boolean, default: true}
+          - {name: showHome, label: "Show Home", type: boolean, default: true}
+          - {name: homeLabel, label: "Home Label", type: string}
+          - {name: showServices, label: "Show What We Do", type: boolean, default: true}
+          - {name: servicesLabel, label: "What We Do Label", type: string}
+          - {name: showPortfolio, label: "Show Portfolio", type: boolean, default: true}
+          - {name: portfolioLabel, label: "Portfolio Label", type: string}
+          - {name: showReviews, label: "Show Client Reviews", type: boolean, default: true}
+          - {name: reviewsLabel, label: "Client Reviews Label", type: string}
+          - {name: showPricing, label: "Show Pricing Menu", type: boolean, default: true}
+          - {name: pricingLabel, label: "Pricing Menu Label", type: string}
+          - {name: showSpecials, label: "Show Seasonal Offers", type: boolean, default: true}
+          - {name: specialsLabel, label: "Seasonal Offers Label", type: string}
+          - {name: showMore, label: "Show More Menu", type: boolean, default: true}
+          - {name: moreLabel, label: "More Menu Label", type: string}
+          - {name: showAreas, label: "Show Service Areas Menu", type: boolean, default: true}
+          - {name: areasLabel, label: "Service Areas Label", type: string}
+          - {name: showContact, label: "Show Get In Touch", type: boolean, default: true}
+          - {name: contactLabel, label: "Get In Touch Label", type: string}
+
       - name: page_control
         label: "All Website Pages"
         type: file
         path: site-data/pages.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - name: pages
             label: "Pages"
@@ -138,6 +220,7 @@ content:
         type: file
         path: site-data/services.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: heading, label: "Heading", type: string}
           - {name: intro, label: "Admin Note", type: text, required: false}
@@ -165,6 +248,7 @@ content:
         type: file
         path: site-data/areas.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: heading, label: "Homepage Area Heading", type: string}
           - {name: intro, label: "Homepage Area Intro", type: text}
@@ -198,6 +282,7 @@ content:
         type: file
         path: content/areas/staten-island.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: published, label: "Page Published", type: boolean, default: true}
           - {name: title, label: "Area Name", type: string}
@@ -219,6 +304,7 @@ content:
         type: file
         path: content/areas/brooklyn.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: published, label: "Page Published", type: boolean, default: true}
           - {name: title, label: "Area Name", type: string}
@@ -240,6 +326,7 @@ content:
         type: file
         path: content/areas/queens.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: published, label: "Page Published", type: boolean, default: true}
           - {name: title, label: "Area Name", type: string}
@@ -261,6 +348,7 @@ content:
         type: file
         path: content/areas/manhattan.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: published, label: "Page Published", type: boolean, default: true}
           - {name: title, label: "Area Name", type: string}
@@ -282,6 +370,7 @@ content:
         type: file
         path: content/areas/bronx.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: published, label: "Page Published", type: boolean, default: true}
           - {name: title, label: "Area Name", type: string}
@@ -303,6 +392,7 @@ content:
         type: file
         path: content/areas/new-jersey.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: published, label: "Page Published", type: boolean, default: true}
           - {name: title, label: "Area Name", type: string}
@@ -329,6 +419,7 @@ content:
         type: file
         path: site-data/specials.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: heading, label: "Heading", type: string}
           - {name: subheading, label: "Intro", type: text}
@@ -379,6 +470,7 @@ content:
         type: file
         path: site-data/reviews.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: eyebrow, label: "Review Eyebrow", type: string, required: false}
           - {name: heading, label: "Review Heading", type: string, required: false}
@@ -404,6 +496,7 @@ content:
         type: file
         path: site-data/faqs.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: heading, label: "FAQ Heading", type: string, required: false}
           - name: items
@@ -430,6 +523,7 @@ content:
         type: file
         path: gallery.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - name: homePairs
             label: "Homepage Before & After"
@@ -509,6 +603,7 @@ content:
         type: file
         path: admin-data/estimator.json
         format: json
+        operations: {create: false, rename: false, delete: false}
         fields:
           - {name: note, label: "Safety Note", type: text, readonly: true}
           - name: boroughFactors
@@ -632,7 +727,7 @@ content:
               - {name: items, label: "Items", type: string, list: true, required: false}
 
       - name: unused_images_report
-        label: "Unused Images Report"
+        label: "Project Photo Health Report"
         type: file
         path: admin-tools/unused-images-report.json
         format: json
@@ -644,7 +739,19 @@ content:
           - {name: generatedAt, label: "Last Scan", type: string}
           - {name: count, label: "Unused Images Found", type: number}
           - {name: totalSize, label: "Potential Space To Free", type: string}
+          - {name: missingCount, label: "Missing Gallery Photos", type: number}
           - {name: note, label: "Safety Note", type: text}
+          - name: missingReferences
+            label: "Broken / Missing Photo References"
+            type: object
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{image} — {usedIn}"
+            fields:
+              - {name: image, label: "Missing Photo Path", type: string}
+              - {name: usedIn, label: "Used In", type: string}
+              - {name: reason, label: "What To Do", type: text}
           - name: files
             label: "Review These Images"
             type: object
@@ -658,6 +765,15 @@ content:
               - {name: reason, label: "Why It Is Listed", type: text}
 
 actions:
+  - name: run-full-site-check
+    label: "Run Full Website Check"
+    workflow: site-health-audit.yml
+    ref: current
+    confirm:
+      title: "Run the full website check?"
+      message: "Checks CMS files, JSON, sitemap pages, links, gallery photos, duplicate scripts, licenses, and analytics placeholders. It does not change the public website."
+      button: "Run Full Check"
+
   - name: scan-unused-gallery-images
     label: "Scan Unused Images"
     workflow: gallery-image-cleanup.yml
