@@ -1,0 +1,51 @@
+name: Hammer Brick - Apply Business Details
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS payload as JSON
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Verify the Pages CMS action
+        env:
+          PAGES_CMS_PAYLOAD: ${{ inputs.payload }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTION_NAME="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.action.name // empty')"
+          test "$ACTION_NAME" = "apply-business-settings"
+
+      - name: Apply saved business details
+        run: python3 scripts/apply_business.py
+
+      - name: Commit website updates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet; then
+            echo "Business details are already current."
+            exit 0
+          fi
+
+          git config user.name "Hammer Brick Admin"
+          git config user.email "actions@users.noreply.github.com"
+          git add -u -- '*.html' '*.js' 'hammerbrickhome.vcf' 'admin-data/business.json'
+          git commit -m "admin: apply business details"
+          git push
