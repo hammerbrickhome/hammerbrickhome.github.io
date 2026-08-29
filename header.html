@@ -52,6 +52,10 @@
        container and prevents position:sticky from reaching the viewport. */
     overflow-x: clip !important;
     overflow-y: visible !important;
+    /* The main stylesheet sets body to height:100%, which ends the sticky
+       containing block after one viewport. Let the body grow with the page. */
+    height: auto !important;
+    min-height: 100% !important;
   }
 
   .topbar-inner {
