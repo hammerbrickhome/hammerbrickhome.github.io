@@ -1,6 +1,5 @@
 /* ============================================================
    HEADER + FOOTER INTERACTIONS
-   SAFE AREA-GALLERY FIX INCLUDED — ALL SIX AREA PAGES
 =============================================================== */
 
 function initHeaderInteractions() {
@@ -440,10 +439,66 @@ function hammerSetMeta(name, value) {
   meta.content = value;
 }
 
+function hammerSetPropertyMeta(property, value) {
+  if (!value) return;
+  let meta = document.querySelector(`meta[property="${property}"]`);
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute("property", property);
+    document.head.appendChild(meta);
+  }
+  meta.content = value;
+}
+
+function hammerEnsureAdminStyles() {
+  if (document.getElementById("cmsAdminPowerStyles")) return;
+  const style = document.createElement("style");
+  style.id = "cmsAdminPowerStyles";
+  style.textContent = `
+    #header-include[data-cms-sticky="true"]{position:sticky;top:0;z-index:10000}
+    #header-include[data-cms-sticky="false"]{position:static}
+    .topbar[data-cms-background="solid"]{background:#0a1728!important;backdrop-filter:none!important}
+    .topbar[data-cms-background="dark"]{background:#05080d!important;backdrop-filter:none!important}
+    .topbar[data-cms-background="gold"]{background:linear-gradient(135deg,#1a1408,#44300d)!important}
+    [data-cms-desktop-visible="false"]{display:none!important}
+    .cms-site-announcement{background:#c99a2e;color:#07111f;padding:9px 18px;text-align:center;font-weight:700}
+    .cms-site-announcement a{color:#07111f;margin-left:12px;text-decoration:underline;font-weight:800}
+    .cms-page-hero-image,.cms-area-hero-image{margin:24px auto 0;max-width:1050px}
+    .cms-page-hero-image img,.cms-area-hero-image img{display:block;width:100%;max-height:520px;object-fit:cover;border-radius:18px}
+    .cms-page-hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+    .cms-page-final-cta{text-align:center}
+    .cms-area-card-image{width:100%;height:150px;object-fit:cover;border-radius:12px;margin-bottom:14px}
+    .cms-area-gallery-grid[data-layout="large"]{grid-template-columns:1fr!important}
+    .cms-area-gallery-grid[data-layout="large"] img{max-height:680px;object-fit:cover}
+    .cms-area-before-after{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .cms-area-before-after figure{margin:0;position:relative}
+    .cms-area-before-after img{width:100%;height:280px;object-fit:cover;border-radius:12px}
+    .cms-area-before-after span{position:absolute;left:10px;bottom:10px;background:rgba(4,10,18,.82);color:#fff;padding:5px 8px;border-radius:6px;font-size:.78rem;font-weight:800}
+    .cms-project-review{margin-top:14px;padding:12px 14px;border-left:3px solid var(--gold,#c99a2e);font-style:italic}
+    .cms-project-cta{display:inline-block;margin-top:14px}
+    @media(max-width:900px){
+      [data-cms-mobile-visible="false"]{display:none!important}
+      [data-cms-mobile-visible="true"]{display:block!important}
+      .cms-area-before-after{grid-template-columns:1fr}
+      .cms-area-before-after img{height:auto}
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 function hammerApplySeo(item) {
   if (!item) return;
   if (item.seoTitle) document.title = item.seoTitle;
   hammerSetMeta("description", item.seoDescription);
+  if (item.socialImage) {
+    const imageUrl = new URL(item.socialImage, window.location.origin).href;
+    hammerSetPropertyMeta("og:image", imageUrl);
+    hammerSetMeta("twitter:card", "summary_large_image");
+    hammerSetMeta("twitter:image", imageUrl);
+  }
+  if (item.active === false || item.published === false || item.allowIndexing === false) {
+    hammerSetMeta("robots", "noindex, nofollow");
+  }
 }
 
 function hammerApplyHero(item) {
@@ -455,6 +510,64 @@ function hammerApplyHero(item) {
   const text = hero.querySelector(".hero-content > p, p");
   if (title && item.heroTitle) title.textContent = item.heroTitle;
   if (text && item.heroText) text.textContent = item.heroText;
+
+  let figure = document.getElementById("cmsPageHeroImage");
+  const usesAreaHeroControl = ["staten-island", "brooklyn", "queens", "manhattan", "bronx", "new-jersey"].includes(item.slug);
+  if (item.heroImage && !usesAreaHeroControl) {
+    if (!figure) {
+      figure = document.createElement("figure");
+      figure.id = "cmsPageHeroImage";
+      figure.className = "cms-page-hero-image";
+      hero.appendChild(figure);
+    }
+    figure.style.display = "";
+    figure.innerHTML = `<img src="${hammerEscape(item.heroImage)}" alt="${hammerEscape(item.heroImageAlt || item.heroTitle || "Page photo")}" loading="eager">`;
+  } else if (figure) {
+    figure.style.display = "none";
+  }
+
+  let actions = document.getElementById("cmsPageHeroActions");
+  const buttons = [];
+  if (item.primaryButtonText) buttons.push(`<a class="btn" href="${hammerEscape(item.primaryButtonUrl || "/contact.html")}">${hammerEscape(item.primaryButtonText)}</a>`);
+  if (item.secondaryButtonText) buttons.push(`<a class="btn ghost" href="${hammerEscape(item.secondaryButtonUrl || "/contact.html")}">${hammerEscape(item.secondaryButtonText)}</a>`);
+  if (buttons.length) {
+    if (!actions) {
+      actions = document.createElement("div");
+      actions.id = "cmsPageHeroActions";
+      actions.className = "cms-page-hero-actions";
+      const content = hero.querySelector(".hero-content") || hero;
+      content.appendChild(actions);
+    }
+    actions.style.display = "";
+    actions.innerHTML = buttons.join("");
+  } else if (actions) {
+    actions.style.display = "none";
+  }
+}
+
+function hammerApplyFinalCta(item) {
+  const main = document.querySelector("main");
+  if (!main || !item) return;
+  let section = document.getElementById("cmsPageFinalCta");
+  if (!item.showFinalCta) {
+    if (section) section.style.display = "none";
+    return;
+  }
+  if (!section) {
+    section = document.createElement("section");
+    section.id = "cmsPageFinalCta";
+    section.className = "section note-box fade-up cms-page-final-cta";
+    main.appendChild(section);
+  }
+  const buttons = [];
+  if (item.showCallButton !== false) buttons.push(`<a class="btn" href="tel:+19295955300">${hammerEscape(item.callButtonText || "Call Now")}</a>`);
+  if (item.showTextButton !== false) buttons.push(`<a class="btn ghost" href="sms:+19295955300">${hammerEscape(item.textButtonText || "Text Photos")}</a>`);
+  if (item.showEstimateButton !== false) buttons.push(`<a class="btn ghost" href="/contact.html">${hammerEscape(item.estimateButtonText || "Free Estimate")}</a>`);
+  section.style.display = "";
+  section.innerHTML = `
+    ${item.finalCtaHeading ? `<h2>${hammerEscape(item.finalCtaHeading)}</h2>` : ""}
+    ${item.finalCtaText ? `<p>${hammerEscape(item.finalCtaText)}</p>` : ""}
+    ${buttons.length ? `<div class="cta-actions">${buttons.join("")}</div>` : ""}`;
 }
 
 function hammerApplyCustomSection(item) {
@@ -502,6 +615,7 @@ function hammerApplyPageControls(data) {
     hammerApplySeo(current);
     hammerApplyHero(current);
     hammerApplyCustomSection(current);
+    hammerApplyFinalCta(current);
     if (current.active === false) {
       hammerSetMeta("robots", "noindex, nofollow");
       document.body.dataset.cmsPageActive = "false";
@@ -531,6 +645,17 @@ function hammerApplyPageControls(data) {
     anchor.style.display = (page.active === false || page.showInNavigation === false) ? "none" : "";
     if (page.menuLabel) anchor.textContent = page.menuLabel;
   });
+
+  if (mainNav) {
+    Array.from(mainNav.children).forEach((item, originalIndex) => {
+      const links = item.matches("a[href]") ? [item] : Array.from(item.querySelectorAll("a[href]"));
+      const orders = links.map(link => pagesByUrl.get(hammerLinkPath(link)))
+        .filter(Boolean)
+        .map(page => Number(page.navigationOrder))
+        .filter(Number.isFinite);
+      item.style.order = String(orders.length ? Math.min(...orders) : 10000 + originalIndex);
+    });
+  }
 }
 
 function hammerAreaIcon(slug) {
@@ -550,7 +675,7 @@ function hammerRenderHomeAreas(data, homepage) {
   const isDirectory = hammerSlug() === "areas";
   if ((!isHome && !isDirectory) || !data || !Array.isArray(data.areas)) return;
 
-  const allActiveAreas = data.areas.filter(area => area && area.active !== false);
+  const allActiveAreas = hammerSortByDisplayOrder(data.areas.filter(area => area && area.active !== false));
   if (isDirectory) {
     const heading = document.getElementById("areaDirectoryHeading");
     const intro = document.getElementById("areaDirectoryIntro");
@@ -560,6 +685,7 @@ function hammerRenderHomeAreas(data, homepage) {
     if (grid) {
       grid.innerHTML = allActiveAreas.map(area => `
         <a class="accent-card" href="${hammerEscape(area.url)}" style="display:block;text-decoration:none;color:inherit;padding:24px;">
+          ${area.cardImage ? `<img class="cms-area-card-image" src="${hammerEscape(area.cardImage)}" alt="${hammerEscape(area.cardImageAlt || area.name || "Service area")}" loading="lazy">` : ""}
           <div style="font-size:28px;margin-bottom:8px;">${hammerAreaIcon(area.slug)}</div>
           <h2 style="color:var(--gold-soft);margin-bottom:8px;">${hammerEscape(area.name)}</h2>
           <p style="color:var(--muted);margin-bottom:12px;">${hammerEscape(area.cardText)}</p>
@@ -582,7 +708,7 @@ function hammerRenderHomeAreas(data, homepage) {
   }
 
   section.style.display = homepage && homepage.showServiceAreas === false ? "none" : "";
-  const areas = data.areas.filter(area => area && area.active !== false && area.showOnHomepage !== false);
+  const areas = hammerSortByDisplayOrder(data.areas.filter(area => area && area.active !== false && area.showOnHomepage !== false));
   const heading = (homepage && homepage.serviceAreasHeading) || data.heading || "Areas We Serve";
   const intro = (homepage && homepage.serviceAreasIntro) || data.intro || "";
 
@@ -594,6 +720,7 @@ function hammerRenderHomeAreas(data, homepage) {
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;">
       ${areas.map(area => `
         <a class="accent-card" href="${hammerEscape(area.url)}" style="display:block;text-decoration:none;color:inherit;padding:22px;">
+          ${area.cardImage ? `<img class="cms-area-card-image" src="${hammerEscape(area.cardImage)}" alt="${hammerEscape(area.cardImageAlt || area.name || "Service area")}" loading="lazy">` : ""}
           <div style="font-size:25px;margin-bottom:8px;">${hammerAreaIcon(area.slug)}</div>
           <h3 style="color:var(--gold-soft);margin-bottom:8px;">${hammerEscape(area.name)}</h3>
           <p style="color:var(--muted);margin:0 0 12px;">${hammerEscape(area.cardText)}</p>
@@ -649,6 +776,7 @@ function hammerApplyAreaControls(data, detail) {
 
   const mainSection = document.querySelector("main .section.split");
   if (mainSection) {
+    mainSection.style.display = area.showMainSection === false ? "none" : "";
     const heading = mainSection.querySelector("h2");
     const paragraph = mainSection.querySelector(":scope > div > p");
     const services = mainSection.querySelector(":scope > div > ul.bullets");
@@ -658,7 +786,9 @@ function hammerApplyAreaControls(data, detail) {
     if (services && Array.isArray(area.featuredServices) && area.featuredServices.length) {
       services.innerHTML = area.featuredServices.map(item => `<li>${hammerEscape(item)}</li>`).join("");
     }
+    if (services) services.style.display = area.showFeaturedServices === false ? "none" : "";
     if (areaCard) {
+      areaCard.style.display = area.showNeighborhoods === false ? "none" : "";
       const areaCardHeading = areaCard.querySelector("h3");
       const areaCardList = areaCard.querySelector("ul.bullets");
       if (areaCardHeading) areaCardHeading.textContent = "Neighborhoods We Serve";
@@ -670,6 +800,7 @@ function hammerApplyAreaControls(data, detail) {
 
   const cta = document.querySelector("main .section.note-box");
   if (cta) {
+    cta.style.display = area.showCta === false ? "none" : "";
     const heading = cta.querySelector("h2");
     const paragraph = cta.querySelector("p");
     const button = cta.querySelector(".cta-actions .btn.ghost") || cta.querySelector(".cta-actions .btn:last-child");
@@ -677,11 +808,42 @@ function hammerApplyAreaControls(data, detail) {
     if (paragraph && area.ctaText) paragraph.textContent = area.ctaText;
     if (button && area.ctaButtonText) button.textContent = area.ctaButtonText;
     if (button && area.ctaButtonUrl) button.href = area.ctaButtonUrl;
+
+    let actions = cta.querySelector(".cta-actions");
+    if (!actions) {
+      actions = document.createElement("div");
+      actions.className = "cta-actions";
+      cta.appendChild(actions);
+    }
+    actions.querySelectorAll("[data-cms-area-button]").forEach(item => item.remove());
+    const dial = normalizeDialNumber(area.areaPhone) || "+19295955300";
+    const addButton = (type, href, label, ghost = true) => {
+      const link = document.createElement("a");
+      link.className = ghost ? "btn ghost" : "btn";
+      link.dataset.cmsAreaButton = type;
+      link.href = href;
+      link.textContent = label;
+      if (type === "call" || type === "text") link.dataset.cmsAreaPhone = "true";
+      actions.appendChild(link);
+    };
+    if (area.showCallButton === true) addButton("call", `tel:${dial}`, area.callButtonText || "Call Now", false);
+    if (area.showTextButton === true) {
+      const message = area.textMessage ? `?&body=${encodeURIComponent(area.textMessage)}` : "";
+      addButton("text", `sms:${dial}${message}`, area.textButtonText || "Text Photos");
+    }
+    if (area.showEstimateButton === true) addButton("estimate", "/contact.html", area.estimateButtonText || "Free Estimate");
+    if (area.showEstimatorButton === true) addButton("estimator", "/project-estimator.html", area.estimatorButtonText || "Try Project Estimator");
   }
 }
 
 function hammerSortByDisplayOrder(items) {
   return [...items].sort((a, b) => (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999));
+}
+
+function hammerItemMatchesArea(item, areaSlug) {
+  if (!item || !areaSlug) return false;
+  if (!item.areaSlug || item.areaSlug === "all" || item.areaSlug === areaSlug) return true;
+  return Array.isArray(item.areaSlugs) && item.areaSlugs.includes(areaSlug);
 }
 
 function hammerRenderAreaExtras(area, reviewsData, specialsData) {
@@ -705,7 +867,7 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
   }
 
   let bodySection = document.getElementById("cmsAreaBodySection");
-  if (area.body && String(area.body).trim()) {
+  if (area.showBody !== false && area.body && String(area.body).trim()) {
     if (!bodySection) {
       bodySection = document.createElement("section");
       bodySection.id = "cmsAreaBodySection";
@@ -720,38 +882,51 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
     bodySection.style.display = "none";
   }
 
-  let galleryGrid = main.querySelector(".gallery-grid");
+  let galleryGrid = main.querySelector(".gallery-grid, .cms-area-gallery-grid");
   let gallerySection = galleryGrid && galleryGrid.closest("section");
-  const galleryImages = Array.isArray(area.galleryImages)
-    ? area.galleryImages.filter(item => item && item.active !== false && item.image)
+  const validGalleryImages = Array.isArray(area.galleryImages)
+    ? area.galleryImages.filter(item => item && item.active !== false && (item.image || (item.beforeImage && item.afterImage)))
     : [];
-  const hasGalleryToggle = Object.prototype.hasOwnProperty.call(area, "showAreaGallery");
-  if (area.showAreaGallery === true && galleryImages.length) {
-    if (!galleryGrid) {
+  const maximum = Number(area.maxGalleryPhotos);
+  const galleryImages = hammerSortByDisplayOrder(validGalleryImages).slice(0, maximum > 0 ? maximum : validGalleryImages.length);
+  if (area.showAreaGallery && galleryImages.length) {
+    if (!gallerySection) {
       gallerySection = document.createElement("section");
-      gallerySection.className = "section fade-up cms-area-gallery";
-      gallerySection.innerHTML = `
-        <div class="cms-section-heading">
-          <h2>${hammerEscape(area.galleryHeading || `${area.name || "Local"} Project Gallery`)}</h2>
-          <p>${hammerEscape(area.galleryIntro || "")}</p>
-        </div>
-        <div class="gallery-grid"></div>`;
-      const galleryInsertBefore = main.querySelector(".section.note-box") || main.querySelector(".micro-summary") || null;
-      main.insertBefore(gallerySection, galleryInsertBefore);
-      galleryGrid = gallerySection.querySelector(".gallery-grid");
+      gallerySection.className = "section fade-up";
+      gallerySection.dataset.cmsAreaGallery = "true";
+      gallerySection.innerHTML = `<div class="cms-section-heading"><h2></h2><p></p></div><div class="gallery-grid cms-area-gallery-grid"></div>`;
+      const ctaAnchor = main.querySelector(".section.note-box") || main.querySelector(".micro-summary");
+      main.insertBefore(gallerySection, ctaAnchor || null);
+      galleryGrid = gallerySection.querySelector(".cms-area-gallery-grid");
     }
-    gallerySection.style.display = "";
     gallerySection.dataset.cmsAreaGallery = "true";
-    const heading = gallerySection && gallerySection.querySelector("h2");
-    const intro = gallerySection && gallerySection.querySelector("h2 + p");
-    if (heading && area.galleryHeading) heading.textContent = area.galleryHeading;
-    if (intro && area.galleryIntro) intro.textContent = area.galleryIntro;
-    galleryGrid.innerHTML = galleryImages.map(item => `
-      <figure class="cms-area-gallery-card">
-        <img src="${hammerEscape(item.image)}" alt="${hammerEscape(item.alt || item.caption || area.name || "Completed project")}" loading="lazy">
+    gallerySection.style.display = "";
+    galleryGrid.classList.add("cms-area-gallery-grid");
+    galleryGrid.dataset.layout = area.galleryLayout || "grid";
+    const heading = gallerySection.querySelector("h2");
+    const intro = gallerySection.querySelector("h2 + p, .cms-section-heading p");
+    if (heading) heading.textContent = area.galleryHeading || `${area.name || "Local"} Project Photos`;
+    if (intro) {
+      intro.textContent = area.galleryIntro || "";
+      intro.style.display = area.galleryIntro ? "" : "none";
+    }
+    galleryGrid.innerHTML = galleryImages.map(item => {
+      const alt = item.alt || item.caption || area.name || "Completed project";
+      const isPair = item.photoType === "before-after" || (!item.image && item.beforeImage && item.afterImage);
+      if (isPair && item.beforeImage && item.afterImage) {
+        return `<article class="cms-area-gallery-card">
+          <div class="cms-area-before-after">
+            <figure><img src="${hammerEscape(item.beforeImage)}" alt="${hammerEscape(`${alt} before`)}" loading="lazy"><span>Before</span></figure>
+            <figure><img src="${hammerEscape(item.afterImage)}" alt="${hammerEscape(`${alt} after`)}" loading="lazy"><span>After</span></figure>
+          </div>${item.caption ? `<p>${hammerEscape(item.caption)}</p>` : ""}
+        </article>`;
+      }
+      return `<figure class="cms-area-gallery-card">
+        <img src="${hammerEscape(item.image || item.afterImage || item.beforeImage)}" alt="${hammerEscape(alt)}" loading="lazy">
         ${item.caption ? `<figcaption>${hammerEscape(item.caption)}</figcaption>` : ""}
-      </figure>`).join("");
-  } else if (gallerySection && (gallerySection.dataset.cmsAreaGallery === "true" || (hasGalleryToggle && area.showAreaGallery === false))) {
+      </figure>`;
+    }).join("");
+  } else if (gallerySection && (gallerySection.dataset.cmsAreaGallery === "true" || area.showAreaGallery === false)) {
     gallerySection.style.display = "none";
   }
 
@@ -760,7 +935,7 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
 
   let reviewSection = document.getElementById("cmsAreaReviewsSection");
   const localReviews = reviewsData && Array.isArray(reviewsData.reviews)
-    ? reviewsData.reviews.filter(item => item && item.active !== false && item.showOnAreaPages === true && (!item.areaSlug || item.areaSlug === "all" || item.areaSlug === area.slug))
+    ? hammerSortByDisplayOrder(reviewsData.reviews.filter(item => item && item.active !== false && item.showOnAreaPages === true && hammerItemMatchesArea(item, area.slug)))
     : [];
   if (area.showLocalReviews && localReviews.length) {
     if (!reviewSection) {
@@ -785,7 +960,7 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
 
   let specialsSection = document.getElementById("cmsAreaSpecialsSection");
   const localSpecials = specialsData && Array.isArray(specialsData.specials)
-    ? specialsData.specials.filter(item => hammerSpecialIsCurrent(item) && item.showOnAreaPages === true && (!item.areaSlug || item.areaSlug === "all" || item.areaSlug === area.slug))
+    ? hammerSortByDisplayOrder(specialsData.specials.filter(item => hammerSpecialIsCurrent(item) && item.showOnAreaPages === true && hammerItemMatchesArea(item, area.slug)))
     : [];
   if (area.showAreaSpecials && localSpecials.length) {
     if (!specialsSection) {
@@ -808,16 +983,21 @@ function hammerProjectMatchesPage(project, slug) {
   if (slug === "home") return project.showOnHomepage === true;
   if (slug === "gallery") return project.showInGallery !== false;
   if (["staten-island", "brooklyn", "queens", "manhattan", "bronx", "new-jersey"].includes(slug)) {
-    return project.showOnAreaPage !== false && project.areaSlug === slug;
+    return project.showOnAreaPage !== false && (project.areaSlug === slug || (Array.isArray(project.areaSlugs) && project.areaSlugs.includes(slug)));
   }
-  return project.showOnServicePage !== false && project.serviceSlug === slug;
+  return project.showOnServicePage !== false && (project.serviceSlug === slug || (Array.isArray(project.serviceSlugs) && project.serviceSlugs.includes(slug)));
 }
 
-function hammerRenderProjects(data) {
+function hammerRenderProjects(data, currentArea) {
   if (!data || !Array.isArray(data.projects)) return;
   const main = document.querySelector("main");
   if (!main) return;
   const slug = hammerSlug();
+  if (currentArea && currentArea.slug === slug && currentArea.showProjects === false) {
+    const existing = document.getElementById("cmsProjectsSection");
+    if (existing) existing.style.display = "none";
+    return;
+  }
   const projects = hammerSortByDisplayOrder(data.projects.filter(project => hammerProjectMatchesPage(project, slug)));
   let section = document.getElementById("cmsProjectsSection");
   if (!projects.length) {
@@ -840,7 +1020,7 @@ function hammerRenderProjects(data) {
   section.style.display = "";
   section.innerHTML = `
     <div class="cms-section-heading">
-      <h2>${hammerEscape(data.heading || "Recent Projects")}</h2>
+      <h2>${hammerEscape((currentArea && currentArea.projectsHeading) || data.heading || "Recent Projects")}</h2>
       ${data.intro ? `<p>${hammerEscape(data.intro)}</p>` : ""}
     </div>
     <div class="cms-project-grid">${projects.map(project => {
@@ -854,6 +1034,8 @@ function hammerRenderProjects(data) {
           <h3>${hammerEscape(project.title)}</h3>
           ${location || project.serviceLabel ? `<p class="cms-project-meta">${hammerEscape([project.serviceLabel, location].filter(Boolean).join(" · "))}</p>` : ""}
           ${project.summary ? `<p>${hammerEscape(project.summary)}</p>` : ""}
+          ${project.reviewQuote ? `<blockquote class="cms-project-review">“${hammerEscape(project.reviewQuote)}”${project.reviewName ? `<footer>— ${hammerEscape(project.reviewName)}</footer>` : ""}</blockquote>` : ""}
+          ${project.ctaText ? `<a class="btn ghost cms-project-cta" href="${hammerEscape(project.ctaUrl || "/contact.html")}">${hammerEscape(project.ctaText)}</a>` : ""}
         </div>
       </article>`;
     }).join("")}</div>`;
@@ -901,7 +1083,10 @@ function hammerRenderFaqPage(data) {
   if (hammerSlug() !== "faq" || !data || !Array.isArray(data.items)) return;
   const container = document.querySelector(".faq-container");
   if (!container) return;
-  const items = data.items.filter(item => item && item.active !== false);
+  const items = [...data.items].filter(item => item && item.active !== false).sort((a, b) => {
+    const categoryDifference = (Number(a.categoryOrder) || 9999) - (Number(b.categoryOrder) || 9999);
+    return categoryDifference || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999);
+  });
   const groups = new Map();
   items.forEach(item => {
     const category = item.category || "General";
@@ -928,7 +1113,9 @@ function hammerRenderReviewsPage(data) {
   if (hammerSlug() !== "reviews" || !data || !Array.isArray(data.reviews)) return;
   const section = document.querySelector("main .section.content-wrapper");
   if (!section) return;
-  const reviews = data.reviews.filter(item => item && item.active !== false);
+  const reviews = [...data.reviews]
+    .filter(item => item && item.active !== false && item.showOnReviewPage !== false)
+    .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999));
   section.innerHTML = `
     <div id="cmsReviewsPage">
       <div style="text-align:center;max-width:760px;margin:0 auto 30px;">
@@ -991,23 +1178,37 @@ function hammerRenderSpecialsPage(data) {
   const intro = section && section.querySelector("h2 + p");
   if (heading && data.heading) heading.textContent = data.heading;
   if (intro && data.subheading) intro.textContent = data.subheading;
-  grid.innerHTML = hammerRenderSpecialCards(data.specials.filter(hammerSpecialIsCurrent));
+  const visibleSpecials = [...data.specials]
+    .filter(hammerSpecialIsCurrent)
+    .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999));
+  grid.innerHTML = hammerRenderSpecialCards(visibleSpecials);
 }
 
 function hammerApplyHeaderSettings(data) {
   if (!data) return;
+  hammerEnsureAdminStyles();
 
   const wrapper = document.getElementById("header-include");
   const topbar = document.querySelector(".topbar");
   if (wrapper) wrapper.dataset.cmsSticky = data.sticky === false ? "false" : "true";
   if (topbar) {
     topbar.dataset.headerSize = data.size === "compact" ? "compact" : "comfortable";
+    topbar.dataset.cmsBackground = ["solid", "dark", "gold"].includes(data.backgroundStyle) ? data.backgroundStyle : "glass";
   }
 
+  const mobile = data.mobile && typeof data.mobile === "object" ? data.mobile : {};
   const logo = document.querySelector(".brand-logo");
-  if (logo) logo.style.display = data.showLogo === false ? "none" : "";
+  if (logo) {
+    logo.style.display = "";
+    logo.dataset.cmsDesktopVisible = data.showLogo === false ? "false" : "true";
+    logo.dataset.cmsMobileVisible = (typeof mobile.showLogo === "boolean" ? mobile.showLogo : data.showLogo !== false) ? "true" : "false";
+  }
   const tagline = document.querySelector(".brand-sub");
-  if (tagline) tagline.style.display = data.showTagline === false ? "none" : "";
+  if (tagline) {
+    tagline.style.display = "";
+    tagline.dataset.cmsDesktopVisible = data.showTagline === false ? "false" : "true";
+    tagline.dataset.cmsMobileVisible = (typeof mobile.showTagline === "boolean" ? mobile.showTagline : data.showTagline !== false) ? "true" : "false";
+  }
 
   const controls = {
     home: ["showHome", "homeLabel", "Home"],
@@ -1024,7 +1225,10 @@ function hammerApplyHeaderSettings(data) {
   Object.entries(controls).forEach(([key, [showField, labelField, fallback]]) => {
     const item = document.querySelector(`[data-nav-item="${key}"]`);
     if (!item) return;
-    item.style.display = data[showField] === false ? "none" : "";
+    item.style.display = "";
+    const desktopVisible = data[showField] !== false;
+    item.dataset.cmsDesktopVisible = desktopVisible ? "true" : "false";
+    item.dataset.cmsMobileVisible = (typeof mobile[showField] === "boolean" ? mobile[showField] : desktopVisible) ? "true" : "false";
     const label = String(data[labelField] || fallback);
     if (item.matches("a")) item.textContent = label;
     else {
@@ -1032,6 +1236,55 @@ function hammerApplyHeaderSettings(data) {
       if (button) button.textContent = `${label} ▾`;
     }
   });
+
+  const mainNav = document.querySelector(".main-nav");
+  const shortcuts = {
+    call: {
+      showField: "showPhoneShortcut",
+      labelField: "phoneShortcutLabel",
+      fallback: "Call",
+      href: "tel:+19295955300"
+    },
+    text: {
+      showField: "showTextShortcut",
+      labelField: "textShortcutLabel",
+      fallback: "Text",
+      href: "sms:+19295955300"
+    },
+    estimate: {
+      showField: "showEstimateShortcut",
+      labelField: "estimateShortcutLabel",
+      fallback: "Free Estimate",
+      href: "/project-estimator.html"
+    }
+  };
+
+  if (mainNav) {
+    Object.entries(shortcuts).forEach(([key, settings]) => {
+      const desktopVisible = data[settings.showField] === true;
+      const mobileVisible = mobile[settings.showField] === true;
+      let link = mainNav.querySelector(`[data-cms-header-shortcut="${key}"]`);
+      if (!link && (desktopVisible || mobileVisible)) {
+        link = document.createElement("a");
+        link.dataset.cmsHeaderShortcut = key;
+        link.dataset.navItem = key;
+        mainNav.appendChild(link);
+      }
+      if (!link) return;
+      link.href = settings.href;
+      link.textContent = String(data[settings.labelField] || settings.fallback);
+      link.dataset.cmsDesktopVisible = desktopVisible ? "true" : "false";
+      link.dataset.cmsMobileVisible = mobileVisible ? "true" : "false";
+    });
+
+    const preferredOrder = Array.isArray(data.navigationOrder) ? data.navigationOrder : [];
+    Array.from(mainNav.children).forEach((item, index) => {
+      const key = item.dataset.navItem || item.querySelector("[data-nav-item]")?.dataset.navItem || item.querySelector("[data-cms-header-shortcut]")?.dataset.cmsHeaderShortcut;
+      const position = preferredOrder.indexOf(key);
+      if (position >= 0) item.style.order = String(position);
+      else if (preferredOrder.length) item.style.order = String(preferredOrder.length + index);
+    });
+  }
 }
 
 function refreshHammerContentControls() {
@@ -1059,7 +1312,7 @@ function refreshHammerContentControls() {
     hammerRenderFaqPage(faqs);
     hammerRenderReviewsPage(reviews);
     hammerRenderSpecialsPage(specials);
-    hammerRenderProjects(projects);
+    hammerRenderProjects(projects, currentArea);
     hammerRenderDownloads(downloads);
     hammerApplyHeaderSettings(header);
   });
@@ -1117,13 +1370,59 @@ function loadHammerBusinessSettings() {
   return hammerBusinessSettingsPromise;
 }
 
+function hammerInstallAnalytics(data) {
+  const gaId = String(data.googleAnalyticsId || "").trim().toUpperCase();
+  if (/^G-[A-Z0-9]+$/.test(gaId) && !document.getElementById("cmsGoogleAnalytics")) {
+    const external = document.createElement("script");
+    external.id = "cmsGoogleAnalytics";
+    external.async = true;
+    external.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
+    document.head.appendChild(external);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", gaId);
+  }
+
+  const clarityId = String(data.clarityId || "").trim().toLowerCase();
+  if (/^[a-z0-9]+$/.test(clarityId) && !clarityId.includes("your") && !document.getElementById("cmsMicrosoftClarity")) {
+    const clarity = document.createElement("script");
+    clarity.id = "cmsMicrosoftClarity";
+    clarity.async = true;
+    clarity.src = `https://www.clarity.ms/tag/${encodeURIComponent(clarityId)}`;
+    document.head.appendChild(clarity);
+  }
+}
+
+function hammerRenderSitewideAnnouncement(data) {
+  let announcement = document.getElementById("cmsSitewideAnnouncement");
+  const enabled = data.sitewideAnnouncementEnabled === true && String(data.sitewideAnnouncementText || "").trim();
+  if (!enabled) {
+    if (announcement) announcement.style.display = "none";
+    return;
+  }
+  if (!announcement) {
+    announcement = document.createElement("div");
+    announcement.id = "cmsSitewideAnnouncement";
+    announcement.className = "cms-site-announcement";
+    const header = document.getElementById("header-include");
+    if (header && header.parentNode) header.parentNode.insertBefore(announcement, header.nextSibling);
+    else document.body.insertBefore(announcement, document.body.firstChild);
+  }
+  announcement.style.display = "";
+  announcement.innerHTML = `${hammerEscape(data.sitewideAnnouncementText)}${data.sitewideAnnouncementButtonText ? ` <a href="${hammerEscape(data.sitewideAnnouncementButtonUrl || "/contact.html")}">${hammerEscape(data.sitewideAnnouncementButtonText)}</a>` : ""}`;
+}
+
 function applyHammerBusinessSettings(data) {
   if (!data) return;
+  hammerEnsureAdminStyles();
+  hammerInstallAnalytics(data);
+  hammerRenderSitewideAnnouncement(data);
 
   const dial = normalizeDialNumber(data.phone);
   if (dial) {
-    document.querySelectorAll('a[href^="tel:"]').forEach(a => a.href = "tel:" + dial);
-    document.querySelectorAll('a[href^="sms:"]').forEach(a => a.href = "sms:" + dial);
+    document.querySelectorAll('a[href^="tel:"]:not([data-cms-area-phone])').forEach(a => a.href = "tel:" + dial);
+    document.querySelectorAll('a[href^="sms:"]:not([data-cms-area-phone])').forEach(a => a.href = "sms:" + dial);
   }
   if (data.email) {
     document.querySelectorAll('a[href^="mailto:"]').forEach(a => a.href = "mailto:" + data.email);
@@ -1163,15 +1462,25 @@ function applyHammerBusinessSettings(data) {
     footer.querySelectorAll("div").forEach(div => {
       const text = div.textContent.trim();
       if (text.startsWith("Serving:") && Array.isArray(data.serviceAreas)) {
+        div.dataset.cmsFooterSection = "service-areas";
         div.innerHTML = "Serving: " + data.serviceAreas.map(x => `<strong>${String(x)}</strong>`).join(" · ");
       }
       if (text.includes("Licensed, Bonded & Insured") && data.epaLabel) {
+        div.dataset.cmsFooterSection = "licenses";
         div.textContent = `Licensed, Bonded & Insured · ${data.epaLabel}`;
       }
       if (data.footerTagline && text.includes("Luxury Remodeling") && text.includes("Custom Brickwork")) {
+        div.dataset.cmsFooterSection = "tagline";
         div.textContent = data.footerTagline;
       }
     });
+
+    const serviceAreas = footer.querySelector('[data-cms-footer-section="service-areas"]');
+    if (serviceAreas) serviceAreas.style.display = data.showFooterServiceAreas === false ? "none" : "";
+    const footerTagline = footer.querySelector('[data-cms-footer-section="tagline"]');
+    if (footerTagline) footerTagline.style.display = data.showFooterTagline === false ? "none" : "";
+    const footerLicenseLine = footer.querySelector('[data-cms-footer-section="licenses"]');
+    if (footerLicenseLine) footerLicenseLine.style.display = data.showFooterLicenses === false ? "none" : "";
 
     const licenseSpan = Array.from(footer.querySelectorAll("span")).find(
       s => s.textContent.includes("NYC HIC") || s.textContent.includes("NJ HIC")
@@ -1181,6 +1490,7 @@ function applyHammerBusinessSettings(data) {
       if (data.nycHic) parts.push(`NYC HIC #${data.nycHic}`);
       if (data.njHic) parts.push(`NJ HIC #${data.njHic}`);
       licenseSpan.textContent = parts.join(" · ");
+      licenseSpan.style.display = data.showFooterLicenses === false ? "none" : "";
     }
 
     const socialMap = {
