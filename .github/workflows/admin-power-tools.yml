@@ -1,0 +1,166 @@
+name: Hammer Brick - Admin Power Tools
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS payload as JSON
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  admin-tools:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Verify action and selected tool
+        id: tool
+        env:
+          PAGES_CMS_PAYLOAD: ${{ inputs.payload }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTION_NAME="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.action.name // empty')"
+          MODE="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.inputs.mode // empty')"
+          test "$ACTION_NAME" = "admin-power-tools"
+
+          case "$MODE" in
+            validate|backup|rebuild-sitemap) ;;
+            *) echo "Unknown admin tool: $MODE"; exit 1 ;;
+          esac
+
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+
+      - name: Create full website backup
+        if: ${{ steps.tool.outputs.mode == 'backup' }}
+        env:
+          BACKUP_PATH: ${{ runner.temp }}/hammer-brick-website-backup.zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from zipfile import ZIP_DEFLATED, ZipFile
+
+          root = Path.cwd()
+          destination = Path(os.environ["BACKUP_PATH"])
+          with ZipFile(destination, "w", ZIP_DEFLATED) as archive:
+              for path in sorted(root.rglob("*")):
+                  if not path.is_file() or ".git" in path.parts:
+                      continue
+                  archive.write(path, path.relative_to(root).as_posix())
+          print(f"Created {destination}")
+          PY
+
+      - name: Make backup available for download
+        if: ${{ steps.tool.outputs.mode == 'backup' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: hammer-brick-website-backup-${{ github.run_id }}
+          path: ${{ runner.temp }}/hammer-brick-website-backup.zip
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Validate website and refresh audit
+        if: ${{ steps.tool.outputs.mode == 'validate' }}
+        run: python3 scripts/master_audit.py
+
+      - name: Rebuild sitemap from active CMS content
+        if: ${{ steps.tool.outputs.mode == 'rebuild-sitemap' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from datetime import date
+          from pathlib import Path
+          from urllib.parse import urljoin
+          from xml.etree import ElementTree as ET
+
+          root = Path.cwd()
+
+          def read_json(relative):
+              return json.loads((root / relative).read_text(encoding="utf-8"))
+
+          business = read_json("site-data/business.json")
+          base = str(business.get("website") or "https://www.hammerbrickhome.com/").rstrip("/") + "/"
+          urls = []
+
+          for page in read_json("site-data/pages.json").get("pages", []):
+              if isinstance(page, dict) and page.get("active") is not False and page.get("url"):
+                  urls.append(str(page["url"]))
+
+          for area in read_json("site-data/areas.json").get("areas", []):
+              if isinstance(area, dict) and area.get("active") is not False and area.get("url"):
+                  urls.append(str(area["url"]))
+
+          for download in read_json("site-data/downloads.json").get("downloads", []):
+              if isinstance(download, dict) and download.get("active") is not False and download.get("file"):
+                  urls.append(str(download["file"]))
+
+          def priority(path):
+              if path == "/": return "1.00"
+              if path in ("/services.html", "/areas.html"): return "0.90"
+              if path in ("/gallery.html", "/reviews.html", "/contact.html", "/project-estimator.html"): return "0.85"
+              if path.endswith(("staten-island.html", "brooklyn.html", "queens.html", "manhattan.html", "bronx.html", "new-jersey.html")): return "0.85"
+              if path in ("/pricing.html", "/monthly-specials.html", "/masonry.html"): return "0.80"
+              if path.startswith("/pdfs/"): return "0.50"
+              if path in ("/membership.html", "/downloads.html"): return "0.70"
+              if path in ("/financing.html", "/our-process.html"): return "0.65"
+              return "0.75"
+
+          namespace = "http://www.sitemaps.org/schemas/sitemap/0.9"
+          ET.register_namespace("", namespace)
+          urlset = ET.Element(f"{{{namespace}}}urlset")
+          today = date.today().isoformat()
+          seen = set()
+          for path in urls:
+              path = "/" + path.lstrip("/") if path != "/" else "/"
+              if path in seen:
+                  continue
+              seen.add(path)
+              node = ET.SubElement(urlset, f"{{{namespace}}}url")
+              ET.SubElement(node, f"{{{namespace}}}loc").text = urljoin(base, path.lstrip("/"))
+              ET.SubElement(node, f"{{{namespace}}}lastmod").text = today
+              ET.SubElement(node, f"{{{namespace}}}priority").text = priority(path)
+
+          ET.indent(urlset, space="  ")
+          output = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(urlset, encoding="unicode") + "\n"
+          (root / "sitemap.xml").write_text(output, encoding="utf-8")
+          print(f"Wrote {len(seen)} active URLs to sitemap.xml")
+          PY
+
+      - name: Save generated report or sitemap
+        if: ${{ steps.tool.outputs.mode != 'backup' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet; then
+            echo "No generated changes to save."
+            exit 0
+          fi
+
+          git config user.name "Hammer Brick Admin"
+          git config user.email "actions@users.noreply.github.com"
+
+          if [ "${{ steps.tool.outputs.mode }}" = "validate" ]; then
+            git add admin-tools/master-audit.json
+            MESSAGE="admin: refresh website validation report"
+          else
+            git add sitemap.xml
+            MESSAGE="admin: rebuild sitemap from active CMS content"
+          fi
+
+          git commit -m "$MESSAGE"
+          git push
