@@ -41,6 +41,48 @@ jobs:
             exit 1
           fi
 
+      - name: Back up every reviewed image before deletion
+        if: ${{ steps.mode.outputs.mode == 'delete' }}
+        env:
+          BACKUP_PATH: ${{ runner.temp }}/verified-unused-images-before-delete.zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from zipfile import ZIP_DEFLATED, ZipFile
+
+          root = Path.cwd().resolve()
+          images = (root / "images").resolve()
+          report = root / "admin-tools" / "unused-images-report.json"
+          if not report.exists():
+              raise SystemExit("Run Scan Unused Images before using delete.")
+
+          data = json.loads(report.read_text(encoding="utf-8"))
+          destination = Path(os.environ["BACKUP_PATH"])
+          backed_up = 0
+          with ZipFile(destination, "w", ZIP_DEFLATED) as archive:
+              archive.write(report, "admin-tools/unused-images-report.json")
+              for item in data.get("files", []):
+                  path = (root / str(item.get("image") or "").lstrip("/")).resolve()
+                  if images not in path.parents or not path.is_file():
+                      continue
+                  archive.write(path, path.relative_to(root).as_posix())
+                  backed_up += 1
+          print(f"Backed up {backed_up} reviewed image(s) before deletion.")
+          PY
+
+      - name: Make deletion backup available for download
+        if: ${{ steps.mode.outputs.mode == 'delete' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: verified-unused-images-before-delete-${{ github.run_id }}
+          path: ${{ runner.temp }}/verified-unused-images-before-delete.zip
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Run safe image cleanup
         run: |
           python3 scripts/gallery_media_cleanup.py --mode "${{ steps.mode.outputs.mode }}"
