@@ -1,5 +1,4 @@
-# Hammer Brick & Home LLC — MASTER ADMIN SAFE — OLD HOMEPAGE COMPATIBLE
-# This text file contains the complete .pages.yml code.
+# Hammer Brick & Home LLC — MASTER ADMIN SAFE
 # Built around the current working GitHub site.
 # Uploading this config does NOT replace index.html, style.css or script.js.
 
@@ -32,7 +31,7 @@ media:
         ref: current
         confirm:
           title: "Delete reviewed unused photos?"
-          message: "Only photos in the last scan that are still unused will be deleted. This cannot restore deleted photos."
+          message: "Creates a downloadable backup first, then deletes only photos in the last scan that are still verified unused."
           button: "Delete Verified Photos"
 
   - name: homeowner_documents
@@ -139,6 +138,15 @@ content:
           - {name: instagram, label: "Instagram", type: string, required: false}
           - {name: youtube, label: "YouTube", type: string, required: false}
           - {name: googleReviewsUrl, label: "Google Reviews URL", type: string, required: false}
+          - {name: googleAnalyticsId, label: "Google Analytics GA4 ID", type: string, required: false, description: "Example: G-ABC1234567. Leave blank to disable."}
+          - {name: clarityId, label: "Microsoft Clarity ID", type: string, required: false, description: "Leave blank to disable Clarity tracking."}
+          - {name: sitewideAnnouncementEnabled, label: "Show Sitewide Announcement", type: boolean, required: false, default: false}
+          - {name: sitewideAnnouncementText, label: "Sitewide Announcement Text", type: string, required: false}
+          - {name: sitewideAnnouncementButtonText, label: "Announcement Button Text", type: string, required: false}
+          - {name: sitewideAnnouncementButtonUrl, label: "Announcement Button Link", type: string, required: false}
+          - {name: showFooterLicenses, label: "Show Footer License Numbers", type: boolean, required: false, default: true}
+          - {name: showFooterServiceAreas, label: "Show Footer Service Areas", type: boolean, required: false, default: true}
+          - {name: showFooterTagline, label: "Show Footer Tagline", type: boolean, required: false, default: true}
 
       - name: header_settings
         label: "Header Menu & Size"
@@ -179,6 +187,43 @@ content:
           - {name: areasLabel, label: "Service Areas Label", type: string}
           - {name: showContact, label: "Show Get In Touch", type: boolean, default: true}
           - {name: contactLabel, label: "Get In Touch Label", type: string}
+          - name: backgroundStyle
+            label: "Header Background Style"
+            type: select
+            required: false
+            default: glass
+            options:
+              values:
+                - {name: glass, label: "Glass — current"}
+                - {name: solid, label: "Solid Navy"}
+                - {name: dark, label: "Deep Black"}
+                - {name: gold, label: "Gold Accent"}
+          - {name: navigationOrder, label: "Desktop Menu Order", type: string, list: true, required: false, description: "Use these IDs: home, services, portfolio, reviews, pricing, specials, more, areas, contact, call, text, estimate."}
+          - {name: showPhoneShortcut, label: "Show Call Shortcut", type: boolean, required: false, default: false}
+          - {name: phoneShortcutLabel, label: "Call Shortcut Label", type: string, required: false, default: "Call"}
+          - {name: showTextShortcut, label: "Show Text Shortcut", type: boolean, required: false, default: false}
+          - {name: textShortcutLabel, label: "Text Shortcut Label", type: string, required: false, default: "Text"}
+          - {name: showEstimateShortcut, label: "Show Estimate Shortcut", type: boolean, required: false, default: false}
+          - {name: estimateShortcutLabel, label: "Estimate Shortcut Label", type: string, required: false, default: "Free Estimate"}
+          - name: mobile
+            label: "Mobile Menu Visibility"
+            type: object
+            required: false
+            fields:
+              - {name: showLogo, label: "Show Logo On Mobile", type: boolean, default: true}
+              - {name: showTagline, label: "Show Tagline On Mobile", type: boolean, default: false}
+              - {name: showHome, label: "Show Home On Mobile", type: boolean, default: true}
+              - {name: showServices, label: "Show What We Do On Mobile", type: boolean, default: true}
+              - {name: showPortfolio, label: "Show Portfolio On Mobile", type: boolean, default: true}
+              - {name: showReviews, label: "Show Reviews On Mobile", type: boolean, default: true}
+              - {name: showPricing, label: "Show Pricing On Mobile", type: boolean, default: true}
+              - {name: showSpecials, label: "Show Specials On Mobile", type: boolean, default: true}
+              - {name: showMore, label: "Show More On Mobile", type: boolean, default: true}
+              - {name: showAreas, label: "Show Areas On Mobile", type: boolean, default: true}
+              - {name: showContact, label: "Show Contact On Mobile", type: boolean, default: true}
+              - {name: showPhoneShortcut, label: "Show Call Shortcut On Mobile", type: boolean, default: true}
+              - {name: showTextShortcut, label: "Show Text Shortcut On Mobile", type: boolean, default: true}
+              - {name: showEstimateShortcut, label: "Show Estimate Shortcut On Mobile", type: boolean, default: true}
 
       - name: page_control
         label: "All Website Pages"
@@ -197,19 +242,37 @@ content:
             fields:
               - {name: active, label: "Page Active", type: boolean, default: true, description: "Turn off to remove the page from menus and search indexing without deleting the HTML file."}
               - {name: showInNavigation, label: "Show In Main Menu", type: boolean, default: true}
+              - {name: navigationOrder, label: "Navigation Order", type: number, required: false, default: 100}
               - {name: slug, label: "Page ID", type: string, readonly: true}
               - {name: url, label: "Page URL", type: string, readonly: true}
               - {name: menuLabel, label: "Menu Label", type: string}
               - {name: showHero, label: "Show Hero Section", type: boolean, default: true}
               - {name: heroTitle, label: "Page Main Heading", type: string, required: false}
               - {name: heroText, label: "Page Intro Text", type: text, required: false}
+              - {name: heroImage, label: "Hero Photo", type: image, required: false, options: {media: project_images}}
+              - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
+              - {name: primaryButtonText, label: "Hero Primary Button", type: string, required: false}
+              - {name: primaryButtonUrl, label: "Hero Primary Button Link", type: string, required: false}
+              - {name: secondaryButtonText, label: "Hero Secondary Button", type: string, required: false}
+              - {name: secondaryButtonUrl, label: "Hero Secondary Button Link", type: string, required: false}
               - {name: showCustomSection, label: "Show Extra Editable Section", type: boolean, default: false}
               - {name: sectionHeading, label: "Extra Section Heading", type: string, required: false}
               - {name: sectionText, label: "Extra Section Text", type: text, required: false}
               - {name: buttonText, label: "Extra Section Button", type: string, required: false}
               - {name: buttonUrl, label: "Extra Section Button Link", type: string, required: false}
+              - {name: showFinalCta, label: "Show Final Contact Section", type: boolean, required: false, default: false}
+              - {name: finalCtaHeading, label: "Final Contact Heading", type: string, required: false}
+              - {name: finalCtaText, label: "Final Contact Text", type: text, required: false}
+              - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: true}
+              - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+              - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: true}
+              - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+              - {name: showEstimateButton, label: "Show Estimate Button", type: boolean, required: false, default: true}
+              - {name: estimateButtonText, label: "Estimate Button Text", type: string, required: false, default: "Free Estimate"}
               - {name: seoTitle, label: "Browser / SEO Title", type: string, required: false}
               - {name: seoDescription, label: "SEO Description", type: text, required: false}
+              - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
+              - {name: allowIndexing, label: "Allow Search Engine Indexing", type: boolean, required: false, default: true}
 
   - name: services_and_areas
     label: "🗺️ Services & Areas"
@@ -267,6 +330,9 @@ content:
               - {name: slug, label: "Page ID", type: string, readonly: true}
               - {name: url, label: "Page URL", type: string, readonly: true}
               - {name: cardText, label: "Homepage Card Text", type: text}
+              - {name: cardImage, label: "Area Card Photo", type: image, required: false, options: {media: project_images}}
+              - {name: cardImageAlt, label: "Area Card Photo Description", type: string, required: false}
+              - {name: displayOrder, label: "Area Display Order", type: number, required: false, default: 100}
               - {name: heroTitle, label: "Page Main Heading", type: string}
               - {name: heroText, label: "Page Intro", type: text}
               - {name: sectionTitle, label: "Main Section Heading", type: string, required: false}
@@ -295,12 +361,40 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
+          - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
+          - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
+          - {name: showBody, label: "Show Additional Page Text", type: boolean, required: false, default: true}
+          - {name: showProjects, label: "Show Area Projects", type: boolean, required: false, default: true}
+          - {name: projectsHeading, label: "Area Projects Heading", type: string, required: false}
+          - {name: showCta, label: "Show Final Call-To-Action", type: boolean, required: false, default: true}
+          - {name: areaPhone, label: "Area-Specific Phone", type: string, required: false, description: "Optional. Leave blank to use Business Settings phone."}
+          - {name: textMessage, label: "Pre-Filled Text Message", type: text, required: false}
+          - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: false}
+          - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+          - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: false}
+          - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+          - {name: showEstimateButton, label: "Show Free Estimate Button", type: boolean, required: false, default: false}
+          - {name: estimateButtonText, label: "Free Estimate Button Text", type: string, required: false, default: "Free Estimate"}
+          - {name: showEstimatorButton, label: "Show Project Estimator Button", type: boolean, required: false, default: false}
+          - {name: estimatorButtonText, label: "Estimator Button Text", type: string, required: false, default: "Try Project Estimator"}
           - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
           - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
           - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
           - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
           - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
           - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryLayout
+            label: "Gallery Layout"
+            type: select
+            required: false
+            default: grid
+            options:
+              values:
+                - {name: grid, label: "Photo Grid"}
+                - {name: large, label: "Large Photos"}
+                - {name: before-after, label: "Before & After Pairs"}
+          - {name: maxGalleryPhotos, label: "Maximum Gallery Photos", type: number, required: false, default: 12}
           - name: galleryImages
             label: "Area Gallery Photos"
             type: object
@@ -310,7 +404,19 @@ content:
                 summary: "{caption}"
             fields:
               - {name: active, label: "Show Photo", type: boolean, default: true}
-              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: displayOrder, label: "Photo Display Order", type: number, required: false, default: 100}
+              - name: photoType
+                label: "Photo Type"
+                type: select
+                required: false
+                default: single
+                options:
+                  values:
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After Pair"}
+              - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
@@ -323,6 +429,7 @@ content:
           - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
+          - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
 
       - name: brooklyn_page
         label: "Brooklyn Page"
@@ -341,12 +448,40 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
+          - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
+          - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
+          - {name: showBody, label: "Show Additional Page Text", type: boolean, required: false, default: true}
+          - {name: showProjects, label: "Show Area Projects", type: boolean, required: false, default: true}
+          - {name: projectsHeading, label: "Area Projects Heading", type: string, required: false}
+          - {name: showCta, label: "Show Final Call-To-Action", type: boolean, required: false, default: true}
+          - {name: areaPhone, label: "Area-Specific Phone", type: string, required: false, description: "Optional. Leave blank to use Business Settings phone."}
+          - {name: textMessage, label: "Pre-Filled Text Message", type: text, required: false}
+          - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: false}
+          - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+          - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: false}
+          - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+          - {name: showEstimateButton, label: "Show Free Estimate Button", type: boolean, required: false, default: false}
+          - {name: estimateButtonText, label: "Free Estimate Button Text", type: string, required: false, default: "Free Estimate"}
+          - {name: showEstimatorButton, label: "Show Project Estimator Button", type: boolean, required: false, default: false}
+          - {name: estimatorButtonText, label: "Estimator Button Text", type: string, required: false, default: "Try Project Estimator"}
           - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
           - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
           - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
           - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
           - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
           - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryLayout
+            label: "Gallery Layout"
+            type: select
+            required: false
+            default: grid
+            options:
+              values:
+                - {name: grid, label: "Photo Grid"}
+                - {name: large, label: "Large Photos"}
+                - {name: before-after, label: "Before & After Pairs"}
+          - {name: maxGalleryPhotos, label: "Maximum Gallery Photos", type: number, required: false, default: 12}
           - name: galleryImages
             label: "Area Gallery Photos"
             type: object
@@ -356,7 +491,19 @@ content:
                 summary: "{caption}"
             fields:
               - {name: active, label: "Show Photo", type: boolean, default: true}
-              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: displayOrder, label: "Photo Display Order", type: number, required: false, default: 100}
+              - name: photoType
+                label: "Photo Type"
+                type: select
+                required: false
+                default: single
+                options:
+                  values:
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After Pair"}
+              - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
@@ -369,6 +516,7 @@ content:
           - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
+          - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
 
       - name: queens_page
         label: "Queens Page"
@@ -387,12 +535,40 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
+          - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
+          - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
+          - {name: showBody, label: "Show Additional Page Text", type: boolean, required: false, default: true}
+          - {name: showProjects, label: "Show Area Projects", type: boolean, required: false, default: true}
+          - {name: projectsHeading, label: "Area Projects Heading", type: string, required: false}
+          - {name: showCta, label: "Show Final Call-To-Action", type: boolean, required: false, default: true}
+          - {name: areaPhone, label: "Area-Specific Phone", type: string, required: false, description: "Optional. Leave blank to use Business Settings phone."}
+          - {name: textMessage, label: "Pre-Filled Text Message", type: text, required: false}
+          - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: false}
+          - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+          - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: false}
+          - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+          - {name: showEstimateButton, label: "Show Free Estimate Button", type: boolean, required: false, default: false}
+          - {name: estimateButtonText, label: "Free Estimate Button Text", type: string, required: false, default: "Free Estimate"}
+          - {name: showEstimatorButton, label: "Show Project Estimator Button", type: boolean, required: false, default: false}
+          - {name: estimatorButtonText, label: "Estimator Button Text", type: string, required: false, default: "Try Project Estimator"}
           - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
           - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
           - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
           - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
           - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
           - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryLayout
+            label: "Gallery Layout"
+            type: select
+            required: false
+            default: grid
+            options:
+              values:
+                - {name: grid, label: "Photo Grid"}
+                - {name: large, label: "Large Photos"}
+                - {name: before-after, label: "Before & After Pairs"}
+          - {name: maxGalleryPhotos, label: "Maximum Gallery Photos", type: number, required: false, default: 12}
           - name: galleryImages
             label: "Area Gallery Photos"
             type: object
@@ -402,7 +578,19 @@ content:
                 summary: "{caption}"
             fields:
               - {name: active, label: "Show Photo", type: boolean, default: true}
-              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: displayOrder, label: "Photo Display Order", type: number, required: false, default: 100}
+              - name: photoType
+                label: "Photo Type"
+                type: select
+                required: false
+                default: single
+                options:
+                  values:
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After Pair"}
+              - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
@@ -415,6 +603,7 @@ content:
           - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
+          - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
 
       - name: manhattan_page
         label: "Manhattan Page"
@@ -433,12 +622,40 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
+          - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
+          - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
+          - {name: showBody, label: "Show Additional Page Text", type: boolean, required: false, default: true}
+          - {name: showProjects, label: "Show Area Projects", type: boolean, required: false, default: true}
+          - {name: projectsHeading, label: "Area Projects Heading", type: string, required: false}
+          - {name: showCta, label: "Show Final Call-To-Action", type: boolean, required: false, default: true}
+          - {name: areaPhone, label: "Area-Specific Phone", type: string, required: false, description: "Optional. Leave blank to use Business Settings phone."}
+          - {name: textMessage, label: "Pre-Filled Text Message", type: text, required: false}
+          - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: false}
+          - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+          - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: false}
+          - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+          - {name: showEstimateButton, label: "Show Free Estimate Button", type: boolean, required: false, default: false}
+          - {name: estimateButtonText, label: "Free Estimate Button Text", type: string, required: false, default: "Free Estimate"}
+          - {name: showEstimatorButton, label: "Show Project Estimator Button", type: boolean, required: false, default: false}
+          - {name: estimatorButtonText, label: "Estimator Button Text", type: string, required: false, default: "Try Project Estimator"}
           - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
           - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
           - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
           - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
           - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
           - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryLayout
+            label: "Gallery Layout"
+            type: select
+            required: false
+            default: grid
+            options:
+              values:
+                - {name: grid, label: "Photo Grid"}
+                - {name: large, label: "Large Photos"}
+                - {name: before-after, label: "Before & After Pairs"}
+          - {name: maxGalleryPhotos, label: "Maximum Gallery Photos", type: number, required: false, default: 12}
           - name: galleryImages
             label: "Area Gallery Photos"
             type: object
@@ -448,7 +665,19 @@ content:
                 summary: "{caption}"
             fields:
               - {name: active, label: "Show Photo", type: boolean, default: true}
-              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: displayOrder, label: "Photo Display Order", type: number, required: false, default: 100}
+              - name: photoType
+                label: "Photo Type"
+                type: select
+                required: false
+                default: single
+                options:
+                  values:
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After Pair"}
+              - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
@@ -461,6 +690,7 @@ content:
           - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
+          - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
 
       - name: bronx_page
         label: "Bronx Page"
@@ -479,12 +709,40 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
+          - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
+          - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
+          - {name: showBody, label: "Show Additional Page Text", type: boolean, required: false, default: true}
+          - {name: showProjects, label: "Show Area Projects", type: boolean, required: false, default: true}
+          - {name: projectsHeading, label: "Area Projects Heading", type: string, required: false}
+          - {name: showCta, label: "Show Final Call-To-Action", type: boolean, required: false, default: true}
+          - {name: areaPhone, label: "Area-Specific Phone", type: string, required: false, description: "Optional. Leave blank to use Business Settings phone."}
+          - {name: textMessage, label: "Pre-Filled Text Message", type: text, required: false}
+          - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: false}
+          - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+          - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: false}
+          - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+          - {name: showEstimateButton, label: "Show Free Estimate Button", type: boolean, required: false, default: false}
+          - {name: estimateButtonText, label: "Free Estimate Button Text", type: string, required: false, default: "Free Estimate"}
+          - {name: showEstimatorButton, label: "Show Project Estimator Button", type: boolean, required: false, default: false}
+          - {name: estimatorButtonText, label: "Estimator Button Text", type: string, required: false, default: "Try Project Estimator"}
           - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
           - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
           - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
           - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
           - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
           - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryLayout
+            label: "Gallery Layout"
+            type: select
+            required: false
+            default: grid
+            options:
+              values:
+                - {name: grid, label: "Photo Grid"}
+                - {name: large, label: "Large Photos"}
+                - {name: before-after, label: "Before & After Pairs"}
+          - {name: maxGalleryPhotos, label: "Maximum Gallery Photos", type: number, required: false, default: 12}
           - name: galleryImages
             label: "Area Gallery Photos"
             type: object
@@ -494,7 +752,19 @@ content:
                 summary: "{caption}"
             fields:
               - {name: active, label: "Show Photo", type: boolean, default: true}
-              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: displayOrder, label: "Photo Display Order", type: number, required: false, default: 100}
+              - name: photoType
+                label: "Photo Type"
+                type: select
+                required: false
+                default: single
+                options:
+                  values:
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After Pair"}
+              - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
@@ -507,6 +777,7 @@ content:
           - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
+          - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
 
       - name: new_jersey_page
         label: "New Jersey Page"
@@ -525,12 +796,40 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Towns", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
+          - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
+          - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
+          - {name: showBody, label: "Show Additional Page Text", type: boolean, required: false, default: true}
+          - {name: showProjects, label: "Show Area Projects", type: boolean, required: false, default: true}
+          - {name: projectsHeading, label: "Area Projects Heading", type: string, required: false}
+          - {name: showCta, label: "Show Final Call-To-Action", type: boolean, required: false, default: true}
+          - {name: areaPhone, label: "Area-Specific Phone", type: string, required: false, description: "Optional. Leave blank to use Business Settings phone."}
+          - {name: textMessage, label: "Pre-Filled Text Message", type: text, required: false}
+          - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: false}
+          - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+          - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: false}
+          - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+          - {name: showEstimateButton, label: "Show Free Estimate Button", type: boolean, required: false, default: false}
+          - {name: estimateButtonText, label: "Free Estimate Button Text", type: string, required: false, default: "Free Estimate"}
+          - {name: showEstimatorButton, label: "Show Project Estimator Button", type: boolean, required: false, default: false}
+          - {name: estimatorButtonText, label: "Estimator Button Text", type: string, required: false, default: "Try Project Estimator"}
           - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
           - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
           - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
           - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
           - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
           - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryLayout
+            label: "Gallery Layout"
+            type: select
+            required: false
+            default: grid
+            options:
+              values:
+                - {name: grid, label: "Photo Grid"}
+                - {name: large, label: "Large Photos"}
+                - {name: before-after, label: "Before & After Pairs"}
+          - {name: maxGalleryPhotos, label: "Maximum Gallery Photos", type: number, required: false, default: 12}
           - name: galleryImages
             label: "Area Gallery Photos"
             type: object
@@ -540,7 +839,19 @@ content:
                 summary: "{caption}"
             fields:
               - {name: active, label: "Show Photo", type: boolean, default: true}
-              - {name: image, label: "Upload / Select Photo", type: image, options: {media: project_images}}
+              - {name: displayOrder, label: "Photo Display Order", type: number, required: false, default: 100}
+              - name: photoType
+                label: "Photo Type"
+                type: select
+                required: false
+                default: single
+                options:
+                  values:
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After Pair"}
+              - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
@@ -553,6 +864,7 @@ content:
           - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string}
           - {name: seoDescription, label: "SEO Description", type: text}
+          - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
 
   - name: marketing
     label: "📣 Marketing"
@@ -578,6 +890,8 @@ content:
                 summary: "{title} — {price}"
             fields:
               - {name: active, label: "Active", type: boolean, default: true}
+              - {name: featured, label: "Featured Special", type: boolean, required: false, default: false}
+              - {name: displayOrder, label: "Display Order", type: number, required: false, default: 100}
               - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
               - {name: showOnAreaPages, label: "Show On Area Page", type: boolean, default: false, description: "Turn this on to also feature the special on one area page or every area page."}
               - name: areaSlug
@@ -594,6 +908,7 @@ content:
                     - {name: manhattan, label: "Manhattan"}
                     - {name: bronx, label: "Bronx"}
                     - {name: new-jersey, label: "New Jersey"}
+              - {name: areaSlugs, label: "Additional Area Pages", type: string, list: true, required: false, description: "Optional: enter more area IDs, such as brooklyn or queens. The Area Page choice above still works."}
               - {name: badge, label: "Badge", type: string}
               - {name: accentColor, label: "Accent Color", type: string}
               - {name: badgeTextColor, label: "Badge Text Color", type: string, required: false}
@@ -644,6 +959,9 @@ content:
                 summary: "{name} — {service}"
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
+              - {name: featured, label: "Featured Review", type: boolean, required: false, default: false}
+              - {name: displayOrder, label: "Display Order", type: number, required: false, default: 100}
+              - {name: showOnReviewPage, label: "Show On Reviews Page", type: boolean, required: false, default: true}
               - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
               - {name: showOnAreaPages, label: "Show On Area Page", type: boolean, default: false, description: "Turn this on to feature the review on one area page or every area page."}
               - name: areaSlug
@@ -660,6 +978,7 @@ content:
                     - {name: manhattan, label: "Manhattan"}
                     - {name: bronx, label: "Bronx"}
                     - {name: new-jersey, label: "New Jersey"}
+              - {name: areaSlugs, label: "Additional Area Pages", type: string, list: true, required: false, description: "Optional: enter more area IDs, such as brooklyn or queens. The Area Page choice above still works."}
               - {name: name, label: "Customer Name", type: string}
               - {name: rating, label: "Stars", type: number, default: 5, options: {min: 1, max: 5}}
               - {name: source, label: "Source", type: string, default: "Google Review"}
@@ -684,6 +1003,8 @@ content:
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
               - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: false}
+              - {name: categoryOrder, label: "Category Display Order", type: number, required: false, default: 100}
+              - {name: displayOrder, label: "Question Display Order", type: number, required: false, default: 100}
               - {name: category, label: "Category", type: string, required: false}
               - {name: question, label: "Question", type: string}
               - {name: answer, label: "Answer", type: text}
@@ -754,6 +1075,7 @@ content:
                     - {name: manhattan, label: "Manhattan"}
                     - {name: bronx, label: "Bronx"}
                     - {name: new-jersey, label: "New Jersey"}
+              - {name: areaSlugs, label: "Additional Service Areas", type: string, list: true, required: false, description: "Optional: show this project on more than one area page."}
               - {name: areaLabel, label: "Area Label", type: string, required: false}
               - {name: neighborhood, label: "Neighborhood / Town", type: string, required: false}
               - name: serviceSlug
@@ -774,12 +1096,17 @@ content:
                     - {name: roofing, label: "Roofing"}
                     - {name: decks, label: "Decks"}
                     - {name: other-services, label: "Other Services"}
+              - {name: serviceSlugs, label: "Additional Service Pages", type: string, list: true, required: false, description: "Optional: show this project on more than one service page."}
               - {name: serviceLabel, label: "Service Label", type: string, required: false}
               - {name: summary, label: "Project Summary", type: text}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: additionalImages, label: "Additional Photos", type: image, list: true, required: false, options: {media: project_images}}
               - {name: imageAlt, label: "Photo Description (Accessibility)", type: string, required: false}
+              - {name: reviewQuote, label: "Customer Quote", type: text, required: false}
+              - {name: reviewName, label: "Customer Name", type: string, required: false}
+              - {name: ctaText, label: "Project Button Text", type: string, required: false}
+              - {name: ctaUrl, label: "Project Button Link", type: string, required: false}
               - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: false}
               - {name: showInGallery, label: "Show In Main Gallery", type: boolean, default: true}
               - {name: showOnAreaPage, label: "Show On Selected Area Page", type: boolean, default: true}
@@ -834,7 +1161,7 @@ content:
               - {name: tags, label: "Tags", type: string, list: true, required: false}
 
       - name: project_stories
-        label: "Project Stories — Draft Manager"
+        label: "Project Stories — DRAFT (Not Live Automatically)"
         type: collection
         path: content/projects
         format: json
@@ -906,7 +1233,7 @@ content:
     items:
 
       - name: service_pages
-        label: "Service Page Drafts"
+        label: "Service Page Drafts — Not Live Automatically"
         type: collection
         path: content/services
         format: json
@@ -931,7 +1258,7 @@ content:
         format: json
         filename: "{fields.slug}.json"
         operations:
-          create: true
+          create: false
           rename: false
           delete: false
         view:
@@ -948,12 +1275,40 @@ content:
           - {name: neighborhoods, label: "Neighborhoods / Towns", type: string, list: true}
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: body, label: "Body", type: rich-text, options: {format: markdown, media: false}}
+          - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
+          - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
+          - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
+          - {name: showBody, label: "Show Additional Page Text", type: boolean, required: false, default: true}
+          - {name: showProjects, label: "Show Area Projects", type: boolean, required: false, default: true}
+          - {name: projectsHeading, label: "Area Projects Heading", type: string, required: false}
+          - {name: showCta, label: "Show Final Call-To-Action", type: boolean, required: false, default: true}
+          - {name: areaPhone, label: "Area-Specific Phone", type: string, required: false, description: "Optional. Leave blank to use Business Settings phone."}
+          - {name: textMessage, label: "Pre-Filled Text Message", type: text, required: false}
+          - {name: showCallButton, label: "Show Call Button", type: boolean, required: false, default: false}
+          - {name: callButtonText, label: "Call Button Text", type: string, required: false, default: "Call Now"}
+          - {name: showTextButton, label: "Show Text Button", type: boolean, required: false, default: false}
+          - {name: textButtonText, label: "Text Button Text", type: string, required: false, default: "Text Photos"}
+          - {name: showEstimateButton, label: "Show Free Estimate Button", type: boolean, required: false, default: false}
+          - {name: estimateButtonText, label: "Free Estimate Button Text", type: string, required: false, default: "Free Estimate"}
+          - {name: showEstimatorButton, label: "Show Project Estimator Button", type: boolean, required: false, default: false}
+          - {name: estimatorButtonText, label: "Estimator Button Text", type: string, required: false, default: "Try Project Estimator"}
           - {name: showHeroImage, label: "Show Area Hero Photo", type: boolean, required: false, default: false}
           - {name: heroImage, label: "Area Hero Photo", type: image, required: false, options: {media: project_images}}
           - {name: heroImageAlt, label: "Hero Photo Description", type: string, required: false}
           - {name: showAreaGallery, label: "Show Area Photo Gallery", type: boolean, required: false, default: false}
           - {name: galleryHeading, label: "Area Gallery Heading", type: string, required: false}
           - {name: galleryIntro, label: "Area Gallery Introduction", type: text, required: false}
+          - name: galleryLayout
+            label: "Gallery Layout"
+            type: select
+            required: false
+            default: grid
+            options:
+              values:
+                - {name: grid, label: "Photo Grid"}
+                - {name: large, label: "Large Photos"}
+                - {name: before-after, label: "Before & After Pairs"}
+          - {name: maxGalleryPhotos, label: "Maximum Gallery Photos", type: number, required: false, default: 12}
           - name: galleryImages
             label: "Area Gallery Photos"
             type: object
@@ -963,7 +1318,19 @@ content:
                 summary: "{caption}"
             fields:
               - {name: active, label: "Show Photo", type: boolean, default: true}
-              - {name: image, label: "Photo", type: image, options: {media: project_images}}
+              - {name: displayOrder, label: "Photo Display Order", type: number, required: false, default: 100}
+              - name: photoType
+                label: "Photo Type"
+                type: select
+                required: false
+                default: single
+                options:
+                  values:
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After Pair"}
+              - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
@@ -976,9 +1343,10 @@ content:
           - {name: ctaButtonUrl, label: "Call-To-Action Button Link", type: string, required: false}
           - {name: seoTitle, label: "SEO Title", type: string, required: false}
           - {name: seoDescription, label: "SEO Description", type: text, required: false}
+          - {name: socialImage, label: "Social Sharing Image", type: image, required: false, options: {media: project_images}}
 
       - name: resources
-        label: "Resource / Advice Drafts"
+        label: "Resource / Advice Drafts — Not Live Automatically"
         type: collection
         path: content/resources
         format: json
@@ -1108,5 +1476,24 @@ actions:
     ref: current
     confirm:
       title: "Delete reviewed unused images?"
-      message: "Only files still verified as unused by the existing cleanup workflow should be deleted."
+      message: "Creates a downloadable backup first, then deletes only files still verified as unused by the cleanup workflow."
       button: "Delete Verified Images"
+
+  - name: admin-power-tools
+    label: "Admin Power Tools"
+    workflow: admin-power-tools.yml
+    ref: current
+    fields:
+      - name: mode
+        label: "Tool To Run"
+        type: select
+        default: validate
+        options:
+          - {label: "Validate Website & Refresh Audit", value: validate}
+          - {label: "Create Full Website Backup", value: backup}
+          - {label: "Rebuild Sitemap", value: rebuild-sitemap}
+    confirm:
+      title: "Run the selected admin tool?"
+      message: "Validation checks the site, backup creates a downloadable ZIP, and sitemap rebuild updates sitemap.xml from active CMS pages."
+      button: "Run Admin Tool"
+
