@@ -651,31 +651,31 @@ function hammerEnsureHomepageLayoutStyles() {
       margin-top:-38px!important;padding:20px 24px!important;
     }
 
-    /* 2 — REVIEW-FIRST POMEGRANATE SIGNATURE: jewel-red centerpiece with pearl proof cards. */
+    /* 2 — POMEGRANATE PRESTIGE: deep fruit-red, charcoal and warm cream. */
     body[data-home-layout="luxury"]{
-      --bg:#f7f3f2;--bg-alt:#fffdfc;--ink:#242124;--muted:#6f6569;--gold:#a10f3b;--gold-soft:#77102f;
-      background:#f7f3f2;color:var(--ink);
+      --bg:#f4efe6;--bg-alt:#fffaf0;--ink:#211d1b;--muted:#6d625a;--gold:#8f0f1b;--gold-soft:#590812;
+      background:#f4efe6;color:var(--ink);
     }
     body[data-home-layout="luxury"]::before{
-      background:radial-gradient(circle at 50% 4%,rgba(190,18,71,.12),transparent 30rem),radial-gradient(circle at 90% 45%,rgba(161,15,59,.07),transparent 25rem);
+      background:radial-gradient(circle at 50% 4%,rgba(143,15,27,.12),transparent 30rem),radial-gradient(circle at 90% 45%,rgba(89,8,18,.07),transparent 25rem);
       animation:none;
     }
-    body[data-home-layout="luxury"] .topbar{background:rgba(30,28,30,.98)!important;border-bottom:4px solid #be1247!important}
+    body[data-home-layout="luxury"] .topbar{background:rgba(30,27,25,.98)!important;border-bottom:4px solid #8f0f1b!important}
     body[data-home-layout="luxury"] .topbar .brand-lockup,
     body[data-home-layout="luxury"] .topbar .main-nav a,
     body[data-home-layout="luxury"] .topbar .dropbtn{color:#fff!important}
-    body[data-home-layout="luxury"] .topbar .dropdown-content{background:#242124!important}
-    body[data-home-layout="luxury"] .site-footer{background:#211e20;color:#fff;border-color:#be1247}
+    body[data-home-layout="luxury"] .topbar .dropdown-content{background:#211d1b!important}
+    body[data-home-layout="luxury"] .site-footer{background:#211d1b;color:#fffaf0;border-color:#8f0f1b}
     body[data-home-layout="luxury"] .hb-home-layout-shell{width:min(100%,1320px);padding-top:28px}
     body[data-home-layout="luxury"] #homeHero{
       min-height:660px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
       padding:78px 70px 64px;border:0;border-radius:38px;text-align:center;
-      background:radial-gradient(circle at 50% -20%,#dc315f 0%,#a10f3b 42%,#6f0927 100%);
-      box-shadow:0 34px 85px rgba(84,6,31,.28);
+      background:radial-gradient(circle at 50% -20%,#a71825 0%,#810c18 42%,#47050b 100%);
+      box-shadow:0 34px 85px rgba(71,5,11,.28);
     }
     body[data-home-layout="luxury"] #homeHero::before{
       content:"PRIDE  •  QUALITY  •  INTEGRITY";position:absolute;top:27px;left:30px;right:30px;
-      color:#ffd8e2;font-size:10px;font-weight:900;letter-spacing:.24em;text-align:center;
+      color:#fff0d5;font-size:10px;font-weight:900;letter-spacing:.24em;text-align:center;
     }
     body[data-home-layout="luxury"] #homeHero::after{
       content:"";position:absolute;inset:0;z-index:0;opacity:.26;pointer-events:none;
@@ -689,19 +689,19 @@ function hammerEnsureHomepageLayoutStyles() {
       font-family:Georgia,"Times New Roman",serif;font-weight:500;background:none!important;
       -webkit-text-fill-color:#fff!important;color:#fff!important;filter:none;
     }
-    body[data-home-layout="luxury"] #homeHero .hero-content p{max-width:760px;margin-left:auto;margin-right:auto;color:#ffe9ee!important}
+    body[data-home-layout="luxury"] #homeHero .hero-content p{max-width:760px;margin-left:auto;margin-right:auto;color:#fff6e5!important}
     body[data-home-layout="luxury"] #homeHero .hero-actions,
     body[data-home-layout="luxury"] #homeHero .trust-pills{justify-content:center}
     body[data-home-layout="luxury"] #homeHero .trust-pills li{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.40);color:#fff}
-    body[data-home-layout="luxury"] .btn{border-radius:999px;background:#a10f3b;color:#fff;box-shadow:none}
-    body[data-home-layout="luxury"] .btn.ghost{background:#fff;color:#77102f;border:1px solid #a10f3b}
-    body[data-home-layout="luxury"] #homeHero .btn{background:#fff;color:#850c32}
+    body[data-home-layout="luxury"] .btn{border-radius:999px;background:#8f0f1b;color:#fffaf0;box-shadow:none}
+    body[data-home-layout="luxury"] .btn.ghost{background:#fffaf0;color:#590812;border:1px solid #8f0f1b}
+    body[data-home-layout="luxury"] #homeHero .btn{background:#fffaf0;color:#590812}
     body[data-home-layout="luxury"] #homeHero .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.76)}
-    body[data-home-layout="luxury"] .hb-home-quick-actions{border:0;border-radius:26px;background:#242124;box-shadow:0 24px 58px rgba(36,33,36,.20)}
-    body[data-home-layout="luxury"] .hb-home-quick-actions a{color:#242124;border-radius:19px;background:#fffdfc}
-    body[data-home-layout="luxury"] .hb-home-quick-actions a:first-child{color:#fff;background:#be1247}
+    body[data-home-layout="luxury"] .hb-home-quick-actions{border:0;border-radius:26px;background:#211d1b;box-shadow:0 24px 58px rgba(33,29,27,.20)}
+    body[data-home-layout="luxury"] .hb-home-quick-actions a{color:#211d1b;border-radius:19px;background:#fffaf0}
+    body[data-home-layout="luxury"] .hb-home-quick-actions a:first-child{color:#fffaf0;background:#8f0f1b}
     body[data-home-layout="luxury"] .hb-home-quick-actions strong{font-family:Georgia,"Times New Roman",serif;font-size:15px}
-    body[data-home-layout="luxury"] #premiumMaterialsSection{border:1px solid #e8dcdf!important;border-radius:24px!important;background:#fffdfc!important;box-shadow:0 12px 34px rgba(36,33,36,.05)}
+    body[data-home-layout="luxury"] #premiumMaterialsSection{border:1px solid #dfd0ba!important;border-radius:24px!important;background:#fffaf0!important;box-shadow:0 12px 34px rgba(33,29,27,.05)}
     body[data-home-layout="luxury"] #premiumMaterialsSection p,
     body[data-home-layout="luxury"] #premiumMaterialsSection span{color:#4f4549!important}
     body[data-home-layout="luxury"] .hb-luxury-showcase{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
@@ -714,10 +714,10 @@ function hammerEnsureHomepageLayoutStyles() {
     body[data-home-layout="luxury"] #specialsSection,
     body[data-home-layout="luxury"] #serviceAreaSection,
     body[data-home-layout="luxury"] #reviewsSection{
-      padding:36px;border:1px solid #e8dcdf;border-radius:28px;background:#fffdfc;box-shadow:0 16px 42px rgba(36,33,36,.06);
+      padding:36px;border:1px solid #dfd0ba;border-radius:28px;background:#fffaf0;box-shadow:0 16px 42px rgba(33,29,27,.06);
     }
-    body[data-home-layout="luxury"] #reviewsSection{border:3px solid #be1247;background:linear-gradient(180deg,#fff,#fff5f7)!important;box-shadow:0 24px 64px rgba(161,15,59,.13)!important}
-    body[data-home-layout="luxury"] .section h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4vw,3.45rem);font-weight:500;color:#77102f;text-align:left;text-shadow:none}
+    body[data-home-layout="luxury"] #reviewsSection{border:3px solid #8f0f1b;background:linear-gradient(180deg,#fffaf0,#f3e6cf)!important;box-shadow:0 24px 64px rgba(89,8,18,.13)!important}
+    body[data-home-layout="luxury"] .section h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4vw,3.45rem);font-weight:500;color:#590812;text-align:left;text-shadow:none}
     body[data-home-layout="luxury"] .section p,
     body[data-home-layout="luxury"] .section li{color:#6f6569}
     body[data-home-layout="luxury"] .tier-card,
@@ -727,7 +727,7 @@ function hammerEnsureHomepageLayoutStyles() {
     body[data-home-layout="luxury"] .cms-project-card,
     body[data-home-layout="luxury"] #reviewsSection .review-slide,
     body[data-home-layout="luxury"] .faq-section,
-    body[data-home-layout="luxury"] .faq-section details{color:#242124;border-radius:22px!important;background:#fff!important;border-color:#e8dcdf!important;box-shadow:0 12px 30px rgba(36,33,36,.06)!important}
+    body[data-home-layout="luxury"] .faq-section details{color:#211d1b;border-radius:22px!important;background:#fffaf0!important;border-color:#dfd0ba!important;box-shadow:0 12px 30px rgba(33,29,27,.06)!important}
     body[data-home-layout="luxury"] .special-card h3,
     body[data-home-layout="luxury"] .tier-card h3,
     body[data-home-layout="luxury"] .special-price,
@@ -736,23 +736,23 @@ function hammerEnsureHomepageLayoutStyles() {
     body[data-home-layout="luxury"] #reviewsSection .review-quote,
     body[data-home-layout="luxury"] #reviewsSection .review-note,
     body[data-home-layout="luxury"] #reviewsSection .review-service,
-    body[data-home-layout="luxury"] .cms-project-content h3{color:#77102f!important;-webkit-text-fill-color:#77102f!important;text-shadow:none!important}
+    body[data-home-layout="luxury"] .cms-project-content h3{color:#590812!important;-webkit-text-fill-color:#590812!important;text-shadow:none!important}
     body[data-home-layout="luxury"] #reviewsSection .review-trust-copy,
     body[data-home-layout="luxury"] #reviewsSection .review-scroll-hint,
     body[data-home-layout="luxury"] #reviewsSection .review-trust-strip{color:#6f6569!important}
     body[data-home-layout="luxury"] #reviewsSection .review-trust-strip strong,
     body[data-home-layout="luxury"] #guaranteeSignature,
     body[data-home-layout="luxury"] #membershipServicesSection .services-glow-container>h3,
-    body[data-home-layout="luxury"] #membershipServicesSection .trust-content>div>div:first-child h3{color:#77102f!important}
-    body[data-home-layout="luxury"] .ba-card{background:#fff!important;border-color:#e8dcdf!important;box-shadow:0 14px 34px rgba(36,33,36,.08)!important}
-    body[data-home-layout="luxury"] .ba-caption{background:#fff!important;color:#77102f!important;border-color:#e8dcdf!important;text-shadow:none}
-    body[data-home-layout="luxury"] .cms-stage-viewer{border-color:#e8dcdf;background:#fff}
-    body[data-home-layout="luxury"] .cms-stage-buttons{background:#f6e9ed}
-    body[data-home-layout="luxury"] .cms-stage-buttons button{color:#77102f;border-color:#be7b91}
+    body[data-home-layout="luxury"] #membershipServicesSection .trust-content>div>div:first-child h3{color:#590812!important}
+    body[data-home-layout="luxury"] .ba-card{background:#fffaf0!important;border-color:#dfd0ba!important;box-shadow:0 14px 34px rgba(33,29,27,.08)!important}
+    body[data-home-layout="luxury"] .ba-caption{background:#fffaf0!important;color:#590812!important;border-color:#dfd0ba!important;text-shadow:none}
+    body[data-home-layout="luxury"] .cms-stage-viewer{border-color:#dfd0ba;background:#fffaf0}
+    body[data-home-layout="luxury"] .cms-stage-buttons{background:#eadcc5}
+    body[data-home-layout="luxury"] .cms-stage-buttons button{color:#590812;border-color:#a86f58}
     body[data-home-layout="luxury"] .cms-stage-panels,
     body[data-home-layout="luxury"] .cms-stage-grid,
     body[data-home-layout="luxury"] .cms-stage-panels img,
-    body[data-home-layout="luxury"] .cms-stage-grid img{background:#eee9e7}
+    body[data-home-layout="luxury"] .cms-stage-grid img{background:#e8dfd2}
     /* 3 — CALL-FIRST APPLE CLEAN: quiet white space, graphite type and electric-blue actions. */
     body[data-home-layout="leads"]{
       --bg:#f5f5f7;--bg-alt:#ffffff;--ink:#1d1d1f;--muted:#6e6e73;--gold:#0071e3;--gold-soft:#1d1d1f;
@@ -1162,8 +1162,8 @@ function hammerEnsureHomepageLayoutStyles() {
     /* Every alternate layout has its own phone design. These rules come last
        so the site's original mobile rules cannot turn them back into Classic. */
     @media(max-width:900px){
-      body[data-home-layout="luxury"] .topbar .main-nav{background:#242124!important;border-bottom-color:#be1247!important}
-      body[data-home-layout="luxury"] .topbar .nav-toggle{color:#ffd8e2!important}
+      body[data-home-layout="luxury"] .topbar .main-nav{background:#211d1b!important;border-bottom-color:#8f0f1b!important}
+      body[data-home-layout="luxury"] .topbar .nav-toggle{color:#fff0d5!important}
       body[data-home-layout="leads"] .topbar .main-nav{background:#fff!important;border-bottom-color:#d2d2d7!important}
       body[data-home-layout="leads"] .topbar .nav-toggle{color:#0071e3!important}
       body[data-home-layout="portfolio"] .topbar .main-nav{background:#0b1019!important;border-bottom-color:#ff6b2c!important}
@@ -1171,12 +1171,12 @@ function hammerEnsureHomepageLayoutStyles() {
       body[data-home-layout="local"] .topbar .main-nav{background:#1d4238!important;border-bottom-color:#d7b679!important}
       body[data-home-layout="local"] .topbar .nav-toggle{color:#d7b679!important}
 
-      /* 2 — Pomegranate Signature mobile: centered jewel hero and a compact proof dashboard. */
+      /* 2 — Pomegranate Prestige mobile: deep red, charcoal and warm cream. */
       body[data-home-layout="luxury"] .hb-home-layout-shell{padding:8px 11px 54px!important}
       body[data-home-layout="luxury"] #homeHero{
         display:flex!important;flex-direction:column;align-items:center;justify-content:center;min-height:560px;margin:8px 0 30px!important;
         padding:68px 20px 31px!important;border-radius:28px!important;text-align:center!important;
-        background:radial-gradient(circle at 50% -16%,#dc315f 0%,#a10f3b 47%,#6f0927 100%)!important;
+        background:radial-gradient(circle at 50% -16%,#a71825 0%,#810c18 47%,#47050b 100%)!important;
       }
       body[data-home-layout="luxury"] #homeHero::before{top:22px!important;left:18px!important;right:18px!important;text-align:center!important;line-height:1.45}
       body[data-home-layout="luxury"] #homeHero::after{inset:0!important;width:auto;height:auto;opacity:.18}
@@ -1187,7 +1187,7 @@ function hammerEnsureHomepageLayoutStyles() {
       body[data-home-layout="luxury"] #homeHero .hero-badge img{width:104px!important;height:104px!important;border-width:5px}
       body[data-home-layout="luxury"] .hb-home-quick-actions{
         display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px;margin:0 0 42px!important;padding:9px!important;
-        border:0;border-radius:22px;background:#242124;box-shadow:0 18px 44px rgba(36,33,36,.18);
+        border:0;border-radius:22px;background:#211d1b;box-shadow:0 18px 44px rgba(33,29,27,.18);
       }
       body[data-home-layout="luxury"] .hb-home-quick-actions a{min-height:88px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;padding:12px;border:0}
       body[data-home-layout="luxury"] .hb-home-quick-actions a:first-child{grid-column:1/-1;min-height:70px;display:grid;grid-template-columns:38px 1fr;grid-template-rows:auto auto}
@@ -1295,6 +1295,202 @@ function hammerEnsureHomepageLayoutStyles() {
       body[data-home-layout="local"] #specialsSection,
       body[data-home-layout="local"] #tiersSection{padding:22px 15px;border-radius:22px}
     }
+
+    /* Layouts 3, 4 and 6–15. Layouts 1 and 5 are intentionally excluded. */
+    body[data-home-theme="expanded"]{
+      --bg:var(--tbg);--bg-alt:var(--panel);--gold:var(--accent);--gold-soft:var(--accent2);
+      width:100%;max-width:100%;overflow-x:clip;background:var(--tbg)!important;color:var(--ink)!important;
+    }
+    body[data-home-theme="expanded"]::before{display:block!important;background:var(--pageart)!important;animation:none!important}
+    body[data-home-theme="expanded"] .topbar{background:var(--header)!important;border-bottom:3px solid var(--accent)!important;box-shadow:0 10px 30px var(--headershadow)!important}
+    body[data-home-theme="expanded"] .topbar .brand-lockup,
+    body[data-home-theme="expanded"] .topbar .main-nav a,
+    body[data-home-theme="expanded"] .topbar .dropbtn{color:var(--headink)!important}
+    body[data-home-theme="expanded"] .topbar .dropdown-content{background:var(--header)!important;border-color:var(--accent)!important}
+    body[data-home-theme="expanded"] .site-footer{background:var(--header)!important;color:var(--headink)!important;border-color:var(--accent)!important}
+    body[data-home-theme="expanded"] .hb-home-layout-shell{width:min(100%,1380px);padding:30px 28px 88px}
+    body[data-home-theme="expanded"] #homeHero{
+      display:grid!important;grid-template-columns:minmax(0,1.2fr) minmax(220px,.55fr)!important;align-items:center;gap:42px;min-height:620px;
+      padding:88px 72px 66px!important;border:1px solid var(--line)!important;border-radius:var(--radius)!important;
+      background:var(--hero)!important;color:var(--heroink)!important;box-shadow:var(--shadow)!important;text-align:left!important;
+    }
+    body[data-home-theme="expanded"] #homeHero::before{
+      content:var(--kicker);position:absolute;z-index:2;top:29px;left:72px;right:72px;color:var(--kickerink,var(--accent))!important;
+      font:900 11px/1.4 Arial,sans-serif;letter-spacing:.22em;text-align:left;
+    }
+    body[data-home-theme="expanded"] #homeHero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:var(--pattern)!important;background-size:var(--patternsize,42px 42px)!important;opacity:.28}
+    body[data-home-theme="expanded"] #homeHero .hero-content{max-width:780px;text-align:left!important}
+    body[data-home-theme="expanded"] #homeHero .hero-content h1{
+      font-family:var(--title)!important;font-size:clamp(2.7rem,5.7vw,5.7rem)!important;font-weight:800!important;line-height:.96!important;
+      letter-spacing:-.05em!important;background:none!important;color:var(--heroink)!important;-webkit-text-fill-color:var(--heroink)!important;text-shadow:none!important;filter:none!important;
+    }
+    body[data-home-theme="expanded"] #homeHero .hero-content p{max-width:700px;color:var(--heromuted)!important}
+    body[data-home-theme="expanded"] #homeHero .hero-actions,
+    body[data-home-theme="expanded"] #homeHero .trust-pills{justify-content:flex-start!important}
+    body[data-home-theme="expanded"] #homeHero .hero-badge{position:relative!important;z-index:2;justify-self:center}
+    body[data-home-theme="expanded"] #homeHero .hero-badge img{width:220px!important;height:220px!important;object-fit:cover;border:7px solid var(--badgeborder)!important;border-radius:var(--badgeradius,28px)!important;box-shadow:0 22px 52px var(--headershadow)!important;filter:none!important}
+    body[data-home-theme="expanded"] #homeHero .trust-pills li{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.38)!important;color:var(--heroink)!important}
+    body[data-home-theme="expanded"] .btn{border-radius:var(--buttonradius,10px)!important;background:var(--accent)!important;color:var(--buttonink)!important;box-shadow:none!important}
+    body[data-home-theme="expanded"] .btn.ghost{background:var(--panel)!important;color:var(--accent2)!important;border:1px solid var(--accent)!important}
+    body[data-home-theme="expanded"] #homeHero .btn.ghost{background:transparent!important;color:var(--heroink)!important;border-color:var(--heroink)!important}
+    body[data-home-theme="expanded"] .hb-home-quick-actions{border:2px solid var(--accent)!important;border-radius:var(--panelradius)!important;background:var(--quickbg,var(--header))!important;box-shadow:0 20px 48px var(--headershadow)!important}
+    body[data-home-theme="expanded"] .hb-home-quick-actions a{color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:var(--cardradius)!important;background:var(--panel)!important}
+    body[data-home-theme="expanded"] .hb-home-quick-actions a:first-child{color:var(--buttonink)!important;background:var(--accent)!important;border-color:var(--accent)!important}
+    body[data-home-theme="expanded"] .hb-home-quick-actions strong{font-family:var(--title)!important;font-size:14px}
+    body[data-home-theme="expanded"] #premiumMaterialsSection,
+    body[data-home-theme="expanded"] #before-after,
+    body[data-home-theme="expanded"] #cmsProjectsSection,
+    body[data-home-theme="expanded"] #membershipServicesSection,
+    body[data-home-theme="expanded"] #guaranteeSection,
+    body[data-home-theme="expanded"] #tiersSection,
+    body[data-home-theme="expanded"] #processSection,
+    body[data-home-theme="expanded"] #specialsSection,
+    body[data-home-theme="expanded"] #cmsServiceAreasSection,
+    body[data-home-theme="expanded"] #serviceAreaSection,
+    body[data-home-theme="expanded"] #reviewsSection,
+    body[data-home-theme="expanded"] .faq-section{padding:34px!important;border:1px solid var(--line)!important;border-radius:var(--panelradius)!important;background:var(--panel)!important;box-shadow:0 15px 38px var(--cardshadow)!important;color:var(--ink)!important}
+    body[data-home-theme="expanded"] #premiumMaterialsSection{margin-top:-34px!important}
+    body[data-home-theme="expanded"] .section h2{font-family:var(--title)!important;font-size:clamp(2rem,4vw,3.5rem)!important;color:var(--accent2)!important;-webkit-text-fill-color:var(--accent2)!important;text-align:left!important;text-shadow:none!important}
+    body[data-home-theme="expanded"] .section p,
+    body[data-home-theme="expanded"] .section li,
+    body[data-home-theme="expanded"] #premiumMaterialsSection p,
+    body[data-home-theme="expanded"] #premiumMaterialsSection span,
+    body[data-home-theme="expanded"] .addon-list,
+    body[data-home-theme="expanded"] .special-card .bullets li{color:var(--muted)!important}
+    body[data-home-theme="expanded"] .tier-card,
+    body[data-home-theme="expanded"] .special-card,
+    body[data-home-theme="expanded"] .accent-card,
+    body[data-home-theme="expanded"] .process-steps li,
+    body[data-home-theme="expanded"] .cms-project-card,
+    body[data-home-theme="expanded"] #reviewsSection .review-slide,
+    body[data-home-theme="expanded"] .faq-section details,
+    body[data-home-theme="expanded"] .services-glow-container,
+    body[data-home-theme="expanded"] .trust-content{color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:var(--cardradius)!important;background:var(--panel2)!important;box-shadow:0 10px 28px var(--cardshadow)!important}
+    body[data-home-theme="expanded"] .special-card h3,
+    body[data-home-theme="expanded"] .tier-card h3,
+    body[data-home-theme="expanded"] .special-price,
+    body[data-home-theme="expanded"] .faq-section summary,
+    body[data-home-theme="expanded"] #reviewsSection h2,
+    body[data-home-theme="expanded"] #reviewsSection .review-quote,
+    body[data-home-theme="expanded"] #reviewsSection .review-note,
+    body[data-home-theme="expanded"] #reviewsSection .review-service,
+    body[data-home-theme="expanded"] .cms-project-content h3,
+    body[data-home-theme="expanded"] #guaranteeSignature,
+    body[data-home-theme="expanded"] #membershipServicesSection h3{color:var(--accent2)!important;-webkit-text-fill-color:var(--accent2)!important;text-shadow:none!important}
+    body[data-home-theme="expanded"] .ba-card{background:var(--panel2)!important;border-color:var(--line)!important;box-shadow:0 12px 30px var(--cardshadow)!important}
+    body[data-home-theme="expanded"] .ba-caption{background:var(--panel2)!important;color:var(--accent2)!important;border-color:var(--line)!important;text-shadow:none!important}
+    body[data-home-theme="expanded"] .cms-stage-viewer{border-color:var(--line)!important;background:var(--panel2)!important;border-radius:var(--cardradius)!important}
+    body[data-home-theme="expanded"] .cms-stage-buttons{background:var(--quickbg,var(--header))!important}
+    body[data-home-theme="expanded"] .cms-stage-buttons button{color:var(--accent)!important;border-color:var(--accent)!important;background:transparent!important}
+    body[data-home-theme="expanded"] .cms-stage-buttons button[aria-selected="true"]{color:var(--buttonink)!important;background:var(--accent)!important}
+    body[data-home-theme="expanded"] .cms-stage-panels,
+    body[data-home-theme="expanded"] .cms-stage-grid,
+    body[data-home-theme="expanded"] .cms-stage-panels img,
+    body[data-home-theme="expanded"] .cms-stage-grid img{background:var(--mediabg)!important}
+    body[data-home-theme="expanded"] .cms-stage-panels img{height:clamp(300px,38vw,500px)!important;object-fit:contain!important}
+    body[data-home-theme="expanded"] .cms-stage-grid img{height:290px!important;object-fit:cover!important}
+
+    /* 3 — Executive Trust */
+    body[data-home-layout="leads"]{--tbg:#f4f0e7;--panel:#fffdf7;--panel2:#f9f3e8;--ink:#17253b;--muted:#657084;--accent:#c79638;--accent2:#10284b;--header:#10233f;--headink:#fff7e7;--headershadow:rgba(8,25,48,.22);--hero:linear-gradient(125deg,#10284b 0%,#183d6c 67%,#c79638 67%,#d9b66d 100%);--heroink:#fff9ec;--heromuted:#e7ddc8;--kickerink:#f2cd7d;--kicker:"LICENSED • INSURED • READY TO BUILD";--pageart:linear-gradient(120deg,rgba(16,40,75,.06),transparent 35%);--pattern:linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);--patternsize:86px 100%;--radius:18px;--panelradius:8px;--cardradius:6px;--title:Arial,Helvetica,sans-serif;--shadow:0 30px 70px rgba(16,40,75,.24);--cardshadow:rgba(16,40,75,.08);--line:#d9cdb8;--quickbg:#10284b;--buttonink:#10233f;--badgeborder:#fff7e7;--badgeradius:6px;--mediabg:#e8e2d7}
+
+    /* 4 — Project Gallery */
+    body[data-home-layout="portfolio"]{--tbg:#0d0f11;--panel:#171a1d;--panel2:#202428;--ink:#f5f0e7;--muted:#bdb5aa;--accent:#c96f3b;--accent2:#e2a177;--header:#080a0c;--headink:#f6eee2;--headershadow:rgba(0,0,0,.48);--hero:linear-gradient(105deg,#080a0c 0%,#15191d 68%,#382016 100%);--heroink:#fff9ef;--heromuted:#c9beb0;--kickerink:#e2a177;--kicker:"THE WORK IS THE STORY";--pageart:radial-gradient(circle at 85% 12%,rgba(201,111,59,.14),transparent 30rem);--pattern:linear-gradient(135deg,transparent 0 48%,rgba(226,161,119,.12) 49% 51%,transparent 52%);--patternsize:54px 54px;--radius:2px;--panelradius:2px;--cardradius:2px;--title:Arial,Helvetica,sans-serif;--shadow:0 30px 80px rgba(0,0,0,.48);--cardshadow:rgba(0,0,0,.28);--line:#3a3e42;--quickbg:#0a0c0e;--buttonink:#100d0b;--badgeborder:#c96f3b;--badgeradius:50% 50% 3px 3px;--mediabg:#080a0c}
+
+    /* 6 — Fourth of July */
+    body[data-home-layout="americana"]{--tbg:#f4f6fa;--panel:#fff;--panel2:#f5f7fb;--ink:#14213a;--muted:#637089;--accent:#c51f32;--accent2:#153b70;--header:#0b2c55;--headink:#fff;--headershadow:rgba(11,44,85,.28);--hero:linear-gradient(130deg,#092b56 0%,#164a84 74%,#c51f32 74%,#a91325 100%);--heroink:#fff;--heromuted:#e5edf8;--kickerink:#fff;--kicker:"BUILT WITH AMERICAN PRIDE • SERVING NYC & NJ";--pageart:linear-gradient(90deg,rgba(197,31,50,.055) 0 33%,transparent 33% 66%,rgba(21,59,112,.055) 66%);--pattern:radial-gradient(circle,#fff 0 2px,transparent 2.5px);--patternsize:34px 34px;--radius:16px;--panelradius:16px;--cardradius:12px;--title:Georgia,"Times New Roman",serif;--shadow:0 30px 75px rgba(11,44,85,.25);--cardshadow:rgba(11,44,85,.08);--line:#d7deea;--quickbg:#fff;--buttonink:#fff;--badgeborder:#fff;--badgeradius:50%;--mediabg:#e8edf5}
+
+    /* 7 — Winter Midnight */
+    body[data-home-layout="winter"]{--tbg:#edf5f8;--panel:rgba(255,255,255,.9);--panel2:#f7fbfc;--ink:#102b3a;--muted:#5d7580;--accent:#63b9d2;--accent2:#123e59;--header:#102b3a;--headink:#effbff;--headershadow:rgba(16,43,58,.22);--hero:linear-gradient(145deg,#eefbff 0%,#cfe9f0 58%,#183f58 58%,#0d283a 100%);--heroink:#102b3a;--heromuted:#436171;--kickerink:#123e59;--kicker:"WINTER-READY CRAFTSMANSHIP • WARM, DRY, PROTECTED";--pageart:radial-gradient(circle at 12% 8%,rgba(99,185,210,.22),transparent 26rem);--pattern:radial-gradient(circle,rgba(255,255,255,.9) 0 2px,transparent 2.5px);--patternsize:30px 30px;--radius:46px;--panelradius:30px;--cardradius:22px;--title:"Trebuchet MS",Arial,sans-serif;--shadow:0 30px 80px rgba(25,75,96,.18);--cardshadow:rgba(25,75,96,.09);--line:#c8dfe6;--quickbg:rgba(255,255,255,.85);--buttonink:#0c2b3b;--badgeborder:#f3fdff;--badgeradius:50%;--mediabg:#dcebf0}
+
+    /* 8 — Spring Renewal */
+    body[data-home-layout="spring"]{--tbg:#f1f3e8;--panel:#fffdf2;--panel2:#f7f5e7;--ink:#23382a;--muted:#667264;--accent:#79a84b;--accent2:#315c3b;--header:#315c3b;--headink:#fffcec;--headershadow:rgba(49,92,59,.22);--hero:linear-gradient(135deg,#315c3b 0%,#487750 68%,#d8e3ad 68%,#edf0c9 100%);--heroink:#fffcec;--heromuted:#e3eddd;--kickerink:#dce7ad;--kicker:"A FRESH START FOR EVERY ROOM & EXTERIOR";--pageart:radial-gradient(ellipse at 90% 12%,rgba(121,168,75,.16),transparent 28rem);--pattern:radial-gradient(ellipse at center,rgba(255,255,255,.22) 0 25%,transparent 27%);--patternsize:64px 38px;--radius:70px 10px 70px 10px;--panelradius:34px 8px 34px 8px;--cardradius:26px 7px 26px 7px;--title:Georgia,"Times New Roman",serif;--shadow:0 30px 70px rgba(49,92,59,.2);--cardshadow:rgba(49,92,59,.08);--line:#d3dbc3;--quickbg:#fffdf2;--buttonink:#18321f;--badgeborder:#fffcec;--badgeradius:35% 65% 52% 48%;--mediabg:#e5ead7}
+
+    /* 9 — Summer Coast */
+    body[data-home-layout="summer"]{--tbg:#f5efe2;--panel:#fffaf0;--panel2:#eef7f6;--ink:#123a45;--muted:#61787c;--accent:#e56a3f;--accent2:#096b78;--header:#075866;--headink:#fffaf0;--headershadow:rgba(7,88,102,.23);--hero:linear-gradient(155deg,#08788a 0%,#36a1a9 62%,#e9cf9d 62%,#f5dfb3 100%);--heroink:#fff;--heromuted:#e2f6f5;--kickerink:#fff1cf;--kicker:"SUMMER PROJECTS • BRIGHT SPACES • LASTING VALUE";--pageart:linear-gradient(180deg,rgba(54,161,169,.09),transparent 30rem);--pattern:repeating-radial-gradient(ellipse at 50% 100%,transparent 0 14px,rgba(255,255,255,.2) 15px 17px,transparent 18px 30px);--patternsize:120px 62px;--radius:10px 70px 10px 70px;--panelradius:26px;--cardradius:18px;--title:Arial,Helvetica,sans-serif;--shadow:0 30px 72px rgba(7,88,102,.21);--cardshadow:rgba(7,88,102,.08);--line:#cddedb;--quickbg:#075866;--buttonink:#fff;--badgeborder:#fff4db;--badgeradius:50% 20% 50% 20%;--mediabg:#dfecea}
+
+    /* 10 — Autumn Hearth */
+    body[data-home-layout="autumn"]{--tbg:#efe4d3;--panel:#fff7e9;--panel2:#f5ead8;--ink:#3a291e;--muted:#786452;--accent:#d08a24;--accent2:#713a24;--header:#3b251c;--headink:#fff1d7;--headershadow:rgba(59,37,28,.28);--hero:linear-gradient(130deg,#4c2b1e 0%,#75402a 62%,#b85f2f 100%);--heroink:#fff3dd;--heromuted:#ead4bd;--kickerink:#f3be65;--kicker:"AUTUMN CRAFT • WARM HOMES • SOLID WORK";--pageart:radial-gradient(circle at 10% 12%,rgba(208,138,36,.18),transparent 25rem);--pattern:linear-gradient(30deg,rgba(255,255,255,.09) 12%,transparent 12.5% 87%,rgba(255,255,255,.09) 87.5%);--patternsize:58px 34px;--radius:20px;--panelradius:20px;--cardradius:12px;--title:Georgia,"Times New Roman",serif;--shadow:0 30px 72px rgba(59,37,28,.25);--cardshadow:rgba(59,37,28,.1);--line:#dac5aa;--quickbg:#3b251c;--buttonink:#332017;--badgeborder:#fff0d3;--badgeradius:10px;--mediabg:#e4d4bf}
+
+    /* 11 — Holiday Evergreen */
+    body[data-home-layout="holiday"]{--tbg:#f2eee2;--panel:#fffaf0;--panel2:#f6f0e4;--ink:#18352d;--muted:#627168;--accent:#c7a24a;--accent2:#1d5141;--header:#123b31;--headink:#fff8e8;--headershadow:rgba(18,59,49,.28);--hero:radial-gradient(circle at 75% 15%,#8b1324 0 16%,transparent 17%),linear-gradient(135deg,#123b31,#1d5a46 66%,#0e3028);--heroink:#fff8e8;--heromuted:#e1ece5;--kickerink:#e7c975;--kicker:"A HOME READY FOR GATHERING • SEASONAL PROJECTS";--pageart:radial-gradient(circle at 88% 8%,rgba(139,19,36,.09),transparent 22rem);--pattern:radial-gradient(circle,rgba(231,201,117,.55) 0 2px,transparent 2.5px);--patternsize:38px 38px;--radius:42px;--panelradius:26px;--cardradius:18px;--title:Georgia,"Times New Roman",serif;--shadow:0 32px 78px rgba(18,59,49,.27);--cardshadow:rgba(18,59,49,.09);--line:#d9cfb9;--quickbg:#123b31;--buttonink:#17352c;--badgeborder:#e7c975;--badgeradius:50%;--mediabg:#e5dfd2}
+
+    /* 12 — NYC Blueprint */
+    body[data-home-layout="blueprint"]{--tbg:#eaf2f8;--panel:#f8fcff;--panel2:#edf6fc;--ink:#10375d;--muted:#5f7690;--accent:#35c2db;--accent2:#0b4f82;--header:#07365f;--headink:#f1fbff;--headershadow:rgba(7,54,95,.28);--hero:#07558f;--heroink:#fff;--heromuted:#d7eef9;--kickerink:#8ce5f3;--kicker:"NYC + NJ • PLAN • PRICE • BUILD";--pageart:linear-gradient(rgba(7,85,143,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(7,85,143,.055) 1px,transparent 1px);--pattern:linear-gradient(rgba(255,255,255,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.13) 1px,transparent 1px);--patternsize:32px 32px;--radius:0;--panelradius:0;--cardradius:0;--title:"Courier New",monospace;--shadow:12px 12px 0 #0a3556;--cardshadow:rgba(7,54,95,.1);--line:#9bbbd1;--quickbg:#07365f;--buttonink:#07365f;--badgeborder:#8ce5f3;--badgeradius:0;--mediabg:#d9e7f1}
+
+    /* 13 — Architectural Monochrome */
+    body[data-home-layout="monochrome"]{--tbg:#ececec;--panel:#fff;--panel2:#f4f4f4;--ink:#111;--muted:#666;--accent:#111;--accent2:#111;--header:#050505;--headink:#fff;--headershadow:rgba(0,0,0,.35);--hero:linear-gradient(110deg,#050505 0%,#171717 70%,#dedede 70%,#fff 100%);--heroink:#fff;--heromuted:#d4d4d4;--kickerink:#fff;--kicker:"FORM • FUNCTION • FINISH";--pageart:linear-gradient(120deg,rgba(0,0,0,.035),transparent 38%);--pattern:linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);--patternsize:96px 100%;--radius:0;--panelradius:0;--cardradius:0;--title:Arial,Helvetica,sans-serif;--shadow:18px 18px 0 #bdbdbd;--cardshadow:rgba(0,0,0,.1);--line:#c6c6c6;--quickbg:#fff;--buttonink:#fff;--badgeborder:#fff;--badgeradius:0;--mediabg:#dedede}
+
+    /* 14 — Terracotta Studio */
+    body[data-home-layout="terracotta"]{--tbg:#eee2d1;--panel:#fff7e9;--panel2:#f4eadc;--ink:#403027;--muted:#796b60;--accent:#b85f43;--accent2:#59613a;--header:#51462f;--headink:#fff4e3;--headershadow:rgba(81,70,47,.25);--hero:linear-gradient(130deg,#a95037 0%,#c97758 66%,#676d45 66%,#4c5434 100%);--heroink:#fff8eb;--heromuted:#f1dfd2;--kickerink:#fff0c8;--kicker:"CRAFTED BY HAND • BUILT FOR REAL LIFE";--pageart:radial-gradient(circle at 90% 15%,rgba(184,95,67,.14),transparent 26rem);--pattern:linear-gradient(45deg,transparent 42%,rgba(255,255,255,.15) 43% 57%,transparent 58%);--patternsize:52px 52px;--radius:64px 8px 64px 8px;--panelradius:36px 8px 36px 8px;--cardradius:24px 6px 24px 6px;--title:Georgia,"Times New Roman",serif;--shadow:0 30px 70px rgba(81,70,47,.22);--cardshadow:rgba(81,70,47,.09);--line:#d7c4ac;--quickbg:#51462f;--buttonink:#fff8eb;--badgeborder:#fff0d2;--badgeradius:50% 20% 50% 20%;--mediabg:#e4d5c3}
+
+    /* 15 — Royal Estate */
+    body[data-home-layout="royal"]{--tbg:#f3f0e9;--panel:#fffdf7;--panel2:#f6f2e8;--ink:#182a4a;--muted:#687389;--accent:#d1b36b;--accent2:#183d7a;--header:#142f60;--headink:#fffaf0;--headershadow:rgba(20,47,96,.27);--hero:radial-gradient(circle at 78% 18%,#315fa6 0 12%,transparent 13%),linear-gradient(135deg,#163b79,#224f92 68%,#102d62);--heroink:#fffaf0;--heromuted:#dfe7f4;--kickerink:#ead18f;--kicker:"DISTINCTIVE HOMES • DISCIPLINED CRAFTSMANSHIP";--pageart:radial-gradient(circle at 88% 8%,rgba(49,95,166,.12),transparent 28rem);--pattern:radial-gradient(circle at center,transparent 0 48%,rgba(209,179,107,.28) 49% 51%,transparent 52%);--patternsize:56px 56px;--radius:34px;--panelradius:24px;--cardradius:16px;--title:Georgia,"Times New Roman",serif;--shadow:0 32px 80px rgba(20,47,96,.28);--cardshadow:rgba(20,47,96,.09);--line:#d7cfbc;--quickbg:#142f60;--buttonink:#142f60;--badgeborder:#ead18f;--badgeradius:50%;--mediabg:#e6e4df}
+
+    body[data-home-layout="americana"] #homeHero,
+    body[data-home-layout="holiday"] #homeHero{grid-template-columns:1fr!important;text-align:center!important}
+    body[data-home-layout="americana"] #homeHero .hero-content,
+    body[data-home-layout="holiday"] #homeHero .hero-content{margin:auto;max-width:980px;text-align:center!important}
+    body[data-home-layout="americana"] #homeHero .hero-actions,
+    body[data-home-layout="americana"] #homeHero .trust-pills,
+    body[data-home-layout="holiday"] #homeHero .hero-actions,
+    body[data-home-layout="holiday"] #homeHero .trust-pills{justify-content:center!important}
+    body[data-home-layout="americana"] #homeHero .hero-badge,
+    body[data-home-layout="holiday"] #homeHero .hero-badge{order:-1}
+    body[data-home-layout="americana"] #homeHero::before,
+    body[data-home-layout="holiday"] #homeHero::before{text-align:center}
+    body[data-home-layout="winter"] #homeHero .hero-content h1,
+    body[data-home-layout="winter"] #homeHero .hero-content p{color:#102b3a!important;-webkit-text-fill-color:#102b3a!important}
+    body[data-home-layout="winter"] #homeHero .trust-pills li{color:#102b3a!important;border-color:rgba(18,62,89,.25)!important;background:rgba(255,255,255,.55)!important}
+    body[data-home-layout="winter"] #homeHero .btn.ghost{color:#123e59!important;border-color:#123e59!important}
+    body[data-home-layout="portfolio"] .hb-portfolio-stage{grid-template-columns:1fr!important}
+    body[data-home-layout="blueprint"] .section h2,
+    body[data-home-layout="monochrome"] .section h2{text-transform:uppercase;letter-spacing:-.06em!important}
+
+    @media(max-width:900px){
+      body[data-home-theme="expanded"] .topbar .main-nav{background:var(--header)!important;border-bottom-color:var(--accent)!important}
+      body[data-home-theme="expanded"] .topbar .nav-toggle{color:var(--accent)!important}
+      body[data-home-theme="expanded"] .hb-home-layout-shell{width:100%!important;max-width:100%!important;padding:8px 10px 56px!important;overflow:hidden}
+      body[data-home-theme="expanded"] #homeHero{display:flex!important;flex-direction:column!important;align-items:stretch!important;min-height:0!important;margin:8px 0 30px!important;padding:70px 20px 30px!important;border-radius:var(--radius)!important;background:var(--hero)!important;box-shadow:0 18px 48px var(--headershadow)!important;text-align:left!important}
+      body[data-home-theme="expanded"] #homeHero::before{top:22px!important;left:20px!important;right:20px!important;text-align:left!important;line-height:1.4}
+      body[data-home-theme="expanded"] #homeHero::after{inset:0!important;width:auto!important;height:auto!important}
+      body[data-home-theme="expanded"] #homeHero .hero-content{order:1!important;max-width:100%;text-align:left!important}
+      body[data-home-theme="expanded"] #homeHero .hero-content h1{font-size:clamp(2.35rem,12vw,3.75rem)!important;overflow-wrap:anywhere}
+      body[data-home-theme="expanded"] #homeHero .hero-actions,
+      body[data-home-theme="expanded"] #homeHero .trust-pills{justify-content:flex-start!important}
+      body[data-home-theme="expanded"] #homeHero .hero-badge{position:relative!important;inset:auto!important;order:2!important;align-self:center!important;margin-top:24px!important}
+      body[data-home-theme="expanded"] #homeHero .hero-badge img{width:118px!important;height:118px!important;border-width:5px!important}
+      body[data-home-theme="expanded"] .hb-home-quick-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin:0 0 42px!important;padding:9px!important}
+      body[data-home-theme="expanded"] .hb-home-quick-actions a{min-width:0;min-height:88px;display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;padding:12px!important}
+      body[data-home-theme="expanded"] .hb-home-quick-actions a:first-child{grid-column:1/-1;min-height:70px;display:grid!important;grid-template-columns:38px 1fr;grid-template-rows:auto auto}
+      body[data-home-theme="expanded"] .hb-home-quick-actions a span{grid-row:auto;text-align:left;font-size:21px}
+      body[data-home-theme="expanded"] .hb-home-quick-actions a:first-child span{grid-row:1/3}
+      body[data-home-theme="expanded"] .hb-home-band{grid-template-columns:1fr!important;gap:18px!important}
+      body[data-home-theme="expanded"] #premiumMaterialsSection,
+      body[data-home-theme="expanded"] #before-after,
+      body[data-home-theme="expanded"] #cmsProjectsSection,
+      body[data-home-theme="expanded"] #membershipServicesSection,
+      body[data-home-theme="expanded"] #guaranteeSection,
+      body[data-home-theme="expanded"] #tiersSection,
+      body[data-home-theme="expanded"] #processSection,
+      body[data-home-theme="expanded"] #specialsSection,
+      body[data-home-theme="expanded"] #cmsServiceAreasSection,
+      body[data-home-theme="expanded"] #serviceAreaSection,
+      body[data-home-theme="expanded"] #reviewsSection,
+      body[data-home-theme="expanded"] .faq-section{padding:22px 15px!important}
+      body[data-home-theme="expanded"] .section h2{font-size:clamp(1.9rem,9vw,2.7rem)!important;overflow-wrap:anywhere}
+      body[data-home-theme="expanded"] .cms-stage-panels img,
+      body[data-home-theme="expanded"] .cms-stage-grid img{height:235px!important;object-fit:contain!important}
+      body[data-home-layout="americana"] #homeHero .hero-content,
+      body[data-home-layout="holiday"] #homeHero .hero-content{text-align:center!important}
+      body[data-home-layout="americana"] #homeHero .hero-actions,
+      body[data-home-layout="americana"] #homeHero .trust-pills,
+      body[data-home-layout="holiday"] #homeHero .hero-actions,
+      body[data-home-layout="holiday"] #homeHero .trust-pills{justify-content:center!important}
+      body[data-home-layout="americana"] #homeHero::before,
+      body[data-home-layout="holiday"] #homeHero::before{text-align:center!important}
+      body[data-home-layout="blueprint"] #homeHero{box-shadow:7px 7px 0 #0a3556!important}
+      body[data-home-layout="monochrome"] #homeHero{box-shadow:8px 8px 0 #bdbdbd!important}
+    }
   `;
   document.head.appendChild(style);
 }
@@ -1304,12 +1500,21 @@ function hammerApplyHomepageLayout(homepage) {
   const main = document.getElementById("main");
   if (!main) return;
 
-  const allowedLayouts = new Set(["classic", "luxury", "leads", "portfolio", "local"]);
+  const allowedLayouts = new Set([
+    "classic", "luxury", "leads", "portfolio", "local", "americana", "winter", "spring",
+    "summer", "autumn", "holiday", "blueprint", "monochrome", "terracotta", "royal"
+  ]);
+  const expandedLayouts = new Set([
+    "leads", "portfolio", "americana", "winter", "spring", "summer", "autumn", "holiday",
+    "blueprint", "monochrome", "terracotta", "royal"
+  ]);
   const requestedLayout = String((homepage && homepage.homepageLayout) || "classic").trim().toLowerCase();
   const layout = allowedLayouts.has(requestedLayout) ? requestedLayout : "classic";
   hammerEnsureHomepageLayoutStyles();
   document.body.dataset.homeLayout = layout;
   main.dataset.homeLayout = layout;
+  if (expandedLayouts.has(layout)) document.body.dataset.homeTheme = "expanded";
+  else delete document.body.dataset.homeTheme;
 
   if (layout === "classic" || document.getElementById("cmsHomepageLayoutShell")) return;
 
@@ -1357,6 +1562,66 @@ function hammerApplyHomepageLayout(homepage) {
       "reviewsSection", "serviceAreaSection", "cmsProjectsSection",
       "before-after", "premiumMaterialsSection", "membershipServicesSection",
       "specialsSection", "tiersSection", "faqSection"
+    ],
+    americana: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "reviewsSection",
+      { className: "hb-americana-proof", ids: ["before-after", "cmsProjectsSection"] },
+      "premiumMaterialsSection", "guaranteeSection", "membershipServicesSection", "processSection",
+      "specialsSection", "tiersSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
+    ],
+    winter: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions",
+      { className: "hb-winter-assurance", ids: ["guaranteeSection", "specialsSection"] },
+      "reviewsSection", "premiumMaterialsSection", "processSection", "cmsProjectsSection", "before-after",
+      "membershipServicesSection", "tiersSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
+    ],
+    spring: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "cmsServiceAreasSection", "serviceAreaSection",
+      { className: "hb-spring-renewal", ids: ["cmsProjectsSection", "before-after"] },
+      "reviewsSection", "premiumMaterialsSection", "processSection", "membershipServicesSection",
+      "guaranteeSection", "specialsSection", "tiersSection", "faqSection"
+    ],
+    summer: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions",
+      { className: "hb-summer-projects", ids: ["before-after", "cmsProjectsSection"] },
+      "reviewsSection", "specialsSection", "premiumMaterialsSection", "membershipServicesSection",
+      "processSection", "guaranteeSection", "tiersSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
+    ],
+    autumn: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "reviewsSection",
+      { className: "hb-autumn-story", ids: ["cmsProjectsSection", "processSection"] },
+      "before-after", "premiumMaterialsSection", "membershipServicesSection", "guaranteeSection",
+      "specialsSection", "tiersSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
+    ],
+    holiday: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "specialsSection", "reviewsSection",
+      { className: "hb-holiday-proof", ids: ["before-after", "cmsProjectsSection"] },
+      "guaranteeSection", "premiumMaterialsSection", "membershipServicesSection", "processSection",
+      "tiersSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
+    ],
+    blueprint: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions",
+      { className: "hb-blueprint-plan", ids: ["processSection", "cmsProjectsSection"] },
+      "before-after", "premiumMaterialsSection", "tiersSection", "guaranteeSection", "reviewsSection",
+      "membershipServicesSection", "specialsSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
+    ],
+    monochrome: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "reviewsSection",
+      { className: "hb-monochrome-gallery", ids: ["cmsProjectsSection", "before-after"] },
+      "tiersSection", "premiumMaterialsSection", "processSection", "guaranteeSection",
+      "membershipServicesSection", "specialsSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
+    ],
+    terracotta: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "cmsServiceAreasSection",
+      { className: "hb-terracotta-local", ids: ["serviceAreaSection", "reviewsSection"] },
+      "cmsProjectsSection", "before-after", "premiumMaterialsSection", "processSection",
+      "membershipServicesSection", "guaranteeSection", "specialsSection", "tiersSection", "faqSection"
+    ],
+    royal: [
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "reviewsSection",
+      { className: "hb-royal-assurance", ids: ["tiersSection", "guaranteeSection"] },
+      "premiumMaterialsSection", "before-after", "cmsProjectsSection", "processSection",
+      "membershipServicesSection", "specialsSection", "cmsServiceAreasSection", "serviceAreaSection", "faqSection"
     ]
   };
 
