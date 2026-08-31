@@ -56,6 +56,19 @@
        containing block after one viewport. Let the body grow with the page. */
     height: auto !important;
     min-height: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip !important;
+    overscroll-behavior-x: none;
+  }
+
+  @supports not (overflow: clip) {
+    html { overflow-x: hidden !important; }
   }
 
   .topbar-inner {
@@ -129,6 +142,45 @@
   }
 
   @media (max-width: 1180px) {
+    #header-include,
+    .topbar,
+    .topbar-inner,
+    #main,
+    .content-wrapper,
+    .hb-home-layout-shell {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    #main,
+    .hb-home-layout-shell,
+    .hb-home-band,
+    .section,
+    .hero-content,
+    .hero-actions,
+    .trust-pills,
+    .materials-list,
+    .split,
+    .ba-grid,
+    .cms-project-grid {
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+
+    img,
+    video,
+    iframe,
+    svg { max-width: 100%; }
+
+    .hero-content h1,
+    .hero-content p,
+    .trust-pills li,
+    .brand-name,
+    .brand-sub {
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
     .topbar-inner {
       min-height: 72px;
       padding: 8px 14px;
@@ -137,6 +189,12 @@
     .brand-lockup {
       min-width: 0;
       max-width: calc(100% - 64px);
+    }
+
+    .brand-text {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .nav-toggle {
