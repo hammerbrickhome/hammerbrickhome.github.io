@@ -44,7 +44,8 @@ required_data = [
     "site-data/faqs.json", "site-data/reviews.json", "site-data/specials.json",
     "site-data/projects.json", "site-data/downloads.json",
     "admin-data/estimator.json", "admin-tools/master-audit.json",
-    "admin-tools/unused-images-report.json",
+    "admin-tools/unused-images-report.json", "admin-tools/command-center.json",
+    "admin-tools/seo-report.json",
 ]
 missing_data = [path for path in required_data if not (ROOT / path).exists()]
 add(
@@ -182,13 +183,30 @@ def check_managed_asset(value: object, used_in: str) -> None:
         managed_asset_missing.append(f"{used_in}: /{expected.relative_to(ROOT).as_posix()}")
 
 
+pages_data = read_json(ROOT / "site-data" / "pages.json")
+if isinstance(pages_data, dict):
+    for index, page in enumerate(pages_data.get("pages", []), start=1):
+        if not isinstance(page, dict) or page.get("active") is False:
+            continue
+        check_managed_asset(page.get("heroImage"), f"Page control item {index} hero photo")
+        for block_index, block in enumerate(page.get("contentBlocks", []), start=1):
+            if not isinstance(block, dict) or block.get("active") is False:
+                continue
+            check_managed_asset(block.get("image"), f"Page control item {index} block {block_index} main photo")
+            for photo_index, photo in enumerate(block.get("images", []), start=1):
+                check_managed_asset(photo, f"Page control item {index} block {block_index} grid photo {photo_index}")
+
+
 projects = read_json(ROOT / "site-data" / "projects.json")
 if isinstance(projects, dict):
     for index, project in enumerate(projects.get("projects", []), start=1):
         if not isinstance(project, dict) or project.get("active") is False:
             continue
+        check_managed_asset(project.get("coverImage"), f"Live project {index} cover photo")
         check_managed_asset(project.get("beforeImage"), f"Live project {index} before photo")
         check_managed_asset(project.get("afterImage"), f"Live project {index} after photo")
+        for photo_index, photo in enumerate(project.get("midProcessImages", []), start=1):
+            check_managed_asset(photo, f"Live project {index} in-progress photo {photo_index}")
         for photo_index, photo in enumerate(project.get("additionalImages", []), start=1):
             check_managed_asset(photo, f"Live project {index} additional photo {photo_index}")
 
@@ -209,6 +227,10 @@ for area_path in sorted((ROOT / "content" / "areas").glob("*.json")):
         for index, photo in enumerate(area.get("galleryImages", []), start=1):
             if isinstance(photo, dict) and photo.get("active") is not False:
                 check_managed_asset(photo.get("image"), f"{area_path.name} gallery photo {index}")
+                check_managed_asset(photo.get("beforeImage"), f"{area_path.name} gallery item {index} before photo")
+                check_managed_asset(photo.get("afterImage"), f"{area_path.name} gallery item {index} after photo")
+                for photo_index, value in enumerate(photo.get("midProcessImages", []), start=1):
+                    check_managed_asset(value, f"{area_path.name} gallery item {index} in-progress photo {photo_index}")
 
 add(
     "CMS-managed photos and downloads",

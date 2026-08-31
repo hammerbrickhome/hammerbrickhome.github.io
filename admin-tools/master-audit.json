@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-28T20:18:17.519697+00:00",
+  "generatedAt": "2026-08-30T11:43:05.901586+00:00",
   "status": "ACTION NEEDED",
-  "summary": "10 checks: 1 failed, 2 warning(s).",
+  "summary": "11 checks: 1 failed, 2 warning(s).",
   "checks": [
     {
       "name": "Working site core",
@@ -60,8 +60,15 @@
         "galleryGrid item 5: /images/full-gut-deck-remodel-after.jpeg",
         "galleryGrid item 6: /images/full-front-remodel-after.jpeg",
         "galleryGrid item 11: /images/after2.jpg",
+        "galleryGrid item 14: /images/a5b6a4e1493c958e4f8ca2c81a75b18e.webp",
         "galleryGrid item 15: no photo selected"
       ]
+    },
+    {
+      "name": "CMS-managed photos and downloads",
+      "status": "PASS",
+      "details": "Every active project photo, area photo, and download exists.",
+      "items": []
     },
     {
       "name": "Duplicate script loading",

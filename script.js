@@ -384,6 +384,73 @@ function hammerEscape(value) {
     .replace(/'/g, "&#039;");
 }
 
+function hammerContentIsLive(item, startField = "publishStart", endField = "publishEnd") {
+  if (!item || item.active === false) return false;
+  const status = String(item.publishStatus || "live").toLowerCase();
+  if (status === "draft" || status === "archived") return false;
+
+  const now = new Date();
+  const startValue = item[startField];
+  const endValue = item[endField];
+  if (status === "scheduled" && !startValue) return false;
+  const start = startValue ? new Date(`${startValue}T00:00:00`) : null;
+  const end = endValue ? new Date(`${endValue}T23:59:59`) : null;
+  if (start && !Number.isNaN(start.getTime()) && now < start) return false;
+  if (end && !Number.isNaN(end.getTime()) && now > end) return false;
+  return true;
+}
+
+function hammerProjectStages(item, fallbackAlt) {
+  if (item.photoType === "single") return [];
+  const stages = [];
+  const beforeLabel = item.beforeLabel || "Before";
+  const progressLabel = item.progressLabel || "In Progress";
+  const afterLabel = item.afterLabel || "After";
+  if (item.beforeImage) stages.push({ image: item.beforeImage, label: beforeLabel, alt: `${fallbackAlt} — ${beforeLabel}` });
+  const progressImages = item.photoType === "before-after" ? [] : (Array.isArray(item.midProcessImages) ? item.midProcessImages : []);
+  progressImages.filter(Boolean).forEach((image, index, all) => {
+    const label = all.length > 1 ? `${progressLabel} ${index + 1}` : progressLabel;
+    stages.push({ image, label, alt: `${fallbackAlt} — ${label}` });
+  });
+  if (item.afterImage) stages.push({ image: item.afterImage, label: afterLabel, alt: `${fallbackAlt} — ${afterLabel}` });
+  return stages;
+}
+
+let hammerStageViewerId = 0;
+
+function hammerRenderStageViewer(item, fallbackAlt) {
+  const stages = hammerProjectStages(item, fallbackAlt);
+  if (!stages.length) return "";
+  if (item.stageDisplay === "grid" || stages.length === 1) {
+    return `<div class="cms-stage-grid">${stages.map(stage => `
+      <figure><img src="${hammerEscape(stage.image)}" alt="${hammerEscape(stage.alt)}" loading="lazy"><span>${hammerEscape(stage.label)}</span></figure>`).join("")}</div>`;
+  }
+
+  const viewerId = `cmsStageViewer${++hammerStageViewerId}`;
+  return `<div class="cms-stage-viewer" data-cms-stage-viewer>
+    <div class="cms-stage-buttons" role="tablist" aria-label="Project photo stages">
+      ${stages.map((stage, index) => `<button type="button" role="tab" aria-selected="${index === 0 ? "true" : "false"}" aria-controls="${viewerId}Panel${index}" data-cms-stage-button="${index}">${hammerEscape(stage.label)}</button>`).join("")}
+    </div>
+    <div class="cms-stage-panels">
+      ${stages.map((stage, index) => `<figure id="${viewerId}Panel${index}" role="tabpanel" data-cms-stage-panel="${index}"${index === 0 ? "" : " hidden"}><img src="${hammerEscape(stage.image)}" alt="${hammerEscape(stage.alt)}" loading="lazy"><figcaption>${hammerEscape(stage.label)}</figcaption></figure>`).join("")}
+    </div>
+  </div>`;
+}
+
+function hammerBindStageViewers(scope = document) {
+  scope.querySelectorAll("[data-cms-stage-viewer]").forEach(viewer => {
+    if (viewer.dataset.cmsStageReady === "true") return;
+    viewer.dataset.cmsStageReady = "true";
+    const buttons = Array.from(viewer.querySelectorAll("[data-cms-stage-button]"));
+    const panels = Array.from(viewer.querySelectorAll("[data-cms-stage-panel]"));
+    buttons.forEach(button => button.addEventListener("click", () => {
+      const selected = button.dataset.cmsStageButton;
+      buttons.forEach(item => item.setAttribute("aria-selected", item === button ? "true" : "false"));
+      panels.forEach(panel => { panel.hidden = panel.dataset.cmsStagePanel !== selected; });
+    }));
+  });
+}
+
 function hammerSafeMarkdown(value) {
   const inline = text => hammerEscape(text)
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
@@ -467,6 +534,13 @@ function hammerEnsureAdminStyles() {
     .cms-page-hero-image img,.cms-area-hero-image img{display:block;width:100%;max-height:520px;object-fit:cover;border-radius:18px}
     .cms-page-hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
     .cms-page-final-cta{text-align:center}
+    .cms-page-blocks{display:grid;gap:22px}
+    .cms-page-block{padding:28px;border-radius:16px}
+    .cms-page-block[data-style="accent"]{border:1px solid rgba(231,191,99,.35);background:rgba(231,191,99,.07)}
+    .cms-page-block[data-style="dark"]{background:#07111f;color:#fff}
+    .cms-page-block-image{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:center}
+    .cms-page-block-image img,.cms-page-block-gallery img{display:block;width:100%;height:300px;object-fit:cover;border-radius:12px}
+    .cms-page-block-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
     .cms-area-card-image{width:100%;height:150px;object-fit:cover;border-radius:12px;margin-bottom:14px}
     .cms-area-gallery-grid[data-layout="large"]{grid-template-columns:1fr!important}
     .cms-area-gallery-grid[data-layout="large"] img{max-height:680px;object-fit:cover}
@@ -474,6 +548,16 @@ function hammerEnsureAdminStyles() {
     .cms-area-before-after figure{margin:0;position:relative}
     .cms-area-before-after img{width:100%;height:280px;object-fit:cover;border-radius:12px}
     .cms-area-before-after span{position:absolute;left:10px;bottom:10px;background:rgba(4,10,18,.82);color:#fff;padding:5px 8px;border-radius:6px;font-size:.78rem;font-weight:800}
+    .cms-stage-viewer{border:1px solid rgba(231,191,99,.24);border-radius:14px;overflow:hidden;background:rgba(5,12,22,.55)}
+    .cms-stage-buttons{display:flex;gap:7px;flex-wrap:wrap;padding:10px;background:rgba(5,12,22,.92)}
+    .cms-stage-buttons button{appearance:none;border:1px solid rgba(231,191,99,.45);background:transparent;color:#fff;border-radius:999px;padding:8px 13px;font:inherit;font-size:.82rem;font-weight:800;cursor:pointer}
+    .cms-stage-buttons button[aria-selected="true"]{background:var(--gold,#c99a2e);border-color:var(--gold,#c99a2e);color:#07111f}
+    .cms-stage-panels figure,.cms-stage-grid figure{margin:0;position:relative}
+    .cms-stage-panels img,.cms-stage-grid img{display:block;width:100%;height:310px;object-fit:cover}
+    .cms-stage-panels figcaption,.cms-stage-grid span{position:absolute;left:10px;bottom:10px;background:rgba(4,10,18,.86);color:#fff;padding:6px 9px;border-radius:6px;font-size:.78rem;font-weight:800}
+    .cms-stage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+    .cms-area-faqs .faq-item{max-width:900px;margin:0 auto 10px}
+    .cms-project-date{font-size:.82rem;color:var(--muted,#a9b4c3);margin-top:4px}
     .cms-project-review{margin-top:14px;padding:12px 14px;border-left:3px solid var(--gold,#c99a2e);font-style:italic}
     .cms-project-cta{display:inline-block;margin-top:14px}
     @media(max-width:900px){
@@ -481,6 +565,9 @@ function hammerEnsureAdminStyles() {
       [data-cms-mobile-visible="true"]{display:block!important}
       .cms-area-before-after{grid-template-columns:1fr}
       .cms-area-before-after img{height:auto}
+      .cms-stage-panels img,.cms-stage-grid img{height:auto;min-height:220px}
+      .cms-page-block-image{grid-template-columns:1fr}
+      .cms-page-block-image img,.cms-page-block-gallery img{height:auto;min-height:220px}
     }
   `;
   document.head.appendChild(style);
@@ -490,6 +577,19 @@ function hammerApplySeo(item) {
   if (!item) return;
   if (item.seoTitle) document.title = item.seoTitle;
   hammerSetMeta("description", item.seoDescription);
+  hammerSetPropertyMeta("og:title", item.socialTitle || item.seoTitle);
+  hammerSetPropertyMeta("og:description", item.socialDescription || item.seoDescription);
+  hammerSetMeta("twitter:title", item.socialTitle || item.seoTitle);
+  hammerSetMeta("twitter:description", item.socialDescription || item.seoDescription);
+  if (item.canonicalUrl) {
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = new URL(item.canonicalUrl, window.location.origin).href;
+  }
   if (item.socialImage) {
     const imageUrl = new URL(item.socialImage, window.location.origin).href;
     hammerSetPropertyMeta("og:image", imageUrl);
@@ -498,6 +598,27 @@ function hammerApplySeo(item) {
   }
   if (item.active === false || item.published === false || item.allowIndexing === false) {
     hammerSetMeta("robots", "noindex, nofollow");
+  }
+
+  const schemaType = item.structuredDataType;
+  let schema = document.getElementById("cmsPageStructuredData");
+  if (schemaType === "none") {
+    if (schema) schema.remove();
+  } else if (schemaType === "service" || schemaType === "area") {
+    if (!schema) {
+      schema = document.createElement("script");
+      schema.id = "cmsPageStructuredData";
+      schema.type = "application/ld+json";
+      document.head.appendChild(schema);
+    }
+    schema.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: item.heroTitle || item.menuLabel || item.title || item.name,
+      description: item.seoDescription || item.heroText || item.intro || "",
+      url: window.location.href,
+      areaServed: schemaType === "area" ? (item.title || item.name || item.menuLabel || "") : undefined
+    });
   }
 }
 
@@ -592,6 +713,46 @@ function hammerApplyCustomSection(item) {
     ${item.buttonText ? `<div class="cta-actions"><a class="btn" href="${hammerEscape(item.buttonUrl || "/contact.html")}">${hammerEscape(item.buttonText)}</a></div>` : ""}`;
 }
 
+function hammerApplyPageBlocks(item) {
+  const main = document.querySelector("main");
+  if (!main || !item) return;
+  let container = document.getElementById("cmsPageBlocks");
+  const blocks = Array.isArray(item.contentBlocks)
+    ? hammerSortByDisplayOrder(item.contentBlocks.filter(block => block && block.active !== false))
+    : [];
+  if (!blocks.length) {
+    if (container) container.style.display = "none";
+    return;
+  }
+  if (!container) {
+    container = document.createElement("section");
+    container.id = "cmsPageBlocks";
+    container.className = "section cms-page-blocks fade-up";
+  }
+  const finalCta = document.getElementById("cmsPageFinalCta");
+  main.insertBefore(container, finalCta || null);
+  container.style.display = "";
+  container.innerHTML = blocks.map(block => {
+    const heading = block.heading ? `<h2>${hammerEscape(block.heading)}</h2>` : "";
+    const text = block.text ? `<div>${hammerSafeMarkdown(block.text)}</div>` : "";
+    const button = block.buttonText ? `<div class="cta-actions"><a class="btn${block.blockType === "cta" ? "" : " ghost"}" href="${hammerEscape(block.buttonUrl || "/contact.html")}">${hammerEscape(block.buttonText)}</a></div>` : "";
+    const style = ["accent", "dark"].includes(block.backgroundStyle) ? block.backgroundStyle : "standard";
+    if (block.blockType === "image" && block.image) {
+      return `<article class="cms-page-block cms-page-block-image" data-style="${style}">
+        <img src="${hammerEscape(block.image)}" alt="${hammerEscape(block.imageAlt || block.heading || "Project photo")}" loading="lazy">
+        <div>${heading}${text}${button}</div>
+      </article>`;
+    }
+    if (block.blockType === "photo-grid") {
+      const images = Array.isArray(block.images) ? block.images.filter(Boolean) : [];
+      return `<article class="cms-page-block" data-style="${style}">${heading}${text}
+        ${images.length ? `<div class="cms-page-block-gallery">${images.map((image, index) => `<img src="${hammerEscape(image)}" alt="${hammerEscape(`${block.imageAlt || block.heading || "Project photo"}${images.length > 1 ? ` ${index + 1}` : ""}`)}" loading="lazy">`).join("")}</div>` : ""}
+        ${button}</article>`;
+    }
+    return `<article class="cms-page-block${block.blockType === "cta" ? " cms-page-final-cta" : ""}" data-style="${style}">${heading}${text}${button}</article>`;
+  }).join("");
+}
+
 function hammerLinkPath(anchor) {
   try {
     return new URL(anchor.href, window.location.origin).pathname.replace(/\/+$/, "") || "/";
@@ -615,6 +776,7 @@ function hammerApplyPageControls(data) {
     hammerApplySeo(current);
     hammerApplyHero(current);
     hammerApplyCustomSection(current);
+    hammerApplyPageBlocks(current);
     hammerApplyFinalCta(current);
     if (current.active === false) {
       hammerSetMeta("robots", "noindex, nofollow");
@@ -846,7 +1008,7 @@ function hammerItemMatchesArea(item, areaSlug) {
   return Array.isArray(item.areaSlugs) && item.areaSlugs.includes(areaSlug);
 }
 
-function hammerRenderAreaExtras(area, reviewsData, specialsData) {
+function hammerRenderAreaExtras(area, reviewsData, specialsData, faqsData) {
   if (!area || area.slug !== hammerSlug()) return;
   const main = document.querySelector("main");
   if (!main) return;
@@ -885,7 +1047,9 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
   let galleryGrid = main.querySelector(".gallery-grid, .cms-area-gallery-grid");
   let gallerySection = galleryGrid && galleryGrid.closest("section");
   const validGalleryImages = Array.isArray(area.galleryImages)
-    ? area.galleryImages.filter(item => item && item.active !== false && (item.image || (item.beforeImage && item.afterImage)))
+    ? area.galleryImages.filter(item => item && item.active !== false && (
+      item.image || item.beforeImage || item.afterImage || (Array.isArray(item.midProcessImages) && item.midProcessImages.some(Boolean))
+    ))
     : [];
   const maximum = Number(area.maxGalleryPhotos);
   const galleryImages = hammerSortByDisplayOrder(validGalleryImages).slice(0, maximum > 0 ? maximum : validGalleryImages.length);
@@ -913,6 +1077,13 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
     galleryGrid.innerHTML = galleryImages.map(item => {
       const alt = item.alt || item.caption || area.name || "Completed project";
       const isPair = item.photoType === "before-after" || (!item.image && item.beforeImage && item.afterImage);
+      const isProgress = item.photoType === "progress" || (Array.isArray(item.midProcessImages) && item.midProcessImages.some(Boolean));
+      if (isProgress || (isPair && item.stageDisplay === "buttons")) {
+        return `<article class="cms-area-gallery-card">
+          ${hammerRenderStageViewer(item, alt)}
+          ${item.caption ? `<p>${hammerEscape(item.caption)}</p>` : ""}
+        </article>`;
+      }
       if (isPair && item.beforeImage && item.afterImage) {
         return `<article class="cms-area-gallery-card">
           <div class="cms-area-before-after">
@@ -926,6 +1097,7 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
         ${item.caption ? `<figcaption>${hammerEscape(item.caption)}</figcaption>` : ""}
       </figure>`;
     }).join("");
+    hammerBindStageViewers(galleryGrid);
   } else if (gallerySection && (gallerySection.dataset.cmsAreaGallery === "true" || area.showAreaGallery === false)) {
     gallerySection.style.display = "none";
   }
@@ -935,7 +1107,7 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
 
   let reviewSection = document.getElementById("cmsAreaReviewsSection");
   const localReviews = reviewsData && Array.isArray(reviewsData.reviews)
-    ? hammerSortByDisplayOrder(reviewsData.reviews.filter(item => item && item.active !== false && item.showOnAreaPages === true && hammerItemMatchesArea(item, area.slug)))
+    ? hammerSortByDisplayOrder(reviewsData.reviews.filter(item => hammerContentIsLive(item) && item.showOnAreaPages === true && hammerItemMatchesArea(item, area.slug)))
     : [];
   if (area.showLocalReviews && localReviews.length) {
     if (!reviewSection) {
@@ -976,10 +1148,78 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData) {
   } else if (specialsSection) {
     specialsSection.style.display = "none";
   }
+
+  let faqsSection = document.getElementById("cmsAreaFaqsSection");
+  const localFaqs = faqsData && Array.isArray(faqsData.items)
+    ? hammerSortByDisplayOrder(faqsData.items.filter(item => hammerContentIsLive(item) && item.showOnAreaPages === true && hammerItemMatchesArea(item, area.slug)))
+    : [];
+  if (area.showAreaFaqs && localFaqs.length) {
+    if (!faqsSection) {
+      faqsSection = document.createElement("section");
+      faqsSection.id = "cmsAreaFaqsSection";
+      faqsSection.className = "section fade-up cms-area-faqs";
+      main.insertBefore(faqsSection, insertBefore);
+    }
+    faqsSection.style.display = "";
+    faqsSection.innerHTML = `
+      <div class="cms-section-heading"><h2>${hammerEscape(area.faqsHeading || `${area.name || "Local"} Common Questions`)}</h2></div>
+      <div class="faq-container">${localFaqs.map(item => `
+        <div class="faq-item">
+          <button class="faq-question" type="button">${hammerEscape(item.question)}<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>${hammerEscape(item.answer)}</p></div>
+        </div>`).join("")}</div>`;
+    faqsSection.querySelectorAll(".faq-question").forEach(button => button.addEventListener("click", () => {
+      button.classList.toggle("active");
+      const answer = button.nextElementSibling;
+      if (answer) answer.style.maxHeight = button.classList.contains("active") ? `${answer.scrollHeight}px` : null;
+    }));
+    let faqSchema = document.getElementById("cmsAreaFaqStructuredData");
+    if (!faqSchema) {
+      faqSchema = document.createElement("script");
+      faqSchema.id = "cmsAreaFaqStructuredData";
+      faqSchema.type = "application/ld+json";
+      document.head.appendChild(faqSchema);
+    }
+    faqSchema.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: localFaqs.map(item => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer }
+      }))
+    });
+  } else if (faqsSection) {
+    faqsSection.style.display = "none";
+    const faqSchema = document.getElementById("cmsAreaFaqStructuredData");
+    if (faqSchema) faqSchema.remove();
+  }
+}
+
+function hammerApplyAreaSectionOrder(area) {
+  if (!area || !Array.isArray(area.sectionOrder) || !area.sectionOrder.length) return;
+  const main = document.querySelector("main");
+  if (!main) return;
+  const gallery = main.querySelector('[data-cms-area-gallery="true"]');
+  const sections = {
+    main: main.querySelector(".section.split"),
+    body: document.getElementById("cmsAreaBodySection"),
+    gallery,
+    projects: document.getElementById("cmsProjectsSection"),
+    reviews: document.getElementById("cmsAreaReviewsSection"),
+    specials: document.getElementById("cmsAreaSpecialsSection"),
+    faqs: document.getElementById("cmsAreaFaqsSection"),
+    cta: main.querySelector(".section.note-box")
+  };
+  const anchor = main.querySelector(".micro-summary");
+  area.sectionOrder.map(value => String(value || "").trim().toLowerCase()).forEach(key => {
+    const section = sections[key];
+    if (section && section.parentNode === main) main.insertBefore(section, anchor || null);
+  });
 }
 
 function hammerProjectMatchesPage(project, slug) {
-  if (!project || project.active === false) return false;
+  if (!hammerContentIsLive(project)) return false;
   if (slug === "home") return project.showOnHomepage === true;
   if (slug === "gallery") return project.showInGallery !== false;
   if (["staten-island", "brooklyn", "queens", "manhattan", "bronx", "new-jersey"].includes(slug)) {
@@ -1024,21 +1264,27 @@ function hammerRenderProjects(data, currentArea) {
       ${data.intro ? `<p>${hammerEscape(data.intro)}</p>` : ""}
     </div>
     <div class="cms-project-grid">${projects.map(project => {
-      const photos = [project.beforeImage, project.afterImage, ...(Array.isArray(project.additionalImages) ? project.additionalImages : [])].filter(Boolean);
+      const stages = hammerProjectStages(project, project.imageAlt || project.title || "Completed project");
+      const loosePhotos = [project.coverImage, ...(Array.isArray(project.additionalImages) ? project.additionalImages : [])].filter(Boolean);
       const location = [project.neighborhood, project.areaLabel].filter(Boolean).join(", ");
       const alt = project.imageAlt || project.title || "Completed project";
+      const photoMarkup = stages.length
+        ? hammerRenderStageViewer(project, alt)
+        : (loosePhotos.length ? `<div class="cms-project-images">${loosePhotos.map((photo, index) => `<figure><img src="${hammerEscape(photo)}" alt="${hammerEscape(`${alt}${loosePhotos.length > 1 ? ` — photo ${index + 1}` : ""}`)}" loading="lazy"></figure>`).join("")}</div>` : "");
       return `<article class="cms-project-card${project.featured ? " is-featured" : ""}">
         ${project.featured ? `<span class="cms-project-badge">Featured Project</span>` : ""}
-        ${photos.length ? `<div class="cms-project-images">${photos.map((photo, index) => `<figure><img src="${hammerEscape(photo)}" alt="${hammerEscape(`${alt}${photos.length > 1 ? ` — photo ${index + 1}` : ""}`)}" loading="lazy">${index === 0 && project.beforeImage ? `<span>Before</span>` : index === 1 && project.afterImage ? `<span>After</span>` : ""}</figure>`).join("")}</div>` : ""}
+        ${photoMarkup}
         <div class="cms-project-content">
           <h3>${hammerEscape(project.title)}</h3>
-          ${location || project.serviceLabel ? `<p class="cms-project-meta">${hammerEscape([project.serviceLabel, location].filter(Boolean).join(" · "))}</p>` : ""}
-          ${project.summary ? `<p>${hammerEscape(project.summary)}</p>` : ""}
-          ${project.reviewQuote ? `<blockquote class="cms-project-review">“${hammerEscape(project.reviewQuote)}”${project.reviewName ? `<footer>— ${hammerEscape(project.reviewName)}</footer>` : ""}</blockquote>` : ""}
-          ${project.ctaText ? `<a class="btn ghost cms-project-cta" href="${hammerEscape(project.ctaUrl || "/contact.html")}">${hammerEscape(project.ctaText)}</a>` : ""}
+          ${project.showProjectDate === true && project.projectDate ? `<p class="cms-project-date">${hammerEscape(project.projectDate)}</p>` : ""}
+          ${project.showLocation !== false && (location || project.serviceLabel) ? `<p class="cms-project-meta">${hammerEscape([project.serviceLabel, location].filter(Boolean).join(" · "))}</p>` : ""}
+          ${project.showSummary !== false && project.summary ? `<p>${hammerEscape(project.summary)}</p>` : ""}
+          ${project.showReview !== false && project.reviewQuote ? `<blockquote class="cms-project-review">“${hammerEscape(project.reviewQuote)}”${project.reviewName ? `<footer>— ${hammerEscape(project.reviewName)}</footer>` : ""}</blockquote>` : ""}
+          ${project.showCta !== false && project.ctaText ? `<a class="btn ghost cms-project-cta" href="${hammerEscape(project.ctaUrl || "/contact.html")}">${hammerEscape(project.ctaText)}</a>` : ""}
         </div>
       </article>`;
     }).join("")}</div>`;
+  hammerBindStageViewers(section);
 }
 
 function hammerRenderDownloads(data) {
@@ -1083,7 +1329,7 @@ function hammerRenderFaqPage(data) {
   if (hammerSlug() !== "faq" || !data || !Array.isArray(data.items)) return;
   const container = document.querySelector(".faq-container");
   if (!container) return;
-  const items = [...data.items].filter(item => item && item.active !== false).sort((a, b) => {
+  const items = [...data.items].filter(hammerContentIsLive).sort((a, b) => {
     const categoryDifference = (Number(a.categoryOrder) || 9999) - (Number(b.categoryOrder) || 9999);
     return categoryDifference || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999);
   });
@@ -1107,6 +1353,22 @@ function hammerRenderFaqPage(data) {
       if (answer) answer.style.maxHeight = button.classList.contains("active") ? answer.scrollHeight + "px" : null;
     });
   });
+  let schema = document.getElementById("cmsFaqStructuredData");
+  if (!schema) {
+    schema = document.createElement("script");
+    schema.id = "cmsFaqStructuredData";
+    schema.type = "application/ld+json";
+    document.head.appendChild(schema);
+  }
+  schema.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map(item => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer }
+    }))
+  });
 }
 
 function hammerRenderReviewsPage(data) {
@@ -1114,7 +1376,7 @@ function hammerRenderReviewsPage(data) {
   const section = document.querySelector("main .section.content-wrapper");
   if (!section) return;
   const reviews = [...data.reviews]
-    .filter(item => item && item.active !== false && item.showOnReviewPage !== false)
+    .filter(item => hammerContentIsLive(item) && item.showOnReviewPage !== false)
     .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999));
   section.innerHTML = `
     <div id="cmsReviewsPage">
@@ -1140,14 +1402,7 @@ function hammerRenderReviewsPage(data) {
 }
 
 function hammerSpecialIsCurrent(item) {
-  if (!item || item.active === false) return false;
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  const start = item.startDate ? new Date(item.startDate + "T00:00:00") : null;
-  const end = item.endDate ? new Date(item.endDate + "T23:59:59") : null;
-  if (start && !Number.isNaN(start.getTime()) && now < start) return false;
-  if (end && !Number.isNaN(end.getTime()) && now > end) return false;
-  return true;
+  return hammerContentIsLive(item, "startDate", "endDate");
 }
 
 function hammerRenderSpecialCards(items) {
@@ -1306,13 +1561,14 @@ function refreshHammerContentControls() {
     const currentArea = areas && Array.isArray(areas.areas)
       ? hammerMergeAreaDetail(areas.areas.find(item => item && item.slug === hammerSlug()), areaDetail)
       : null;
-    hammerRenderAreaExtras(currentArea, reviews, specials);
+    hammerRenderAreaExtras(currentArea, reviews, specials, faqs);
     hammerRenderHomeAreas(areas, homepage);
     hammerRenderSignatureServices(services);
     hammerRenderFaqPage(faqs);
     hammerRenderReviewsPage(reviews);
     hammerRenderSpecialsPage(specials);
     hammerRenderProjects(projects, currentArea);
+    hammerApplyAreaSectionOrder(currentArea);
     hammerRenderDownloads(downloads);
     hammerApplyHeaderSettings(header);
   });
@@ -1394,6 +1650,48 @@ function hammerInstallAnalytics(data) {
   }
 }
 
+function hammerRememberLeadSource(data) {
+  if (data.captureUtmSource === false) return;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const source = {
+      source: params.get("utm_source") || "",
+      medium: params.get("utm_medium") || "",
+      campaign: params.get("utm_campaign") || ""
+    };
+    if (source.source || source.medium || source.campaign) {
+      sessionStorage.setItem("hammerLeadSource", JSON.stringify(source));
+    }
+  } catch (_) {
+    // Browsing still works if storage is unavailable.
+  }
+}
+
+let hammerLastLeadEvent = { type: "", time: 0 };
+
+function hammerTrackLeadClick(type) {
+  const body = document.body;
+  if (!body || body.dataset.cmsLeadTracking !== "true") return;
+  if (type === "call" && body.dataset.cmsTrackCall !== "true") return;
+  if (type === "text" && body.dataset.cmsTrackText !== "true") return;
+  if (["estimate", "email"].includes(type) && body.dataset.cmsTrackEstimate !== "true") return;
+  const now = Date.now();
+  if (hammerLastLeadEvent.type === type && now - hammerLastLeadEvent.time < 1000) return;
+  hammerLastLeadEvent = { type, time: now };
+
+  let source = {};
+  try { source = JSON.parse(sessionStorage.getItem("hammerLeadSource") || "{}"); } catch (_) { source = {}; }
+  const details = {
+    lead_type: type,
+    page_path: window.location.pathname,
+    lead_source: source.source || "direct",
+    lead_medium: source.medium || "",
+    lead_campaign: source.campaign || ""
+  };
+  if (typeof window.gtag === "function") window.gtag("event", "generate_lead", details);
+  if (typeof window.clarity === "function") window.clarity("event", `lead_${type}`);
+}
+
 function hammerRenderSitewideAnnouncement(data) {
   let announcement = document.getElementById("cmsSitewideAnnouncement");
   const enabled = data.sitewideAnnouncementEnabled === true && String(data.sitewideAnnouncementText || "").trim();
@@ -1418,6 +1716,11 @@ function applyHammerBusinessSettings(data) {
   hammerEnsureAdminStyles();
   hammerInstallAnalytics(data);
   hammerRenderSitewideAnnouncement(data);
+  hammerRememberLeadSource(data);
+  document.body.dataset.cmsLeadTracking = data.leadTrackingEnabled === false ? "false" : "true";
+  document.body.dataset.cmsTrackCall = data.trackCallClicks === false ? "false" : "true";
+  document.body.dataset.cmsTrackText = data.trackTextClicks === false ? "false" : "true";
+  document.body.dataset.cmsTrackEstimate = data.trackEstimateClicks === false ? "false" : "true";
 
   const dial = normalizeDialNumber(data.phone);
   if (dial) {
@@ -1523,6 +1826,21 @@ function refreshHammerBusinessSettings() {
 }
 
 document.addEventListener("DOMContentLoaded", refreshHammerBusinessSettings);
+
+document.addEventListener("click", event => {
+  const link = event.target.closest("a[href], button");
+  if (!link) return;
+  const href = String(link.getAttribute("href") || "").toLowerCase();
+  const label = String(link.textContent || "").toLowerCase();
+  if (href.startsWith("tel:")) hammerTrackLeadClick("call");
+  else if (href.startsWith("sms:")) hammerTrackLeadClick("text");
+  else if (href.startsWith("mailto:")) hammerTrackLeadClick("email");
+  else if (href.includes("contact.html") || href.includes("project-estimator.html") || /estimate|contact|book/.test(label)) hammerTrackLeadClick("estimate");
+});
+
+document.addEventListener("submit", event => {
+  if (event.target && event.target.matches("form")) hammerTrackLeadClick("estimate");
+});
 
 
 /* ============================================================

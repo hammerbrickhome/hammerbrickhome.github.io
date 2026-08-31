@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-08-30T11:43:06.039959+00:00",
+  "status": "ACTION NEEDED",
+  "summary": "1 broken item(s), 16 warning(s), 0 live project(s), and 31 project photo(s).",
+  "counts": {
+    "activePages": 21,
+    "activeAreas": 6,
+    "liveProjects": 0,
+    "draftProjects": 0,
+    "liveReviews": 13,
+    "liveFaqs": 26,
+    "currentSpecials": 3,
+    "projectPhotos": 31,
+    "brokenItems": 1,
+    "warnings": 16
+  },
+  "lastBackupNote": "GitHub stores downloadable backup ZIPs with the Admin Power Tools workflow for 30 days. Run a fresh backup before major edits.",
+  "nextSteps": [
+    "Gallery photo references: Active gallery items reference missing or blank photos.",
+    "NYC HIC consistency: Some older page text has a different NYC HIC value.",
+    "Analytics setup: Analytics placeholders remain and will not collect useful data.",
+    "Open SEO Control Report and review the highest-priority items."
+  ]
+}

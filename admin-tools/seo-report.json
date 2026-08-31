@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-08-30T11:43:06.039305+00:00",
+  "status": "ATTENTION",
+  "issueCount": 14,
+  "summary": "0 error(s) and 14 recommendation(s) across public pages.",
+  "issues": [
+    {
+      "severity": "WARN",
+      "path": "/services.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (73 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "/contact.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (67 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "/kitchens.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (74 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "/bathrooms.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (67 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "/painting.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (77 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "/windows-doors.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (80 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "/waterproofing.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (74 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "/our-process.html",
+      "field": "seoTitle",
+      "message": "seoTitle is long (73 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "content/areas/bronx.json",
+      "field": "seoTitle",
+      "message": "seoTitle is long (87 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "content/areas/brooklyn.json",
+      "field": "seoTitle",
+      "message": "seoTitle is long (76 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "content/areas/manhattan.json",
+      "field": "seoTitle",
+      "message": "seoTitle is long (85 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "content/areas/new-jersey.json",
+      "field": "seoTitle",
+      "message": "seoTitle is long (76 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "content/areas/queens.json",
+      "field": "seoTitle",
+      "message": "seoTitle is long (82 characters). Aim for no more than 65."
+    },
+    {
+      "severity": "WARN",
+      "path": "content/areas/staten-island.json",
+      "field": "seoTitle",
+      "message": "seoTitle is long (81 characters). Aim for no more than 65."
+    }
+  ]
+}

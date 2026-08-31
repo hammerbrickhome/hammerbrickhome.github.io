@@ -1065,6 +1065,19 @@
         return /^#[0-9a-fA-F]{3,8}$/.test(v) ? v : fallback;
       }
 
+      function isContentLive(item, startField = "publishStart", endField = "publishEnd") {
+        if (!item || item.active === false) return false;
+        const status = String(item.publishStatus || "live").toLowerCase();
+        if (status === "draft" || status === "archived") return false;
+        const now = new Date();
+        if (status === "scheduled" && !item[startField]) return false;
+        const start = item[startField] ? new Date(item[startField] + "T00:00:00") : null;
+        const end = item[endField] ? new Date(item[endField] + "T23:59:59") : null;
+        if (start && !Number.isNaN(start.getTime()) && now < start) return false;
+        if (end && !Number.isNaN(end.getTime()) && now > end) return false;
+        return true;
+      }
+
       function renderSpecials(data) {
         if (!data || !Array.isArray(data.specials)) return;
 
@@ -1081,12 +1094,7 @@
         const today = new Date();
         today.setHours(0,0,0,0);
         const items = data.specials.filter(item => {
-          if (!item || item.active === false || item.showOnHomepage === false) return false;
-          const start = item.startDate ? new Date(item.startDate + "T00:00:00") : null;
-          const end = item.endDate ? new Date(item.endDate + "T23:59:59") : null;
-          if (start && !Number.isNaN(start.getTime()) && today < start) return false;
-          if (end && !Number.isNaN(end.getTime()) && today > end) return false;
-          return true;
+          return item && item.showOnHomepage !== false && isContentLive(item, "startDate", "endDate");
         });
         grid.innerHTML = items.map(item => {
           const accent = safeColor(item.accentColor);
@@ -1256,7 +1264,7 @@
         // source, customer name, service and Google Reviews destination.
         if (link && data.reviewUrl) link.href = data.reviewUrl;
 
-        const reviews = data.reviews.filter(item => item && item.active !== false && item.showOnHomepage !== false);
+        const reviews = data.reviews.filter(item => isContentLive(item) && item.showOnHomepage !== false);
 
         track.innerHTML = reviews.map((item, index) => {
           const rating = Math.max(1, Math.min(5, Number(item.rating) || 5));
@@ -1300,7 +1308,7 @@
         if (!list) return;
 
         if (heading && data.heading) heading.textContent = data.heading;
-        const items = data.items.filter(item => item && item.active !== false && item.showOnHomepage !== false);
+        const items = data.items.filter(item => isContentLive(item) && item.showOnHomepage !== false);
 
         list.innerHTML = items.map(item =>
           `<details><summary>${escapeHtml(item.question)}</summary><p>${escapeHtml(item.answer)}</p></details>`
@@ -1324,12 +1332,7 @@
 
             const offers = specialsData.specials
               .filter(x => {
-                if (!x || x.active === false || x.showOnHomepage === false) return false;
-                const startDate = x.startDate ? new Date(x.startDate + "T00:00:00") : null;
-                const endDate = x.endDate ? new Date(x.endDate + "T23:59:59") : null;
-                if (startDate && !Number.isNaN(startDate.getTime()) && today < startDate) return false;
-                if (endDate && !Number.isNaN(endDate.getTime()) && today > endDate) return false;
-                return true;
+                return x && x.showOnHomepage !== false && isContentLive(x, "startDate", "endDate");
               })
               .map(x => {
                 const numeric = String(x.price || "").replace(/[^0-9.]/g, "");
@@ -1354,7 +1357,7 @@
           // FAQs stay synchronized with the admin-managed questions.
           if (faq && faqsData && Array.isArray(faqsData.items)) {
             faq.mainEntity = faqsData.items
-              .filter(x => x && x.active !== false && x.showOnHomepage !== false)
+              .filter(x => isContentLive(x) && x.showOnHomepage !== false)
               .map(x => ({
                 "@type": "Question",
                 "name": String(x.question || ""),

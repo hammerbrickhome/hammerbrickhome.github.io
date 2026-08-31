@@ -23,5 +23,10 @@
   "facebook": "https://www.facebook.com/hammerbrickhome",
   "instagram": "https://www.instagram.com/hammerbrickhome",
   "youtube": "https://www.youtube.com/@hammerbrickhome",
-  "googleReviewsUrl": "https://g.page/r/CQ6UWcWLSx4KEAI/review"
+  "googleReviewsUrl": "https://g.page/r/CQ6UWcWLSx4KEAI/review",
+  "leadTrackingEnabled": true,
+  "captureUtmSource": true,
+  "trackCallClicks": true,
+  "trackTextClicks": true,
+  "trackEstimateClicks": true
 }

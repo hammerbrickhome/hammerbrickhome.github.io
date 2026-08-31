@@ -1,8 +1,14 @@
 {
-  "generatedAt": "2026-08-29T01:51:08.602121+00:00",
+  "generatedAt": "2026-08-30T11:43:06.010920+00:00",
   "count": 10,
+  "totalImages": 31,
+  "usedCount": 21,
   "totalSize": "18.2 MB",
-  "missingCount": 17,
+  "totalLibrarySize": "25.3 MB",
+  "missingCount": 18,
+  "oversizedCount": 8,
+  "duplicateCount": 3,
+  "missingAltCount": 0,
   "note": "Report only \u2014 nothing was deleted. Review every image before running the separate delete action.",
   "missingReferences": [
     {
@@ -86,6 +92,11 @@
       "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
     },
     {
+      "image": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e.webp",
+      "usedIn": "galleryGrid item 14",
+      "reason": "Upload this exact filename, select a different existing photo, or turn this gallery item off."
+    },
+    {
       "image": "(no photo selected)",
       "usedIn": "galleryGrid item 15",
       "reason": "Choose a photo in Project Gallery Manager or turn this gallery item off."
@@ -141,6 +152,255 @@
       "image": "/images/herohome.png",
       "size": "311.9 KB",
       "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    }
+  ],
+  "oversizedFiles": [
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-1.png",
+      "size": "2.1 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-2.png",
+      "size": "2.1 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy-3.png",
+      "size": "2.1 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-23-2026-101023-pm-copy.png",
+      "size": "2.1 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-24-2026-102430-pm.png",
+      "size": "2.4 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-25-2026-025048-pm-copy.png",
+      "size": "2.2 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/chatgpt-image-aug-25-2026-092203-pm.png",
+      "size": "2.1 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/chatgpt-image-jun-10-2026-014708-pm-1.png",
+      "size": "2.5 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    }
+  ],
+  "duplicateGroups": [
+    {
+      "count": 4,
+      "size": "2.1 MB",
+      "images": [
+        "/images/chatgpt-image-aug-23-2026-101023-pm-copy-1.png",
+        "/images/chatgpt-image-aug-23-2026-101023-pm-copy-2.png",
+        "/images/chatgpt-image-aug-23-2026-101023-pm-copy-3.png",
+        "/images/chatgpt-image-aug-23-2026-101023-pm-copy.png"
+      ]
+    },
+    {
+      "count": 2,
+      "size": "486.5 KB",
+      "images": [
+        "/images/Full-gut-deck-after-1.jpeg",
+        "/images/Full-gut-deck-after.jpeg"
+      ]
+    },
+    {
+      "count": 2,
+      "size": "447.8 KB",
+      "images": [
+        "/images/Full-stairs-remodel-after.jpeg",
+        "/images/front-walkway-after.jpeg"
+      ]
+    }
+  ],
+  "missingAlt": [],
+  "usage": [
+    {
+      "image": "/images/Full-gut-deck-after-1.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Full-gut-deck-after.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Full-gut-deck-before-1.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Full-gut-deck-before.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Full-gut-driveway-after.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Full-gut-driveway-before.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Full-stairs-remodel-after.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Full-stairs-remodel-before.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Livingroom-after33.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Livingroom-before33.jpeg",
+      "usedIn": [
+        "README-SETUP.md",
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/Livingroom-fullgut-after1.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/diningroom-full-gut-after.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/diningroom-full-gut-after2.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/diningroom-full-gut-before.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/diningroom-full-gut-before2.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/front-walk-way-wood-gut-after.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/front-walk-way-wood-gut-before.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/front-walkway-after.jpeg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/hero.PNG",
+      "usedIn": [
+        "about.html",
+        "areas.html",
+        "bathrooms.html",
+        "bronx.html",
+        "brooklyn.html",
+        "contact.html",
+        "downloads.html",
+        "faq.html",
+        "financing.html",
+        "gallery.html",
+        "header.html",
+        "index.html",
+        "kitchens.html",
+        "manhattan.html",
+        "masonry.html",
+        "membership.html",
+        "monthly-specials.html",
+        "new-jersey.html",
+        "our-process.html",
+        "painting.html",
+        "perks_rules_fixed.html",
+        "pricing.html",
+        "project-estimator.html",
+        "queens.html",
+        "reviews.html",
+        "services.html",
+        "staten-island.html",
+        "waterproofing.html",
+        "windows-doors.html"
+      ]
+    },
+    {
+      "image": "/images/hero.jpg",
+      "usedIn": [
+        "gallery.json",
+        "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/qr-hammerbrick-membership.png",
+      "usedIn": [
+        "gallery.json",
+        "perks_rules_fixed.html",
+        "reference/gallery-original-backup.json"
+      ]
     }
   ]
 }
