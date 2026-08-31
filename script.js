@@ -593,6 +593,388 @@ function hammerEnsureAdminStyles() {
   document.head.appendChild(style);
 }
 
+function hammerEnsureHomepageLayoutStyles() {
+  if (document.getElementById("cmsHomepageLayoutStyles")) return;
+  const style = document.createElement("style");
+  style.id = "cmsHomepageLayoutStyles";
+  style.textContent = `
+    body[data-home-layout]:not([data-home-layout="classic"]) #main{
+      width:min(100%,1240px);
+      max-width:1240px;
+      padding-left:24px;
+      padding-right:24px;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) #main>.gold-divider{display:none}
+    body[data-home-layout]:not([data-home-layout="classic"]) #main>.section,
+    body[data-home-layout]:not([data-home-layout="classic"]) #main>#premiumMaterialsSection{
+      margin-bottom:64px;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero{
+      isolation:isolate;
+      overflow:hidden;
+      margin-top:36px!important;
+      border:1px solid rgba(231,191,99,.24);
+      box-shadow:0 28px 80px rgba(0,0,0,.38);
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content,
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge{
+      position:relative;
+      z-index:2;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content h1{
+      font-size:clamp(2.35rem,5vw,4.65rem);
+      line-height:1.02;
+      letter-spacing:-.035em;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content p{
+      font-size:1rem;
+      line-height:1.72;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-actions .btn{
+      padding:13px 22px;
+      font-size:.9rem;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) #premiumMaterialsSection{
+      padding:22px 20px!important;
+      border:1px solid rgba(231,191,99,.16)!important;
+      border-radius:18px!important;
+    }
+
+    /* Layout 2: spacious, high-end editorial presentation. */
+    body[data-home-layout="luxury"]{
+      background:
+        radial-gradient(circle at 15% 10%,rgba(186,140,53,.11),transparent 31rem),
+        linear-gradient(180deg,#050b13,#081321 44%,#050b13);
+    }
+    body[data-home-layout="luxury"] #main{max-width:1200px}
+    body[data-home-layout="luxury"] #homeHero{
+      min-height:570px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 250px;
+      align-items:center;
+      gap:42px;
+      padding:70px 64px;
+      border-radius:34px;
+      background:
+        linear-gradient(110deg,rgba(4,10,18,.98),rgba(9,24,40,.92) 60%,rgba(109,78,24,.34)),
+        radial-gradient(circle at 82% 20%,rgba(231,191,99,.22),transparent 22rem);
+    }
+    body[data-home-layout="luxury"] #homeHero .hero-content{
+      max-width:780px;
+      margin:0;
+      padding:0;
+      text-align:left;
+    }
+    body[data-home-layout="luxury"] #homeHero .hero-actions,
+    body[data-home-layout="luxury"] #homeHero .trust-pills{justify-content:flex-start}
+    body[data-home-layout="luxury"] #homeHero .hero-badge img{
+      width:230px;
+      height:230px;
+      border:1px solid rgba(231,191,99,.6);
+      box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 12px rgba(231,191,99,.05);
+    }
+    body[data-home-layout="luxury"] #before-after,
+    body[data-home-layout="luxury"] #cmsProjectsSection,
+    body[data-home-layout="luxury"] #reviewsSection{
+      padding:38px;
+      border:1px solid rgba(231,191,99,.18);
+      border-radius:26px;
+      background:linear-gradient(145deg,rgba(13,28,46,.82),rgba(5,12,22,.92));
+    }
+    body[data-home-layout="luxury"] #membershipServicesSection{
+      gap:40px;
+      padding:36px;
+      border-radius:26px;
+      background:rgba(10,22,37,.72);
+      border:1px solid rgba(231,191,99,.16);
+    }
+    body[data-home-layout="luxury"] #tiersSection .tier-card,
+    body[data-home-layout="luxury"] #specialsSection .special-card{
+      border-radius:22px;
+      box-shadow:0 20px 45px rgba(0,0,0,.25);
+    }
+
+    /* Layout 3: action-first hierarchy for calls, estimates and offers. */
+    body[data-home-layout="leads"]{
+      background:linear-gradient(180deg,#06101c,#0a1929 46%,#060d17);
+    }
+    body[data-home-layout="leads"] #main{max-width:1140px}
+    body[data-home-layout="leads"] #homeHero{
+      min-height:485px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 210px;
+      align-items:center;
+      gap:32px;
+      padding:54px;
+      border-radius:24px;
+      border-left:7px solid var(--gold,#e7bf63);
+      background:linear-gradient(135deg,#0a1b2e 0%,#07111f 68%,#231b0b 100%);
+    }
+    body[data-home-layout="leads"] #homeHero .hero-content{
+      max-width:760px;
+      margin:0;
+      padding:0;
+      text-align:left;
+    }
+    body[data-home-layout="leads"] #homeHero .hero-actions,
+    body[data-home-layout="leads"] #homeHero .trust-pills{justify-content:flex-start}
+    body[data-home-layout="leads"] #homeHeroPrimary{
+      padding:15px 27px!important;
+      box-shadow:0 12px 34px rgba(231,191,99,.28);
+    }
+    body[data-home-layout="leads"] #homeHero .hero-badge img{
+      width:190px;
+      height:190px;
+      border:3px solid rgba(231,191,99,.6);
+    }
+    body[data-home-layout="leads"] #specialsSection{
+      padding:36px;
+      border-radius:24px;
+      border:1px solid rgba(231,191,99,.34);
+      background:linear-gradient(135deg,rgba(231,191,99,.10),rgba(8,18,31,.95));
+      box-shadow:0 22px 55px rgba(0,0,0,.28);
+    }
+    body[data-home-layout="leads"] #reviewsSection,
+    body[data-home-layout="leads"] #tiersSection,
+    body[data-home-layout="leads"] #cmsProjectsSection{
+      padding:30px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      background:rgba(7,17,30,.78);
+    }
+    body[data-home-layout="leads"] #homeHero .trust-pills li{
+      background:rgba(255,255,255,.055);
+      border-color:rgba(231,191,99,.32);
+    }
+
+    /* Layout 4: project imagery and proof appear before long-form sales copy. */
+    body[data-home-layout="portfolio"]{
+      background:linear-gradient(180deg,#04080e,#091525 48%,#04080e);
+    }
+    body[data-home-layout="portfolio"] #main{max-width:1320px}
+    body[data-home-layout="portfolio"] #homeHero{
+      min-height:390px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 180px;
+      align-items:center;
+      gap:28px;
+      padding:46px 52px;
+      border-radius:20px;
+      background:linear-gradient(100deg,rgba(5,12,22,.98),rgba(17,38,62,.92),rgba(99,70,20,.25));
+    }
+    body[data-home-layout="portfolio"] #homeHero .hero-content{
+      max-width:900px;
+      margin:0;
+      padding:0;
+      text-align:left;
+    }
+    body[data-home-layout="portfolio"] #homeHero .hero-actions,
+    body[data-home-layout="portfolio"] #homeHero .trust-pills{justify-content:flex-start}
+    body[data-home-layout="portfolio"] #homeHero .hero-badge img{width:165px;height:165px}
+    body[data-home-layout="portfolio"] #before-after,
+    body[data-home-layout="portfolio"] #cmsProjectsSection{
+      padding:38px;
+      border-radius:24px;
+      border:1px solid rgba(231,191,99,.22);
+      background:#07111f;
+      box-shadow:0 24px 70px rgba(0,0,0,.36);
+    }
+    body[data-home-layout="portfolio"] #before-after .ba-head,
+    body[data-home-layout="portfolio"] #cmsProjectsSection .cms-section-heading{
+      max-width:820px;
+      margin-left:0;
+      text-align:left;
+    }
+    body[data-home-layout="portfolio"] #before-after .ba-grid{
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,390px),1fr))!important;
+      gap:22px!important;
+    }
+    body[data-home-layout="portfolio"] #cmsProjectsSection .cms-project-grid{
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));
+      justify-content:stretch;
+    }
+    body[data-home-layout="portfolio"] #reviewsSection{
+      border-radius:24px;
+    }
+
+    /* Layout 5: local ownership, reviews and service area lead the story. */
+    body[data-home-layout="local"]{
+      background:
+        radial-gradient(circle at 85% 8%,rgba(46,111,92,.13),transparent 30rem),
+        linear-gradient(180deg,#07121d,#0a1824 48%,#061019);
+    }
+    body[data-home-layout="local"] #main{max-width:1160px}
+    body[data-home-layout="local"] #homeHero{
+      min-height:455px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 205px;
+      align-items:center;
+      gap:34px;
+      padding:52px;
+      border-radius:28px;
+      border-color:rgba(150,204,177,.28);
+      background:linear-gradient(130deg,rgba(6,21,29,.98),rgba(10,38,45,.9),rgba(44,76,59,.32));
+    }
+    body[data-home-layout="local"] #homeHero .hero-content{
+      max-width:780px;
+      margin:0;
+      padding:0;
+      text-align:left;
+    }
+    body[data-home-layout="local"] #homeHero .hero-actions,
+    body[data-home-layout="local"] #homeHero .trust-pills{justify-content:flex-start}
+    body[data-home-layout="local"] #homeHero .hero-badge img{
+      width:190px;
+      height:190px;
+      border:2px solid rgba(150,204,177,.42);
+    }
+    body[data-home-layout="local"] #guaranteeSection,
+    body[data-home-layout="local"] #reviewsSection,
+    body[data-home-layout="local"] #cmsServiceAreasSection,
+    body[data-home-layout="local"] #serviceAreaSection,
+    body[data-home-layout="local"] #processSection{
+      padding:32px;
+      border:1px solid rgba(150,204,177,.18);
+      border-radius:24px;
+      background:linear-gradient(145deg,rgba(10,31,40,.84),rgba(6,17,28,.92));
+    }
+    body[data-home-layout="local"] #guaranteeSection .accent-card{
+      border-color:rgba(231,191,99,.34);
+      background:rgba(5,15,24,.86);
+    }
+    body[data-home-layout="local"] #cmsServiceAreasSection .accent-card{
+      border-color:rgba(150,204,177,.2);
+      background:rgba(7,24,31,.84);
+    }
+    body[data-home-layout="local"] #serviceAreaSection{margin-top:0!important}
+
+    @media(max-width:900px){
+      body[data-home-layout]:not([data-home-layout="classic"]) #main{
+        padding-left:16px;
+        padding-right:16px;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #main>.section,
+      body[data-home-layout]:not([data-home-layout="classic"]) #main>#premiumMaterialsSection{
+        margin-bottom:42px;
+      }
+      body[data-home-layout="luxury"] #homeHero,
+      body[data-home-layout="leads"] #homeHero,
+      body[data-home-layout="portfolio"] #homeHero,
+      body[data-home-layout="local"] #homeHero{
+        min-height:0;
+        grid-template-columns:1fr;
+        padding:42px 30px;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content{
+        max-width:none;
+        text-align:center;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-actions,
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .trust-pills{
+        justify-content:center;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge{
+        justify-self:center;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge img{
+        width:150px;
+        height:150px;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #membershipServicesSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #guaranteeSection{
+        grid-template-columns:1fr;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #serviceAreaSection>div{
+        grid-template-columns:1fr!important;
+      }
+    }
+    @media(max-width:560px){
+      body[data-home-layout]:not([data-home-layout="classic"]) #main{
+        padding-left:12px;
+        padding-right:12px;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero{
+        margin-top:22px!important;
+        padding:32px 18px;
+        border-radius:20px;
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content h1{
+        font-size:clamp(2rem,11vw,3rem);
+      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-actions .btn{
+        width:100%;
+        text-align:center;
+      }
+      body[data-home-layout="luxury"] #before-after,
+      body[data-home-layout="luxury"] #cmsProjectsSection,
+      body[data-home-layout="luxury"] #reviewsSection,
+      body[data-home-layout="luxury"] #membershipServicesSection,
+      body[data-home-layout="leads"] #specialsSection,
+      body[data-home-layout="leads"] #reviewsSection,
+      body[data-home-layout="leads"] #tiersSection,
+      body[data-home-layout="leads"] #cmsProjectsSection,
+      body[data-home-layout="portfolio"] #before-after,
+      body[data-home-layout="portfolio"] #cmsProjectsSection,
+      body[data-home-layout="local"] #guaranteeSection,
+      body[data-home-layout="local"] #reviewsSection,
+      body[data-home-layout="local"] #cmsServiceAreasSection,
+      body[data-home-layout="local"] #serviceAreaSection,
+      body[data-home-layout="local"] #processSection{
+        padding:22px 16px;
+        border-radius:18px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function hammerApplyHomepageLayout(homepage) {
+  if (hammerSlug() !== "home") return;
+  const main = document.getElementById("main");
+  if (!main) return;
+
+  const allowedLayouts = new Set(["classic", "luxury", "leads", "portfolio", "local"]);
+  const requestedLayout = String((homepage && homepage.homepageLayout) || "classic").trim().toLowerCase();
+  const layout = allowedLayouts.has(requestedLayout) ? requestedLayout : "classic";
+  hammerEnsureHomepageLayoutStyles();
+  document.body.dataset.homeLayout = layout;
+  main.dataset.homeLayout = layout;
+
+  if (layout === "classic") return;
+
+  const layoutOrders = {
+    luxury: [
+      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "before-after",
+      "cmsProjectsSection", "membershipServicesSection", "reviewsSection", "guaranteeSection",
+      "tiersSection", "processSection", "specialsSection", "cmsServiceAreasSection",
+      "serviceAreaSection", "faqSection"
+    ],
+    leads: [
+      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "specialsSection",
+      "reviewsSection", "cmsProjectsSection", "tiersSection", "membershipServicesSection",
+      "before-after", "processSection", "guaranteeSection", "cmsServiceAreasSection",
+      "serviceAreaSection", "faqSection"
+    ],
+    portfolio: [
+      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "before-after",
+      "cmsProjectsSection", "reviewsSection", "membershipServicesSection", "processSection",
+      "tiersSection", "specialsSection", "guaranteeSection", "cmsServiceAreasSection",
+      "serviceAreaSection", "faqSection"
+    ],
+    local: [
+      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "guaranteeSection",
+      "reviewsSection", "cmsServiceAreasSection", "serviceAreaSection", "processSection",
+      "membershipServicesSection", "cmsProjectsSection", "before-after", "specialsSection",
+      "tiersSection", "faqSection"
+    ]
+  };
+
+  layoutOrders[layout].forEach(id => {
+    const section = document.getElementById(id);
+    if (section && section.parentNode === main) main.appendChild(section);
+  });
+}
+
 function hammerApplySeo(item) {
   if (!item) return;
   if (item.seoTitle) document.title = item.seoTitle;
@@ -1588,6 +1970,7 @@ function refreshHammerContentControls() {
     hammerRenderReviewsPage(reviews);
     hammerRenderSpecialsPage(specials);
     hammerRenderProjects(projects, currentArea);
+    hammerApplyHomepageLayout(homepage);
     hammerApplyAreaSectionOrder(currentArea);
     hammerRenderDownloads(downloads);
     hammerApplyHeaderSettings(header);
