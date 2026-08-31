@@ -33,6 +33,17 @@ media:
           title: "Delete reviewed unused photos?"
           message: "Creates a downloadable backup first, then deletes only photos in the last scan that are still verified unused."
           button: "Delete Verified Photos"
+      - name: prepare-optimized-photos
+        label: "Prepare Smaller Photo Copies"
+        workflow: admin-power-tools.yml
+        ref: current
+        fields:
+          - {name: maxWidth, label: "Maximum Width", type: number, required: false, default: 2000}
+          - {name: quality, label: "WebP Quality", type: number, required: false, default: 82}
+        confirm:
+          title: "Prepare optimized photo copies?"
+          message: "Creates a downloadable review ZIP. It does not replace or delete any website photo."
+          button: "Create Safe Preview ZIP"
 
   - name: homeowner_documents
     label: "Homeowner PDFs — Upload / Rename / Delete"
@@ -140,6 +151,11 @@ content:
           - {name: googleReviewsUrl, label: "Google Reviews URL", type: string, required: false}
           - {name: googleAnalyticsId, label: "Google Analytics GA4 ID", type: string, required: false, description: "Example: G-ABC1234567. Leave blank to disable."}
           - {name: clarityId, label: "Microsoft Clarity ID", type: string, required: false, description: "Leave blank to disable Clarity tracking."}
+          - {name: leadTrackingEnabled, label: "Track Lead Button Clicks", type: boolean, required: false, default: true, description: "Tracks call, text, estimate, email, and contact clicks when analytics is configured."}
+          - {name: captureUtmSource, label: "Remember Advertising Source", type: boolean, required: false, default: true, description: "Keeps Google, Yelp, Facebook, and campaign source tags in the visitor's browser for conversion reporting."}
+          - {name: trackCallClicks, label: "Track Call Clicks", type: boolean, required: false, default: true}
+          - {name: trackTextClicks, label: "Track Text Clicks", type: boolean, required: false, default: true}
+          - {name: trackEstimateClicks, label: "Track Estimate / Contact Clicks", type: boolean, required: false, default: true}
           - {name: sitewideAnnouncementEnabled, label: "Show Sitewide Announcement", type: boolean, required: false, default: false}
           - {name: sitewideAnnouncementText, label: "Sitewide Announcement Text", type: string, required: false}
           - {name: sitewideAnnouncementButtonText, label: "Announcement Button Text", type: string, required: false}
@@ -260,6 +276,40 @@ content:
               - {name: sectionText, label: "Extra Section Text", type: text, required: false}
               - {name: buttonText, label: "Extra Section Button", type: string, required: false}
               - {name: buttonUrl, label: "Extra Section Button Link", type: string, required: false}
+              - name: contentBlocks
+                label: "Additional Page Sections"
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{heading} — {blockType}"
+                fields:
+                  - {name: active, label: "Show Section", type: boolean, default: true}
+                  - {name: displayOrder, label: "Section Order", type: number, required: false, default: 100}
+                  - name: blockType
+                    label: "Section Type"
+                    type: select
+                    default: text
+                    options:
+                      values:
+                        - {name: text, label: "Text Section"}
+                        - {name: image, label: "Photo With Text"}
+                        - {name: photo-grid, label: "Photo Grid"}
+                        - {name: cta, label: "Call-To-Action"}
+                  - {name: heading, label: "Section Heading", type: string, required: false}
+                  - {name: text, label: "Section Text", type: text, required: false}
+                  - {name: image, label: "Main Photo", type: image, required: false, options: {media: project_images}}
+                  - {name: images, label: "Photo Grid Images", type: image, list: true, required: false, options: {media: project_images}}
+                  - {name: imageAlt, label: "Photo Description", type: string, required: false}
+                  - {name: buttonText, label: "Button Text", type: string, required: false}
+                  - {name: buttonUrl, label: "Button Link", type: string, required: false}
+                  - name: backgroundStyle
+                    label: "Section Style"
+                    type: select
+                    required: false
+                    default: standard
+                    options:
+                      values: [standard, accent, dark]
               - {name: showFinalCta, label: "Show Final Contact Section", type: boolean, required: false, default: false}
               - {name: finalCtaHeading, label: "Final Contact Heading", type: string, required: false}
               - {name: finalCtaText, label: "Final Contact Text", type: text, required: false}
@@ -271,7 +321,22 @@ content:
               - {name: estimateButtonText, label: "Estimate Button Text", type: string, required: false, default: "Free Estimate"}
               - {name: seoTitle, label: "Browser / SEO Title", type: string, required: false}
               - {name: seoDescription, label: "SEO Description", type: text, required: false}
+              - {name: canonicalUrl, label: "Canonical URL", type: string, required: false, description: "Usually leave blank. Use only when this page should point search engines to another preferred URL."}
+              - {name: socialTitle, label: "Social Sharing Title", type: string, required: false}
+              - {name: socialDescription, label: "Social Sharing Description", type: text, required: false}
               - {name: socialImage, label: "Social Sharing Photo", type: image, required: false, options: {media: project_images}}
+              - name: structuredDataType
+                label: "SEO Schema Type"
+                type: select
+                required: false
+                default: auto
+                options:
+                  values:
+                    - {name: auto, label: "Automatic"}
+                    - {name: service, label: "Service Page"}
+                    - {name: area, label: "Service Area Page"}
+                    - {name: faq, label: "FAQ Page"}
+                    - {name: none, label: "No Extra Schema"}
               - {name: allowIndexing, label: "Allow Search Engine Indexing", type: boolean, required: false, default: true}
 
   - name: services_and_areas
@@ -361,6 +426,7 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: sectionOrder, label: "Page Section Order", type: string, list: true, required: false, description: "Optional advanced order. Use: main, body, gallery, projects, reviews, specials, faqs, cta. Leave blank to keep the current website order."}
           - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
           - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
           - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
@@ -414,15 +480,31 @@ content:
                   values:
                     - {name: single, label: "Single Photo"}
                     - {name: before-after, label: "Before & After Pair"}
+                    - {name: progress, label: "Before, In Progress & After"}
               - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more photos taken while the work is underway."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "How Visitors Change Photos"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Before / In Progress / After Buttons"}
+                    - {name: grid, label: "Show All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
           - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
           - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
           - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: showAreaFaqs, label: "Show Selected Area FAQs", type: boolean, required: false, default: false}
+          - {name: faqsHeading, label: "Area FAQ Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
           - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
@@ -448,6 +530,7 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: sectionOrder, label: "Page Section Order", type: string, list: true, required: false, description: "Optional advanced order. Use: main, body, gallery, projects, reviews, specials, faqs, cta. Leave blank to keep the current website order."}
           - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
           - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
           - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
@@ -501,15 +584,31 @@ content:
                   values:
                     - {name: single, label: "Single Photo"}
                     - {name: before-after, label: "Before & After Pair"}
+                    - {name: progress, label: "Before, In Progress & After"}
               - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more photos taken while the work is underway."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "How Visitors Change Photos"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Before / In Progress / After Buttons"}
+                    - {name: grid, label: "Show All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
           - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
           - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
           - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: showAreaFaqs, label: "Show Selected Area FAQs", type: boolean, required: false, default: false}
+          - {name: faqsHeading, label: "Area FAQ Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
           - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
@@ -535,6 +634,7 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: sectionOrder, label: "Page Section Order", type: string, list: true, required: false, description: "Optional advanced order. Use: main, body, gallery, projects, reviews, specials, faqs, cta. Leave blank to keep the current website order."}
           - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
           - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
           - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
@@ -588,15 +688,31 @@ content:
                   values:
                     - {name: single, label: "Single Photo"}
                     - {name: before-after, label: "Before & After Pair"}
+                    - {name: progress, label: "Before, In Progress & After"}
               - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more photos taken while the work is underway."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "How Visitors Change Photos"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Before / In Progress / After Buttons"}
+                    - {name: grid, label: "Show All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
           - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
           - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
           - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: showAreaFaqs, label: "Show Selected Area FAQs", type: boolean, required: false, default: false}
+          - {name: faqsHeading, label: "Area FAQ Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
           - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
@@ -622,6 +738,7 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: sectionOrder, label: "Page Section Order", type: string, list: true, required: false, description: "Optional advanced order. Use: main, body, gallery, projects, reviews, specials, faqs, cta. Leave blank to keep the current website order."}
           - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
           - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
           - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
@@ -675,15 +792,31 @@ content:
                   values:
                     - {name: single, label: "Single Photo"}
                     - {name: before-after, label: "Before & After Pair"}
+                    - {name: progress, label: "Before, In Progress & After"}
               - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more photos taken while the work is underway."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "How Visitors Change Photos"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Before / In Progress / After Buttons"}
+                    - {name: grid, label: "Show All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
           - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
           - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
           - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: showAreaFaqs, label: "Show Selected Area FAQs", type: boolean, required: false, default: false}
+          - {name: faqsHeading, label: "Area FAQ Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
           - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
@@ -709,6 +842,7 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Neighborhoods", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: sectionOrder, label: "Page Section Order", type: string, list: true, required: false, description: "Optional advanced order. Use: main, body, gallery, projects, reviews, specials, faqs, cta. Leave blank to keep the current website order."}
           - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
           - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
           - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
@@ -762,15 +896,31 @@ content:
                   values:
                     - {name: single, label: "Single Photo"}
                     - {name: before-after, label: "Before & After Pair"}
+                    - {name: progress, label: "Before, In Progress & After"}
               - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more photos taken while the work is underway."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "How Visitors Change Photos"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Before / In Progress / After Buttons"}
+                    - {name: grid, label: "Show All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
           - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
           - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
           - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: showAreaFaqs, label: "Show Selected Area FAQs", type: boolean, required: false, default: false}
+          - {name: faqsHeading, label: "Area FAQ Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
           - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
@@ -796,6 +946,7 @@ content:
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: neighborhoods, label: "Towns", type: string, list: true}
           - {name: body, label: "Additional Page Text", type: text, required: false}
+          - {name: sectionOrder, label: "Page Section Order", type: string, list: true, required: false, description: "Optional advanced order. Use: main, body, gallery, projects, reviews, specials, faqs, cta. Leave blank to keep the current website order."}
           - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
           - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
           - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
@@ -849,15 +1000,31 @@ content:
                   values:
                     - {name: single, label: "Single Photo"}
                     - {name: before-after, label: "Before & After Pair"}
+                    - {name: progress, label: "Before, In Progress & After"}
               - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more photos taken while the work is underway."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "How Visitors Change Photos"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Before / In Progress / After Buttons"}
+                    - {name: grid, label: "Show All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
           - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
           - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
           - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: showAreaFaqs, label: "Show Selected Area FAQs", type: boolean, required: false, default: false}
+          - {name: faqsHeading, label: "Area FAQ Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string}
           - {name: ctaText, label: "Call-To-Action Text", type: text}
           - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
@@ -890,6 +1057,13 @@ content:
                 summary: "{title} — {price}"
             fields:
               - {name: active, label: "Active", type: boolean, default: true}
+              - name: publishStatus
+                label: "Publishing Status"
+                type: select
+                required: false
+                default: live
+                options:
+                  values: [live, draft, scheduled, archived]
               - {name: featured, label: "Featured Special", type: boolean, required: false, default: false}
               - {name: displayOrder, label: "Display Order", type: number, required: false, default: 100}
               - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: true}
@@ -959,6 +1133,15 @@ content:
                 summary: "{name} — {service}"
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
+              - name: publishStatus
+                label: "Publishing Status"
+                type: select
+                required: false
+                default: live
+                options:
+                  values: [live, draft, scheduled, archived]
+              - {name: publishStart, label: "Show Starting", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
+              - {name: publishEnd, label: "Stop Showing After", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
               - {name: featured, label: "Featured Review", type: boolean, required: false, default: false}
               - {name: displayOrder, label: "Display Order", type: number, required: false, default: 100}
               - {name: showOnReviewPage, label: "Show On Reviews Page", type: boolean, required: false, default: true}
@@ -1002,7 +1185,32 @@ content:
                 summary: "{question}"
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
+              - name: publishStatus
+                label: "Publishing Status"
+                type: select
+                required: false
+                default: live
+                options:
+                  values: [live, draft, scheduled, archived]
+              - {name: publishStart, label: "Show Starting", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
+              - {name: publishEnd, label: "Stop Showing After", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
               - {name: showOnHomepage, label: "Show On Homepage", type: boolean, default: false}
+              - {name: showOnAreaPages, label: "Show On Area Page", type: boolean, default: false}
+              - name: areaSlug
+                label: "Area Page"
+                type: select
+                required: false
+                default: all
+                options:
+                  values:
+                    - {name: all, label: "All Area Pages"}
+                    - {name: staten-island, label: "Staten Island"}
+                    - {name: brooklyn, label: "Brooklyn"}
+                    - {name: queens, label: "Queens"}
+                    - {name: manhattan, label: "Manhattan"}
+                    - {name: bronx, label: "Bronx"}
+                    - {name: new-jersey, label: "New Jersey"}
+              - {name: areaSlugs, label: "Additional Area Pages", type: string, list: true, required: false}
               - {name: categoryOrder, label: "Category Display Order", type: number, required: false, default: 100}
               - {name: displayOrder, label: "Question Display Order", type: number, required: false, default: 100}
               - {name: category, label: "Category", type: string, required: false}
@@ -1060,8 +1268,18 @@ content:
                 summary: "{title} — {areaLabel}"
             fields:
               - {name: active, label: "Project Active", type: boolean, default: true}
+              - name: publishStatus
+                label: "Publishing Status"
+                type: select
+                required: false
+                default: live
+                options:
+                  values: [live, draft, scheduled, archived]
+              - {name: publishStart, label: "Show Starting", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
+              - {name: publishEnd, label: "Stop Showing After", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
               - {name: featured, label: "Featured Project", type: boolean, default: false}
               - {name: title, label: "Project Title", type: string}
+              - {name: slug, label: "Project ID / Slug", type: string, required: false, description: "Optional short ID, such as brooklyn-kitchen-2026."}
               - {name: projectDate, label: "Project Date", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
               - name: areaSlug
                 label: "Service Area"
@@ -1087,6 +1305,9 @@ content:
                     - {name: kitchens, label: "Kitchens"}
                     - {name: bathrooms, label: "Bathrooms"}
                     - {name: masonry, label: "Masonry"}
+                    - {name: painting, label: "Painting"}
+                    - {name: windows-doors, label: "Windows & Doors"}
+                    - {name: waterproofing, label: "Waterproofing"}
                     - {name: concrete, label: "Concrete"}
                     - {name: outdoor-living, label: "Outdoor Living"}
                     - {name: pools, label: "Pools"}
@@ -1099,9 +1320,34 @@ content:
               - {name: serviceSlugs, label: "Additional Service Pages", type: string, list: true, required: false, description: "Optional: show this project on more than one service page."}
               - {name: serviceLabel, label: "Service Label", type: string, required: false}
               - {name: summary, label: "Project Summary", type: text}
+              - name: photoType
+                label: "Photo Story Type"
+                type: select
+                required: false
+                default: automatic
+                options:
+                  values:
+                    - {name: automatic, label: "Automatic From Selected Photos"}
+                    - {name: single, label: "Single Photo"}
+                    - {name: before-after, label: "Before & After"}
+                    - {name: progress, label: "Before, In Progress & After"}
+              - {name: coverImage, label: "Single / Cover Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more construction-progress photos."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
               - {name: additionalImages, label: "Additional Photos", type: image, list: true, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "Photo Display Style"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Stage Buttons"}
+                    - {name: grid, label: "All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: imageAlt, label: "Photo Description (Accessibility)", type: string, required: false}
               - {name: reviewQuote, label: "Customer Quote", type: text, required: false}
               - {name: reviewName, label: "Customer Name", type: string, required: false}
@@ -1111,6 +1357,13 @@ content:
               - {name: showInGallery, label: "Show In Main Gallery", type: boolean, default: true}
               - {name: showOnAreaPage, label: "Show On Selected Area Page", type: boolean, default: true}
               - {name: showOnServicePage, label: "Show On Selected Service Page", type: boolean, default: true}
+              - {name: showProjectDate, label: "Show Project Date", type: boolean, required: false, default: false}
+              - {name: showLocation, label: "Show Location", type: boolean, required: false, default: true}
+              - {name: showSummary, label: "Show Project Summary", type: boolean, required: false, default: true}
+              - {name: showReview, label: "Show Customer Quote", type: boolean, required: false, default: true}
+              - {name: showCta, label: "Show Project Button", type: boolean, required: false, default: true}
+              - {name: seoTitle, label: "Project SEO Title", type: string, required: false}
+              - {name: seoDescription, label: "Project SEO Description", type: text, required: false}
               - {name: displayOrder, label: "Display Order", type: number, default: 1}
 
       - name: gallery
@@ -1174,13 +1427,45 @@ content:
           - {name: title, label: "Project Title", type: string}
           - {name: slug, label: "URL Slug", type: string}
           - {name: published, label: "Published", type: boolean}
+          - name: publishStatus
+            label: "Publishing Status"
+            type: select
+            required: false
+            default: draft
+            options:
+              values: [live, draft, scheduled, archived]
+          - {name: publishStart, label: "Show Starting", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
+          - {name: publishEnd, label: "Stop Showing After", type: date, required: false, default: "", options: {format: "yyyy-MM-dd"}}
           - {name: featured, label: "Featured", type: boolean}
           - {name: service, label: "Service", type: string}
+          - {name: services, label: "Additional Services", type: string, list: true, required: false}
           - {name: location, label: "Location", type: string}
+          - {name: locations, label: "Additional Locations", type: string, list: true, required: false}
           - {name: neighborhood, label: "Neighborhood", type: string, required: false}
+          - name: photoType
+            label: "Photo Story Type"
+            type: select
+            required: false
+            default: progress
+            options:
+              values:
+                - {name: single, label: "Single Photo"}
+                - {name: before-after, label: "Before & After"}
+                - {name: progress, label: "Before, In Progress & After"}
+          - {name: coverImage, label: "Single / Cover Photo", type: image, required: false, options: {media: project_images}}
           - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+          - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}}
           - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
           - {name: additionalImages, label: "Additional Photos", type: image, list: true, required: false, options: {media: project_images}}
+          - name: stageDisplay
+            label: "Photo Display Style"
+            type: select
+            required: false
+            default: buttons
+            options:
+              values:
+                - {name: buttons, label: "Stage Buttons"}
+                - {name: grid, label: "All Photos Side By Side"}
           - {name: summary, label: "Summary", type: text}
           - {name: problem, label: "Problem", type: text}
           - {name: solution, label: "What We Did", type: text}
@@ -1275,6 +1560,7 @@ content:
           - {name: neighborhoods, label: "Neighborhoods / Towns", type: string, list: true}
           - {name: featuredServices, label: "Featured Services", type: string, list: true}
           - {name: body, label: "Body", type: rich-text, options: {format: markdown, media: false}}
+          - {name: sectionOrder, label: "Page Section Order", type: string, list: true, required: false, description: "Optional advanced order. Use: main, body, gallery, projects, reviews, specials, faqs, cta. Leave blank to keep the current website order."}
           - {name: showMainSection, label: "Show Main Information Section", type: boolean, required: false, default: true}
           - {name: showFeaturedServices, label: "Show Featured Services", type: boolean, required: false, default: true}
           - {name: showNeighborhoods, label: "Show Neighborhoods / Towns", type: boolean, required: false, default: true}
@@ -1328,15 +1614,31 @@ content:
                   values:
                     - {name: single, label: "Single Photo"}
                     - {name: before-after, label: "Before & After Pair"}
+                    - {name: progress, label: "Before, In Progress & After"}
               - {name: image, label: "Single Photo", type: image, required: false, options: {media: project_images}}
               - {name: beforeImage, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: midProcessImages, label: "In-Progress Photos", type: image, list: true, required: false, options: {media: project_images}, description: "Add one or more photos taken while the work is underway."}
               - {name: afterImage, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - name: stageDisplay
+                label: "How Visitors Change Photos"
+                type: select
+                required: false
+                default: buttons
+                options:
+                  values:
+                    - {name: buttons, label: "Before / In Progress / After Buttons"}
+                    - {name: grid, label: "Show All Photos Side By Side"}
+              - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
+              - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
+              - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
               - {name: alt, label: "Photo Description", type: string, required: false}
               - {name: caption, label: "Caption", type: string, required: false}
           - {name: showLocalReviews, label: "Show Selected Local Reviews", type: boolean, required: false, default: false}
           - {name: reviewsHeading, label: "Local Reviews Heading", type: string, required: false}
           - {name: showAreaSpecials, label: "Show Selected Area Specials", type: boolean, required: false, default: false}
           - {name: specialsHeading, label: "Area Specials Heading", type: string, required: false}
+          - {name: showAreaFaqs, label: "Show Selected Area FAQs", type: boolean, required: false, default: false}
+          - {name: faqsHeading, label: "Area FAQ Heading", type: string, required: false}
           - {name: ctaTitle, label: "Call-To-Action Heading", type: string, required: false}
           - {name: ctaText, label: "Call-To-Action Text", type: text, required: false}
           - {name: ctaButtonText, label: "Call-To-Action Button Text", type: string, required: false}
@@ -1365,9 +1667,36 @@ content:
           - {name: seoDescription, label: "SEO Description", type: text, required: false}
 
   - name: health
-    label: "⚙️ Site Health"
+    label: "🎛️ Owner Control Center"
     type: group
     items:
+
+      - name: command_center
+        label: "Owner Dashboard"
+        type: file
+        path: admin-tools/command-center.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: generatedAt, label: "Last Dashboard Refresh", type: string, readonly: true}
+          - {name: status, label: "Overall Status", type: string, readonly: true}
+          - {name: summary, label: "Owner Summary", type: text, readonly: true}
+          - name: counts
+            label: "Website Counts"
+            type: object
+            fields:
+              - {name: activePages, label: "Active Pages", type: number, readonly: true}
+              - {name: activeAreas, label: "Active Service Areas", type: number, readonly: true}
+              - {name: liveProjects, label: "Live Projects", type: number, readonly: true}
+              - {name: draftProjects, label: "Draft / Scheduled Projects", type: number, readonly: true}
+              - {name: liveReviews, label: "Live Reviews", type: number, readonly: true}
+              - {name: liveFaqs, label: "Live FAQs", type: number, readonly: true}
+              - {name: currentSpecials, label: "Current Specials", type: number, readonly: true}
+              - {name: projectPhotos, label: "Project Photos", type: number, readonly: true}
+              - {name: brokenItems, label: "Broken Items", type: number, readonly: true}
+              - {name: warnings, label: "Warnings", type: number, readonly: true}
+          - {name: lastBackupNote, label: "Backup Information", type: text, readonly: true}
+          - {name: nextSteps, label: "Recommended Next Steps", type: string, list: true, required: false, readonly: true}
 
       - name: master_audit
         label: "Master Site Audit"
@@ -1395,6 +1724,30 @@ content:
               - {name: details, label: "Details", type: text}
               - {name: items, label: "Items", type: string, list: true, required: false}
 
+      - name: seo_report
+        label: "SEO Control Report"
+        type: file
+        path: admin-tools/seo-report.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {name: generatedAt, label: "Last SEO Check", type: string, readonly: true}
+          - {name: status, label: "SEO Status", type: string, readonly: true}
+          - {name: issueCount, label: "Issues Found", type: number, readonly: true}
+          - {name: summary, label: "SEO Summary", type: text, readonly: true}
+          - name: issues
+            label: "SEO Items To Review"
+            type: object
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{severity} — {path}"
+            fields:
+              - {name: severity, label: "Level", type: string, readonly: true}
+              - {name: path, label: "Page / File", type: string, readonly: true}
+              - {name: field, label: "Field", type: string, readonly: true}
+              - {name: message, label: "What To Fix", type: text, readonly: true}
+
       - name: unused_images_report
         label: "Project Photo Health Report"
         type: file
@@ -1407,8 +1760,14 @@ content:
         fields:
           - {name: generatedAt, label: "Last Scan", type: string}
           - {name: count, label: "Unused Images Found", type: number}
+          - {name: totalImages, label: "Total Project Images", type: number, readonly: true}
+          - {name: usedCount, label: "Images Currently Used", type: number, readonly: true}
           - {name: totalSize, label: "Potential Space To Free", type: string}
+          - {name: totalLibrarySize, label: "Total Photo Library Size", type: string, readonly: true}
           - {name: missingCount, label: "Missing Gallery Photos", type: number}
+          - {name: oversizedCount, label: "Large Photos To Optimize", type: number, readonly: true}
+          - {name: duplicateCount, label: "Possible Duplicate Photos", type: number, readonly: true}
+          - {name: missingAltCount, label: "Photos Missing Descriptions", type: number, readonly: true}
           - {name: note, label: "Safety Note", type: text}
           - name: missingReferences
             label: "Broken / Missing Photo References"
@@ -1432,6 +1791,49 @@ content:
               - {name: image, label: "Image", type: image, options: {media: project_images}}
               - {name: size, label: "File Size", type: string}
               - {name: reason, label: "Why It Is Listed", type: text}
+          - name: oversizedFiles
+            label: "Large Photos"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{image} — {size}"
+            fields:
+              - {name: image, label: "Image", type: image, options: {media: project_images}, readonly: true}
+              - {name: size, label: "File Size", type: string, readonly: true}
+              - {name: reason, label: "Recommendation", type: text, readonly: true}
+          - name: duplicateGroups
+            label: "Possible Duplicate Groups"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{size} — {count} files"
+            fields:
+              - {name: count, label: "Files", type: number, readonly: true}
+              - {name: size, label: "Each File Size", type: string, readonly: true}
+              - {name: images, label: "Matching Images", type: string, list: true, readonly: true}
+          - name: missingAlt
+            label: "Photos Missing Descriptions"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{usedIn}"
+            fields:
+              - {name: image, label: "Image", type: string, readonly: true}
+              - {name: usedIn, label: "Used In", type: string, readonly: true}
+              - {name: reason, label: "Recommendation", type: text, readonly: true}
+          - name: usage
+            label: "Where Each Photo Is Used"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{image}"
+            fields:
+              - {name: image, label: "Image", type: image, options: {media: project_images}, readonly: true}
+              - {name: usedIn, label: "Referenced By Files", type: string, list: true, readonly: true}
 
 actions:
   - name: apply-business-settings
@@ -1491,9 +1893,23 @@ actions:
         options:
           - {label: "Validate Website & Refresh Audit", value: validate}
           - {label: "Create Full Website Backup", value: backup}
+          - {label: "Create CMS Content-Only Backup", value: content-backup}
           - {label: "Rebuild Sitemap", value: rebuild-sitemap}
+          - {label: "Run Safe Publish Check", value: publish-check}
+          - {label: "Refresh Complete Photo Report", value: photo-report}
+          - {label: "Prepare Optimized Photo ZIP (No Website Changes)", value: prepare-optimized-photos}
+      - name: maxWidth
+        label: "Photo ZIP Maximum Width"
+        type: number
+        required: false
+        default: 2000
+      - name: quality
+        label: "Photo ZIP WebP Quality"
+        type: number
+        required: false
+        default: 82
     confirm:
       title: "Run the selected admin tool?"
-      message: "Validation checks the site, backup creates a downloadable ZIP, and sitemap rebuild updates sitemap.xml from active CMS pages."
+      message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
 
