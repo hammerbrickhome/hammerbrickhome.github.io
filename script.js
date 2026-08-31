@@ -598,331 +598,486 @@ function hammerEnsureHomepageLayoutStyles() {
   const style = document.createElement("style");
   style.id = "cmsHomepageLayoutStyles";
   style.textContent = `
+    body[data-home-layout]:not([data-home-layout="classic"]){min-height:100%;}
     body[data-home-layout]:not([data-home-layout="classic"]) #main{
-      width:min(100%,1240px);
-      max-width:1240px;
-      padding-left:24px;
-      padding-right:24px;
+      width:100%;max-width:none;margin:0;padding:0;
     }
     body[data-home-layout]:not([data-home-layout="classic"]) #main>.gold-divider{display:none}
-    body[data-home-layout]:not([data-home-layout="classic"]) #main>.section,
-    body[data-home-layout]:not([data-home-layout="classic"]) #main>#premiumMaterialsSection{
-      margin-bottom:64px;
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell{
+      width:min(100%,1380px);margin:0 auto;padding:38px 28px 88px;
     }
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell>.section,
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell>.hb-home-band,
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell>#premiumMaterialsSection{
+      margin-bottom:72px;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-band{
+      display:grid;gap:28px;align-items:start;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-band>.section{margin:0;min-width:0}
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions{
+      position:relative;z-index:4;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+      width:min(100%,1120px);margin:-42px auto 72px;padding:14px;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions a{
+      min-height:84px;display:grid;grid-template-columns:38px minmax(0,1fr);grid-template-rows:auto auto;
+      column-gap:10px;align-content:center;padding:15px 14px;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions a:hover{transform:translateY(-3px)}
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions span{
+      grid-row:1/3;align-self:center;font-size:25px;line-height:1;text-align:center;
+    }
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions strong{font-size:13px;line-height:1.25}
+    body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions small{margin-top:4px;font-size:10px;line-height:1.3;opacity:.72}
     body[data-home-layout]:not([data-home-layout="classic"]) #homeHero{
-      isolation:isolate;
-      overflow:hidden;
-      margin-top:36px!important;
-      border:1px solid rgba(231,191,99,.24);
-      box-shadow:0 28px 80px rgba(0,0,0,.38);
+      position:relative;isolation:isolate;overflow:hidden;margin:20px 0 72px!important;
     }
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-overlay{display:none}
     body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content,
-    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge{
-      position:relative;
-      z-index:2;
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge{position:relative;z-index:2}
+    body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content{
+      margin:0;padding:0;max-width:none;
     }
     body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content h1{
-      font-size:clamp(2.35rem,5vw,4.65rem);
-      line-height:1.02;
-      letter-spacing:-.035em;
+      font-size:clamp(2.55rem,5.4vw,5.25rem);line-height:.98;letter-spacing:-.045em;
     }
     body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content p{
-      font-size:1rem;
-      line-height:1.72;
+      max-width:720px;font-size:1.02rem;line-height:1.75;
     }
     body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-actions .btn{
-      padding:13px 22px;
-      font-size:.9rem;
+      padding:14px 24px;font-size:.9rem;
     }
     body[data-home-layout]:not([data-home-layout="classic"]) #premiumMaterialsSection{
-      padding:22px 20px!important;
-      border:1px solid rgba(231,191,99,.16)!important;
-      border-radius:18px!important;
+      margin-top:-38px!important;padding:20px 24px!important;
     }
 
-    /* Layout 2: spacious, high-end editorial presentation. */
+    /* 2 — REVIEW-FIRST LUXURY: reviews immediately establish trust, followed by editorial project proof. */
     body[data-home-layout="luxury"]{
-      background:
-        radial-gradient(circle at 15% 10%,rgba(186,140,53,.11),transparent 31rem),
-        linear-gradient(180deg,#050b13,#081321 44%,#050b13);
+      --bg:#090806;--bg-alt:#15120e;--ink:#f5efe4;--muted:#c7bcaa;--gold:#caa96b;--gold-soft:#f2dfb3;
+      background:#090806;color:var(--ink);
     }
-    body[data-home-layout="luxury"] #main{max-width:1200px}
+    body[data-home-layout="luxury"]::before{
+      background:radial-gradient(circle at 80% 7%,rgba(202,169,107,.13),transparent 34rem);
+    }
+    body[data-home-layout="luxury"] .topbar{
+      background:rgba(9,8,6,.96)!important;border-bottom:1px solid rgba(202,169,107,.35)!important;
+    }
+    body[data-home-layout="luxury"] .site-footer{background:#050504;border-color:rgba(202,169,107,.28)}
+    body[data-home-layout="luxury"] .hb-home-layout-shell{width:min(100%,1320px);padding-top:28px}
     body[data-home-layout="luxury"] #homeHero{
-      min-height:570px;
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 250px;
-      align-items:center;
-      gap:42px;
-      padding:70px 64px;
-      border-radius:34px;
-      background:
-        linear-gradient(110deg,rgba(4,10,18,.98),rgba(9,24,40,.92) 60%,rgba(109,78,24,.34)),
-        radial-gradient(circle at 82% 20%,rgba(231,191,99,.22),transparent 22rem);
+      min-height:650px;display:grid;grid-template-columns:minmax(0,1fr) 300px;align-items:center;gap:68px;
+      padding:86px 74px;border:1px solid rgba(202,169,107,.42);border-radius:0;
+      background:linear-gradient(105deg,#11100d 0%,#090806 66%,#211a0e 100%);
+      box-shadow:0 40px 100px rgba(0,0,0,.5);
     }
-    body[data-home-layout="luxury"] #homeHero .hero-content{
-      max-width:780px;
-      margin:0;
-      padding:0;
-      text-align:left;
+    body[data-home-layout="luxury"] #homeHero::before{
+      content:"HAMMER BRICK & HOME  /  NEW YORK";position:absolute;top:28px;left:74px;
+      color:#caa96b;font-size:10px;font-weight:800;letter-spacing:.28em;
+    }
+    body[data-home-layout="luxury"] #homeHero::after{
+      content:"";position:absolute;right:0;top:0;width:38%;height:100%;z-index:0;
+      background:linear-gradient(160deg,rgba(202,169,107,.15),transparent 55%);
+      border-left:1px solid rgba(202,169,107,.18);
+    }
+    body[data-home-layout="luxury"] #homeHero .hero-content h1,
+    body[data-home-layout="luxury"] .section h2{
+      font-family:Georgia,"Times New Roman",serif;font-weight:400;
+    }
+    body[data-home-layout="luxury"] #homeHero .hero-content h1{
+      background:none!important;-webkit-text-fill-color:#f5efe4!important;color:#f5efe4!important;filter:none;
     }
     body[data-home-layout="luxury"] #homeHero .hero-actions,
     body[data-home-layout="luxury"] #homeHero .trust-pills{justify-content:flex-start}
     body[data-home-layout="luxury"] #homeHero .hero-badge img{
-      width:230px;
-      height:230px;
-      border:1px solid rgba(231,191,99,.6);
-      box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 12px rgba(231,191,99,.05);
+      width:270px;height:270px;border:1px solid #caa96b;border-radius:0;
+      box-shadow:24px 24px 0 rgba(202,169,107,.10);
     }
+    body[data-home-layout="luxury"] .btn{border-radius:0;text-transform:uppercase;letter-spacing:.09em}
+    body[data-home-layout="luxury"] .btn.ghost{color:#f2dfb3;border-color:#caa96b}
+    body[data-home-layout="luxury"] .hb-home-quick-actions{
+      border:1px solid rgba(202,169,107,.45);background:#090806;box-shadow:0 24px 55px rgba(0,0,0,.42);
+    }
+    body[data-home-layout="luxury"] .hb-home-quick-actions a{
+      color:#f5efe4;border-right:1px solid rgba(202,169,107,.28);background:#11100d;
+    }
+    body[data-home-layout="luxury"] .hb-home-quick-actions a:last-child{border-right:0}
+    body[data-home-layout="luxury"] .hb-home-quick-actions strong{color:#f2dfb3;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:15px}
+    body[data-home-layout="luxury"] #premiumMaterialsSection{
+      border:0!important;border-top:1px solid rgba(202,169,107,.28)!important;
+      border-bottom:1px solid rgba(202,169,107,.28)!important;border-radius:0!important;background:transparent!important;
+    }
+    body[data-home-layout="luxury"] .hb-luxury-showcase>#before-after{width:91%}
+    body[data-home-layout="luxury"] .hb-luxury-showcase>#cmsProjectsSection{width:91%;margin-left:auto}
     body[data-home-layout="luxury"] #before-after,
     body[data-home-layout="luxury"] #cmsProjectsSection,
-    body[data-home-layout="luxury"] #reviewsSection{
-      padding:38px;
-      border:1px solid rgba(231,191,99,.18);
-      border-radius:26px;
-      background:linear-gradient(145deg,rgba(13,28,46,.82),rgba(5,12,22,.92));
+    body[data-home-layout="luxury"] #reviewsSection,
+    body[data-home-layout="luxury"] #membershipServicesSection,
+    body[data-home-layout="luxury"] #guaranteeSection{
+      padding:46px;border:1px solid rgba(202,169,107,.25);border-radius:0;
+      background:#12100d;box-shadow:24px 24px 0 rgba(202,169,107,.035);
     }
-    body[data-home-layout="luxury"] #membershipServicesSection{
-      gap:40px;
-      padding:36px;
-      border-radius:26px;
-      background:rgba(10,22,37,.72);
-      border:1px solid rgba(231,191,99,.16);
-    }
-    body[data-home-layout="luxury"] #tiersSection .tier-card,
-    body[data-home-layout="luxury"] #specialsSection .special-card{
-      border-radius:22px;
-      box-shadow:0 20px 45px rgba(0,0,0,.25);
+    body[data-home-layout="luxury"] .section h2{font-size:clamp(2rem,4vw,3.6rem);color:#f2dfb3;text-align:left}
+    body[data-home-layout="luxury"] .tier-card,
+    body[data-home-layout="luxury"] .special-card,
+    body[data-home-layout="luxury"] .accent-card,
+    body[data-home-layout="luxury"] .process-steps li,
+    body[data-home-layout="luxury"] .cms-project-card,
+    body[data-home-layout="luxury"] #reviewsSection .review-slide,
+    body[data-home-layout="luxury"] .faq-section,
+    body[data-home-layout="luxury"] .faq-section details{
+      border-radius:0!important;background:#11100d!important;border-color:rgba(202,169,107,.24)!important;
     }
 
-    /* Layout 3: action-first hierarchy for calls, estimates and offers. */
+    /* 3 — CALL-FIRST MODERN: white sales page, navy type and copper contact actions. */
     body[data-home-layout="leads"]{
-      background:linear-gradient(180deg,#06101c,#0a1929 46%,#060d17);
+      --bg:#f3f6fa;--bg-alt:#ffffff;--ink:#112941;--muted:#5d6b7a;--gold:#c85731;--gold-soft:#173b5d;
+      background:#f3f6fa;color:var(--ink);
     }
-    body[data-home-layout="leads"] #main{max-width:1140px}
+    body[data-home-layout="leads"]::before{display:none}
+    body[data-home-layout="leads"] .topbar{
+      background:rgba(255,255,255,.97)!important;border-bottom:1px solid #dce3ea!important;box-shadow:0 8px 28px rgba(19,48,75,.08)!important;
+    }
+    body[data-home-layout="leads"] .topbar .brand-lockup,
+    body[data-home-layout="leads"] .topbar .main-nav a,
+    body[data-home-layout="leads"] .topbar .dropbtn{color:#112941!important}
+    body[data-home-layout="leads"] .topbar .dropdown-content{background:#fff!important}
+    body[data-home-layout="leads"] .site-footer{background:#112941;color:#e8eef4;border:0}
+    body[data-home-layout="leads"] .hb-home-layout-shell{width:min(100%,1240px)}
     body[data-home-layout="leads"] #homeHero{
-      min-height:485px;
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 210px;
-      align-items:center;
-      gap:32px;
-      padding:54px;
-      border-radius:24px;
-      border-left:7px solid var(--gold,#e7bf63);
-      background:linear-gradient(135deg,#0a1b2e 0%,#07111f 68%,#231b0b 100%);
+      min-height:540px;display:grid;grid-template-columns:minmax(0,1fr) 280px;align-items:center;gap:48px;
+      padding:68px 64px;border:0;border-radius:30px;
+      background:linear-gradient(130deg,#103454,#174c75 72%,#c85731 160%);
+      box-shadow:0 26px 70px rgba(17,41,65,.18);
     }
-    body[data-home-layout="leads"] #homeHero .hero-content{
-      max-width:760px;
-      margin:0;
-      padding:0;
-      text-align:left;
+    body[data-home-layout="leads"] #homeHero .hero-content h1{
+      font-family:Arial,Helvetica,sans-serif;font-weight:900;background:none!important;
+      -webkit-text-fill-color:#fff!important;color:#fff!important;filter:none;
     }
+    body[data-home-layout="leads"] #homeHero .hero-content p{color:#e8f0f7!important}
     body[data-home-layout="leads"] #homeHero .hero-actions,
     body[data-home-layout="leads"] #homeHero .trust-pills{justify-content:flex-start}
-    body[data-home-layout="leads"] #homeHeroPrimary{
-      padding:15px 27px!important;
-      box-shadow:0 12px 34px rgba(231,191,99,.28);
-    }
     body[data-home-layout="leads"] #homeHero .hero-badge img{
-      width:190px;
-      height:190px;
-      border:3px solid rgba(231,191,99,.6);
+      width:250px;height:250px;border-radius:28px;border:8px solid rgba(255,255,255,.92);box-shadow:0 22px 55px rgba(0,0,0,.24);
     }
-    body[data-home-layout="leads"] #specialsSection{
-      padding:36px;
-      border-radius:24px;
-      border:1px solid rgba(231,191,99,.34);
-      background:linear-gradient(135deg,rgba(231,191,99,.10),rgba(8,18,31,.95));
-      box-shadow:0 22px 55px rgba(0,0,0,.28);
+    body[data-home-layout="leads"] #homeHero .btn{background:#f47a43;color:#fff;box-shadow:none;border-radius:10px}
+    body[data-home-layout="leads"] #homeHero .btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7)}
+    body[data-home-layout="leads"] #homeHero .trust-pills li{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
+    body[data-home-layout="leads"] .hb-home-quick-actions{
+      border:1px solid #dce4eb;border-radius:18px;background:#fff;box-shadow:0 18px 50px rgba(17,41,65,.14);
     }
+    body[data-home-layout="leads"] .hb-home-quick-actions a{color:#173b5d;border-radius:12px;background:#f5f8fb}
+    body[data-home-layout="leads"] .hb-home-quick-actions a:first-child{color:#fff;background:#c85731}
+    body[data-home-layout="leads"] .hb-home-quick-actions strong{font-family:Arial,Helvetica,sans-serif;font-weight:900}
+    body[data-home-layout="leads"] #premiumMaterialsSection{
+      background:#fff!important;border:1px solid #dfe6ed!important;border-radius:16px!important;box-shadow:0 12px 34px rgba(17,41,65,.06);
+    }
+    body[data-home-layout="leads"] #premiumMaterialsSection p,
+    body[data-home-layout="leads"] #premiumMaterialsSection span{color:#35506a!important}
+    body[data-home-layout="leads"] .hb-leads-conversion{grid-template-columns:minmax(0,1.45fr) minmax(300px,.55fr)}
+    body[data-home-layout="leads"] .hb-leads-conversion #guaranteeSection{grid-template-columns:1fr!important}
+    body[data-home-layout="leads"] .hb-leads-conversion #specialsGrid{grid-template-columns:1fr}
+    body[data-home-layout="leads"] .section h2{
+      font-family:Arial,Helvetica,sans-serif;font-size:clamp(1.9rem,3.4vw,3rem);font-weight:900;color:#173b5d;text-shadow:none;
+    }
+    body[data-home-layout="leads"] .section p,
+    body[data-home-layout="leads"] .section li{color:#5d6b7a}
+    body[data-home-layout="leads"] .special-card,
+    body[data-home-layout="leads"] .tier-card,
+    body[data-home-layout="leads"] .accent-card,
+    body[data-home-layout="leads"] .process-steps li,
+    body[data-home-layout="leads"] .cms-project-card,
     body[data-home-layout="leads"] #reviewsSection,
+    body[data-home-layout="leads"] #reviewsSection .review-slide,
+    body[data-home-layout="leads"] .faq-section,
+    body[data-home-layout="leads"] .faq-section details{
+      color:#112941;background:#fff!important;border:1px solid #dce4eb!important;border-radius:14px!important;
+      box-shadow:0 14px 38px rgba(17,41,65,.07)!important;
+    }
+    body[data-home-layout="leads"] #specialsSection,
+    body[data-home-layout="leads"] #guaranteeSection,
     body[data-home-layout="leads"] #tiersSection,
-    body[data-home-layout="leads"] #cmsProjectsSection{
-      padding:30px;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:22px;
-      background:rgba(7,17,30,.78);
+    body[data-home-layout="leads"] #cmsProjectsSection,
+    body[data-home-layout="leads"] #before-after,
+    body[data-home-layout="leads"] #membershipServicesSection,
+    body[data-home-layout="leads"] #serviceAreaSection{
+      padding:32px;background:#fff;border:1px solid #dce4eb;border-radius:18px;
     }
-    body[data-home-layout="leads"] #homeHero .trust-pills li{
-      background:rgba(255,255,255,.055);
-      border-color:rgba(231,191,99,.32);
-    }
+    body[data-home-layout="leads"] .special-card h3,
+    body[data-home-layout="leads"] .tier-card h3,
+    body[data-home-layout="leads"] .special-price,
+    body[data-home-layout="leads"] .faq-section summary,
+    body[data-home-layout="leads"] #reviewsSection h2,
+    body[data-home-layout="leads"] #reviewsSection .review-quote,
+    body[data-home-layout="leads"] #reviewsSection .review-note,
+    body[data-home-layout="leads"] #reviewsSection .review-service,
+    body[data-home-layout="leads"] .cms-project-content h3{color:#173b5d!important;-webkit-text-fill-color:#173b5d!important;text-shadow:none!important}
+    body[data-home-layout="leads"] #reviewsSection .review-trust-copy,
+    body[data-home-layout="leads"] #reviewsSection .review-scroll-hint,
+    body[data-home-layout="leads"] #reviewsSection .review-trust-strip,
+    body[data-home-layout="leads"] .faq-section details p{color:#5d6b7a!important}
+    body[data-home-layout="leads"] #reviewsSection .review-trust-strip strong,
+    body[data-home-layout="leads"] #guaranteeSignature,
+    body[data-home-layout="leads"] #membershipServicesSection .services-glow-container>h3,
+    body[data-home-layout="leads"] #membershipServicesSection .trust-content>div>div:first-child h3{color:#173b5d!important}
+    body[data-home-layout="leads"] .ba-card{background:#fff!important;border-color:#dce4eb!important;box-shadow:0 14px 38px rgba(17,41,65,.08)!important}
+    body[data-home-layout="leads"] .ba-caption{background:#fff!important;color:#173b5d!important;border-color:#dce4eb!important;text-shadow:none}
+    body[data-home-layout="leads"] .cms-stage-viewer{border-color:#dce4eb;background:#fff}
+    body[data-home-layout="leads"] .cms-stage-buttons{background:#eef3f7}
+    body[data-home-layout="leads"] .cms-stage-buttons button{color:#173b5d;border-color:#8fa4b7}
+    body[data-home-layout="leads"] .cms-stage-panels,
+    body[data-home-layout="leads"] .cms-stage-grid,
+    body[data-home-layout="leads"] .cms-stage-panels img,
+    body[data-home-layout="leads"] .cms-stage-grid img{background:#e8edf2}
+    body[data-home-layout="leads"] .addon-list,
+    body[data-home-layout="leads"] .special-card .bullets li{color:#5d6b7a!important}
+    body[data-home-layout="leads"] .btn{background:#c85731;color:#fff;border-radius:9px;box-shadow:none}
+    body[data-home-layout="leads"] .btn.ghost{background:#fff;color:#173b5d;border:1px solid #173b5d}
+    body[data-home-layout="leads"] .special-protection,
+    body[data-home-layout="leads"] #membershipServicesSection [style*="background:#0a0f18"]{background:#eef3f7!important;color:#445b70!important}
 
-    /* Layout 4: project imagery and proof appear before long-form sales copy. */
+    /* 4 — PROJECT-FIRST BLUEPRINT: technical grid, cobalt/cyan and image-first split board. */
     body[data-home-layout="portfolio"]{
-      background:linear-gradient(180deg,#04080e,#091525 48%,#04080e);
+      --bg:#061a38;--bg-alt:#0b2750;--ink:#eef8ff;--muted:#afd0e5;--gold:#ff8b2c;--gold-soft:#7fe3ff;
+      background:#061a38;color:var(--ink);
     }
-    body[data-home-layout="portfolio"] #main{max-width:1320px}
+    body[data-home-layout="portfolio"]::before{
+      background-image:linear-gradient(rgba(93,192,230,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(93,192,230,.07) 1px,transparent 1px);
+      background-size:32px 32px;animation:none;z-index:-1;
+    }
+    body[data-home-layout="portfolio"] .topbar{
+      background:rgba(4,22,48,.97)!important;border-bottom:2px solid #38c6e9!important;
+    }
+    body[data-home-layout="portfolio"] .site-footer{background:#031127;border-color:#38c6e9}
+    body[data-home-layout="portfolio"] .hb-home-layout-shell{width:min(100%,1460px)}
     body[data-home-layout="portfolio"] #homeHero{
-      min-height:390px;
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 180px;
-      align-items:center;
-      gap:28px;
-      padding:46px 52px;
-      border-radius:20px;
-      background:linear-gradient(100deg,rgba(5,12,22,.98),rgba(17,38,62,.92),rgba(99,70,20,.25));
+      min-height:470px;display:grid;grid-template-columns:minmax(0,1fr) 235px;align-items:center;gap:44px;
+      padding:60px;border:2px solid #38c6e9;border-radius:0;
+      background:linear-gradient(115deg,rgba(7,38,78,.98),rgba(4,25,56,.97));box-shadow:16px 16px 0 rgba(56,198,233,.12);
     }
-    body[data-home-layout="portfolio"] #homeHero .hero-content{
-      max-width:900px;
-      margin:0;
-      padding:0;
-      text-align:left;
+    body[data-home-layout="portfolio"] #homeHero::before{
+      content:"PROJECT STUDIO  •  FIELD PROOF  •  NYC / NJ";position:absolute;top:18px;left:60px;
+      color:#7fe3ff;font:700 10px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;
+    }
+    body[data-home-layout="portfolio"] #homeHero .hero-content h1{
+      font-family:Arial,Helvetica,sans-serif;font-weight:900;text-transform:uppercase;background:none!important;
+      -webkit-text-fill-color:#eef8ff!important;color:#eef8ff!important;filter:none;
     }
     body[data-home-layout="portfolio"] #homeHero .hero-actions,
     body[data-home-layout="portfolio"] #homeHero .trust-pills{justify-content:flex-start}
-    body[data-home-layout="portfolio"] #homeHero .hero-badge img{width:165px;height:165px}
+    body[data-home-layout="portfolio"] #homeHero .hero-badge img{
+      width:215px;height:215px;border:2px solid #38c6e9;border-radius:0;box-shadow:14px 14px 0 rgba(255,139,44,.22);
+    }
+    body[data-home-layout="portfolio"] .btn{border-radius:2px;background:#ff8b2c;color:#061a38;text-transform:uppercase;letter-spacing:.07em;box-shadow:none}
+    body[data-home-layout="portfolio"] .btn.ghost{background:transparent;color:#7fe3ff;border:1px solid #38c6e9}
+    body[data-home-layout="portfolio"] .hb-home-quick-actions{
+      border:2px solid #38c6e9;background:#04162f;box-shadow:12px 12px 0 rgba(56,198,233,.12);
+    }
+    body[data-home-layout="portfolio"] .hb-home-quick-actions a{color:#eef8ff;border:1px solid rgba(56,198,233,.38);background:#08244b}
+    body[data-home-layout="portfolio"] .hb-home-quick-actions a:first-child{color:#061a38;border-color:#ff8b2c;background:#ff8b2c}
+    body[data-home-layout="portfolio"] .hb-home-quick-actions strong{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase}
+    body[data-home-layout="portfolio"] .section h2{
+      color:#7fe3ff;font:900 clamp(1.7rem,3vw,2.7rem)/1.05 ui-monospace,SFMono-Regular,Menlo,monospace;
+      text-transform:uppercase;letter-spacing:-.035em;text-shadow:none;
+    }
+    body[data-home-layout="portfolio"] #premiumMaterialsSection{border:1px solid rgba(56,198,233,.42)!important;border-radius:0!important;background:#082247!important}
+    body[data-home-layout="portfolio"] .hb-portfolio-stage{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+    body[data-home-layout="portfolio"] .hb-portfolio-details{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:24px}
+    body[data-home-layout="portfolio"] .hb-portfolio-details #membershipServicesSection{grid-template-columns:1fr}
     body[data-home-layout="portfolio"] #before-after,
-    body[data-home-layout="portfolio"] #cmsProjectsSection{
-      padding:38px;
-      border-radius:24px;
-      border:1px solid rgba(231,191,99,.22);
-      background:#07111f;
-      box-shadow:0 24px 70px rgba(0,0,0,.36);
+    body[data-home-layout="portfolio"] #cmsProjectsSection,
+    body[data-home-layout="portfolio"] #processSection,
+    body[data-home-layout="portfolio"] #membershipServicesSection,
+    body[data-home-layout="portfolio"] #reviewsSection,
+    body[data-home-layout="portfolio"] #tiersSection,
+    body[data-home-layout="portfolio"] #specialsSection,
+    body[data-home-layout="portfolio"] #guaranteeSection,
+    body[data-home-layout="portfolio"] #serviceAreaSection{
+      padding:30px;border:1px solid rgba(56,198,233,.38);border-radius:0;background:rgba(5,29,62,.94);box-shadow:none;
     }
-    body[data-home-layout="portfolio"] #before-after .ba-head,
-    body[data-home-layout="portfolio"] #cmsProjectsSection .cms-section-heading{
-      max-width:820px;
-      margin-left:0;
-      text-align:left;
+    body[data-home-layout="portfolio"] .hb-portfolio-stage .ba-grid,
+    body[data-home-layout="portfolio"] .hb-portfolio-stage .cms-project-grid{grid-template-columns:1fr!important;gap:18px!important}
+    body[data-home-layout="portfolio"] .hb-portfolio-stage .ba-frame{aspect-ratio:16/10}
+    body[data-home-layout="portfolio"] .tier-card,
+    body[data-home-layout="portfolio"] .special-card,
+    body[data-home-layout="portfolio"] .accent-card,
+    body[data-home-layout="portfolio"] .process-steps li,
+    body[data-home-layout="portfolio"] .cms-project-card,
+    body[data-home-layout="portfolio"] #reviewsSection .review-slide,
+    body[data-home-layout="portfolio"] .faq-section,
+    body[data-home-layout="portfolio"] .faq-section details{
+      border-radius:0!important;background:#071f43!important;border-color:rgba(56,198,233,.36)!important;box-shadow:none!important;
     }
-    body[data-home-layout="portfolio"] #before-after .ba-grid{
-      grid-template-columns:repeat(auto-fit,minmax(min(100%,390px),1fr))!important;
-      gap:22px!important;
-    }
-    body[data-home-layout="portfolio"] #cmsProjectsSection .cms-project-grid{
-      grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));
-      justify-content:stretch;
-    }
-    body[data-home-layout="portfolio"] #reviewsSection{
-      border-radius:24px;
-    }
+    body[data-home-layout="portfolio"] .cms-stage-buttons{background:#03152f}
+    body[data-home-layout="portfolio"] .cms-stage-buttons button{border-radius:2px;border-color:#38c6e9}
+    body[data-home-layout="portfolio"] .cms-stage-buttons button[aria-selected="true"]{background:#ff8b2c;border-color:#ff8b2c;color:#061a38}
 
-    /* Layout 5: local ownership, reviews and service area lead the story. */
+    /* 5 — LOCAL-FIRST NEIGHBORHOOD: service areas first, with cream, forest green and brick. */
     body[data-home-layout="local"]{
-      background:
-        radial-gradient(circle at 85% 8%,rgba(46,111,92,.13),transparent 30rem),
-        linear-gradient(180deg,#07121d,#0a1824 48%,#061019);
+      --bg:#f4ecdf;--bg-alt:#fffaf1;--ink:#26362e;--muted:#637067;--gold:#a44932;--gold-soft:#245346;
+      background:#f4ecdf;color:var(--ink);
     }
-    body[data-home-layout="local"] #main{max-width:1160px}
+    body[data-home-layout="local"]::before{
+      background:radial-gradient(circle at 8% 8%,rgba(164,73,50,.08),transparent 32rem),radial-gradient(circle at 92% 28%,rgba(36,83,70,.09),transparent 30rem);
+      animation:none;
+    }
+    body[data-home-layout="local"] .topbar{
+      background:rgba(29,66,56,.98)!important;border-bottom:3px solid #d7b679!important;
+    }
+    body[data-home-layout="local"] .topbar .brand-lockup,
+    body[data-home-layout="local"] .topbar .main-nav a,
+    body[data-home-layout="local"] .topbar .dropbtn{color:#fffaf1!important}
+    body[data-home-layout="local"] .topbar .dropdown-content{background:#1d4238!important}
+    body[data-home-layout="local"] .site-footer{background:#1d4238;color:#f4ecdf;border-color:#d7b679}
+    body[data-home-layout="local"] .hb-home-layout-shell{width:min(100%,1200px)}
     body[data-home-layout="local"] #homeHero{
-      min-height:455px;
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 205px;
-      align-items:center;
-      gap:34px;
-      padding:52px;
-      border-radius:28px;
-      border-color:rgba(150,204,177,.28);
-      background:linear-gradient(130deg,rgba(6,21,29,.98),rgba(10,38,45,.9),rgba(44,76,59,.32));
+      min-height:535px;display:grid;grid-template-columns:minmax(0,1fr) 255px;align-items:center;gap:48px;
+      padding:64px;border:0;border-radius:42px 10px 42px 10px;
+      background:#245346;box-shadow:0 24px 60px rgba(38,54,46,.18);
     }
-    body[data-home-layout="local"] #homeHero .hero-content{
-      max-width:780px;
-      margin:0;
-      padding:0;
-      text-align:left;
+    body[data-home-layout="local"] #homeHero::before{
+      content:"LOCAL CRAFTSMANSHIP • NEIGHBOR-FOCUSED SERVICE";position:absolute;top:28px;left:64px;
+      color:#e7cf9f;font-size:10px;font-weight:900;letter-spacing:.16em;
     }
+    body[data-home-layout="local"] #homeHero .hero-content h1{
+      font-family:Georgia,"Times New Roman",serif;background:none!important;-webkit-text-fill-color:#fffaf1!important;color:#fffaf1!important;filter:none;
+    }
+    body[data-home-layout="local"] #homeHero .hero-content p{color:#e5eee9!important}
     body[data-home-layout="local"] #homeHero .hero-actions,
     body[data-home-layout="local"] #homeHero .trust-pills{justify-content:flex-start}
     body[data-home-layout="local"] #homeHero .hero-badge img{
-      width:190px;
-      height:190px;
-      border:2px solid rgba(150,204,177,.42);
+      width:235px;height:235px;border-radius:38% 62% 55% 45%;border:8px solid #f4ecdf;box-shadow:0 20px 45px rgba(0,0,0,.22);
     }
+    body[data-home-layout="local"] #homeHero .btn{background:#d7b679;color:#20372f;box-shadow:none}
+    body[data-home-layout="local"] #homeHero .btn.ghost{background:transparent;color:#fffaf1;border:1px solid #fffaf1}
+    body[data-home-layout="local"] #homeHero .trust-pills li{background:rgba(255,250,241,.10);border-color:rgba(255,250,241,.34);color:#fffaf1}
+    body[data-home-layout="local"] .hb-home-quick-actions{
+      border:1px solid #ded1bd;border-radius:24px;background:#fffaf1;box-shadow:0 18px 45px rgba(62,54,42,.12);
+    }
+    body[data-home-layout="local"] .hb-home-quick-actions a{color:#245346;border-radius:18px;background:#f3e9da}
+    body[data-home-layout="local"] .hb-home-quick-actions a:first-child{color:#fff;background:#a44932}
+    body[data-home-layout="local"] .hb-home-quick-actions strong{font-family:Georgia,"Times New Roman",serif;font-size:15px}
+    body[data-home-layout="local"] #premiumMaterialsSection{background:#fffaf1!important;border:1px solid #ded1bd!important;border-radius:24px!important}
+    body[data-home-layout="local"] #premiumMaterialsSection p,
+    body[data-home-layout="local"] #premiumMaterialsSection span{color:#36554a!important}
+    body[data-home-layout="local"] .hb-local-opening{grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:28px}
+    body[data-home-layout="local"] .hb-local-opening #guaranteeSection{grid-template-columns:1fr}
+    body[data-home-layout="local"] .hb-local-opening .process-steps{grid-template-columns:1fr}
+    body[data-home-layout="local"] .section h2{
+      font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,3.8vw,3.25rem);color:#245346;text-shadow:none;
+    }
+    body[data-home-layout="local"] .section p,
+    body[data-home-layout="local"] .section li{color:#637067}
     body[data-home-layout="local"] #guaranteeSection,
+    body[data-home-layout="local"] #processSection,
     body[data-home-layout="local"] #reviewsSection,
     body[data-home-layout="local"] #cmsServiceAreasSection,
     body[data-home-layout="local"] #serviceAreaSection,
-    body[data-home-layout="local"] #processSection{
-      padding:32px;
-      border:1px solid rgba(150,204,177,.18);
-      border-radius:24px;
-      background:linear-gradient(145deg,rgba(10,31,40,.84),rgba(6,17,28,.92));
+    body[data-home-layout="local"] #cmsProjectsSection,
+    body[data-home-layout="local"] #before-after,
+    body[data-home-layout="local"] #membershipServicesSection,
+    body[data-home-layout="local"] #specialsSection,
+    body[data-home-layout="local"] #tiersSection{
+      padding:32px;border:1px solid #ded1bd;border-radius:28px;background:#fffaf1;box-shadow:0 16px 42px rgba(62,54,42,.08);
     }
-    body[data-home-layout="local"] #guaranteeSection .accent-card{
-      border-color:rgba(231,191,99,.34);
-      background:rgba(5,15,24,.86);
+    body[data-home-layout="local"] .special-card,
+    body[data-home-layout="local"] .tier-card,
+    body[data-home-layout="local"] .accent-card,
+    body[data-home-layout="local"] .process-steps li,
+    body[data-home-layout="local"] .cms-project-card,
+    body[data-home-layout="local"] #reviewsSection .review-slide,
+    body[data-home-layout="local"] .faq-section,
+    body[data-home-layout="local"] .faq-section details{
+      color:#26362e;background:#fffaf1!important;border:1px solid #ded1bd!important;border-radius:22px!important;
+      box-shadow:0 12px 32px rgba(62,54,42,.07)!important;
     }
-    body[data-home-layout="local"] #cmsServiceAreasSection .accent-card{
-      border-color:rgba(150,204,177,.2);
-      background:rgba(7,24,31,.84);
-    }
+    body[data-home-layout="local"] .special-card h3,
+    body[data-home-layout="local"] .tier-card h3,
+    body[data-home-layout="local"] .special-price,
+    body[data-home-layout="local"] .faq-section summary,
+    body[data-home-layout="local"] #reviewsSection h2,
+    body[data-home-layout="local"] #reviewsSection .review-quote,
+    body[data-home-layout="local"] #reviewsSection .review-note,
+    body[data-home-layout="local"] #reviewsSection .review-service,
+    body[data-home-layout="local"] .cms-project-content h3{color:#245346!important;-webkit-text-fill-color:#245346!important;text-shadow:none!important}
+    body[data-home-layout="local"] #reviewsSection .review-trust-copy,
+    body[data-home-layout="local"] #reviewsSection .review-scroll-hint,
+    body[data-home-layout="local"] #reviewsSection .review-trust-strip,
+    body[data-home-layout="local"] .faq-section details p{color:#637067!important}
+    body[data-home-layout="local"] #reviewsSection .review-trust-strip strong,
+    body[data-home-layout="local"] #guaranteeSignature,
+    body[data-home-layout="local"] #membershipServicesSection .services-glow-container>h3,
+    body[data-home-layout="local"] #membershipServicesSection .trust-content>div>div:first-child h3{color:#245346!important}
+    body[data-home-layout="local"] .ba-card{background:#fffaf1!important;border-color:#d7c6ad!important;box-shadow:0 14px 36px rgba(62,54,42,.10)!important}
+    body[data-home-layout="local"] .ba-caption{background:#fffaf1!important;color:#245346!important;border-color:#d7c6ad!important;text-shadow:none}
+    body[data-home-layout="local"] .cms-stage-viewer{border-color:#d7c6ad;background:#fffaf1}
+    body[data-home-layout="local"] .cms-stage-buttons{background:#efe3d1}
+    body[data-home-layout="local"] .cms-stage-buttons button{color:#245346;border-color:#8aa095}
+    body[data-home-layout="local"] .cms-stage-panels,
+    body[data-home-layout="local"] .cms-stage-grid,
+    body[data-home-layout="local"] .cms-stage-panels img,
+    body[data-home-layout="local"] .cms-stage-grid img{background:#e9dfd0}
+    body[data-home-layout="local"] .addon-list,
+    body[data-home-layout="local"] .special-card .bullets li{color:#637067!important}
+    body[data-home-layout="local"] .btn{background:#a44932;color:#fff;border-radius:999px;box-shadow:none}
+    body[data-home-layout="local"] .btn.ghost{background:#fffaf1;color:#245346;border:1px solid #245346}
+    body[data-home-layout="local"] .special-protection,
+    body[data-home-layout="local"] #membershipServicesSection [style*="background:#0a0f18"]{background:#f0e5d5!important;color:#59675f!important}
     body[data-home-layout="local"] #serviceAreaSection{margin-top:0!important}
 
+    @media(max-width:1050px){
+      body[data-home-layout="leads"] .hb-leads-conversion,
+      body[data-home-layout="portfolio"] .hb-portfolio-stage,
+      body[data-home-layout="portfolio"] .hb-portfolio-details,
+      body[data-home-layout="local"] .hb-local-opening{grid-template-columns:1fr}
+      body[data-home-layout="luxury"] .hb-luxury-showcase>#before-after,
+      body[data-home-layout="luxury"] .hb-luxury-showcase>#cmsProjectsSection{width:100%;margin-left:0}
+    }
     @media(max-width:900px){
-      body[data-home-layout]:not([data-home-layout="classic"]) #main{
-        padding-left:16px;
-        padding-right:16px;
-      }
-      body[data-home-layout]:not([data-home-layout="classic"]) #main>.section,
-      body[data-home-layout]:not([data-home-layout="classic"]) #main>#premiumMaterialsSection{
-        margin-bottom:42px;
-      }
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell{padding:24px 16px 64px}
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:-24px}
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell>.section,
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell>.hb-home-band,
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell>#premiumMaterialsSection{margin-bottom:46px}
       body[data-home-layout="luxury"] #homeHero,
       body[data-home-layout="leads"] #homeHero,
       body[data-home-layout="portfolio"] #homeHero,
       body[data-home-layout="local"] #homeHero{
-        min-height:0;
-        grid-template-columns:1fr;
-        padding:42px 30px;
+        min-height:0;grid-template-columns:1fr;padding:58px 32px 38px;
       }
-      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content{
-        max-width:none;
-        text-align:center;
-      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content{text-align:center}
       body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-actions,
-      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .trust-pills{
-        justify-content:center;
-      }
-      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge{
-        justify-self:center;
-      }
-      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge img{
-        width:150px;
-        height:150px;
-      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .trust-pills{justify-content:center}
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge{justify-self:center}
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-badge img{width:165px;height:165px}
       body[data-home-layout]:not([data-home-layout="classic"]) #membershipServicesSection,
-      body[data-home-layout]:not([data-home-layout="classic"]) #guaranteeSection{
-        grid-template-columns:1fr;
-      }
-      body[data-home-layout]:not([data-home-layout="classic"]) #serviceAreaSection>div{
-        grid-template-columns:1fr!important;
-      }
+      body[data-home-layout]:not([data-home-layout="classic"]) #guaranteeSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #serviceAreaSection>div{grid-template-columns:1fr!important}
+      body[data-home-layout="luxury"] #homeHero::before,
+      body[data-home-layout="portfolio"] #homeHero::before,
+      body[data-home-layout="local"] #homeHero::before{left:32px;right:32px;text-align:center}
     }
     @media(max-width:560px){
-      body[data-home-layout]:not([data-home-layout="classic"]) #main{
-        padding-left:12px;
-        padding-right:12px;
-      }
-      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero{
-        margin-top:22px!important;
-        padding:32px 18px;
-        border-radius:20px;
-      }
-      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content h1{
-        font-size:clamp(2rem,11vw,3rem);
-      }
-      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-actions .btn{
-        width:100%;
-        text-align:center;
-      }
-      body[data-home-layout="luxury"] #before-after,
-      body[data-home-layout="luxury"] #cmsProjectsSection,
-      body[data-home-layout="luxury"] #reviewsSection,
-      body[data-home-layout="luxury"] #membershipServicesSection,
-      body[data-home-layout="leads"] #specialsSection,
-      body[data-home-layout="leads"] #reviewsSection,
-      body[data-home-layout="leads"] #tiersSection,
-      body[data-home-layout="leads"] #cmsProjectsSection,
-      body[data-home-layout="portfolio"] #before-after,
-      body[data-home-layout="portfolio"] #cmsProjectsSection,
-      body[data-home-layout="local"] #guaranteeSection,
-      body[data-home-layout="local"] #reviewsSection,
-      body[data-home-layout="local"] #cmsServiceAreasSection,
-      body[data-home-layout="local"] #serviceAreaSection,
-      body[data-home-layout="local"] #processSection{
-        padding:22px 16px;
-        border-radius:18px;
-      }
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-layout-shell{padding:18px 10px 50px}
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions{grid-template-columns:1fr;gap:8px;margin:0 auto 42px;padding:10px}
+      body[data-home-layout]:not([data-home-layout="classic"]) .hb-home-quick-actions a{min-height:68px}
+      body[data-home-layout="luxury"] .hb-home-quick-actions a{border-right:0;border-bottom:1px solid rgba(202,169,107,.28)}
+      body[data-home-layout="luxury"] .hb-home-quick-actions a:last-child{border-bottom:0}
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero{margin:10px 0 42px!important;padding:54px 18px 28px;border-radius:16px}
+      body[data-home-layout="luxury"] #homeHero,
+      body[data-home-layout="portfolio"] #homeHero{border-radius:0}
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-content h1{font-size:clamp(2rem,11vw,3.15rem)}
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero .hero-actions .btn{width:100%;text-align:center}
+      body[data-home-layout]:not([data-home-layout="classic"]) #homeHero::before{top:18px;left:18px;right:18px;font-size:8px}
+      body[data-home-layout]:not([data-home-layout="classic"]) #before-after,
+      body[data-home-layout]:not([data-home-layout="classic"]) #cmsProjectsSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #reviewsSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #membershipServicesSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #guaranteeSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #processSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #specialsSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #tiersSection,
+      body[data-home-layout]:not([data-home-layout="classic"]) #serviceAreaSection{padding:22px 15px}
+      body[data-home-layout]:not([data-home-layout="classic"]) .ba-grid{grid-template-columns:1fr!important;gap:18px!important}
     }
   `;
   document.head.appendChild(style);
@@ -940,38 +1095,74 @@ function hammerApplyHomepageLayout(homepage) {
   document.body.dataset.homeLayout = layout;
   main.dataset.homeLayout = layout;
 
-  if (layout === "classic") return;
+  if (layout === "classic" || document.getElementById("cmsHomepageLayoutShell")) return;
 
-  const layoutOrders = {
+  let quickActions = document.getElementById("cmsHomepageQuickActions");
+  if (!quickActions) {
+    quickActions = document.createElement("nav");
+    quickActions.id = "cmsHomepageQuickActions";
+    quickActions.className = "hb-home-quick-actions";
+    quickActions.setAttribute("aria-label", "Quick contact options");
+    quickActions.innerHTML = `
+      <a href="tel:+19295955300"><span aria-hidden="true">☎</span><strong>Call for a Fast Estimate</strong><small>Speak directly with our team</small></a>
+      <a href="sms:+19295955300"><span aria-hidden="true">▣</span><strong>Text Project Photos</strong><small>Send pictures from your phone</small></a>
+      <a href="/project-estimator.html"><span aria-hidden="true">✓</span><strong>Start an Online Estimate</strong><small>Tell us about the work</small></a>
+      <a href="#reviewsSection"><span aria-hidden="true">★</span><strong>Read Customer Reviews</strong><small>See real homeowner feedback</small></a>`;
+    main.appendChild(quickActions);
+    if (typeof refreshHammerBusinessSettings === "function") refreshHammerBusinessSettings();
+  }
+
+  const layoutPlans = {
     luxury: [
-      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "before-after",
-      "cmsProjectsSection", "membershipServicesSection", "reviewsSection", "guaranteeSection",
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "reviewsSection", "premiumMaterialsSection",
+      { className: "hb-luxury-showcase", ids: ["before-after", "cmsProjectsSection"] },
+      { className: "hb-luxury-story", ids: ["membershipServicesSection", "guaranteeSection"] },
       "tiersSection", "processSection", "specialsSection", "cmsServiceAreasSection",
       "serviceAreaSection", "faqSection"
     ],
     leads: [
-      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "specialsSection",
-      "reviewsSection", "cmsProjectsSection", "tiersSection", "membershipServicesSection",
-      "before-after", "processSection", "guaranteeSection", "cmsServiceAreasSection",
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions",
+      { className: "hb-leads-conversion", ids: ["specialsSection", "guaranteeSection"] },
+      "reviewsSection", "premiumMaterialsSection", "tiersSection", "cmsProjectsSection", "processSection",
+      "before-after", "membershipServicesSection", "cmsServiceAreasSection",
       "serviceAreaSection", "faqSection"
     ],
     portfolio: [
-      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "before-after",
-      "cmsProjectsSection", "reviewsSection", "membershipServicesSection", "processSection",
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions",
+      { className: "hb-portfolio-stage", ids: ["before-after", "cmsProjectsSection"] },
+      "reviewsSection", "premiumMaterialsSection",
+      { className: "hb-portfolio-details", ids: ["processSection", "membershipServicesSection"] },
       "tiersSection", "specialsSection", "guaranteeSection", "cmsServiceAreasSection",
       "serviceAreaSection", "faqSection"
     ],
     local: [
-      "adminAnnouncement", "homeHero", "premiumMaterialsSection", "guaranteeSection",
-      "reviewsSection", "cmsServiceAreasSection", "serviceAreaSection", "processSection",
-      "membershipServicesSection", "cmsProjectsSection", "before-after", "specialsSection",
-      "tiersSection", "faqSection"
+      "adminAnnouncement", "homeHero", "cmsHomepageQuickActions", "cmsServiceAreasSection",
+      { className: "hb-local-opening", ids: ["guaranteeSection", "processSection"] },
+      "reviewsSection", "serviceAreaSection", "cmsProjectsSection",
+      "before-after", "premiumMaterialsSection", "membershipServicesSection",
+      "specialsSection", "tiersSection", "faqSection"
     ]
   };
 
-  layoutOrders[layout].forEach(id => {
-    const section = document.getElementById(id);
-    if (section && section.parentNode === main) main.appendChild(section);
+  const shell = document.createElement("div");
+  shell.id = "cmsHomepageLayoutShell";
+  shell.className = `hb-home-layout-shell hb-home-layout-${layout}`;
+  shell.dataset.homeLayout = layout;
+  main.appendChild(shell);
+
+  layoutPlans[layout].forEach(item => {
+    if (typeof item === "string") {
+      const section = document.getElementById(item);
+      if (section) shell.appendChild(section);
+      return;
+    }
+    const band = document.createElement("div");
+    band.className = `hb-home-band ${item.className}`;
+    item.ids.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) band.appendChild(section);
+    });
+    if (band.children.length) shell.appendChild(band);
   });
 }
 
