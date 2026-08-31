@@ -92,9 +92,9 @@ content:
             options:
               values:
                 - {name: classic, label: "1 — Current Classic (Original)"}
-                - {name: luxury, label: "2 — Review-First Luxury (Black & Champagne)"}
-                - {name: leads, label: "3 — Call-First Modern (White, Navy & Copper)"}
-                - {name: portfolio, label: "4 — Project-First Blueprint (Blue & Orange)"}
+                - {name: luxury, label: "2 — Review-First Burgundy Luxe (Burgundy, Blush & Ivory)"}
+                - {name: leads, label: "3 — Call-First Coastal Modern (Sky, Navy & Coral)"}
+                - {name: portfolio, label: "4 — Project-First Industrial (Concrete, Charcoal & Yellow)"}
                 - {name: local, label: "5 — Local-First Neighborhood (Cream, Green & Brick)"}
           - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
           - {name: announcementText, label: "Announcement Text", type: string, required: false}
