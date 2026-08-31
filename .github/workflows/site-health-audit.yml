@@ -1,6 +1,8 @@
 name: Hammer Brick - Full Website Check
 
 on:
+  schedule:
+    - cron: "0 12 * * 1"
   workflow_dispatch:
     inputs:
       payload:
@@ -23,6 +25,7 @@ jobs:
           fetch-depth: 0
 
       - name: Verify the Pages CMS action
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           PAGES_CMS_PAYLOAD: ${{ inputs.payload }}
         shell: bash
@@ -32,20 +35,23 @@ jobs:
           test "$ACTION_NAME" = "run-full-site-check"
 
       - name: Run full website check
-        run: python3 scripts/master_audit.py
+        run: |
+          python3 scripts/master_audit.py
+          python3 scripts/gallery_media_cleanup.py --mode scan
+          python3 scripts/owner_dashboard.py
 
       - name: Save the health report
         shell: bash
         run: |
           set -euo pipefail
 
-          if git diff --quiet -- admin-tools/master-audit.json; then
+          if git diff --quiet -- admin-tools/master-audit.json admin-tools/command-center.json admin-tools/seo-report.json admin-tools/unused-images-report.json; then
             echo "The health report is already current."
             exit 0
           fi
 
           git config user.name "Hammer Brick Admin"
           git config user.email "actions@users.noreply.github.com"
-          git add admin-tools/master-audit.json
-          git commit -m "admin: update full website health report"
+          git add admin-tools/master-audit.json admin-tools/command-center.json admin-tools/seo-report.json admin-tools/unused-images-report.json
+          git commit -m "admin: refresh owner dashboard and full website reports"
           git push
