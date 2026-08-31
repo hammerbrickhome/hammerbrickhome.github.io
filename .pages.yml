@@ -88,14 +88,24 @@ content:
             type: select
             required: false
             default: classic
-            description: "Choose a conversion strategy and visual design. Layout 1 keeps the original homepage; Layouts 2–5 prioritize reviews, calls, project photos, or local trust without deleting content or changing visibility toggles."
+            description: "Choose one of 15 complete desktop-and-mobile designs. Layout 1 keeps the original homepage and Layout 5 keeps the cream, green and brick design. Seasonal choices change the mood and section order without deleting content, photos, controls or visibility toggles."
             options:
               values:
                 - {name: classic, label: "1 — Current Classic (Original)"}
-                - {name: luxury, label: "2 — Review-First Pomegranate Signature (Ruby, Pearl & Charcoal)"}
-                - {name: leads, label: "3 — Call-First Apple Clean (White, Graphite & Electric Blue)"}
-                - {name: portfolio, label: "4 — Project-First Cinematic (Midnight, Sand & Sunset)"}
+                - {name: luxury, label: "2 — Pomegranate Prestige (Deep Red, Cream & Charcoal)"}
+                - {name: leads, label: "3 — Executive Trust (Navy, Ivory & Gold)"}
+                - {name: portfolio, label: "4 — Project Gallery (Black, Copper & Stone)"}
                 - {name: local, label: "5 — Local-First Neighborhood (Cream, Green & Brick)"}
+                - {name: americana, label: "6 — Fourth of July (Navy, White & Red)"}
+                - {name: winter, label: "7 — Winter Midnight (Ice Blue, White & Midnight)"}
+                - {name: spring, label: "8 — Spring Renewal (Sage, Cream & Fresh Green)"}
+                - {name: summer, label: "9 — Summer Coast (Ocean, Sand & Coral)"}
+                - {name: autumn, label: "10 — Autumn Hearth (Espresso, Amber & Brick)"}
+                - {name: holiday, label: "11 — Holiday Evergreen (Evergreen, Gold & Cranberry)"}
+                - {name: blueprint, label: "12 — NYC Blueprint (Blueprint Blue, White & Cyan)"}
+                - {name: monochrome, label: "13 — Architectural Monochrome (Black, White & Gray)"}
+                - {name: terracotta, label: "14 — Terracotta Studio (Clay, Cream & Olive)"}
+                - {name: royal, label: "15 — Royal Estate (Royal Blue, Champagne & White)"}
           - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
           - {name: announcementText, label: "Announcement Text", type: string, required: false}
           - {name: announcementButtonText, label: "Announcement Button", type: string, required: false}
