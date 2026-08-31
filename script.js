@@ -413,6 +413,18 @@ function hammerProjectStages(item, fallbackAlt) {
     stages.push({ image, label, alt: `${fallbackAlt} — ${label}` });
   });
   if (item.afterImage) stages.push({ image: item.afterImage, label: afterLabel, alt: `${fallbackAlt} — ${afterLabel}` });
+
+  // Keep Additional Photos inside the same project viewer when staged photos
+  // are enabled. Previously these photos were saved by Pages CMS but hidden.
+  const visibleStageImages = new Set(stages.map(stage => stage.image));
+  const additionalImages = stages.length && Array.isArray(item.additionalImages)
+    ? item.additionalImages.filter(image => image && !visibleStageImages.has(image))
+    : [];
+  additionalImages.forEach((image, index) => {
+    const label = additionalImages.length > 1 ? `More Photo ${index + 1}` : "More Photo";
+    stages.push({ image, label, alt: `${fallbackAlt} — ${label}` });
+    visibleStageImages.add(image);
+  });
   return stages;
 }
 
@@ -548,12 +560,14 @@ function hammerEnsureAdminStyles() {
     .cms-area-before-after figure{margin:0;position:relative}
     .cms-area-before-after img{width:100%;height:280px;object-fit:cover;border-radius:12px}
     .cms-area-before-after span{position:absolute;left:10px;bottom:10px;background:rgba(4,10,18,.82);color:#fff;padding:5px 8px;border-radius:6px;font-size:.78rem;font-weight:800}
+    .cms-project-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),680px));justify-content:center}
     .cms-stage-viewer{border:1px solid rgba(231,191,99,.24);border-radius:14px;overflow:hidden;background:rgba(5,12,22,.55)}
     .cms-stage-buttons{display:flex;gap:7px;flex-wrap:wrap;padding:10px;background:rgba(5,12,22,.92)}
     .cms-stage-buttons button{appearance:none;border:1px solid rgba(231,191,99,.45);background:transparent;color:#fff;border-radius:999px;padding:8px 13px;font:inherit;font-size:.82rem;font-weight:800;cursor:pointer}
     .cms-stage-buttons button[aria-selected="true"]{background:var(--gold,#c99a2e);border-color:var(--gold,#c99a2e);color:#07111f}
     .cms-stage-panels figure,.cms-stage-grid figure{margin:0;position:relative}
-    .cms-stage-panels img,.cms-stage-grid img{display:block;width:100%;height:310px;object-fit:cover}
+    .cms-stage-panels,.cms-stage-grid{background:#050c16}
+    .cms-stage-panels img,.cms-stage-grid img{display:block;width:100%;height:380px;object-fit:contain;background:#050c16}
     .cms-stage-panels figcaption,.cms-stage-grid span{position:absolute;left:10px;bottom:10px;background:rgba(4,10,18,.86);color:#fff;padding:6px 9px;border-radius:6px;font-size:.78rem;font-weight:800}
     .cms-stage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
     .cms-area-faqs .faq-item{max-width:900px;margin:0 auto 10px}
@@ -565,9 +579,15 @@ function hammerEnsureAdminStyles() {
       [data-cms-mobile-visible="true"]{display:block!important}
       .cms-area-before-after{grid-template-columns:1fr}
       .cms-area-before-after img{height:auto}
-      .cms-stage-panels img,.cms-stage-grid img{height:auto;min-height:220px}
+      .cms-stage-panels img,.cms-stage-grid img{height:260px;min-height:0}
       .cms-page-block-image{grid-template-columns:1fr}
       .cms-page-block-image img,.cms-page-block-gallery img{height:auto;min-height:220px}
+    }
+    @media(max-width:520px){
+      .cms-project-grid{grid-template-columns:1fr}
+      .cms-stage-buttons{gap:6px;padding:9px}
+      .cms-stage-buttons button{padding:7px 10px;font-size:.76rem}
+      .cms-stage-panels img,.cms-stage-grid img{height:225px}
     }
   `;
   document.head.appendChild(style);
