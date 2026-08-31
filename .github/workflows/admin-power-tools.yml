@@ -31,14 +31,25 @@ jobs:
           set -euo pipefail
           ACTION_NAME="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.action.name // empty')"
           MODE="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.inputs.mode // empty')"
-          test "$ACTION_NAME" = "admin-power-tools"
+          MAX_WIDTH="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.inputs.maxWidth // 2000')"
+          QUALITY="$(printf '%s' "$PAGES_CMS_PAYLOAD" | jq -r '.inputs.quality // 82')"
+
+          if [ "$ACTION_NAME" = "prepare-optimized-photos" ]; then
+            MODE="prepare-optimized-photos"
+          else
+            test "$ACTION_NAME" = "admin-power-tools"
+          fi
 
           case "$MODE" in
-            validate|backup|rebuild-sitemap) ;;
+            validate|backup|content-backup|rebuild-sitemap|publish-check|photo-report|prepare-optimized-photos) ;;
             *) echo "Unknown admin tool: $MODE"; exit 1 ;;
           esac
+          [[ "$MAX_WIDTH" =~ ^[0-9]+$ ]] || MAX_WIDTH=2000
+          [[ "$QUALITY" =~ ^[0-9]+$ ]] || QUALITY=82
 
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "max_width=$MAX_WIDTH" >> "$GITHUB_OUTPUT"
+          echo "quality=$QUALITY" >> "$GITHUB_OUTPUT"
 
       - name: Create full website backup
         if: ${{ steps.tool.outputs.mode == 'backup' }}
@@ -71,9 +82,86 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Create CMS content-only backup
+        if: ${{ steps.tool.outputs.mode == 'content-backup' }}
+        env:
+          BACKUP_PATH: ${{ runner.temp }}/hammer-brick-cms-content-backup.zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from zipfile import ZIP_DEFLATED, ZipFile
+
+          root = Path.cwd()
+          destination = Path(os.environ["BACKUP_PATH"])
+          folders = ["site-data", "admin-data", "admin-tools", "content"]
+          files = [".pages.yml", "gallery.json", "header.html", "footer.html"]
+          with ZipFile(destination, "w", ZIP_DEFLATED) as archive:
+              for relative in files:
+                  path = root / relative
+                  if path.is_file():
+                      archive.write(path, relative)
+              for folder in folders:
+                  for path in sorted((root / folder).rglob("*")):
+                      if path.is_file():
+                          archive.write(path, path.relative_to(root).as_posix())
+          print(f"Created {destination}")
+          PY
+
+      - name: Make CMS backup available for download
+        if: ${{ steps.tool.outputs.mode == 'content-backup' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: hammer-brick-cms-content-backup-${{ github.run_id }}
+          path: ${{ runner.temp }}/hammer-brick-cms-content-backup.zip
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Validate website and refresh audit
         if: ${{ steps.tool.outputs.mode == 'validate' }}
-        run: python3 scripts/master_audit.py
+        run: |
+          python3 scripts/master_audit.py
+          python3 scripts/gallery_media_cleanup.py --mode scan
+          python3 scripts/owner_dashboard.py
+
+      - name: Refresh complete photo report
+        if: ${{ steps.tool.outputs.mode == 'photo-report' }}
+        run: |
+          python3 scripts/gallery_media_cleanup.py --mode scan
+          python3 scripts/master_audit.py
+          python3 scripts/owner_dashboard.py
+
+      - name: Run safe publish check
+        if: ${{ steps.tool.outputs.mode == 'publish-check' }}
+        run: |
+          python3 scripts/master_audit.py
+          python3 scripts/gallery_media_cleanup.py --mode scan
+          python3 scripts/owner_dashboard.py --strict
+
+      - name: Install photo optimization support
+        if: ${{ steps.tool.outputs.mode == 'prepare-optimized-photos' }}
+        run: python3 -m pip install --disable-pip-version-check Pillow==11.3.0
+
+      - name: Prepare optimized photo review ZIP
+        if: ${{ steps.tool.outputs.mode == 'prepare-optimized-photos' }}
+        env:
+          OPTIMIZED_PATH: ${{ runner.temp }}/hammer-brick-optimized-photo-preview.zip
+        run: |
+          python3 scripts/prepare_optimized_images.py \
+            --output "$OPTIMIZED_PATH" \
+            --max-width "${{ steps.tool.outputs.max_width }}" \
+            --quality "${{ steps.tool.outputs.quality }}"
+
+      - name: Make optimized photo preview available
+        if: ${{ steps.tool.outputs.mode == 'prepare-optimized-photos' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: hammer-brick-optimized-photo-preview-${{ github.run_id }}
+          path: ${{ runner.temp }}/hammer-brick-optimized-photo-preview.zip
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Rebuild sitemap from active CMS content
         if: ${{ steps.tool.outputs.mode == 'rebuild-sitemap' }}
@@ -141,25 +229,35 @@ jobs:
           PY
 
       - name: Save generated report or sitemap
-        if: ${{ steps.tool.outputs.mode != 'backup' }}
+        if: ${{ steps.tool.outputs.mode == 'validate' || steps.tool.outputs.mode == 'publish-check' || steps.tool.outputs.mode == 'photo-report' || steps.tool.outputs.mode == 'rebuild-sitemap' }}
         shell: bash
         run: |
           set -euo pipefail
-
-          if git diff --quiet; then
-            echo "No generated changes to save."
-            exit 0
-          fi
-
           git config user.name "Hammer Brick Admin"
           git config user.email "actions@users.noreply.github.com"
 
-          if [ "${{ steps.tool.outputs.mode }}" = "validate" ]; then
-            git add admin-tools/master-audit.json
-            MESSAGE="admin: refresh website validation report"
-          else
-            git add sitemap.xml
-            MESSAGE="admin: rebuild sitemap from active CMS content"
+          case "${{ steps.tool.outputs.mode }}" in
+            validate)
+              git add admin-tools/master-audit.json admin-tools/command-center.json admin-tools/seo-report.json admin-tools/unused-images-report.json
+              MESSAGE="admin: refresh owner dashboard and website reports"
+              ;;
+            photo-report)
+              git add admin-tools/master-audit.json admin-tools/command-center.json admin-tools/seo-report.json admin-tools/unused-images-report.json
+              MESSAGE="admin: refresh project photo and owner reports"
+              ;;
+            publish-check)
+              git add admin-tools/master-audit.json admin-tools/command-center.json admin-tools/seo-report.json admin-tools/unused-images-report.json
+              MESSAGE="admin: save successful publishing safety check"
+              ;;
+            rebuild-sitemap)
+              git add sitemap.xml
+              MESSAGE="admin: rebuild sitemap from active CMS content"
+              ;;
+          esac
+
+          if git diff --cached --quiet; then
+            echo "No generated changes to save."
+            exit 0
           fi
 
           git commit -m "$MESSAGE"
