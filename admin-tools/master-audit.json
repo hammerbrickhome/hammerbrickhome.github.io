@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T11:43:05.901586+00:00",
+  "generatedAt": "2026-08-31T18:27:58.260379+00:00",
   "status": "ACTION NEEDED",
   "summary": "11 checks: 1 failed, 2 warning(s).",
   "checks": [
@@ -60,7 +60,6 @@
         "galleryGrid item 5: /images/full-gut-deck-remodel-after.jpeg",
         "galleryGrid item 6: /images/full-front-remodel-after.jpeg",
         "galleryGrid item 11: /images/after2.jpg",
-        "galleryGrid item 14: /images/a5b6a4e1493c958e4f8ca2c81a75b18e.webp",
         "galleryGrid item 15: no photo selected"
       ]
     },

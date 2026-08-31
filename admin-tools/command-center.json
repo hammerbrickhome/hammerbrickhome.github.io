@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-08-30T11:43:06.039959+00:00",
+  "generatedAt": "2026-08-31T18:27:58.491723+00:00",
   "status": "ACTION NEEDED",
-  "summary": "1 broken item(s), 16 warning(s), 0 live project(s), and 31 project photo(s).",
+  "summary": "1 broken item(s), 16 warning(s), 1 live project(s), and 42 project photo(s).",
   "counts": {
     "activePages": 21,
     "activeAreas": 6,
-    "liveProjects": 0,
+    "liveProjects": 1,
     "draftProjects": 0,
     "liveReviews": 13,
     "liveFaqs": 26,
     "currentSpecials": 3,
-    "projectPhotos": 31,
+    "projectPhotos": 42,
     "brokenItems": 1,
     "warnings": 16
   },
