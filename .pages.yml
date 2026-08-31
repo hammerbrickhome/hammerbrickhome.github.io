@@ -83,6 +83,19 @@ content:
         format: json
         operations: {create: false, rename: false, delete: false}
         fields:
+          - name: homepageLayout
+            label: "Homepage Layout — Switch Anytime"
+            type: select
+            required: false
+            default: classic
+            description: "Changes the homepage design and section order without deleting content or changing your existing visibility toggles."
+            options:
+              values:
+                - {name: classic, label: "1 — Current Classic (Original)"}
+                - {name: luxury, label: "2 — Luxury Showcase"}
+                - {name: leads, label: "3 — Lead Generator"}
+                - {name: portfolio, label: "4 — Project-First Portfolio"}
+                - {name: local, label: "5 — Local Trust Builder"}
           - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
           - {name: announcementText, label: "Announcement Text", type: string, required: false}
           - {name: announcementButtonText, label: "Announcement Button", type: string, required: false}
