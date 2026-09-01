@@ -144,10 +144,24 @@ function makeSkeleton(h) {
 // NOTE: This function is preserved from your original code, but modified slightly.
 function galleryImagePath(value) {
   if (!value) return "";
-  return value.startsWith("/") ? value : "/images/" + value;
+  const source = String(value).trim();
+  if (!source) return "";
+  if (/^(?:https?:)?\/\//i.test(source) || source.startsWith("data:") || source.startsWith("blob:")) return source;
+  if (source.startsWith("/")) return source;
+  if (source.startsWith("images/")) return "/" + source;
+  return "/images/" + source;
+}
+
+function galleryGridImageName(photo) {
+  return String(typeof photo === "string" ? photo : (photo && photo.name) || "").trim();
+}
+
+function galleryPairIsReady(pair) {
+  return Boolean(pair && String(pair.before || "").trim() && String(pair.after || "").trim());
 }
 
 function buildCompare(pair) {
+  if (!galleryPairIsReady(pair)) return null;
   const card = document.createElement("div");
   card.className = "ba-card fade-in";
 
@@ -157,6 +171,8 @@ function buildCompare(pair) {
   const before = document.createElement("img");
   before.src = galleryImagePath(pair.before);
   before.className = "ba-before";
+  before.alt = pair.label ? `Before — ${pair.label}` : "Before project photo";
+  before.loading = "lazy";
 
   const afterWrap = document.createElement("div");
   afterWrap.className = "ba-after-wrap";
@@ -164,7 +180,13 @@ function buildCompare(pair) {
   const after = document.createElement("img");
   after.src = galleryImagePath(pair.after);
   after.className = "ba-after";
+  after.alt = pair.label ? `After — ${pair.label}` : "After project photo";
+  after.loading = "lazy";
   afterWrap.appendChild(after);
+
+  const removeBrokenCard = () => card.remove();
+  before.addEventListener("error", removeBrokenCard, { once: true });
+  after.addEventListener("error", removeBrokenCard, { once: true });
 
   const slider = document.createElement("input");
   slider.className = "ba-slider";
@@ -208,11 +230,15 @@ function renderGallery(photos, append = false) {
   slice.forEach(photo => {
     // If galleryGrid is still an array of strings, use 'photo' directly
     // If galleryGrid is an array of objects (recommended), use 'photo.name'
-    const imgName = typeof photo === 'string' ? photo : photo.name;
+    const imgName = galleryGridImageName(photo);
+    if (!imgName) return;
     
     const img = document.createElement("img");
     img.src = galleryImagePath(imgName);
     img.className = "grid-photo fade-in";
+    img.alt = (typeof photo === "object" && photo && photo.alt) ? String(photo.alt) : "Hammer Brick & Home project photo";
+    img.loading = "lazy";
+    img.addEventListener("error", () => img.remove(), { once: true });
     img.addEventListener("click", () => openLightbox(img.src));
     container.appendChild(img);
   });
@@ -238,7 +264,8 @@ function renderComparePairs(pairs, append = false) {
   const slice = pairs.slice(start, end);
 
   slice.forEach(pair => {
-    container.appendChild(buildCompare(pair));
+    const card = buildCompare(pair);
+    if (card) container.appendChild(card);
   });
 
   pairIndex = end;
@@ -262,10 +289,10 @@ function filterGallery() {
     // 1. Filter the PHOTO GRID
     currentFilteredGrid = allGridPhotos.filter(photo => {
       // Check filename if it's a string, or name property if it's an object
-      const name = typeof photo === 'string' ? photo : photo.name;
+      const name = galleryGridImageName(photo);
       
       // Check tags if available (assuming object structure is implemented)
-      const tags = (typeof photo === 'object' && photo.tags) ? photo.tags.join(' ') : '';
+      const tags = (typeof photo === 'object' && photo && Array.isArray(photo.tags)) ? photo.tags.join(' ') : '';
       
       const searchData = (name + " " + tags).toLowerCase();
       return searchData.includes(searchTerm);
@@ -274,8 +301,8 @@ function filterGallery() {
     // 2. Filter the COMPARE PAIRS
     currentFilteredPairs = allComparePairs.filter(pair => {
       // Search B&A label and tags (assuming tags property is implemented in JSON)
-      const tags = pair.tags ? pair.tags.join(' ') : '';
-      const searchData = (pair.label + " " + tags).toLowerCase();
+      const tags = Array.isArray(pair.tags) ? pair.tags.join(' ') : '';
+      const searchData = (String(pair.label || "") + " " + tags).toLowerCase();
       return searchData.includes(searchTerm);
     });
   }
@@ -303,10 +330,10 @@ async function loadGalleryPage() {
     const data = await res.json();
     
     // ⭐ UPDATED: Store and set initial data globally
-    allGridPhotos = shuffle((data.galleryGrid || []).filter(item => item && item.active !== false));
+    allGridPhotos = shuffle((data.galleryGrid || []).filter(item => item && item.active !== false && galleryGridImageName(item)));
     currentFilteredGrid = allGridPhotos;
 
-    allComparePairs = shuffle((data.galleryPairs || []).filter(item => item && item.active !== false));
+    allComparePairs = shuffle((data.galleryPairs || []).filter(item => item && item.active !== false && galleryPairIsReady(item)));
     currentFilteredPairs = allComparePairs;
 
     /* Compare pairs */
@@ -542,6 +569,17 @@ function hammerEnsureAdminStyles() {
     [data-cms-desktop-visible="false"]{display:none!important}
     .cms-site-announcement{background:#c99a2e;color:#07111f;padding:9px 18px;text-align:center;font-weight:700}
     .cms-site-announcement a{color:#07111f;margin-left:12px;text-decoration:underline;font-weight:800}
+    .cms-lead-status{margin:0 0 14px;padding:12px 14px;border:1px solid rgba(231,191,99,.35);border-radius:12px;background:rgba(231,191,99,.08);color:#fff}
+    .cms-lead-status[data-mode="open"]{border-color:rgba(73,207,132,.55);background:rgba(73,207,132,.1)}
+    .cms-lead-status[data-mode="limited"]{border-color:rgba(231,191,99,.6);background:rgba(231,191,99,.1)}
+    .cms-lead-status[data-mode="booked"]{border-color:rgba(255,143,92,.58);background:rgba(255,143,92,.1)}
+    .cms-lead-status[data-mode="emergency"]{border-color:rgba(228,84,84,.62);background:rgba(228,84,84,.1)}
+    .cms-lead-status strong,.cms-lead-status span{display:block}
+    .cms-lead-status p{margin:5px 0;color:#dbe4ef;font-size:.84rem;line-height:1.45}
+    .cms-lead-status span{color:#e7bf63;font-size:.76rem;font-weight:800}
+    #quick-contact-panel .quick-contact-inner li[data-preferred="true"] a{border-color:#e7bf63;background:rgba(231,191,99,.13);box-shadow:0 0 0 1px rgba(231,191,99,.16)}
+    #quick-contact-panel .quick-contact-inner li a{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid rgba(255,255,255,.11);border-radius:10px}
+    #quick-contact-panel .cms-contact-recommended{margin-left:auto;color:#e7bf63;font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
     .cms-page-hero-image,.cms-area-hero-image{margin:24px auto 0;max-width:1050px}
     .cms-page-hero-image img,.cms-area-hero-image img{display:block;width:100%;max-height:520px;object-fit:cover;border-radius:18px}
     .cms-page-hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
@@ -598,6 +636,8 @@ function hammerEnsureHomepageLayoutStyles() {
   const style = document.createElement("style");
   style.id = "cmsHomepageLayoutStyles";
   style.textContent = `
+    body[data-home-order="custom"] #main>.gold-divider{display:none!important}
+    .hb-home-manual-order-shell{display:contents}
     body[data-home-layout]:not([data-home-layout="classic"]){min-height:100%;}
     body[data-home-layout]:not([data-home-layout="classic"]) #main{
       width:100%;max-width:none;margin:0;padding:0;
@@ -1495,6 +1535,79 @@ function hammerEnsureHomepageLayoutStyles() {
   document.head.appendChild(style);
 }
 
+const HAMMER_HOME_SECTION_IDS = Object.freeze({
+  "announcement": "adminAnnouncement",
+  "hero": "homeHero",
+  "quick-actions": "cmsHomepageQuickActions",
+  "service-areas": "cmsServiceAreasSection",
+  "guarantee": "guaranteeSection",
+  "process": "processSection",
+  "reviews": "reviewsSection",
+  "area-summary": "serviceAreaSection",
+  "projects": "cmsProjectsSection",
+  "before-after": "before-after",
+  "materials": "premiumMaterialsSection",
+  "membership": "membershipServicesSection",
+  "specials": "specialsSection",
+  "tiers": "tiersSection",
+  "faq": "faqSection"
+});
+
+function hammerApplyHomepageQuickActions(homepage, quickActions) {
+  if (!quickActions) return;
+  quickActions.style.display = homepage && homepage.showHomepageQuickActions === false ? "none" : "";
+  const content = {
+    call: [homepage && homepage.quickCallTitle, homepage && homepage.quickCallText],
+    text: [homepage && homepage.quickTextTitle, homepage && homepage.quickTextText],
+    estimate: [homepage && homepage.quickEstimateTitle, homepage && homepage.quickEstimateText],
+    reviews: [homepage && homepage.quickReviewsTitle, homepage && homepage.quickReviewsText]
+  };
+  Object.entries(content).forEach(([name, values]) => {
+    const link = quickActions.querySelector(`[data-home-quick="${name}"]`);
+    if (!link) return;
+    const title = link.querySelector("strong");
+    const text = link.querySelector("small");
+    if (title && String(values[0] || "").trim()) title.textContent = values[0];
+    if (text && String(values[1] || "").trim()) text.textContent = values[1];
+  });
+}
+
+function hammerApplyManualHomepageOrder(homepage, main) {
+  if (!homepage || homepage.customSectionOrderEnabled !== true) {
+    delete document.body.dataset.homeOrder;
+    return;
+  }
+
+  const knownTokens = Object.keys(HAMMER_HOME_SECTION_IDS);
+  const requested = Array.isArray(homepage.customSectionOrder)
+    ? homepage.customSectionOrder.map(value => String(value || "").trim().toLowerCase())
+    : [];
+  const orderedTokens = [];
+  requested.concat(knownTokens).forEach(token => {
+    if (knownTokens.includes(token) && !orderedTokens.includes(token)) orderedTokens.push(token);
+  });
+
+  let container = document.getElementById("cmsHomepageLayoutShell");
+  if (!container) {
+    container = document.getElementById("cmsHomepageManualOrderShell");
+    if (!container) {
+      container = document.createElement("div");
+      container.id = "cmsHomepageManualOrderShell";
+      container.className = "hb-home-manual-order-shell";
+      main.appendChild(container);
+    }
+  }
+
+  orderedTokens.forEach(token => {
+    const section = document.getElementById(HAMMER_HOME_SECTION_IDS[token]);
+    if (section) container.appendChild(section);
+  });
+  container.querySelectorAll(".hb-home-band").forEach(band => {
+    if (!band.children.length) band.remove();
+  });
+  document.body.dataset.homeOrder = "custom";
+}
+
 function hammerApplyHomepageLayout(homepage) {
   if (hammerSlug() !== "home") return;
   const main = document.getElementById("main");
@@ -1516,7 +1629,10 @@ function hammerApplyHomepageLayout(homepage) {
   if (expandedLayouts.has(layout)) document.body.dataset.homeTheme = "expanded";
   else delete document.body.dataset.homeTheme;
 
-  if (layout === "classic" || document.getElementById("cmsHomepageLayoutShell")) return;
+  if (layout === "classic") {
+    hammerApplyManualHomepageOrder(homepage, main);
+    return;
+  }
 
   let quickActions = document.getElementById("cmsHomepageQuickActions");
   if (!quickActions) {
@@ -1525,12 +1641,18 @@ function hammerApplyHomepageLayout(homepage) {
     quickActions.className = "hb-home-quick-actions";
     quickActions.setAttribute("aria-label", "Quick contact options");
     quickActions.innerHTML = `
-      <a href="tel:+19295955300"><span aria-hidden="true">☎</span><strong>Call for a Fast Estimate</strong><small>Speak directly with our team</small></a>
-      <a href="sms:+19295955300"><span aria-hidden="true">▣</span><strong>Text Project Photos</strong><small>Send pictures from your phone</small></a>
-      <a href="/project-estimator.html"><span aria-hidden="true">✓</span><strong>Start an Online Estimate</strong><small>Tell us about the work</small></a>
-      <a href="#reviewsSection"><span aria-hidden="true">★</span><strong>Read Customer Reviews</strong><small>See real homeowner feedback</small></a>`;
+      <a data-home-quick="call" href="tel:+19295955300"><span aria-hidden="true">☎</span><strong>Call for a Fast Estimate</strong><small>Speak directly with our team</small></a>
+      <a data-home-quick="text" href="sms:+19295955300"><span aria-hidden="true">▣</span><strong>Text Project Photos</strong><small>Send pictures from your phone</small></a>
+      <a data-home-quick="estimate" href="/project-estimator.html"><span aria-hidden="true">✓</span><strong>Start an Online Estimate</strong><small>Tell us about the work</small></a>
+      <a data-home-quick="reviews" href="#reviewsSection"><span aria-hidden="true">★</span><strong>Read Customer Reviews</strong><small>See real homeowner feedback</small></a>`;
     main.appendChild(quickActions);
     if (typeof refreshHammerBusinessSettings === "function") refreshHammerBusinessSettings();
+  }
+  hammerApplyHomepageQuickActions(homepage, quickActions);
+
+  if (document.getElementById("cmsHomepageLayoutShell")) {
+    hammerApplyManualHomepageOrder(homepage, main);
+    return;
   }
 
   const layoutPlans = {
@@ -1645,6 +1767,7 @@ function hammerApplyHomepageLayout(homepage) {
     });
     if (band.children.length) shell.appendChild(band);
   });
+  hammerApplyManualHomepageOrder(homepage, main);
 }
 
 function hammerApplySeo(item) {
@@ -1655,14 +1778,18 @@ function hammerApplySeo(item) {
   hammerSetPropertyMeta("og:description", item.socialDescription || item.seoDescription);
   hammerSetMeta("twitter:title", item.socialTitle || item.seoTitle);
   hammerSetMeta("twitter:description", item.socialDescription || item.seoDescription);
-  if (item.canonicalUrl) {
+  const canonicalValue = item.canonicalUrl || item.url;
+  if (canonicalValue) {
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement("link");
       canonical.rel = "canonical";
       document.head.appendChild(canonical);
     }
-    canonical.href = new URL(item.canonicalUrl, window.location.origin).href;
+    const canonicalUrl = new URL(canonicalValue, window.location.origin);
+    canonicalUrl.search = "";
+    canonicalUrl.hash = "";
+    canonical.href = canonicalUrl.href;
   }
   if (item.socialImage) {
     const imageUrl = new URL(item.socialImage, window.location.origin).href;
@@ -2703,7 +2830,7 @@ function loadHammerBusinessSettings() {
 
 function hammerInstallAnalytics(data) {
   const gaId = String(data.googleAnalyticsId || "").trim().toUpperCase();
-  if (/^G-[A-Z0-9]+$/.test(gaId) && !document.getElementById("cmsGoogleAnalytics")) {
+  if (data.googleAnalyticsEnabled !== false && /^G-[A-Z0-9]+$/.test(gaId) && !document.getElementById("cmsGoogleAnalytics")) {
     const external = document.createElement("script");
     external.id = "cmsGoogleAnalytics";
     external.async = true;
@@ -2716,7 +2843,7 @@ function hammerInstallAnalytics(data) {
   }
 
   const clarityId = String(data.clarityId || "").trim().toLowerCase();
-  if (/^[a-z0-9]+$/.test(clarityId) && !clarityId.includes("your") && !document.getElementById("cmsMicrosoftClarity")) {
+  if (data.clarityEnabled !== false && /^[a-z0-9]+$/.test(clarityId) && !clarityId.includes("your") && !document.getElementById("cmsMicrosoftClarity")) {
     const clarity = document.createElement("script");
     clarity.id = "cmsMicrosoftClarity";
     clarity.async = true;
@@ -2786,6 +2913,75 @@ function hammerRenderSitewideAnnouncement(data) {
   announcement.innerHTML = `${hammerEscape(data.sitewideAnnouncementText)}${data.sitewideAnnouncementButtonText ? ` <a href="${hammerEscape(data.sitewideAnnouncementButtonUrl || "/contact.html")}">${hammerEscape(data.sitewideAnnouncementButtonText)}</a>` : ""}`;
 }
 
+function hammerConfigureContactPanel(data) {
+  const sticky = document.querySelector(".sticky-quick-btn");
+  if (sticky && String(data.floatingContactLabel || "").trim()) sticky.textContent = data.floatingContactLabel;
+
+  const panel = document.getElementById("quick-contact-panel");
+  if (!panel) return;
+  const inner = panel.querySelector(".quick-contact-inner");
+  const heading = panel.querySelector("h2");
+  const list = panel.querySelector("ul");
+  if (heading) heading.textContent = data.contactPanelHeading || "Quick Contact";
+  if (!inner || !list) return;
+
+  let status = panel.querySelector(".cms-lead-status");
+  if (!status) {
+    status = document.createElement("div");
+    status.className = "cms-lead-status";
+    inner.insertBefore(status, list);
+  }
+  const showStatus = data.showLeadStatus === true;
+  status.style.display = showStatus ? "" : "none";
+  const allowedModes = new Set(["open", "limited", "booked", "emergency"]);
+  const mode = allowedModes.has(data.leadStatusMode) ? data.leadStatusMode : "open";
+  status.dataset.mode = mode;
+  status.innerHTML = "";
+  if (showStatus) {
+    const title = document.createElement("strong");
+    const message = document.createElement("p");
+    const response = document.createElement("span");
+    title.textContent = data.leadStatusTitle || "Now Accepting New Projects";
+    message.textContent = data.leadStatusText || "Contact us for a free project estimate.";
+    response.textContent = data.responseTimeText || "Usually replies within 2 hours";
+    status.append(title, message, response);
+  }
+
+  const dial = normalizeDialNumber(data.phone) || "+19295955300";
+  const email = String(data.email || "hammerbrickhome@gmail.com").trim();
+  const actions = [
+    { name: "call", show: data.showContactCall !== false, href: `tel:${dial}`, icon: "📞", label: data.contactCallLabel || "Call Now" },
+    { name: "text", show: data.showContactText !== false, href: `sms:${dial}`, icon: "💬", label: data.contactTextLabel || "Text Us" },
+    { name: "email", show: data.showContactEmail !== false, href: `mailto:${email}`, icon: "✉️", label: data.contactEmailLabel || "Email Us" },
+    { name: "estimate", show: data.showContactEstimate !== false, href: "/project-estimator.html", icon: "🧮", label: data.contactEstimateLabel || "Free Estimate" },
+    { name: "form", show: data.showContactForm !== false, href: "/contact.html", icon: "📝", label: data.contactFormLabel || "Contact Form" },
+    { name: "photos", show: data.showContactPhotos !== false, href: `sms:${dial}`, icon: "📷", label: data.contactPhotosLabel || "Send Photos" }
+  ];
+  const preferred = String(data.preferredContactAction || "").trim().toLowerCase();
+  list.innerHTML = "";
+  actions.filter(action => action.show).forEach(action => {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    const icon = document.createElement("span");
+    const label = document.createElement("span");
+    item.dataset.contactAction = action.name;
+    item.dataset.preferred = action.name === preferred ? "true" : "false";
+    link.href = action.href;
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = action.icon;
+    label.textContent = action.label;
+    link.append(icon, label);
+    if (action.name === preferred) {
+      const recommended = document.createElement("small");
+      recommended.className = "cms-contact-recommended";
+      recommended.textContent = "Recommended";
+      link.appendChild(recommended);
+    }
+    item.appendChild(link);
+    list.appendChild(item);
+  });
+}
+
 function applyHammerBusinessSettings(data) {
   if (!data) return;
   hammerEnsureAdminStyles();
@@ -2805,6 +3001,7 @@ function applyHammerBusinessSettings(data) {
   if (data.email) {
     document.querySelectorAll('a[href^="mailto:"]').forEach(a => a.href = "mailto:" + data.email);
   }
+  hammerConfigureContactPanel(data);
 
   if (data.googleReviewsUrl) {
     const reviewLinks = [

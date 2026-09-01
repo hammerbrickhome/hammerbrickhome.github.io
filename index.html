@@ -1438,8 +1438,14 @@
           if (!item || !item.before || !item.after) return;
 
           const card = tmpl.content.cloneNode(true);
-          card.querySelector(".ba-before").src = galleryImageUrl(item.before);
-          card.querySelector(".ba-after").src = galleryImageUrl(item.after);
+          const cardElement = card.querySelector(".ba-card");
+          const beforeImage = card.querySelector(".ba-before");
+          const afterImage = card.querySelector(".ba-after");
+          const removeBrokenCard = () => cardElement && cardElement.remove();
+          beforeImage.src = galleryImageUrl(item.before);
+          afterImage.src = galleryImageUrl(item.after);
+          beforeImage.addEventListener("error", removeBrokenCard, { once: true });
+          afterImage.addEventListener("error", removeBrokenCard, { once: true });
           card.querySelector(".ba-caption").textContent = item.label || "";
           
           const wrap = card.querySelector(".ba-after-wrap");
@@ -1453,10 +1459,12 @@
         else loadBtn.style.display = "inline-block";
       }
 
-      fetch("/gallery.json")
+      fetch("/gallery.json", { cache: "no-store" })
         .then(r => r.json())
         .then(data => {
-          allHomePairs = (data.homePairs || []).filter(item => item && item.active !== false);
+          allHomePairs = (data.homePairs || []).filter(item =>
+            item && item.active !== false && String(item.before || "").trim() && String(item.after || "").trim()
+          );
           if (allHomePairs.length > 0) {
             renderBatch();
             loadBtn.addEventListener("click", renderBatch);
@@ -1499,6 +1507,6 @@
   </script>
 <link href="/chat.css" rel="stylesheet"/>
 <script defer="" src="/chat.js?v=2"></script>
-<script defer="" src="/script.js?v=7"></script>
+<script defer="" src="/script.js?v=9"></script>
 </body>
 </html>

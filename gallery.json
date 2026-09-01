@@ -62,7 +62,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "after": "front-walkway-after.jpeg",
       "label": "Staten Island: Full Front House Update",
       "tags": [
@@ -74,7 +74,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "label": " Full Facade Masonry Rebuild",
       "tags": [
         "rebuild",
@@ -166,7 +166,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "before": "stone2-after.png",
       "after": "stone2-before.png",
       "label": "Cultured Stone Facade Update",
@@ -178,7 +178,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "before": "stone3-after.png",
       "after": "stone3-before.png",
       "label": "Exterior Stone Veneer Installation",
@@ -190,7 +190,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "before": "job_after.jpg",
       "after": "job_before.jpg",
       "label": "Full Job Site Protection & Finish",
@@ -201,7 +201,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "before": "after5.png",
       "after": "before5.png",
       "label": "Front Entry Step Rebuild",
@@ -213,7 +213,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "before": "after6.png",
       "after": "before6.png",
       "label": "Sidewalk Safety Repair (Foundation Tier)",
@@ -266,7 +266,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "name": "full-gut-deck-remodel-after.jpeg",
       "tags": [
         "deck",
@@ -276,7 +276,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "name": "full-front-remodel-after.jpeg",
       "tags": [
         "front",
@@ -326,7 +326,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "name": "after2.jpg",
       "tags": [
         "exterior",
@@ -355,7 +355,7 @@
       "name": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e.webp"
     },
     {
-      "active": true
+      "active": false
     }
   ]
 }
