@@ -106,6 +106,17 @@ content:
                 - {name: monochrome, label: "13 — Architectural Monochrome (Black, White & Gray)"}
                 - {name: terracotta, label: "14 — Terracotta Studio (Clay, Cream & Olive)"}
                 - {name: royal, label: "15 — Royal Estate (Royal Blue, Champagne & White)"}
+          - {name: customSectionOrderEnabled, label: "Use My Manual Homepage Section Order", type: boolean, required: false, default: false, description: "Optional. Turn this on only when you want the Section Order list below to control the homepage. Nothing changes by date or automatically."}
+          - {name: customSectionOrder, label: "Manual Homepage Section Order", type: string, list: true, required: false, description: "Drag these items into your preferred order. Valid names: announcement, hero, quick-actions, service-areas, guarantee, process, reviews, area-summary, projects, before-after, materials, membership, specials, tiers, faq. Missing items are safely placed afterward, not deleted."}
+          - {name: showHomepageQuickActions, label: "Show Homepage Quick Action Cards", type: boolean, required: false, default: true, description: "Controls the Call, Text, Estimate and Reviews cards used by layouts 2–15."}
+          - {name: quickCallTitle, label: "Quick Call Card Title", type: string, required: false}
+          - {name: quickCallText, label: "Quick Call Card Description", type: string, required: false}
+          - {name: quickTextTitle, label: "Quick Text Card Title", type: string, required: false}
+          - {name: quickTextText, label: "Quick Text Card Description", type: string, required: false}
+          - {name: quickEstimateTitle, label: "Quick Estimate Card Title", type: string, required: false}
+          - {name: quickEstimateText, label: "Quick Estimate Card Description", type: string, required: false}
+          - {name: quickReviewsTitle, label: "Quick Reviews Card Title", type: string, required: false}
+          - {name: quickReviewsText, label: "Quick Reviews Card Description", type: string, required: false}
           - {name: announcementEnabled, label: "Show Announcement", type: boolean, required: false}
           - {name: announcementText, label: "Announcement Text", type: string, required: false}
           - {name: announcementButtonText, label: "Announcement Button", type: string, required: false}
@@ -167,13 +178,55 @@ content:
           - {name: showSocialLinks, label: "Show Social Icons", type: boolean, required: false, default: true}
           - {name: footerTagline, label: "Footer Tagline", type: string, required: false}
           - {name: contactPanelHeading, label: "Contact Panel Heading", type: string, required: false}
+          - {name: floatingContactLabel, label: "Floating Contact Button Label", type: string, required: false, default: "💬 Contact"}
+          - {name: showLeadStatus, label: "Show Project Availability In Contact Panel", type: boolean, required: false, default: false, description: "Manual control only. Turn this on when you want visitors to see your current availability."}
+          - name: leadStatusMode
+            label: "Project Availability Style"
+            type: select
+            required: false
+            default: open
+            options:
+              values:
+                - {name: open, label: "Open — Accepting Projects"}
+                - {name: limited, label: "Limited Availability"}
+                - {name: booked, label: "Currently Booked"}
+                - {name: emergency, label: "Emergency Work Only"}
+          - {name: leadStatusTitle, label: "Availability Heading", type: string, required: false}
+          - {name: leadStatusText, label: "Availability Message", type: text, required: false}
+          - {name: responseTimeText, label: "Response-Time Message", type: string, required: false}
+          - name: preferredContactAction
+            label: "Recommended Contact Method"
+            type: select
+            required: false
+            options:
+              values:
+                - {name: call, label: "Call"}
+                - {name: text, label: "Text"}
+                - {name: email, label: "Email"}
+                - {name: estimate, label: "Online Estimate"}
+                - {name: form, label: "Contact Form"}
+                - {name: photos, label: "Send Photos"}
+          - {name: showContactCall, label: "Show Call In Contact Panel", type: boolean, required: false, default: true}
+          - {name: contactCallLabel, label: "Call Button Label", type: string, required: false}
+          - {name: showContactText, label: "Show Text In Contact Panel", type: boolean, required: false, default: true}
+          - {name: contactTextLabel, label: "Text Button Label", type: string, required: false}
+          - {name: showContactEmail, label: "Show Email In Contact Panel", type: boolean, required: false, default: true}
+          - {name: contactEmailLabel, label: "Email Button Label", type: string, required: false}
+          - {name: showContactEstimate, label: "Show Online Estimate In Contact Panel", type: boolean, required: false, default: true}
+          - {name: contactEstimateLabel, label: "Estimate Button Label", type: string, required: false}
+          - {name: showContactForm, label: "Show Contact Form In Contact Panel", type: boolean, required: false, default: true}
+          - {name: contactFormLabel, label: "Contact Form Button Label", type: string, required: false}
+          - {name: showContactPhotos, label: "Show Send Photos In Contact Panel", type: boolean, required: false, default: true}
+          - {name: contactPhotosLabel, label: "Send Photos Button Label", type: string, required: false}
           - {name: serviceAreas, label: "Service Areas", type: string, list: true}
           - {name: facebook, label: "Facebook", type: string, required: false}
           - {name: instagram, label: "Instagram", type: string, required: false}
           - {name: youtube, label: "YouTube", type: string, required: false}
           - {name: googleReviewsUrl, label: "Google Reviews URL", type: string, required: false}
-          - {name: googleAnalyticsId, label: "Google Analytics GA4 ID", type: string, required: false, description: "Example: G-ABC1234567. Leave blank to disable."}
-          - {name: clarityId, label: "Microsoft Clarity ID", type: string, required: false, description: "Leave blank to disable Clarity tracking."}
+          - {name: googleAnalyticsEnabled, label: "Turn On Google Analytics", type: boolean, required: false, default: true, description: "The valid GA4 ID below is also required. Turn this off to pause Google Analytics without deleting the ID."}
+          - {name: googleAnalyticsId, label: "Google Analytics GA4 ID", type: string, required: false, description: "Example: G-ABC1234567. Leave blank until your real ID is available."}
+          - {name: clarityEnabled, label: "Turn On Microsoft Clarity", type: boolean, required: false, default: true, description: "The valid Clarity project ID below is also required. Turn this off to pause Clarity without deleting the ID."}
+          - {name: clarityId, label: "Microsoft Clarity ID", type: string, required: false, description: "Leave blank until your real project ID is available."}
           - {name: leadTrackingEnabled, label: "Track Lead Button Clicks", type: boolean, required: false, default: true, description: "Tracks call, text, estimate, email, and contact clicks when analytics is configured."}
           - {name: captureUtmSource, label: "Remember Advertising Source", type: boolean, required: false, default: true, description: "Keeps Google, Yelp, Facebook, and campaign source tags in the visitor's browser for conversion reporting."}
           - {name: trackCallClicks, label: "Track Call Clicks", type: boolean, required: false, default: true}
