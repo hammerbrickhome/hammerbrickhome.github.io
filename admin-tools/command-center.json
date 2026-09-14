@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T16:52:54.422489+00:00",
+  "generatedAt": "2026-09-14T17:16:23.310019+00:00",
   "status": "ATTENTION",
   "summary": "0 broken item(s), 14 warning(s), 1 live project(s), and 42 project photo(s).",
   "counts": {
@@ -7,7 +7,7 @@
     "activeAreas": 6,
     "liveProjects": 1,
     "draftProjects": 0,
-    "liveReviews": 13,
+    "liveReviews": 14,
     "liveFaqs": 26,
     "currentSpecials": 3,
     "projectPhotos": 42,
