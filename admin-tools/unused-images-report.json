@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T17:16:23.267156+00:00",
+  "generatedAt": "2026-09-09T02:03:47.421440+00:00",
   "count": 11,
   "totalImages": 42,
   "usedCount": 31,
@@ -433,6 +433,7 @@
         "queens.html",
         "reviews.html",
         "services.html",
+        "site-data/seo.json",
         "staten-island.html",
         "waterproofing.html",
         "windows-doors.html"

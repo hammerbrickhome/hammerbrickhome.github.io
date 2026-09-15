@@ -1,0 +1,408 @@
+{
+  "pages": [
+    {
+      "file": "about.html",
+      "title": "About Us | Luxury Remodeling & Masonry | Hammer Brick & Home LLC",
+      "description": "Meet Noman and the Hammer Brick & Home team, licensed and insured NYC contractors for masonry and remodeling.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "AboutPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "areas.html",
+      "title": "Service Areas | NYC & New Jersey | Hammer Brick & Home LLC",
+      "description": "Explore Hammer Brick & Home service areas across Staten Island, Brooklyn, Queens, Manhattan, the Bronx, and select New Jersey communities.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "bathrooms.html",
+      "title": "Bathroom Remodeling | Hammer Brick & Home",
+      "description": "NYC bathroom remodeling, walk-in showers, waterproofing, custom tile, and layout upgrades.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "bronx.html",
+      "title": "Bronx | Hammer Brick & Home",
+      "description": "Bronx concrete sidewalks, DOT violation removal, retaining walls, steps, and waterproofing.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "brooklyn.html",
+      "title": "Brooklyn | Hammer Brick & Home",
+      "description": "Brooklyn masonry, stucco, pavers, concrete, exterior remodeling, and full home renovations.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "contact.html",
+      "title": "Contact Hammer Brick & Home | NYC & NJ Estimates",
+      "description": "Get a free estimate for masonry, renovations, roofing, painting, or repairs in NYC and New Jersey.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "ContactPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "downloads.html",
+      "title": "Free Homeowner Checklists & Guides | Hammer Brick & Home LLC",
+      "description": "Download free NYC home maintenance checklists, renovation prep guides, and masonry care resources.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "faq.html",
+      "title": "Common Questions \u2014 Hammer Brick & Home LLC | NYC & NJ Contractor",
+      "description": "Answers about home renovation, roofing, masonry, permits, pricing, and lead safety.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "financing.html",
+      "title": "Payment Plans & Fair Pricing | Hammer Brick & Home LLC",
+      "description": "Learn about transparent milestone payment schedules for NYC construction projects.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "gallery.html",
+      "title": "Gallery | Before & After | Hammer Brick & Home LLC",
+      "description": "Explore real NYC masonry, remodeling, pavers, painting, and transformation projects.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "CollectionPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "index.html",
+      "title": "Hammer Brick & Home LLC | Luxury Remodeling & Masonry in NYC",
+      "description": "Hammer Brick & Home LLC provides luxury residential and commercial remodeling, roofing, and masonry in NYC and New Jersey.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "kitchens.html",
+      "title": "Kitchens | Hammer Brick & Home",
+      "description": "NYC kitchen remodeling, cabinet upgrades, custom islands, counters, and full renovations.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "manhattan.html",
+      "title": "Manhattan | Hammer Brick & Home",
+      "description": "Manhattan co-op and condo renovations, alteration agreements, site protection, and luxury interior remodeling.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "masonry.html",
+      "title": "Masonry & Brownstone Restoration | Hammer Brick & Home LLC",
+      "description": "NYC brick pointing, brownstone restoration, stoop rebuilding, pavers, and DOT violation repair.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "membership.html",
+      "title": "Membership Perks & Monthly Draw \u2014 Hammer Brick & Home LLC",
+      "description": "Join the free Hammer Brick & Home loyalty program for service perks and monthly rewards.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "monthly-specials.html",
+      "title": "Monthly Specials | Hammer Brick & Home LLC",
+      "description": "Current monthly masonry, painting, window, and home improvement specials.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "new-jersey.html",
+      "title": "New Jersey | Hammer Brick & Home",
+      "description": "Masonry, concrete, pavers, kitchens, bathrooms, basements, and exterior care in select New Jersey towns.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "our-process.html",
+      "title": "Our Process | Hammer Brick & Home",
+      "description": "See how Hammer Brick & Home protects your property, communicates clearly, and completes clean projects.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "painting.html",
+      "title": "Painting | Hammer Brick & Home",
+      "description": "White-glove NYC interior painting, plaster repair, skim coating, and professional preparation.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "perks_rules_fixed.html",
+      "title": "Perks, Rules & Exclusions \u2014 Hammer Brick & Home LLC",
+      "description": "Free monthly home-improvement perks for loyal NYC homeowners. Includes clear rules, safety limitations, exclusions, eligibility, and membership requirements.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "pricing.html",
+      "title": "Pricing & Packages \u2014 Hammer Brick & Home LLC | NYC & NJ",
+      "description": "Transparent pricing for masonry, painting, and remodeling projects in NYC and New Jersey.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "project-estimator.html",
+      "title": "Project Estimator \u2014 Hammer Brick & Home LLC",
+      "description": "Estimate a ballpark range for your NYC or New Jersey home improvement project.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "queens.html",
+      "title": "Queens | Hammer Brick & Home",
+      "description": "Queens driveway pavers, concrete, brick pointing, garage repairs, and exterior home improvements.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "reviews.html",
+      "title": "Client Testimonials \u2014 Hammer Brick & Home LLC | NYC & NJ",
+      "description": "Read customer reviews for Hammer Brick & Home masonry, painting, and remodeling work.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "services.html",
+      "title": "What We Do | Hammer Brick & Home",
+      "description": "Explore Hammer Brick & Home services for masonry, roofing, remodeling, windows, doors, painting, and exterior care.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "staten-island.html",
+      "title": "Staten Island | Hammer Brick & Home",
+      "description": "Staten Island masonry, luxury pool surrounds, paver patios, driveways, and custom stoops.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "waterproofing.html",
+      "title": "Waterproofing | Hammer Brick & Home",
+      "description": "Basement leak repair, French drains, exterior excavation, sealing, and waterproofing in NYC.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    },
+    {
+      "file": "windows-doors.html",
+      "title": "Windows & Doors | Hammer Brick & Home",
+      "description": "Professional window and door replacement in NYC with vinyl, wood, and fiberglass options.",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "warnings": []
+    }
+  ],
+  "note": "Local validation only. Indexing, rich results and voice-assistant placement are unverified."
+}

@@ -1573,6 +1573,19 @@ function hammerApplyHomepageQuickActions(homepage, quickActions) {
 }
 
 function hammerApplyManualHomepageOrder(homepage, main) {
+  let visibility = document.getElementById("ownerSectionVisibility");
+  if (!visibility) { visibility = document.createElement("style"); visibility.id = "ownerSectionVisibility"; document.head.appendChild(visibility); }
+  const rules = [];
+  if (homepage && homepage.sectionVisibilityEnabled === true) {
+    (homepage.sectionVisibility || []).forEach(item => {
+      const id = HAMMER_HOME_SECTION_IDS[item.section];
+      if (!id || item.section === "hero") return;
+      if (item.showDesktop === false) rules.push(`@media(min-width:769px){#${id}{display:none!important}}`);
+      if (item.showMobile === false) rules.push(`@media(max-width:768px){#${id}{display:none!important}}`);
+    });
+  }
+  visibility.textContent = rules.join("\n");
+
   if (!homepage || homepage.customSectionOrderEnabled !== true) {
     delete document.body.dataset.homeOrder;
     return;
@@ -1615,13 +1628,16 @@ function hammerApplyHomepageLayout(homepage) {
 
   const allowedLayouts = new Set([
     "classic", "luxury", "leads", "portfolio", "local", "americana", "winter", "spring",
-    "summer", "autumn", "holiday", "blueprint", "monochrome", "terracotta", "royal"
+    "summer", "autumn", "holiday", "blueprint", "monochrome", "terracotta", "royal",
+    "ivory-estate", "gold-noir", "skyline-night", "brownstone-craft", "garden-estate",
+    "stone-gallery", "copper-workshop", "coastal-house", "architect-paper", "emerald-signature"
   ]);
   const expandedLayouts = new Set([
     "leads", "portfolio", "americana", "winter", "spring", "summer", "autumn", "holiday",
     "blueprint", "monochrome", "terracotta", "royal"
   ]);
-  const requestedLayout = String((homepage && homepage.homepageLayout) || "classic").trim().toLowerCase();
+  const previewLayout = new URLSearchParams(window.location.search).get("designPreview");
+  const requestedLayout = String(previewLayout || (homepage && homepage.homepageLayout) || "classic").trim().toLowerCase();
   const layout = allowedLayouts.has(requestedLayout) ? requestedLayout : "classic";
   hammerEnsureHomepageLayoutStyles();
   document.body.dataset.homeLayout = layout;
@@ -1753,7 +1769,13 @@ function hammerApplyHomepageLayout(homepage) {
   shell.dataset.homeLayout = layout;
   main.appendChild(shell);
 
-  layoutPlans[layout].forEach(item => {
+  const additionalPlans = {
+    "ivory-estate": "royal", "gold-noir": "luxury", "skyline-night": "americana",
+    "brownstone-craft": "terracotta", "garden-estate": "spring", "stone-gallery": "portfolio",
+    "copper-workshop": "leads", "coastal-house": "summer", "architect-paper": "blueprint",
+    "emerald-signature": "local"
+  };
+  (layoutPlans[layout] || layoutPlans[additionalPlans[layout]]).forEach(item => {
     if (typeof item === "string") {
       const section = document.getElementById(item);
       if (section) shell.appendChild(section);
@@ -1771,6 +1793,7 @@ function hammerApplyHomepageLayout(homepage) {
 }
 
 function hammerApplySeo(item) {
+  if (document.getElementById("searchStructuredData") || document.documentElement.hasAttribute("data-static-search")) return;
   if (!item) return;
   if (item.seoTitle) document.title = item.seoTitle;
   hammerSetMeta("description", item.seoDescription);
@@ -2374,22 +2397,7 @@ function hammerRenderAreaExtras(area, reviewsData, specialsData, faqsData) {
       const answer = button.nextElementSibling;
       if (answer) answer.style.maxHeight = button.classList.contains("active") ? `${answer.scrollHeight}px` : null;
     }));
-    let faqSchema = document.getElementById("cmsAreaFaqStructuredData");
-    if (!faqSchema) {
-      faqSchema = document.createElement("script");
-      faqSchema.id = "cmsAreaFaqStructuredData";
-      faqSchema.type = "application/ld+json";
-      document.head.appendChild(faqSchema);
-    }
-    faqSchema.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: localFaqs.map(item => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: { "@type": "Answer", text: item.answer }
-      }))
-    });
+    // FAQ answers stay visible; deprecated Google FAQ markup is not emitted.
   } else if (faqsSection) {
     faqsSection.style.display = "none";
     const faqSchema = document.getElementById("cmsAreaFaqStructuredData");
@@ -2554,22 +2562,8 @@ function hammerRenderFaqPage(data) {
       if (answer) answer.style.maxHeight = button.classList.contains("active") ? answer.scrollHeight + "px" : null;
     });
   });
-  let schema = document.getElementById("cmsFaqStructuredData");
-  if (!schema) {
-    schema = document.createElement("script");
-    schema.id = "cmsFaqStructuredData";
-    schema.type = "application/ld+json";
-    document.head.appendChild(schema);
-  }
-  schema.textContent = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map(item => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer }
-    }))
-  });
+  // FAQ content remains available to readers and search crawlers.
+
 }
 
 function hammerRenderReviewsPage(data) {
@@ -2773,10 +2767,24 @@ function refreshHammerContentControls() {
     hammerApplyAreaSectionOrder(currentArea);
     hammerRenderDownloads(downloads);
     hammerApplyHeaderSettings(header);
+    document.dispatchEvent(new CustomEvent("hammer:content-ready", {detail: {homepage}}));
   });
 }
 
 document.addEventListener("DOMContentLoaded", refreshHammerContentControls);
+
+// Optional design extension. Keeping it separate preserves the original 15 themes.
+(() => {
+  if (document.getElementById("hammerDesignExtension")) return;
+  const css = document.createElement("link");
+  css.rel = "stylesheet";
+  css.href = "/design-controls.css";
+  document.head.appendChild(css);
+  const script = document.createElement("script");
+  script.id = "hammerDesignExtension";
+  script.src = "/design-controls.js";
+  document.head.appendChild(script);
+})();
 
 document.addEventListener("DOMContentLoaded", () => {
   const includes = [document.getElementById("header-include"), document.getElementById("footer-include")].filter(Boolean);

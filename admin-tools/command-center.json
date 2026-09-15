@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-14T17:16:23.310019+00:00",
-  "status": "ATTENTION",
-  "summary": "0 broken item(s), 14 warning(s), 1 live project(s), and 42 project photo(s).",
+  "generatedAt": "2026-09-14T22:16:01.521296+00:00",
+  "status": "GOOD",
+  "summary": "0 broken item(s), 0 warning(s), 1 live project(s), and 44 project photo(s).",
   "counts": {
     "activePages": 21,
     "activeAreas": 6,
@@ -10,12 +10,12 @@
     "liveReviews": 14,
     "liveFaqs": 26,
     "currentSpecials": 3,
-    "projectPhotos": 42,
+    "projectPhotos": 44,
     "brokenItems": 0,
-    "warnings": 14
+    "warnings": 0
   },
   "lastBackupNote": "GitHub stores downloadable backup ZIPs with the Admin Power Tools workflow for 30 days. Run a fresh backup before major edits.",
   "nextSteps": [
-    "Open SEO Control Report and review the highest-priority items."
+    "No urgent repair is currently listed. Create a backup before the next major content update."
   ]
 }
