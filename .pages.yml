@@ -308,9 +308,33 @@ content:
           - {"name": "backgroundPosition", "label": "Background Position — Desktop", "type": "select", "required": false, "options": {"values": [{"name": "center center", "label": "Center"}, {"name": "center top", "label": "Top"}, {"name": "center bottom", "label": "Bottom"}, {"name": "left center", "label": "Left"}, {"name": "right center", "label": "Right"}]}}
           - {"name": "backgroundMobilePosition", "label": "Background Position — Mobile", "type": "select", "required": false, "options": {"values": [{"name": "center center", "label": "Center"}, {"name": "center top", "label": "Top"}, {"name": "center bottom", "label": "Bottom"}, {"name": "left center", "label": "Left"}, {"name": "right center", "label": "Right"}]}}
           - {"name": "backgroundSize", "label": "Background Image Fit", "type": "select", "required": false, "options": {"values": [{"name": "cover", "label": "Fill area — may crop"}, {"name": "contain", "label": "Show full image"}, {"name": "auto", "label": "Original image size"}]}}
+          - {"name": "backgroundSizeMobile", "label": "Background Image Fit — Mobile", "type": "select", "required": false, "description": "Separate phone control prevents landscape artwork from stretching.", "options": {"values": [{"name": "cover", "label": "Fill phone area — may crop"}, {"name": "contain", "label": "Show full image"}, {"name": "auto", "label": "Original image size"}]}}
           - {"name": "backgroundAttachment", "label": "Background Scroll", "type": "select", "required": false, "description": "Mobile always scrolls for stable performance.", "options": {"values": [{"name": "scroll", "label": "Scroll normally"}, {"name": "fixed", "label": "Fixed on desktop"}]}}
           - {"name": "overlayColor", "label": "Background Overlay Color", "type": "string", "required": false, "description": "Example #071426 for dark or #ffffff for white."}
           - {"name": "overlayOpacity", "label": "Overlay Strength (0–95%)", "type": "number", "required": false, "description": "Higher numbers hide more of the background to improve text readability."}
+          - {"name": "backgroundBlur", "label": "Background Blur — Desktop (0–20)", "type": "number", "required": false}
+          - {"name": "backgroundBlurMobile", "label": "Background Blur — Mobile (0–20)", "type": "number", "required": false}
+          - {"name": "sectionBackgroundsEnabled", "label": "Enable Individual Section Backgrounds", "type": "boolean", "required": false, "description": "Optional advanced control. Disabled preserves every existing section."}
+          - name: sectionBackgrounds
+            label: "Individual Section Backgrounds"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{section}"
+            fields:
+              - {name: section, label: "Section ID", type: string, readonly: true}
+              - {name: enabled, label: "Use This Section Background", type: boolean, default: false}
+              - {name: desktopImage, label: "Desktop Image", type: image, required: false, options: {media: project_images}}
+              - {name: mobileImage, label: "Mobile Image", type: image, required: false, options: {media: project_images}}
+              - {name: color, label: "Background Color", type: string, required: false}
+              - {name: position, label: "Desktop Focal Point", type: select, required: false, options: {values: ["center center", "center top", "center bottom", "left center", "right center"]}}
+              - {name: mobilePosition, label: "Mobile Focal Point", type: select, required: false, options: {values: ["center center", "center top", "center bottom", "left center", "right center"]}}
+              - {name: size, label: "Desktop Fit", type: select, required: false, options: {values: [cover, contain, auto]}}
+              - {name: mobileSize, label: "Mobile Fit", type: select, required: false, options: {values: [cover, contain, auto]}}
+              - {name: overlayColor, label: "Overlay Color", type: string, required: false}
+              - {name: overlayOpacity, label: "Overlay Strength", type: number, required: false}
+          - {"name": "colorMode", "label": "Homepage Color Mode", "type": "select", "required": false, "options": {"values": [{"name": "theme", "label": "Selected design colors"}, {"name": "light", "label": "Light mode"}, {"name": "dark", "label": "Dark mode"}, {"name": "custom", "label": "My custom colors"}]}}
           - {"name": "colorsEnabled", "label": "Enable My Homepage Colors", "type": "boolean", "required": false, "description": "Off restores the chosen design palette. Set a readable hero text color when changing backgrounds."}
           - {"name": "pageColor", "label": "Page Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
           - {"name": "cardColor", "label": "Cards / Sections Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
@@ -1554,8 +1578,11 @@ content:
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
               - {name: before, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeAlt, label: "Before Photo Description", type: string, required: false}
               - {name: after, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterAlt, label: "After Photo Description", type: string, required: false}
               - {name: label, label: "Project Title", type: string}
+              - {name: summary, label: "Work Summary", type: text, required: false}
               - {name: tags, label: "Tags", type: string, list: true, required: false}
 
           - name: galleryPairs
@@ -1568,8 +1595,11 @@ content:
             fields:
               - {name: active, label: "Show", type: boolean, default: true}
               - {name: before, label: "Before Photo", type: image, required: false, options: {media: project_images}}
+              - {name: beforeAlt, label: "Before Photo Description", type: string, required: false}
               - {name: after, label: "After Photo", type: image, required: false, options: {media: project_images}}
+              - {name: afterAlt, label: "After Photo Description", type: string, required: false}
               - {name: label, label: "Project Title", type: string}
+              - {name: summary, label: "Work Summary", type: text, required: false}
               - {name: tags, label: "Tags", type: string, list: true, required: false}
 
           - name: galleryGrid
