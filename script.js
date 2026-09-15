@@ -2448,17 +2448,27 @@ function hammerProjectMatchesPage(project, slug) {
   return project.showOnServicePage !== false && (project.serviceSlug === slug || (Array.isArray(project.serviceSlugs) && project.serviceSlugs.includes(slug)));
 }
 
-function hammerRenderProjects(data, currentArea) {
+function hammerRenderProjects(data, currentArea, homepage) {
   if (!data || !Array.isArray(data.projects)) return;
   const main = document.querySelector("main");
   if (!main) return;
   const slug = hammerSlug();
+  if (slug === "home" && homepage && homepage.showProjects === false) {
+    const existing = document.getElementById("cmsProjectsSection");
+    if (existing) existing.style.display = "none";
+    return;
+  }
   if (currentArea && currentArea.slug === slug && currentArea.showProjects === false) {
     const existing = document.getElementById("cmsProjectsSection");
     if (existing) existing.style.display = "none";
     return;
   }
-  const projects = hammerSortByDisplayOrder(data.projects.filter(project => hammerProjectMatchesPage(project, slug)));
+  const matchingProjects = data.projects.filter(project => hammerProjectMatchesPage(project, slug));
+  const projects = slug === "home"
+    ? [...matchingProjects]
+      .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999))
+      .slice(0, Math.max(1, Math.min(30, Number(homepage && homepage.homepageProjectLimit) || 6)))
+    : hammerSortByDisplayOrder(matchingProjects);
   let section = document.getElementById("cmsProjectsSection");
   if (!projects.length) {
     if (section) section.style.display = "none";
@@ -2786,7 +2796,7 @@ function refreshHammerContentControls() {
     hammerRenderFaqPage(faqs);
     hammerRenderReviewsPage(reviews);
     hammerRenderSpecialsPage(specials);
-    hammerRenderProjects(projects, currentArea);
+    hammerRenderProjects(projects, currentArea, homepage);
     hammerApplyHomepageLayout(homepage);
     hammerApplyAreaSectionOrder(currentArea);
     hammerRenderDownloads(downloads);

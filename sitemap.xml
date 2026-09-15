@@ -41,6 +41,36 @@
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/Livingroom-before33.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/Livingroom-after33.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/diningroom-full-gut-before2.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/diningroom-full-gut-after2.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/diningroom-full-gut-before.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/diningroom-full-gut-after.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/front-walk-way-wood-gut-before.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/front-walk-way-wood-gut-after.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/Full-gut-deck-before.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.hammerbrickhome.com/images/Full-gut-deck-after.jpeg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://www.hammerbrickhome.com/kitchens.html</loc>

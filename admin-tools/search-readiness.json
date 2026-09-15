@@ -163,7 +163,9 @@
       "schemaTypes": [
         "Organization",
         "WebSite",
-        "WebPage"
+        "WebPage",
+        "ItemList",
+        "ItemList"
       ],
       "warnings": []
     },
@@ -437,5 +439,12 @@
     "Project 1: add a descriptive photo alt text",
     "Project 1: add an accurate description of the work"
   ],
-  "note": "Local validation only. Indexing, rich results and voice-assistant placement are unverified. Organization and Service markup do not guarantee a Google rich-result feature."
+  "homepageSeoSync": {
+    "reviews": 8,
+    "projectsSelected": 1,
+    "projectsEligibleForSchema": 0,
+    "beforeAfterSets": 6,
+    "source": "Homepage Visual Control and CMS data"
+  },
+  "note": "Local validation only. Incomplete projects are kept visible but excluded from structured data until a title, photo description, work summary and main photo are provided. Indexing, rich results and voice-assistant placement are unverified."
 }

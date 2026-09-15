@@ -2,6 +2,7 @@
 """Build crawler-readable metadata from CMS data. No network calls or publishing."""
 import json
 import re
+from datetime import date
 from pathlib import Path
 from html import escape, unescape
 from html.parser import HTMLParser
@@ -11,6 +12,21 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 def read(name):
     return json.loads((ROOT / name).read_text())
+
+def content_is_live(item):
+    if not item or item.get('active') is False or item.get('publishStatus', 'live') != 'live': return False
+    today = date.today().isoformat()
+    return (not item.get('publishStart') or item['publishStart'] <= today) and (not item.get('publishEnd') or item['publishEnd'] >= today)
+
+def ordered_featured(items):
+    return sorted(items, key=lambda item: (not bool(item.get('featured')), int(item.get('displayOrder') or 9999)))
+
+def gallery_image_url(value, base):
+    value = str(value or '').strip()
+    if not value: return ''
+    if value.startswith(('http://', 'https://', '/images/', 'images/')):
+        return urljoin(base, value if value.startswith('/') else '/' + value)
+    return urljoin(base, '/images/' + value.lstrip('/'))
 class Head(HTMLParser):
     def __init__(self, text):
         super().__init__(convert_charrefs=True)
@@ -30,8 +46,10 @@ class Head(HTMLParser):
 
 def build():
     business = read('site-data/business.json'); seo = read('site-data/seo.json')
+    homepage = read('site-data/homepage.json'); reviews_data = read('site-data/reviews.json'); projects_data = read('site-data/projects.json'); gallery_data = read('gallery.json')
     base = business['website'].rstrip('/') + '/'
     assert urlsplit(base).scheme == 'https', 'Website must use HTTPS'
+    homepage_reviews = []; homepage_projects = []; homepage_schema_projects = []; homepage_pairs = []
     records = {p['slug']: dict(p) for p in read('site-data/pages.json')['pages']}
     for area in read('site-data/areas.json')['areas']:
         detail = ROOT / 'content/areas' / (area['slug'] + '.json')
@@ -68,6 +86,46 @@ def build():
         website = {'@type':'WebSite','@id':base+'#website','url':base,'name':seo['siteName'],'publisher':{'@id':base+'#organization'}}
         page = {'@type':{'about':'AboutPage','contact':'ContactPage','gallery':'CollectionPage'}.get(slug,'WebPage'),'@id':canonical+'#webpage','url':canonical,'name':title,'description':description,'isPartOf':{'@id':base+'#website'},'about':{'@id':base+'#organization'},'inLanguage':'en-US'}
         graph = [org, website, page]
+        extra_sitemap_images = []
+        if slug == 'home':
+            review_limit = max(1, min(30, int(homepage.get('homepageReviewLimit') or 8)))
+            project_limit = max(1, min(30, int(homepage.get('homepageProjectLimit') or 6)))
+            comparison_limit = max(1, min(30, int(homepage.get('homepageBeforeAfterLimit') or 6)))
+            homepage_reviews = ordered_featured([item for item in reviews_data.get('reviews', []) if content_is_live(item) and item.get('showOnHomepage') is not False])[:review_limit]
+            homepage_projects = ordered_featured([item for item in projects_data.get('projects', []) if content_is_live(item) and item.get('showOnHomepage') is True])[:project_limit]
+            homepage_schema_projects = [item for item in homepage_projects if item.get('title') and item.get('summary') and item.get('imageAlt') and any(item.get(key) for key in ('coverImage','beforeImage','afterImage'))]
+            homepage_pairs = [item for item in gallery_data.get('homePairs', []) if item and item.get('active') is not False and item.get('before') and item.get('after')][:comparison_limit]
+            has_part = []
+            if homepage_schema_projects:
+                project_list = {'@type':'ItemList','@id':canonical+'#featured-projects','name':'Featured Hammer Brick & Home Projects','numberOfItems':len(homepage_schema_projects),'itemListElement':[]}
+                for position, project in enumerate(homepage_schema_projects, 1):
+                    images = [gallery_image_url(project.get(key), base) for key in ('coverImage','beforeImage','afterImage')]
+                    images += [gallery_image_url(value, base) for value in project.get('additionalImages', [])]
+                    images = [value for value in dict.fromkeys(images) if value]
+                    extra_sitemap_images += images
+                    work = {'@type':'CreativeWork','name':project.get('title') or 'Home improvement project','description':project.get('summary') or project.get('imageAlt') or 'Hammer Brick & Home project','creator':{'@id':base+'#organization'}}
+                    if images: work['image'] = images
+                    if project.get('projectDate'): work['dateCreated'] = project['projectDate']
+                    if project.get('serviceLabel'): work['about'] = project['serviceLabel']
+                    if project.get('areaLabel'): work['contentLocation'] = {'@type':'Place','name':project['areaLabel']}
+                    project_list['itemListElement'].append({'@type':'ListItem','position':position,'item':work})
+                graph.append(project_list); has_part.append({'@id':project_list['@id']})
+            if homepage_pairs:
+                comparison_list = {'@type':'ItemList','@id':canonical+'#before-after-projects','name':'Before and After Project Photos','numberOfItems':len(homepage_pairs),'itemListElement':[]}
+                for position, pair in enumerate(homepage_pairs, 1):
+                    before = gallery_image_url(pair.get('before'), base); after = gallery_image_url(pair.get('after'), base)
+                    extra_sitemap_images += [before, after]
+                    work = {'@type':'CreativeWork','name':str(pair.get('label') or 'Before and after home improvement').strip(),'creator':{'@id':base+'#organization'},'image':[{'@type':'ImageObject','contentUrl':before,'caption':'Before '+str(pair.get('label') or 'project').strip()},{'@type':'ImageObject','contentUrl':after,'caption':'After '+str(pair.get('label') or 'project').strip()}]}
+                    comparison_list['itemListElement'].append({'@type':'ListItem','position':position,'item':work})
+                graph.append(comparison_list); has_part.append({'@id':comparison_list['@id']})
+            if homepage_reviews:
+                review_list = {'@type':'ItemList','@id':canonical+'#customer-reviews','name':'Customer Reviews','numberOfItems':len(homepage_reviews),'itemListElement':[]}
+                for position, review in enumerate(homepage_reviews, 1):
+                    item = {'@type':'Review','author':{'@type':'Person','name':review.get('name') or 'Customer'},'reviewBody':review.get('review') or '','reviewRating':{'@type':'Rating','ratingValue':max(1,min(5,int(review.get('rating') or 5))),'bestRating':5,'worstRating':1},'itemReviewed':{'@id':base+'#organization'}}
+                    if review.get('source'): item['publisher'] = {'@type':'Organization','name':review['source']}
+                    review_list['itemListElement'].append({'@type':'ListItem','position':position,'item':item})
+                graph.append(review_list); has_part.append({'@id':review_list['@id']})
+            if has_part: page['hasPart'] = has_part
         if slug != 'home' and seo.get('breadcrumbsEnabled', True):
             graph.append({'@type':'BreadcrumbList','@id':canonical+'#breadcrumb','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base},{'@type':'ListItem','position':2,'name':item.get('menuLabel') or item.get('name') or slug.replace('-',' ').title(),'item':canonical}]})
             page['breadcrumb'] = {'@id':canonical+'#breadcrumb'}
@@ -100,9 +158,9 @@ def build():
         include = indexed and item.get('showInSitemap', True) and canonical == own_url
         if include:
             node = ET.SubElement(sitemap, '{%s}url'%ns); ET.SubElement(node,'{%s}loc'%ns).text = canonical
-            for src in list(dict.fromkeys(head.images))[:20]:
+            for src in list(dict.fromkeys(head.images + extra_sitemap_images))[:40]:
                 local = ROOT / urlsplit(src).path.lstrip('/')
-                if not urlsplit(src).netloc and local.is_file():
+                if (not urlsplit(src).netloc or urlsplit(src).netloc == urlsplit(base).netloc) and local.is_file():
                     im = ET.SubElement(node,'{%s}image'%ins); ET.SubElement(im,'{%s}loc'%ins).text = urljoin(base,src)
         warnings = []
         if not title.strip(): warnings.append('Missing title')
@@ -128,7 +186,7 @@ def build():
         if not project.get('title'): project_issues.append('Project ' + str(number) + ': missing project title')
         if not project.get('imageAlt'): project_issues.append('Project ' + str(number) + ': add a descriptive photo alt text')
         if not project.get('summary'): project_issues.append('Project ' + str(number) + ': add an accurate description of the work')
-    (ROOT/'admin-tools/search-readiness.json').write_text(json.dumps({'pages':report,'projectWarnings':project_issues,'note':'Local validation only. Indexing, rich results and voice-assistant placement are unverified. Organization and Service markup do not guarantee a Google rich-result feature.'},indent=2)+'\n')
+    (ROOT/'admin-tools/search-readiness.json').write_text(json.dumps({'pages':report,'projectWarnings':project_issues,'homepageSeoSync':{'reviews':len(homepage_reviews),'projectsSelected':len(homepage_projects),'projectsEligibleForSchema':len(homepage_schema_projects),'beforeAfterSets':len(homepage_pairs),'source':'Homepage Visual Control and CMS data'},'note':'Local validation only. Incomplete projects are kept visible but excluded from structured data until a title, photo description, work summary and main photo are provided. Indexing, rich results and voice-assistant placement are unverified.'},indent=2)+'\n')
     print('Built metadata for',len(report),'pages;',len(sitemap),'sitemap URLs. No network actions.')
 
 if __name__ == '__main__': build()

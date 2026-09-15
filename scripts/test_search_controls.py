@@ -10,6 +10,7 @@ class SearchControls(unittest.TestCase):
   self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
   for folder in ('site-data','content','pdfs'):shutil.copytree(SOURCE/folder,self.root/folder)
   (self.root/'admin-tools').mkdir()
+  shutil.copy(SOURCE/'gallery.json',self.root/'gallery.json')
   for file in SOURCE.glob('*.html'):shutil.copy(file,self.root/file.name)
   builder.ROOT=self.root
  def tearDown(self):
@@ -42,4 +43,16 @@ class SearchControls(unittest.TestCase):
   self.assertNotIn('application/ld+json',(self.root/'index.html').read_text())
   before={p.name:p.read_bytes() for p in self.root.glob('*.html')};builder.build()
   self.assertEqual(before,{p.name:p.read_bytes() for p in self.root.glob('*.html')})
+ def test_homepage_visual_order_and_seo_sync(self):
+  self.change('site-data/homepage.json',lambda d:d.update(homepageReviewLimit=2,homepageProjectLimit=1,homepageBeforeAfterLimit=2))
+  self.change('site-data/reviews.json',lambda d:[item.update(featured=index==1,displayOrder=(index+1)*10,showOnHomepage=True) for index,item in enumerate(d['reviews'][:3])])
+  self.change('site-data/projects.json',lambda d:d['projects'][0].update(active=True,publishStatus='live',showOnHomepage=True,title='Test Masonry Project',summary='Repaired and repointed the masonry.',imageAlt='Repointed brick wall after repair',coverImage='/images/test-project.jpg'))
+  builder.build();text=(self.root/'index.html').read_text();report=json.loads((self.root/'admin-tools/search-readiness.json').read_text())
+  self.assertIn('"@id": "https://www.hammerbrickhome.com/#customer-reviews"',text)
+  self.assertIn('"@id": "https://www.hammerbrickhome.com/#featured-projects"',text)
+  self.assertIn('"@id": "https://www.hammerbrickhome.com/#before-after-projects"',text)
+  self.assertNotIn('"aggregateRating"',text)
+  self.assertEqual(report['homepageSeoSync']['reviews'],2)
+  self.assertEqual(report['homepageSeoSync']['beforeAfterSets'],2)
+  self.assertEqual(report['homepageSeoSync']['projectsEligibleForSchema'],1)
 if __name__=='__main__':unittest.main()
