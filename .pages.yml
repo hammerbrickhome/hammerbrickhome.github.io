@@ -145,6 +145,9 @@ content:
               - {name: showMobile, label: "Show on Mobile", type: boolean, default: true}
           - {name: customSectionOrderEnabled, label: "Use My Manual Homepage Section Order", type: boolean, required: false, default: false, description: "Optional. Turn this on only when you want the Section Order list below to control the homepage. Nothing changes by date or automatically."}
           - {name: customSectionOrder, label: "Manual Homepage Section Order", type: string, list: true, required: false, description: "Drag these items into your preferred order. Valid names: announcement, hero, quick-actions, service-areas, guarantee, process, reviews, area-summary, projects, before-after, materials, membership, specials, tiers, faq. Missing items are safely placed afterward, not deleted."}
+          - {name: homepageReviewLimit, label: "Maximum Homepage Reviews", type: number, required: false, default: 8, options: {min: 1, max: 30}, description: "Featured Review appears first, then Display Order."}
+          - {name: homepageProjectLimit, label: "Maximum Homepage Projects", type: number, required: false, default: 6, options: {min: 1, max: 30}, description: "Featured Project appears first, then Display Order."}
+          - {name: homepageBeforeAfterLimit, label: "Maximum Homepage Before & After Sets", type: number, required: false, default: 6, options: {min: 1, max: 30}, description: "The order in Project Gallery Manager controls which comparison appears first."}
           - {name: showHomepageQuickActions, label: "Show Homepage Quick Action Cards", type: boolean, required: false, default: true, description: "Controls the Call, Text, Estimate and Reviews cards used by layouts 2–30."}
           - {name: quickCallTitle, label: "Quick Call Card Title", type: string, required: false}
           - {name: quickCallText, label: "Quick Call Card Description", type: string, required: false}
@@ -170,6 +173,7 @@ content:
           - {name: showMembershipServices, label: "Show Membership Services", type: boolean, required: false}
           - {name: showProcess, label: "Show Process", type: boolean, required: false}
           - {name: showBeforeAfter, label: "Show Before & After", type: boolean, required: false}
+          - {name: showProjects, label: "Show Homepage Projects", type: boolean, required: false, default: true}
           - {name: showGuarantee, label: "Show Guarantee", type: boolean, required: false}
           - {name: showReviews, label: "Show Reviews", type: boolean, required: false}
           - {name: showServiceAreas, label: "Show Service Area Page Cards", type: boolean, required: false, default: true}
