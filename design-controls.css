@@ -177,16 +177,18 @@ body[data-owner-collection][data-owner-font="serif"] #main :is(h1,h2,h3){font-fa
 body[data-owner-collection][data-owner-font="sans"] #main :is(h1,h2,h3){font-family:Arial,sans-serif!important}
 @media(max-width:900px){
  body[data-owner-collection] .hb-home-layout-shell{padding:20px 16px 56px}
- body[data-owner-collection][data-owner-theme] #homeHero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"brand" "copy" "media"!important;grid-template-rows:auto auto 340px!important;padding:24px!important;gap:22px!important;min-height:0!important;border-radius:var(--owner-radius)!important;text-align:left}
+ body[data-owner-collection][data-owner-theme] #homeHero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"brand" "copy" "media"!important;grid-template-rows:auto auto auto!important;padding:24px!important;gap:22px!important;min-height:0!important;border-radius:var(--owner-radius)!important;text-align:left}
  body[data-owner-collection] #homeHero .hero-badge{justify-self:start!important;align-self:start!important;order:0!important;padding:0!important;background:none!important;width:auto}
  body[data-owner-collection] #homeHero .hero-badge img{width:80px;height:80px}
  body[data-owner-collection] #homeHero .hero-content{padding:0!important;max-width:none!important;align-self:start!important}
  body[data-owner-collection] #homeHero h1{font-size:clamp(2.1rem,7vw,3.5rem)!important;line-height:1.08!important}
  body[data-owner-collection] #homeHero p{font-size:16px!important}
- body[data-owner-collection] .owner-collection-image{position:relative!important;inset:auto!important;min-height:340px!important;margin:0!important;border-radius:var(--owner-radius);grid-area:media!important}
+ /* Keep the 3:2 concept artwork proportional on phones. A fixed grid row plus
+    height:100% could inherit a tall hero and make the landscape image stretch. */
+ body[data-owner-collection] .owner-collection-image{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:3/2;margin:0!important;border-radius:var(--owner-radius);grid-area:media!important;align-self:start!important}
+ body[data-owner-collection] .owner-collection-image img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:var(--owner-position)!important}
  body[data-owner-collection] #homeHero .hero-actions,body[data-owner-collection] #homeHero .trust-pills{justify-content:flex-start}
- body[data-owner-collection="journal"][data-owner-theme] #homeHero,body[data-owner-collection="loft"][data-owner-theme] #homeHero{grid-template-areas:"media" "brand" "copy"!important;grid-template-rows:300px auto auto!important}
- body[data-owner-collection="journal"] .owner-collection-image,body[data-owner-collection="loft"] .owner-collection-image{min-height:300px!important}
+ body[data-owner-collection="journal"][data-owner-theme] #homeHero,body[data-owner-collection="loft"][data-owner-theme] #homeHero{grid-template-areas:"media" "brand" "copy"!important;grid-template-rows:auto auto auto!important}
  body[data-owner-collection="courtyard"] .owner-collection-image,body[data-owner-collection="arcade"] .owner-collection-image{border-radius:180px 180px 0 0}
  body[data-owner-collection="mosaic"] .owner-collection-image{border-radius:90px 4px 90px 4px}
  body[data-owner-collection][data-owner-branding] #homeHero .hero-badge img{width:var(--owner-hero-logo-mobile)!important;height:var(--owner-hero-logo-mobile)!important}
