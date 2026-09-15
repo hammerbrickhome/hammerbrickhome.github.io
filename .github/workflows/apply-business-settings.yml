@@ -34,6 +34,9 @@ jobs:
       - name: Apply saved business details
         run: python3 scripts/apply_business.py
 
+      - name: Keep search metadata aligned with business details
+        run: python3 scripts/build_search_files.py
+
       - name: Commit website updates
         shell: bash
         run: |
@@ -47,5 +50,6 @@ jobs:
           git config user.name "Hammer Brick Admin"
           git config user.email "actions@users.noreply.github.com"
           git add -u -- '*.html' '*.js' 'hammerbrickhome.vcf' 'admin-data/business.json'
+          git add sitemap.xml robots.txt admin-tools/search-readiness.json
           git commit -m "admin: apply business details"
           git push
