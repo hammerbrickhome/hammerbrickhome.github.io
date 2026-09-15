@@ -163,70 +163,9 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Rebuild sitemap from active CMS content
+      - name: Rebuild metadata and sitemap from CMS content
         if: ${{ steps.tool.outputs.mode == 'rebuild-sitemap' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          import json
-          from datetime import date
-          from pathlib import Path
-          from urllib.parse import urljoin
-          from xml.etree import ElementTree as ET
-
-          root = Path.cwd()
-
-          def read_json(relative):
-              return json.loads((root / relative).read_text(encoding="utf-8"))
-
-          business = read_json("site-data/business.json")
-          base = str(business.get("website") or "https://www.hammerbrickhome.com/").rstrip("/") + "/"
-          urls = []
-
-          for page in read_json("site-data/pages.json").get("pages", []):
-              if isinstance(page, dict) and page.get("active") is not False and page.get("url"):
-                  urls.append(str(page["url"]))
-
-          for area in read_json("site-data/areas.json").get("areas", []):
-              if isinstance(area, dict) and area.get("active") is not False and area.get("url"):
-                  urls.append(str(area["url"]))
-
-          for download in read_json("site-data/downloads.json").get("downloads", []):
-              if isinstance(download, dict) and download.get("active") is not False and download.get("file"):
-                  urls.append(str(download["file"]))
-
-          def priority(path):
-              if path == "/": return "1.00"
-              if path in ("/services.html", "/areas.html"): return "0.90"
-              if path in ("/gallery.html", "/reviews.html", "/contact.html", "/project-estimator.html"): return "0.85"
-              if path.endswith(("staten-island.html", "brooklyn.html", "queens.html", "manhattan.html", "bronx.html", "new-jersey.html")): return "0.85"
-              if path in ("/pricing.html", "/monthly-specials.html", "/masonry.html"): return "0.80"
-              if path.startswith("/pdfs/"): return "0.50"
-              if path in ("/membership.html", "/downloads.html"): return "0.70"
-              if path in ("/financing.html", "/our-process.html"): return "0.65"
-              return "0.75"
-
-          namespace = "http://www.sitemaps.org/schemas/sitemap/0.9"
-          ET.register_namespace("", namespace)
-          urlset = ET.Element(f"{{{namespace}}}urlset")
-          today = date.today().isoformat()
-          seen = set()
-          for path in urls:
-              path = "/" + path.lstrip("/") if path != "/" else "/"
-              if path in seen:
-                  continue
-              seen.add(path)
-              node = ET.SubElement(urlset, f"{{{namespace}}}url")
-              ET.SubElement(node, f"{{{namespace}}}loc").text = urljoin(base, path.lstrip("/"))
-              ET.SubElement(node, f"{{{namespace}}}lastmod").text = today
-              ET.SubElement(node, f"{{{namespace}}}priority").text = priority(path)
-
-          ET.indent(urlset, space="  ")
-          output = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(urlset, encoding="unicode") + "\n"
-          (root / "sitemap.xml").write_text(output, encoding="utf-8")
-          print(f"Wrote {len(seen)} active URLs to sitemap.xml")
-          PY
+        run: python3 scripts/build_search_files.py
 
       - name: Save generated report or sitemap
         if: ${{ steps.tool.outputs.mode == 'validate' || steps.tool.outputs.mode == 'publish-check' || steps.tool.outputs.mode == 'photo-report' || steps.tool.outputs.mode == 'rebuild-sitemap' }}
@@ -250,7 +189,7 @@ jobs:
               MESSAGE="admin: save successful publishing safety check"
               ;;
             rebuild-sitemap)
-              git add sitemap.xml
+              git add -- *.html sitemap.xml robots.txt admin-tools/search-readiness.json
               MESSAGE="admin: rebuild sitemap from active CMS content"
               ;;
           esac
