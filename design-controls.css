@@ -75,3 +75,122 @@ body[data-owner-reduced-motion] .fade-up{opacity:1!important;transform:none!impo
 @media(max-width:900px){body[data-owner-theme] .hb-home-layout-shell{padding:16px 14px 50px}body[data-owner-theme] #homeHero{grid-template-columns:1fr!important;display:flex!important;flex-direction:column!important;padding:42px 24px!important;min-height:560px;gap:24px;text-align:center}body[data-owner-theme] #homeHero .hero-badge{order:-1!important}body[data-owner-theme] #homeHero h1{font-size:clamp(2.3rem,8vw,3.6rem)!important}body[data-owner-theme] #homeHero .hero-badge img{width:120px;height:120px}body[data-owner-theme] #homeHero .hero-actions,body[data-owner-theme] #homeHero .trust-pills{justify-content:center}body[data-owner-theme] .hb-home-quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important;margin:-24px 8px 40px!important;width:auto!important}body[data-owner-theme] .hb-home-band{grid-template-columns:1fr!important}body[data-owner-theme] .section{padding:24px!important}body[data-owner-theme] #homeHero p{font-size:16px}}
 @media(max-width:768px){body[data-owner-branding] .topbar .brand-logo{width:var(--owner-logo-width-mobile)!important;height:var(--owner-logo-width-mobile)!important;flex-basis:var(--owner-logo-width-mobile)!important}body[data-owner-branding] #homeHero .hero-badge img{width:var(--owner-hero-logo-mobile)!important;height:var(--owner-hero-logo-mobile)!important}body[data-owner-spacing] #homeHero{min-height:var(--owner-hero-height-mobile)!important}}
 @media(max-width:420px){body[data-owner-theme] #homeHero{padding:38px 18px!important}body[data-owner-theme] #homeHero h1{font-size:2.3rem!important}body[data-owner-theme] #homeHero .hero-actions{width:100%}body[data-owner-theme] #homeHero .hero-actions .btn{width:100%}body[data-owner-theme] .hb-home-quick-actions a{padding:12px 8px;grid-template-columns:24px 1fr;column-gap:6px}}
+
+/* Replacement collection 18–30. Every rule is gated; designs 1–17 are untouched. */
+body[data-owner-collection] .hb-home-layout-shell{max-width:1480px;padding:32px 36px 80px}
+body[data-owner-collection][data-owner-theme] #homeHero{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-areas:"brand media" "copy media";grid-template-rows:auto 1fr;align-items:center;gap:24px 38px;padding:42px!important;min-height:720px;outline:none;box-shadow:none;text-align:left;overflow:hidden}
+body[data-owner-collection] #homeHero .hero-badge{grid-area:brand;justify-self:start;align-self:end;order:0!important;margin:0!important}
+body[data-owner-collection] #homeHero .hero-badge img{width:100px;height:100px;border:0;box-shadow:none}
+body[data-owner-collection] #homeHero .hero-content{grid-area:copy;align-self:start;min-width:0}
+body[data-owner-collection] #homeHero h1{font-size:clamp(2.4rem,4.1vw,4.7rem)!important;line-height:1.06!important;letter-spacing:-.035em!important;overflow-wrap:break-word}
+body[data-owner-collection] #homeHero p{font-size:17px!important;max-width:640px}
+body[data-owner-collection] #homeHero .hero-actions,body[data-owner-collection] #homeHero .trust-pills{justify-content:flex-start}
+body[data-owner-collection] .owner-collection-image{display:block;grid-area:media;position:relative;z-index:1;margin:0;align-self:stretch;min-width:0;min-height:520px;overflow:hidden;border-radius:var(--owner-radius)}
+body[data-owner-collection] .owner-collection-image[hidden]{display:none}
+body[data-owner-collection] .owner-collection-image img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:var(--owner-position);border-radius:inherit}
+body[data-owner-collection] .owner-collection-image figcaption{position:absolute;bottom:12px;left:12px;color:#fff;background:#101820da;font:11px/1.4 system-ui;padding:5px 9px;border-radius:3px}
+body[data-owner-collection][data-owner-background-target="hero"] .owner-hero-background{display:none!important}
+body[data-owner-collection] .hb-home-quick-actions{margin:0 auto 48px!important;gap:0;overflow:hidden}
+body[data-owner-collection] #main .section{margin-top:24px;margin-bottom:48px;padding:38px;box-shadow:none;border-width:1px}
+body[data-owner-collection] #main h2{font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.1}
+body[data-owner-collection] #main .cms-project-grid{gap:24px}
+body[data-owner-collection] .cms-project-card{overflow:hidden}
+/* 18: cobalt editorial grid, photo on the right, squared feature blocks. */
+body[data-owner-collection="cobalt"] #homeHero{border-top:10px solid var(--owner-accent)!important}
+body[data-owner-collection="cobalt"] #homeHero h1,body[data-owner-collection="cobalt"] #main h2{font-family:Arial,sans-serif!important;font-weight:850}
+body[data-owner-collection="cobalt"] #main .section{border-left:8px solid var(--owner-accent)!important}
+body[data-owner-collection="cobalt"] .hb-home-quick-actions a{border-radius:0}
+/* 19: newspaper-like masonry journal: panoramic photo above columns. */
+body[data-owner-collection="journal"][data-owner-theme] #homeHero{grid-template-columns:150px minmax(0,1fr);grid-template-areas:"media media" "brand copy";grid-template-rows:360px auto;padding:24px!important;gap:30px}
+body[data-owner-collection="journal"] .owner-collection-image{min-height:360px;border-radius:0}
+body[data-owner-collection="journal"] #homeHero .hero-badge{align-self:start;margin-top:12px!important}
+body[data-owner-collection="journal"] #homeHero h1{font-family:Georgia,serif!important;font-weight:500;font-size:clamp(2.4rem,4.5vw,4.6rem)!important}
+body[data-owner-collection="journal"] #main .section{border:0!important;border-top:3px double var(--owner-accent)!important;border-bottom:3px double var(--owner-accent)!important}
+/* 20: cedar courtyard: arched photograph left, airy copy right. */
+body[data-owner-collection="courtyard"][data-owner-theme] #homeHero{grid-template-columns:1.05fr 1fr;grid-template-areas:"media brand" "media copy";padding:50px!important;gap:28px 50px}
+body[data-owner-collection="courtyard"] .owner-collection-image{border-radius:240px 240px 12px 12px;min-height:650px}
+body[data-owner-collection="courtyard"] #main .btn{border-radius:50px!important;padding-inline:26px}
+body[data-owner-collection="courtyard"] #main .section{border-radius:32px 4px 32px 4px}
+/* 21: travertine atelier: large scene with a lower-left reading panel. */
+body[data-owner-collection="atelier"][data-owner-theme] #homeHero{grid-template-columns:1fr 1fr;grid-template-areas:"brand media" "copy media";position:relative;padding:48px!important;min-height:820px;overflow:hidden}
+body[data-owner-collection="atelier"] .owner-collection-image{position:absolute;grid-area:auto;inset:0;z-index:0;min-height:100%;border-radius:0}
+body[data-owner-collection="atelier"] #homeHero .hero-content{align-self:end!important;position:relative;z-index:2;padding:30px!important;background:var(--owner-card)!important;border-radius:2px}
+body[data-owner-collection="atelier"] #homeHero .hero-badge{position:relative!important;z-index:2;align-self:start;padding:10px;background:var(--owner-card)}
+body[data-owner-collection="atelier"] #homeHero h1{font-size:clamp(2.2rem,3.3vw,3.7rem)!important;font-weight:500}
+body[data-owner-collection="atelier"] #main .section{max-width:1120px;margin-left:auto;margin-right:auto;border:0!important}
+/* 22: concrete signal: dark graphic blocks and chartreuse rules. */
+body[data-owner-collection="signal"][data-owner-theme] #homeHero{grid-template-columns:1.15fr 1fr;grid-template-areas:"brand brand" "media copy";padding:0!important;gap:0}
+body[data-owner-collection="signal"] #homeHero .hero-badge{padding:22px 36px;background:var(--owner-accent);width:100%;justify-self:stretch;align-self:stretch}
+body[data-owner-collection="signal"] #homeHero .hero-badge img{width:70px;height:70px}
+body[data-owner-collection="signal"] #homeHero .hero-content{padding:36px!important;align-self:center}
+body[data-owner-collection="signal"] #homeHero h1{font-family:Impact,Arial,sans-serif!important;text-transform:uppercase;letter-spacing:0!important;font-weight:700}
+body[data-owner-collection="signal"] #main .section{border-bottom:8px solid var(--owner-accent)!important}
+/* 23: harbor: wide view below centered text and a horizontal logo rail. */
+body[data-owner-collection="harbor"][data-owner-theme] #homeHero{grid-template-columns:1fr;grid-template-areas:"brand" "copy" "media";grid-template-rows:auto auto 370px;text-align:center;padding:38px 38px 0!important}
+body[data-owner-collection="harbor"] #homeHero .hero-badge{justify-self:center}
+body[data-owner-collection="harbor"] #homeHero p{margin-inline:auto}
+body[data-owner-collection="harbor"] #homeHero .hero-actions,body[data-owner-collection="harbor"] #homeHero .trust-pills{justify-content:center}
+body[data-owner-collection="harbor"] .owner-collection-image{min-height:370px;border-radius:120px 120px 0 0}
+body[data-owner-collection="harbor"] .hb-home-quick-actions{border-bottom:7px solid var(--owner-accent)}
+/* 24: drafting board: technical typography and a framed plan at left. */
+body[data-owner-collection="workshop"][data-owner-theme] #homeHero{grid-template-columns:1.3fr 1fr;grid-template-areas:"media brand" "media copy";border:2px solid var(--owner-accent)!important}
+body[data-owner-collection="workshop"] #main :is(h1,h2,h3){font-family:'Courier New',monospace!important;letter-spacing:-.04em!important}
+body[data-owner-collection="workshop"] .owner-collection-image{border:1px dashed var(--owner-accent);padding:10px}
+body[data-owner-collection="workshop"] #main .section{background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px)!important;background-size:24px 24px!important;border:1px dashed var(--owner-accent)!important}
+/* 25: walnut: generous photo with an inset brand above an editorial text block. */
+body[data-owner-collection="walnut"][data-owner-theme] #homeHero{grid-template-columns:1.45fr 1fr;grid-template-areas:"media brand" "media copy";padding:22px!important;gap:20px 38px}
+body[data-owner-collection="walnut"] .owner-collection-image{border-radius:4px 80px 4px 4px;min-height:720px}
+body[data-owner-collection="walnut"] #homeHero .hero-content{padding-right:22px!important}
+body[data-owner-collection="walnut"] #homeHero h1{font-family:Georgia,serif!important;font-weight:400}
+body[data-owner-collection="walnut"] #main .section{border-top:12px solid var(--owner-accent)!important}
+/* 26: monochrome: oversized headline then stark edge-to-edge architecture. */
+body[data-owner-collection="monument"][data-owner-theme] #homeHero{grid-template-columns:120px 1fr;grid-template-areas:"brand copy" "media media";grid-template-rows:auto 480px;padding:32px!important;border:3px solid var(--owner-text)!important;gap:22px}
+body[data-owner-collection="monument"] #homeHero h1{font-family:Arial,sans-serif!important;font-size:clamp(3rem,6vw,6.3rem)!important;font-weight:900;letter-spacing:-.065em!important;line-height:.99!important}
+body[data-owner-collection="monument"] .owner-collection-image{min-height:480px}
+body[data-owner-collection="monument"] #main .section{border-top:4px solid var(--owner-text)!important}
+/* 27: terracotta: two tall arches, picture right and rounded editorial panel. */
+body[data-owner-collection="arcade"][data-owner-theme] #homeHero{grid-template-columns:1fr 1fr;grid-template-areas:"brand media" "copy media";padding:56px!important;border-radius:120px 120px 12px 12px!important;gap:24px 46px}
+body[data-owner-collection="arcade"] .owner-collection-image{border-radius:240px 240px 0 0;min-height:640px}
+body[data-owner-collection="arcade"] #homeHero h1{font-family:Georgia,serif!important;font-style:italic;font-weight:500}
+body[data-owner-collection="arcade"] #main .section{border-radius:0 60px 0 60px}
+/* 28: slate rain: cinematic full photograph behind a bottom caption panel. */
+body[data-owner-collection="slate"][data-owner-theme] #homeHero{grid-template-columns:1fr;grid-template-areas:"brand" "copy";grid-template-rows:1fr auto;min-height:920px;padding:40px!important}
+body[data-owner-collection="slate"] .owner-collection-image{position:absolute;grid-area:auto;inset:0;z-index:0;min-height:100%}
+body[data-owner-collection="slate"] #homeHero .hero-badge{align-self:start!important;z-index:2;padding:8px;background:var(--owner-card)}
+body[data-owner-collection="slate"] #homeHero .hero-content{max-width:900px;align-self:end!important;background:var(--owner-card)!important;padding:30px!important;z-index:2;border-top:4px solid var(--owner-accent)!important}
+body[data-owner-collection="slate"] #homeHero h1{font-family:Arial,sans-serif!important;font-weight:700}
+/* 29: mosaic: asymmetrical rounded photography, a tile grid and compact type. */
+body[data-owner-collection="mosaic"][data-owner-theme] #homeHero{grid-template-columns:1fr 1fr;grid-template-areas:"media brand" "media copy";padding:40px!important;gap:26px 42px}
+body[data-owner-collection="mosaic"] .owner-collection-image{border-radius:180px 12px 180px 12px;min-height:680px}
+body[data-owner-collection="mosaic"] #homeHero h1{font-family:Arial,sans-serif!important;font-weight:650;font-size:clamp(2.4rem,3.7vw,4rem)!important}
+body[data-owner-collection="mosaic"] #main .section{border:6px solid color-mix(in srgb,var(--owner-accent) 35%,var(--owner-card))!important;border-radius:20px}
+/* 30: copperline: panoramic industrial scene, logo and story beneath. */
+body[data-owner-collection="loft"][data-owner-theme] #homeHero{grid-template-columns:180px 1fr;grid-template-areas:"media media" "brand copy";grid-template-rows:470px auto;padding:0 32px 32px!important;gap:28px 36px;border-bottom:10px solid var(--owner-accent)!important}
+body[data-owner-collection="loft"] .owner-collection-image{min-height:470px;margin:0 -32px;border-radius:0}
+body[data-owner-collection="loft"] #homeHero .hero-badge{align-self:start}
+body[data-owner-collection="loft"] #homeHero h1{font-family:Georgia,serif!important;font-weight:500;letter-spacing:0!important}
+body[data-owner-collection="loft"] #main .section{border-left:2px solid var(--owner-accent)!important;border-right:2px solid var(--owner-accent)!important}
+/* Custom owner controls remain authoritative over all replacement presets. */
+body[data-owner-collection][data-owner-branding] #homeHero .hero-badge img{width:var(--owner-hero-logo-width)!important;height:var(--owner-hero-logo-width)!important}
+body[data-owner-collection][data-owner-spacing] #homeHero{min-height:var(--owner-hero-height)!important}
+body[data-owner-collection][data-owner-font="serif"] #main :is(h1,h2,h3){font-family:Georgia,serif!important}
+body[data-owner-collection][data-owner-font="sans"] #main :is(h1,h2,h3){font-family:Arial,sans-serif!important}
+@media(max-width:900px){
+ body[data-owner-collection] .hb-home-layout-shell{padding:20px 16px 56px}
+ body[data-owner-collection][data-owner-theme] #homeHero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"brand" "copy" "media"!important;grid-template-rows:auto auto 340px!important;padding:24px!important;gap:22px!important;min-height:0!important;border-radius:var(--owner-radius)!important;text-align:left}
+ body[data-owner-collection] #homeHero .hero-badge{justify-self:start!important;align-self:start!important;order:0!important;padding:0!important;background:none!important;width:auto}
+ body[data-owner-collection] #homeHero .hero-badge img{width:80px;height:80px}
+ body[data-owner-collection] #homeHero .hero-content{padding:0!important;max-width:none!important;align-self:start!important}
+ body[data-owner-collection] #homeHero h1{font-size:clamp(2.1rem,7vw,3.5rem)!important;line-height:1.08!important}
+ body[data-owner-collection] #homeHero p{font-size:16px!important}
+ body[data-owner-collection] .owner-collection-image{position:relative!important;inset:auto!important;min-height:340px!important;margin:0!important;border-radius:var(--owner-radius);grid-area:media!important}
+ body[data-owner-collection] #homeHero .hero-actions,body[data-owner-collection] #homeHero .trust-pills{justify-content:flex-start}
+ body[data-owner-collection="journal"][data-owner-theme] #homeHero,body[data-owner-collection="loft"][data-owner-theme] #homeHero{grid-template-areas:"media" "brand" "copy"!important;grid-template-rows:300px auto auto!important}
+ body[data-owner-collection="journal"] .owner-collection-image,body[data-owner-collection="loft"] .owner-collection-image{min-height:300px!important}
+ body[data-owner-collection="courtyard"] .owner-collection-image,body[data-owner-collection="arcade"] .owner-collection-image{border-radius:180px 180px 0 0}
+ body[data-owner-collection="mosaic"] .owner-collection-image{border-radius:90px 4px 90px 4px}
+ body[data-owner-collection][data-owner-branding] #homeHero .hero-badge img{width:var(--owner-hero-logo-mobile)!important;height:var(--owner-hero-logo-mobile)!important}
+ body[data-owner-collection][data-owner-spacing] #homeHero{min-height:var(--owner-hero-height-mobile)!important}
+ body[data-owner-collection] #main .section{padding:24px!important;margin-bottom:30px!important}
+ body[data-owner-collection] .hb-home-quick-actions{margin:0 0 30px!important}
+}

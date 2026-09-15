@@ -4,22 +4,20 @@
   const themes = {
     'ivory-estate': {name:'White Architectural Estate',page:'#f8f5ef',card:'#ffffff',text:'#10273b',muted:'#52616c',accent:'#98652d',button:'#10273b',buttonText:'#ffffff',heroText:'#10273b',image:'architecture-white.png',overlay:'#fffaf2',opacity:0.38,composition:'center',radius:4},
     'gold-noir': {name:'Master Craftsman Gold',page:'#090b0e',card:'#14171b',text:'#f4e7c7',muted:'#d3c8b1',accent:'#dfb45c',button:'#dfb45c',buttonText:'#15110b',heroText:'#fff0cf',image:'architecture-dark.png',overlay:'#050607',opacity:0.36,composition:'center',radius:3},
-    'skyline-night': {name:'NYC Skyline Night',page:'#081927',card:'#102a3b',text:'#f1f6fa',muted:'#bbd0df',accent:'#6dc5de',button:'#6dc5de',buttonText:'#081927',heroText:'#ffffff',image:'architecture-dark.png',overlay:'#082942',opacity:0.58,composition:'split',radius:26},
-    'brownstone-craft': {name:'Brownstone Heritage',page:'#f3e9dc',card:'#fffaf2',text:'#392a22',muted:'#6d574a',accent:'#9b452b',button:'#9b452b',buttonText:'#ffffff',heroText:'#fff8ef',image:'architecture-dark.png',overlay:'#33190e',opacity:0.58,composition:'editorial',radius:3},
-    'garden-estate': {name:'Garden Residence',page:'#edf0e6',card:'#fafbf5',text:'#233e32',muted:'#546656',accent:'#546d37',button:'#294e3d',buttonText:'#ffffff',heroText:'#203c30',image:'architecture-white.png',overlay:'#eef4e6',opacity:0.46,composition:'split',radius:32},
-    'stone-gallery': {name:'Limestone Gallery',page:'#eae7e0',card:'#faf9f5',text:'#292b2a',muted:'#656864',accent:'#756343',button:'#292b2a',buttonText:'#ffffff',heroText:'#292b2a',image:'architecture-white.png',overlay:'#f6f3eb',opacity:0.53,composition:'editorial',radius:0},
-    'copper-workshop': {name:'Copper Workshop',page:'#171c20',card:'#222b30',text:'#f4ece3',muted:'#c7b6a4',accent:'#e0a071',button:'#e0a071',buttonText:'#24170f',heroText:'#fff4e6',image:'architecture-dark.png',overlay:'#22252a',opacity:0.52,composition:'split',radius:8},
-    'coastal-house': {name:'Coastal House',page:'#f2f6f5',card:'#ffffff',text:'#143d50',muted:'#4d6b74',accent:'#246e86',button:'#246e86',buttonText:'#ffffff',heroText:'#143d50',image:'architecture-white.png',overlay:'#effbff',opacity:0.48,composition:'center',radius:36},
-    'architect-paper': {name:'Architect Paper',page:'#faf9f5',card:'#ffffff',text:'#202b38',muted:'#596675',accent:'#304b71',button:'#304b71',buttonText:'#ffffff',heroText:'#202b38',image:'architecture-white.png',overlay:'#ffffff',opacity:0.65,composition:'editorial',radius:0},
-    'emerald-signature': {name:'Emerald Signature',page:'#081f1a',card:'#11332a',text:'#faf4e0',muted:'#c0d1c4',accent:'#d9bd75',button:'#d9bd75',buttonText:'#10291f',heroText:'#fff6de',image:'architecture-dark.png',overlay:'#06291f',opacity:0.54,composition:'center',radius:20}
+    "skyline-night": {"name": "Cobalt Grid", "page": "#ecf1f8", "card": "#ffffff", "text": "#10264a", "muted": "#435774", "accent": "#174bd6", "button": "#174bd6", "buttonText": "#ffffff", "heroText": "#10264a", "image": "new-collection/18-cobalt.png", "overlay": "#ecf1f8", "opacity": 0.62, "composition": "split", "radius": 0, "fullPage": true, "collection": "cobalt"},
+    "brownstone-craft": {"name": "Brooklyn Brick Journal", "page": "#f1e5d4", "card": "#fff8eb", "text": "#402b24", "muted": "#685147", "accent": "#843c29", "button": "#843c29", "buttonText": "#ffffff", "heroText": "#402b24", "image": "new-collection/19-brooklyn.png", "overlay": "#f1e5d4", "opacity": 0.62, "composition": "split", "radius": 0, "fullPage": true, "collection": "journal"},
+    "garden-estate": {"name": "Cedar Courtyard", "page": "#e9eee1", "card": "#f8f9f0", "text": "#283e2d", "muted": "#526348", "accent": "#3e6244", "button": "#3e6244", "buttonText": "#ffffff", "heroText": "#283e2d", "image": "new-collection/20-cedar.png", "overlay": "#e9eee1", "opacity": 0.62, "composition": "split", "radius": 28, "fullPage": true, "collection": "courtyard"},
+    "stone-gallery": {"name": "Travertine Atelier", "page": "#eae2d5", "card": "#fffaf0", "text": "#433a2d", "muted": "#695e4e", "accent": "#716041", "button": "#433a2d", "buttonText": "#ffffff", "heroText": "#433a2d", "image": "new-collection/21-travertine.png", "overlay": "#eae2d5", "opacity": 0.62, "composition": "split", "radius": 2, "fullPage": true, "collection": "atelier"},
+    "copper-workshop": {"name": "Concrete Signal", "page": "#181c1c", "card": "#242a29", "text": "#f0f3e8", "muted": "#c3cbbd", "accent": "#d2ed4c", "button": "#d2ed4c", "buttonText": "#1b2515", "heroText": "#f0f3e8", "image": "new-collection/22-concrete.png", "overlay": "#181c1c", "opacity": 0.62, "composition": "split", "radius": 0, "fullPage": true, "collection": "signal"},
+    "coastal-house": {"name": "Harbor House", "page": "#e7f0ee", "card": "#fafffc", "text": "#113b44", "muted": "#49676e", "accent": "#126d78", "button": "#126d78", "buttonText": "#ffffff", "heroText": "#113b44", "image": "new-collection/23-harbor.png", "overlay": "#e7f0ee", "opacity": 0.62, "composition": "split", "radius": 12, "fullPage": true, "collection": "harbor"},
+    "architect-paper": {"name": "Blueprint Workshop", "page": "#071e3b", "card": "#102d4c", "text": "#f2f9ff", "muted": "#b7d3e5", "accent": "#7ad7ee", "button": "#7ad7ee", "buttonText": "#06243d", "heroText": "#f2f9ff", "image": "new-collection/24-blueprint.png", "overlay": "#071e3b", "opacity": 0.62, "composition": "split", "radius": 0, "fullPage": true, "collection": "workshop"},
+    "emerald-signature": {"name": "Walnut Residence", "page": "#ede2d2", "card": "#fff6e8", "text": "#432e21", "muted": "#705845", "accent": "#8d522d", "button": "#744126", "buttonText": "#ffffff", "heroText": "#432e21", "image": "new-collection/25-walnut.png", "overlay": "#ede2d2", "opacity": 0.62, "composition": "split", "radius": 8, "fullPage": true, "collection": "walnut"},
+    "ivory-panorama": {"name": "Monochrome Monument", "page": "#ededeb", "card": "#ffffff", "text": "#141719", "muted": "#4b5053", "accent": "#25292c", "button": "#151819", "buttonText": "#ffffff", "heroText": "#141719", "image": "new-collection/26-monument.png", "overlay": "#ededeb", "opacity": 0.62, "composition": "split", "radius": 0, "fullPage": true, "collection": "monument"},
+    "gold-panorama": {"name": "Terracotta Arcade", "page": "#ecd8bc", "card": "#fff3df", "text": "#4d2d21", "muted": "#755341", "accent": "#a43e1e", "button": "#a43e1e", "buttonText": "#ffffff", "heroText": "#4d2d21", "image": "new-collection/27-arcade.png", "overlay": "#ecd8bc", "opacity": 0.62, "composition": "split", "radius": 24, "fullPage": true, "collection": "arcade"},
+    "champagne-panorama": {"name": "Slate & Rain", "page": "#101b25", "card": "#1d2b39", "text": "#f3f7fc", "muted": "#c0d0df", "accent": "#aac7e2", "button": "#aac7e2", "buttonText": "#142337", "heroText": "#f3f7fc", "image": "new-collection/28-slate.png", "overlay": "#101b25", "opacity": 0.62, "composition": "split", "radius": 2, "fullPage": true, "collection": "slate"},
+    "sapphire-panorama": {"name": "Mosaic House", "page": "#dcefed", "card": "#f5fffc", "text": "#133d3a", "muted": "#476d66", "accent": "#116b67", "button": "#116b67", "buttonText": "#ffffff", "heroText": "#133d3a", "image": "new-collection/29-mosaic.png", "overlay": "#dcefed", "opacity": 0.62, "composition": "split", "radius": 18, "fullPage": true, "collection": "mosaic"},
+    "olive-panorama": {"name": "Copperline Loft", "page": "#271c1a", "card": "#382822", "text": "#fff0da", "muted": "#d6c0ad", "accent": "#e6a774", "button": "#e6a774", "buttonText": "#382216", "heroText": "#fff0da", "image": "new-collection/30-copper.png", "overlay": "#271c1a", "opacity": 0.62, "composition": "split", "radius": 0, "fullPage": true, "collection": "loft"},
   };
-  Object.assign(themes, {
-    'ivory-panorama': {...themes['ivory-estate'],name:'White Buildings — Full Page',fullPage:true,opacity:0.20},
-    'gold-panorama': {...themes['gold-noir'],name:'Gold Buildings — Full Page',fullPage:true,opacity:0.25},
-    'champagne-panorama': {...themes['ivory-estate'],name:'Champagne Avenue',fullPage:true,page:'#f5eee1',card:'#fffaf0',accent:'#8b602c',composition:'editorial',radius:2,opacity:0.24},
-    'sapphire-panorama': {...themes['skyline-night'],name:'Sapphire City',fullPage:true,accent:'#95cce6',composition:'center',radius:24,opacity:0.40},
-    'olive-panorama': {...themes['garden-estate'],name:'Olive & Limestone',fullPage:true,accent:'#6a713c',composition:'split',radius:8,opacity:0.25}
-  });
   const clamp=(value,min,max,fallback)=>Number.isFinite(Number(value)) ? Math.min(max,Math.max(min,Number(value))) : fallback;
   const color=(value,fallback)=>/^#[\da-f]{6}$/i.test(String(value)) ? value : fallback;
   function asset(value) {
@@ -57,6 +55,7 @@
     // Everything below is homepage-only; inner pages retain their current styling.
     if(!home)return;
     b.toggleAttribute('data-owner-theme',Boolean(theme));
+    if(theme&&theme.collection)b.dataset.ownerCollection=theme.collection;else delete b.dataset.ownerCollection;
     b.toggleAttribute('data-owner-colors',d.colorsEnabled===true);
     b.toggleAttribute('data-owner-spacing',d.spacingEnabled===true);
     b.toggleAttribute('data-owner-reduced-motion',d.reduceMotion===true);
@@ -75,7 +74,13 @@
     b.toggleAttribute('data-owner-background',Boolean(theme)||d.backgroundEnabled===true);
     b.dataset.ownerBackgroundTarget=target;
     set('image',imageCss(image));set('background',background||t.page);set('overlay',overlay);set('opacity',opacity);set('position',position);set('size',size);set('attachment',attachment);
-    const hero=document.getElementById('homeHero');if(hero){let layer=hero.querySelector('.owner-hero-background');if(!layer){layer=document.createElement('div');layer.className='owner-hero-background';layer.setAttribute('aria-hidden','true');hero.prepend(layer);}}
+    const hero=document.getElementById('homeHero');if(hero){let layer=hero.querySelector('.owner-hero-background');if(!layer){layer=document.createElement('div');layer.className='owner-hero-background';layer.setAttribute('aria-hidden','true');hero.prepend(layer);}
+      let picture=hero.querySelector('.owner-collection-image');
+      if(theme&&theme.collection){
+        if(!picture){picture=document.createElement('figure');picture.className='owner-collection-image';const img=document.createElement('img');img.alt='';img.width=1536;img.height=1024;img.decoding='async';const caption=document.createElement('figcaption');caption.textContent='Architectural concept artwork';picture.append(img,caption);hero.append(picture);}
+        picture.hidden=!image;const img=picture.querySelector('img');if(image&&img.getAttribute('src')!==image)img.src=image;
+      } else if(picture)picture.remove();
+    }
   }
   document.addEventListener('hammer:content-ready',e=>{currentHome=e.detail.homepage||{};apply();});
   matchMedia('(max-width:768px)').addEventListener('change',apply);
