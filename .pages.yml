@@ -121,19 +121,19 @@ content:
                 - {name: royal, label: "15 — Royal Estate (Royal Blue, Champagne & White)"}
                 - {name: ivory-estate, label: "16 — White Architectural Estate"}
                 - {name: gold-noir, label: "17 — Master Craftsman Gold"}
-                - {name: skyline-night, label: "18 — NYC Skyline Night"}
-                - {name: brownstone-craft, label: "19 — Brownstone Heritage"}
-                - {name: garden-estate, label: "20 — Garden Residence"}
-                - {name: stone-gallery, label: "21 — Limestone Gallery"}
-                - {name: copper-workshop, label: "22 — Copper Workshop"}
-                - {name: coastal-house, label: "23 — Coastal House"}
-                - {name: architect-paper, label: "24 — Architect Paper"}
-                - {name: emerald-signature, label: "25 — Emerald Signature"}
-                - {name: ivory-panorama, label: "26 — White Buildings — Full Page"}
-                - {name: gold-panorama, label: "27 — Gold Buildings — Full Page"}
-                - {name: champagne-panorama, label: "28 — Champagne Avenue — Full Page"}
-                - {name: sapphire-panorama, label: "29 — Sapphire City — Full Page"}
-                - {name: olive-panorama, label: "30 — Olive & Limestone — Full Page"}
+                - {name: skyline-night, label: "18 — Cobalt Grid"}
+                - {name: brownstone-craft, label: "19 — Brooklyn Brick Journal"}
+                - {name: garden-estate, label: "20 — Cedar Courtyard"}
+                - {name: stone-gallery, label: "21 — Travertine Atelier"}
+                - {name: copper-workshop, label: "22 — Concrete Signal"}
+                - {name: coastal-house, label: "23 — Harbor House"}
+                - {name: architect-paper, label: "24 — Blueprint Workshop"}
+                - {name: emerald-signature, label: "25 — Walnut Residence"}
+                - {name: ivory-panorama, label: "26 — Monochrome Monument"}
+                - {name: gold-panorama, label: "27 — Terracotta Arcade"}
+                - {name: champagne-panorama, label: "28 — Slate & Rain"}
+                - {name: sapphire-panorama, label: "29 — Mosaic House"}
+                - {name: olive-panorama, label: "30 — Copperline Loft"}
           - {name: sectionVisibilityEnabled, label: "Enable Device Visibility Controls", type: boolean, default: false, description: "Optional. Keep the current design by leaving this off. The hero always stays available."}
           - name: sectionVisibility
             label: "Homepage Sections — Desktop / Mobile"
