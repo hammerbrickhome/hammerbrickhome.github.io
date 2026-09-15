@@ -166,12 +166,24 @@ select.contact-input {
         <select name="type" class="contact-input" aria-label="Project Type" required>
           <option value="" disabled selected>Select Project Type...</option>
           <option value="Masonry / Brick Work">Masonry / Brick Work</option>
+          <option value="Roofing">Roofing</option>
+          <option value="Waterproofing">Waterproofing</option>
+          <option value="Kitchen Remodeling">Kitchen Remodeling</option>
+          <option value="Bathroom Remodeling">Bathroom Remodeling</option>
+          <option value="Windows / Doors">Windows / Doors</option>
           <option value="Home Renovation">Home Renovation (Interior)</option>
           <option value="Painting / Plaster">Painting / Plaster</option>
           <option value="Repairs / Handyman">General Repairs</option>
           <option value="Other">Other / Consultation</option>
         </select>
 
+        <label for="request-zip">Project ZIP code</label>
+        <input id="request-zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 10302" class="contact-input" aria-label="Project ZIP code">
+        <label for="request-timing">Preferred timing</label>
+        <select id="request-timing" class="contact-input"><option value="">Choose timing (optional)</option><option>As soon as possible</option><option>Within a month</option><option>Within 3 months</option><option>Planning ahead</option></select>
+        <label for="request-budget">Budget, if known (optional)</label>
+        <input id="request-budget" class="contact-input" maxlength="100" placeholder="Your approximate budget">
+        <p style="font-size:13px">Have project photos? <a href="sms:+19295955300">Text your photos to us</a> and include your name and ZIP code.</p>
         <textarea name="message" 
           placeholder="Tell us about your project... (Location, Timeline, Details)" 
           aria-label="Project Details"
@@ -266,7 +278,10 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.innerHTML = "Sending...";
     btn.style.opacity = "0.7";
 
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    const requestData = new FormData(form);
+    const extra = [['ZIP',document.getElementById('request-zip').value],['Timing',document.getElementById('request-timing').value],['Budget',document.getElementById('request-budget').value]].filter(item=>item[1]).map(item=>item.join(': ')).join('\n');
+    if(extra)requestData.set('message',String(requestData.get('message')||'')+'\n\n'+extra);
+    fetch(scriptURL, { method: 'POST', body: requestData})
       .then(response => {
         // Success Action
         msg.innerHTML = "Message Sent Successfully! We will contact you soon.";

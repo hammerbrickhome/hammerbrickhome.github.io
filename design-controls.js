@@ -13,11 +13,18 @@
     'architect-paper': {name:'Architect Paper',page:'#faf9f5',card:'#ffffff',text:'#202b38',muted:'#596675',accent:'#304b71',button:'#304b71',buttonText:'#ffffff',heroText:'#202b38',image:'architecture-white.png',overlay:'#ffffff',opacity:0.65,composition:'editorial',radius:0},
     'emerald-signature': {name:'Emerald Signature',page:'#081f1a',card:'#11332a',text:'#faf4e0',muted:'#c0d1c4',accent:'#d9bd75',button:'#d9bd75',buttonText:'#10291f',heroText:'#fff6de',image:'architecture-dark.png',overlay:'#06291f',opacity:0.54,composition:'center',radius:20}
   };
+  Object.assign(themes, {
+    'ivory-panorama': {...themes['ivory-estate'],name:'White Buildings — Full Page',fullPage:true,opacity:0.20},
+    'gold-panorama': {...themes['gold-noir'],name:'Gold Buildings — Full Page',fullPage:true,opacity:0.25},
+    'champagne-panorama': {...themes['ivory-estate'],name:'Champagne Avenue',fullPage:true,page:'#f5eee1',card:'#fffaf0',accent:'#8b602c',composition:'editorial',radius:2,opacity:0.24},
+    'sapphire-panorama': {...themes['skyline-night'],name:'Sapphire City',fullPage:true,accent:'#95cce6',composition:'center',radius:24,opacity:0.40},
+    'olive-panorama': {...themes['garden-estate'],name:'Olive & Limestone',fullPage:true,accent:'#6a713c',composition:'split',radius:8,opacity:0.25}
+  });
   const clamp=(value,min,max,fallback)=>Number.isFinite(Number(value)) ? Math.min(max,Math.max(min,Number(value))) : fallback;
   const color=(value,fallback)=>/^#[\da-f]{6}$/i.test(String(value)) ? value : fallback;
   function asset(value) {
     if (!value || typeof value!=='string') return '';
-    try { const u=new URL(value,location.origin);return /^https?:$/.test(u.protocol) ? u.href : ''; } catch { return ''; }
+    try { const u=new URL(value,location.origin);const preview=window.parent!==window&&new URLSearchParams(location.search).get('studioPreview')==='1';return /^https?:$/.test(u.protocol)||(preview&&u.protocol==='blob:'&&u.origin===location.origin) ? u.href : ''; } catch { return ''; }
   }
   const imageCss=value=>value ? 'url('+JSON.stringify(value)+')' : 'none';
   const originalImages=new WeakMap();
@@ -63,7 +70,8 @@
     let overlay=theme?t.overlay:'#071426',opacity=theme?t.opacity:0.55,position='center center',size='cover',attachment='scroll';
     if(d.backgroundEnabled){image=asset((mobile&&d.backgroundMobile)||d.backgroundDesktop);background=color(d.backgroundColor,t.page);overlay=color(d.overlayColor,'#071426');opacity=clamp(d.overlayOpacity,0,95,55)/100;position=(mobile?d.backgroundMobilePosition:d.backgroundPosition)||'center center';size=['cover','contain','auto'].includes(d.backgroundSize)?d.backgroundSize:'cover';attachment=!mobile&&d.backgroundAttachment==='fixed'?'fixed':'scroll';}
     const allowedPositions=['center center','center top','center bottom','left center','right center'];if(!allowedPositions.includes(position))position='center center';
-    const target=d.backgroundEnabled&&d.backgroundTarget==='page'?'page':'hero';
+    const target=d.backgroundEnabled ? (d.backgroundTarget==='page'?'page':'hero') : (theme&&theme.fullPage?'page':'hero');
+    b.toggleAttribute('data-owner-panorama',target==='page'&&(Boolean(theme)||d.backgroundEnabled===true));
     b.toggleAttribute('data-owner-background',Boolean(theme)||d.backgroundEnabled===true);
     b.dataset.ownerBackgroundTarget=target;
     set('image',imageCss(image));set('background',background||t.page);set('overlay',overlay);set('opacity',opacity);set('position',position);set('size',size);set('attachment',attachment);

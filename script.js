@@ -460,6 +460,11 @@ let hammerStageViewerId = 0;
 function hammerRenderStageViewer(item, fallbackAlt) {
   const stages = hammerProjectStages(item, fallbackAlt);
   if (!stages.length) return "";
+  if (item.stageDisplay === "compare" && item.beforeImage && item.afterImage) {
+    const id = `cmsCompare${++hammerStageViewerId}`;
+    const extras = stages.filter(stage => ![item.beforeImage,item.afterImage].includes(stage.image));
+    return `<div class="cms-comparison" data-cms-comparison><div class="cms-comparison-images"><img src="${hammerEscape(item.beforeImage)}" alt="${hammerEscape(fallbackAlt + ' — Before')}" loading="lazy"><img class="cms-comparison-after" src="${hammerEscape(item.afterImage)}" alt="${hammerEscape(fallbackAlt + ' — After')}" loading="lazy" style="clip-path:inset(0 0 0 50%)"></div><label for="${id}">Before ← Drag to compare → After</label><input id="${id}" type="range" min="0" max="100" value="50" aria-label="Before and after photo comparison">${extras.length ? `<div class="cms-stage-grid">${extras.map(stage=>`<figure><img src="${hammerEscape(stage.image)}" alt="${hammerEscape(stage.alt)}" loading="lazy"><figcaption>${hammerEscape(stage.label)}</figcaption></figure>`).join('')}</div>` : ''}</div>`;
+  }
   if (item.stageDisplay === "grid" || stages.length === 1) {
     return `<div class="cms-stage-grid">${stages.map(stage => `
       <figure><img src="${hammerEscape(stage.image)}" alt="${hammerEscape(stage.alt)}" loading="lazy"><span>${hammerEscape(stage.label)}</span></figure>`).join("")}</div>`;
@@ -477,6 +482,11 @@ function hammerRenderStageViewer(item, fallbackAlt) {
 }
 
 function hammerBindStageViewers(scope = document) {
+  scope.querySelectorAll('[data-cms-comparison]').forEach(viewer => {
+    const slider=viewer.querySelector('input[type="range"]'), image=viewer.querySelector('.cms-comparison-after');
+    if(!slider||!image||slider.dataset.bound)return;slider.dataset.bound='true';
+    slider.addEventListener('input',()=>image.style.clipPath=`inset(0 0 0 ${Math.max(0,Math.min(100,Number(slider.value)))}%)`);
+  });
   scope.querySelectorAll("[data-cms-stage-viewer]").forEach(viewer => {
     if (viewer.dataset.cmsStageReady === "true") return;
     viewer.dataset.cmsStageReady = "true";
@@ -1630,7 +1640,7 @@ function hammerApplyHomepageLayout(homepage) {
     "classic", "luxury", "leads", "portfolio", "local", "americana", "winter", "spring",
     "summer", "autumn", "holiday", "blueprint", "monochrome", "terracotta", "royal",
     "ivory-estate", "gold-noir", "skyline-night", "brownstone-craft", "garden-estate",
-    "stone-gallery", "copper-workshop", "coastal-house", "architect-paper", "emerald-signature"
+    "stone-gallery", "copper-workshop", "coastal-house", "architect-paper", "emerald-signature", "ivory-panorama", "gold-panorama", "champagne-panorama", "sapphire-panorama", "olive-panorama"
   ]);
   const expandedLayouts = new Set([
     "leads", "portfolio", "americana", "winter", "spring", "summer", "autumn", "holiday",
@@ -1769,7 +1779,7 @@ function hammerApplyHomepageLayout(homepage) {
   shell.dataset.homeLayout = layout;
   main.appendChild(shell);
 
-  const additionalPlans = {
+  const additionalPlans = {"ivory-panorama":"royal","gold-panorama":"luxury","champagne-panorama":"terracotta","sapphire-panorama":"americana","olive-panorama":"spring",
     "ivory-estate": "royal", "gold-noir": "luxury", "skyline-night": "americana",
     "brownstone-craft": "terracotta", "garden-estate": "spring", "stone-gallery": "portfolio",
     "copper-workshop": "leads", "coastal-house": "summer", "architect-paper": "blueprint",
@@ -2480,7 +2490,7 @@ function hammerRenderProjects(data, currentArea) {
       const photoMarkup = stages.length
         ? hammerRenderStageViewer(project, alt)
         : (loosePhotos.length ? `<div class="cms-project-images">${loosePhotos.map((photo, index) => `<figure><img src="${hammerEscape(photo)}" alt="${hammerEscape(`${alt}${loosePhotos.length > 1 ? ` — photo ${index + 1}` : ""}`)}" loading="lazy"></figure>`).join("")}</div>` : "");
-      return `<article class="cms-project-card${project.featured ? " is-featured" : ""}">
+      return `<article data-project-service="${hammerEscape(project.serviceLabel || '')}" data-project-area="${hammerEscape(project.areaLabel || '')}" class="cms-project-card${project.featured ? " is-featured" : ""}">
         ${project.featured ? `<span class="cms-project-badge">Featured Project</span>` : ""}
         ${photoMarkup}
         <div class="cms-project-content">
@@ -2494,6 +2504,19 @@ function hammerRenderProjects(data, currentArea) {
       </article>`;
     }).join("")}</div>`;
   hammerBindStageViewers(section);
+  if (slug === "gallery" && projects.length > 1) {
+    const filters = document.createElement("nav"); filters.setAttribute("aria-label", "Filter projects");
+    const selects = {};
+    for (const [key, name] of [["service", "Service"], ["area", "Area"]]) {
+      const label = document.createElement("label"); label.textContent = name + " ";
+      const select = document.createElement("select"); const all = document.createElement("option"); all.value = ""; all.textContent = "All " + name.toLowerCase() + "s"; select.append(all);
+      [...new Set(projects.map(p => p[key + "Label"]).filter(Boolean))].sort().forEach(value => { const option = document.createElement("option"); option.value = value; option.textContent = value; select.append(option); });
+      label.append(select); filters.append(label); selects[key] = select;
+    }
+    const count = document.createElement("p"); count.setAttribute("role", "status"); filters.append(count);
+    const apply = () => { let visible = 0; section.querySelectorAll(".cms-project-card").forEach(card => { card.hidden = Object.entries(selects).some(([key, select]) => select.value && card.dataset[key === "area" ? "projectArea" : "projectService"] !== select.value); if (!card.hidden) visible++; }); count.textContent = visible + " project(s) shown"; };
+    Object.values(selects).forEach(select => select.addEventListener("change", apply)); section.querySelector(".cms-section-heading").append(filters); apply();
+  }
 }
 
 function hammerRenderDownloads(data) {
@@ -2837,6 +2860,7 @@ function loadHammerBusinessSettings() {
 }
 
 function hammerInstallAnalytics(data) {
+  if (window.parent !== window && new URLSearchParams(location.search).get('studioPreview') === '1') return;
   const gaId = String(data.googleAnalyticsId || "").trim().toUpperCase();
   if (data.googleAnalyticsEnabled !== false && /^G-[A-Z0-9]+$/.test(gaId) && !document.getElementById("cmsGoogleAnalytics")) {
     const external = document.createElement("script");

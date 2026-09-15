@@ -1,5 +1,14 @@
 /* Added themes are opt-in. No global palette or layout overrides. */
 .owner-hero-background{display:none}
+.cms-comparison-images{position:relative;aspect-ratio:4/3;overflow:hidden;background:#182434}.cms-comparison-images img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.cms-comparison input{width:100%;min-height:44px}.cms-comparison label{display:block;padding:8px;font-size:14px}.cms-project-card[hidden]{display:none!important}.cms-section-heading nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.cms-section-heading select{padding:10px;font:inherit;max-width:100%}
+/* Full viewport backdrop remains visible through the entire scrolling homepage. */
+body[data-owner-panorama]{isolation:isolate}
+body[data-owner-background][data-owner-panorama][data-owner-background-target="page"]::before{display:block!important;content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(color-mix(in srgb,var(--owner-overlay) calc(var(--owner-opacity)*100%),transparent),color-mix(in srgb,var(--owner-overlay) calc(var(--owner-opacity)*100%),transparent)),var(--owner-image) var(--owner-position)/var(--owner-size) no-repeat,var(--owner-background)}
+body[data-owner-panorama] #main,body[data-owner-panorama] .hb-home-layout-shell,body[data-owner-panorama] .hb-home-band{background:transparent!important}
+body[data-owner-theme][data-owner-panorama] #main .section,body[data-owner-theme][data-owner-panorama] #homeHero{background:color-mix(in srgb,var(--owner-card) 87%,transparent)!important;backdrop-filter:blur(3px);border:1px solid color-mix(in srgb,var(--owner-accent) 55%,transparent)!important}
+body[data-owner-theme][data-owner-panorama] #homeHero{margin-bottom:60px!important;box-shadow:0 20px 60px #0002}
+body[data-owner-theme][data-owner-panorama] #main .section{margin-bottom:40px}
+body[data-owner-panorama][data-home-layout="gold-panorama"] #homeHero{outline:1px solid var(--owner-accent);outline-offset:-12px}
 body[data-owner-theme],body[data-owner-colors]{--bg:var(--owner-page);--bg-alt:var(--owner-card);--ink:var(--owner-text);--muted:var(--owner-muted);--gold:var(--owner-accent);--gold-soft:var(--owner-accent);background:var(--owner-page)!important;color:var(--owner-text)!important}
 body[data-owner-theme]::before,body[data-owner-colors]::before{display:none!important}
 body[data-owner-theme] #main{max-width:none;width:100%;padding:0}
