@@ -71,6 +71,19 @@ settings:
 
 content:
 
+  - name: search_settings
+    label: "Search Settings — SEO"
+    type: file
+    path: site-data/seo.json
+    format: json
+    operations: {create: false, rename: false, delete: false}
+    fields:
+      - {name: siteName, label: "Search Site Name", type: string}
+      - {name: defaultSocialImage, label: "Default Share Image", type: image, options: {media: project_images}}
+      - {name: structuredDataEnabled, label: "Structured Data", type: boolean, default: true}
+      - {name: breadcrumbsEnabled, label: "Breadcrumb Structured Data", type: boolean, default: true}
+      - {name: googleVerification, label: "Google Verification Code", type: string, required: false, description: "Paste only your actual verification content value. Rebuild search files after editing."}
+      - {name: bingVerification, label: "Bing Verification Code", type: string, required: false, description: "Paste only your actual verification content value. Rebuild search files after editing."}
   - name: website
     label: "🏠 Website"
     type: group
@@ -88,7 +101,7 @@ content:
             type: select
             required: false
             default: classic
-            description: "Choose one of 15 complete desktop-and-mobile designs. Layout 1 keeps the original homepage and Layout 5 keeps the cream, green and brick design. Seasonal choices change the mood and section order without deleting content, photos, controls or visibility toggles."
+            description: "Choose one of 25 complete desktop-and-mobile designs. Layout 1 keeps the original homepage and Layout 5 keeps the cream, green and brick design. Seasonal choices change the mood and section order without deleting content, photos, controls or visibility toggles."
             options:
               values:
                 - {name: classic, label: "1 — Current Classic (Original)"}
@@ -106,9 +119,28 @@ content:
                 - {name: monochrome, label: "13 — Architectural Monochrome (Black, White & Gray)"}
                 - {name: terracotta, label: "14 — Terracotta Studio (Clay, Cream & Olive)"}
                 - {name: royal, label: "15 — Royal Estate (Royal Blue, Champagne & White)"}
+                - {name: ivory-estate, label: "16 — White Architectural Estate"}
+                - {name: gold-noir, label: "17 — Master Craftsman Gold"}
+                - {name: skyline-night, label: "18 — NYC Skyline Night"}
+                - {name: brownstone-craft, label: "19 — Brownstone Heritage"}
+                - {name: garden-estate, label: "20 — Garden Residence"}
+                - {name: stone-gallery, label: "21 — Limestone Gallery"}
+                - {name: copper-workshop, label: "22 — Copper Workshop"}
+                - {name: coastal-house, label: "23 — Coastal House"}
+                - {name: architect-paper, label: "24 — Architect Paper"}
+                - {name: emerald-signature, label: "25 — Emerald Signature"}
+          - {name: sectionVisibilityEnabled, label: "Enable Device Visibility Controls", type: boolean, default: false, description: "Optional. Keep the current design by leaving this off. The hero always stays available."}
+          - name: sectionVisibility
+            label: "Homepage Sections — Desktop / Mobile"
+            type: object
+            list: true
+            fields:
+              - {name: section, label: "Section ID", type: string, readonly: true}
+              - {name: showDesktop, label: "Show on Desktop", type: boolean, default: true}
+              - {name: showMobile, label: "Show on Mobile", type: boolean, default: true}
           - {name: customSectionOrderEnabled, label: "Use My Manual Homepage Section Order", type: boolean, required: false, default: false, description: "Optional. Turn this on only when you want the Section Order list below to control the homepage. Nothing changes by date or automatically."}
           - {name: customSectionOrder, label: "Manual Homepage Section Order", type: string, list: true, required: false, description: "Drag these items into your preferred order. Valid names: announcement, hero, quick-actions, service-areas, guarantee, process, reviews, area-summary, projects, before-after, materials, membership, specials, tiers, faq. Missing items are safely placed afterward, not deleted."}
-          - {name: showHomepageQuickActions, label: "Show Homepage Quick Action Cards", type: boolean, required: false, default: true, description: "Controls the Call, Text, Estimate and Reviews cards used by layouts 2–15."}
+          - {name: showHomepageQuickActions, label: "Show Homepage Quick Action Cards", type: boolean, required: false, default: true, description: "Controls the Call, Text, Estimate and Reviews cards used by layouts 2–25."}
           - {name: quickCallTitle, label: "Quick Call Card Title", type: string, required: false}
           - {name: quickCallText, label: "Quick Call Card Description", type: string, required: false}
           - {name: quickTextTitle, label: "Quick Text Card Title", type: string, required: false}
@@ -239,6 +271,53 @@ content:
           - {name: showFooterLicenses, label: "Show Footer License Numbers", type: boolean, required: false, default: true}
           - {name: showFooterServiceAreas, label: "Show Footer Service Areas", type: boolean, required: false, default: true}
           - {name: showFooterTagline, label: "Show Footer Tagline", type: boolean, required: false, default: true}
+
+      - name: design_controls
+        label: "Logo, Background & Design Controls"
+        type: file
+        path: site-data/design.json
+        format: json
+        operations: {create: false, rename: false, delete: false}
+        fields:
+          - {"name": "brandingEnabled", "label": "Enable My Logo Settings", "type": "boolean", "required": false, "description": "Off restores original logo appearance. The existing Header Show Logo switches still apply."}
+          - {"name": "logoDesktop", "label": "Header Logo — Desktop", "type": "image", "required": false, "options": {"media": "project_images"}}
+          - {"name": "logoMobile", "label": "Header Logo — Mobile", "type": "image", "required": false, "description": "Optional. Uses the desktop logo when blank.", "options": {"media": "project_images"}}
+          - {"name": "heroLogo", "label": "Homepage Hero Logo", "type": "image", "required": false, "description": "Optional. Uses the header logo when blank. Upload the logo itself, not the whole business card.", "options": {"media": "project_images"}}
+          - {"name": "logoAlt", "label": "Logo Description", "type": "string", "required": false}
+          - {"name": "logoWidthDesktop", "label": "Header Logo Width — Desktop (28–160px)", "type": "number", "required": false}
+          - {"name": "logoWidthMobile", "label": "Header Logo Width — Mobile (28–90px)", "type": "number", "required": false}
+          - {"name": "heroLogoWidth", "label": "Hero Logo Width — Desktop (60–360px)", "type": "number", "required": false}
+          - {"name": "heroLogoWidthMobile", "label": "Hero Logo Width — Mobile (50–240px)", "type": "number", "required": false}
+          - {"name": "logoShape", "label": "Logo Shape", "type": "select", "required": false, "options": {"values": [{"name": "original", "label": "Design default"}, {"name": "circle", "label": "Circle"}, {"name": "rounded", "label": "Rounded corners"}, {"name": "square", "label": "Square"}]}}
+          - {"name": "showHeroLogo", "label": "Show Homepage Hero Logo", "type": "boolean", "required": false}
+          - {"name": "heroLogoPosition", "label": "Hero Logo Alignment", "type": "select", "required": false, "options": {"values": [{"name": "default", "label": "Design default"}, {"name": "left", "label": "Left"}, {"name": "center", "label": "Center"}, {"name": "right", "label": "Right"}]}}
+          - {"name": "backgroundEnabled", "label": "Enable My Background", "type": "boolean", "required": false, "description": "Off uses the selected design background. Changes are homepage-only."}
+          - {"name": "backgroundTarget", "label": "Apply Background To", "type": "select", "required": false, "options": {"values": [{"name": "hero", "label": "Hero / top section"}, {"name": "page", "label": "Whole homepage"}]}}
+          - {"name": "backgroundDesktop", "label": "Background Image — Desktop", "type": "image", "required": false, "description": "Optional. Leave both images blank to use your Background Color alone.", "options": {"media": "project_images"}}
+          - {"name": "backgroundMobile", "label": "Background Image — Mobile", "type": "image", "required": false, "description": "Optional. Uses the desktop background when blank.", "options": {"media": "project_images"}}
+          - {"name": "backgroundColor", "label": "Background Color", "type": "string", "required": false, "description": "Hex color, for example #f7f3eb. Used behind the image or by itself."}
+          - {"name": "backgroundPosition", "label": "Background Position — Desktop", "type": "select", "required": false, "options": {"values": [{"name": "center center", "label": "Center"}, {"name": "center top", "label": "Top"}, {"name": "center bottom", "label": "Bottom"}, {"name": "left center", "label": "Left"}, {"name": "right center", "label": "Right"}]}}
+          - {"name": "backgroundMobilePosition", "label": "Background Position — Mobile", "type": "select", "required": false, "options": {"values": [{"name": "center center", "label": "Center"}, {"name": "center top", "label": "Top"}, {"name": "center bottom", "label": "Bottom"}, {"name": "left center", "label": "Left"}, {"name": "right center", "label": "Right"}]}}
+          - {"name": "backgroundSize", "label": "Background Image Fit", "type": "select", "required": false, "options": {"values": [{"name": "cover", "label": "Fill area — may crop"}, {"name": "contain", "label": "Show full image"}, {"name": "auto", "label": "Original image size"}]}}
+          - {"name": "backgroundAttachment", "label": "Background Scroll", "type": "select", "required": false, "description": "Mobile always scrolls for stable performance.", "options": {"values": [{"name": "scroll", "label": "Scroll normally"}, {"name": "fixed", "label": "Fixed on desktop"}]}}
+          - {"name": "overlayColor", "label": "Background Overlay Color", "type": "string", "required": false, "description": "Example #071426 for dark or #ffffff for white."}
+          - {"name": "overlayOpacity", "label": "Overlay Strength (0–95%)", "type": "number", "required": false, "description": "Higher numbers hide more of the background to improve text readability."}
+          - {"name": "colorsEnabled", "label": "Enable My Homepage Colors", "type": "boolean", "required": false, "description": "Off restores the chosen design palette. Set a readable hero text color when changing backgrounds."}
+          - {"name": "pageColor", "label": "Page Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "cardColor", "label": "Cards / Sections Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "textColor", "label": "Text / Headings Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "mutedColor", "label": "Body Text Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "accentColor", "label": "Accent / Borders Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "buttonColor", "label": "Buttons Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "buttonTextColor", "label": "Button Text Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "heroTextColor", "label": "Hero Text Color", "type": "string", "required": false, "description": "Use a six-digit hex color, for example #112438."}
+          - {"name": "spacingEnabled", "label": "Enable My Homepage Spacing", "type": "boolean", "required": false, "description": "Off restores theme spacing."}
+          - {"name": "heroHeight", "label": "Hero Minimum Height — Desktop (360–950px)", "type": "number", "required": false}
+          - {"name": "heroHeightMobile", "label": "Hero Minimum Height — Mobile (320–850px)", "type": "number", "required": false}
+          - {"name": "sectionSpacing", "label": "Section Spacing (20–120px)", "type": "number", "required": false}
+          - {"name": "cardRadius", "label": "Card Corners (0–48px)", "type": "number", "required": false}
+          - {"name": "headingFont", "label": "Homepage Heading Font", "type": "select", "required": false, "options": {"values": [{"name": "theme", "label": "Design default"}, {"name": "serif", "label": "Classic serif"}, {"name": "sans", "label": "Modern sans serif"}]}}
+          - {"name": "reduceMotion", "label": "Reduce Homepage Animation", "type": "boolean", "required": false}
 
       - name: header_settings
         label: "Header Menu & Size"
@@ -413,6 +492,7 @@ content:
                     - {name: area, label: "Service Area Page"}
                     - {name: faq, label: "FAQ Page"}
                     - {name: none, label: "No Extra Schema"}
+              - {name: showInSitemap, label: "Include in Sitemap", type: boolean, default: true, description: "Rebuild search files after editing. Inactive or noindex pages are excluded regardless."}
               - {name: allowIndexing, label: "Allow Search Engine Indexing", type: boolean, required: false, default: true}
 
   - name: services_and_areas
@@ -1988,4 +2068,3 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
-
