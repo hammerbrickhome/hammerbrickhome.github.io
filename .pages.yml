@@ -101,7 +101,7 @@ content:
             type: select
             required: false
             default: classic
-            description: "Choose one of 25 complete desktop-and-mobile designs. Layout 1 keeps the original homepage and Layout 5 keeps the cream, green and brick design. Seasonal choices change the mood and section order without deleting content, photos, controls or visibility toggles."
+            description: "Choose one of 30 complete desktop-and-mobile designs. Layout 1 keeps the original homepage and Layout 5 keeps the cream, green and brick design. Seasonal choices change the mood and section order without deleting content, photos, controls or visibility toggles."
             options:
               values:
                 - {name: classic, label: "1 — Current Classic (Original)"}
@@ -129,6 +129,11 @@ content:
                 - {name: coastal-house, label: "23 — Coastal House"}
                 - {name: architect-paper, label: "24 — Architect Paper"}
                 - {name: emerald-signature, label: "25 — Emerald Signature"}
+                - {name: ivory-panorama, label: "26 — White Buildings — Full Page"}
+                - {name: gold-panorama, label: "27 — Gold Buildings — Full Page"}
+                - {name: champagne-panorama, label: "28 — Champagne Avenue — Full Page"}
+                - {name: sapphire-panorama, label: "29 — Sapphire City — Full Page"}
+                - {name: olive-panorama, label: "30 — Olive & Limestone — Full Page"}
           - {name: sectionVisibilityEnabled, label: "Enable Device Visibility Controls", type: boolean, default: false, description: "Optional. Keep the current design by leaving this off. The hero always stays available."}
           - name: sectionVisibility
             label: "Homepage Sections — Desktop / Mobile"
@@ -140,7 +145,7 @@ content:
               - {name: showMobile, label: "Show on Mobile", type: boolean, default: true}
           - {name: customSectionOrderEnabled, label: "Use My Manual Homepage Section Order", type: boolean, required: false, default: false, description: "Optional. Turn this on only when you want the Section Order list below to control the homepage. Nothing changes by date or automatically."}
           - {name: customSectionOrder, label: "Manual Homepage Section Order", type: string, list: true, required: false, description: "Drag these items into your preferred order. Valid names: announcement, hero, quick-actions, service-areas, guarantee, process, reviews, area-summary, projects, before-after, materials, membership, specials, tiers, faq. Missing items are safely placed afterward, not deleted."}
-          - {name: showHomepageQuickActions, label: "Show Homepage Quick Action Cards", type: boolean, required: false, default: true, description: "Controls the Call, Text, Estimate and Reviews cards used by layouts 2–25."}
+          - {name: showHomepageQuickActions, label: "Show Homepage Quick Action Cards", type: boolean, required: false, default: true, description: "Controls the Call, Text, Estimate and Reviews cards used by layouts 2–30."}
           - {name: quickCallTitle, label: "Quick Call Card Title", type: string, required: false}
           - {name: quickCallText, label: "Quick Call Card Description", type: string, required: false}
           - {name: quickTextTitle, label: "Quick Text Card Title", type: string, required: false}
@@ -650,6 +655,7 @@ content:
                   values:
                     - {name: buttons, label: "Before / In Progress / After Buttons"}
                     - {name: grid, label: "Show All Photos Side By Side"}
+                    - {name: compare, label: "Drag Before / After Comparison (paired photos)"}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
@@ -754,6 +760,7 @@ content:
                   values:
                     - {name: buttons, label: "Before / In Progress / After Buttons"}
                     - {name: grid, label: "Show All Photos Side By Side"}
+                    - {name: compare, label: "Drag Before / After Comparison (paired photos)"}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
@@ -858,6 +865,7 @@ content:
                   values:
                     - {name: buttons, label: "Before / In Progress / After Buttons"}
                     - {name: grid, label: "Show All Photos Side By Side"}
+                    - {name: compare, label: "Drag Before / After Comparison (paired photos)"}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
@@ -962,6 +970,7 @@ content:
                   values:
                     - {name: buttons, label: "Before / In Progress / After Buttons"}
                     - {name: grid, label: "Show All Photos Side By Side"}
+                    - {name: compare, label: "Drag Before / After Comparison (paired photos)"}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
@@ -1066,6 +1075,7 @@ content:
                   values:
                     - {name: buttons, label: "Before / In Progress / After Buttons"}
                     - {name: grid, label: "Show All Photos Side By Side"}
+                    - {name: compare, label: "Drag Before / After Comparison (paired photos)"}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
@@ -1170,6 +1180,7 @@ content:
                   values:
                     - {name: buttons, label: "Before / In Progress / After Buttons"}
                     - {name: grid, label: "Show All Photos Side By Side"}
+                    - {name: compare, label: "Drag Before / After Comparison (paired photos)"}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
@@ -1784,6 +1795,7 @@ content:
                   values:
                     - {name: buttons, label: "Before / In Progress / After Buttons"}
                     - {name: grid, label: "Show All Photos Side By Side"}
+                    - {name: compare, label: "Drag Before / After Comparison (paired photos)"}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
