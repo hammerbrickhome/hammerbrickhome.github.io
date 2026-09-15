@@ -115,7 +115,9 @@ def build():
                 for position, pair in enumerate(homepage_pairs, 1):
                     before = gallery_image_url(pair.get('before'), base); after = gallery_image_url(pair.get('after'), base)
                     extra_sitemap_images += [before, after]
-                    work = {'@type':'CreativeWork','name':str(pair.get('label') or 'Before and after home improvement').strip(),'creator':{'@id':base+'#organization'},'image':[{'@type':'ImageObject','contentUrl':before,'caption':'Before '+str(pair.get('label') or 'project').strip()},{'@type':'ImageObject','contentUrl':after,'caption':'After '+str(pair.get('label') or 'project').strip()}]}
+                    label = str(pair.get('label') or 'Before and after home improvement').strip()
+                    work = {'@type':'CreativeWork','name':label,'creator':{'@id':base+'#organization'},'image':[{'@type':'ImageObject','contentUrl':before,'caption':str(pair.get('beforeAlt') or ('Before '+label)).strip()},{'@type':'ImageObject','contentUrl':after,'caption':str(pair.get('afterAlt') or ('After '+label)).strip()}]}
+                    if pair.get('summary'): work['description'] = str(pair['summary']).strip()
                     comparison_list['itemListElement'].append({'@type':'ListItem','position':position,'item':work})
                 graph.append(comparison_list); has_part.append({'@id':comparison_list['@id']})
             if homepage_reviews:

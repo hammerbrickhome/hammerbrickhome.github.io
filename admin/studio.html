@@ -1,13 +1,94 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Owner Studio | Hammer Brick &amp; Home</title><link rel="stylesheet" href="studio.css"></head><body>
-<header><div><a href="index.html">← Owner dashboard</a><h1>Your website, your way.</h1><p>Drag, edit and preview. Download when ready. Nothing here publishes your website.</p></div><div class="toolbar"><button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button><button id="restore" disabled>Restore loaded files</button></div></header>
-<p id="status" role="status" aria-live="polite">Loading your current website…</p>
-<div class="workspace"><aside><fieldset id="editor" disabled>
-<details open><summary>1 · Choose your design</summary><label>Homepage style<select id="theme"></select></label><p>18–30 have new artwork across the whole homepage. Your original white and gold designs remain 16 and 17. Your own background override takes priority; switch it off to see a preset's artwork.</p></details>
-<details open><summary>2 · Drag your sections</summary><p>Drag the ↕ handle with a mouse or finger. Arrow buttons also work. A move automatically enables your custom order.</p><label><input type="checkbox" id="customOrder">Use my section order</label><label><input type="checkbox" id="deviceVisibility">Use device visibility</label><ol id="sections"></ol></details>
-<details><summary>3 · Edit homepage words &amp; buttons</summary><div id="copyFields"></div></details>
-<details><summary>4 · Logo, backgrounds &amp; colors</summary><p>Turn on the matching override to use custom settings. Upload pictures in Pages CMS or choose files here; download new pictures with your settings.</p><div id="designFields"></div><div id="assets"></div></details>
-<details><summary>5 · Projects &amp; before/after photos</summary><p>Reorder projects, choose covers and pair actual before/after photos. Do not label concept artwork as completed work.</p><div id="projectFields"></div><button id="addProject" type="button">Add draft project</button></details>
-<details><summary>6 · Saved looks &amp; backup</summary><label>Preset name<input id="presetName" maxlength="60" placeholder="My white and gold homepage"></label><button id="savePreset" type="button">Save on this device</button><label>Saved presets<select id="presets"></select></label><button id="loadPreset" type="button">Load preset</button><button id="deletePreset" type="button">Delete selected preset</button><p>Device presets are local to this browser. Download a backup to keep a portable copy. New image files must be downloaded separately.</p><button id="backup" type="button">Download editing backup</button></details>
-<details open><summary>7 · Review &amp; download</summary><p id="changes">No edits yet.</p><label><input type="checkbox" id="textExport">Download as .txt for Apple</label><div id="exports"></div><p>Replace only the listed site-data files when ready. CMS saves and GitHub commits may deploy. The Search Metadata workflow now keeps homepage SEO synchronized automatically.</p></details>
-</fieldset><details><summary>Import an editing backup</summary><input type="file" id="import" accept=".json,.txt,application/json"><p>Load an Owner Studio backup exported here. This restores editing data, not image files.</p></details><p><a href="homepage-visual.html">Homepage Visual Control</a> · <a href="search.html">Search checks</a> · <a href="layout.html">Simple section controls</a> · <a href="https://app.pagescms.org/">Pages CMS</a></p></aside>
-<main><nav class="toolbar"><label>Preview width<select id="previewSize"><option value="100%">Desktop</option><option value="768px">Tablet</option><option value="390px">Phone</option></select></label><button id="refresh">Refresh preview</button><span>Preview only · links and forms disabled</span></nav><div class="preview-stage"><iframe id="preview" title="Draft homepage preview" sandbox="allow-scripts allow-same-origin"></iframe></div><p>Existing section switches still apply. A section disabled globally remains hidden even when its device boxes are checked.</p></main></div><script src="studio.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Visual Site Control 2.0 | Hammer Brick &amp; Home</title>
+  <link rel="stylesheet" href="studio.css">
+</head>
+<body>
+<header class="app-header">
+  <div><a href="index.html">← Website Admin</a><p class="eyebrow">Hammer Brick &amp; Home LLC</p><h1>Visual Site Control 2.0</h1><p>Control the homepage, branding, projects and SEO in one private draft. Nothing here publishes.</p></div>
+  <div class="header-actions"><span class="safe">DRAFT ONLY</span><button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button><button id="restore" disabled>Restore loaded files</button></div>
+</header>
+<p id="status" role="status" aria-live="polite">Loading your current website files…</p>
+<div class="workspace">
+  <aside class="control-column">
+    <fieldset id="editor" disabled>
+      <nav class="step-nav" aria-label="Control groups">
+        <button data-open="step1">1 Homepage</button><button data-open="step2">2 Background</button><button data-open="step3">3 Branding</button><button data-open="step4">4 Preview</button><button data-open="step5">5 SEO</button><button data-open="step6">6 Safety</button><button data-open="step7">7 Projects</button>
+      </nav>
+
+      <details id="step1" open><summary><span>1</span> Full drag-and-drop homepage</summary>
+        <p>Drag with the gold handle or use the arrows. You can order entire sections and the items inside Reviews, Projects and Before &amp; After.</p>
+        <div class="two"><label>Homepage design<select id="theme"></select></label><label>Editing list<select id="orderType"><option value="sections">Homepage sections</option><option value="reviews">Reviews</option><option value="projects">Projects</option><option value="gallery">Before &amp; After</option></select></label></div>
+        <div class="switch-row"><label><input type="checkbox" id="customOrder">Use my section order</label><label><input type="checkbox" id="deviceVisibility">Use desktop/mobile visibility</label></div>
+        <div class="limit-row"><label>Reviews shown<input id="reviewLimit" type="number" min="1" max="30"></label><label>Projects shown<input id="projectLimit" type="number" min="1" max="30"></label><label>Before/After shown<input id="galleryLimit" type="number" min="1" max="30"></label></div>
+        <ol id="sortable" class="sortable"></ol>
+      </details>
+
+      <details id="step2"><summary><span>2</span> Background and layout controls</summary>
+        <p>Use separate desktop and mobile images so phone backgrounds stay proportional. “Fill area” crops safely; it never stretches the image.</p>
+        <div class="quick-palette"><button type="button" data-palette="theme">Use design colors</button><button type="button" data-palette="light">Light mode</button><button type="button" data-palette="dark">Dark mode</button><button type="button" data-palette="custom">My colors</button></div>
+        <div id="backgroundFields" class="field-grid"></div>
+        <h3>Background for individual sections</h3>
+        <label><input type="checkbox" id="sectionBackgroundsEnabled">Enable individual section backgrounds</label>
+        <label>Choose section<select id="sectionBackgroundSelect"></select></label>
+        <div id="sectionBackgroundFields" class="field-grid"></div>
+      </details>
+
+      <details id="step3"><summary><span>3</span> Logo, colors and typography</summary>
+        <p>Desktop, mobile and hero logos can be different. Turning overrides off restores the selected design.</p>
+        <div id="brandingFields" class="field-grid"></div>
+        <h3>Homepage colors and spacing</h3><div id="appearanceFields" class="field-grid"></div>
+        <div id="assets" class="assets"></div>
+      </details>
+
+      <details id="step4"><summary><span>4</span> Live desktop, tablet and phone preview</summary>
+        <p>The large preview stays on the right. Use these buttons to change its size and jump to a homepage section.</p>
+        <div class="preview-buttons"><button type="button" data-size="100%">Desktop</button><button type="button" data-size="768px">Tablet</button><button type="button" data-size="390px">Phone</button><button type="button" id="refresh">Refresh</button></div>
+        <label>Jump preview to<select id="previewJump"></select></label>
+      </details>
+
+      <details id="step5"><summary><span>5</span> SEO Control Center</summary>
+        <div id="seoSummary" class="score-summary"></div>
+        <div id="globalSeoFields" class="field-grid"></div>
+        <label>Edit page SEO<select id="seoPage"></select></label>
+        <div id="pageSeoFields" class="field-grid"></div>
+        <div id="pageSeoScore" class="seo-card"></div>
+        <p>“Ready” means the local files contain the recommended information. Google decides indexing and rich-result display.</p>
+      </details>
+
+      <details id="step6"><summary><span>6</span> Backups, restore and safe export</summary>
+        <label>Saved-look name<input id="presetName" maxlength="60" placeholder="White building homepage"></label>
+        <div class="button-row"><button id="savePreset" type="button">Save on this device</button><select id="presets" aria-label="Saved looks"></select><button id="loadPreset" type="button">Load</button><button id="deletePreset" type="button">Delete</button></div>
+        <div class="button-row"><button id="backup" type="button">Download complete backup</button><label class="file-button">Import backup<input type="file" id="import" accept=".json,.txt,application/json"></label></div>
+        <label><input type="checkbox" id="textExport">Add .txt to JSON downloads for Apple/Mac</label>
+        <div id="validation" class="validation"></div>
+      </details>
+
+      <details id="step7"><summary><span>7</span> Project and photo-story manager</summary>
+        <p>Build truthful Before, In Progress and After stories. Draft or archive a project without permanently deleting it.</p>
+        <div class="button-row"><button id="addProject" type="button">Add draft project</button><button id="addPair" type="button">Add Before &amp; After set</button></div>
+        <label>Choose project<select id="projectSelect"></select></label><div id="projectFields" class="project-editor"></div>
+        <label>Choose comparison<select id="pairSelect"></select></label><div id="pairFields" class="project-editor"></div>
+      </details>
+
+      <details open class="download-panel"><summary>Review and download files</summary>
+        <p id="changes">No edits yet.</p><button class="primary" id="downloadAll" type="button" disabled>Download all changed files</button><div id="exports"></div>
+        <p class="fine">Upload only the files listed here to their exact paths. The GitHub Search Metadata workflow rebuilds crawler-readable SEO after managed content changes.</p>
+      </details>
+    </fieldset>
+    <p class="admin-links"><a href="homepage-visual.html">Original Visual Control</a> · <a href="layout.html">Old simple menu</a> · <a href="search.html">Search report</a> · <a href="https://app.pagescms.org/">Pages CMS</a></p>
+  </aside>
+
+  <main class="preview-column">
+    <nav class="preview-toolbar"><strong>Draft homepage preview</strong><div class="preview-buttons"><button type="button" data-size="100%">Desktop</button><button type="button" data-size="768px">Tablet</button><button type="button" data-size="390px">Phone</button></div><span>Links and forms are disabled</span></nav>
+    <div class="preview-stage"><iframe id="preview" title="Draft homepage preview" sandbox="allow-scripts allow-same-origin"></iframe></div>
+    <p class="fine">This preview uses only your browser draft. Your website and GitHub remain unchanged until you upload the downloaded files yourself.</p>
+  </main>
+</div>
+<script src="studio.js"></script>
+</body>
+</html>

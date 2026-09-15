@@ -1244,6 +1244,8 @@
           const removeBrokenCard = () => cardElement && cardElement.remove();
           beforeImage.src = galleryImageUrl(item.before);
           afterImage.src = galleryImageUrl(item.after);
+          beforeImage.alt = item.beforeAlt || `Before ${item.label || "home improvement project"}`;
+          afterImage.alt = item.afterAlt || `After ${item.label || "home improvement project"}`;
           beforeImage.addEventListener("error", removeBrokenCard, { once: true });
           afterImage.addEventListener("error", removeBrokenCard, { once: true });
           card.querySelector(".ba-caption").textContent = item.label || "";

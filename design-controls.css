@@ -50,7 +50,7 @@ body[data-home-layout="coastal-house"] #homeHero{border-bottom:8px solid var(--o
 /* Background layer keeps opacity separate from text. */
 body[data-owner-background] #homeHero{position:relative!important;isolation:isolate}
 body[data-owner-background][data-owner-background-target="hero"] #homeHero{background:var(--owner-background)!important}
-body[data-owner-background][data-owner-background-target="hero"] #homeHero .owner-hero-background{display:block;position:absolute;inset:0;z-index:0;pointer-events:none;background-image:var(--owner-image);background-position:var(--owner-position);background-size:var(--owner-size);background-repeat:no-repeat;background-attachment:var(--owner-attachment)}
+body[data-owner-background][data-owner-background-target="hero"] #homeHero .owner-hero-background{display:block;position:absolute;inset:-20px;z-index:0;pointer-events:none;background-image:var(--owner-image);background-position:var(--owner-position);background-size:var(--owner-size);background-repeat:no-repeat;background-attachment:var(--owner-attachment);filter:blur(var(--owner-blur,0px))}
 body[data-owner-background][data-owner-background-target="hero"] #homeHero .owner-hero-background::after{content:"";position:absolute;inset:0;background:var(--owner-overlay);opacity:var(--owner-opacity)}
 body[data-owner-background] #homeHero :is(.hero-content,.hero-badge){position:relative;z-index:2}
 body[data-owner-background] #homeHero .hero-overlay{display:none!important}

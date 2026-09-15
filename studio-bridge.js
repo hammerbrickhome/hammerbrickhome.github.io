@@ -1,11 +1,12 @@
 /* Preview-only data bridge. The public website always uses its real files. */
 (() => {
   'use strict';
-  if (window.parent === window || new URLSearchParams(location.search).get('studioPreview') !== '1') return;
+  const version=new URLSearchParams(location.search).get('studioPreview');
+  if (window.parent === window || !['1','2'].includes(version)) return;
   let draft;
   try {
     if (window.parent.location.origin !== location.origin || !window.parent.location.pathname.endsWith('/admin/studio.html')) return;
-    draft=JSON.parse(sessionStorage.getItem('hammer-studio-preview-v1') || 'null');
+    draft=JSON.parse(sessionStorage.getItem(version==='2'?'hammer-studio-preview-v2':'hammer-studio-preview-v1') || 'null');
   } catch {return;}
   if (!draft || !draft.files) return;
   const originalFetch=window.fetch.bind(window);
