@@ -1,0 +1,50 @@
+name: Hammer Brick - Sync Search Metadata
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'site-data/homepage.json'
+      - 'site-data/reviews.json'
+      - 'site-data/projects.json'
+      - 'site-data/pages.json'
+      - 'site-data/areas.json'
+      - 'site-data/business.json'
+      - 'site-data/seo.json'
+      - 'content/areas/*.json'
+      - 'gallery.json'
+      - 'scripts/build_search_files.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hammer-search-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Build crawler and structured search files
+        run: python3 scripts/build_search_files.py
+
+      - name: Verify search controls
+        run: python3 scripts/test_search_controls.py
+
+      - name: Commit generated search metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "Search metadata is already synchronized."
+            exit 0
+          fi
+          git config user.name "Hammer Brick Search Sync"
+          git config user.email "actions@users.noreply.github.com"
+          git add -- '*.html' sitemap.xml robots.txt admin-tools/search-readiness.json
+          git commit -m "seo: sync homepage content and search metadata"
+          git push
