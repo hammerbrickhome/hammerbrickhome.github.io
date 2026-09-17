@@ -109,6 +109,21 @@
       "warnings": []
     },
     {
+      "file": "estimate-request.html",
+      "title": "Plan Your Project | Hammer Brick & Home LLC",
+      "description": "Tell Hammer Brick & Home about your masonry, roofing or remodeling project in NYC or New Jersey. Prepare your estimate request and preferred appointment time.",
+      "canonical": "https://www.hammerbrickhome.com/estimate-request.html",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
       "file": "faq.html",
       "title": "Common Questions \u2014 Hammer Brick & Home LLC | NYC & NJ Contractor",
       "description": "Answers about home renovation, roofing, masonry, permits, pricing, and lead safety.",
