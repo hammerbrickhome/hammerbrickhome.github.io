@@ -2871,7 +2871,7 @@ function loadHammerBusinessSettings() {
 }
 
 function hammerInstallAnalytics(data) {
-  if (window.parent !== window && new URLSearchParams(location.search).get('studioPreview') === '1') return;
+  if (window.parent !== window && ['1','2'].includes(new URLSearchParams(location.search).get('studioPreview'))) return;
   const gaId = String(data.googleAnalyticsId || "").trim().toUpperCase();
   if (data.googleAnalyticsEnabled !== false && /^G-[A-Z0-9]+$/.test(gaId) && !document.getElementById("cmsGoogleAnalytics")) {
     const external = document.createElement("script");

@@ -139,7 +139,6 @@
     .card-holder strong { display: block; font-size: 12px; color: #fff; margin-top: 2px; }
     .card-logo img { width: 45px; opacity: 0.9; border-radius: 50%; }
   </style>
-
 <title>Hammer Brick &amp; Home LLC | Luxury Remodeling &amp; Masonry in NYC</title>
 <link rel="canonical" href="https://www.hammerbrickhome.com/">
 <meta name="description" content="Hammer Brick &amp; Home LLC provides luxury residential and commercial remodeling, roofing, and masonry in NYC and New Jersey.">
@@ -850,6 +849,9 @@
         setText("homeHeroText", data.heroText);
         setText("homeHeroPrimary", data.heroPrimaryButtonText);
         setText("homeHeroSecondary", data.heroSecondaryButtonText);
+        for (const [id,key] of [['homeHeroPrimary','heroPrimaryButtonUrl'],['homeHeroSecondary','heroSecondaryButtonUrl']]) {
+          if (/^(\/(?!\/)|https:\/\/|tel:|sms:)/i.test(data[key] || '')) document.getElementById(id)?.setAttribute('href',data[key]);
+        }
         setText("tierHeading", data.tierHeading);
         setText("tierText", data.tierText);
         setText("processHeading", data.processHeading);
@@ -1252,6 +1254,9 @@
           
           const wrap = card.querySelector(".ba-after-wrap");
           const slider = card.querySelector(".ba-slider");
+          slider.value = Math.max(0, Math.min(100, Number(item.sliderStart ?? 50)));
+          wrap.style.width = slider.value + "%";
+          if (item.summary) { const note = document.createElement('p'); note.textContent = item.summary; cardElement.append(note); }
           slider.addEventListener("input", e => { wrap.style.width = e.target.value + "%"; });
           
           grid.appendChild(card);

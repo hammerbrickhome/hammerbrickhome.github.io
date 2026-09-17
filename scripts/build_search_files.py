@@ -86,6 +86,15 @@ def build():
         website = {'@type':'WebSite','@id':base+'#website','url':base,'name':seo['siteName'],'publisher':{'@id':base+'#organization'}}
         page = {'@type':{'about':'AboutPage','contact':'ContactPage','gallery':'CollectionPage'}.get(slug,'WebPage'),'@id':canonical+'#webpage','url':canonical,'name':title,'description':description,'isPartOf':{'@id':base+'#website'},'about':{'@id':base+'#organization'},'inLanguage':'en-US'}
         graph = [org, website, page]
+        if slug.startswith('project-'):
+            project = next((p for p in read('site-data/projects.json').get('projects', []) if p.get('ctaUrl') == route), None)
+            if project and content_is_live(project) and project.get('realProjectConfirmed'):
+                story = {'@type':'CreativeWork', '@id':canonical+'#project', 'name':project.get('title',title), 'description':project.get('summary',description), 'creator':{'@id':base+'#organization'}}
+                if project.get('coverImage'): story['image'] = urljoin(base,project['coverImage'])
+                graph.append(story)
+                page['mainEntity'] = {'@id':canonical+'#project'}
+            elif project:
+                indexed = False
         extra_sitemap_images = []
         if slug == 'home':
             review_limit = max(1, min(30, int(homepage.get('homepageReviewLimit') or 8)))
@@ -153,7 +162,7 @@ def build():
                 if seo.get(field): metas[key] = seo[field]
         tags += ['<meta '+('property' if key.startswith('og:') else 'name')+'="'+key+'" content="'+escape(value,quote=True)+'">' for key,value in metas.items()]
         if seo.get('structuredDataEnabled', True): tags.append('<script id="searchStructuredData" type="application/ld+json">'+json.dumps({'@context':'https://schema.org','@graph':graph},ensure_ascii=False).replace('<','\\u003c')+'</script>')
-        text = text.replace('</head>', '\n'+'\n'.join(tags)+'\n</head>', 1)
+        text = re.sub(r'\s*</head>', lambda _: '\n'+'\n'.join(tags)+'\n</head>', text, count=1)
         # Collapse whitespace left by replaced metadata so repeat builds stay stable.
         text = re.sub(r'\n[ \t]*\n(?:[ \t]*\n)+', '\n\n', text)
         path.write_text(text)

@@ -86,7 +86,7 @@
     let image=theme?asset('/images/designs/'+theme.image):'',background=theme?t.page:'';
     let overlay=theme?t.overlay:'#071426',opacity=theme?t.opacity:0.55,position='center center',size='cover',attachment='scroll',blur=0;
     if(d.backgroundEnabled){image=asset((mobile&&d.backgroundMobile)||d.backgroundDesktop);background=color(d.backgroundColor,t.page);overlay=color(d.overlayColor,'#071426');opacity=clamp(d.overlayOpacity,0,95,55)/100;position=(mobile?d.backgroundMobilePosition:d.backgroundPosition)||'center center';const requestedSize=mobile?(d.backgroundSizeMobile||d.backgroundSize):d.backgroundSize;size=['cover','contain','auto'].includes(requestedSize)?requestedSize:'cover';attachment=!mobile&&d.backgroundAttachment==='fixed'?'fixed':'scroll';blur=clamp(mobile?d.backgroundBlurMobile:d.backgroundBlur,0,20,0);}
-    const allowedPositions=['center center','center top','center bottom','left center','right center'];if(!allowedPositions.includes(position))position='center center';
+    const allowedPositions=['center center','center top','center bottom','left center','right center'];if(!allowedPositions.includes(position)&&! /^(100|\d{1,2})% (100|\d{1,2})%$/.test(position))position='center center';
     const target=d.backgroundEnabled ? (d.backgroundTarget==='page'?'page':'hero') : (theme&&theme.fullPage?'page':'hero');
     b.toggleAttribute('data-owner-panorama',target==='page'&&(Boolean(theme)||d.backgroundEnabled===true));
     b.toggleAttribute('data-owner-background',Boolean(theme)||d.backgroundEnabled===true);
