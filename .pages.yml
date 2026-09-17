@@ -164,6 +164,9 @@ content:
           - {name: heroTitle, label: "Hero Headline", type: string}
           - {name: heroText, label: "Hero Intro", type: text}
           - {name: heroPrimaryButtonText, label: "Primary Button", type: string}
+          - {name: heroPrimaryButtonUrl, label: "Primary Button Destination (optional)", type: string, required: false}
+          - {name: heroSecondaryButtonUrl, label: "Secondary Button Destination (optional)", type: string, required: false}
+          - {name: estimateFormEndpoint, label: "Smart Estimate HTTPS Form Endpoint (optional)", type: string, required: false}
           - {name: heroSecondaryButtonText, label: "Secondary Button", type: string}
           - {name: trustPills, label: "Trust Messages", type: string, list: true, required: false}
           - {name: showPremiumMaterials, label: "Show Premium Materials", type: boolean, required: false}
@@ -305,8 +308,8 @@ content:
           - {"name": "backgroundDesktop", "label": "Background Image — Desktop", "type": "image", "required": false, "description": "Optional. Leave both images blank to use your Background Color alone.", "options": {"media": "project_images"}}
           - {"name": "backgroundMobile", "label": "Background Image — Mobile", "type": "image", "required": false, "description": "Optional. Uses the desktop background when blank.", "options": {"media": "project_images"}}
           - {"name": "backgroundColor", "label": "Background Color", "type": "string", "required": false, "description": "Hex color, for example #f7f3eb. Used behind the image or by itself."}
-          - {"name": "backgroundPosition", "label": "Background Position — Desktop", "type": "select", "required": false, "options": {"values": [{"name": "center center", "label": "Center"}, {"name": "center top", "label": "Top"}, {"name": "center bottom", "label": "Bottom"}, {"name": "left center", "label": "Left"}, {"name": "right center", "label": "Right"}]}}
-          - {"name": "backgroundMobilePosition", "label": "Background Position — Mobile", "type": "select", "required": false, "options": {"values": [{"name": "center center", "label": "Center"}, {"name": "center top", "label": "Top"}, {"name": "center bottom", "label": "Bottom"}, {"name": "left center", "label": "Left"}, {"name": "right center", "label": "Right"}]}}
+          - {name: backgroundPosition, label: "Background Position — Desktop", type: string, required: false, description: "Use center center, center top, center bottom, left center, right center, or percentages such as 35% 50%."}
+          - {name: backgroundMobilePosition, label: "Background Position — Mobile", type: string, required: false, description: "Use center center or percentages such as 35% 50%. Visual Control can choose this from a photo."}
           - {"name": "backgroundSize", "label": "Background Image Fit", "type": "select", "required": false, "options": {"values": [{"name": "cover", "label": "Fill area — may crop"}, {"name": "contain", "label": "Show full image"}, {"name": "auto", "label": "Original image size"}]}}
           - {"name": "backgroundSizeMobile", "label": "Background Image Fit — Mobile", "type": "select", "required": false, "description": "Separate phone control prevents landscape artwork from stretching.", "options": {"values": [{"name": "cover", "label": "Fill phone area — may crop"}, {"name": "contain", "label": "Show full image"}, {"name": "auto", "label": "Original image size"}]}}
           - {"name": "backgroundAttachment", "label": "Background Scroll", "type": "select", "required": false, "description": "Mobile always scrolls for stable performance.", "options": {"values": [{"name": "scroll", "label": "Scroll normally"}, {"name": "fixed", "label": "Fixed on desktop"}]}}
@@ -1515,6 +1518,12 @@ content:
               - {name: serviceSlugs, label: "Additional Service Pages", type: string, list: true, required: false, description: "Optional: show this project on more than one service page."}
               - {name: serviceLabel, label: "Service Label", type: string, required: false}
               - {name: summary, label: "Project Summary", type: text}
+              - {name: storyProblem, label: "Job Story - The Problem", type: text, required: false}
+              - {name: storySolution, label: "Job Story - Our Solution", type: text, required: false}
+              - {name: storyResult, label: "Job Story - Finished Result", type: text, required: false}
+              - {name: realProjectConfirmed, label: "Photos and facts show a genuine project", type: boolean, required: false, default: false}
+              - {name: beforeAlt, label: "Before Photo Description", type: string, required: false}
+              - {name: afterAlt, label: "After Photo Description", type: string, required: false}
               - name: photoType
                 label: "Photo Story Type"
                 type: select
@@ -1583,6 +1592,8 @@ content:
               - {name: afterAlt, label: "After Photo Description", type: string, required: false}
               - {name: label, label: "Project Title", type: string}
               - {name: summary, label: "Work Summary", type: text, required: false}
+              - {name: sliderStart, label: "Starting Comparison Position (0 to 100)", type: number, required: false, default: 50}
+              - {name: storyUrl, label: "Project Story URL", type: string, required: false}
               - {name: tags, label: "Tags", type: string, list: true, required: false}
 
           - name: galleryPairs
