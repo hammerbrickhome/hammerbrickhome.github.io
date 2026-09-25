@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "projectChooserEnabled": false,
+  "projectChooserHeading": "What would you like to explore?",
+  "projectChooserCategories": ["Masonry", "Roofing", "Remodeling", "Waterproofing", "Commercial / Co-op"],
+  "emergency": {
+    "enabled": false,
+    "title": "",
+    "message": "",
+    "linkText": "View service information",
+    "linkUrl": "/services.html",
+    "expiresAt": "",
+    "autoExpire": false
+  },
+  "membership": {"overrideEnabled": false, "hideUntilActivated": true, "activated": false, "status": "MEMBER BENEFITS", "year": ""},
+  "publicTrustEnabled": false,
+  "publicTrust": [],
+  "photoManifest": []
+}

@@ -200,4 +200,9 @@ def build():
     (ROOT/'admin-tools/search-readiness.json').write_text(json.dumps({'pages':report,'projectWarnings':project_issues,'homepageSeoSync':{'reviews':len(homepage_reviews),'projectsSelected':len(homepage_projects),'projectsEligibleForSchema':len(homepage_schema_projects),'beforeAfterSets':len(homepage_pairs),'source':'Homepage Visual Control and CMS data'},'note':'Local validation only. Incomplete projects are kept visible but excluded from structured data until a title, photo description, work summary and main photo are provided. Indexing, rich results and voice-assistant placement are unverified.'},indent=2)+'\n')
     print('Built metadata for',len(report),'pages;',len(sitemap),'sitemap URLs. No network actions.')
 
-if __name__ == '__main__': build()
+if __name__ == '__main__':
+    # Keep crawler-readable gallery content current without changing the selected design.
+    if (ROOT/'scripts/workshop_check.py').is_file() and 'WORKSHOP GALLERY FALLBACK START' in (ROOT/'index.html').read_text():
+        from workshop_check import refresh_fallback
+        refresh_fallback(ROOT)
+    build()

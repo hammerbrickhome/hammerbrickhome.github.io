@@ -5,7 +5,8 @@
   if (window.parent === window || !['1','2'].includes(version)) return;
   let draft;
   try {
-    if (window.parent.location.origin !== location.origin || !window.parent.location.pathname.endsWith('/admin/studio.html')) return;
+    const parentPath=window.parent.location.pathname;
+    if (window.parent.location.origin !== location.origin || !/^\/admin\/(?:studio|workshop)(?:\.html)?\/?$/.test(parentPath)) return;
     draft=JSON.parse(sessionStorage.getItem(version==='2'?'hammer-studio-preview-v2':'hammer-studio-preview-v1') || 'null');
   } catch {return;}
   if (!draft || !draft.files) return;

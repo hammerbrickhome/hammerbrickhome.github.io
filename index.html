@@ -446,6 +446,16 @@
 <p class="ba-note" id="beforeAfterNote">Real customer projects — auto-loaded from our gallery.</p>
 </div>
 <div class="ba-grid" id="ba-grid"></div>
+<!-- WORKSHOP GALLERY FALLBACK START -->
+<div id="workshopGalleryFallback">
+<article><h3> Luxury Living Room Remodel (Signature Tier)</h3><div style="display:flex;gap:12px;flex-wrap:wrap"><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/Livingroom-before33.jpeg" alt="Before:  Luxury Living Room Remodel (Signature Tier)"><figcaption>Before</figcaption></figure><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/Livingroom-after33.jpeg" alt="After:  Luxury Living Room Remodel (Signature Tier)"><figcaption>After</figcaption></figure></div></article>
+<article><h3>Full Interior Electrical &amp; Finish</h3><div style="display:flex;gap:12px;flex-wrap:wrap"><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/diningroom-full-gut-before2.jpeg" alt="Before: Full Interior Electrical &amp; Finish"><figcaption>Before</figcaption></figure><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/diningroom-full-gut-after2.jpeg" alt="After: Full Interior Electrical &amp; Finish"><figcaption>After</figcaption></figure></div></article>
+<article><h3> Full Dining Room Restoration</h3><div style="display:flex;gap:12px;flex-wrap:wrap"><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/diningroom-full-gut-before.jpeg" alt="Before:  Full Dining Room Restoration"><figcaption>Before</figcaption></figure><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/diningroom-full-gut-after.jpeg" alt="After:  Full Dining Room Restoration"><figcaption>After</figcaption></figure></div></article>
+<article><h3>Interior Lighting &amp; Electric Upgrade</h3><div style="display:flex;gap:12px;flex-wrap:wrap"><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/diningroom-full-gut-before2.jpeg" alt="Before: Interior Lighting &amp; Electric Upgrade"><figcaption>Before</figcaption></figure><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/diningroom-full-gut-after2.jpeg" alt="After: Interior Lighting &amp; Electric Upgrade"><figcaption>After</figcaption></figure></div></article>
+<article><h3> Limestone Walkway Upgrade</h3><div style="display:flex;gap:12px;flex-wrap:wrap"><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/front-walk-way-wood-gut-before.jpeg" alt="Before:  Limestone Walkway Upgrade"><figcaption>Before</figcaption></figure><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/front-walk-way-wood-gut-after.jpeg" alt="After:  Limestone Walkway Upgrade"><figcaption>After</figcaption></figure></div></article>
+<article><h3> Pressure-Treated Deck Rebuild</h3><div style="display:flex;gap:12px;flex-wrap:wrap"><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/Full-gut-deck-before.jpeg" alt="Before:  Pressure-Treated Deck Rebuild"><figcaption>Before</figcaption></figure><figure style="margin:0"><img loading="lazy" width="300" style="max-width:100%;height:auto" src="/images/Full-gut-deck-after.jpeg" alt="After:  Pressure-Treated Deck Rebuild"><figcaption>After</figcaption></figure></div></article>
+</div>
+<!-- WORKSHOP GALLERY FALLBACK END -->
 <div class="ba-actions"><button class="btn" id="ba-loadmore">Load 6 More</button></div>
 <template id="ba-card">
 <article class="ba-card">
@@ -1277,8 +1287,12 @@
           ).slice(0, limit);
           if (allHomePairs.length > 0) {
             renderBatch();
+            const fallback = document.getElementById('workshopGalleryFallback');
+            if (fallback) fallback.hidden = true;
             loadBtn.addEventListener("click", renderBatch);
           } else {
+            const fallback = document.getElementById('workshopGalleryFallback');
+            if (fallback) fallback.hidden = true;
             loadBtn.style.display = "none";
           }
         })
@@ -1318,5 +1332,6 @@
 <link href="/chat.css" rel="stylesheet"/>
 <script defer="" src="/chat.js?v=2"></script>
 <script defer="" src="/script.js?v=9"></script>
+<script defer src="/owner-tools.js?v=4"></script>
 </body>
 </html>
