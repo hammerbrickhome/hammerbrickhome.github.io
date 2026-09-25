@@ -67,6 +67,10 @@
     document.querySelector('h1').textContent='Visual Site Control 3.0';
     // Establish normalized baseline without treating rendering defaults as owner edits.
     Object.assign(A.original(),clone(A.files()));
+    // Refresh the export display after establishing the clean baseline.
+    $('changes').textContent='No settings files changed. Your loaded website remains untouched.';
+    $('exports').replaceChildren();
+    $('downloadAll').disabled=!A.assets.size;
     const edit=panel('step8','8 · Click-to-edit and homepage wording');para(edit,'Turn on click-to-edit, then select a heading, button, logo or picture in the preview. Changes stay in your draft.');const click=input(edit,'Click-to-edit');click.type='checkbox';click.id='clickEdit';const fields=A.make('div');fields.id='directFields';fields.className='field-grid';edit.append(fields);
     const select=A.make('select');select.setAttribute('aria-label','Homepage text');Object.entries(textFields).forEach(([id,key])=>{const o=A.make('option',key);o.value=key;select.append(o);});edit.append(select);const renderText=key=>{fields.replaceChildren();A.field(fields,home(),key,{multiline:true});};select.onchange=()=>renderText(select.value);renderText('heroTitle');
     $('preview').addEventListener('load',()=>{try{const doc=$('preview').contentDocument;doc.addEventListener('click',e=>{if(!click.checked)return;const text=e.target.closest('[id]');if(text&&textFields[text.id]){e.preventDefault();e.stopPropagation();select.value=textFields[text.id];renderText(select.value);A.openStep('step8');return;}if(e.target.closest('img')){e.preventDefault();A.openStep(/logo/i.test(e.target.alt+' '+e.target.className+' '+e.target.id)?'step3':'step7');A.status('Image selected. Use the logo controls or project/photo manager to replace its source.');}},true);}catch{}});

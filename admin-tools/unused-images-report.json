@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-09T02:03:47.421440+00:00",
+  "generatedAt": "2026-09-21T17:28:01.353389+00:00",
   "count": 11,
-  "totalImages": 42,
-  "usedCount": 31,
+  "totalImages": 57,
+  "usedCount": 46,
   "totalSize": "20.3 MB",
-  "totalLibrarySize": "45.9 MB",
+  "totalLibrarySize": "87.7 MB",
   "missingCount": 0,
-  "oversizedCount": 17,
+  "oversizedCount": 32,
   "duplicateCount": 6,
   "missingAltCount": 1,
   "note": "Report only \u2014 nothing was deleted. Review every image before running the separate delete action.",
@@ -145,6 +145,81 @@
       "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
     },
     {
+      "image": "/images/designs/architecture-dark.png",
+      "size": "2.1 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/architecture-white.png",
+      "size": "2.3 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/18-cobalt.png",
+      "size": "2.9 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/19-brooklyn.png",
+      "size": "3.0 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/20-cedar.png",
+      "size": "3.1 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/21-travertine.png",
+      "size": "2.8 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/22-concrete.png",
+      "size": "2.5 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/23-harbor.png",
+      "size": "2.9 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/24-blueprint.png",
+      "size": "3.6 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/25-walnut.png",
+      "size": "2.7 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/26-monument.png",
+      "size": "2.5 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/27-arcade.png",
+      "size": "2.8 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/28-slate.png",
+      "size": "2.8 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/29-mosaic.png",
+      "size": "2.8 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/designs/new-collection/30-copper.png",
+      "size": "2.8 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
       "image": "/images/geminigeneratedimage58ebkn58ebkn58eb.png",
       "size": "2.3 MB",
       "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
@@ -239,6 +314,7 @@
       "image": "/images/Full-gut-deck-after.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -253,6 +329,7 @@
       "image": "/images/Full-gut-deck-before.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -288,6 +365,7 @@
       "image": "/images/Livingroom-after33.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -296,6 +374,7 @@
       "usedIn": [
         "README-SETUP.md",
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -338,9 +417,113 @@
       ]
     },
     {
+      "image": "/images/designs/architecture-dark.png",
+      "usedIn": [
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/architecture-white.png",
+      "usedIn": [
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/18-cobalt.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/19-brooklyn.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/20-cedar.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/21-travertine.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/22-concrete.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/23-harbor.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/24-blueprint.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/25-walnut.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/26-monument.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/27-arcade.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/28-slate.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/29-mosaic.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
+      "image": "/images/designs/new-collection/30-copper.png",
+      "usedIn": [
+        "admin/designs.html",
+        "design-controls.js"
+      ]
+    },
+    {
       "image": "/images/diningroom-full-gut-after.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -348,6 +531,7 @@
       "image": "/images/diningroom-full-gut-after2.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -355,6 +539,7 @@
       "image": "/images/diningroom-full-gut-before.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -362,6 +547,7 @@
       "image": "/images/diningroom-full-gut-before2.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -369,6 +555,7 @@
       "image": "/images/front-walk-way-wood-gut-after.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -376,6 +563,7 @@
       "image": "/images/front-walk-way-wood-gut-before.jpeg",
       "usedIn": [
         "gallery.json",
+        "index.html",
         "reference/gallery-original-backup.json"
       ]
     },
@@ -414,6 +602,7 @@
         "brooklyn.html",
         "contact.html",
         "downloads.html",
+        "estimate-request.html",
         "faq.html",
         "financing.html",
         "gallery.html",
