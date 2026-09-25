@@ -71,6 +71,48 @@ settings:
 
 content:
 
+  - name: owner_workshop
+    label: "Owner Workshop 4 — Optional Homepage Features"
+    type: file
+    path: site-data/owner-tools.json
+    format: json
+    operations: {create: false, rename: false, delete: false}
+    fields:
+      - {name: version, label: "Settings Version (keep 1)", type: number, default: 1}
+      - {name: projectChooserEnabled, label: "Enable Choose Your Project", type: boolean, default: false}
+      - {name: projectChooserHeading, label: "Chooser Heading", type: string}
+      - {name: projectChooserCategories, label: "Chooser Categories", type: string, list: true}
+      - name: emergency
+        label: "Manual Emergency Notice"
+        type: object
+        fields:
+          - {name: enabled, label: "Enable Notice", type: boolean, default: false}
+          - {name: title, label: "Notice Title", type: string}
+          - {name: message, label: "Notice Message", type: text}
+          - {name: linkText, label: "Link Text", type: string}
+          - {name: linkUrl, label: "Local Path or HTTPS Link", type: string}
+          - {name: autoExpire, label: "Explicitly Allow Automatic Expiry", type: boolean, default: false}
+          - {name: expiresAt, label: "Expiry ISO Time With Zone", type: string, description: "For example 2026-12-01T18:00:00-05:00. Required only when automatic expiry is enabled. Use Owner Workshop for a local-time picker."}
+      - name: membership
+        label: "Optional Membership Display"
+        type: object
+        fields:
+          - {name: overrideEnabled, label: "Use These Display Controls", type: boolean, default: false}
+          - {name: hideUntilActivated, label: "Hide Until Program Is Activated", type: boolean, default: true}
+          - {name: activated, label: "Program Is Actually Active", type: boolean, default: false}
+          - {name: status, label: "Card Status", type: string}
+          - {name: year, label: "Card Year", type: string}
+      - {name: publicTrustEnabled, label: "Show Approved Public Credential Summaries", type: boolean, default: false, description: "Private documents belong only in the encrypted local vault at /admin/workshop.html, NEVER in GitHub. Existing website claims require separate verification."}
+      - name: publicTrust
+        label: "PUBLIC Credential Summaries — No Private Documents"
+        type: object
+        list: true
+        fields:
+          - {name: label, label: "Accurate Public Description", type: string}
+          - {name: number, label: "Public License Number (optional)", type: string}
+          - {name: validUntil, label: "Expiration YYYY-MM-DD", type: string}
+          - {name: ownerVerified, label: "I Verified This Against My Current Document", type: boolean, default: false}
+
   - name: search_settings
     label: "Search Settings — SEO"
     type: file
