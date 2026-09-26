@@ -3,7 +3,7 @@
   "intro": "Explore completed Hammer Brick & Home projects across New York City and New Jersey.",
   "projects": [
     {
-      "active": false,
+      "active": true,
       "publishStatus": "live",
       "featured": false,
       "realProjectConfirmed": false,
