@@ -449,10 +449,14 @@
       "warnings": []
     }
   ],
-  "projectWarnings": [],
+  "projectWarnings": [
+    "Project 1: missing project title",
+    "Project 1: add a descriptive photo alt text",
+    "Project 1: add an accurate description of the work"
+  ],
   "homepageSeoSync": {
     "reviews": 8,
-    "projectsSelected": 0,
+    "projectsSelected": 1,
     "projectsEligibleForSchema": 0,
     "beforeAfterSets": 6,
     "source": "Homepage Visual Control and CMS data"
