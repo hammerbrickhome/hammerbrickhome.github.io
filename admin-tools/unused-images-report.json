@@ -1,17 +1,27 @@
 {
-  "generatedAt": "2026-09-21T17:28:01.353389+00:00",
-  "count": 11,
+  "generatedAt": "2026-09-28T18:58:37.126167+00:00",
+  "count": 18,
   "totalImages": 57,
-  "usedCount": 46,
-  "totalSize": "20.3 MB",
+  "usedCount": 39,
+  "totalSize": "34.3 MB",
   "totalLibrarySize": "87.7 MB",
   "missingCount": 0,
   "oversizedCount": 32,
   "duplicateCount": 6,
-  "missingAltCount": 1,
+  "missingAltCount": 0,
   "note": "Report only \u2014 nothing was deleted. Review every image before running the separate delete action.",
   "missingReferences": [],
   "files": [
+    {
+      "image": "/images/176621d2-a5c6-4112-9118-8909c91d5982.png",
+      "size": "2.4 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/5bc36ef5-01f9-4646-bcea-e8474f32375f.png",
+      "size": "2.4 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
     {
       "image": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e-1.webp",
       "size": "219.0 KB",
@@ -43,6 +53,11 @@
       "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
     },
     {
+      "image": "/images/chatgpt-image-aug-25-2026-025048-pm-copy-1.png",
+      "size": "2.7 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
       "image": "/images/chatgpt-image-aug-25-2026-025048-pm-copy.png",
       "size": "2.2 MB",
       "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
@@ -58,8 +73,28 @@
       "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
     },
     {
+      "image": "/images/chatgpt-image-aug-26-2026-091405-pm.png",
+      "size": "2.2 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
       "image": "/images/chatgpt-image-jun-10-2026-014708-pm-1.png",
       "size": "2.5 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/geminigeneratedimage58ebkn58ebkn58eb.png",
+      "size": "2.3 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/geminigeneratedimageno4w24no4w24no4w.png",
+      "size": "2.1 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/hammerbrickhomeluxurygoldqrcorrect.png",
+      "size": "10.5 KB",
       "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
     },
     {
@@ -283,26 +318,8 @@
       ]
     }
   ],
-  "missingAlt": [
-    {
-      "image": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e.webp",
-      "usedIn": "Live Project Library item 1: Untitled project",
-      "reason": "Add Photo Description (Accessibility) in the project editor."
-    }
-  ],
+  "missingAlt": [],
   "usage": [
-    {
-      "image": "/images/176621d2-a5c6-4112-9118-8909c91d5982.png",
-      "usedIn": [
-        "site-data/projects.json"
-      ]
-    },
-    {
-      "image": "/images/5bc36ef5-01f9-4646-bcea-e8474f32375f.png",
-      "usedIn": [
-        "site-data/projects.json"
-      ]
-    },
     {
       "image": "/images/Full-gut-deck-after-1.jpeg",
       "usedIn": [
@@ -388,8 +405,7 @@
     {
       "image": "/images/a5b6a4e1493c958e4f8ca2c81a75b18e.webp",
       "usedIn": [
-        "gallery.json",
-        "site-data/projects.json"
+        "gallery.json"
       ]
     },
     {
@@ -399,21 +415,9 @@
       ]
     },
     {
-      "image": "/images/chatgpt-image-aug-25-2026-025048-pm-copy-1.png",
-      "usedIn": [
-        "site-data/projects.json"
-      ]
-    },
-    {
       "image": "/images/chatgpt-image-aug-25-2026-025048-pm.png",
       "usedIn": [
         "gallery.json"
-      ]
-    },
-    {
-      "image": "/images/chatgpt-image-aug-26-2026-091405-pm.png",
-      "usedIn": [
-        "site-data/projects.json"
       ]
     },
     {
@@ -572,24 +576,6 @@
       "usedIn": [
         "gallery.json",
         "reference/gallery-original-backup.json"
-      ]
-    },
-    {
-      "image": "/images/geminigeneratedimage58ebkn58ebkn58eb.png",
-      "usedIn": [
-        "site-data/projects.json"
-      ]
-    },
-    {
-      "image": "/images/geminigeneratedimageno4w24no4w24no4w.png",
-      "usedIn": [
-        "site-data/projects.json"
-      ]
-    },
-    {
-      "image": "/images/hammerbrickhomeluxurygoldqrcorrect.png",
-      "usedIn": [
-        "site-data/projects.json"
       ]
     },
     {
