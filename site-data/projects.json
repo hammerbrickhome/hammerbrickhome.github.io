@@ -6,8 +6,15 @@
       "active": true,
       "publishStatus": "live",
       "featured": false,
+      "title": "Bathroom Remodel",
+      "slug": "Brooklyn-Kitchen",
+      "areaSlug": "brooklyn",
       "realProjectConfirmed": false,
       "photoType": "progress",
+      "coverImage": "/images/img9021.jpeg",
+      "midProcessImages": [
+        "/images/img8877.jpeg"
+      ],
       "stageDisplay": "buttons",
       "beforeLabel": "Before",
       "progressLabel": "In Progress",
