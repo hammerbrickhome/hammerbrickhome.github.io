@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-28T18:58:37.126167+00:00",
-  "count": 18,
-  "totalImages": 57,
-  "usedCount": 39,
-  "totalSize": "34.3 MB",
-  "totalLibrarySize": "87.7 MB",
+  "generatedAt": "2026-10-12T20:37:06.328251+00:00",
+  "count": 24,
+  "totalImages": 70,
+  "usedCount": 46,
+  "totalSize": "50.1 MB",
+  "totalLibrarySize": "119.4 MB",
   "missingCount": 0,
-  "oversizedCount": 32,
-  "duplicateCount": 6,
-  "missingAltCount": 0,
+  "oversizedCount": 43,
+  "duplicateCount": 8,
+  "missingAltCount": 1,
   "note": "Report only \u2014 nothing was deleted. Review every image before running the separate delete action.",
   "missingReferences": [],
   "files": [
@@ -100,6 +100,36 @@
     {
       "image": "/images/herohome.png",
       "size": "311.9 KB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/img8994.jpeg",
+      "size": "2.4 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/img9008.jpeg",
+      "size": "2.5 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/img9011.jpeg",
+      "size": "2.8 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/img9021-1.jpeg",
+      "size": "2.6 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/img9025-1.jpeg",
+      "size": "2.7 MB",
+      "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
+    },
+    {
+      "image": "/images/img9025-3.jpeg",
+      "size": "2.7 MB",
       "reason": "No reference was found in current website, CMS, JSON, CSS, JavaScript, or documentation files."
     }
   ],
@@ -263,6 +293,61 @@
       "image": "/images/geminigeneratedimageno4w24no4w24no4w.png",
       "size": "2.1 MB",
       "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img8994.jpeg",
+      "size": "2.4 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img8996.jpeg",
+      "size": "2.2 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9008.jpeg",
+      "size": "2.5 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9011.jpeg",
+      "size": "2.8 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9021-1.jpeg",
+      "size": "2.6 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9021.jpeg",
+      "size": "2.6 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9025-1.jpeg",
+      "size": "2.7 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9025-2.jpeg",
+      "size": "2.7 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9025-3.jpeg",
+      "size": "2.7 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9025.jpeg",
+      "size": "2.7 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
+    },
+    {
+      "image": "/images/img9027.jpeg",
+      "size": "2.9 MB",
+      "reason": "Larger than 2 MB. Use the optimization preview tool and review the replacement before changing the website."
     }
   ],
   "duplicateGroups": [
@@ -275,6 +360,16 @@
         "/images/chatgpt-image-aug-23-2026-101023-pm-copy-3.png",
         "/images/chatgpt-image-aug-23-2026-101023-pm-copy-4.png",
         "/images/chatgpt-image-aug-23-2026-101023-pm-copy.png"
+      ]
+    },
+    {
+      "count": 4,
+      "size": "2.7 MB",
+      "images": [
+        "/images/img9025-1.jpeg",
+        "/images/img9025-2.jpeg",
+        "/images/img9025-3.jpeg",
+        "/images/img9025.jpeg"
       ]
     },
     {
@@ -316,9 +411,23 @@
         "/images/chatgpt-image-aug-26-2026-091405-pm-1.png",
         "/images/chatgpt-image-aug-26-2026-091405-pm.png"
       ]
+    },
+    {
+      "count": 2,
+      "size": "2.6 MB",
+      "images": [
+        "/images/img9021-1.jpeg",
+        "/images/img9021.jpeg"
+      ]
     }
   ],
-  "missingAlt": [],
+  "missingAlt": [
+    {
+      "image": "/images/img9021.jpeg",
+      "usedIn": "Live Project Library item 1: Bathroom Remodel",
+      "reason": "Add Photo Description (Accessibility) in the project editor."
+    }
+  ],
   "usage": [
     {
       "image": "/images/Full-gut-deck-after-1.jpeg",
@@ -619,6 +728,48 @@
       "usedIn": [
         "gallery.json",
         "reference/gallery-original-backup.json"
+      ]
+    },
+    {
+      "image": "/images/img8304-2-3.jpeg",
+      "usedIn": [
+        "site-data/projects.json"
+      ]
+    },
+    {
+      "image": "/images/img8877.jpeg",
+      "usedIn": [
+        "site-data/projects.json"
+      ]
+    },
+    {
+      "image": "/images/img8996.jpeg",
+      "usedIn": [
+        "site-data/projects.json"
+      ]
+    },
+    {
+      "image": "/images/img9021.jpeg",
+      "usedIn": [
+        "site-data/projects.json"
+      ]
+    },
+    {
+      "image": "/images/img9025-2.jpeg",
+      "usedIn": [
+        "site-data/projects.json"
+      ]
+    },
+    {
+      "image": "/images/img9025.jpeg",
+      "usedIn": [
+        "site-data/projects.json"
+      ]
+    },
+    {
+      "image": "/images/img9027.jpeg",
+      "usedIn": [
+        "site-data/projects.json"
       ]
     },
     {

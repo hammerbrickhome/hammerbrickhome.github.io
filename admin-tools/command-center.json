@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-28T18:58:37.161184+00:00",
+  "generatedAt": "2026-10-12T20:37:06.374005+00:00",
   "status": "GOOD",
-  "summary": "0 broken item(s), 0 warning(s), 1 live project(s), and 57 project photo(s).",
+  "summary": "0 broken item(s), 0 warning(s), 1 live project(s), and 70 project photo(s).",
   "counts": {
     "activePages": 21,
     "activeAreas": 6,
@@ -10,7 +10,7 @@
     "liveReviews": 14,
     "liveFaqs": 26,
     "currentSpecials": 3,
-    "projectPhotos": 57,
+    "projectPhotos": 70,
     "brokenItems": 0,
     "warnings": 0
   },
