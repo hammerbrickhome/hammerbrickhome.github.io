@@ -2448,6 +2448,97 @@ function hammerProjectMatchesPage(project, slug) {
   return project.showOnServicePage !== false && (project.serviceSlug === slug || (Array.isArray(project.serviceSlugs) && project.serviceSlugs.includes(slug)));
 }
 
+/* Project Gallery 2026-10: captions and ordered photo albums; legacy data preserved. */
+function hbProjectPhotos(project) {
+  const labels = {cover:'Cover',before:project.beforeLabel||'Before',progress:project.progressLabel||'In Progress',after:project.afterLabel||'After',detail:'Detail'};
+  const safeImage = value => {const s=String(value||'').trim(); return /^(https?:\/\/|\/(?!\/)|[a-zA-Z0-9_-])/.test(s) && !/^[a-z]+:/i.test(s.replace(/^https?:/i,'')) ? s : '';};
+  const album = Array.isArray(project.photoAlbum) ? project.photoAlbum.filter(p => p && typeof p === 'object') : [];
+  const legacy = [];
+  const add = (image,stage,caption,alt) => {if(image)legacy.push({image,stage,caption:caption||'',alt:alt||''});};
+  if(project.showCoverPhoto!==false)add(project.coverImage,'cover',project.coverCaption,project.imageAlt);
+  if(project.photoType!=='single') {
+    add(project.beforeImage,'before',project.beforeCaption,project.beforeAlt);
+    if(project.photoType!=='before-after') (Array.isArray(project.midProcessImages)?project.midProcessImages:[]).forEach(image=>add(image,'progress'));
+    add(project.afterImage,'after',project.afterCaption,project.afterAlt);
+  }
+  (Array.isArray(project.additionalImages)?project.additionalImages:[]).forEach(image=>add(image,'detail'));
+  // Album entries override matching legacy images (including hidden entries).
+  const owned = new Set(album.map(p=>p.image));
+  const rows = [...album, ...legacy.filter(p=>!owned.has(p.image))];
+  const seen = new Set();
+  return rows.filter(p=>p && p.active!==false && safeImage(p.image)).map(p=>{
+    const stage=Object.hasOwn(labels,p.stage)?p.stage:'detail';
+    return {...p,image:safeImage(p.image),stage,label:p.title||labels[stage],alt:p.alt||`${project.title||'Project'} — ${labels[stage]}`};
+  }).filter(p=>{const key=p.image+'|'+p.stage;if(seen.has(key))return false;seen.add(key);return true;});
+}
+
+function hbProjectGalleryStyles() {
+  if(document.getElementById('hb-project-gallery-style'))return;
+  const style=document.createElement('style');style.id='hb-project-gallery-style';style.textContent=`
+  #cmsProjectsSection .cms-project-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,390px),840px))!important;justify-content:center!important;gap:28px!important}
+  #cmsProjectsSection .cms-project-card{min-width:0;overflow:hidden}
+  #cmsProjectsSection .cms-project-card[hidden]{display:none!important}
+  #cmsProjectsSection .hb-gallery{--hb-surface:#faf8f3;--hb-ink:#26332f;--hb-line:#d7d8d0;background:var(--hb-surface);color:var(--hb-ink);padding:16px;border-radius:12px;min-width:0}
+  #cmsProjectsSection .hb-gallery[data-tone="white"]{--hb-surface:#fff;--hb-ink:#202830}
+  #cmsProjectsSection .hb-gallery[data-tone="slate"]{--hb-surface:#e9eef2;--hb-ink:#243341}
+  #cmsProjectsSection .hb-gallery[data-tone="dark"]{--hb-surface:#202a30;--hb-ink:#f6f4ec;--hb-line:#596269}
+  #cmsProjectsSection .hb-gallery *{box-sizing:border-box}
+  #cmsProjectsSection .hb-gallery [hidden]{display:none!important}
+  #cmsProjectsSection .hb-gallery button{font:inherit;color:var(--hb-ink);background:transparent;border:1px solid var(--hb-line);border-radius:8px;min-height:44px;padding:8px 12px;cursor:pointer;line-height:1.3;overflow-wrap:anywhere}
+  #cmsProjectsSection .hb-gallery button:focus-visible,#cmsProjectsSection .hb-gallery a:focus-visible{outline:3px solid #1673ba;outline-offset:3px}
+  #cmsProjectsSection .hb-gallery button[aria-pressed="true"]{background:#294c43;color:#fff;border-color:#294c43}
+  #cmsProjectsSection .hb-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  #cmsProjectsSection .hb-gallery figure{margin:0;min-width:0}
+  #cmsProjectsSection .hb-photo-link{display:block;width:100%;text-align:center;background:transparent}
+  #cmsProjectsSection .hb-gallery .hb-photo{display:block;width:auto!important;max-width:100%!important;height:auto!important;max-height:680px!important;object-fit:contain!important;margin:0 auto;background:transparent!important;border-radius:8px}
+  #cmsProjectsSection .hb-gallery[data-fit="fill"] .hb-photo{width:100%!important;max-height:none!important;aspect-ratio:4/3;object-fit:cover!important}
+  #cmsProjectsSection .hb-gallery figcaption{position:static!important;background:none!important;color:var(--hb-ink)!important;padding:14px 2px!important;text-align:left;font-size:1rem;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere}
+  #cmsProjectsSection .hb-gallery figcaption strong{display:block;font-size:.85rem;margin-bottom:4px;color:inherit}
+  #cmsProjectsSection .hb-gallery figcaption p{margin:0;color:inherit}
+  #cmsProjectsSection .hb-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0}
+  #cmsProjectsSection .hb-count{font-size:.85rem;color:inherit}
+  #cmsProjectsSection .hb-thumbs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px}
+  #cmsProjectsSection .hb-thumbs button{flex:0 0 80px;padding:3px;font-size:.7rem}
+  #cmsProjectsSection .hb-thumbs img{width:72px;height:58px;object-fit:cover;border-radius:4px;display:block;margin-bottom:4px}
+  #cmsProjectsSection .hb-gallery[data-layout="grid"] .hb-frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:18px;align-items:start}
+  #cmsProjectsSection .hb-gallery[data-layout="grid"] .hb-photo{max-height:480px!important}
+  #cmsProjectsSection .hb-open-note{font-size:.78rem;margin:8px 0 0;color:inherit}
+  @media(max-width:600px){#cmsProjectsSection .hb-gallery{padding:10px}#cmsProjectsSection .hb-gallery .hb-photo{max-height:560px!important}#cmsProjectsSection .hb-gallery[data-layout="grid"] .hb-frames{grid-template-columns:1fr}#cmsProjectsSection .hb-thumbs button{flex-basis:70px}#cmsProjectsSection .hb-thumbs img{width:62px}}
+  `;document.head.append(style);
+}
+
+function hbRenderProjectGallery(project) {
+  const photos=hbProjectPhotos(project);if(!photos.length)return '';
+  hbProjectGalleryStyles();
+  const esc=hammerEscape, layout=project.stageDisplay==='grid'?'grid':'viewer';
+  const tone=['white','slate','dark'].includes(project.galleryTone)?project.galleryTone:'cream';
+  const fit=project.photoFit==='fill'?'fill':'natural';
+  const groups=[...new Set(photos.map(p=>p.stage))];
+  const names={cover:'Cover',before:project.beforeLabel||'Before',progress:project.progressLabel||'In Progress',after:project.afterLabel||'After',detail:'Details'};
+  return `<div class="hb-gallery" data-hb-gallery data-layout="${layout}" data-tone="${tone}" data-fit="${fit}" data-first="${["cover","before","progress","after","detail"].includes(project.firstPhotoStage)?project.firstPhotoStage:"order"}" role="region" aria-label="${esc(project.title||'Project')} photos">
+  ${photos.length>1?`<div class="hb-filters" aria-label="Photo stages"><button type="button" data-hb-filter="all" aria-pressed="true">All photos</button>${groups.map(stage=>`<button type="button" data-hb-filter="${stage}" aria-pressed="false">${esc(names[stage])}</button>`).join('')}</div>`:''}
+  <div class="hb-frames">${photos.map((p,i)=>`<figure data-hb-frame="${i}" data-stage="${p.stage}"${layout==='viewer'&&i?' hidden':''}><a class="hb-photo-link" href="${esc(p.image)}" target="_blank" rel="noopener" aria-label="Open full photo: ${esc(p.label)} (new tab)"><img class="hb-photo" src="${esc(p.image)}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></a><figcaption><strong>${esc(p.label)}</strong>${project.showPhotoCaptions!==false&&p.caption?`<p>${esc(p.caption)}</p>`:''}</figcaption></figure>`).join('')}</div>
+  ${layout==='viewer'&&photos.length>1?`<div class="hb-nav"><button type="button" data-hb-prev aria-label="Previous photo">← Previous</button><span class="hb-count" role="status" aria-live="polite"></span><button type="button" data-hb-next aria-label="Next photo">Next →</button></div><div class="hb-thumbs" aria-label="Choose photo">${photos.map((p,i)=>`<button type="button" data-hb-thumb="${i}" aria-pressed="${i===0}" aria-label="Show ${esc(p.label)} photo ${i+1}"><img src="${esc(p.image)}" alt="" loading="lazy">${esc(p.label)}</button>`).join('')}</div>`:''}
+  <p class="hb-open-note">Select a photo to open its full-size image.</p></div>`;
+}
+
+function hbBindProjectGalleries(scope) {
+  scope.querySelectorAll('[data-hb-gallery]').forEach(viewer=>{
+    if(viewer.dataset.ready)return;viewer.dataset.ready='true';
+    const frames=[...viewer.querySelectorAll('[data-hb-frame]')], thumbs=[...viewer.querySelectorAll('[data-hb-thumb]')], filters=[...viewer.querySelectorAll('[data-hb-filter]')];
+    let stage='all',selected=0;
+    const eligible=()=>frames.map((p,i)=>({p,i})).filter(({p})=>stage==='all'||p.dataset.stage===stage).map(({i})=>i);
+    function show(index){const ids=eligible();selected=ids.includes(index)?index:ids[0];frames.forEach((p,i)=>p.hidden=viewer.dataset.layout==='grid'?!ids.includes(i):i!==selected);thumbs.forEach((b,i)=>{b.hidden=!ids.includes(i);b.setAttribute('aria-pressed',String(i===selected));});const count=viewer.querySelector('.hb-count');if(count)count.textContent=`${ids.indexOf(selected)+1} / ${ids.length}`;viewer.querySelectorAll('[data-hb-prev],[data-hb-next]').forEach(b=>b.disabled=ids.length<2);}
+    function step(delta){const ids=eligible();show(ids[(ids.indexOf(selected)+delta+ids.length)%ids.length]);}
+    filters.forEach(b=>b.addEventListener('click',()=>{stage=b.dataset.hbFilter;filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));show(selected);}));
+    thumbs.forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.hbThumb))));
+    viewer.querySelector('[data-hb-prev]')?.addEventListener('click',()=>step(-1));viewer.querySelector('[data-hb-next]')?.addEventListener('click',()=>step(1));
+    viewer.addEventListener('keydown',e=>{if(viewer.dataset.layout==='viewer'&&e.target.closest('.hb-thumbs,.hb-nav')&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();step(e.key==='ArrowLeft'?-1:1);}});
+    const initial=frames.findIndex(p=>p.dataset.stage===viewer.dataset.first);
+    show(initial<0?0:initial);
+  });
+}
+
 function hammerRenderProjects(data, currentArea, homepage) {
   if (!data || !Array.isArray(data.projects)) return;
   const main = document.querySelector("main");
@@ -2494,13 +2585,8 @@ function hammerRenderProjects(data, currentArea, homepage) {
       ${data.intro ? `<p>${hammerEscape(data.intro)}</p>` : ""}
     </div>
     <div class="cms-project-grid">${projects.map(project => {
-      const stages = hammerProjectStages(project, project.imageAlt || project.title || "Completed project");
-      const loosePhotos = [project.coverImage, ...(Array.isArray(project.additionalImages) ? project.additionalImages : [])].filter(Boolean);
       const location = [project.neighborhood, project.areaLabel].filter(Boolean).join(", ");
-      const alt = project.imageAlt || project.title || "Completed project";
-      const photoMarkup = stages.length
-        ? hammerRenderStageViewer(project, alt)
-        : (loosePhotos.length ? `<div class="cms-project-images">${loosePhotos.map((photo, index) => `<figure><img src="${hammerEscape(photo)}" alt="${hammerEscape(`${alt}${loosePhotos.length > 1 ? ` — photo ${index + 1}` : ""}`)}" loading="lazy"></figure>`).join("")}</div>` : "");
+      const photoMarkup = hbRenderProjectGallery(project);
       return `<article data-project-service="${hammerEscape(project.serviceLabel || '')}" data-project-area="${hammerEscape(project.areaLabel || '')}" class="cms-project-card${project.featured ? " is-featured" : ""}">
         ${project.featured ? `<span class="cms-project-badge">Featured Project</span>` : ""}
         ${photoMarkup}
@@ -2515,6 +2601,7 @@ function hammerRenderProjects(data, currentArea, homepage) {
       </article>`;
     }).join("")}</div>`;
   hammerBindStageViewers(section);
+  hbBindProjectGalleries(section);
   if (slug === "gallery" && projects.length > 1) {
     const filters = document.createElement("nav"); filters.setAttribute("aria-label", "Filter projects");
     const selects = {};
@@ -3238,3 +3325,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
