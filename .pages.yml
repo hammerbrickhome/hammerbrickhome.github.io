@@ -1589,8 +1589,69 @@ content:
                 default: buttons
                 options:
                   values:
-                    - {name: buttons, label: "Stage Buttons"}
-                    - {name: grid, label: "All Photos Side By Side"}
+                    - {name: buttons, label: "Large Photo Viewer + Thumbnails"}
+                    - {name: grid, label: "Photo Grid with Captions"}
+              - {name: showCoverPhoto, label: "Include Cover in Photo Viewer", type: boolean, default: true, description: "The cover now appears alongside stage photos. Turn off to hide it."}
+              - {name: coverCaption, label: "Cover Photo Caption", type: text, required: false}
+              - {name: beforeCaption, label: "Before Photo Caption", type: text, required: false}
+              - {name: afterCaption, label: "After Photo Caption", type: text, required: false}
+              - {name: showPhotoCaptions, label: "Show Photo Captions", type: boolean, default: true}
+              - name: galleryTone
+                label: "Photo Viewer Background"
+                type: select
+                default: cream
+                options:
+                  values:
+                    - {name: cream, label: "Warm Cream"}
+                    - {name: white, label: "Clean White"}
+                    - {name: slate, label: "Light Slate"}
+                    - {name: dark, label: "Charcoal"}
+              - name: photoFit
+                label: "Photo Sizing"
+                type: select
+                default: natural
+                options:
+                  values:
+                    - {name: natural, label: "Full Photo — Natural Proportions"}
+                    - {name: fill, label: "Fill Frame — Crops Edges"}
+              - name: firstPhotoStage
+                label: "First Photo Visitors See"
+                type: select
+                default: order
+                description: "Choose a preferred stage, or follow your photo order. Falls back to the first visible photo if the stage is empty."
+                options:
+                  values:
+                    - {name: order, label: "Follow Photo Order"}
+                    - {name: cover, label: "Cover First"}
+                    - {name: before, label: "Before First"}
+                    - {name: progress, label: "In Progress First"}
+                    - {name: after, label: "Finished / After First"}
+                    - {name: detail, label: "Detail First"}
+              - name: photoAlbum
+                label: "Photo Album — Captions, Stages & Drag Order"
+                type: object
+                description: "Add as many Before, In Progress, After or Detail entries as needed. Drag entries into order. Select existing uploads to avoid reuploading. Matching images here replace their legacy entries; hidden entries also hide matching legacy photos. Other existing photos follow this list. This album uses its own stage choices regardless of the old Photo Story Type."
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{stage} — {title}"
+                fields:
+                  - {name: active, label: "Show This Photo", type: boolean, default: true}
+                  - {name: image, label: "Photo", type: image, required: true, options: {media: project_images}}
+                  - name: stage
+                    label: "Photo Stage"
+                    type: select
+                    default: detail
+                    options:
+                      values:
+                        - {name: cover, label: "Cover"}
+                        - {name: before, label: "Before"}
+                        - {name: progress, label: "In Progress"}
+                        - {name: after, label: "After"}
+                        - {name: detail, label: "Detail"}
+                  - {name: title, label: "Short Photo Title", type: string, required: false}
+                  - {name: caption, label: "Caption Under Photo", type: text, required: false}
+                  - {name: alt, label: "Photo Description for Accessibility", type: string, required: false}
               - {name: beforeLabel, label: "Before Button Label", type: string, required: false, default: "Before"}
               - {name: progressLabel, label: "In-Progress Button Label", type: string, required: false, default: "In Progress"}
               - {name: afterLabel, label: "After Button Label", type: string, required: false, default: "After"}
@@ -2167,3 +2228,4 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
+
