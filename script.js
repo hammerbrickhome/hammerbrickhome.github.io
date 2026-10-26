@@ -2504,6 +2504,20 @@ function hbProjectGalleryStyles() {
   #cmsProjectsSection .hb-gallery[data-layout="grid"] .hb-frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:18px;align-items:start}
   #cmsProjectsSection .hb-gallery[data-layout="grid"] .hb-photo{max-height:480px!important}
   #cmsProjectsSection .hb-open-note{font-size:.78rem;margin:8px 0 0;color:inherit}
+  #cmsProjectsSection .hb-enlarge{margin:0 0 12px}
+  #cmsProjectsSection .hb-compare{border-top:1px solid var(--hb-line);margin-top:16px;padding-top:16px}
+  #cmsProjectsSection .hb-compare summary{cursor:pointer;font-weight:bold;padding:8px}
+  #cmsProjectsSection .hb-compare-stage{--reveal:50%;position:relative;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--hb-line);border-radius:12px}
+  #cmsProjectsSection .hb-compare-stage img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover!important}
+  #cmsProjectsSection .hb-compare-before{clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
+  #cmsProjectsSection .hb-compare-line{position:absolute;top:0;bottom:0;left:var(--reveal);border-left:3px solid white;filter:drop-shadow(0 0 2px black)}
+  #cmsProjectsSection .hb-compare-label{position:absolute;bottom:8px;left:8px;background:#172820;color:white;padding:6px 10px;border-radius:6px}
+  #cmsProjectsSection .hb-compare input{display:block;width:100%;min-height:44px;accent-color:#745526}
+  #hb-photo-dialog{box-sizing:border-box;max-width:94vw;width:fit-content;max-height:94dvh;overflow:auto;padding:16px;border:2px solid #b49a65;border-radius:16px;background:#faf8f3;color:#26332f}
+  #hb-photo-dialog::backdrop{background:#000b}
+  #hb-photo-dialog button{display:block;margin:0 0 12px auto;min-height:44px;padding:8px 18px;border-radius:8px;background:#745526;color:white;border:0;cursor:pointer;font:inherit}
+  #hb-photo-dialog img{display:block;width:auto;max-width:100%;height:auto;max-height:72dvh;object-fit:contain;margin:auto}
+  #hb-photo-dialog p{white-space:pre-line;overflow-wrap:anywhere}
   @media(max-width:600px){#cmsProjectsSection .hb-gallery{padding:10px}#cmsProjectsSection .hb-gallery .hb-photo{max-height:560px!important}#cmsProjectsSection .hb-gallery[data-layout="grid"] .hb-frames{grid-template-columns:1fr}#cmsProjectsSection .hb-thumbs button{flex-basis:70px}#cmsProjectsSection .hb-thumbs img{width:62px}}
   `;document.head.append(style);
 }
@@ -2515,11 +2529,14 @@ function hbRenderProjectGallery(project) {
   const tone=['white','slate','dark'].includes(project.galleryTone)?project.galleryTone:'cream';
   const fit=project.photoFit==='fill'?'fill':'natural';
   const groups=[...new Set(photos.map(p=>p.stage))];
+  const before=photos.find(p=>p.stage==='before'),after=photos.find(p=>p.stage==='after');
+  const compare=project.enablePhotoComparison===true&&before&&after;
   const names={cover:'Cover',before:project.beforeLabel||'Before',progress:project.progressLabel||'In Progress',after:project.afterLabel||'After',detail:'Details'};
   return `<div class="hb-gallery" data-hb-gallery data-layout="${layout}" data-tone="${tone}" data-fit="${fit}" data-first="${["cover","before","progress","after","detail"].includes(project.firstPhotoStage)?project.firstPhotoStage:"order"}" role="region" aria-label="${esc(project.title||'Project')} photos">
   ${photos.length>1?`<div class="hb-filters" aria-label="Photo stages"><button type="button" data-hb-filter="all" aria-pressed="true">All photos</button>${groups.map(stage=>`<button type="button" data-hb-filter="${stage}" aria-pressed="false">${esc(names[stage])}</button>`).join('')}</div>`:''}
   <div class="hb-frames">${photos.map((p,i)=>`<figure data-hb-frame="${i}" data-stage="${p.stage}"${layout==='viewer'&&i?' hidden':''}><div class="hb-photo-link"><img class="hb-photo" src="${esc(p.image)}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></div><figcaption><strong>${esc(p.label)}</strong>${project.showPhotoCaptions!==false&&p.caption?`<p>${esc(p.caption)}</p>`:''}</figcaption></figure>`).join('')}</div>
   ${layout==='viewer'&&photos.length>1?`<div class="hb-nav"><button type="button" data-hb-prev aria-label="Previous photo">← Previous</button><span class="hb-count" role="status" aria-live="polite"></span><button type="button" data-hb-next aria-label="Next photo">Next →</button></div><div class="hb-thumbs" aria-label="Choose photo">${photos.map((p,i)=>`<button type="button" data-hb-thumb="${i}" aria-pressed="${i===0}" aria-label="Show ${esc(p.label)} photo ${i+1}"><img src="${esc(p.image)}" alt="" loading="lazy">${esc(p.label)}</button>`).join('')}</div>`:''}
+  ${compare?`<details class="hb-compare"><summary>Compare Before &amp; After</summary><p>Images are cropped to align the frame. Use the gallery above for complete photos.</p><div class="hb-compare-stage"><img src="${esc(after.image)}" alt="After: ${esc(after.alt)}" loading="lazy"><img class="hb-compare-before" src="${esc(before.image)}" alt="Before: ${esc(before.alt)}" loading="lazy"><span class="hb-compare-line"></span><span class="hb-compare-label">Before ← | → After</span></div><label>Reveal before photo <input type="range" min="0" max="100" value="50" data-hb-compare aria-label="Before photo reveal percentage"></label></details>`:''}
   </div>`;
 }
 
@@ -2537,7 +2554,27 @@ function hbBindProjectGalleries(scope) {
     viewer.addEventListener('keydown',e=>{if(viewer.dataset.layout==='viewer'&&e.target.closest('.hb-thumbs,.hb-nav')&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();step(e.key==='ArrowLeft'?-1:1);}});
     const initial=frames.findIndex(p=>p.dataset.stage===viewer.dataset.first);
     show(initial<0?0:initial);
+    const track=viewer.querySelector('.hb-frames');let start=null;
+    track.addEventListener('touchstart',e=>{start=e.touches.length===1?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null;},{passive:true});
+    track.addEventListener('touchcancel',()=>{start=null;},{passive:true});
+    track.addEventListener('touchend',e=>{if(!start||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(viewer.dataset.layout==='viewer'&&Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)step(dx<0?1:-1);},{passive:true});
+    frames.forEach(frame=>{const button=document.createElement('button');button.type='button';button.className='hb-enlarge';button.textContent='Enlarge photo';button.addEventListener('click',()=>hbOpenProjectPhoto(frame,button));frame.append(button);});
+    viewer.querySelector('[data-hb-compare]')?.addEventListener('input',e=>{const box=e.target.closest('.hb-compare').querySelector('.hb-compare-stage');box.style.setProperty('--reveal',e.target.value+'%');});
   });
+}
+
+function hbOpenProjectPhoto(frame,trigger) {
+  document.getElementById('hb-photo-dialog')?.remove();
+  const dialog=document.createElement('dialog');dialog.id='hb-photo-dialog';dialog.setAttribute('aria-label','Enlarged project photo');
+  const close=document.createElement('button');close.type='button';close.textContent='Close ×';
+  const img=frame.querySelector('.hb-photo').cloneNode();img.removeAttribute('loading');
+  const caption=document.createElement('p');caption.textContent=frame.querySelector('figcaption')?.textContent||img.alt;
+  dialog.append(close,img,caption);document.body.append(dialog);
+  const previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+  close.addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
+  dialog.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;dialog.remove();if(trigger.isConnected)trigger.focus();},{once:true});
+  dialog.showModal();close.focus();
 }
 
 function hammerRenderProjects(data, currentArea, homepage) {
@@ -3326,5 +3363,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
 
 
