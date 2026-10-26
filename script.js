@@ -2478,7 +2478,7 @@ function hbProjectGalleryStyles() {
   #cmsProjectsSection .cms-project-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,390px),840px))!important;justify-content:center!important;gap:28px!important}
   #cmsProjectsSection .cms-project-card{min-width:0;overflow:hidden}
   #cmsProjectsSection .cms-project-card[hidden]{display:none!important}
-  #cmsProjectsSection .hb-gallery{--hb-surface:#faf8f3;--hb-ink:#26332f;--hb-line:#d7d8d0;background:var(--hb-surface);color:var(--hb-ink);padding:16px;border-radius:12px;min-width:0}
+  #cmsProjectsSection .hb-gallery{--hb-surface:#faf8f3;--hb-ink:#26332f;--hb-line:#c9b68e;background:var(--hb-surface);color:var(--hb-ink);padding:22px;border:1px solid #b49a65;border-radius:18px;box-shadow:inset 0 0 0 5px var(--hb-surface),inset 0 0 0 6px #c9b68e,0 10px 28px #00000014;min-width:0}
   #cmsProjectsSection .hb-gallery[data-tone="white"]{--hb-surface:#fff;--hb-ink:#202830}
   #cmsProjectsSection .hb-gallery[data-tone="slate"]{--hb-surface:#e9eef2;--hb-ink:#243341}
   #cmsProjectsSection .hb-gallery[data-tone="dark"]{--hb-surface:#202a30;--hb-ink:#f6f4ec;--hb-line:#596269}
@@ -2486,10 +2486,11 @@ function hbProjectGalleryStyles() {
   #cmsProjectsSection .hb-gallery [hidden]{display:none!important}
   #cmsProjectsSection .hb-gallery button{font:inherit;color:var(--hb-ink);background:transparent;border:1px solid var(--hb-line);border-radius:8px;min-height:44px;padding:8px 12px;cursor:pointer;line-height:1.3;overflow-wrap:anywhere}
   #cmsProjectsSection .hb-gallery button:focus-visible,#cmsProjectsSection .hb-gallery a:focus-visible{outline:3px solid #1673ba;outline-offset:3px}
-  #cmsProjectsSection .hb-gallery button[aria-pressed="true"]{background:#294c43;color:#fff;border-color:#294c43}
+  #cmsProjectsSection .hb-gallery button[aria-pressed="true"]{background:#745526;color:#fff;border-color:#745526;box-shadow:0 2px 6px #00000018}
   #cmsProjectsSection .hb-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
   #cmsProjectsSection .hb-gallery figure{margin:0;min-width:0}
-  #cmsProjectsSection .hb-photo-link{display:block;width:100%;text-align:center;background:transparent}
+  #cmsProjectsSection .hb-photo-link{display:table;width:auto;max-width:100%;margin:0 auto;padding:6px;text-align:center;background:var(--hb-surface);border:1px solid var(--hb-line);border-radius:12px;box-shadow:0 5px 18px #00000018}
+  #cmsProjectsSection .hb-gallery[data-fit="fill"] .hb-photo-link{display:block;width:100%}
   #cmsProjectsSection .hb-gallery .hb-photo{display:block;width:auto!important;max-width:100%!important;height:auto!important;max-height:680px!important;object-fit:contain!important;margin:0 auto;background:transparent!important;border-radius:8px}
   #cmsProjectsSection .hb-gallery[data-fit="fill"] .hb-photo{width:100%!important;max-height:none!important;aspect-ratio:4/3;object-fit:cover!important}
   #cmsProjectsSection .hb-gallery figcaption{position:static!important;background:none!important;color:var(--hb-ink)!important;padding:14px 2px!important;text-align:left;font-size:1rem;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere}
@@ -2517,9 +2518,9 @@ function hbRenderProjectGallery(project) {
   const names={cover:'Cover',before:project.beforeLabel||'Before',progress:project.progressLabel||'In Progress',after:project.afterLabel||'After',detail:'Details'};
   return `<div class="hb-gallery" data-hb-gallery data-layout="${layout}" data-tone="${tone}" data-fit="${fit}" data-first="${["cover","before","progress","after","detail"].includes(project.firstPhotoStage)?project.firstPhotoStage:"order"}" role="region" aria-label="${esc(project.title||'Project')} photos">
   ${photos.length>1?`<div class="hb-filters" aria-label="Photo stages"><button type="button" data-hb-filter="all" aria-pressed="true">All photos</button>${groups.map(stage=>`<button type="button" data-hb-filter="${stage}" aria-pressed="false">${esc(names[stage])}</button>`).join('')}</div>`:''}
-  <div class="hb-frames">${photos.map((p,i)=>`<figure data-hb-frame="${i}" data-stage="${p.stage}"${layout==='viewer'&&i?' hidden':''}><a class="hb-photo-link" href="${esc(p.image)}" target="_blank" rel="noopener" aria-label="Open full photo: ${esc(p.label)} (new tab)"><img class="hb-photo" src="${esc(p.image)}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></a><figcaption><strong>${esc(p.label)}</strong>${project.showPhotoCaptions!==false&&p.caption?`<p>${esc(p.caption)}</p>`:''}</figcaption></figure>`).join('')}</div>
+  <div class="hb-frames">${photos.map((p,i)=>`<figure data-hb-frame="${i}" data-stage="${p.stage}"${layout==='viewer'&&i?' hidden':''}><div class="hb-photo-link"><img class="hb-photo" src="${esc(p.image)}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></div><figcaption><strong>${esc(p.label)}</strong>${project.showPhotoCaptions!==false&&p.caption?`<p>${esc(p.caption)}</p>`:''}</figcaption></figure>`).join('')}</div>
   ${layout==='viewer'&&photos.length>1?`<div class="hb-nav"><button type="button" data-hb-prev aria-label="Previous photo">← Previous</button><span class="hb-count" role="status" aria-live="polite"></span><button type="button" data-hb-next aria-label="Next photo">Next →</button></div><div class="hb-thumbs" aria-label="Choose photo">${photos.map((p,i)=>`<button type="button" data-hb-thumb="${i}" aria-pressed="${i===0}" aria-label="Show ${esc(p.label)} photo ${i+1}"><img src="${esc(p.image)}" alt="" loading="lazy">${esc(p.label)}</button>`).join('')}</div>`:''}
-  <p class="hb-open-note">Select a photo to open its full-size image.</p></div>`;
+  </div>`;
 }
 
 function hbBindProjectGalleries(scope) {
@@ -3325,4 +3326,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
 
