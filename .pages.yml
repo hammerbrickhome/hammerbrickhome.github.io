@@ -1596,6 +1596,7 @@ content:
               - {name: beforeCaption, label: "Before Photo Caption", type: text, required: false}
               - {name: afterCaption, label: "After Photo Caption", type: text, required: false}
               - {name: showPhotoCaptions, label: "Show Photo Captions", type: boolean, default: true}
+              - {name: enablePhotoComparison, label: "Show Before / After Comparison Slider", type: boolean, default: false, description: "Requires a visible Before and After photo. Uses the first of each stage in your album order. Best with matching camera angles; comparison crops to a shared frame."}
               - name: galleryTone
                 label: "Photo Viewer Background"
                 type: select
@@ -2228,4 +2229,5 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
+
 
