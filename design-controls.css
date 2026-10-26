@@ -196,3 +196,44 @@ body[data-owner-collection][data-owner-font="sans"] #main :is(h1,h2,h3){font-fam
  body[data-owner-collection] #main .section{padding:24px!important;margin-bottom:30px!important}
  body[data-owner-collection] .hb-home-quick-actions{margin:0 0 30px!important}
 }
+
+/* Mobile logo guard: keep branding inside the hero without cropping or offsets.
+   Scoped to the homepage and mobile widths; desktop compositions stay unchanged. */
+@media (max-width: 900px) {
+  body #main #homeHero > .hero-badge {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    float: none !important;
+    grid-area: brand;
+    order: -1 !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 auto 18px !important;
+    padding: 0 !important;
+    align-self: center !important;
+    justify-self: center !important;
+  }
+  body #main #homeHero > .hero-badge img {
+    display: block;
+    width: 120px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+    border-radius: 0 !important;
+  }
+  body[data-owner-branding] #main #homeHero > .hero-badge img {
+    width: var(--owner-hero-logo-mobile,120px) !important;
+  }
+  body[data-owner-branding][data-owner-logo-shape="circle"] #main #homeHero > .hero-badge img {border-radius:50% !important}
+  body[data-owner-branding][data-owner-logo-shape="rounded"] #main #homeHero > .hero-badge img {border-radius:16px !important}
+  body[data-owner-branding][data-owner-logo-position="left"] #main #homeHero > .hero-badge {margin-left:0 !important;margin-right:auto !important;align-self:flex-start !important;justify-self:start !important}
+  body[data-owner-branding][data-owner-logo-position="right"] #main #homeHero > .hero-badge {margin-left:auto !important;margin-right:0 !important;align-self:flex-end !important;justify-self:end !important}
+  body #header-include .brand-logo {object-fit:contain !important;flex-shrink:0 !important}
+}
