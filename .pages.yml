@@ -139,6 +139,7 @@ content:
         operations: {create: false, rename: false, delete: false}
         fields:
           - name: homepageLayout
+            # Existing designs and controls are preserved.
             label: "Homepage Layout — Switch Anytime"
             type: select
             required: false
@@ -230,6 +231,12 @@ content:
           - {name: beforeAfterHeading, label: "Before & After Heading", type: string, required: false}
           - {name: beforeAfterNote, label: "Before & After Note", type: text, required: false}
           - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
+          - {name: ownerPhoto, label: "Meet Noman — Optional Owner Photo", type: image, required: false}
+          - {name: ownerPhotoAlt, label: "Owner Photo Description", type: string, required: false}
+          - {name: membershipVisible, label: "Show Membership Program", type: boolean, default: false, description: "Shared homepage and membership-page display. Keep off until ready. Use these settings instead of legacy Workshop membership overrides."}
+          - {name: membershipActive, label: "Membership Active — Entries Open", type: boolean, default: false, description: "Off means Coming Soon. Review program terms before opening entries."}
+          - {name: membershipYear, label: "Membership Card Year", type: string, default: "2026"}
+          - {name: membershipComingSoonText, label: "Membership Coming Soon Message", type: text, required: false}
           - {name: guaranteeText, label: "Guarantee Text", type: text, required: false}
           - {name: guaranteeSignature, label: "Guarantee Signature", type: string, required: false}
           - {name: whyNeighborsTitle, label: "Why Neighbors Title", type: string, required: false}
@@ -2229,5 +2236,6 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
+
 
 
