@@ -6,6 +6,9 @@
 =============================================================== */
 
 (function() {
+  // Homepage uses the existing Quick Contact panel, not automated prices.
+  // Query strings and hashes do not affect this pathname check.
+  if (/^\/(?:index\.html?)?$/i.test(window.location.pathname)) return;
   // --- CONFIGURATION -----------------------------------------
 
   // ✅ UPDATED: Your specific working Google Web App URL
@@ -2055,3 +2058,4 @@
   document.addEventListener("DOMContentLoaded", init);
 
 })();
+
