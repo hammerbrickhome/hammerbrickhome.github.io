@@ -233,6 +233,21 @@ content:
           - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
           - {name: ownerPhoto, label: "Meet Noman — Optional Owner Photo", type: image, required: false}
           - {name: ownerPhotoAlt, label: "Owner Photo Description", type: string, required: false}
+          - {name: ownerVideoUrl, label: "Owner Introduction Video Link", type: string, required: false, description: "Optional HTTPS video page or local video URL. Opens only when clicked; no autoplay."}
+          - {name: ownerVideoLabel, label: "Owner Video Button Text", type: string, required: false, default: "Meet Noman — Watch the Introduction"}
+          - {name: luxuryContactEnabled, label: "Signature Contact Panel Styling", type: boolean, default: true, description: "Homepage only. Restyles the existing Contact button; never adds another bar or calculator."}
+          - {name: behindFinishEnabled, label: "Show Behind the Finish", type: boolean, default: false, description: "Appears within How We Work only when enabled and real detail cards are supplied."}
+          - {name: behindFinishTitle, label: "Behind the Finish Heading", type: string, required: false, default: "Behind the Finish"}
+          - name: behindFinishCards
+            label: "Behind the Finish — Real Craftsmanship Details"
+            type: object
+            list: true
+            fields:
+              - {name: active, label: "Show This Detail", type: boolean, default: true}
+              - {name: image, label: "Your Detail Photo", type: image, required: true}
+              - {name: title, label: "Detail Title", type: string, required: true}
+              - {name: description, label: "Explain the Work", type: text, required: true}
+              - {name: alt, label: "Photo Description", type: string, required: false}
           - {name: membershipVisible, label: "Show Membership Program", type: boolean, default: false, description: "Shared homepage and membership-page display. Keep off until ready. Use these settings instead of legacy Workshop membership overrides."}
           - {name: membershipActive, label: "Membership Active — Entries Open", type: boolean, default: false, description: "Off means Coming Soon. Review program terms before opening entries."}
           - {name: membershipYear, label: "Membership Card Year", type: string, default: "2026"}
@@ -1625,7 +1640,7 @@ content:
               - name: firstPhotoStage
                 label: "First Photo Visitors See"
                 type: select
-                default: order
+                default: after
                 description: "Choose a preferred stage, or follow your photo order. Falls back to the first visible photo if the stage is empty."
                 options:
                   values:
@@ -1675,6 +1690,10 @@ content:
               - {name: showProjectDate, label: "Show Project Date", type: boolean, required: false, default: false}
               - {name: showLocation, label: "Show Location", type: boolean, required: false, default: true}
               - {name: showSummary, label: "Show Project Summary", type: boolean, required: false, default: true}
+              - {name: showProjectStory, label: "Show Project Story", type: boolean, default: true, description: "Empty story fields stay hidden. Add only details of your actual work."}
+              - {name: projectChallenge, label: "Project Story — The Challenge", type: text, required: false}
+              - {name: projectWork, label: "Project Story — What We Did", type: text, required: false}
+              - {name: projectResult, label: "Project Story — The Result", type: text, required: false}
               - {name: showReview, label: "Show Customer Quote", type: boolean, required: false, default: true}
               - {name: showCta, label: "Show Project Button", type: boolean, required: false, default: true}
               - {name: seoTitle, label: "Project SEO Title", type: string, required: false}
@@ -2236,6 +2255,7 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
+
 
 
 
