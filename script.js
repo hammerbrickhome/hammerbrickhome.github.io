@@ -3082,6 +3082,7 @@ function hammerRenderSitewideAnnouncement(data) {
 }
 
 function hammerConfigureContactPanel(data) {
+  const contactOnlyHome = /^\/(?:index\.html?)?$/i.test(window.location.pathname);
   const sticky = document.querySelector(".sticky-quick-btn");
   if (sticky && String(data.floatingContactLabel || "").trim()) sticky.textContent = data.floatingContactLabel;
 
@@ -3117,11 +3118,24 @@ function hammerConfigureContactPanel(data) {
 
   const dial = normalizeDialNumber(data.phone) || "+19295955300";
   const email = String(data.email || "hammerbrickhome@gmail.com").trim();
+  if (contactOnlyHome) {
+    let intro = panel.querySelector(".hb-home-contact-intro");
+    if (!intro) {
+      intro = document.createElement("p");
+      intro.className = "hb-home-contact-intro";
+      inner.insertBefore(intro, list);
+    }
+    intro.replaceChildren();
+    const number = document.createElement("strong");
+    number.textContent = String(data.phone || "929-595-5300");
+    intro.append(number, document.createElement("br"),
+      "Tell us about your project or send photos. Contact us to arrange a free in-person estimate.");
+  }
   const actions = [
     { name: "call", show: data.showContactCall !== false, href: `tel:${dial}`, icon: "📞", label: data.contactCallLabel || "Call Now" },
     { name: "text", show: data.showContactText !== false, href: `sms:${dial}`, icon: "💬", label: data.contactTextLabel || "Text Us" },
     { name: "email", show: data.showContactEmail !== false, href: `mailto:${email}`, icon: "✉️", label: data.contactEmailLabel || "Email Us" },
-    { name: "estimate", show: data.showContactEstimate !== false, href: "/project-estimator.html", icon: "🧮", label: data.contactEstimateLabel || "Free Estimate" },
+    { name: "estimate", show: !contactOnlyHome && data.showContactEstimate !== false, href: "/project-estimator.html", icon: "🧮", label: data.contactEstimateLabel || "Free Estimate" },
     { name: "form", show: data.showContactForm !== false, href: "/contact.html", icon: "📝", label: data.contactFormLabel || "Contact Form" },
     { name: "photos", show: data.showContactPhotos !== false, href: `sms:${dial}`, icon: "📷", label: data.contactPhotosLabel || "Send Photos" }
   ];
@@ -3337,7 +3351,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <li><a href="tel:+19295955300">📞 Call Now</a></li>
           <li><a href="sms:+19295955300">💬 Text Us</a></li>
           <li><a href="mailto:hammerbrickhome@gmail.com">✉️ Email Us</a></li>
-          <li><a href="/project-estimator.html">🧮 Free Estimate</a></li>
+          ${/^\/(?:index\.html?)?$/i.test(window.location.pathname) ? "" : '<li><a href="/project-estimator.html">🧮 Free Estimate</a></li>'}
           <li><a href="/contact.html">📝 Contact Form</a></li>
           <li><a href="sms:+19295955300">📷 Send Photos</a></li>
         </ul>
@@ -3345,6 +3359,8 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     document.body.appendChild(panel);
+    // Populate the home contact panel even if the settings request fails.
+    if (/^\/(?:index\.html?)?$/i.test(window.location.pathname)) hammerConfigureContactPanel({});
     refreshHammerBusinessSettings();
 
     /* Open panel ONLY this one */
@@ -3361,8 +3377,25 @@ document.addEventListener("DOMContentLoaded", () => {
     panel.querySelector(".quick-close").addEventListener("click", () => {
       panel.style.display = "none";
     });
+    if (/^\/(?:index\.html?)?$/i.test(window.location.pathname)) {
+      const close = panel.querySelector(".quick-close");
+      close.setAttribute("aria-label", "Close contact options");
+      panel.setAttribute("role", "dialog");
+      panel.setAttribute("aria-label", "Contact Hammer Brick & Home");
+      sticky.setAttribute("aria-haspopup", "dialog");
+      sticky.setAttribute("aria-controls", "quick-contact-panel");
+      sticky.addEventListener("click", () => close.focus());
+      close.addEventListener("click", () => sticky.focus());
+      panel.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+          panel.style.display = "none";
+          sticky.focus();
+        }
+      });
+    }
   }
 });
+
 
 
 
