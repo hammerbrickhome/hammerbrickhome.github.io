@@ -1,5 +1,5 @@
 {
-  "homepageLayout": "emerald-signature",
+  "homepageLayout": "brownstone-craft",
   "customSectionOrderEnabled": true,
   "customSectionOrder": [
     "announcement",
@@ -156,7 +156,6 @@
   ],
   "heroPrimaryButtonUrl": "/gallery.html",
   "heroSecondaryButtonUrl": "/contact.html",
-  "ownerPhoto": "",
   "ownerPhotoAlt": "Noman, owner of Hammer Brick & Home LLC",
   "membershipVisible": false,
   "membershipActive": false,
