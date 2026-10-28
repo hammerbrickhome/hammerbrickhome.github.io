@@ -245,7 +245,9 @@
         "WebPage",
         "BreadcrumbList"
       ],
-      "warnings": []
+      "warnings": [
+        "Expected one main heading; found 2"
+      ]
     },
     {
       "file": "monthly-specials.html",
@@ -454,10 +456,10 @@
     "Project 1: add an accurate description of the work"
   ],
   "homepageSeoSync": {
-    "reviews": 8,
+    "reviews": 4,
     "projectsSelected": 1,
     "projectsEligibleForSchema": 0,
-    "beforeAfterSets": 6,
+    "beforeAfterSets": 3,
     "source": "Homepage Visual Control and CMS data"
   },
   "note": "Local validation only. Incomplete projects are kept visible but excluded from structured data until a title, photo description, work summary and main photo are provided. Indexing, rich results and voice-assistant placement are unverified."
