@@ -205,7 +205,7 @@ body[data-owner-collection][data-owner-font="sans"] #main :is(h1,h2,h3){font-fam
     inset: auto !important;
     transform: none !important;
     float: none !important;
-    grid-area: brand;
+    grid-area: auto;
     order: -1 !important;
     flex: 0 0 auto !important;
     width: auto !important;
@@ -236,4 +236,12 @@ body[data-owner-collection][data-owner-font="sans"] #main :is(h1,h2,h3){font-fam
   body[data-owner-branding][data-owner-logo-position="left"] #main #homeHero > .hero-badge {margin-left:0 !important;margin-right:auto !important;align-self:flex-start !important;justify-self:start !important}
   body[data-owner-branding][data-owner-logo-position="right"] #main #homeHero > .hero-badge {margin-left:auto !important;margin-right:0 !important;align-self:flex-end !important;justify-self:end !important}
   body #header-include .brand-logo {object-fit:contain !important;flex-shrink:0 !important}
+  /* Only collection designs define a named brand area. Other themes must
+     auto-place the badge, or CSS Grid creates an unwanted implicit column. */
+  body[data-owner-collection] #main #homeHero > .hero-badge {grid-area:brand}
+  body #main #homeHero > .hero-content {min-width:0;max-width:100%;box-sizing:border-box}
 }
+
+/* Keep local-theme trust labels readable against their dark pill surface. */
+body[data-home-layout="local"] #main #homeHero .trust-pills li {color:#fffaf1!important}
+

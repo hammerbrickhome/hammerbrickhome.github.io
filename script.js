@@ -2478,6 +2478,10 @@ function hbProjectGalleryStyles() {
   #cmsProjectsSection .cms-project-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,390px),840px))!important;justify-content:center!important;gap:28px!important}
   #cmsProjectsSection .cms-project-card{min-width:0;overflow:hidden}
   #cmsProjectsSection .cms-project-card[hidden]{display:none!important}
+  #cmsProjectsSection .hb-project-story{margin:20px 0;padding:20px;border:1px solid #c9b68e;border-radius:12px;background:#faf8f3;color:#26332f;text-align:left}
+  #cmsProjectsSection .hb-project-story summary{cursor:pointer;font-weight:700;min-height:30px;list-style-position:inside}
+  #cmsProjectsSection .hb-project-story h4{font:600 12px/1.5 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.1em;margin:20px 0 7px;color:#725c34}
+  #cmsProjectsSection .hb-project-story p{color:#26332f;white-space:pre-line;overflow-wrap:anywhere;line-height:1.7}
   #cmsProjectsSection .hb-gallery{--hb-surface:#faf8f3;--hb-ink:#26332f;--hb-line:#c9b68e;background:var(--hb-surface);color:var(--hb-ink);padding:22px;border:1px solid #b49a65;border-radius:18px;box-shadow:inset 0 0 0 5px var(--hb-surface),inset 0 0 0 6px #c9b68e,0 10px 28px #00000014;min-width:0}
   #cmsProjectsSection .hb-gallery[data-tone="white"]{--hb-surface:#fff;--hb-ink:#202830}
   #cmsProjectsSection .hb-gallery[data-tone="slate"]{--hb-surface:#e9eef2;--hb-ink:#243341}
@@ -2532,7 +2536,7 @@ function hbRenderProjectGallery(project) {
   const before=photos.find(p=>p.stage==='before'),after=photos.find(p=>p.stage==='after');
   const compare=project.enablePhotoComparison===true&&before&&after;
   const names={cover:'Cover',before:project.beforeLabel||'Before',progress:project.progressLabel||'In Progress',after:project.afterLabel||'After',detail:'Details'};
-  return `<div class="hb-gallery" data-hb-gallery data-layout="${layout}" data-tone="${tone}" data-fit="${fit}" data-first="${["cover","before","progress","after","detail"].includes(project.firstPhotoStage)?project.firstPhotoStage:"order"}" role="region" aria-label="${esc(project.title||'Project')} photos">
+  return `<div class="hb-gallery" data-hb-gallery data-layout="${layout}" data-tone="${tone}" data-fit="${fit}" data-first="${["order","cover","before","progress","after","detail"].includes(project.firstPhotoStage)?project.firstPhotoStage:"after"}" role="region" aria-label="${esc(project.title||'Project')} photos">
   ${photos.length>1?`<div class="hb-filters" aria-label="Photo stages"><button type="button" data-hb-filter="all" aria-pressed="true">All photos</button>${groups.map(stage=>`<button type="button" data-hb-filter="${stage}" aria-pressed="false">${esc(names[stage])}</button>`).join('')}</div>`:''}
   <div class="hb-frames">${photos.map((p,i)=>`<figure data-hb-frame="${i}" data-stage="${p.stage}"${layout==='viewer'&&i?' hidden':''}><div class="hb-photo-link"><img class="hb-photo" src="${esc(p.image)}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></div><figcaption><strong>${esc(p.label)}</strong>${project.showPhotoCaptions!==false&&p.caption?`<p>${esc(p.caption)}</p>`:''}</figcaption></figure>`).join('')}</div>
   ${layout==='viewer'&&photos.length>1?`<div class="hb-nav"><button type="button" data-hb-prev aria-label="Previous photo">← Previous</button><span class="hb-count" role="status" aria-live="polite"></span><button type="button" data-hb-next aria-label="Next photo">Next →</button></div><div class="hb-thumbs" aria-label="Choose photo">${photos.map((p,i)=>`<button type="button" data-hb-thumb="${i}" aria-pressed="${i===0}" aria-label="Show ${esc(p.label)} photo ${i+1}"><img src="${esc(p.image)}" alt="" loading="lazy">${esc(p.label)}</button>`).join('')}</div>`:''}
@@ -2633,6 +2637,7 @@ function hammerRenderProjects(data, currentArea, homepage) {
           ${project.showProjectDate === true && project.projectDate ? `<p class="cms-project-date">${hammerEscape(project.projectDate)}</p>` : ""}
           ${project.showLocation !== false && (location || project.serviceLabel) ? `<p class="cms-project-meta">${hammerEscape([project.serviceLabel, location].filter(Boolean).join(" · "))}</p>` : ""}
           ${project.showSummary !== false && project.summary ? `<p>${hammerEscape(project.summary)}</p>` : ""}
+          ${project.showProjectStory !== false && [project.projectChallenge,project.projectWork,project.projectResult].some(value=>String(value||'').trim()) ? `<details class="hb-project-story"><summary>Explore the Project Story</summary>${[['The Challenge',project.projectChallenge],['What We Did',project.projectWork],['The Result',project.projectResult]].filter(([,value])=>String(value||'').trim()).map(([title,value])=>`<h4>${title}</h4><p>${hammerEscape(value)}</p>`).join('')}</details>` : ''}
           ${project.showReview !== false && project.reviewQuote ? `<blockquote class="cms-project-review">“${hammerEscape(project.reviewQuote)}”${project.reviewName ? `<footer>— ${hammerEscape(project.reviewName)}</footer>` : ""}</blockquote>` : ""}
           ${project.showCta !== false && project.ctaText ? `<a class="btn ghost cms-project-cta" href="${hammerEscape(project.ctaUrl || "/contact.html")}">${hammerEscape(project.ctaText)}</a>` : ""}
         </div>
@@ -2937,7 +2942,7 @@ document.addEventListener("DOMContentLoaded", refreshHammerContentControls);
   if (document.getElementById("hammerDesignExtension")) return;
   const css = document.createElement("link");
   css.rel = "stylesheet";
-  css.href = "/design-controls.css";
+  css.href = "/design-controls.css?v=mobile-repair-1";
   document.head.appendChild(css);
   const script = document.createElement("script");
   script.id = "hammerDesignExtension";
@@ -3395,6 +3400,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
 
 
 
