@@ -9,7 +9,7 @@
     document.querySelectorAll(selector).forEach(el => { el.textContent = value; });
   }
   async function start() {
-    const settings = await read('/site-data/homepage.json');
+    const [settings,business] = await Promise.all([read('/site-data/homepage.json'),read('/site-data/business.json')]);
     const visible = settings.membershipVisible === true;
     const active = visible && settings.membershipActive === true;
     const year = /^\d{4}$/.test(String(settings.membershipYear)) ? String(settings.membershipYear) : '2026';
@@ -36,6 +36,39 @@
     text('#hbHomeMembership .card-number, #hbMembershipProgram .card-number', '•••• •••• •••• ' + year);
     text('#hbHomeMembership .card-status, #hbMembershipProgram .card-status', active ? 'ACTIVE' : 'COMING SOON');
     if (!document.getElementById('homeHero')) return;
+    // Generate the contact locally; no visitor information is collected or sent.
+    const cardEscape=value=>String(value??'').replace(/\\/g,'\\\\').replace(/\r\n|\r|\n/g,'\\n').replace(/;/g,'\\;').replace(/,/g,'\\,');
+    const cardPhone=String(business.phone||'929-595-5300');
+    const cardDigits=cardPhone.replace(/\D/g,'');
+    const cardDial=/^\d{10}$/.test(cardDigits)?'+1'+cardDigits:/^1\d{10}$/.test(cardDigits)?'+'+cardDigits:'';
+    const cardNotes=settings.ownerContactNotes||'Masonry and brickwork; bathroom and kitchen remodeling; roofing; waterproofing; windows and doors; repairs and renovations. Serving NYC and New Jersey. Contact Noman to arrange a free in-person estimate.';
+    const cardLines=['BEGIN:VCARD','VERSION:3.0','N:;Noman;;;','FN:'+cardEscape('Noman — '+(business.businessName||'Hammer Brick & Home LLC')),'ORG:'+cardEscape(business.businessName||'Hammer Brick & Home LLC'),'TITLE:'+cardEscape(settings.ownerContactCardTitle||'Owner / Home Improvement Contractor')];
+    if(cardDial)cardLines.push('TEL;TYPE=WORK,VOICE:'+cardDial);
+    if(business.email)cardLines.push('EMAIL;TYPE=WORK:'+cardEscape(business.email));
+    if(business.website)cardLines.push('URL:'+cardEscape(business.website));
+    const credentials=[business.nycHic?'NYC HIC #'+business.nycHic:'',business.njHic?'NJ HIC #'+business.njHic:''].filter(Boolean).join('; ');
+    cardLines.push('NOTE:'+cardEscape(cardNotes+(credentials?'\n'+credentials:'')),'END:VCARD');
+    // Fold long lines at UTF-8 boundaries for contact-app compatibility.
+    const encoder=new TextEncoder();
+    const fold=line=>{let result='',part='';for(const ch of line){if(encoder.encode(part+ch).length>74){result+=part+'\r\n';part=' ';}part+=ch;}return result+part;};
+    const cardUrl=URL.createObjectURL(new Blob([cardLines.map(fold).join('\r\n')+'\r\n'],{type:'text/vcard;charset=utf-8'}));
+    function addContactTools(){
+      const panel=document.querySelector('#quick-contact-panel .quick-contact-inner');
+      if(!panel||panel.querySelector('.hb-save-contact-tools')||settings.ownerSaveContactEnabled===false)return;
+      const box=document.createElement('div');box.className='hb-save-contact-tools';
+      const save=document.createElement('a');save.href=cardUrl;save.download='Noman-Hammer-Brick-Home.vcf';save.textContent='Save Noman’s Contact';
+      const hint=document.createElement('p');hint.textContent='Keep my number, business details and services handy for your next project.';
+      const status=document.createElement('p');status.setAttribute('role','status');status.className='hb-copy-status';
+      box.append(save);
+      if(cardDial){const copy=document.createElement('button');copy.type='button';copy.textContent='Copy Number';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(cardPhone);status.textContent='Number copied: '+cardPhone;}catch(_){status.textContent='Copy this number: '+cardPhone;}});box.append(copy);}
+      box.append(hint,status);panel.append(box);
+    }
+    const saveStyle=document.createElement('style');saveStyle.textContent=`
+      #quick-contact-panel .hb-save-contact-tools{border-top:1px solid #c8b88e;margin-top:18px;padding-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+      #quick-contact-panel .hb-save-contact-tools a,#quick-contact-panel .hb-save-contact-tools button{box-sizing:border-box;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border:1px solid #af8f4a;border-radius:10px;background:#f7eed8;color:#233c31;font:600 14px/1.4 system-ui;text-decoration:none;cursor:pointer}
+      #quick-contact-panel .hb-save-contact-tools p{flex:1 0 100%;font:13px/1.5 system-ui;color:inherit;margin:0;overflow-wrap:anywhere}
+      #quick-contact-panel .hb-save-contact-tools a:focus-visible,#quick-contact-panel .hb-save-contact-tools button:focus-visible{outline:3px solid #9d712e;outline-offset:3px}
+    `;document.head.append(saveStyle);addContactTools();new MutationObserver(addContactTools).observe(document.body,{childList:true,subtree:true});
     if (settings.luxuryContactEnabled !== false) {
     // Refine the EXISTING contact surface; never add another launcher or pricing tool.
     const contactStyle = document.createElement('style');
@@ -88,7 +121,11 @@
       #hbOwnerRibbon .hb-ribbon-group{display:flex;align-items:center;flex-shrink:0;gap:28px;padding-right:28px;font:600 13px/1.5 system-ui,sans-serif;letter-spacing:.04em;white-space:nowrap}
       #hbOwnerRibbon .hb-ribbon-group span::after{content:' ✦';color:#927032;margin-left:28px}
       #hbOwnerRibbon button{flex-shrink:0;width:42px;height:42px;border:1px solid #bfa06a;border-radius:50%;background:#fffcf4;color:#304639;font:18px system-ui;cursor:pointer}
-      #hbOwnerRibbon button:focus-visible{outline:3px solid #7b591d;outline-offset:3px}
+      #hbOwnerRibbon button:focus-visible,#hbOwnerRibbon a:focus-visible{outline:3px solid #7b591d;outline-offset:3px}
+      #hbOwnerRibbon .hb-ribbon-actions{display:flex;flex-shrink:0;gap:8px;align-items:center}
+      #hbOwnerRibbon .hb-ribbon-actions a{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #a88b50;border-radius:10px;background:#203c31;color:#fff8e9;font:600 13px/1.3 system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+      #hbOwnerRibbon .hb-ribbon-actions a:last-child{background:#fffaf0;color:#203c31}
+      @media(max-width:600px){#hbOwnerRibbon{flex-wrap:wrap;gap:8px}#hbOwnerRibbon .hb-ribbon-window{flex-basis:calc(100% - 54px)}#hbOwnerRibbon .hb-ribbon-actions{flex:1 0 100%}#hbOwnerRibbon .hb-ribbon-actions a{flex:1}}
       #hbOwnerRibbon:hover .hb-ribbon-track,#hbOwnerRibbon:focus-within .hb-ribbon-track,#hbOwnerRibbon[data-paused] .hb-ribbon-track{animation-play-state:paused}
       #hbOwnerRibbon[data-static] .hb-ribbon-track{animation:none;width:100%}
       #hbOwnerRibbon[data-static] .hb-ribbon-group{white-space:normal;flex-wrap:wrap;gap:8px;padding:0}
@@ -97,9 +134,15 @@
       @media(prefers-reduced-motion:reduce){#hbOwnerRibbon .hb-ribbon-track{animation:none;width:100%}#hbOwnerRibbon .hb-ribbon-group{white-space:normal;flex-wrap:wrap;gap:8px;padding:0}#hbOwnerRibbon .hb-ribbon-copy,#hbOwnerRibbon button{display:none}}
     `;document.head.append(ribbonStyle);
     if(settings.ownerRibbonEnabled!==false){
-      const defaults=['Speak directly with Noman — Owner','Free in-person estimates • No obligation','Small repairs to full renovations','Serving NYC & New Jersey'];
+      const rawPhone=String(business.phone||'929-595-5300');
+      const digits=rawPhone.replace(/\D/g,'');
+      const validPhone=/^\d{10}$/.test(digits)||/^1\d{10}$/.test(digits);
+      const dial=validPhone?'+'+(digits.length===10?'1':'')+digits:'';
+      const displayPhone=validPhone?rawPhone:'929-595-5300';
+      const defaults=['Free in-person estimates • No obligation','Small repairs to full renovations','Serving NYC & New Jersey'];
       const items=Array.isArray(settings.ownerRibbonMessages)?settings.ownerRibbonMessages.map(x=>typeof x==='string'?x:x?.text).filter(x=>typeof x==='string'&&x.trim()).slice(0,8):defaults;
       if(items.length){
+        if(validPhone)items.unshift('Speak directly with Noman — Owner • Call or text '+displayPhone);
         const ribbon=document.createElement('aside');ribbon.id='hbOwnerRibbon';ribbon.setAttribute('aria-label','Working with Hammer Brick & Home');
         const windowEl=document.createElement('div'),track=document.createElement('div'),group=document.createElement('div');
         windowEl.className='hb-ribbon-window';track.className='hb-ribbon-track';group.className='hb-ribbon-group';
@@ -109,7 +152,14 @@
         pause.addEventListener('click',()=>{const paused=ribbon.toggleAttribute('data-paused');pause.textContent=paused?'▶':'Ⅱ';pause.setAttribute('aria-pressed',String(paused));pause.setAttribute('aria-label',paused?'Resume scrolling messages':'Pause scrolling messages')});
         const seconds=Number(settings.ownerRibbonSeconds);ribbon.style.setProperty('--hb-ribbon-duration',(Number.isFinite(seconds)&&seconds>=15&&seconds<=90?seconds:36)+'s');
         if(settings.ownerRibbonMotion===false)ribbon.setAttribute('data-static','');
-        ribbon.append(windowEl,pause);document.getElementById('homeHero').after(ribbon);
+        const actions=document.createElement('div');actions.className='hb-ribbon-actions';
+        for(const [kind,enabled,label] of [['tel',business.showContactCall!==false,'Call Noman'],['sms',business.showContactText!==false,'Text Noman']]){
+          if(!enabled||!dial)continue;
+          const link=document.createElement('a');link.href=kind+':'+dial;link.textContent=label;
+          link.setAttribute('aria-label',label+' at '+displayPhone);actions.append(link);
+        }
+        ribbon.append(windowEl,pause);if(actions.childElementCount)ribbon.append(actions);
+        document.getElementById('homeHero').after(ribbon);
       }
     }
     const ownerCard = document.querySelector('#guaranteeSection .accent-card');
@@ -165,4 +215,5 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
+
 
