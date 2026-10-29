@@ -41,7 +41,7 @@
     const contactStyle = document.createElement('style');
     contactStyle.textContent = `
       body.hb-contact-luxury .sticky-quick-btn {background:#142a25;color:#f8efd9;border:1px solid #cfb574;border-radius:50px;padding:15px 23px;min-height:48px;font:600 14px/1.2 system-ui,sans-serif;letter-spacing:.04em;box-shadow:0 8px 26px #0003;}
-      body.hb-contact-luxury #quick-contact-panel {padding:16px;background:#10221dcc;backdrop-filter:blur(5px);}
+      body.hb-contact-luxury #quick-contact-panel {padding:16px;background:#10221dcc;backdrop-filter:blur(5px);z-index:100000!important;}
       body.hb-contact-luxury #quick-contact-panel .quick-contact-inner {box-sizing:border-box;width:min(100%,510px);max-width:510px;max-height:calc(100dvh - 32px);overflow:auto;background:#faf6ed;color:#20372f;border:1px solid #bfa06a;border-radius:22px;padding:38px 26px 26px;box-shadow:0 24px 80px #0005;position:relative;}
       body.hb-contact-luxury #quick-contact-panel h2 {font:normal clamp(25px,5vw,34px)/1.15 Georgia,serif;color:#20372f;letter-spacing:-.02em;margin:12px 0 20px;}
       body.hb-contact-luxury #quick-contact-panel .hb-home-contact-intro {font:15px/1.65 system-ui,sans-serif;color:#4c5a52;margin-bottom:24px;}
@@ -59,16 +59,58 @@
     function refineContact() {
       const button=document.querySelector('.sticky-quick-btn');
       // Honor custom CMS labels; upgrade only the existing default labels.
-      if(button && ['Contact','💬 Contact'].includes(button.textContent.trim()))button.textContent='Start Your Project';
+      if(button && ['Contact','💬 Contact','Start Your Project'].includes(button.textContent.trim()))button.textContent=settings.ownerContactButtonText||'Talk to Noman';
       const panel=document.querySelector('#quick-contact-panel .quick-contact-inner');
       const heading=panel?.querySelector('h2');
-      if(heading && heading.textContent.trim()==='Quick Contact')heading.textContent='Your vision. Our craft.';
+      if(heading && ['Quick Contact','Your vision. Our craft.'].includes(heading.textContent.trim()))heading.textContent=settings.ownerContactHeading||'Talk to Noman — Owner';
+      if(panel){
+        let note=panel.querySelector('.hb-owner-welcome');
+        if(!note){note=document.createElement('p');note.className='hb-owner-welcome';note.textContent=settings.ownerContactIntro||'I’m Noman, owner of Hammer Brick & Home. Tell me what needs fixing or what you’d like to improve. Let’s arrange a free in-person estimate.';heading?.after(note);}
+        for(const [action,oldLabel,newLabel] of [['call','Call Now','Call Noman'],['text','Text Us','Text Noman']]){
+          const label=panel.querySelector(`[data-contact-action="${action}"] a span:nth-child(2)`);
+          if(label?.textContent===oldLabel)label.textContent=newLabel;
+        }
+      }
       if(panel && !panel.querySelector('.hb-contact-signature')){
         const signature=document.createElement('p');signature.className='hb-contact-signature';
         signature.textContent='Hammer Brick & Home · Pride · Quality · Integrity';panel.append(signature);
       }
     }
     refineContact();new MutationObserver(refineContact).observe(document.body,{childList:true,subtree:true});
+    }
+    // A contained, pausable ribbon: never changes hero columns or photo layouts.
+    const ribbonStyle=document.createElement('style');
+    ribbonStyle.textContent=`
+      .hb-owner-welcome{font:15px/1.65 system-ui,sans-serif!important;color:#43564d!important;margin:0 0 18px!important}
+      #hbOwnerRibbon{box-sizing:border-box;max-width:100%;min-width:0;margin:0 0 28px;padding:12px;border:1px solid #c8ac70;border-radius:14px;background:linear-gradient(110deg,#f9f3e5,#fffdf7,#eee0be);color:#2b4036;display:flex;align-items:center;gap:12px;box-shadow:0 5px 18px #0001}
+      #hbOwnerRibbon .hb-ribbon-window{overflow:hidden;flex:1;min-width:0}
+      #hbOwnerRibbon .hb-ribbon-track{display:flex;width:max-content;animation:hbOwnerScroll var(--hb-ribbon-duration,36s) linear infinite}
+      #hbOwnerRibbon .hb-ribbon-group{display:flex;align-items:center;flex-shrink:0;gap:28px;padding-right:28px;font:600 13px/1.5 system-ui,sans-serif;letter-spacing:.04em;white-space:nowrap}
+      #hbOwnerRibbon .hb-ribbon-group span::after{content:' ✦';color:#927032;margin-left:28px}
+      #hbOwnerRibbon button{flex-shrink:0;width:42px;height:42px;border:1px solid #bfa06a;border-radius:50%;background:#fffcf4;color:#304639;font:18px system-ui;cursor:pointer}
+      #hbOwnerRibbon button:focus-visible{outline:3px solid #7b591d;outline-offset:3px}
+      #hbOwnerRibbon:hover .hb-ribbon-track,#hbOwnerRibbon:focus-within .hb-ribbon-track,#hbOwnerRibbon[data-paused] .hb-ribbon-track{animation-play-state:paused}
+      #hbOwnerRibbon[data-static] .hb-ribbon-track{animation:none;width:100%}
+      #hbOwnerRibbon[data-static] .hb-ribbon-group{white-space:normal;flex-wrap:wrap;gap:8px;padding:0}
+      #hbOwnerRibbon[data-static] .hb-ribbon-copy,#hbOwnerRibbon[data-static] button{display:none}
+      @keyframes hbOwnerScroll{to{transform:translateX(-50%)}}
+      @media(prefers-reduced-motion:reduce){#hbOwnerRibbon .hb-ribbon-track{animation:none;width:100%}#hbOwnerRibbon .hb-ribbon-group{white-space:normal;flex-wrap:wrap;gap:8px;padding:0}#hbOwnerRibbon .hb-ribbon-copy,#hbOwnerRibbon button{display:none}}
+    `;document.head.append(ribbonStyle);
+    if(settings.ownerRibbonEnabled!==false){
+      const defaults=['Speak directly with Noman — Owner','Free in-person estimates • No obligation','Small repairs to full renovations','Serving NYC & New Jersey'];
+      const items=Array.isArray(settings.ownerRibbonMessages)?settings.ownerRibbonMessages.map(x=>typeof x==='string'?x:x?.text).filter(x=>typeof x==='string'&&x.trim()).slice(0,8):defaults;
+      if(items.length){
+        const ribbon=document.createElement('aside');ribbon.id='hbOwnerRibbon';ribbon.setAttribute('aria-label','Working with Hammer Brick & Home');
+        const windowEl=document.createElement('div'),track=document.createElement('div'),group=document.createElement('div');
+        windowEl.className='hb-ribbon-window';track.className='hb-ribbon-track';group.className='hb-ribbon-group';
+        items.forEach(value=>{const span=document.createElement('span');span.textContent=value;group.append(span)});
+        const clone=group.cloneNode(true);clone.classList.add('hb-ribbon-copy');clone.setAttribute('aria-hidden','true');track.append(group,clone);windowEl.append(track);
+        const pause=document.createElement('button');pause.type='button';pause.textContent='Ⅱ';pause.setAttribute('aria-label','Pause scrolling messages');pause.setAttribute('aria-pressed','false');
+        pause.addEventListener('click',()=>{const paused=ribbon.toggleAttribute('data-paused');pause.textContent=paused?'▶':'Ⅱ';pause.setAttribute('aria-pressed',String(paused));pause.setAttribute('aria-label',paused?'Resume scrolling messages':'Pause scrolling messages')});
+        const seconds=Number(settings.ownerRibbonSeconds);ribbon.style.setProperty('--hb-ribbon-duration',(Number.isFinite(seconds)&&seconds>=15&&seconds<=90?seconds:36)+'s');
+        if(settings.ownerRibbonMotion===false)ribbon.setAttribute('data-static','');
+        ribbon.append(windowEl,pause);document.getElementById('homeHero').after(ribbon);
+      }
     }
     const ownerCard = document.querySelector('#guaranteeSection .accent-card');
     const safeUrl=value=>typeof value==='string' && /^(\/(?!\/)|https:\/\/)/i.test(value.trim()) && !/[\s\\]/.test(value.trim()) ? value.trim() : '';
@@ -123,3 +165,4 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
+
