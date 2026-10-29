@@ -61,7 +61,7 @@
       const status=document.createElement('p');status.setAttribute('role','status');status.className='hb-copy-status';
       box.append(save);
       if(cardDial){const copy=document.createElement('button');copy.type='button';copy.textContent='Copy Number';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(cardPhone);status.textContent='Number copied: '+cardPhone;}catch(_){status.textContent='Copy this number: '+cardPhone;}});box.append(copy);}
-      box.append(hint,status);panel.append(box);
+      box.append(hint,status);const intro=panel.querySelector('.hb-home-contact-intro');if(intro)intro.after(box);else panel.querySelector('h2')?.after(box);
     }
     const saveStyle=document.createElement('style');saveStyle.textContent=`
       #quick-contact-panel .hb-save-contact-tools{border-top:1px solid #c8b88e;margin-top:18px;padding-top:18px;display:flex;flex-wrap:wrap;gap:10px}
@@ -123,9 +123,10 @@
       #hbOwnerRibbon button{flex-shrink:0;width:42px;height:42px;border:1px solid #bfa06a;border-radius:50%;background:#fffcf4;color:#304639;font:18px system-ui;cursor:pointer}
       #hbOwnerRibbon button:focus-visible,#hbOwnerRibbon a:focus-visible{outline:3px solid #7b591d;outline-offset:3px}
       #hbOwnerRibbon .hb-ribbon-actions{display:flex;flex-shrink:0;gap:8px;align-items:center}
+      #header-include > #hbOwnerRibbon{margin:0;border-radius:0 0 12px 12px;position:relative;z-index:1}
       #hbOwnerRibbon .hb-ribbon-actions a{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #a88b50;border-radius:10px;background:#203c31;color:#fff8e9;font:600 13px/1.3 system-ui,sans-serif;text-decoration:none;white-space:nowrap}
       #hbOwnerRibbon .hb-ribbon-actions a:last-child{background:#fffaf0;color:#203c31}
-      @media(max-width:600px){#hbOwnerRibbon{flex-wrap:wrap;gap:8px}#hbOwnerRibbon .hb-ribbon-window{flex-basis:calc(100% - 54px)}#hbOwnerRibbon .hb-ribbon-actions{flex:1 0 100%}#hbOwnerRibbon .hb-ribbon-actions a{flex:1}}
+      @media(max-width:600px){#hbOwnerRibbon{flex-wrap:wrap;gap:8px}#hbOwnerRibbon .hb-ribbon-window{flex-basis:calc(100% - 54px)}#hbOwnerRibbon .hb-ribbon-actions{flex:1 0 100%;gap:6px}#hbOwnerRibbon .hb-ribbon-actions a{flex:1;min-width:0;padding:10px 6px;font-size:12px;white-space:normal;text-align:center}}
       #hbOwnerRibbon:hover .hb-ribbon-track,#hbOwnerRibbon:focus-within .hb-ribbon-track,#hbOwnerRibbon[data-paused] .hb-ribbon-track{animation-play-state:paused}
       #hbOwnerRibbon[data-static] .hb-ribbon-track{animation:none;width:100%}
       #hbOwnerRibbon[data-static] .hb-ribbon-group{white-space:normal;flex-wrap:wrap;gap:8px;padding:0}
@@ -158,8 +159,19 @@
           const link=document.createElement('a');link.href=kind+':'+dial;link.textContent=label;
           link.setAttribute('aria-label',label+' at '+displayPhone);actions.append(link);
         }
+        if(settings.ownerSaveContactEnabled!==false){
+          const save=document.createElement('a');save.href=cardUrl;save.download='Noman-Hammer-Brick-Home.vcf';save.textContent='Save Contact';save.setAttribute('aria-label','Save Noman’s business contact');actions.append(save);
+        }
         ribbon.append(windowEl,pause);if(actions.childElementCount)ribbon.append(actions);
-        document.getElementById('homeHero').after(ribbon);
+        function attachRibbon(){
+          const header=document.getElementById('header-include');
+          if(header){if(ribbon.parentElement!==header)header.append(ribbon);}
+          else if(!ribbon.isConnected)document.getElementById('homeHero')?.after(ribbon);
+        }
+        attachRibbon();
+        // Header markup loads asynchronously and can be refreshed by CMS settings.
+        // Keep the same ribbon node and listeners inside its sticky wrapper.
+        new MutationObserver(attachRibbon).observe(document.body,{childList:true,subtree:true});
       }
     }
     const ownerCard = document.querySelector('#guaranteeSection .accent-card');
@@ -190,17 +202,69 @@
       }
       section.append(grid);process.append(section);
     }
-    const imagePath = typeof settings.ownerPhoto === 'string' ? settings.ownerPhoto.trim() : '';
-    if (ownerCard && /^(\/(?!\/)|https:\/\/)/i.test(imagePath) && !document.getElementById('hbOwnerPhoto')) {
-      const photo = document.createElement('img');
-      photo.id = 'hbOwnerPhoto'; photo.src = imagePath;
-      photo.alt = settings.ownerPhotoAlt || 'Noman, owner of Hammer Brick & Home LLC';
-      photo.width = 160; photo.height = 160; photo.loading = 'lazy';
-      const placeholder = ownerCard.firstElementChild;
-      photo.addEventListener('load', () => { if (placeholder) placeholder.style.display = 'none'; });
-      photo.addEventListener('error', () => photo.remove());
-      ownerCard.prepend(photo);
+    // Owner-approved no-portrait experience. Existing photo settings remain stored.
+    const serviceStyle=document.createElement('style');serviceStyle.textContent=`
+      #guaranteeSection:has(#hbOwnerService){flex-wrap:wrap}
+      #hbOwnerService{box-sizing:border-box;grid-column:1/-1;flex:1 0 100%;width:100%;min-width:0;padding:clamp(20px,4vw,38px);margin-top:24px;border:1px solid #b69960;border-radius:20px;background:linear-gradient(120deg,#fffdf7,#f4ead6);color:#203c31;text-align:left;box-shadow:0 12px 30px #0000000d}
+      #hbOwnerService *{box-sizing:border-box;min-width:0}
+      #hbOwnerService .hb-owner-eyebrow{font:700 11px/1.5 system-ui;letter-spacing:.16em;text-transform:uppercase;color:#785b2c;margin:0 0 12px}
+      #hbOwnerService h2{font:normal clamp(25px,3vw,38px)/1.2 Georgia,serif;color:#203c31;margin:0 0 16px;overflow-wrap:normal;word-break:normal}
+      #hbOwnerService p{font:16px/1.65 system-ui;color:#3b4f43;margin:12px 0;overflow-wrap:anywhere}
+      #hbOwnerService .hb-owner-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 12px}
+      #hbOwnerService a,.hb-project-owner-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 16px;border:1px solid #a68b54;border-radius:10px;background:#203c31;color:#fff9eb;font:600 14px/1.4 system-ui;text-decoration:none;text-align:center;white-space:normal}
+      #hbOwnerService a:focus-visible,.hb-project-owner-actions a:focus-visible{outline:3px solid #9a7028;outline-offset:3px}
+      #hbOwnerService .hb-owner-actions a:not(:first-child){background:#fffaf0;color:#203c31}
+      #hbOwnerService .hb-owner-phone{font-size:22px;letter-spacing:.02em}
+      #hbOwnerService ol{display:flex;flex-wrap:wrap;gap:12px 28px;padding:18px 0 0 22px;border-top:1px solid #d5c49e;font:14px/1.6 system-ui;color:#3b4f43}
+      #hbOwnerService blockquote{border:0;border-left:3px solid #b69960;margin:24px 0 0;padding:4px 0 4px 18px;font:16px/1.7 Georgia,serif;color:#294235;white-space:pre-line;overflow-wrap:anywhere}
+      #hbOwnerService cite{display:block;margin-top:10px;font:600 13px/1.5 system-ui;color:#6b5636}
+      .hb-project-owner-actions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+      @media(max-width:480px){#hbOwnerService .hb-owner-actions a{flex:1 1 140px}#hbOwnerService ol{display:block}#hbOwnerService li{margin:8px 0}}
+    `;document.head.append(serviceStyle);
+    const smsUrl=message=>'sms:'+cardDial+'?body='+encodeURIComponent(message);
+    const makeLink=(label,url)=>{const a=document.createElement('a');a.textContent=label;a.href=url;return a;};
+    if(settings.ownerServiceEnabled!==false){
+      const service=document.createElement('div');service.id='hbOwnerService';service.setAttribute('role','region');service.setAttribute('aria-labelledby','hbOwnerServiceTitle');
+      const eyebrow=document.createElement('p');eyebrow.className='hb-owner-eyebrow';eyebrow.textContent='Hammer Brick & Home • Direct Owner Service';
+      const heading=document.createElement('h2');heading.id='hbOwnerServiceTitle';heading.textContent=settings.ownerServiceTitle||'Your home. Your vision. My personal attention.';
+      const intro=document.createElement('p');intro.textContent=settings.ownerServiceIntro||'Speak directly with Noman, owner of Hammer Brick & Home LLC, about your repairs or renovation. Free in-person estimates.';
+      service.append(eyebrow,heading,intro);
+      const actions=document.createElement('div');actions.className='hb-owner-actions';
+      if(cardDial && business.showContactCall!==false)actions.append(makeLink('Call Noman','tel:'+cardDial));
+      if(cardDial && business.showContactText!==false)actions.append(makeLink('Text Noman',smsUrl('Hi Noman, I would like to arrange a free in-person estimate. My project is: ')));
+      if(settings.ownerSaveContactEnabled!==false){const save=makeLink('Save Contact',cardUrl);save.download='Noman-Hammer-Brick-Home.vcf';actions.append(save);}
+      service.append(actions);
+      if(cardDial){const phone=document.createElement('p');phone.className='hb-owner-phone';phone.textContent=cardPhone;service.append(phone);}
+      if(cardDial && business.showContactText!==false && settings.ownerPhotoTextEnabled!==false){
+        service.append(makeLink('Text photos of your project',smsUrl('Hi Noman, I would like to discuss my project. Location: . Work needed: . I will attach photos.')));
+        const hint=document.createElement('p');hint.textContent='Attach photos in your messaging app. We’ll arrange a visit before providing a project estimate.';service.append(hint);
+      }
+      if(settings.ownerNextStepsEnabled!==false){const steps=document.createElement('ol');['Tell us about the job','Arrange an in-person visit','Receive your project estimate'].forEach(value=>{const li=document.createElement('li');li.textContent=value;steps.append(li);});service.append(steps);}
+      const guarantee=document.getElementById('guaranteeSection');
+      if(guarantee)guarantee.append(service);else document.getElementById('homeHero').after(service);
+      if(settings.ownerFeaturedReviewEnabled!==false){
+        read('/site-data/reviews.json').then(data=>{
+          const reviews=Array.isArray(data.reviews)?data.reviews.filter(r=>r&&r.active!==false&&(!r.publishStatus||r.publishStatus==='live')&&r.showOnHomepage!==false&&r.name&&r.review):[];
+          const wanted=String(settings.ownerFeaturedReviewName||'').trim().toLowerCase();
+          const review=wanted?reviews.find(r=>String(r.name).trim().toLowerCase()===wanted):reviews.find(r=>r.featured)||reviews[0];
+          if(!review)return;
+          const quote=document.createElement('blockquote');quote.textContent=review.review;
+          const attribution=document.createElement('cite');attribution.textContent='— '+review.name+(review.source?' · '+review.source:'');quote.append(attribution);service.append(quote);
+        });
+      }
     }
+    function projectOwnerActions(){
+      if(settings.ownerProjectContactEnabled===false||!cardDial)return;
+      document.querySelectorAll('#cmsProjectsSection .cms-project-content').forEach(content=>{
+        if(content.querySelector('.hb-project-owner-actions'))return;
+        const title=content.querySelector('h3')?.textContent.trim();if(!title)return;
+        const actions=document.createElement('div');actions.className='hb-project-owner-actions';
+        if(business.showContactCall!==false)actions.append(makeLink('Call Noman about this project','tel:'+cardDial));
+        if(business.showContactText!==false)actions.append(makeLink('Ask about a project like this',smsUrl('Hi Noman, I saw '+title+' on your website. I would like to discuss similar work and arrange a free in-person estimate.')));
+        if(actions.childElementCount)content.append(actions);
+      });
+    }
+    projectOwnerActions();new MutationObserver(projectOwnerActions).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
     function projectsLink() {
       const section = document.getElementById('cmsProjectsSection');
       if (!section || document.getElementById('hbProjectsMore')) return;
@@ -215,5 +279,6 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
+
 
 
