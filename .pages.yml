@@ -233,6 +233,9 @@ content:
           - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
           - {name: ownerPhoto, label: "Meet Noman — Optional Owner Photo", type: image, required: false}
           - {name: ownerPhotoAlt, label: "Owner Photo Description", type: string, required: false}
+          - {name: ownerSaveContactEnabled, label: "Show Save Noman’s Contact", type: boolean, default: true}
+          - {name: ownerContactCardTitle, label: "Saved Contact — Job Title", type: string, default: "Owner / Home Improvement Contractor"}
+          - {name: ownerContactNotes, label: "Saved Contact — Service Notes", type: text, required: false, description: "Leave blank for masonry, bathrooms, kitchens, roofing, waterproofing, windows/doors, repairs, service area and free in-person estimate details. Business phone/email/website and NYC/NJ HIC numbers come from Business settings."}
           - {name: ownerContactButtonText, label: "Owner Contact — Button Text", type: string, default: "Talk to Noman", description: "Homepage default button. A custom Business contact label takes priority."}
           - {name: ownerContactHeading, label: "Owner Contact — Heading", type: string, default: "Talk to Noman — Owner"}
           - {name: ownerContactIntro, label: "Owner Contact — Personal Introduction", type: text, required: false}
@@ -2267,6 +2270,7 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
+
 
 
 
