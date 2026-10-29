@@ -231,7 +231,15 @@ content:
           - {name: beforeAfterHeading, label: "Before & After Heading", type: string, required: false}
           - {name: beforeAfterNote, label: "Before & After Note", type: text, required: false}
           - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
-          - {name: ownerPhoto, label: "Meet Noman — Optional Owner Photo", type: image, required: false}
+          - {name: ownerServiceEnabled, label: "Direct Owner Service — Show Panel", type: boolean, default: true, description: "No personal photo. Appears inside Guarantee; move that section using existing section order controls."}
+          - {name: ownerServiceTitle, label: "Direct Owner Service — Heading", type: string, required: false}
+          - {name: ownerServiceIntro, label: "Direct Owner Service — Introduction", type: text, required: false}
+          - {name: ownerPhotoTextEnabled, label: "Direct Owner Service — Text Project Photos", type: boolean, default: true}
+          - {name: ownerNextStepsEnabled, label: "Direct Owner Service — Show What Happens Next", type: boolean, default: true}
+          - {name: ownerFeaturedReviewEnabled, label: "Direct Owner Service — Show Customer Review", type: boolean, default: true}
+          - {name: ownerFeaturedReviewName, label: "Direct Owner Service — Reviewer Name", type: string, required: false, description: "Exact name from Reviews. Blank uses a featured public homepage review. Unmatched names show no review. Draft/hidden reviews are excluded."}
+          - {name: ownerProjectContactEnabled, label: "Projects — Call and Personalized Text Buttons", type: boolean, default: true}
+          - {name: ownerPhoto, label: "Legacy Owner Photo — Not Displayed", type: image, required: false, description: "Stored for compatibility. This no-portrait update does not display it."}
           - {name: ownerPhotoAlt, label: "Owner Photo Description", type: string, required: false}
           - {name: ownerSaveContactEnabled, label: "Show Save Noman’s Contact", type: boolean, default: true}
           - {name: ownerContactCardTitle, label: "Saved Contact — Job Title", type: string, default: "Owner / Home Improvement Contractor"}
@@ -2270,6 +2278,7 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
+
 
 
 
