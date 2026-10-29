@@ -233,6 +233,18 @@ content:
           - {name: guaranteeTitle, label: "Guarantee Title", type: string, required: false}
           - {name: ownerPhoto, label: "Meet Noman — Optional Owner Photo", type: image, required: false}
           - {name: ownerPhotoAlt, label: "Owner Photo Description", type: string, required: false}
+          - {name: ownerContactButtonText, label: "Owner Contact — Button Text", type: string, default: "Talk to Noman", description: "Homepage default button. A custom Business contact label takes priority."}
+          - {name: ownerContactHeading, label: "Owner Contact — Heading", type: string, default: "Talk to Noman — Owner"}
+          - {name: ownerContactIntro, label: "Owner Contact — Personal Introduction", type: text, required: false}
+          - {name: ownerRibbonEnabled, label: "Show Owner Message Ribbon", type: boolean, default: true}
+          - {name: ownerRibbonMotion, label: "Scroll Ribbon Messages", type: boolean, default: true, description: "Off displays static messages. Reduced-motion preferences are always respected."}
+          - {name: ownerRibbonSeconds, label: "Ribbon Scroll Duration (15–90 seconds)", type: number, default: 36}
+          - name: ownerRibbonMessages
+            label: "Owner Ribbon Messages"
+            type: object
+            list: true
+            fields:
+              - {name: text, label: "Message", type: string}
           - {name: ownerVideoUrl, label: "Owner Introduction Video Link", type: string, required: false, description: "Optional HTTPS video page or local video URL. Opens only when clicked; no autoplay."}
           - {name: ownerVideoLabel, label: "Owner Video Button Text", type: string, required: false, default: "Meet Noman — Watch the Introduction"}
           - {name: luxuryContactEnabled, label: "Signature Contact Panel Styling", type: boolean, default: true, description: "Homepage only. Restyles the existing Contact button; never adds another bar or calculator."}
@@ -2255,6 +2267,7 @@ actions:
       title: "Run the selected admin tool?"
       message: "Reports and photo optimization previews do not change public content. Backups are downloadable ZIP files. Sitemap rebuild changes only sitemap.xml."
       button: "Run Admin Tool"
+
 
 
 
