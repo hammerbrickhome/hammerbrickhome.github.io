@@ -2600,7 +2600,7 @@ function hammerRenderProjects(data, currentArea, homepage) {
   const projects = slug === "home"
     ? [...matchingProjects]
       .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999))
-      .slice(0, Math.max(1, Math.min(30, Number(homepage && homepage.homepageProjectLimit) || 6)))
+
     : hammerSortByDisplayOrder(matchingProjects);
   let section = document.getElementById("cmsProjectsSection");
   if (!projects.length) {
@@ -2645,6 +2645,29 @@ function hammerRenderProjects(data, currentArea, homepage) {
     }).join("")}</div>`;
   hammerBindStageViewers(section);
   hbBindProjectGalleries(section);
+  if (slug === "home") {
+    const batch = Math.max(1, Math.min(30, Number(homepage && homepage.homepageProjectLimit) || 6));
+    const cards = Array.from(section.querySelectorAll(".cms-project-card"));
+    let shown = batch;
+    const more = document.createElement("button");
+    more.type = "button"; more.className = "btn ghost"; more.id = "hbMoreProjects";
+    more.style.cssText = "margin:24px auto;min-height:44px;max-width:100%;";
+    const update = () => {
+      cards.forEach((card, index) => {
+        card.hidden = index >= shown;
+        if (card.hidden) card.style.setProperty("display", "none", "important");
+        else card.style.removeProperty("display");
+      });
+      more.style.display = shown < cards.length ? "block" : "none";
+      more.textContent = "Show " + Math.min(batch, Math.max(0, cards.length - shown)) + " More Projects";
+    };
+    more.onclick = () => {
+      const firstNew = cards[shown];
+      shown += batch; update();
+      if (firstNew) { firstNew.tabIndex = -1; firstNew.focus({preventScroll:true}); }
+    };
+    section.append(more); update();
+  }
   if (slug === "gallery" && projects.length > 1) {
     const filters = document.createElement("nav"); filters.setAttribute("aria-label", "Filter projects");
     const selects = {};
@@ -3400,6 +3423,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
 
 
 
