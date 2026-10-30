@@ -2629,7 +2629,7 @@ function hammerRenderProjects(data, currentArea, homepage) {
     <div class="cms-project-grid">${projects.map(project => {
       const location = [project.neighborhood, project.areaLabel].filter(Boolean).join(", ");
       const photoMarkup = hbRenderProjectGallery(project);
-      return `<article data-project-service="${hammerEscape(project.serviceLabel || '')}" data-project-area="${hammerEscape(project.areaLabel || '')}" class="cms-project-card${project.featured ? " is-featured" : ""}">
+      return `<article data-craft-key="${hammerEscape(project.slug || project.title || '')}" data-project-service="${hammerEscape(project.serviceLabel || '')}" data-project-area="${hammerEscape(project.areaLabel || '')}" class="cms-project-card${project.featured ? " is-featured" : ""}">
         ${project.featured ? `<span class="cms-project-badge">Featured Project</span>` : ""}
         ${photoMarkup}
         <div class="cms-project-content">
@@ -3206,7 +3206,7 @@ function applyHammerBusinessSettings(data) {
   const dial = normalizeDialNumber(data.phone);
   if (dial) {
     document.querySelectorAll('a[href^="tel:"]:not([data-cms-area-phone])').forEach(a => a.href = "tel:" + dial);
-    document.querySelectorAll('a[href^="sms:"]:not([data-cms-area-phone])').forEach(a => a.href = "sms:" + dial);
+    document.querySelectorAll('a[href^="sms:"]:not([data-cms-area-phone])').forEach(a => {const href=a.getAttribute('href')||'';const q=href.indexOf('?');a.href='sms:'+dial+(q>=0?href.slice(q):'');});
   }
   if (data.email) {
     document.querySelectorAll('a[href^="mailto:"]').forEach(a => a.href = "mailto:" + data.email);
@@ -3423,6 +3423,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
 
 
 
