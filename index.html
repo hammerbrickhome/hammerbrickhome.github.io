@@ -1000,7 +1000,7 @@
         }
       }
 
-      function initReviewCarousel() {
+      function initReviewCarousel(initialIndex = 0) {
         const section = document.getElementById("reviewsSection");
         const track = document.getElementById("reviewTrack");
         const nav = document.getElementById("reviewNav");
@@ -1104,11 +1104,11 @@
           touchStartY = null;
         };
 
-        updateSlide(0);
+        updateSlide(initialIndex);
         startAutoScroll();
       }
 
-      function renderReviews(data, homepage = {}) {
+      function renderReviews(data, homepage = {}, visibleCount = 0) {
         if (!data || !Array.isArray(data.reviews)) return;
 
         // V3 ADMIN FIX:
@@ -1126,10 +1126,12 @@
         if (link && data.reviewUrl) link.href = data.reviewUrl;
 
         const limit = Math.max(1, Math.min(30, Number(homepage.homepageReviewLimit) || 8));
-        const reviews = [...data.reviews]
+        const eligibleReviews = [...data.reviews]
           .filter(item => isContentLive(item) && item.showOnHomepage !== false)
           .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999))
-          .slice(0, limit);
+          ;
+        const shown = Math.min(eligibleReviews.length, visibleCount || limit);
+        const reviews = eligibleReviews.slice(0, shown);
 
         track.innerHTML = reviews.map((item, index) => {
           const rating = Math.max(1, Math.min(5, Number(item.rating) || 5));
@@ -1162,7 +1164,21 @@
           nav.innerHTML = "";
         }
 
-        initReviewCarousel();
+        let more = document.getElementById("hbMoreReviews");
+        if (!more) {
+          more = document.createElement("button");
+          more.id = "hbMoreReviews"; more.type = "button"; more.className = "btn ghost";
+          more.style.cssText = "margin:20px auto;min-height:44px;max-width:100%;";
+          nav.after(more);
+        }
+        more.style.display = shown < eligibleReviews.length ? "block" : "none";
+        more.textContent = "Show " + Math.min(limit, eligibleReviews.length - shown) + " More Reviews (" + shown + " of " + eligibleReviews.length + ")";
+        more.onclick = () => {
+          renderReviews(data, homepage, shown + limit);
+          const active = track.querySelector('[aria-hidden="false"]');
+          if (active) active.focus({preventScroll:true});
+        };
+        initReviewCarousel(visibleCount ? Math.max(0, visibleCount - limit) : 0);
       }
 
       function renderFaqs(data) {
@@ -1224,7 +1240,7 @@
       // 4. GALLERY LOGIC
       let allHomePairs = [];
       let currentIndex = 0;
-      const PAGE_SIZE = 6;
+      let PAGE_SIZE = 6;
       const grid = document.getElementById("ba-grid");
       const loadBtn = document.getElementById("ba-loadmore");
       const tmpl = document.getElementById("ba-card");
@@ -1272,6 +1288,7 @@
         currentIndex += nextBatch.length;
         if (currentIndex >= allHomePairs.length) loadBtn.style.display = "none";
         else loadBtn.style.display = "inline-block";
+        loadBtn.textContent = `Show ${Math.min(PAGE_SIZE, allHomePairs.length - currentIndex)} More Transformations`;
       }
 
       Promise.all([
@@ -1282,7 +1299,8 @@
           const limit = Math.max(1, Math.min(30, Number(homepage.homepageBeforeAfterLimit) || 6));
           allHomePairs = (data.homePairs || []).filter(item =>
             item && item.active !== false && String(item.before || "").trim() && String(item.after || "").trim()
-          ).slice(0, limit);
+          );
+          PAGE_SIZE = limit;
           if (allHomePairs.length > 0) {
             renderBatch();
             const fallback = document.getElementById('workshopGalleryFallback');
@@ -1329,11 +1347,12 @@
   </script>
 <link href="/chat.css" rel="stylesheet"/>
 <script defer="" src="/chat.js?v=contact-20261027"></script>
-<script defer="" src="/script.js?v=mobile-repair-1"></script>
+<script defer="" src="/script.js?v=show-more-20261030"></script>
 <script defer src="/homepage-refinement.js?v=owner-service-5"></script>
 <script defer src="/owner-tools.js?v=4"></script>
 </body>
 </html>
+
 
 
 
