@@ -1,5 +1,5 @@
 {
-  "homepageLayout": "local",
+  "homepageLayout": "terracotta",
   "customSectionOrderEnabled": true,
   "customSectionOrder": [
     "announcement",
@@ -160,5 +160,27 @@
   "membershipVisible": false,
   "membershipActive": false,
   "membershipYear": "2026",
-  "membershipComingSoonText": "Our membership program is coming soon. Entries are not open yet."
+  "membershipComingSoonText": "Our membership program is coming soon. Entries are not open yet.",
+  "craftExperienceEnabled": true,
+  "craftSignatureEnabled": true,
+  "craftHeroPhotoEnabled": true,
+  "craftJourneyEnabled": true,
+  "craftJournalEnabled": true,
+  "craftSaveShareEnabled": true,
+  "ownerServiceEnabled": true,
+  "ownerPhotoTextEnabled": true,
+  "ownerNextStepsEnabled": true,
+  "ownerFeaturedReviewEnabled": true,
+  "ownerProjectContactEnabled": true,
+  "ownerSaveContactEnabled": true,
+  "ownerContactCardTitle": "Owner / Home Improvement Contractor",
+  "ownerContactButtonText": "Talk to Noman",
+  "ownerContactHeading": "Talk to Noman — Owner",
+  "ownerRibbonEnabled": true,
+  "ownerRibbonMotion": true,
+  "ownerRibbonSeconds": 36,
+  "ownerVideoLabel": "Meet Noman — Watch the Introduction",
+  "luxuryContactEnabled": true,
+  "behindFinishEnabled": false,
+  "behindFinishTitle": "Behind the Finish"
 }
