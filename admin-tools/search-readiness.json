@@ -31,6 +31,21 @@
       "warnings": []
     },
     {
+      "file": "basement-remodeling.html",
+      "title": "Basement Remodeling Staten Island & NYC | Hammer Brick",
+      "description": "Basement finishing, drywall, flooring, moisture assessment and interior remodeling in Staten Island and nearby NYC neighborhoods.",
+      "canonical": "https://www.hammerbrickhome.com/basement-remodeling.html",
+      "indexable": true,
+      "sitemap": true,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "warnings": []
+    },
+    {
       "file": "bathrooms.html",
       "title": "Bathroom Remodeling | Hammer Brick & Home",
       "description": "NYC bathroom remodeling, walk-in showers, waterproofing, custom tile, and layout upgrades.",
@@ -48,8 +63,8 @@
     },
     {
       "file": "bronx.html",
-      "title": "Bronx | Hammer Brick & Home",
-      "description": "Bronx concrete sidewalks, DOT violation removal, retaining walls, steps, and waterproofing.",
+      "title": "Bronx Masonry & Concrete | Hammer Brick & Home",
+      "description": "Bronx concrete steps, sidewalks, brick masonry, retaining walls and waterproofing repairs. Request a free in-person project review.",
       "canonical": "https://www.hammerbrickhome.com/bronx.html",
       "indexable": true,
       "sitemap": true,
@@ -64,8 +79,8 @@
     },
     {
       "file": "brooklyn.html",
-      "title": "Brooklyn | Hammer Brick & Home",
-      "description": "Brooklyn masonry, stucco, pavers, concrete, exterior remodeling, and full home renovations.",
+      "title": "Brooklyn Masonry & Remodeling | Hammer Brick & Home",
+      "description": "Brooklyn brick repointing, brownstone masonry, stoop repair, flat-roof work and home renovations. Contact Hammer Brick & Home for a free site visit.",
       "canonical": "https://www.hammerbrickhome.com/brooklyn.html",
       "indexable": true,
       "sitemap": true,
@@ -202,8 +217,8 @@
     },
     {
       "file": "manhattan.html",
-      "title": "Manhattan | Hammer Brick & Home",
-      "description": "Manhattan co-op and condo renovations, alteration agreements, site protection, and luxury interior remodeling.",
+      "title": "Manhattan Co-op Remodeling | Hammer Brick & Home",
+      "description": "Manhattan co-op and condo renovations, interior remodeling and building-protection planning. Discuss your project with Hammer Brick & Home.",
       "canonical": "https://www.hammerbrickhome.com/manhattan.html",
       "indexable": true,
       "sitemap": true,
@@ -266,8 +281,8 @@
     },
     {
       "file": "new-jersey.html",
-      "title": "New Jersey | Hammer Brick & Home",
-      "description": "Masonry, concrete, pavers, kitchens, bathrooms, basements, and exterior care in select New Jersey towns.",
+      "title": "NJ Masonry & Remodeling | Hammer Brick & Home",
+      "description": "Masonry, pavers, concrete, kitchens, bathrooms and exterior repairs in select nearby New Jersey communities. Request a free onsite assessment.",
       "canonical": "https://www.hammerbrickhome.com/new-jersey.html",
       "indexable": true,
       "sitemap": true,
@@ -358,8 +373,8 @@
     },
     {
       "file": "queens.html",
-      "title": "Queens | Hammer Brick & Home",
-      "description": "Queens driveway pavers, concrete, brick pointing, garage repairs, and exterior home improvements.",
+      "title": "Queens Driveway & Masonry | Hammer Brick & Home",
+      "description": "Queens concrete and paver driveways, brick pointing, steps, drainage and exterior remodeling. Schedule a free in-person project assessment.",
       "canonical": "https://www.hammerbrickhome.com/queens.html",
       "indexable": true,
       "sitemap": true,
@@ -404,8 +419,8 @@
     },
     {
       "file": "staten-island.html",
-      "title": "Staten Island | Hammer Brick & Home",
-      "description": "Staten Island masonry, luxury pool surrounds, paver patios, driveways, and custom stoops.",
+      "title": "Staten Island Masonry & Pavers | Hammer Brick & Home",
+      "description": "Staten Island masonry, brick repointing, paver patios, concrete steps and driveway repairs. Request a free onsite assessment from Hammer Brick & Home.",
       "canonical": "https://www.hammerbrickhome.com/staten-island.html",
       "indexable": true,
       "sitemap": true,
