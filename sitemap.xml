@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://www.hammerbrickhome.com/about.html</loc>
+    <loc>https://www.hammerbrickhome.com/about</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/areas.html</loc>
+    <loc>https://www.hammerbrickhome.com/areas</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/basement-remodeling.html</loc>
+    <loc>https://www.hammerbrickhome.com/basement-remodeling</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/bathrooms.html</loc>
+    <loc>https://www.hammerbrickhome.com/bathrooms</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/bronx.html</loc>
+    <loc>https://www.hammerbrickhome.com/bronx</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/brooklyn.html</loc>
+    <loc>https://www.hammerbrickhome.com/brooklyn</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/contact.html</loc>
+    <loc>https://www.hammerbrickhome.com/contact</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/downloads.html</loc>
+    <loc>https://www.hammerbrickhome.com/downloads</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/estimate-request.html</loc>
+    <loc>https://www.hammerbrickhome.com/estimate-request</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/faq.html</loc>
+    <loc>https://www.hammerbrickhome.com/faq</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/financing.html</loc>
+    <loc>https://www.hammerbrickhome.com/financing</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/gallery.html</loc>
+    <loc>https://www.hammerbrickhome.com/gallery</loc>
   </url>
   <url>
     <loc>https://www.hammerbrickhome.com/</loc>
@@ -85,79 +85,85 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/kitchens.html</loc>
+    <loc>https://www.hammerbrickhome.com/kitchens</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/manhattan.html</loc>
+    <loc>https://www.hammerbrickhome.com/manhattan</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/masonry.html</loc>
+    <loc>https://www.hammerbrickhome.com/masonry</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/membership.html</loc>
+    <loc>https://www.hammerbrickhome.com/membership</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/monthly-specials.html</loc>
+    <loc>https://www.hammerbrickhome.com/monthly-specials</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/new-jersey.html</loc>
+    <loc>https://www.hammerbrickhome.com/new-jersey</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/our-process.html</loc>
+    <loc>https://www.hammerbrickhome.com/our-process</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/painting.html</loc>
+    <loc>https://www.hammerbrickhome.com/painting</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/perks_rules_fixed.html</loc>
+    <loc>https://www.hammerbrickhome.com/perks_rules_fixed</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/qr-hammerbrick-membership.png</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/pricing.html</loc>
+    <loc>https://www.hammerbrickhome.com/pricing</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/project-estimator.html</loc>
+    <loc>https://www.hammerbrickhome.com/project-estimator</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/queens.html</loc>
+    <loc>https://www.hammerbrickhome.com/queens</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/reviews.html</loc>
+    <loc>https://www.hammerbrickhome.com/reviews</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/services.html</loc>
+    <loc>https://www.hammerbrickhome.com/roofing</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/staten-island.html</loc>
+    <loc>https://www.hammerbrickhome.com/services</loc>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/waterproofing.html</loc>
+    <loc>https://www.hammerbrickhome.com/sidewalk-repair</loc>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/staten-island</loc>
+  </url>
+  <url>
+    <loc>https://www.hammerbrickhome.com/waterproofing</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.hammerbrickhome.com/windows-doors.html</loc>
+    <loc>https://www.hammerbrickhome.com/windows-doors</loc>
     <image:image>
       <image:loc>https://www.hammerbrickhome.com/images/hero.PNG</image:loc>
     </image:image>
