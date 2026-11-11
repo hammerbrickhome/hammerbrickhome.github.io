@@ -71,8 +71,14 @@ def build():
                     text = re.sub(pattern, lambda m: m.group(1) + escape(str(home[key])) + m.group(3), text, count=1, flags=re.S)
         item = records.get(slug, {})
         route = '/' if slug == 'home' else '/' + path.name
-        own_url = urljoin(base, route)
-        canonical = urljoin(base, item.get('canonicalUrl') or route)
+        # Cloudflare Pages' published clean URLs omit the .html extension.
+        # HTML source filenames and in-site links remain unchanged.
+        clean_route = '/' if route == '/index.html' else (route[:-5] if route.endswith('.html') else route)
+        own_url = urljoin(base, clean_route)
+        selected = str(item.get('canonicalUrl') or clean_route)
+        if selected.endswith('.html') and (selected.startswith('/') or selected.startswith(base)):
+            selected = selected[:-5]
+        canonical = urljoin(base, selected)
         parsed_canonical = urlsplit(canonical)
         if parsed_canonical.scheme not in ('http', 'https') or not parsed_canonical.netloc:
             raise ValueError('Invalid canonical URL for ' + path.name)
@@ -83,6 +89,25 @@ def build():
         if not item and 'noindex' in head.meta.get('robots', ''): indexed = False
         image = urljoin(base, item.get('socialImage') or seo['defaultSocialImage'])
         org = {'@type':'Organization','@id':base+'#organization','name':business['businessName'],'url':base,'telephone':business['phone'],'email':business['email'],'areaServed':business['serviceAreas'],'sameAs':[business[k] for k in ('facebook','instagram','youtube') if business.get(k)]}
+        # Home-based service-area business: no residential street address.
+        # Organization markup supports public base locality/region/ZIP; this does
+        # not claim Google LocalBusiness rich-result eligibility.
+        org['description'] = business.get('seoBusinessDescription') or 'Staten Island-based masonry and home remodeling contractor serving NYC and nearby NJ.'
+        logo_path = str(business.get('seoLogo') or '/images/hero.PNG')
+        if logo_path.startswith('/') and not logo_path.startswith('//'):
+            org['logo'] = urljoin(base, logo_path)
+        phone_digits = re.sub(r'\D', '', str(business.get('phone') or ''))
+        if len(phone_digits) == 10:
+            org['telephone'] = '+1' + phone_digits
+        city = str(business.get('publicBaseCity') or '').strip()
+        region = str(business.get('publicBaseRegion') or '').strip()
+        postal = str(business.get('publicBasePostalCode') or '').strip()
+        country = str(business.get('publicBaseCountry') or 'US').strip()
+        if business.get('isServiceAreaBusiness') and city and region and country:
+            org['address'] = {'@type': 'PostalAddress', 'addressLocality': city, 'addressRegion': region, 'addressCountry': country}
+            if postal: org['address']['postalCode'] = postal
+        org['contactPoint'] = {'@type': 'ContactPoint', 'contactType': 'customer service', 'telephone': org['telephone'], 'email': business['email']}
+
         website = {'@type':'WebSite','@id':base+'#website','url':base,'name':seo['siteName'],'publisher':{'@id':base+'#organization'}}
         page = {'@type':{'about':'AboutPage','contact':'ContactPage','gallery':'CollectionPage'}.get(slug,'WebPage'),'@id':canonical+'#webpage','url':canonical,'name':title,'description':description,'isPartOf':{'@id':base+'#website'},'about':{'@id':base+'#organization'},'inLanguage':'en-US'}
         graph = [org, website, page]
@@ -141,7 +166,7 @@ def build():
             graph.append({'@type':'BreadcrumbList','@id':canonical+'#breadcrumb','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base},{'@type':'ListItem','position':2,'name':item.get('menuLabel') or item.get('name') or slug.replace('-',' ').title(),'item':canonical}]})
             page['breadcrumb'] = {'@id':canonical+'#breadcrumb'}
         schema_type = item.get('structuredDataType', 'auto')
-        if schema_type in ('service', 'area') or (schema_type == 'auto' and slug in {'masonry','kitchens','bathrooms','painting','windows-doors','waterproofing','staten-island','brooklyn','queens','manhattan','bronx','new-jersey'}):
+        if schema_type in ('service', 'area') or (schema_type == 'auto' and slug in {'masonry','kitchens','bathrooms','roofing','basement-remodeling','sidewalk-repair','painting','windows-doors','waterproofing','staten-island','brooklyn','queens','manhattan','bronx','new-jersey'}):
             graph.append({'@type':'Service','@id':canonical+'#service','name':item.get('heroTitle') or title,'description':description,'url':canonical,'provider':{'@id':base+'#organization'},'areaServed':item.get('name') or business['serviceAreas']})
             page['mainEntity'] = {'@id':canonical+'#service'}
         text = re.sub(r'<script\b[^>]*type=["\']application/ld\+json["\'][^>]*>.*?</script>', '', text, flags=re.I|re.S)

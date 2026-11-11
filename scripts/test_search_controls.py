@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Exercise CMS search settings in an isolated copy. No network or publishing."""
-import json, shutil, tempfile, unittest
+import json, re, shutil, tempfile, unittest
 from pathlib import Path
 import build_search_files as builder
 
@@ -55,4 +55,30 @@ class SearchControls(unittest.TestCase):
   self.assertEqual(report['homepageSeoSync']['reviews'],2)
   self.assertEqual(report['homepageSeoSync']['beforeAfterSets'],2)
   self.assertEqual(report['homepageSeoSync']['projectsEligibleForSchema'],1)
+ def test_public_service_area_organization_identity(self):
+  builder.build()
+  text=(self.root/'index.html').read_text()
+  match=re.search(r'<script[^>]*id="searchStructuredData"[^>]*>(.*?)</script>',text,re.S)
+  self.assertIsNotNone(match,'Expected the static JSON-LD graph')
+  graph=json.loads(match.group(1))['@graph']
+  org=next(x for x in graph if x.get('@type')=='Organization')
+  self.assertEqual(org['name'],'Hammer Brick & Home LLC')
+  self.assertTrue(org['logo'].startswith('https://www.hammerbrickhome.com/images/'))
+  self.assertEqual(org['address']['addressLocality'],'Staten Island')
+  self.assertEqual(org['address']['postalCode'],'10302')
+  self.assertNotIn('streetAddress',org['address'])
+  self.assertIn('contactPoint',org)
+ def test_clean_urls_and_new_service_pages(self):
+  builder.build()
+  sitemap=(self.root/'sitemap.xml').read_text()
+  for name in ('kitchens','bathrooms','masonry','roofing','basement-remodeling','sidewalk-repair'):
+   html=(self.root/(name+'.html')).read_text()
+   self.assertIn('rel="canonical" href="https://www.hammerbrickhome.com/'+name+'"',html)
+   self.assertIn('https://www.hammerbrickhome.com/'+name+'</loc>',sitemap)
+  self.assertNotIn('https://www.hammerbrickhome.com/kitchens.html</loc>',sitemap)
+ def test_service_area_keeps_home_street_private(self):
+  builder.build()
+  home=(self.root/'index.html').read_text()
+  self.assertNotIn('streetAddress',home)
+  self.assertNotIn('Palmer Ave',home)
 if __name__=='__main__':unittest.main()

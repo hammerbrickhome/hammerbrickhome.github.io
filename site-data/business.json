@@ -51,5 +51,13 @@
   "captureUtmSource": true,
   "trackCallClicks": true,
   "trackTextClicks": true,
-  "trackEstimateClicks": true
+  "trackEstimateClicks": true,
+  "isServiceAreaBusiness": true,
+  "publicBaseCity": "Staten Island",
+  "publicBaseRegion": "NY",
+  "publicBasePostalCode": "10302",
+  "publicBaseCountry": "US",
+  "publicOfficeNote": "Staten Island-based service-area contractor. Project visits by appointment only; no walk-in office.",
+  "seoBusinessDescription": "Staten Island-based licensed home improvement contractor providing masonry, roofing, kitchen and bathroom remodeling, waterproofing, window and door installation in New York City and select nearby New Jersey areas. Free on-site project estimates.",
+  "seoLogo": "/images/hero.PNG"
 }

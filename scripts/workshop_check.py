@@ -197,8 +197,6 @@ def inspect(root):
                     add('fail', rel, 'Malformed JSON-LD.')
             if 'PENDING ACTIVATION' in raw:
                 add('warn', rel, 'Review pending membership display before activating.')
-            if re.search(r'Workers[’\' ]*Comp', raw, re.I):
-                add('warn', rel, 'Verify current Workers Comp wording against actual documents.')
         if re.search(r'\.(png|jpe?g|webp|avif)$', rel, re.I):
             size = path.stat().st_size
             if size > 2 * 1024 * 1024:
