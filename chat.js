@@ -23,7 +23,7 @@
     "Bronx": 1.03, "Staten Island": 1.0, "New Jersey": 0.96
   };
 
-  const DISCOUNTS = { "VIP10": 0.10, "REFERRAL5": 0.05, "WEBSAVER": 0.05 };
+  const DISCOUNTS = { "REFERRAL5": 0.05, "WEBSAVER": 0.05 };
   
   const ADD_ON_PRICES = { "debrisRemoval": { low: 1200, high: 2800 } }; 
 
@@ -923,7 +923,7 @@
       const msgs = [
         "⚡ Get a price range in 60 seconds – No phone call needed.",
         "🛡️ NYC Licensed & Insured: HIC #2131291 · EPA Lead-Safe Certified",
-        "💳 VIP Members get 10% off labor + priority emergency scheduling.",
+        "🧱 Licensed contractor serving Staten Island, NYC and nearby NJ.",
         "📸 Text us photos for a fast ballpark estimate.",
         "📍 Serving Manhattan, Brooklyn, Queens, Bronx, Staten Island & NJ."
       ];
@@ -1331,7 +1331,7 @@
     addBotMessage("Any promo code today?");
     addChoices([
       { label: "No Code", code: "" },
-      { label: "VIP10 (10% OFF)", code: "VIP10" },
+      
       { label: "REFERRAL5 (5% OFF)", code: "REFERRAL5" }
     ], function(choice) {
         if (choice.code === "") {
