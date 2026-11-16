@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-09T21:45:45.243392+00:00",
-  "status": "GOOD",
-  "summary": "11 checks: 0 failed, 0 warning(s).",
+  "generatedAt": "2026-11-16T21:26:06.051575+00:00",
+  "status": "ACTION NEEDED",
+  "summary": "11 checks: 1 failed, 0 warning(s).",
   "checks": [
     {
       "name": "Working site core",
@@ -29,9 +29,41 @@
     },
     {
       "name": "Sitemap pages",
-      "status": "PASS",
-      "details": "Every sitemap URL has a website file.",
-      "items": []
+      "status": "FAIL",
+      "details": "The sitemap includes missing pages.",
+      "items": [
+        "/about",
+        "/areas",
+        "/basement-remodeling",
+        "/bathrooms",
+        "/bronx",
+        "/brooklyn",
+        "/contact",
+        "/downloads",
+        "/estimate-request",
+        "/faq",
+        "/financing",
+        "/gallery",
+        "/kitchens",
+        "/manhattan",
+        "/masonry",
+        "/membership",
+        "/monthly-specials",
+        "/new-jersey",
+        "/our-process",
+        "/painting",
+        "/perks_rules_fixed",
+        "/pricing",
+        "/project-estimator",
+        "/queens",
+        "/reviews",
+        "/roofing",
+        "/services",
+        "/sidewalk-repair",
+        "/staten-island",
+        "/waterproofing",
+        "/windows-doors"
+      ]
     },
     {
       "name": "Static page links and assets",

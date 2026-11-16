@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T21:45:45.593178+00:00",
+  "generatedAt": "2026-11-16T21:26:06.328326+00:00",
   "count": 24,
   "totalImages": 70,
   "usedCount": 46,
@@ -688,6 +688,7 @@
       "usedIn": [
         "about.html",
         "areas.html",
+        "basement-remodeling.html",
         "bathrooms.html",
         "bronx.html",
         "brooklyn.html",
@@ -712,7 +713,10 @@
         "project-estimator.html",
         "queens.html",
         "reviews.html",
+        "roofing.html",
         "services.html",
+        "sidewalk-repair.html",
+        "site-data/business.json",
         "site-data/seo.json",
         "staten-island.html",
         "waterproofing.html",
